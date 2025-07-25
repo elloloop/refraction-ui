@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Refraction RC Schema",
+  "type": "object",
+  "properties": {
+    "componentsDir": {
+      "type": "string",
+      "default": "components/ui"
+    },
+    "stylesDir": {
+      "type": "string",
+      "default": "styles"
+    },
+    "tokensPath": {
+      "type": "string",
+      "default": "refraction-tokens.json"
+    },
+    "defaultEngine": {
+      "type": "string",
+      "enum": [
+        "internal",
+        "radix",
+        "headlessui"
+      ],
+      "default": "internal"
+    },
+    "framework": {
+      "type": "string",
+      "enum": [
+        "react",
+        "svelte",
+        "vue",
+        "angular"
+      ],
+      "default": "react"
+    },
+    "strict": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "additionalProperties": false
+}

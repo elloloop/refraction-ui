@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MCP Tool Payloads",
+  "type": "object",
+  "properties": {
+    "generate_component": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "states": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "variants": {
+          "type": "object"
+        },
+        "framework": {
+          "type": "string",
+          "enum": [
+            "react",
+            "svelte",
+            "vue"
+          ]
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "scaffold_flow": {
+      "type": "object",
+      "properties": {
+        "flow": {
+          "type": "string",
+          "enum": [
+            "auth",
+            "settings"
+          ]
+        },
+        "options": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "flow"
+      ]
+    },
+    "convert_tokens": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "object"
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "style-dictionary",
+            "figma-tokens"
+          ]
+        }
+      },
+      "required": [
+        "input",
+        "format"
+      ]
+    },
+    "a11y_check": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "type": "string"
+        },
+        "strict": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "upgrade_component": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "targetVersion": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "docs_lookup": {
+      "type": "object",
+      "properties": {
+        "component": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "component"
+      ]
+    }
+  },
+  "additionalProperties": false
+}
