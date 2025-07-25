@@ -237,19 +237,19 @@ jobs:
                     labels: labels
                   });
                   
-                                     // Update the markdown file with the GitHub issue number
-                   const updatedFrontmatter = {
-                     ...frontmatter,
-                     github_issue: newIssue.data.number,
-                     synced_at: new Date().toISOString()
-                   };
-                   
-                   const updatedFrontmatterYaml = yaml.dump(updatedFrontmatter);
-                   const updatedContent = '---\n' + updatedFrontmatterYaml + '---\n\n' + markdownContent;
-                   
-                   fs.writeFileSync(file, updatedContent);
-                   
-                   console.log('Created GitHub issue #' + newIssue.data.number + ' from ' + file);
+                  // Update the markdown file with the GitHub issue number
+                  const updatedFrontmatter = {
+                    ...frontmatter,
+                    github_issue: newIssue.data.number,
+                    synced_at: new Date().toISOString()
+                  };
+                  
+                  const updatedFrontmatterYaml = yaml.dump(updatedFrontmatter);
+                  const updatedContent = '---\n' + updatedFrontmatterYaml + '---\n\n' + markdownContent;
+                  
+                  fs.writeFileSync(file, updatedContent);
+                  
+                  console.log('Created GitHub issue #' + newIssue.data.number + ' from ' + file);
                 }
               } catch (error) {
                 console.log(`Error processing ${file}: ${error.message}`);
