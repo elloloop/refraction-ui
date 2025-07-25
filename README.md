@@ -51,8 +51,9 @@ issues/               markdown issues with dependencies
 ## 🎨 Theming
 
 1. Put tokens in `refraction-tokens.json` (themes -> modes -> tokens).
-2. `npx refraction-ui tokens build` emits `tokens.css` and Tailwind fragments.
-3. Wrap your app with `<ThemeProvider />` and use `useTheme()` to switch.
+2. `npx refraction-ui tokens validate` checks your file against the schema.
+3. `npx refraction-ui tokens build` emits `tokens.css` and Tailwind fragments.
+4. Wrap your app with `<ThemeProvider />` and use `useTheme()` to switch.
 
 ## 🔧 CLI overview
 
@@ -62,7 +63,9 @@ refraction-ui add <component...>
 refraction-ui remove <component>
 refraction-ui upgrade <component|all>
 refraction-ui tokens import <file>
-refraction-ui tokens build
+refraction-ui tokens build [--watch]
+refraction-ui tokens validate
+refraction-ui tokens watch
 refraction-ui a11y [pattern]
 refraction-ui doctor
 ```
