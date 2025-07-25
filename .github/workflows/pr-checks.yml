@@ -1,0 +1,76 @@
+name: PR Required Checks
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  verify-template:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify PR template
+        run: |
+          # Check if PR description contains required sections
+          if [[ -z "${{ github.event.pull_request.body }}" ]]; then
+            echo "❌ PR description is empty. Please fill out the PR template."
+            exit 1
+          fi
+
+          # Check for required sections
+          required_sections=("Summary" "Checklist")
+          missing_sections=()
+
+          for section in "${required_sections[@]}"; do
+            if ! echo "${{ github.event.pull_request.body }}" | grep -q "## $section"; then
+              missing_sections+=("$section")
+            fi
+          done
+
+          if [ ${#missing_sections[@]} -gt 0 ]; then
+            echo "❌ Missing required sections: ${missing_sections[*]}"
+            echo "Please ensure your PR description includes all required sections from the template."
+            exit 1
+          fi
+
+          echo "✅ PR template validation passed"
+
+      - name: Check for breaking changes
+        run: |
+          # Check if breaking changes are properly documented
+          if echo "${{ github.event.pull_request.body }}" | grep -q "## Breaking changes"; then
+            if ! echo "${{ github.event.pull_request.body }}" | grep -A 5 "## Breaking changes" | grep -q -E "(Yes|yes|YES)"; then
+              echo "⚠️ Breaking changes section found but not clearly marked. Please clarify if this is a breaking change."
+            else
+              echo "✅ Breaking changes properly documented"
+            fi
+          fi
+
+      - name: Validate commit messages
+        run: |
+          # Check if commits follow conventional format
+          git log --oneline ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} | while read line; do
+            commit_hash=$(echo "$line" | cut -d' ' -f1)
+            commit_msg=$(echo "$line" | cut -d' ' -f2-)
+            
+            # Skip merge commits
+            if [[ "$commit_msg" == "Merge"* ]]; then
+              continue
+            fi
+            
+            # Check conventional commit format
+            if ! echo "$commit_msg" | grep -qE "^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?: .+"; then
+              echo "⚠️ Commit $commit_hash doesn't follow conventional commit format: $commit_msg"
+              echo "Consider using format: type(scope): description"
+            fi
+          done
+
+      - name: Check for large files
+        run: |
+          # Warn about large files that might be accidentally committed
+          large_files=$(find . -type f -size +10M -not -path "./.git/*" -not -path "./node_modules/*" | head -5)
+          if [ -n "$large_files" ]; then
+            echo "⚠️ Large files detected (>10MB):"
+            echo "$large_files"
+            echo "Please ensure these are necessary and consider using Git LFS if appropriate."
+          fi

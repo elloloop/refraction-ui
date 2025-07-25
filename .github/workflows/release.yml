@@ -1,0 +1,96 @@
+name: Release
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Validate changesets
+        run: |
+          # Check if there are any changesets
+          if [ ! -d ".changeset" ] || [ -z "$(ls -A .changeset)" ]; then
+            echo "No changesets found. Skipping release."
+            exit 0
+          fi
+
+          # Validate changeset format
+          pnpm changeset status
+
+      - name: Create Release PR or Publish
+        uses: changesets/action@v1
+        with:
+          publish: pnpm changeset publish
+          title: "chore: release packages"
+          commit: "chore: release packages"
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate Release Notes
+        if: success()
+        run: |
+          # Generate detailed release notes if this was a publish
+          if [ -n "${{ steps.changesets.outputs.publishedPackages }}" ]; then
+            echo "Generating release notes for published packages..."
+            # This would integrate with your preferred release notes generator
+            # For now, we'll use changesets built-in functionality
+            pnpm changeset version
+          fi
+
+      - name: Update Release Notes
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: releases } = await github.rest.repos.listReleases({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 1
+            });
+
+            if (releases.length > 0) {
+              const latestRelease = releases[0];
+              console.log(`Latest release: ${latestRelease.tag_name}`);
+              
+              // Add additional metadata to release notes
+              const updatedBody = `${latestRelease.body}
+              
+              ---
+              
+              📦 **Published Packages:**
+              ${{ steps.changesets.outputs.publishedPackages || 'None' }}
+              
+              🔗 **Install:**
+              \`\`\`bash
+              npm install @refraction-ui/react
+              \`\`\`
+              
+              📚 **Documentation:** https://refraction-ui.com
+              `;
+              
+              await github.rest.repos.updateRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: latestRelease.id,
+                body: updatedBody
+              });
+            }
