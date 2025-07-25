@@ -1,0 +1,139 @@
+# Auto-labeling rules for PRs
+# Based on project structure and common patterns
+
+# Track-based labels
+track/ci:
+  - ".github/workflows/**"
+  - "scripts/**"
+  - "turbo.json"
+  - "package.json"
+  - "pnpm-lock.yaml"
+
+track/release:
+  - ".changeset/**"
+  - "docs/release-checklist.md"
+  - "package.json"
+
+track/cli:
+  - "packages/cli/**"
+  - "templates/**"
+  - "docs/contracts/cli-spec.md"
+
+track/components:
+  - "packages/react/**"
+  - "packages/engines/**"
+  - "docs/contracts/component-api.md"
+
+track/tokens:
+  - "packages/tokens-core/**"
+  - "docs/contracts/tokens-schema.md"
+  - "docs/contracts/schemas/tokens.schema.json"
+
+track/mcp:
+  - "packages/mcp-server/**"
+  - "docs/contracts/mcp-tools.md"
+  - "docs/contracts/schemas/mcp-tools.schema.json"
+
+track/docs:
+  - "docs/**"
+  - "README.md"
+  - "CONTRIBUTING.md"
+  - "CODE_OF_CONDUCT.md"
+
+track/storybook:
+  - ".storybook/**"
+  - "packages/*/stories/**"
+  - "docs/contracts/adr-0002-storybook-playground.md"
+
+# Size-based labels
+size/XS:
+  - "**/*.md"
+  - "**/*.json"
+  - "**/*.yml"
+  - "**/*.yaml"
+  - "**/*.txt"
+
+size/S:
+  - "packages/*/src/**/*.ts"
+  - "packages/*/src/**/*.tsx"
+  - "scripts/**/*.js"
+  - "scripts/**/*.ts"
+
+size/M:
+  - "packages/*/src/**/*.ts"
+  - "packages/*/src/**/*.tsx"
+
+size/L:
+  - "packages/*/src/**/*.ts"
+  - "packages/*/src/**/*.tsx"
+
+size/XL:
+  - "packages/*/src/**/*.ts"
+  - "packages/*/src/**/*.tsx"
+
+# Type-based labels
+type/bug:
+  - "**/fix/**"
+  - "**/bug/**"
+  - "**/issue/**"
+
+type/feature:
+  - "**/feat/**"
+  - "**/feature/**"
+  - "**/add/**"
+
+type/chore:
+  - "**/chore/**"
+  - "**/ci/**"
+  - "**/build/**"
+  - "**/deps/**"
+
+type/docs:
+  - "**/docs/**"
+  - "**/readme/**"
+  - "**/*.md"
+
+type/refactor:
+  - "**/refactor/**"
+  - "**/cleanup/**"
+
+type/test:
+  - "**/test/**"
+  - "**/spec/**"
+  - "**/*.test.*"
+  - "**/*.spec.*"
+
+# Priority labels
+priority/high:
+  - "**/security/**"
+  - "**/critical/**"
+  - "**/urgent/**"
+
+priority/medium:
+  - "**/important/**"
+
+priority/low:
+  - "**/nice-to-have/**"
+  - "**/enhancement/**"
+
+# Breaking change detection
+breaking:
+  - "**/breaking/**"
+  - "**/major/**"
+  - "BREAKING CHANGE"
+  - "breaking change"
+
+# Accessibility
+a11y:
+  - "**/a11y/**"
+  - "**/accessibility/**"
+  - "**/axe/**"
+  - "packages/*/src/**/*.tsx"
+  - "packages/*/stories/**"
+
+# Performance
+performance:
+  - "**/perf/**"
+  - "**/performance/**"
+  - "**/optimize/**"
+  - "scripts/size-check.js"

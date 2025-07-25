@@ -1,0 +1,144 @@
+name: Issue Management
+on:
+  schedule:
+    # Run weekly on Mondays at 9 AM UTC
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+jobs:
+  stale-issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Mark stale issues and pull requests
+        uses: actions/stale@v9
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          stale-issue-message: |
+            This issue has been automatically marked as stale because it has not had recent activity.
+            It will be closed if no further activity occurs. Thank you for your contributions.
+          stale-pr-message: |
+            This pull request has been automatically marked as stale because it has not had recent activity.
+            It will be closed if no further activity occurs. Thank you for your contributions.
+          stale-issue-label: "no-issue-activity"
+          stale-pr-label: "no-pr-activity"
+          days-before-stale: 30
+          days-before-close: 7
+          exempt-issue-labels: "pinned,security,breaking,priority/high"
+          exempt-pr-labels: "pinned,security,breaking,priority/high"
+          exempt-all-milestones: true
+
+  issue-triage:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Triage issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100
+            });
+
+            for (const issue of issues) {
+              // Skip PRs
+              if (issue.pull_request) continue;
+              
+              // Add 'needs-triage' label to new issues without labels
+              if (issue.labels.length === 0) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  labels: ['needs-triage']
+                });
+                console.log(`Added needs-triage label to issue #${issue.number}`);
+              }
+              
+              // Add 'bug' label to issues with bug-related keywords
+              const bugKeywords = ['bug', 'error', 'crash', 'broken', 'fix', 'issue'];
+              const hasBugKeyword = bugKeywords.some(keyword => 
+                issue.title.toLowerCase().includes(keyword) || 
+                (issue.body && issue.body.toLowerCase().includes(keyword))
+              );
+              
+              if (hasBugKeyword && !issue.labels.some(label => label.name === 'type/bug')) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  labels: ['type/bug']
+                });
+                console.log(`Added type/bug label to issue #${issue.number}`);
+              }
+            }
+
+  dependency-alerts:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: read
+      issues: write
+    steps:
+      - name: Check for security vulnerabilities
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: alerts } = await github.rest.securityAdvisories.listRepositoryAdvisories({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+
+            const openAlerts = alerts.filter(alert => alert.state === 'open');
+
+            if (openAlerts.length > 0) {
+              console.log(`Found ${openAlerts.length} open security alerts`);
+              
+              for (const alert of openAlerts) {
+                // Create issue for high/critical vulnerabilities
+                if (alert.severity === 'high' || alert.severity === 'critical') {
+                  const issueTitle = `🚨 Security Alert: ${alert.summary}`;
+                  const issueBody = `
+                    ## Security Vulnerability Detected
+                    
+                    **Summary:** ${alert.summary}
+                    **Severity:** ${alert.severity}
+                    **Package:** ${alert.vulnerabilities[0]?.package?.name || 'Unknown'}
+                    **Affected Version:** ${alert.vulnerabilities[0]?.vulnerable_version_range || 'Unknown'}
+                    
+                    **Description:**
+                    ${alert.description || 'No description provided'}
+                    
+                    **Recommendation:**
+                    Please update the affected dependency to a secure version.
+                    
+                    **Alert ID:** ${alert.ghsa_id}
+                    **Created:** ${alert.created_at}
+                    
+                    ---
+                    *This issue was automatically created by the security workflow.*
+                  `;
+                  
+                  try {
+                    await github.rest.issues.create({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      title: issueTitle,
+                      body: issueBody,
+                      labels: ['security', 'priority/high', 'automated']
+                    });
+                    console.log(`Created security issue for alert: ${alert.ghsa_id}`);
+                  } catch (error) {
+                    console.log(`Failed to create issue for alert ${alert.ghsa_id}:`, error.message);
+                  }
+                }
+              }
+            } else {
+              console.log('No open security alerts found');
+            }

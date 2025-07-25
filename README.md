@@ -114,6 +114,24 @@ Please read:
 
 Good first issues are labeled `good first issue`.
 
+### 🔐 Setting Up Development Environment
+
+Before contributing, ensure the required secrets are configured:
+
+**Required Secrets:**
+
+- `NPM_TOKEN`: For package publishing to npm (elloloop organization)
+- `GITHUB_TOKEN`: Auto-provided by GitHub Actions
+
+**Repository Features:**
+
+- ✅ CodeQL security scanning enabled
+- ✅ Dependabot alerts and security updates enabled
+- ✅ Branch protection rules configured
+- ✅ Dependabot configuration updated
+
+Contact repository maintainers if you need access to additional secrets or features.
+
 ## 🔐 Security
 
 Report vulnerabilities privately (contact in README once published). Do not open a public issue.
