@@ -35,12 +35,25 @@ jobs:
           # Validate changeset format
           pnpm changeset status
 
+      - name: Detect prerelease mode
+        id: pre
+        run: |
+          if [ -f .changeset/pre.json ]; then
+            TAG=$(node -pe "require('./.changeset/pre.json').tag")
+            echo "pre=true" >> "$GITHUB_OUTPUT"
+            echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          else
+            echo "pre=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Create Release PR or Publish
+        id: changesets
         uses: changesets/action@v1
         with:
           publish: pnpm changeset publish
           title: "chore: release packages"
           commit: "chore: release packages"
+          createGithubReleases: true
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

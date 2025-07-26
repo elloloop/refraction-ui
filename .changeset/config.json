@@ -1,0 +1,9 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@2.4.2/schema.json",
+  "changelog": ["@changesets/changelog-github", {"repo": "YOUR_ORG/refraction-ui"}],
+  "commit": false,
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": []
+}
