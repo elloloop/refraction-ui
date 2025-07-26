@@ -1,0 +1,22 @@
+{
+  "name": "refraction-ui",
+  "version": "1.0.0",
+  "description": "[![CI](https://img.shields.io/github/actions/workflow/status/YOUR_ORG/refraction-ui/ci.yml?label=CI)](#) [![npm](https://img.shields.io/npm/v/@refraction-ui/react.svg)](#) ![license](https://img.shields.io/badge/license-MIT-blue.svg) ![a11y](https://img.shields.io/badge/a11y-WCAG%202.1%20AA-5c6ac4.svg) ![bundle size](https://img.shields.io/badge/component%20%3C%206KB%20gz-ok-brightgreen.svg)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.0.5",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.8.3"
+  }
+}
