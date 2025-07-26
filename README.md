@@ -72,13 +72,15 @@ Details: see `docs/contracts/cli-spec.md`.
 
 ## 🤖 MCP server
 
-Run:
+Run the server with Node. Set `MCP_TOKEN` for authentication. Use the `ws` flag to enable the WebSocket transport.
 
 ```bash
-pnpm --filter @refraction-ui/mcp-server dev
+MCP_TOKEN=secret node packages/mcp-server/src/index.js       # stdio mode
+MCP_TOKEN=secret node packages/mcp-server/src/index.js ws    # WebSocket on :8123
 ```
 
-Tools: `generate_component`, `scaffold_flow` (auth), `convert_tokens`, `a11y_check`, `upgrade_component`, `docs_lookup`.  
+Tools exposed via JSON-RPC:
+`add_component`, `upgrade_component`, `build_tokens`, `validate_tokens`, `init_project`, `a11y_test`.
 Schemas live in `docs/contracts/schemas/`.
 
 ## ♿ Accessibility
