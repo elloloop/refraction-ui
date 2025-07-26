@@ -1,0 +1,11 @@
+{
+  "name": "refraction-ui",
+  "private": true,
+  "workspaces": ["packages/*", "templates/*"],
+  "scripts": {
+    "changeset": "changeset"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.1"
+  }
+}
