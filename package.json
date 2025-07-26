@@ -1,0 +1,36 @@
+{
+  "name": "refraction-ui",
+  "version": "1.0.0",
+  "description": "[![CI](https://img.shields.io/github/actions/workflow/status/YOUR_ORG/refraction-ui/ci.yml?label=CI)](#) [![npm](https://img.shields.io/npm/v/@refraction-ui/react.svg)](#) ![license](https://img.shields.io/badge/license-MIT-blue.svg) ![a11y](https://img.shields.io/badge/a11y-WCAG%202.1%20AA-5c6ac4.svg) ![bundle size](https://img.shields.io/badge/component%20%3C%206KB%20gz-ok-brightgreen.svg)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "lint": "echo \"no lint configured\"",
+    "test": "echo \"no tests\" && exit 0",
+    "sb:test": "test-storybook"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^8",
+    "@storybook/addon-essentials": "^8",
+    "@storybook/addon-interactions": "^8",
+    "@storybook/addon-viewport": "^8",
+    "@storybook/react": "^8",
+    "@storybook/test-runner": "^0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "storybook": "^8.6.14",
+    "typescript": "^5.4.0"
+  }
+}
