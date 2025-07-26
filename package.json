@@ -1,0 +1,23 @@
+{
+  "name": "refraction-ui",
+  "version": "1.0.0",
+  "description": "Refraction UI CLI",
+  "bin": {
+    "refraction": "bin/refraction.js"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "commander": "^11.1.0",
+    "diff": "^5.2.0",
+    "ejs": "^3.1.9"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "execa": "^9.6.0",
+    "vitest": "^1.4.0"
+  },
+  "packageManager": "pnpm@10.5.2"
+}
