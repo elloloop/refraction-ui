@@ -1,0 +1,12 @@
+{
+  "name": "@refraction-ui/cli",
+  "version": "0.0.1",
+  "main": "upgrade.js",
+  "bin": {
+    "refraction-upgrade": "./upgrade.js"
+  },
+  "dependencies": {
+    "diff3": "^0.0.4",
+    "minimist": "^1.2.8"
+  }
+}
