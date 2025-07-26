@@ -1,0 +1,38 @@
+{
+  "themes": {
+    "default": {
+      "modes": {
+        "light": {
+          "global": {
+            "color": {
+              "blue-500": "#3b82f6",
+              "gray-900": "#111827"
+            },
+            "spacing": { "sm": "4px", "md": "8px" }
+          },
+          "semantic": {
+            "fg": { "default": "{global.color.gray-900}" }
+          },
+          "components": {
+            "button": { "primary": { "bg": "{semantic.fg.default}" } }
+          }
+        },
+        "dark": {
+          "global": {
+            "color": {
+              "blue-500": "#3b82f6",
+              "gray-100": "#f3f4f6"
+            },
+            "spacing": { "sm": "4px", "md": "8px" }
+          },
+          "semantic": {
+            "fg": { "default": "{global.color.gray-100}" }
+          },
+          "components": {
+            "button": { "primary": { "bg": "{semantic.fg.default}" } }
+          }
+        }
+      }
+    }
+  }
+}
