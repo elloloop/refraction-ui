@@ -143,3 +143,19 @@ MIT (or Apache-2.0). See `LICENSE`.
 ## 🙏 Acknowledgements
 
 Inspired by shadcn/ui and Radix UI. Thanks to the a11y community and axe-core.
+
+### Running Storybook
+
+Install dependencies and start the dev server:
+
+```bash
+npm install
+npm run dev
+```
+
+Run accessibility tests:
+
+```bash
+npm run sb:test
+```
+
