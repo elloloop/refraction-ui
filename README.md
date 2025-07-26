@@ -34,6 +34,25 @@ npx refraction-ui init
 npx refraction-ui add button dialog
 ```
 
+### Example: Tabs
+
+```tsx
+import { Tabs, TabList, Tab, TabPanel } from '@refraction-ui/react'
+
+export function Example() {
+  return (
+    <Tabs defaultValue="one" urlSync>
+      <TabList>
+        <Tab value="one">One</Tab>
+        <Tab value="two" disabled>Two</Tab>
+      </TabList>
+      <TabPanel value="one">First panel</TabPanel>
+      <TabPanel value="two">Second panel</TabPanel>
+    </Tabs>
+  )
+}
+```
+
 ## 🗂️ Repo layout
 
 ```
