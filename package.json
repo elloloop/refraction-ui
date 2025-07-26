@@ -1,0 +1,15 @@
+{
+  "name": "refraction-ui-root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "lint": "eslint . --ext .ts",
+    "test": "vitest",
+    "build": "pnpm -r run build"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4"
+  }
+}
