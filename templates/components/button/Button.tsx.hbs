@@ -1,0 +1,8 @@
+import React from 'react';
+export type {{name}}Props = {
+  variant?: '{{variant}}';
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+export const {{name}}: React.FC<{{name}}Props> = ({ variant = '{{variant}}', ...props }) => (
+  <button className={`{{name}} --${variant}`} {...props} />
+);
