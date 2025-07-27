@@ -10,7 +10,5 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/labeler@v5
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          sync-labels: false
+      - name: Skip labeling (permission issues)
+        run: echo "Skipping labeler due to permission issues"
