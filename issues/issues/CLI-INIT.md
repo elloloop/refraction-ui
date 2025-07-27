@@ -4,8 +4,6 @@ track: cli
 depends_on: ["CLI-CORE", "TOKENS-BUILD", "THEME-RUNTIME"]
 size: M
 labels: [feat]
-github_issue: 24
-synced_at: 2024-07-27T00:00:00.000Z
 ---
 
 ## Summary
