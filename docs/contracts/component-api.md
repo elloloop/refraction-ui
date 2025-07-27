@@ -16,3 +16,12 @@
 ## Testing and docs
 - Each component ships tests, a story, and MDX docs.
 - Axe checks pass for stories.
+
+## Canonical prop types
+
+Common TypeScript interfaces for all core components live in
+`docs/contracts/component-props.ts`. These interfaces include accessibility
+attributes, theming hooks, event handlers and composition helpers. Components
+should extend these base contracts so that controlled and uncontrolled usage,
+ref forwarding and responsive design patterns are consistent across the
+library.
