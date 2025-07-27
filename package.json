@@ -1,0 +1,11 @@
+{
+  "name": "refraction-ui",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "pnpm@10.13.1",
+  "devDependencies": {
+    "turbo": "2.5.5"
+  }
+}
