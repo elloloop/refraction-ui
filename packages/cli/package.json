@@ -49,5 +49,8 @@
     "design-system"
   ],
   "author": "Refraction UI Team",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  }
 }
