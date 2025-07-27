@@ -140,7 +140,7 @@ priority/low:
 breaking:
   - changed-files:
       - any-glob-to-any-file: ["**/breaking/**", "**/major/**"]
-  - pr-title: ["BREAKING CHANGE", "breaking change"]
+  - title: ["BREAKING CHANGE", "breaking change"]
 
 # Accessibility
 a11y:
