@@ -38,7 +38,7 @@ tokens:
 
     it("loads js config", async () => {
       await fs.ensureDir(tempDir);
-      const jsContent = `module.exports = { cli: { verbose: true } };`;
+      const jsContent = `export default { cli: { verbose: true } };`;
       await fs.writeFile(path.join(tempDir, ".refractionrc.js"), jsContent);
       const cfg = await loadConfig(tempDir);
       expect(cfg.cli?.verbose).toBe(true);

@@ -1,0 +1,27 @@
+{
+  "themes": {
+    "default": {
+      "modes": {
+        "light": {
+          "global": {
+            "color": {
+              "blue-500": "#3b82f6"
+            }
+          },
+          "semantic": {
+            "fg": {
+              "default": "{global.color.blue-500}"
+            }
+          },
+          "components": {
+            "button": {
+              "primary": {
+                "bg": "{semantic.fg.default}"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

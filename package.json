@@ -18,7 +18,8 @@
     "storybook:test": "pnpm -r run storybook:test",
     "size:check": "pnpm -r run size:check",
     "size:analyze": "pnpm -r run size:analyze",
-    "a11y": "pnpm -r run a11y"
+    "a11y": "pnpm -r run a11y",
+    "tokens:build": "node packages/cli/bin/refraction.js tokens build"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",

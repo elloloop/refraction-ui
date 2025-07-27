@@ -1,0 +1,21 @@
+{
+  "name": "@refraction-ui/tokens-core",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Core token processing utilities for Refraction UI",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js"
+  },
+  "keywords": [
+    "tokens",
+    "design-system",
+    "css-variables",
+    "refraction"
+  ],
+  "author": "Refraction UI Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+} 
