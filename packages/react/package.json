@@ -16,7 +16,8 @@
     "dev": "tsup src/index.ts --dts --format esm,cjs --watch",
     "lint": "eslint src --ext .ts,.tsx",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "react": "^18.2.0"
