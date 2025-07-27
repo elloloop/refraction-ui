@@ -1,13 +1,18 @@
-import fs from 'fs-extra';
-import path from 'path';
-import ora from 'ora';
+import fs from "fs-extra";
+import path from "path";
+import ora from "ora";
+import { findConfig as findConfigFile } from "./config";
 
 export interface WriteOptions {
   overwrite?: boolean;
   dryRun?: boolean;
 }
 
-export async function safeWrite(filePath: string, content: string, options: WriteOptions = {}): Promise<void> {
+export async function safeWrite(
+  filePath: string,
+  content: string,
+  options: WriteOptions = {}
+): Promise<void> {
   const spinner = ora(`Writing ${filePath}`).start();
   const exists = await fs.pathExists(filePath);
   if (exists && !options.overwrite) {
@@ -24,11 +29,17 @@ export async function safeWrite(filePath: string, content: string, options: Writ
 export async function safeRead(filePath: string): Promise<string> {
   const spinner = ora(`Reading ${filePath}`).start();
   try {
-    const data = await fs.readFile(filePath, 'utf8');
+    const data = await fs.readFile(filePath, "utf8");
     spinner.succeed(`Read ${filePath}`);
     return data;
   } catch (err) {
     spinner.fail(`Failed to read ${filePath}`);
     throw err;
   }
+}
+
+export async function findConfig(
+  startDir: string = process.cwd()
+): Promise<string | null> {
+  return findConfigFile(startDir);
 }
