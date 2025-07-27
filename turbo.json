@@ -1,0 +1,40 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
+    "test": {
+      "dependsOn": ["^test"],
+      "outputs": ["coverage/**"]
+    },
+    "test:coverage": {
+      "dependsOn": ["^test:coverage"],
+      "outputs": ["coverage/**"]
+    },
+    "storybook:test": {
+      "dependsOn": ["^storybook:test"]
+    },
+    "size:check": {
+      "dependsOn": ["^size:check"]
+    },
+    "size:analyze": {
+      "dependsOn": ["^size:analyze"]
+    },
+    "a11y": {
+      "dependsOn": ["^a11y"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+} 

@@ -14,9 +14,14 @@
     "test": "vitest",
     "test:coverage": "vitest --coverage",
     "test:watch": "vitest --watch",
+    "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
     "prebuild": "npm run clean",
-    "prepublishOnly": "npm run build && npm run test"
+    "prepublishOnly": "npm run build && npm run test",
+    "storybook:test": "echo 'Storybook tests not implemented yet'",
+    "size:check": "echo 'Size check not implemented yet'",
+    "size:analyze": "echo 'Size analysis not implemented yet'",
+    "a11y": "echo 'A11y tests not implemented yet'"
   },
   "dependencies": {
     "commander": "^10.0.0",

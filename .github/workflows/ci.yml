@@ -40,7 +40,7 @@ jobs:
       - name: Check for outdated dependencies
         run: pnpm outdated || true
       - name: Audit dependencies
-        run: pnpm audit --audit-level moderate
+        run: pnpm audit --audit-level high
 
   build-test:
     runs-on: ubuntu-latest
