@@ -1,0 +1,57 @@
+{
+  "name": "Branch Protection with Admin Bypass",
+  "target": "branch",
+  "enforcement": "active",
+  "bypass_actors": [
+    {
+      "actor_id": 1,
+      "actor_type": "Integration",
+      "bypass_mode": "always"
+    }
+  ],
+  "conditions": {
+    "ref_name": {
+      "include": [
+        "refs/heads/main"
+      ],
+      "exclude": []
+    }
+  },
+  "rules": [
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "required_status_checks": {
+          "strict": false,
+          "contexts": [
+            "CI / dependencies",
+            "CI / build-test",
+            "PR Required Checks / verify-template"
+          ]
+        },
+        "dismiss_stale_reviews_on_push": true,
+        "require_code_owner_reviews": false,
+        "required_approving_review_count": 1
+      }
+    },
+    {
+      "type": "required_pull_request_reviews",
+      "parameters": {
+        "dismiss_stale_reviews_on_push": true,
+        "require_code_owner_reviews": false,
+        "required_approving_review_count": 1
+      }
+    },
+    {
+      "type": "required_workflows",
+      "parameters": {
+        "required_workflows": [
+          {
+            "repository_id": 1,
+            "path": ".github/workflows/ci.yml"
+          }
+        ]
+      }
+    }
+  ]
+} 
