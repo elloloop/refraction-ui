@@ -15,7 +15,7 @@ Add GitHub Actions workflows for CI
 
 - ✅ CI runs lint, typecheck, tests, build, storybook tests, size check on PR
 - ✅ Required checks marked in GitHub branch protection
-- ✅ Multiple workflow files implemented: ci.yml, pr-checks.yml, test-matrix.yml, release.yml, issue-sync.yml, status-badges.yml, issue-management.yml, labeler.yml
+- ✅ Multiple workflow files implemented: ci.yml, pr-checks.yml, test-matrix.yml, release.yml, status-badges.yml, issue-management.yml, labeler.yml
 
 ## Tasks
 

@@ -12,7 +12,6 @@ The project uses several automated workflows to ensure code quality, security, a
 - **Auto Label**: Automatic labeling based on file changes
 - **Test Matrix**: Multi-environment testing
 - **Issue Management**: Automated issue triage and maintenance
-- **Issue Sync**: Bidirectional sync between GitHub issues and markdown files
 - **Dependabot**: Automated dependency updates
 
 ## Workflow Details
@@ -150,34 +149,6 @@ The project uses several automated workflows to ensure code quality, security, a
 - Automatic issue labeling
 - Security vulnerability reporting
 - Issue triage automation
-
-### 7. Issue Sync Workflow (`.github/workflows/issue-sync.yml`)
-
-**Purpose**: Bidirectional synchronization between GitHub issues and markdown files.
-
-**Jobs**:
-
-- **GitHub to Markdown**: Creates/updates markdown files from GitHub issues
-- **Markdown to GitHub**: Creates/updates GitHub issues from markdown files
-
-**Triggers**:
-
-- GitHub issue events (opened, edited, closed, reopened, labeled, unlabeled)
-- Push events that modify files in `issues/issues/**/*.md`
-
-**Key Features**:
-
-- Anti-loop protection using special labels
-- Automatic ID generation from issue titles
-- Label mapping between GitHub and markdown formats
-- Sync tracking with timestamps
-- Structured markdown format with YAML frontmatter
-
-**Anti-Loop Strategy**:
-
-- Uses `synced-from-markdown` label to prevent infinite loops
-- Conditional triggers based on file paths and labels
-- Sync state tracking in frontmatter
 
 ### 8. Dependabot Configuration (`.github/dependabot.yml`)
 

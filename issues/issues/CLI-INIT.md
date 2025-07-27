@@ -12,17 +12,17 @@ init command for Next/Vite
 
 ## Acceptance Criteria
 
-- [ ] `refraction init` command detects project framework automatically
-- [ ] `refraction init --framework next` explicitly sets Next.js framework
-- [ ] `refraction init --framework vite` explicitly sets Vite framework
-- [ ] Command creates `.refractionrc` configuration file
+- [x] `refraction init` command detects project framework automatically
+- [x] `refraction init --framework next` explicitly sets Next.js framework
+- [x] `refraction init --framework vite` explicitly sets Vite framework
+- [x] Command creates `.refractionrc` configuration file
 - [ ] Command patches `tailwind.config.js` with Refraction tokens
 - [ ] Command adds `tokens.css` file to project styles
 - [ ] Command adds `ThemeProvider` to app root component
 - [ ] Command installs required dependencies (if not present)
-- [ ] Command supports `--dry-run` flag for preview mode
+- [x] Command supports `--dry-run` flag for preview mode
 - [ ] Command supports `--force` flag to overwrite existing files
-- [ ] Command provides clear success/error messages
+- [x] Command provides clear success/error messages
 - [ ] Command validates project structure before proceeding
 - [ ] Command creates sample token files if none exist
 - [ ] Command updates package.json scripts for token building
@@ -33,16 +33,16 @@ init command for Next/Vite
 
 ## Tasks
 
-- [ ] Implement framework detection logic
-- [ ] Create configuration file generator
+- [x] Implement framework detection logic
+- [x] Create configuration file generator
 - [ ] Implement Tailwind config patching
 - [ ] Add CSS file generation
 - [ ] Implement ThemeProvider integration
 - [ ] Add dependency installation logic
 - [ ] Create sample token files
 - [ ] Add package.json script updates
-- [ ] Implement validation and error handling
-- [ ] Add dry-run and force flag support
+- [x] Implement validation and error handling
+- [x] Add dry-run and force flag support
 - [ ] Write comprehensive unit tests
 - [ ] Add integration tests with real projects
 - [ ] Create documentation and examples
@@ -78,3 +78,37 @@ init command for Next/Vite
 - Consider different project structures and conventions
 - Provide clear documentation for manual setup
 - Support for custom configurations and overrides
+
+## Implementation Status
+
+**🔄 PARTIALLY IMPLEMENTED** - Basic init command structure completed
+
+### Completed Features:
+
+- [x] Basic `refraction init` command structure
+- [x] Framework detection logic (Next.js, Vite)
+- [x] Configuration file generation (`.refractionrc`)
+- [x] Dry-run flag support
+- [x] Error handling and validation
+- [x] Clear success/error messages
+
+### Pending Features:
+
+- [ ] Tailwind config patching
+- [ ] CSS file generation (`tokens.css`)
+- [ ] ThemeProvider integration
+- [ ] Dependency installation
+- [ ] Sample token files creation
+- [ ] Package.json script updates
+- [ ] Comprehensive testing
+- [ ] Integration tests with real projects
+
+### Next Steps:
+
+1. Implement Tailwind configuration patching
+2. Add CSS custom properties generation
+3. Create ThemeProvider component integration
+4. Add dependency management
+5. Implement comprehensive testing suite
+
+**Status**: Basic structure complete, ready for advanced features implementation
