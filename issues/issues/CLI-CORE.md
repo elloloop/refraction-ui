@@ -5,7 +5,7 @@ depends_on: ["DOCS-FREEZE", "TOKENS-SCHEMA"]
 size: M
 labels: [feat]
 status: completed
-github_issue: 4
+github_issue: 23
 synced_at: 2024-07-27T00:00:00.000Z
 ---
 
