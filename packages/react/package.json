@@ -1,0 +1,19 @@
+{
+  "name": "@refraction-ui/react",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "echo \"No tests\"",
+    "lint": "echo \"No lint\""
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "@types/react": "^18.0.0",
+    "@types/node": "^20.0.0"
+  }
+}
