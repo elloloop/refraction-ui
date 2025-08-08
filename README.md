@@ -66,6 +66,7 @@ refraction-ui tokens build
 refraction-ui a11y [pattern]
 refraction-ui doctor
 ```
+The `init` command auto-detects Next.js, Vite, or Create React App projects, patches your Tailwind config, adds token CSS, and wraps your root component with `ThemeProvider`.
 
 Flags: `--dry`, `--diff`, `--framework`, `--engine`, `--strict`.  
 Details: see `docs/contracts/cli-spec.md`.

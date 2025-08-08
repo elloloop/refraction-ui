@@ -1,0 +1,16 @@
+{
+  "name": "refraction-ui-repo",
+  "private": true,
+  "version": "0.1.0",
+  "bin": {
+    "refraction": "cli/index.js"
+  },
+  "scripts": {
+    "test": "echo \"No tests\"",
+    "lint": "echo \"No linter configured\""
+  },
+  "dependencies": {
+    "commander": "^11.1.0",
+    "fs-extra": "^11.2.0"
+  }
+}
