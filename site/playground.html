@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Token Playground - Refraction UI</title>
+  <meta name="description" content="Interactive token playground" />
+  <meta property="og:title" content="Refraction UI" />
+  <meta property="og:description" content="Refraction UI documentation" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    textarea { width: 100%; height: 150px; }
+    #cssOutput { white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="getting-started.html">Getting Started</a>
+      <a href="components.html">Components</a>
+      <a href="cli.html">CLI</a>
+      <a href="playground.html">Token Playground</a>
+    </nav>
+  </header>
+  <div class="container">
+    <h1>Token Playground</h1>
+    <p>Edit tokens JSON to see generated CSS variables.</p>
+    <textarea id="tokens" aria-label="tokens"></textarea>
+    <button onclick="buildCSS()">Build CSS</button>
+    <pre id="cssOutput"></pre>
+  </div>
+  <script src="script.js"></script>
+  <script>
+  function buildCSS() {
+    try {
+      const data = JSON.parse(document.getElementById('tokens').value);
+      const lines = [];
+      for (const [key, value] of Object.entries(data)) {
+        lines.push(`--${key}: ${value};`);
+      }
+      document.getElementById('cssOutput').textContent = ':root {\n  ' + lines.join('\n  ') + '\n}';
+    } catch (e) {
+      document.getElementById('cssOutput').textContent = 'Invalid JSON';
+    }
+  }
+  </script>
+</body>
+</html>
