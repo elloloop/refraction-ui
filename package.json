@@ -1,0 +1,13 @@
+{
+  "name": "refraction-ui-root",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "a11y": "node scripts/a11y-check.js"
+  },
+  "dependencies": {
+    "axe-core": "^4.8.0",
+    "commander": "^11.0.0",
+    "puppeteer": "^22.4.0"
+  }
+}

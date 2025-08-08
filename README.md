@@ -67,8 +67,12 @@ refraction-ui a11y [pattern]
 refraction-ui doctor
 ```
 
-Flags: `--dry`, `--diff`, `--framework`, `--engine`, `--strict`.  
+Flags: `--dry`, `--diff`, `--framework`, `--engine`, `--strict`.
 Details: see `docs/contracts/cli-spec.md`.
+
+The `a11y` command can test components, Storybook stories or live URLs and
+outputs JSON or HTML reports. Use `--strict` in CI to fail the job when
+violations are detected.
 
 ## 🤖 MCP server
 

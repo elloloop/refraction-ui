@@ -8,7 +8,8 @@ labels: [a11y, feat]
 
 ## Summary
 
-a11y command using axe-core
+a11y command using axe-core. Initial implementation provided in
+`scripts/a11y-check.js` which supports component, Storybook and URL testing.
 
 ## Acceptance Criteria
 
@@ -34,22 +35,22 @@ a11y command using axe-core
 
 ## Tasks
 
-- [ ] Implement axe-core integration
-- [ ] Create accessibility test runner
-- [ ] Add multiple output format support
-- [ ] Implement strict mode functionality
-- [ ] Add Storybook integration
-- [ ] Create URL testing capability
-- [ ] Add custom rule support
-- [ ] Implement CI/CD integration
+- [x] Implement axe-core integration
+- [x] Create accessibility test runner
+- [x] Add multiple output format support
+- [x] Implement strict mode functionality
+- [x] Add Storybook integration
+- [x] Create URL testing capability
+- [x] Add custom rule support
+- [x] Implement CI/CD integration
 - [ ] Add accessibility scoring
-- [ ] Create detailed reporting
-- [ ] Add fix suggestions
+- [x] Create detailed reporting
+- [x] Add fix suggestions
 - [ ] Implement viewport testing
 - [ ] Add dynamic content handling
 - [ ] Write comprehensive unit tests
 - [ ] Add integration tests
-- [ ] Create documentation and examples
+- [x] Create documentation and examples
 
 ## Technical Requirements
 
