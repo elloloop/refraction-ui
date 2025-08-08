@@ -16,6 +16,9 @@ Refraction UI is a shadcn-like, source-first UI kit that is **theming first** an
 ## 🚀 Quick start
 
 ```bash
+# install pnpm if you don't have it
+npm install -g pnpm
+
 # clone and install
 pnpm install
 
