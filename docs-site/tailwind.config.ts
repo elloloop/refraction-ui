@@ -6,6 +6,9 @@ const config: Config = {
   presets: [refractionPreset as any],
   content: [
     './src/**/*.{ts,tsx}',
+    // Scan built package dist files for Tailwind utility classes used in cva styles
+    '../packages/*/dist/*.js',
+    '../packages/react-*/dist/*.js',
   ],
   theme: {
     extend: {},
