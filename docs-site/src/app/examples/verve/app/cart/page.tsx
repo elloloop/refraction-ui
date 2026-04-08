@@ -39,7 +39,7 @@ export default function EcommerceCartPage() {
   const total = subtotal + shipping + tax
 
   return (
-    <div className="-mx-8 -mt-12">
+    <div className="">
       {/* Navigation */}
       <nav className="flex items-center justify-between px-8 py-4 border-b border-border bg-background/80 backdrop-blur-sm">
         <Link href="/examples/verve" className="text-lg font-bold text-foreground tracking-tight">VERVE</Link>

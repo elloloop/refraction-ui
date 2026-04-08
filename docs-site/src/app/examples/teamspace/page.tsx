@@ -183,7 +183,7 @@ export default function TeamspaceLandingPage() {
             From startups to Fortune 100, teams of every size rely on Teamspace to stay connected and productive.
           </p>
           <div className="mt-10 flex items-center justify-center gap-8 flex-wrap">
-            {['Acme Corp', 'Globex', 'Initech', 'Hooli', 'Pied Piper'].map((co) => (
+            {['Acme Corp', 'Globex', 'Initech', 'Solaris', 'Apex Digital'].map((co) => (
               <span key={co} className="text-lg font-semibold text-muted-foreground/50">{co}</span>
             ))}
           </div>

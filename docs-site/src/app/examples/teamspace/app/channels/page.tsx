@@ -23,10 +23,10 @@ const allChannels = [
   { name: 'food-recipes', description: 'Cooking tips, restaurant reviews, and recipe sharing', members: 67, isJoined: false },
 ]
 
-const slackTheme = `:root {
-  --primary: 283 70% 45%;
+const teamspaceTheme = `:root {
+  --primary: 220 72% 50%;
   --primary-foreground: 0 0% 100%;
-  --sidebar-background: 283 35% 18%;
+  --sidebar-background: 220 40% 18%;
   --sidebar-foreground: 280 20% 85%;
 }`
 
@@ -35,10 +35,10 @@ export default function ChannelBrowserPage() {
     <div
       className="h-screen flex flex-col bg-background text-foreground overflow-hidden"
       style={{
-        '--primary': '283 70% 45%',
+        '--primary': '220 72% 50%',
         '--primary-foreground': '0 0% 100%',
-        '--accent': '283 40% 95%',
-        '--accent-foreground': '283 70% 35%',
+        '--accent': '220 40% 95%',
+        '--accent-foreground': '220 72% 35%',
       } as React.CSSProperties}
     >
       {/* Top bar */}

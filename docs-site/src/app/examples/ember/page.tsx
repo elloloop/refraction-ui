@@ -29,7 +29,7 @@ const menuHighlights = [
 
 export default function EmberLandingPage() {
   return (
-    <div className="-mx-8 -mt-12">
+    <div className="">
       {/* Navigation */}
       <nav className="flex items-center justify-between px-8 py-4 border-b border-border bg-background/80 backdrop-blur-sm">
         <span className="text-lg font-semibold text-foreground tracking-tight">Ember &amp; Oak</span>
