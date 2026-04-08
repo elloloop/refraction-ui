@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { teamspaceConfig } from '../../theme-configs'
-import { channels, dms, messages, threadMessages } from '../config'
+import { channels, dms, messages, threadMessages, formatButtons } from '../config'
 
 const teamspaceTheme = `:root {
   --primary: 220 72% 50%;
@@ -217,7 +217,7 @@ export default function TeamspaceAppPage() {
           <div className="border-t border-border px-4 py-3 bg-background shrink-0">
             <div className="rounded-[var(--radius)] border border-border bg-card">
               <div className="flex items-center gap-1 border-b border-border px-3 py-1.5">
-                {['B', 'I', 'S', '</>'].map((btn) => (
+                {formatButtons.map((btn) => (
                   <button key={btn} className="rounded px-2 py-0.5 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
                     {btn}
                   </button>

@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: true },
   transpilePackages: [
     '@refraction-ui/react',
+    '@refraction-ui/react-app-shell',
+    '@refraction-ui/app-shell',
     '@refraction-ui/react-theme',
     '@refraction-ui/react-avatar',
     '@refraction-ui/react-button',

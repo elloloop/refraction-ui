@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { momentoConfig } from '../theme-configs'
-import { features } from './/config'
+import { features } from './config'
 
 export default function MomentoLandingPage() {
   return (

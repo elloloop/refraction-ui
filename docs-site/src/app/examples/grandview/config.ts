@@ -55,3 +55,5 @@ export const allRooms = [
   { id: 7, name: 'Penthouse', price: 750, rating: 4.9, available: true, image: 'Rooftop penthouse', amenities: ['King Bed', 'Rooftop Terrace', 'Living Room', 'Mini Bar', 'City View'], guests: 2 },
   { id: 8, name: 'Economy Room', price: 120, rating: 4.3, available: true, image: 'Clean economy room', amenities: ['Single Bed', 'Wi-Fi', 'Coffee Maker'], guests: 1 },
 ]
+
+export const socialLinks = ['Social', 'Facebook', 'Twitter']

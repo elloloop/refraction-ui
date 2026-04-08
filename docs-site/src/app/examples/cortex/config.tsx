@@ -225,3 +225,15 @@ export function DashboardChart({ data }: { data: Metric[] }) {
 export const models = ['Nova-4', 'Nova-4 Mini', 'Nova-3.5', 'Nova Code']
 
 export const tabs = ['General', 'API Keys', 'Usage']
+
+export const apiKeys = [
+                    { name: 'Production Key', key: 'sk-...Xk4m', created: 'Mar 15, 2024', lastUsed: '2 hours ago' },
+                    { name: 'Development Key', key: 'sk-...9Bp2', created: 'Feb 8, 2024', lastUsed: '5 days ago' },
+                    { name: 'CI/CD Pipeline', key: 'sk-...Tw7n', created: 'Jan 22, 2024', lastUsed: '1 day ago' },
+                  ]
+
+export const usageStats = [
+                  { label: 'Messages Sent', value: '2,847', change: '+12%', period: 'this month' },
+                  { label: 'API Calls', value: '18,392', change: '+8%', period: 'this month' },
+                  { label: 'Tokens Used', value: '4.2M', change: '+15%', period: 'this month' },
+                ]

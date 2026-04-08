@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { studioxConfig } from '../theme-configs'
-import { works, services } from './/config'
+import { works, services } from './config'
 
 export default function StudioXLanding() {
   return (

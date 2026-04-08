@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { verveConfig } from '../../theme-configs'
-import { allProducts, categoriesFilter, priceRanges } from '../config'
+import { allProducts, categoriesFilter, priceRanges, filterSizes } from '../config'
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -106,7 +106,7 @@ export default function EcommerceProductListing() {
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Size</h3>
             <div className="flex flex-wrap gap-1.5">
-              {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
+              {filterSizes.map((size) => (
                 <button key={size} className="px-2.5 py-1 rounded-[var(--radius)] border border-border text-xs text-muted-foreground hover:border-foreground hover:text-foreground transition-colors">
                   {size}
                 </button>

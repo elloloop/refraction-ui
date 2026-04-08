@@ -41,6 +41,9 @@ importers:
       '@refraction-ui/react-animated-text':
         specifier: workspace:*
         version: link:../packages/react-animated-text
+      '@refraction-ui/react-app-shell':
+        specifier: workspace:*
+        version: link:../packages/react-app-shell
       '@refraction-ui/react-avatar':
         specifier: workspace:*
         version: link:../packages/react-avatar
@@ -230,6 +233,12 @@ importers:
         version: link:../shared
 
   packages/animated-text:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/app-shell:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -522,6 +531,28 @@ importers:
       '@refraction-ui/animated-text':
         specifier: workspace:*
         version: link:../animated-text
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+
+  packages/react-app-shell:
+    dependencies:
+      '@refraction-ui/app-shell':
+        specifier: workspace:*
+        version: link:../app-shell
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared

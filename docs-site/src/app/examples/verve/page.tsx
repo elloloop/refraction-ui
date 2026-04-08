@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { verveConfig } from '../theme-configs'
-import { featuredProducts, categoryCards } from './/config'
+import { featuredProducts, categoryCards } from './config'
 
 export default function VerveLandingPage() {
   const [email, setEmail] = useState('')

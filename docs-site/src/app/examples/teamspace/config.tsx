@@ -209,3 +209,15 @@ export const allChannels = [
   { name: 'pets', description: 'Share photos and stories of your furry (and not so furry) friends', members: 89, isJoined: false },
   { name: 'food-recipes', description: 'Cooking tips, restaurant reviews, and recipe sharing', members: 67, isJoined: false },
 ]
+
+export const previewChannels = ['# general', '# engineering', '# random', '# design']
+
+export const socialProofLogos = ['Acme Corp', 'Globex', 'Initech', 'Solaris', 'Apex Digital']
+
+export const formatButtons = ['B', 'I', 'S', '</>']
+
+export const previewMessages = [
+                { name: 'Sarah K.', msg: 'Just deployed the new API endpoint!' },
+                { name: 'Mike R.', msg: 'Nice! The tests are all passing.' },
+                { name: 'Lisa M.', msg: 'Can we review the PR before EOD?' },
+              ]

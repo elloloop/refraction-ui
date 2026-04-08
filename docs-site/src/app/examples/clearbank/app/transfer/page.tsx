@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { clearbankConfig } from '../../../theme-configs'
-import { recentRecipients } from '../../config'
+import { recentRecipients, quickAmounts } from '../../config'
 
 const themeConfig = `:root {
   --primary: 220 70% 45%;
@@ -102,7 +102,7 @@ export default function TransferMoney() {
             </div>
           </div>
           <div className="flex justify-center gap-2">
-            {['50', '100', '250', '500'].map((preset) => (
+            {quickAmounts.map((preset) => (
               <button
                 key={preset}
                 onClick={() => setAmount(preset)}
