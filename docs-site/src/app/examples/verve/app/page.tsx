@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { AppShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { verveConfig } from '../../theme-configs'
 import { allProducts, categoriesFilter, priceRanges, filterSizes } from '../config'
@@ -40,25 +41,12 @@ export default function EcommerceProductListing() {
   const paginated = filtered.slice((page - 1) * perPage, page * perPage)
 
   return (
-    <div className="">
-      {/* Navigation */}
-      <nav className="flex items-center justify-between px-8 py-4 border-b border-border bg-background/80 backdrop-blur-sm">
-        <Link href="/examples/verve" className="text-lg font-bold text-foreground tracking-tight">VERVE</Link>
-        <div className="flex items-center gap-6">
-          <span className="text-sm text-foreground font-medium">Shop</span>
-          <Link href="/examples/verve/app/product" className="text-sm text-muted-foreground hover:text-foreground transition-colors">New In</Link>
-          <Link href="/examples/verve/app/cart" className="relative text-muted-foreground hover:text-foreground transition-colors">
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-            </svg>
-            <span className="absolute -top-1.5 -right-1.5 h-4 w-4 rounded-full bg-primary text-[10px] font-bold text-primary-foreground flex items-center justify-center">3</span>
-          </Link>
+    <AppShell config={{ sidebarWidth: '14rem', sidebarCollapsible: true }}>
+      <AppShell.Sidebar>
+        <div className="p-5 border-b border-border">
+          <Link href="/examples/verve" className="text-lg font-bold text-foreground tracking-tight">VERVE</Link>
         </div>
-      </nav>
-
-      <div className="flex">
-        {/* Sidebar Filters */}
-        <aside className="w-56 flex-shrink-0 border-r border-border p-6 space-y-6">
+        <div className="p-5 space-y-6 overflow-y-auto flex-1">
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Category</h3>
             <div className="space-y-1.5">
@@ -113,10 +101,31 @@ export default function EcommerceProductListing() {
               ))}
             </div>
           </div>
-        </aside>
-
-        {/* Product Grid */}
-        <div className="flex-1 p-6">
+        </div>
+      </AppShell.Sidebar>
+      <AppShell.Main>
+        <AppShell.Header>
+          <div className="flex items-center gap-4 flex-1">
+            <Link href="/examples/verve" className="text-lg font-bold text-foreground tracking-tight sm:hidden">VERVE</Link>
+            <span className="text-sm text-foreground font-medium hidden sm:inline">Shop</span>
+            <Link href="/examples/verve/app/product" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:inline">New In</Link>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex items-center gap-2 rounded-[var(--radius)] border border-border bg-muted/50 px-3 py-1.5 text-sm text-muted-foreground">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+              Search...
+            </div>
+            <Link href="/examples/verve/app/cart" className="relative text-muted-foreground hover:text-foreground transition-colors">
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+              </svg>
+              <span className="absolute -top-1.5 -right-1.5 h-4 w-4 rounded-full bg-primary text-[10px] font-bold text-primary-foreground flex items-center justify-center">3</span>
+            </Link>
+          </div>
+        </AppShell.Header>
+        <AppShell.Content>
           <div className="flex items-center justify-between mb-6">
             <p className="text-sm text-muted-foreground">{filtered.length} products</p>
           </div>
@@ -175,9 +184,37 @@ export default function EcommerceProductListing() {
               </button>
             </div>
           )}
-        </div>
-      </div>
+        </AppShell.Content>
+      </AppShell.Main>
+      <AppShell.MobileNav>
+        <button className="flex flex-col items-center gap-0.5 text-primary">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          </svg>
+          <span className="text-[10px]">Shop</span>
+        </button>
+        <button className="flex flex-col items-center gap-0.5 text-muted-foreground">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+          <span className="text-[10px]">Search</span>
+        </button>
+        <button className="flex flex-col items-center gap-0.5 text-muted-foreground">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+          </svg>
+          <span className="text-[10px]">Filters</span>
+        </button>
+        <Link href="/examples/verve/app/cart" className="flex flex-col items-center gap-0.5 text-muted-foreground relative">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+          </svg>
+          <span className="text-[10px]">Cart</span>
+          <span className="absolute -top-1 right-0 h-3.5 w-3.5 rounded-full bg-primary text-[8px] font-bold text-primary-foreground flex items-center justify-center">3</span>
+        </Link>
+      </AppShell.MobileNav>
+      <AppShell.Overlay />
       <ThemeConfigPanel defaultConfig={verveConfig} />
-    </div>
+    </AppShell>
   )
 }
