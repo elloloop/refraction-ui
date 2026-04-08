@@ -4,6 +4,7 @@ import './globals.css'
 import { Providers } from './providers'
 import { Sidebar } from '@/components/sidebar'
 import { ThemeSwitcher } from '@/components/theme-switcher'
+import { ModeToggle } from '@/components/mode-toggle'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,16 +30,12 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  var THEMES = ${JSON.stringify(
-                    Object.fromEntries(
-                      ['refraction','luxe','warm','signal','pulse','mono'].map(k => [k, k])
-                    )
-                  )};
-                  var saved = localStorage.getItem('rfr-theme-preset');
-                  // We cannot inline all theme data here, but the ThemeSwitcher
-                  // component will apply the full theme on mount. This script
-                  // only ensures we do NOT flash dark mode.
-                  document.documentElement.classList.remove('dark');
+                  var mode = localStorage.getItem('rfr-theme');
+                  if (mode === 'dark' || (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
                 } catch (e) {}
               })();
             `,
@@ -51,7 +48,8 @@ export default function RootLayout({
             <Sidebar />
             <main className="flex-1 ml-64">
               {/* Top bar with theme switcher */}
-              <div className="sticky top-0 z-30 flex items-center justify-end border-b border-border bg-background/80 backdrop-blur-sm px-8 py-3">
+              <div className="sticky top-0 z-30 flex items-center justify-end gap-3 border-b border-border bg-background/80 backdrop-blur-sm px-8 py-3">
+                <ModeToggle />
                 <ThemeSwitcher />
               </div>
               <div className="mx-auto max-w-4xl px-8 py-12">
