@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { saasConfig } from '../theme-configs'
+import { insightiqConfig } from '../theme-configs'
 
 const faqs = [
   {
@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     q: 'What integrations do you support?',
-    a: 'We integrate with Slack, Jira, Salesforce, HubSpot, Google Analytics, and 50+ more tools via our API.',
+    a: 'We integrate with popular project management, CRM, marketing, and analytics platforms, plus 50+ more tools via our API.',
   },
   {
     q: 'Is my data secure?',
@@ -24,7 +24,7 @@ const faqs = [
   },
 ]
 
-export default function SaasLanding() {
+export default function InsightIQLanding() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   return (
@@ -32,17 +32,17 @@ export default function SaasLanding() {
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <span className="text-xl font-bold text-primary">Metrix</span>
+          <span className="text-xl font-bold text-primary">InsightIQ</span>
           <div className="hidden items-center gap-8 md:flex">
             <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Features</a>
             <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Pricing</a>
             <a href="#faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">FAQ</a>
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/examples/saas/app" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/examples/insightiq/app" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Sign In
             </Link>
-            <Link href="/examples/saas/app" className="rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
+            <Link href="/examples/insightiq/app" className="rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
               Start Free Trial
             </Link>
           </div>
@@ -62,7 +62,7 @@ export default function SaasLanding() {
           and custom reports that help you make better decisions faster.
         </p>
         <div className="mt-10 flex items-center justify-center gap-4">
-          <Link href="/examples/saas/app" className="rounded-[var(--button-radius)] bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-lg hover:opacity-90 transition-opacity">
+          <Link href="/examples/insightiq/app" className="rounded-[var(--button-radius)] bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-lg hover:opacity-90 transition-opacity">
             Start Free Trial
           </Link>
           <a href="#features" className="rounded-[var(--button-radius)] border border-border px-6 py-3 text-sm font-medium text-foreground hover:bg-muted transition-colors">
@@ -76,7 +76,7 @@ export default function SaasLanding() {
         <div className="mx-auto max-w-6xl px-6">
           <p className="text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">Trusted by 2,000+ teams worldwide</p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
-            {['Acme Corp', 'Globex Inc', 'Initech', 'Umbrella Co', 'Stark Industries', 'Wayne Enterprises'].map((name) => (
+            {['Acme Corp', 'Globex Inc', 'Initech', 'Omnicorp', 'Prestige Tech', 'Solaris Group'].map((name) => (
               <span key={name} className="text-lg font-semibold text-muted-foreground/50">{name}</span>
             ))}
           </div>
@@ -111,7 +111,7 @@ export default function SaasLanding() {
             },
             {
               title: 'Custom Reports',
-              desc: 'Build pixel-perfect reports with drag-and-drop. Schedule automated exports to your inbox or Slack.',
+              desc: 'Build pixel-perfect reports with drag-and-drop. Schedule automated exports to your inbox or messaging tools.',
               icon: (
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
@@ -166,7 +166,7 @@ export default function SaasLanding() {
                   ))}
                 </ul>
                 <Link
-                  href="/examples/saas/app"
+                  href="/examples/insightiq/app"
                   className={`mt-8 block w-full rounded-[var(--button-radius)] py-2.5 text-center text-sm font-medium transition-opacity hover:opacity-90 ${plan.popular ? 'bg-primary text-primary-foreground' : 'border border-border text-foreground hover:bg-muted'}`}
                 >
                   {plan.price === 'Custom' ? 'Contact Sales' : 'Get Started'}
@@ -205,11 +205,11 @@ export default function SaasLanding() {
       {/* Footer */}
       <footer className="border-t border-border py-12">
         <div className="mx-auto max-w-6xl px-6 text-center">
-          <span className="text-sm text-muted-foreground">&copy; 2026 Metrix. All rights reserved.</span>
+          <span className="text-sm text-muted-foreground">&copy; 2026 InsightIQ. All rights reserved.</span>
         </div>
       </footer>
 
-      <ThemeConfigPanel defaultConfig={saasConfig} />
+      <ThemeConfigPanel defaultConfig={insightiqConfig} />
     </div>
   )
 }
