@@ -109,7 +109,10 @@ export const OtpInput = React.forwardRef<HTMLDivElement, OtpInputProps>(
       onChange?.(parsed.join(''))
 
       // Focus the last filled input or the next empty one
-      const lastFilledIndex = parsed.findLastIndex((v) => v !== '')
+      let lastFilledIndex = -1
+      for (let i = parsed.length - 1; i >= 0; i--) {
+        if (parsed[i] !== '') { lastFilledIndex = i; break }
+      }
       const nextIndex = Math.min(lastFilledIndex + 1, length - 1)
       setFocusedIndex(nextIndex)
       inputRefs.current[nextIndex]?.focus()
