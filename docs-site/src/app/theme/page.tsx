@@ -13,7 +13,7 @@ export default function ThemePage() {
       </div>
 
       {/* Navigation cards */}
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Link
           href="/theme/editor"
           className="group rounded-lg border border-border bg-card p-6 transition-colors hover:bg-accent/50"
@@ -49,6 +49,24 @@ export default function ThemePage() {
           </div>
           <p className="text-sm text-muted-foreground">
             Get a ready-to-copy prompt for ChatGPT or Claude that generates a complete CSS theme matching your brand description.
+          </p>
+        </Link>
+        <Link
+          href="/theme/reference"
+          className="group rounded-lg border border-border bg-card p-6 transition-colors hover:bg-accent/50"
+        >
+          <div className="flex items-center gap-3 mb-2">
+            <div className="h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center">
+              <svg className="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+              </svg>
+            </div>
+            <h3 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+              Theme Reference
+            </h3>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Comprehensive documentation for all 95 CSS custom properties &mdash; what each controls, acceptable values, and visual examples.
           </p>
         </Link>
       </div>
