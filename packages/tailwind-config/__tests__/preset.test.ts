@@ -504,7 +504,7 @@ describe('generateThemeCSS', () => {
   it('accepts a custom theme', () => {
     const css = generateThemeCSS(monoTheme)
     expect(css).toContain("'JetBrains Mono'")
-    expect(css).toContain('0 0% 9%') // mono primary
+    expect(css).toContain('210 10% 23%') // mono primary (Stripe/GitHub slate)
   })
 })
 
