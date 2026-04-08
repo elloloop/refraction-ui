@@ -75,39 +75,51 @@ export function MyTabs() {
 
 export default function TabsPage() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
       <div>
+        <div className="flex items-center gap-3 mb-2">
+          <span className="inline-flex items-center rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+            Component
+          </span>
+          <span className="inline-flex items-center rounded-md bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+            Compound
+          </span>
+        </div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Tabs</h1>
-        <p className="mt-2 text-lg text-muted-foreground">
+        <p className="mt-3 text-lg text-muted-foreground leading-relaxed">
           A tabbed interface with compound components, ARIA support, and keyboard navigation.
-          Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded">@refraction-ui/tabs</code> core.
+          Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/tabs</code> core.
         </p>
       </div>
 
+      <div className="h-px bg-border" />
+
       {/* Live Example */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold text-foreground">Live Example</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Live Example</h2>
         <p className="text-sm text-muted-foreground">
-          Click the tabs to switch between panels. The active tab is highlighted.
+          A realistic settings page with account, notification, and billing tabs. Click the tabs to switch between panels.
         </p>
         <TabsExample />
       </section>
 
+      <div className="h-px bg-border" />
+
       {/* Code */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold text-foreground">Usage</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
         <CodeBlock code={usageCode} />
       </section>
 
       {/* Props */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold text-foreground">Tabs Props</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Tabs Props</h2>
         <PropsTable props={tabsProps} />
       </section>
 
       {/* Sub-components */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold text-foreground">Compound Components</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Compound Components</h2>
         <PropsTable
           props={subComponents.map((c) => ({
             name: c.name,

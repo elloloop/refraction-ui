@@ -24,6 +24,10 @@
   --muted-foreground: 220 9% 40%;
   --destructive: 0 72% 45%;
   --destructive-foreground: 210 40% 98%;
+  --success: 142 71% 35%;
+  --success-foreground: 210 40% 98%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 224 71% 4%;
   --border: 220 13% 91%;
   --input: 220 13% 91%;
   --ring: 221 83% 45%;
@@ -60,6 +64,10 @@
   --muted-foreground: 215 20% 65%;
   --destructive: 0 63% 31%;
   --destructive-foreground: 210 40% 98%;
+  --success: 142 71% 45%;
+  --success-foreground: 210 40% 98%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 224 71% 4%;
   --border: 217 33% 17%;
   --input: 217 33% 17%;
   --ring: 217 91% 60%;
@@ -83,7 +91,40 @@
   * {
     @apply border-border;
   }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  ::selection {
+    @apply bg-primary/20 text-foreground;
+  }
+
+  ::-moz-selection {
+    @apply bg-primary/20 text-foreground;
+  }
+
+  /* Smooth scroll for anchor links */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Focus visible ring for keyboard navigation */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer utilities {
+  /* Gradient text utility */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
   }
 }

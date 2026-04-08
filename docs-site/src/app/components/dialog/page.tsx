@@ -111,39 +111,51 @@ export function MyDialog() {
 
 export default function DialogPage() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
       <div>
+        <div className="flex items-center gap-3 mb-2">
+          <span className="inline-flex items-center rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+            Component
+          </span>
+          <span className="inline-flex items-center rounded-md bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+            Compound
+          </span>
+        </div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Dialog</h1>
-        <p className="mt-2 text-lg text-muted-foreground">
+        <p className="mt-3 text-lg text-muted-foreground leading-relaxed">
           A modal dialog with compound components for trigger, overlay, content, and actions.
-          Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded">@refraction-ui/dialog</code> core.
+          Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/dialog</code> core.
         </p>
       </div>
 
+      <div className="h-px bg-border" />
+
       {/* Live Example */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold text-foreground">Live Example</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Live Example</h2>
         <p className="text-sm text-muted-foreground">
-          Click the button to open the dialog. Press Escape or click the overlay to close.
+          Click a button to open a dialog. Press Escape or click the overlay to close. The &quot;Edit Profile&quot; variant shows a form inside the dialog.
         </p>
         <DialogExample />
       </section>
 
+      <div className="h-px bg-border" />
+
       {/* Code */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold text-foreground">Usage</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
         <CodeBlock code={usageCode} />
       </section>
 
       {/* Props */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold text-foreground">Dialog Props</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Dialog Props</h2>
         <PropsTable props={dialogProps} />
       </section>
 
       {/* Sub-components */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold text-foreground">Compound Components</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Compound Components</h2>
         <PropsTable
           props={subComponents.map((c) => ({
             name: c.name,

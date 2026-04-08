@@ -55,18 +55,25 @@ export function MyComponent() {
 
 export default function ButtonPage() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
       <div>
+        <div className="flex items-center gap-3 mb-2">
+          <span className="inline-flex items-center rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+            Component
+          </span>
+        </div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Button</h1>
-        <p className="mt-2 text-lg text-muted-foreground">
+        <p className="mt-3 text-lg text-muted-foreground leading-relaxed">
           A clickable button with variant, size, loading, and disabled support.
-          Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded">@refraction-ui/button</code> core.
+          Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/button</code> core.
         </p>
       </div>
 
+      <div className="h-px bg-border" />
+
       {/* Variants */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold text-foreground">Variants</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Variants</h2>
         <p className="text-sm text-muted-foreground">
           Six built-in visual variants for different contexts.
         </p>
@@ -75,7 +82,7 @@ export default function ButtonPage() {
 
       {/* Sizes */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold text-foreground">Sizes</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Sizes</h2>
         <p className="text-sm text-muted-foreground">
           Five sizes from extra-small to large, plus an icon-only size.
         </p>
@@ -84,22 +91,24 @@ export default function ButtonPage() {
 
       {/* States */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold text-foreground">States</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">States</h2>
         <p className="text-sm text-muted-foreground">
           Loading shows a spinner and disables interaction. Disabled greys out the button.
         </p>
         <ButtonExamples section="states" />
       </section>
 
+      <div className="h-px bg-border" />
+
       {/* Code */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold text-foreground">Usage</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
         <CodeBlock code={usageCode} />
       </section>
 
       {/* Props */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold text-foreground">Props</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Props</h2>
         <PropsTable props={buttonProps} />
       </section>
     </div>
