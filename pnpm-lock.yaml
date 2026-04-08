@@ -119,6 +119,12 @@ importers:
         specifier: ^20.8.2
         version: 20.19.9
 
+  packages/avatar:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/badge:
     dependencies:
       '@refraction-ui/shared':
@@ -149,7 +155,19 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/card:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/charts:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/checkbox:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -297,6 +315,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/otp-input:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/popover:
     dependencies:
       '@refraction-ui/shared':
@@ -358,6 +382,28 @@ importers:
       '@refraction-ui/auth':
         specifier: workspace:*
         version: link:../auth
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+
+  packages/react-avatar:
+    dependencies:
+      '@refraction-ui/avatar':
+        specifier: workspace:*
+        version: link:../avatar
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -485,11 +531,55 @@ importers:
         specifier: ^19.0.0
         version: 19.2.4(react@19.2.4)
 
+  packages/react-card:
+    dependencies:
+      '@refraction-ui/card':
+        specifier: workspace:*
+        version: link:../card
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+
   packages/react-charts:
     dependencies:
       '@refraction-ui/charts':
         specifier: workspace:*
         version: link:../charts
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+
+  packages/react-checkbox:
+    dependencies:
+      '@refraction-ui/checkbox':
+        specifier: workspace:*
+        version: link:../checkbox
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -1045,6 +1135,28 @@ importers:
         specifier: ^19.0.0
         version: 19.2.4(react@19.2.4)
 
+  packages/react-otp-input:
+    dependencies:
+      '@refraction-ui/otp-input':
+        specifier: workspace:*
+        version: link:../otp-input
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+
   packages/react-popover:
     dependencies:
       '@refraction-ui/popover':
@@ -1111,11 +1223,55 @@ importers:
         specifier: ^19.0.0
         version: 19.2.4(react@19.2.4)
 
+  packages/react-rich-editor:
+    dependencies:
+      '@refraction-ui/rich-editor':
+        specifier: workspace:*
+        version: link:../rich-editor
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+
   packages/react-search-bar:
     dependencies:
       '@refraction-ui/search-bar':
         specifier: workspace:*
         version: link:../search-bar
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+
+  packages/react-select:
+    dependencies:
+      '@refraction-ui/select':
+        specifier: workspace:*
+        version: link:../select
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -1185,6 +1341,28 @@ importers:
       '@refraction-ui/slide-viewer':
         specifier: workspace:*
         version: link:../slide-viewer
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+
+  packages/react-switch:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/switch':
+        specifier: workspace:*
+        version: link:../switch
     devDependencies:
       '@types/react':
         specifier: ^19.0.0
@@ -1359,7 +1537,19 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/rich-editor:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/search-bar:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/select:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -1380,6 +1570,12 @@ importers:
         version: link:../shared
 
   packages/slide-viewer:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/switch:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
