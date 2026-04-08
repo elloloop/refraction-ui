@@ -29,10 +29,10 @@ jobs:
           node-version: 20
           cache: pnpm
 
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install
 
       - name: Build all packages
-        run: pnpm turbo build --filter='!refraction-ui-docs'
+        run: pnpm turbo build --filter='./packages/*'
 
       - name: Build docs site
         run: GITHUB_PAGES=true pnpm --filter refraction-ui-docs build
