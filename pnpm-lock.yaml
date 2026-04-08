@@ -38,6 +38,9 @@ importers:
 
   docs-site:
     dependencies:
+      '@refraction-ui/app-shell':
+        specifier: workspace:*
+        version: link:../packages/app-shell
       '@refraction-ui/react-animated-text':
         specifier: workspace:*
         version: link:../packages/react-animated-text
