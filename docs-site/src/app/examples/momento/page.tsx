@@ -1,42 +1,39 @@
 'use client'
 
 import Link from 'next/link'
+import { PageShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { momentoConfig } from '../theme-configs'
 import { features } from './config'
 
 export default function MomentoLandingPage() {
   return (
-    <div
-      className="min-h-screen bg-background text-foreground"
-    >
+    <PageShell config={{ navSticky: true, maxWidth: '72rem' }}>
       {/* Nav */}
-      <nav className="border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-40">
-        <div className="mx-auto max-w-6xl flex items-center justify-between px-6 py-4">
-          <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent">
-            Momento
-          </span>
-          <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-            <span className="hover:text-foreground cursor-pointer transition-colors">Features</span>
-            <span className="hover:text-foreground cursor-pointer transition-colors">Safety</span>
-            <span className="hover:text-foreground cursor-pointer transition-colors">Creators</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link href="/examples/momento/app" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Log in
-            </Link>
-            <Link
-              href="/examples/momento/app"
-              className="rounded-[var(--button-radius)] bg-gradient-to-r from-primary via-primary/80 to-accent px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity"
-            >
-              Sign Up
-            </Link>
-          </div>
+      <PageShell.Nav className="justify-between bg-background/80 backdrop-blur-sm">
+        <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent">
+          Momento
+        </span>
+        <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
+          <span className="hover:text-foreground cursor-pointer transition-colors">Features</span>
+          <span className="hover:text-foreground cursor-pointer transition-colors">Safety</span>
+          <span className="hover:text-foreground cursor-pointer transition-colors">Creators</span>
         </div>
-      </nav>
+        <div className="flex items-center gap-3">
+          <Link href="/examples/momento/app" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            Log in
+          </Link>
+          <Link
+            href="/examples/momento/app"
+            className="rounded-[var(--button-radius)] bg-gradient-to-r from-primary via-primary/80 to-accent px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity"
+          >
+            Sign Up
+          </Link>
+        </div>
+      </PageShell.Nav>
 
       {/* Hero */}
-      <section className="mx-auto max-w-6xl px-6 pt-20 pb-24">
+      <PageShell.Section maxWidth="6xl" className="pt-20 pb-24">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           {/* Phone mockup */}
           <div className="lg:w-1/2 flex justify-center">
@@ -97,11 +94,11 @@ export default function MomentoLandingPage() {
             </div>
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Features */}
-      <section className="bg-muted/30 py-20">
-        <div className="mx-auto max-w-6xl px-6">
+      <PageShell.Section fullWidth background="muted" className="py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-foreground mb-4">Express yourself</h2>
           <p className="text-center text-muted-foreground mb-12 max-w-xl mx-auto">
             From stories to clips, Momento gives you all the creative tools to share your world.
@@ -121,74 +118,65 @@ export default function MomentoLandingPage() {
             ))}
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Stats */}
-      <section className="py-20">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="grid gap-8 sm:grid-cols-3 text-center">
-            <div>
-              <p className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">10M+</p>
-              <p className="text-sm text-muted-foreground mt-2">Monthly active users</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold bg-gradient-to-r from-primary/80 to-accent bg-clip-text text-transparent">5M+</p>
-              <p className="text-sm text-muted-foreground mt-2">Photos shared daily</p>
-            </div>
-            <div>
-              <p className="text-4xl font-bold bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">20M+</p>
-              <p className="text-sm text-muted-foreground mt-2">Stories viewed daily</p>
-            </div>
+      <PageShell.Section maxWidth="6xl" className="py-20">
+        <div className="grid gap-8 sm:grid-cols-3 text-center">
+          <div>
+            <p className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">10M+</p>
+            <p className="text-sm text-muted-foreground mt-2">Monthly active users</p>
+          </div>
+          <div>
+            <p className="text-4xl font-bold bg-gradient-to-r from-primary/80 to-accent bg-clip-text text-transparent">5M+</p>
+            <p className="text-sm text-muted-foreground mt-2">Photos shared daily</p>
+          </div>
+          <div>
+            <p className="text-4xl font-bold bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">20M+</p>
+            <p className="text-sm text-muted-foreground mt-2">Stories viewed daily</p>
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Footer */}
-      <footer className="border-t border-border py-12">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="grid gap-8 sm:grid-cols-4">
-            <div>
-              <h4 className="font-semibold text-foreground mb-3">Product</h4>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <p className="hover:text-foreground cursor-pointer transition-colors">Features</p>
-                <p className="hover:text-foreground cursor-pointer transition-colors">Reels</p>
-                <p className="hover:text-foreground cursor-pointer transition-colors">Stories</p>
-                <p className="hover:text-foreground cursor-pointer transition-colors">Clips</p>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground mb-3">Community</h4>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <p className="hover:text-foreground cursor-pointer transition-colors">Creators</p>
-                <p className="hover:text-foreground cursor-pointer transition-colors">Developers</p>
-                <p className="hover:text-foreground cursor-pointer transition-colors">Guidelines</p>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground mb-3">Support</h4>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <p className="hover:text-foreground cursor-pointer transition-colors">Help Center</p>
-                <p className="hover:text-foreground cursor-pointer transition-colors">Safety</p>
-                <p className="hover:text-foreground cursor-pointer transition-colors">Privacy</p>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground mb-3">Company</h4>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <p className="hover:text-foreground cursor-pointer transition-colors">About</p>
-                <p className="hover:text-foreground cursor-pointer transition-colors">Blog</p>
-                <p className="hover:text-foreground cursor-pointer transition-colors">Careers</p>
-                <Link href="/examples" className="hover:text-foreground transition-colors block">All Examples</Link>
-              </div>
-            </div>
-          </div>
-          <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            Built with refraction-ui. Themed by CSS variables only.
+      <PageShell.Footer columns={4}>
+        <div>
+          <h4 className="font-semibold text-foreground mb-3">Product</h4>
+          <div className="space-y-2 text-sm text-muted-foreground">
+            <p className="hover:text-foreground cursor-pointer transition-colors">Features</p>
+            <p className="hover:text-foreground cursor-pointer transition-colors">Reels</p>
+            <p className="hover:text-foreground cursor-pointer transition-colors">Stories</p>
+            <p className="hover:text-foreground cursor-pointer transition-colors">Clips</p>
           </div>
         </div>
-      </footer>
+        <div>
+          <h4 className="font-semibold text-foreground mb-3">Community</h4>
+          <div className="space-y-2 text-sm text-muted-foreground">
+            <p className="hover:text-foreground cursor-pointer transition-colors">Creators</p>
+            <p className="hover:text-foreground cursor-pointer transition-colors">Developers</p>
+            <p className="hover:text-foreground cursor-pointer transition-colors">Guidelines</p>
+          </div>
+        </div>
+        <div>
+          <h4 className="font-semibold text-foreground mb-3">Support</h4>
+          <div className="space-y-2 text-sm text-muted-foreground">
+            <p className="hover:text-foreground cursor-pointer transition-colors">Help Center</p>
+            <p className="hover:text-foreground cursor-pointer transition-colors">Safety</p>
+            <p className="hover:text-foreground cursor-pointer transition-colors">Privacy</p>
+          </div>
+        </div>
+        <div>
+          <h4 className="font-semibold text-foreground mb-3">Company</h4>
+          <div className="space-y-2 text-sm text-muted-foreground">
+            <p className="hover:text-foreground cursor-pointer transition-colors">About</p>
+            <p className="hover:text-foreground cursor-pointer transition-colors">Blog</p>
+            <p className="hover:text-foreground cursor-pointer transition-colors">Careers</p>
+            <Link href="/examples" className="hover:text-foreground transition-colors block">All Examples</Link>
+          </div>
+        </div>
+      </PageShell.Footer>
 
       <ThemeConfigPanel defaultConfig={momentoConfig} />
-    </div>
+    </PageShell>
   )
 }

@@ -1,35 +1,34 @@
 'use client'
 
 import Link from 'next/link'
+import { PageShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { learnhubConfig } from '../theme-configs'
 import { popularCourses, categories } from './config'
 
 export default function EducationLanding() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <PageShell config={{ navSticky: true, maxWidth: '72rem' }}>
       {/* Nav */}
-      <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <span className="text-xl font-bold text-primary">LearnHub</span>
-          <div className="hidden items-center gap-8 md:flex">
-            <a href="#courses" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Courses</a>
-            <a href="#categories" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Categories</a>
-            <Link href="/examples/learnhub/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Browse All</Link>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link href="/examples/learnhub/app" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Sign In
-            </Link>
-            <Link href="/examples/learnhub/app" className="rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
-              Start Free
-            </Link>
-          </div>
+      <PageShell.Nav className="justify-between bg-background/80 backdrop-blur-sm">
+        <span className="text-xl font-bold text-primary">LearnHub</span>
+        <div className="hidden items-center gap-8 md:flex">
+          <a href="#courses" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Courses</a>
+          <a href="#categories" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Categories</a>
+          <Link href="/examples/learnhub/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Browse All</Link>
         </div>
-      </nav>
+        <div className="flex items-center gap-3">
+          <Link href="/examples/learnhub/app" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            Sign In
+          </Link>
+          <Link href="/examples/learnhub/app" className="rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
+            Start Free
+          </Link>
+        </div>
+      </PageShell.Nav>
 
       {/* Hero */}
-      <section className="mx-auto max-w-6xl px-6 py-24 text-center">
+      <PageShell.Section maxWidth="6xl" className="py-24 text-center">
         <h1 className="text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
           Learn anything,{' '}
           <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
@@ -65,11 +64,11 @@ export default function EducationLanding() {
             <p className="mt-1 text-sm text-muted-foreground">Instructors</p>
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Categories */}
-      <section id="categories" className="bg-muted/30 py-12">
-        <div className="mx-auto max-w-6xl px-6">
+      <PageShell.Section fullWidth background="muted" className="py-12">
+        <div id="categories" className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-center gap-3">
             {categories.map((cat) => (
               <Link
@@ -82,50 +81,52 @@ export default function EducationLanding() {
             ))}
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Popular Courses */}
-      <section id="courses" className="mx-auto max-w-6xl px-6 py-24">
-        <div className="flex items-center justify-between mb-12">
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight">Popular Courses</h2>
-            <p className="mt-2 text-muted-foreground">Trending courses our students love.</p>
-          </div>
-          <Link href="/examples/learnhub/app" className="text-sm font-medium text-primary hover:underline">
-            View All Courses
-          </Link>
-        </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {popularCourses.map((course) => (
-            <Link
-              key={course.title}
-              href="/examples/learnhub/app/course"
-              className="group rounded-[var(--card-radius)] border border-border bg-card overflow-hidden transition-all hover:shadow-md hover:border-primary/30"
-            >
-              <div className={`aspect-video ${course.thumb} flex items-center justify-center`}>
-                <svg className="h-10 w-10 text-primary/30" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
-                </svg>
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-sm group-hover:text-primary transition-colors line-clamp-2">{course.title}</h3>
-                <p className="mt-1 text-xs text-muted-foreground">{course.instructor}</p>
-                <div className="mt-2 flex items-center gap-1">
-                  <svg className="h-3.5 w-3.5 text-[hsl(var(--warning))]" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                  <span className="text-xs font-medium">{course.rating}</span>
-                  <span className="text-xs text-muted-foreground">({course.students.toLocaleString()} students)</span>
-                </div>
-                <p className="mt-3 text-lg font-bold text-primary">{course.price}</p>
-              </div>
+      <PageShell.Section maxWidth="6xl" className="py-24">
+        <div id="courses">
+          <div className="flex items-center justify-between mb-12">
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight">Popular Courses</h2>
+              <p className="mt-2 text-muted-foreground">Trending courses our students love.</p>
+            </div>
+            <Link href="/examples/learnhub/app" className="text-sm font-medium text-primary hover:underline">
+              View All Courses
             </Link>
-          ))}
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {popularCourses.map((course) => (
+              <Link
+                key={course.title}
+                href="/examples/learnhub/app/course"
+                className="group rounded-[var(--card-radius)] border border-border bg-card overflow-hidden transition-all hover:shadow-md hover:border-primary/30"
+              >
+                <div className={`aspect-video ${course.thumb} flex items-center justify-center`}>
+                  <svg className="h-10 w-10 text-primary/30" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                  </svg>
+                </div>
+                <div className="p-4">
+                  <h3 className="font-semibold text-sm group-hover:text-primary transition-colors line-clamp-2">{course.title}</h3>
+                  <p className="mt-1 text-xs text-muted-foreground">{course.instructor}</p>
+                  <div className="mt-2 flex items-center gap-1">
+                    <svg className="h-3.5 w-3.5 text-[hsl(var(--warning))]" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <span className="text-xs font-medium">{course.rating}</span>
+                    <span className="text-xs text-muted-foreground">({course.students.toLocaleString()} students)</span>
+                  </div>
+                  <p className="mt-3 text-lg font-bold text-primary">{course.price}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* CTA */}
-      <section className="bg-primary/5 py-24">
+      <PageShell.Section fullWidth className="py-24 bg-primary/5">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="text-3xl font-bold tracking-tight">Start learning today</h2>
           <p className="mt-4 text-muted-foreground">Join thousands of learners already building their future skills.</p>
@@ -133,16 +134,16 @@ export default function EducationLanding() {
             Get Started Free
           </Link>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Footer */}
-      <footer className="border-t border-border py-12">
-        <div className="mx-auto max-w-6xl px-6 text-center">
+      <PageShell.Footer columns={1}>
+        <div className="text-center">
           <span className="text-sm text-muted-foreground">&copy; 2026 LearnHub. All rights reserved.</span>
         </div>
-      </footer>
+      </PageShell.Footer>
 
       <ThemeConfigPanel defaultConfig={learnhubConfig} />
-    </div>
+    </PageShell>
   )
 }

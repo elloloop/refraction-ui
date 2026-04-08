@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { PageShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { emberConfig } from '../../theme-configs'
 import { menu, wines, categories, badgeColors } from '../config'
@@ -19,9 +20,9 @@ export default function RestaurantMenuPage() {
   const [activeCategory, setActiveCategory] = useState<Category>('starters')
 
   return (
-    <div className="">
+    <PageShell config={{ navSticky: true }}>
       {/* Navigation */}
-      <nav className="flex items-center justify-between px-8 py-4 border-b border-border bg-background/80 backdrop-blur-sm">
+      <PageShell.Nav className="justify-between bg-background/80 backdrop-blur-sm">
         <Link href="/examples/ember" className="text-lg font-semibold text-foreground tracking-tight">
           Ember &amp; Oak
         </Link>
@@ -35,19 +36,19 @@ export default function RestaurantMenuPage() {
             Reserve
           </Link>
         </div>
-      </nav>
+      </PageShell.Nav>
 
       {/* Header */}
-      <div className="px-8 py-10 text-center">
+      <PageShell.Section maxWidth="3xl" className="py-10 text-center">
         <h1 className="text-3xl font-semibold tracking-tight text-foreground" style={{ letterSpacing: 'var(--heading-letter-spacing)' }}>
           Our Menu
         </h1>
         <p className="text-muted-foreground mt-2">Seasonal ingredients, open-flame cooking</p>
-      </div>
+      </PageShell.Section>
 
       {/* Category Tabs */}
-      <div className="px-8 border-b border-border">
-        <div className="max-w-3xl mx-auto flex gap-1">
+      <PageShell.Section maxWidth="3xl" className="py-0 border-b border-border">
+        <div className="flex gap-1">
           {categories.map((cat) => (
             <button
               key={cat.key}
@@ -62,10 +63,10 @@ export default function RestaurantMenuPage() {
             </button>
           ))}
         </div>
-      </div>
+      </PageShell.Section>
 
       {/* Menu Items */}
-      <div className="max-w-3xl mx-auto px-8 py-8">
+      <PageShell.Section maxWidth="3xl">
         <div className="space-y-1">
           {menu[activeCategory].map((item, i) => (
             <div key={item.name} className={`flex items-start justify-between py-5 ${i < menu[activeCategory].length - 1 ? 'border-b border-border' : ''}`}>
@@ -87,11 +88,11 @@ export default function RestaurantMenuPage() {
             </div>
           ))}
         </div>
-      </div>
+      </PageShell.Section>
 
       {/* Wine List */}
-      <div className="px-8 py-[var(--section-gap)] bg-muted/20">
-        <div className="max-w-3xl mx-auto space-y-6">
+      <PageShell.Section maxWidth="3xl" background="muted" className="py-[var(--section-gap)]">
+        <div className="space-y-6">
           <div className="text-center">
             <h2 className="text-2xl font-semibold tracking-tight text-foreground" style={{ letterSpacing: 'var(--heading-letter-spacing)' }}>
               Wine Selection
@@ -121,10 +122,10 @@ export default function RestaurantMenuPage() {
             </table>
           </div>
         </div>
-      </div>
+      </PageShell.Section>
 
       {/* Legend */}
-      <div className="max-w-3xl mx-auto px-8 py-8">
+      <PageShell.Section maxWidth="3xl">
         <div className="flex items-center gap-4 text-xs text-muted-foreground">
           <span className="flex items-center gap-1">
             <span className={`inline-flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-medium ring-1 ring-inset ${badgeColors.V}`}>V</span>
@@ -139,16 +140,17 @@ export default function RestaurantMenuPage() {
             Dairy Free
           </span>
         </div>
-      </div>
+      </PageShell.Section>
 
       {/* Footer */}
-      <footer className="border-t border-border px-8 py-8">
-        <div className="max-w-4xl mx-auto flex items-center justify-between text-sm text-muted-foreground">
-          <span>&copy; 2026 Ember &amp; Oak</span>
-          <Link href="/examples/ember/app/reservation" className="text-primary hover:underline">Reserve a Table</Link>
+      <PageShell.Footer columns={2}>
+        <span className="text-sm text-muted-foreground">&copy; 2026 Ember &amp; Oak</span>
+        <div className="flex justify-end">
+          <Link href="/examples/ember/app/reservation" className="text-sm text-primary hover:underline">Reserve a Table</Link>
         </div>
-      </footer>
+      </PageShell.Footer>
+
       <ThemeConfigPanel defaultConfig={emberConfig} />
-    </div>
+    </PageShell>
   )
 }

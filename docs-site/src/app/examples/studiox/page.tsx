@@ -1,32 +1,31 @@
 'use client'
 
 import Link from 'next/link'
+import { PageShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { studioxConfig } from '../theme-configs'
 import { works, services } from './config'
 
 export default function StudioXLanding() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <PageShell config={{ navSticky: true, maxWidth: '72rem' }}>
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-background/50 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-          <span className="text-lg font-bold tracking-tight">STUDIO X</span>
-          <div className="hidden items-center gap-8 md:flex">
-            <a href="#work" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Work</a>
-            <a href="#about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">About</a>
-            <a href="#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Services</a>
-            <a href="#contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Contact</a>
-          </div>
-          <Link href="/examples/studiox/app" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            All Work
-          </Link>
+      <PageShell.Nav className="justify-between bg-background/50 backdrop-blur-md">
+        <span className="text-lg font-bold tracking-tight">STUDIO X</span>
+        <div className="hidden items-center gap-8 md:flex">
+          <a href="#work" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Work</a>
+          <a href="#about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">About</a>
+          <a href="#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Services</a>
+          <a href="#contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Contact</a>
         </div>
-      </nav>
+        <Link href="/examples/studiox/app" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+          All Work
+        </Link>
+      </PageShell.Nav>
 
       {/* Hero */}
-      <section className="min-h-screen flex flex-col justify-center px-6">
-        <div className="mx-auto max-w-6xl w-full">
+      <PageShell.Section fullWidth className="min-h-screen flex flex-col justify-center py-0">
+        <div className="mx-auto max-w-6xl w-full px-4 sm:px-6 lg:px-8">
           <h1 className="text-6xl font-bold tracking-tighter sm:text-7xl lg:text-[8rem] leading-[0.9]">
             STUDIO
             <span className="block text-muted-foreground">.CO</span>
@@ -43,44 +42,41 @@ export default function StudioXLanding() {
             </a>
           </div>
         </div>
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-          <span className="text-xs text-muted-foreground uppercase tracking-widest">Scroll</span>
-          <div className="h-8 w-px bg-border" />
-        </div>
-      </section>
+      </PageShell.Section>
 
       {/* Selected Works */}
-      <section id="work" className="mx-auto max-w-6xl px-6 py-24">
-        <div className="flex items-center justify-between mb-16">
-          <h2 className="text-3xl font-bold tracking-tight">Selected Works</h2>
-          <Link href="/examples/studiox/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            View All
-          </Link>
-        </div>
-        <div className="grid gap-8 sm:grid-cols-2">
-          {works.map((work) => (
-            <Link
-              key={work.title}
-              href="/examples/studiox/app/project"
-              className="group rounded-[var(--card-radius)] border border-border bg-card overflow-hidden transition-all hover:border-foreground/20"
-            >
-              <div className={`aspect-[4/3] bg-gradient-to-br ${work.color} flex items-center justify-center`}>
-                <span className="text-4xl font-bold text-foreground/10">{work.title.split(' ')[0]}</span>
-              </div>
-              <div className="p-6">
-                <span className="text-xs uppercase tracking-wider text-muted-foreground">{work.category}</span>
-                <h3 className="mt-2 text-xl font-semibold group-hover:text-primary transition-colors">{work.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{work.desc}</p>
-              </div>
+      <PageShell.Section maxWidth="6xl" className="py-24">
+        <div id="work">
+          <div className="flex items-center justify-between mb-16">
+            <h2 className="text-3xl font-bold tracking-tight">Selected Works</h2>
+            <Link href="/examples/studiox/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              View All
             </Link>
-          ))}
+          </div>
+          <div className="grid gap-8 sm:grid-cols-2">
+            {works.map((work) => (
+              <Link
+                key={work.title}
+                href="/examples/studiox/app/project"
+                className="group rounded-[var(--card-radius)] border border-border bg-card overflow-hidden transition-all hover:border-foreground/20"
+              >
+                <div className={`aspect-[4/3] bg-gradient-to-br ${work.color} flex items-center justify-center`}>
+                  <span className="text-4xl font-bold text-foreground/10">{work.title.split(' ')[0]}</span>
+                </div>
+                <div className="p-6">
+                  <span className="text-xs uppercase tracking-wider text-muted-foreground">{work.category}</span>
+                  <h3 className="mt-2 text-xl font-semibold group-hover:text-primary transition-colors">{work.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{work.desc}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* About */}
-      <section id="about" className="border-y border-border py-24">
-        <div className="mx-auto max-w-6xl px-6">
+      <PageShell.Section fullWidth background="muted" className="py-24 border-y border-border">
+        <div id="about" className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-2 items-center">
             <div className="aspect-square rounded-[var(--card-radius)] bg-gradient-to-br from-muted to-card border border-border flex items-center justify-center">
               <span className="text-6xl font-bold text-muted-foreground/20">TEAM</span>
@@ -110,27 +106,29 @@ export default function StudioXLanding() {
             </div>
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Services */}
-      <section id="services" className="mx-auto max-w-6xl px-6 py-24">
-        <h2 className="text-3xl font-bold tracking-tight mb-16">Services</h2>
-        <div className="grid gap-0 border-t border-border">
-          {services.map((s, i) => (
-            <div key={s.title} className="flex items-start gap-8 border-b border-border py-8">
-              <span className="text-sm text-muted-foreground font-mono w-8">0{i + 1}</span>
-              <div>
-                <h3 className="text-xl font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed max-w-lg">{s.desc}</p>
+      <PageShell.Section maxWidth="6xl" className="py-24">
+        <div id="services">
+          <h2 className="text-3xl font-bold tracking-tight mb-16">Services</h2>
+          <div className="grid gap-0 border-t border-border">
+            {services.map((s, i) => (
+              <div key={s.title} className="flex items-start gap-8 border-b border-border py-8">
+                <span className="text-sm text-muted-foreground font-mono w-8">0{i + 1}</span>
+                <div>
+                  <h3 className="text-xl font-semibold">{s.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed max-w-lg">{s.desc}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Contact CTA */}
-      <section id="contact" className="border-t border-border py-24">
-        <div className="mx-auto max-w-3xl px-6 text-center">
+      <PageShell.Section maxWidth="3xl" className="py-24 border-t border-border text-center">
+        <div id="contact">
           <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
             Let&apos;s work together
           </h2>
@@ -141,21 +139,19 @@ export default function StudioXLanding() {
             hello@studiox.co
           </a>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Footer */}
-      <footer className="border-t border-border py-8">
-        <div className="mx-auto max-w-6xl px-6 flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">&copy; 2026 STUDIO X</span>
-          <div className="flex gap-6">
-            <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Twitter</span>
-            <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Social</span>
-            <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Dribbble</span>
-          </div>
+      <PageShell.Footer columns={2}>
+        <span className="text-xs text-muted-foreground">&copy; 2026 STUDIO X</span>
+        <div className="flex gap-6 justify-end">
+          <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Twitter</span>
+          <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Social</span>
+          <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Dribbble</span>
         </div>
-      </footer>
+      </PageShell.Footer>
 
       <ThemeConfigPanel defaultConfig={studioxConfig} />
-    </div>
+    </PageShell>
   )
 }

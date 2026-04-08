@@ -1,15 +1,16 @@
 'use client'
 
 import Link from 'next/link'
+import { PageShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { maisonConfig } from '../../theme-configs'
 import { products } from '../config'
 
 export default function LuxuryCollectionPage() {
   return (
-    <div className="">
+    <PageShell config={{ maxWidth: '72rem' }}>
       {/* Navigation */}
-      <nav className="flex items-center justify-between px-8 py-6 border-b border-border/30">
+      <PageShell.Nav className="justify-between border-border/30">
         <Link href="/examples/maison" className="text-sm tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors">
           Maison Eclat
         </Link>
@@ -17,19 +18,19 @@ export default function LuxuryCollectionPage() {
           <span className="text-xs tracking-[0.15em] uppercase text-foreground font-medium">Collection</span>
           <Link href="/examples/maison/app/product" className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors">Atelier</Link>
         </div>
-      </nav>
+      </PageShell.Nav>
 
       {/* Collection Header */}
-      <div className="px-8 py-16 text-center">
+      <PageShell.Section maxWidth="5xl" className="py-16 text-center">
         <h1 className="text-3xl font-light text-foreground mb-3" style={{ letterSpacing: 'var(--letter-spacing-tight)' }}>
           The Collection
         </h1>
         <p className="text-sm text-muted-foreground">Spring / Summer 2026</p>
-      </div>
+      </PageShell.Section>
 
       {/* Product Grid */}
-      <div className="px-8 pb-24">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-x-8 gap-y-16">
+      <PageShell.Section maxWidth="5xl" className="pb-24">
+        <div className="grid md:grid-cols-3 gap-x-8 gap-y-16">
           {products.map((product) => (
             <Link key={product.id} href="/examples/maison/app/product" className="group space-y-5">
               <div className="aspect-[3/4] rounded-[var(--card-radius)] bg-gradient-to-b from-muted/30 to-accent/20 border border-border/20 flex items-center justify-center group-hover:border-border/50 transition-all">
@@ -51,19 +52,18 @@ export default function LuxuryCollectionPage() {
             </Link>
           ))}
         </div>
-      </div>
+      </PageShell.Section>
 
       {/* Footer */}
-      <footer className="border-t border-border/30 px-8 py-8">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground">&copy; 2026 Maison Eclat</span>
-          <div className="flex gap-6">
-            <span className="text-xs text-muted-foreground">Privacy</span>
-            <span className="text-xs text-muted-foreground">Terms</span>
-          </div>
+      <PageShell.Footer columns={2} className="border-border/30 bg-transparent">
+        <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground">&copy; 2026 Maison Eclat</span>
+        <div className="flex gap-6 justify-end">
+          <span className="text-xs text-muted-foreground">Privacy</span>
+          <span className="text-xs text-muted-foreground">Terms</span>
         </div>
-      </footer>
+      </PageShell.Footer>
+
       <ThemeConfigPanel defaultConfig={maisonConfig} />
-    </div>
+    </PageShell>
   )
 }

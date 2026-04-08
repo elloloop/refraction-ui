@@ -1,15 +1,16 @@
 'use client'
 
 import Link from 'next/link'
+import { PageShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { emberConfig } from '../theme-configs'
 import { menuHighlights, socialLinks } from './config'
 
 export default function EmberLandingPage() {
   return (
-    <div className="">
+    <PageShell config={{ navSticky: true }}>
       {/* Navigation */}
-      <nav className="flex items-center justify-between px-8 py-4 border-b border-border bg-background/80 backdrop-blur-sm">
+      <PageShell.Nav className="justify-between bg-background/80 backdrop-blur-sm">
         <span className="text-lg font-semibold text-foreground tracking-tight">Ember &amp; Oak</span>
         <div className="flex items-center gap-6">
           <Link href="/examples/ember/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Menu</Link>
@@ -22,11 +23,11 @@ export default function EmberLandingPage() {
             Reserve a Table
           </Link>
         </div>
-      </nav>
+      </PageShell.Nav>
 
       {/* Hero */}
-      <section className="relative">
-        <div className="h-[440px] bg-gradient-to-br from-primary/10 via-muted to-accent/20 flex items-center justify-center">
+      <PageShell.Section fullWidth className="py-0">
+        <div className="h-[440px] bg-gradient-to-br from-primary/10 via-muted to-accent/20 flex items-center justify-center relative">
           <div className="absolute inset-0 bg-foreground/3" />
           <div className="relative text-center space-y-6 px-8">
             <p className="text-sm tracking-[0.15em] uppercase text-muted-foreground">Fine Dining</p>
@@ -44,11 +45,11 @@ export default function EmberLandingPage() {
             </Link>
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Menu Highlights */}
-      <section className="px-8 py-[var(--section-gap)]">
-        <div className="max-w-3xl mx-auto space-y-8">
+      <PageShell.Section maxWidth="3xl" className="py-[var(--section-gap)]">
+        <div className="space-y-8">
           <div className="text-center space-y-2">
             <h2 className="text-3xl font-semibold tracking-tight text-foreground" style={{ letterSpacing: 'var(--heading-letter-spacing)' }}>
               From Our Kitchen
@@ -72,11 +73,11 @@ export default function EmberLandingPage() {
             </Link>
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Our Story */}
-      <section id="story" className="px-8 py-[var(--section-gap)] bg-muted/20">
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <PageShell.Section maxWidth="4xl" background="muted" className="py-[var(--section-gap)]">
+        <div id="story" className="grid md:grid-cols-2 gap-12 items-center">
           <div className="h-72 rounded-[var(--card-radius)] bg-gradient-to-br from-accent/50 to-muted flex items-center justify-center">
             <div className="text-center text-muted-foreground">
               <svg className="h-12 w-12 mx-auto mb-2 opacity-40" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor">
@@ -97,11 +98,11 @@ export default function EmberLandingPage() {
             </p>
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Location & Hours */}
-      <section id="location" className="px-8 py-[var(--section-gap)]">
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+      <PageShell.Section maxWidth="4xl" className="py-[var(--section-gap)]">
+        <div id="location" className="grid md:grid-cols-2 gap-12">
           <div className="space-y-6">
             <h2 className="text-3xl font-semibold tracking-tight text-foreground" style={{ letterSpacing: 'var(--heading-letter-spacing)' }}>
               Visit Us
@@ -137,11 +138,11 @@ export default function EmberLandingPage() {
             </div>
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Social Grid */}
-      <section className="px-8 py-[var(--section-gap)] bg-muted/20">
-        <div className="max-w-4xl mx-auto space-y-6">
+      <PageShell.Section maxWidth="4xl" background="muted" className="py-[var(--section-gap)]">
+        <div className="space-y-6">
           <div className="text-center">
             <h2 className="text-lg font-medium text-foreground">@emberandoak</h2>
             <p className="text-sm text-muted-foreground mt-1">Follow us on social media</p>
@@ -156,23 +157,21 @@ export default function EmberLandingPage() {
             ))}
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Footer */}
-      <footer className="border-t border-border px-8 py-10">
-        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="text-sm text-muted-foreground">&copy; 2026 Ember &amp; Oak. All rights reserved.</span>
-          <div className="flex gap-6">
-            {socialLinks.map((social) => (
-              <span key={social} className="text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
-                {social}
-              </span>
-            ))}
-          </div>
+      <PageShell.Footer columns={2}>
+        <span className="text-sm text-muted-foreground">&copy; 2026 Ember &amp; Oak. All rights reserved.</span>
+        <div className="flex gap-6 justify-end">
+          {socialLinks.map((social) => (
+            <span key={social} className="text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
+              {social}
+            </span>
+          ))}
         </div>
-      </footer>
+      </PageShell.Footer>
 
       <ThemeConfigPanel defaultConfig={emberConfig} />
-    </div>
+    </PageShell>
   )
 }
