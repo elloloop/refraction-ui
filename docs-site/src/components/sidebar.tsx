@@ -90,6 +90,12 @@ const componentGroups = [
   },
 ]
 
+const themeSubItems = [
+  { name: 'Theme Playground', href: '/theme' },
+  { name: 'Config Editor', href: '/theme/editor' },
+  { name: 'Generate Theme', href: '/theme/generate' },
+]
+
 const navigation = [
   {
     name: 'Home',
@@ -167,6 +173,37 @@ export function Sidebar() {
             )
           })}
         </div>
+
+        {/* Theme sub-navigation */}
+        {pathname.startsWith('/theme') && (
+          <div className="mt-4">
+            <h3 className="px-3 text-[11px] font-semibold uppercase tracking-widest text-sidebar-foreground/40 mb-2">
+              Theme
+            </h3>
+            <div className="space-y-0.5">
+              {themeSubItems.map((item) => {
+                const isActive = pathname === item.href
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
+                      isActive
+                        ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium'
+                        : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground'
+                    }`}
+                  >
+                    {isActive && (
+                      <span className="h-1 w-1 rounded-full bg-sidebar-primary flex-shrink-0" />
+                    )}
+                    <span className={isActive ? '' : 'ml-3'}>{item.name}</span>
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Component groups */}
         {componentGroups.map((group) => (
