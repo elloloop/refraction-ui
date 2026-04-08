@@ -7,8 +7,9 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     }
   },
   "files": [
@@ -29,5 +30,11 @@
   },
   "devDependencies": {},
   "sideEffects": false,
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elloloop/refraction-ui.git",
+    "directory": "packages/inline-editor"
+  },
+  "homepage": "https://elloloop.github.io/refraction-ui/"
 }

@@ -1,15 +1,16 @@
 import { Command } from "commander";
 import { loadConfig } from "./lib/config";
 import { safeWrite, findConfig } from "./lib/fs-utils";
-import pkg from "../package.json";
 import { registerInit } from "./commands/init";
+
+const VERSION = "0.1.0";
 
 export async function run(argv: string[] = process.argv) {
   const program = new Command();
   program
     .name("refraction")
     .description("Refraction UI command line interface")
-    .version(pkg.version)
+    .version(VERSION)
     .option("--dry-run", "preview actions without writing")
     .option("--verbose", "output additional logs");
 
@@ -78,6 +79,4 @@ export async function run(argv: string[] = process.argv) {
   }
 }
 
-if (require.main === module) {
-  run();
-}
+run();
