@@ -3,48 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { grandviewConfig } from '../theme-configs'
-
-const rooms = [
-  {
-    name: 'Deluxe Suite',
-    price: 450,
-    image: 'Suite with panoramic views',
-    amenities: ['King Bed', 'Ocean View', 'Private Balcony', 'Mini Bar', 'Room Service'],
-  },
-  {
-    name: 'Ocean View Room',
-    price: 320,
-    image: 'Room overlooking the ocean',
-    amenities: ['Queen Bed', 'Ocean View', 'Complimentary Breakfast', 'Wi-Fi'],
-  },
-  {
-    name: 'Standard Room',
-    price: 180,
-    image: 'Comfortable standard room',
-    amenities: ['Double Bed', 'City View', 'Wi-Fi', 'Coffee Maker'],
-  },
-]
-
-const testimonials = [
-  {
-    name: 'Sarah Mitchell',
-    date: 'March 2026',
-    rating: 5,
-    text: 'An absolutely stunning stay. The staff went above and beyond to make our anniversary special. The ocean view from the Deluxe Suite was breathtaking.',
-  },
-  {
-    name: 'James Rivera',
-    date: 'February 2026',
-    rating: 5,
-    text: 'World-class service and immaculate rooms. The restaurant alone is worth the visit. We will definitely be returning next summer.',
-  },
-  {
-    name: 'Emily Chen',
-    date: 'January 2026',
-    rating: 4,
-    text: 'Beautiful property with excellent amenities. The spa was a highlight of our trip. Only wish checkout was a bit later.',
-  },
-]
+import { rooms, testimonials } from './/config'
 
 function StarRating({ count }: { count: number }) {
   return (

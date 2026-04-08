@@ -4,39 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { momentoConfig } from '../../../theme-configs'
-
-const profileData = {
-  username: 'alex.johnson',
-  name: 'Alex Johnson',
-  avatar: 'AJ',
-  bio: 'Design engineer & photographer. Building beautiful interfaces.\nSan Francisco, CA',
-  posts: 248,
-  followers: 12400,
-  following: 892,
-}
-
-const tabs = ['Posts', 'Reels', 'Tagged']
-
-const postColors = [
-  'from-primary to-primary/70',
-  'from-primary/80 to-accent',
-  'from-accent to-primary/60',
-  'from-primary to-accent',
-  'from-primary/70 to-primary',
-  'from-primary/80 to-primary',
-  'from-accent to-primary',
-  'from-primary/60 to-accent',
-  'from-primary/50 to-primary',
-  'from-primary to-primary/60',
-  'from-accent to-primary/70',
-  'from-primary/80 to-accent',
-  'from-primary to-primary/50',
-  'from-accent to-primary/80',
-  'from-primary/70 to-accent',
-  'from-primary/60 to-primary',
-  'from-accent to-primary/60',
-  'from-primary to-primary/80',
-]
+import { profileData, tabs, postColors } from '../../config'
 
 
 function formatCount(n: number): string {

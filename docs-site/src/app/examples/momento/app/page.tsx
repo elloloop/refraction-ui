@@ -3,104 +3,13 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { momentoConfig } from '../../theme-configs'
-
-const stories = [
-  { name: 'Your Story', avatar: 'You', isOwn: true, seen: false },
-  { name: 'sophia_art', avatar: 'SA', isOwn: false, seen: false },
-  { name: 'mike.travels', avatar: 'MT', isOwn: false, seen: false },
-  { name: 'cooking_with_j', avatar: 'CJ', isOwn: false, seen: false },
-  { name: 'fit.emma', avatar: 'FE', isOwn: false, seen: true },
-  { name: 'alex.dev', avatar: 'AD', isOwn: false, seen: false },
-  { name: 'natalie.photo', avatar: 'NP', isOwn: false, seen: true },
-  { name: 'james_music', avatar: 'JM', isOwn: false, seen: true },
-]
-
-const posts = [
-  {
-    id: 1,
-    username: 'sophia_art',
-    avatar: 'SA',
-    imageColor: 'from-primary/80 to-primary',
-    imageAspect: 'aspect-square',
-    likes: 2847,
-    caption: 'Golden hour at the studio. New collection dropping this Friday.',
-    comments: 48,
-    time: '2h',
-    liked: false,
-    saved: false,
-  },
-  {
-    id: 2,
-    username: 'mike.travels',
-    avatar: 'MT',
-    imageColor: 'from-accent to-primary/60',
-    imageAspect: 'aspect-[4/5]',
-    likes: 5621,
-    caption: 'Lost in the Swiss Alps. This planet never stops amazing me.',
-    comments: 124,
-    time: '4h',
-    liked: true,
-    saved: true,
-  },
-  {
-    id: 3,
-    username: 'cooking_with_j',
-    avatar: 'CJ',
-    imageColor: 'from-primary to-accent',
-    imageAspect: 'aspect-square',
-    likes: 1203,
-    caption: 'Homemade pasta from scratch. Recipe in bio! #foodie #homemade #pasta',
-    comments: 67,
-    time: '5h',
-    liked: false,
-    saved: false,
-  },
-  {
-    id: 4,
-    username: 'alex.dev',
-    avatar: 'AD',
-    imageColor: 'from-primary/70 to-primary',
-    imageAspect: 'aspect-[4/5]',
-    likes: 892,
-    caption: 'Late night coding session. Building something cool with React Server Components.',
-    comments: 31,
-    time: '7h',
-    liked: true,
-    saved: false,
-  },
-  {
-    id: 5,
-    username: 'fit.emma',
-    avatar: 'FE',
-    imageColor: 'from-accent to-primary',
-    imageAspect: 'aspect-square',
-    likes: 3456,
-    caption: 'Morning run done. 10K in under 45 min - new personal best! Who else ran today?',
-    comments: 89,
-    time: '9h',
-    liked: false,
-    saved: false,
-  },
-  {
-    id: 6,
-    username: 'natalie.photo',
-    avatar: 'NP',
-    imageColor: 'from-primary to-primary/60',
-    imageAspect: 'aspect-[4/5]',
-    likes: 7234,
-    caption: 'Portrait session with @sophia_art. Natural light only. No retouching needed.',
-    comments: 203,
-    time: '12h',
-    liked: true,
-    saved: true,
-  },
-]
+import { stories, posts } from '../config'
 
 
 function HeartIcon({ filled }: { filled: boolean }) {
   if (filled) {
     return (
-      <svg className="h-6 w-6 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+      <svg className="h-6 w-6 text-destructive" viewBox="0 0 24 24" fill="currentColor">
         <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
       </svg>
     )

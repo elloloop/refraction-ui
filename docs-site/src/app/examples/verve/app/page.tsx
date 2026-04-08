@@ -4,24 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { verveConfig } from '../../theme-configs'
-
-const allProducts = [
-  { id: 1, name: 'Linen Blend Shirt', price: 68, category: 'Women', color: 'White', size: ['S', 'M', 'L'], rating: 4.5, image: 'Linen shirt' },
-  { id: 2, name: 'Wide Leg Trousers', price: 89, category: 'Women', color: 'Beige', size: ['S', 'M', 'L', 'XL'], rating: 4.7, image: 'Wide trousers' },
-  { id: 3, name: 'Canvas Tote Bag', price: 42, category: 'Accessories', color: 'Natural', size: ['One Size'], rating: 4.8, image: 'Canvas tote' },
-  { id: 4, name: 'Leather Sandals', price: 95, category: 'Women', color: 'Tan', size: ['6', '7', '8', '9'], rating: 4.3, image: 'Leather sandals' },
-  { id: 5, name: 'Oxford Button-Down', price: 72, category: 'Men', color: 'Blue', size: ['S', 'M', 'L', 'XL'], rating: 4.6, image: 'Oxford shirt' },
-  { id: 6, name: 'Chino Shorts', price: 58, category: 'Men', color: 'Olive', size: ['S', 'M', 'L'], rating: 4.4, image: 'Chino shorts' },
-  { id: 7, name: 'Silk Scarf', price: 36, category: 'Accessories', color: 'Multi', size: ['One Size'], rating: 4.9, image: 'Silk scarf' },
-  { id: 8, name: 'Wool Blend Blazer', price: 148, category: 'Women', color: 'Charcoal', size: ['S', 'M', 'L'], rating: 4.7, image: 'Wool blazer' },
-  { id: 9, name: 'Relaxed Fit Jeans', price: 82, category: 'Men', color: 'Indigo', size: ['30', '32', '34', '36'], rating: 4.5, image: 'Relaxed jeans' },
-  { id: 10, name: 'Leather Belt', price: 45, category: 'Accessories', color: 'Black', size: ['S', 'M', 'L'], rating: 4.6, image: 'Leather belt' },
-  { id: 11, name: 'Knit Polo', price: 64, category: 'Men', color: 'Navy', size: ['S', 'M', 'L', 'XL'], rating: 4.3, image: 'Knit polo' },
-  { id: 12, name: 'Midi Wrap Dress', price: 112, category: 'Women', color: 'Sage', size: ['XS', 'S', 'M', 'L'], rating: 4.8, image: 'Wrap dress' },
-]
-
-const categoriesFilter = ['All', 'Women', 'Men', 'Accessories']
-const priceRanges = ['All', 'Under $50', '$50 - $100', 'Over $100']
+import { allProducts, categoriesFilter } from '../config'
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -115,7 +98,7 @@ export default function EcommerceProductListing() {
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Color</h3>
             <div className="flex flex-wrap gap-2">
-              {['bg-foreground', 'bg-background border border-border', 'bg-blue-500', 'bg-warning/60', 'bg-success/60', 'bg-muted-foreground'].map((cls, i) => (
+              {['bg-foreground', 'bg-background border border-border', 'bg-primary', 'bg-warning/60', 'bg-success/60', 'bg-muted-foreground'].map((cls, i) => (
                 <button key={i} className={`w-6 h-6 rounded-full ${cls} hover:ring-2 hover:ring-primary/30 transition-all`} />
               ))}
             </div>

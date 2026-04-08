@@ -4,155 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { teamspaceConfig } from '../../theme-configs'
-
-const channels = [
-  { name: 'general', unread: 3 },
-  { name: 'engineering', unread: 0 },
-  { name: 'random', unread: 12 },
-  { name: 'design', unread: 1 },
-  { name: 'marketing', unread: 0 },
-]
-
-const dms = [
-  { name: 'Sarah Kim', status: 'online', avatar: 'SK' },
-  { name: 'Mike Rodriguez', status: 'online', avatar: 'MR' },
-  { name: 'Lisa Monroe', status: 'offline', avatar: 'LM' },
-  { name: 'James Chen', status: 'away', avatar: 'JC' },
-  { name: 'Ana Petrova', status: 'online', avatar: 'AP' },
-]
-
-const messages = [
-  {
-    id: 1,
-    user: 'Sarah Kim',
-    avatar: 'SK',
-    time: '9:15 AM',
-    text: 'Good morning team! The new CI pipeline is live. Build times dropped from 8 min to under 3 min.',
-    reactions: [{ emoji: '🎉', count: 5 }, { emoji: '🚀', count: 3 }],
-    thread: 2,
-  },
-  {
-    id: 2,
-    user: 'Mike Rodriguez',
-    avatar: 'MR',
-    time: '9:18 AM',
-    text: 'Incredible! How did you manage that?',
-    reactions: [],
-    thread: 0,
-  },
-  {
-    id: 3,
-    user: 'Sarah Kim',
-    avatar: 'SK',
-    time: '9:20 AM',
-    text: 'Switched to incremental builds + parallel test sharding. Here\'s the config:',
-    reactions: [],
-    thread: 0,
-  },
-  {
-    id: 4,
-    user: 'Sarah Kim',
-    avatar: 'SK',
-    time: '9:20 AM',
-    text: null,
-    code: `# turbo.json
-{
-  "pipeline": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
-    },
-    "test": {
-      "dependsOn": ["build"],
-      "outputs": ["coverage/**"]
-    }
-  }
-}`,
-    reactions: [{ emoji: '👀', count: 2 }],
-    thread: 0,
-  },
-  {
-    id: 5,
-    user: 'Lisa Monroe',
-    avatar: 'LM',
-    time: '9:32 AM',
-    text: 'The design system updates are ready for review: https://figma.com/file/abc123',
-    reactions: [{ emoji: '👍', count: 4 }],
-    thread: 3,
-  },
-  {
-    id: 6,
-    user: 'James Chen',
-    avatar: 'JC',
-    time: '9:45 AM',
-    text: 'Has anyone tested the new auth flow on mobile? I\'m seeing some weird behavior with the SSO redirect.',
-    reactions: [],
-    thread: 1,
-  },
-  {
-    id: 7,
-    user: 'Ana Petrova',
-    avatar: 'AP',
-    time: '9:48 AM',
-    text: '@James Chen Yes, reproduced on iOS Safari. Looks like the callback URL is missing the port in dev mode. Quick fix:',
-    reactions: [],
-    thread: 0,
-  },
-  {
-    id: 8,
-    user: 'Ana Petrova',
-    avatar: 'AP',
-    time: '9:48 AM',
-    text: null,
-    code: `const callbackUrl = process.env.NODE_ENV === 'development'
-  ? \`http://localhost:\${port}/auth/callback\`
-  : \`\${process.env.NEXT_PUBLIC_URL}/auth/callback\`;`,
-    reactions: [{ emoji: '🙏', count: 1 }],
-    thread: 0,
-  },
-  {
-    id: 9,
-    user: 'Mike Rodriguez',
-    avatar: 'MR',
-    time: '10:02 AM',
-    text: 'Reminder: Sprint retro at 2pm today. Please add your items to the board before then.',
-    reactions: [{ emoji: '✅', count: 6 }],
-    thread: 0,
-  },
-  {
-    id: 10,
-    user: 'Lisa Monroe',
-    avatar: 'LM',
-    time: '10:15 AM',
-    text: 'Just published the updated component library docs. Check the new color token page!',
-    reactions: [{ emoji: '🎨', count: 3 }, { emoji: '💯', count: 2 }],
-    thread: 5,
-  },
-  {
-    id: 11,
-    user: 'James Chen',
-    avatar: 'JC',
-    time: '10:30 AM',
-    text: 'Fixed the SSO issue. PR is up: #1247. Ana, could you review when you get a chance?',
-    reactions: [{ emoji: '🔥', count: 2 }],
-    thread: 0,
-  },
-  {
-    id: 12,
-    user: 'Sarah Kim',
-    avatar: 'SK',
-    time: '10:45 AM',
-    text: 'Team standup notes are in the wiki. Big milestone: we hit 99.9% uptime this quarter!',
-    reactions: [{ emoji: '🎉', count: 8 }, { emoji: '🏆', count: 4 }],
-    thread: 0,
-  },
-]
-
-const threadMessages = [
-  { user: 'Mike Rodriguez', avatar: 'MR', time: '9:20 AM', text: 'This is a huge win for DX!' },
-  { user: 'Lisa Monroe', avatar: 'LM', time: '9:25 AM', text: 'Can we apply the same approach to the staging pipeline?' },
-  { user: 'Sarah Kim', avatar: 'SK', time: '9:30 AM', text: 'Absolutely! I\'ll create a ticket for it.' },
-]
+import { channels, dms, messages, threadMessages } from '../config'
 
 const teamspaceTheme = `:root {
   --primary: 220 72% 50%;
@@ -230,7 +82,7 @@ export default function TeamspaceAppPage() {
                   >
                     <span className="truncate"># {ch.name}</span>
                     {ch.unread > 0 && (
-                      <span className="bg-red-500 text-white text-xs rounded-full px-1.5 min-w-[1.25rem] text-center font-medium">
+                      <span className="bg-destructive text-destructive-foreground text-xs rounded-full px-1.5 min-w-[1.25rem] text-center font-medium">
                         {ch.unread}
                       </span>
                     )}
@@ -257,10 +109,10 @@ export default function TeamspaceAppPage() {
                       <span
                         className={`absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[hsl(var(--sidebar-background))] ${
                           dm.status === 'online'
-                            ? 'bg-green-400'
+                            ? 'bg-success'
                             : dm.status === 'away'
-                            ? 'bg-yellow-400'
-                            : 'bg-gray-500'
+                            ? 'bg-warning'
+                            : 'bg-muted-foreground'
                         }`}
                       />
                     </span>

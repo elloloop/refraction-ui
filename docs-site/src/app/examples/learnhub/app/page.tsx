@@ -4,21 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { learnhubConfig } from '../../theme-configs'
-
-const allCourses = [
-  { title: 'Full-Stack Web Development', instructor: 'Jason Park', rating: 4.8, students: 12400, price: '$79', category: 'Programming', color: 'from-primary/20 to-primary/5' },
-  { title: 'UI/UX Design Fundamentals', instructor: 'Maria Santos', rating: 4.9, students: 8900, price: '$49', category: 'Design', color: 'from-[hsl(var(--chart-2))]/20 to-[hsl(var(--chart-2))]/5' },
-  { title: 'Data Science with Python', instructor: 'Dr. Lin Wei', rating: 4.7, students: 15200, price: '$99', category: 'Programming', color: 'from-[hsl(var(--chart-3))]/20 to-[hsl(var(--chart-3))]/5' },
-  { title: 'Digital Marketing Strategy', instructor: 'Sophie Turner', rating: 4.6, students: 6300, price: '$19', category: 'Business', color: 'from-[hsl(var(--chart-4))]/20 to-[hsl(var(--chart-4))]/5' },
-  { title: 'React & Next.js Masterclass', instructor: 'Jason Park', rating: 4.9, students: 9800, price: '$89', category: 'Programming', color: 'from-primary/20 to-primary/5' },
-  { title: 'Graphic Design for Beginners', instructor: 'Alex Rivera', rating: 4.5, students: 4200, price: '$29', category: 'Design', color: 'from-[hsl(var(--chart-5))]/20 to-[hsl(var(--chart-5))]/5' },
-  { title: 'Business Analytics & BI', instructor: 'Emma Clarke', rating: 4.7, students: 7100, price: '$69', category: 'Business', color: 'from-[hsl(var(--chart-3))]/20 to-[hsl(var(--chart-3))]/5' },
-  { title: 'Introduction to Physics', instructor: 'Dr. Raj Mehta', rating: 4.8, students: 3400, price: '$39', category: 'Science', color: 'from-[hsl(var(--chart-2))]/20 to-[hsl(var(--chart-2))]/5' },
-  { title: 'Spanish for Professionals', instructor: 'Carmen Lopez', rating: 4.6, students: 5600, price: '$29', category: 'Language', color: 'from-[hsl(var(--chart-4))]/20 to-[hsl(var(--chart-4))]/5' },
-  { title: 'Machine Learning Fundamentals', instructor: 'Dr. Lin Wei', rating: 4.8, students: 11300, price: '$99', category: 'Programming', color: 'from-primary/20 to-primary/5' },
-]
-
-const categories = ['All', 'Programming', 'Design', 'Business', 'Science', 'Language']
+import { allCourses, categories } from '../config'
 
 const themeConfig = `:root {
   --primary: 262 52% 47%;

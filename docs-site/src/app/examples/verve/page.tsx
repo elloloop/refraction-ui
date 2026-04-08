@@ -4,20 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { verveConfig } from '../theme-configs'
-
-const featuredProducts = [
-  { id: 1, name: 'Linen Blend Shirt', price: '$68', image: 'Relaxed linen shirt' },
-  { id: 2, name: 'Wide Leg Trousers', price: '$89', image: 'Flowing wide leg trousers' },
-  { id: 3, name: 'Canvas Tote Bag', price: '$42', image: 'Everyday canvas tote' },
-  { id: 4, name: 'Leather Sandals', price: '$95', image: 'Handcrafted leather sandals' },
-]
-
-const categoryCards = [
-  { name: 'Women', count: '240+ items' },
-  { name: 'Men', count: '180+ items' },
-  { name: 'Accessories', count: '120+ items' },
-  { name: 'Sale', count: 'Up to 50% off' },
-]
+import { featuredProducts, categoryCards } from './/config'
 
 export default function VerveLandingPage() {
   const [email, setEmail] = useState('')

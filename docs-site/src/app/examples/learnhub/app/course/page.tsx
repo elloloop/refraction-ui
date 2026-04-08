@@ -4,48 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { learnhubConfig } from '../../../theme-configs'
-
-const curriculum = [
-  {
-    section: 'Getting Started',
-    lessons: [
-      { title: 'Welcome & Course Overview', duration: '5 min', locked: false },
-      { title: 'Setting Up Your Environment', duration: '12 min', locked: false },
-      { title: 'Your First Project', duration: '18 min', locked: false },
-    ],
-  },
-  {
-    section: 'Core Concepts',
-    lessons: [
-      { title: 'Understanding Components', duration: '22 min', locked: false },
-      { title: 'State Management Deep Dive', duration: '28 min', locked: true },
-      { title: 'Routing & Navigation', duration: '20 min', locked: true },
-      { title: 'API Integration', duration: '25 min', locked: true },
-    ],
-  },
-  {
-    section: 'Advanced Topics',
-    lessons: [
-      { title: 'Performance Optimization', duration: '30 min', locked: true },
-      { title: 'Testing Strategies', duration: '24 min', locked: true },
-      { title: 'Deployment & CI/CD', duration: '18 min', locked: true },
-    ],
-  },
-  {
-    section: 'Final Project',
-    lessons: [
-      { title: 'Project Requirements', duration: '10 min', locked: true },
-      { title: 'Building the Application', duration: '45 min', locked: true },
-      { title: 'Code Review & Wrap Up', duration: '15 min', locked: true },
-    ],
-  },
-]
-
-const reviews = [
-  { name: 'Alex Kim', rating: 5, text: 'Best course I have taken on web development. Jason explains complex topics in a very approachable way.', date: 'Mar 15, 2026' },
-  { name: 'Sarah Johnson', rating: 5, text: 'The projects were incredibly practical. I built my portfolio site during the course and landed a job.', date: 'Feb 28, 2026' },
-  { name: 'David Chen', rating: 4, text: 'Great content overall. Would love to see more content on server-side rendering in the next update.', date: 'Feb 10, 2026' },
-]
+import { curriculum, reviews } from '../../config'
 
 const themeConfig = `:root {
   --primary: 262 52% 47%;

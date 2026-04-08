@@ -3,29 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { emberConfig } from '../theme-configs'
-
-const menuHighlights = [
-  {
-    name: 'Pan-Seared Scallops',
-    description: 'Hokkaido scallops with cauliflower puree, brown butter, and crispy capers',
-    price: '$38',
-  },
-  {
-    name: 'Wagyu Beef Tenderloin',
-    description: 'A5 wagyu with truffle jus, roasted bone marrow, and seasonal vegetables',
-    price: '$72',
-  },
-  {
-    name: 'Wild Mushroom Risotto',
-    description: 'Arborio rice with porcini, chanterelle, and shaved Parmigiano-Reggiano',
-    price: '$28',
-  },
-  {
-    name: 'Tarte Tatin',
-    description: 'Caramelized apple tart with vanilla bean ice cream and salted caramel',
-    price: '$18',
-  },
-]
+import { menuHighlights } from './/config'
 
 export default function EmberLandingPage() {
   return (

@@ -3,25 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { teamspaceConfig } from '../../../theme-configs'
-
-const allChannels = [
-  { name: 'general', description: 'Company-wide announcements and work-based matters', members: 156, isJoined: true },
-  { name: 'engineering', description: 'Engineering team discussions, code reviews, and architecture decisions', members: 42, isJoined: true },
-  { name: 'random', description: 'Non-work banter and water cooler conversation', members: 148, isJoined: true },
-  { name: 'design', description: 'Design system updates, UI reviews, and creative discussions', members: 28, isJoined: true },
-  { name: 'marketing', description: 'Campaign planning, content strategy, and brand discussions', members: 35, isJoined: true },
-  { name: 'product', description: 'Product roadmap, feature requests, and user feedback', members: 52, isJoined: false },
-  { name: 'frontend', description: 'React, CSS, TypeScript, and all things frontend', members: 31, isJoined: false },
-  { name: 'backend', description: 'APIs, databases, infrastructure, and server-side discussions', members: 27, isJoined: false },
-  { name: 'devops', description: 'CI/CD, monitoring, deployment, and infrastructure as code', members: 18, isJoined: false },
-  { name: 'qa-testing', description: 'Quality assurance, test automation, and bug reports', members: 22, isJoined: false },
-  { name: 'hiring', description: 'Open positions, referrals, and recruitment updates', members: 45, isJoined: false },
-  { name: 'social-events', description: 'Team outings, celebrations, and fun activities', members: 120, isJoined: false },
-  { name: 'book-club', description: 'Monthly book picks, discussions, and recommendations', members: 34, isJoined: false },
-  { name: 'fitness', description: 'Workout tips, running groups, and health challenges', members: 56, isJoined: false },
-  { name: 'pets', description: 'Share photos and stories of your furry (and not so furry) friends', members: 89, isJoined: false },
-  { name: 'food-recipes', description: 'Cooking tips, restaurant reviews, and recipe sharing', members: 67, isJoined: false },
-]
+import { allChannels } from '../../config'
 
 const teamspaceTheme = `:root {
   --primary: 220 72% 50%;
