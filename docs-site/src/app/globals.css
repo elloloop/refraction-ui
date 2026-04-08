@@ -69,17 +69,29 @@
   /* Layout */
   --radius: 0.375rem;
 
-  /* Shadows — Linear-style, barely there */
+  /* Shadows */
+  --shadow-none: none;
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
   --shadow-md: 0 2px 4px -1px rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.03);
   --shadow-lg: 0 6px 10px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03);
   --shadow-xl: 0 12px 20px -4px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.03);
 
-  /* Branding */
+  /* Glass & overlay */
   --overlay-opacity: 0.5;
   --backdrop-blur: 8px;
   --glass-bg: rgba(252, 252, 253, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.15);
+
+  /* Spacing & density */
   --spacing-scale: 1;
+  --container-max-width: 1280px;
+  --container-padding: 2rem;
+  --card-padding: 1.5rem;
+  --input-height: 2.5rem;
+  --button-height: 2.25rem;
+  --section-gap: 4rem;
+
+  /* Typography tokens */
   --letter-spacing-tighter: -0.04em;
   --letter-spacing-tight: -0.02em;
   --letter-spacing-normal: 0;
@@ -89,17 +101,88 @@
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.7;
   --heading-weight: 600;
-  --border-width: 1px;
-  --transition-duration: 150ms;
-  --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
-  --container-max-width: 1280px;
-  --container-padding: 2rem;
+  --heading-letter-spacing: -0.02em;
+  --heading-line-height: 1.2;
+
+  /* Shape language */
   --radius-none: 0;
   --radius-sm: 0.25rem;
   --radius-md: 0.375rem;
   --radius-lg: 0.5rem;
   --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
   --radius-full: 9999px;
+  --avatar-radius: 9999px;
+  --badge-radius: 9999px;
+  --button-radius: 0.375rem;
+  --input-radius: 0.375rem;
+  --card-radius: 0.5rem;
+  --tooltip-radius: 0.375rem;
+
+  /* Component shadows */
+  --card-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --dropdown-shadow: 0 6px 10px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+  --dialog-shadow: 0 12px 20px -4px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+  --button-shadow: none;
+
+  /* Borders & dividers */
+  --border-width: 1px;
+  --border-style: solid;
+  --divider-style: solid;
+  --divider-opacity: 0.15;
+
+  /* Inputs */
+  --input-style: bordered;
+  --input-border-on-focus: 0;
+  --placeholder-opacity: 0.5;
+
+  /* Buttons */
+  --button-style: filled;
+  --button-weight: 500;
+  --hover-effect: darken;
+  --active-effect: scale-down;
+  --disabled-opacity: 0.5;
+
+  /* Links */
+  --link-style: color-only;
+  --link-weight: inherit;
+
+  /* Focus */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-style: ring;
+
+  /* Icons */
+  --icon-style: outlined;
+  --icon-stroke-width: 1.5;
+  --icon-size: 1.25rem;
+
+  /* Scrollbar */
+  --scrollbar-style: thin;
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(0, 0, 0, 0.15);
+
+  /* Selection */
+  --selection-background: 250 50% 50%;
+  --selection-foreground: 0 0% 100%;
+
+  /* Tooltips */
+  --tooltip-style: dark;
+
+  /* Tables */
+  --table-style: clean;
+  --table-header-weight: 600;
+
+  /* Loading */
+  --spinner-style: circle;
+
+  /* Motion */
+  --transition-duration: 150ms;
+  --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-speed: fast;
+  --hover-transition: 150ms ease;
+  --enter-transition: 200ms ease-out;
+  --exit-transition: 150ms ease-in;
 }
 
 .dark {
@@ -168,11 +251,13 @@
   }
 
   ::selection {
-    @apply bg-primary/20 text-foreground;
+    background: hsl(var(--selection-background) / 0.2);
+    color: hsl(var(--foreground));
   }
 
   ::-moz-selection {
-    @apply bg-primary/20 text-foreground;
+    background: hsl(var(--selection-background) / 0.2);
+    color: hsl(var(--foreground));
   }
 
   /* Smooth scroll for anchor links */

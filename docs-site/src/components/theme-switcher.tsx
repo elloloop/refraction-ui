@@ -44,6 +44,7 @@ function applyTheme(theme: ThemeDefinition) {
   root.style.setProperty('--radius-md', theme.radiusScale.md)
   root.style.setProperty('--radius-lg', theme.radiusScale.lg)
   root.style.setProperty('--radius-xl', theme.radiusScale.xl)
+  root.style.setProperty('--radius-2xl', theme.radiusScale['2xl'])
   root.style.setProperty('--radius-full', theme.radiusScale.full)
 
   // Apply shadows
@@ -51,11 +52,22 @@ function applyTheme(theme: ThemeDefinition) {
     root.style.setProperty(`--shadow-${key}`, value)
   }
 
-  // Apply branding
+  // Apply glass & overlay
   root.style.setProperty('--overlay-opacity', theme.overlayOpacity)
   root.style.setProperty('--backdrop-blur', theme.backdropBlur)
   root.style.setProperty('--glass-bg', theme.glassBackground)
+  root.style.setProperty('--glass-border', theme.glassBorder)
+
+  // Apply spacing & density
   root.style.setProperty('--spacing-scale', String(theme.spacingScale))
+  root.style.setProperty('--container-max-width', theme.containerMaxWidth)
+  root.style.setProperty('--container-padding', theme.containerPadding)
+  root.style.setProperty('--card-padding', theme.cardPadding)
+  root.style.setProperty('--input-height', theme.inputHeight)
+  root.style.setProperty('--button-height', theme.buttonHeight)
+  root.style.setProperty('--section-gap', theme.sectionGap)
+
+  // Apply typography
   root.style.setProperty('--letter-spacing-tighter', theme.letterSpacing.tighter)
   root.style.setProperty('--letter-spacing-tight', theme.letterSpacing.tight)
   root.style.setProperty('--letter-spacing-normal', theme.letterSpacing.normal)
@@ -65,11 +77,81 @@ function applyTheme(theme: ThemeDefinition) {
   root.style.setProperty('--line-height-normal', theme.lineHeight.normal)
   root.style.setProperty('--line-height-relaxed', theme.lineHeight.relaxed)
   root.style.setProperty('--heading-weight', theme.headingWeight)
+  root.style.setProperty('--heading-letter-spacing', theme.headingLetterSpacing)
+  root.style.setProperty('--heading-line-height', theme.headingLineHeight)
+
+  // Apply shape language
+  root.style.setProperty('--avatar-radius', theme.avatarRadius)
+  root.style.setProperty('--badge-radius', theme.badgeRadius)
+  root.style.setProperty('--button-radius', theme.buttonRadius)
+  root.style.setProperty('--input-radius', theme.inputRadius)
+  root.style.setProperty('--card-radius', theme.cardRadius)
+  root.style.setProperty('--tooltip-radius', theme.tooltipRadius)
+
+  // Apply component shadows
+  root.style.setProperty('--card-shadow', theme.cardShadow)
+  root.style.setProperty('--dropdown-shadow', theme.dropdownShadow)
+  root.style.setProperty('--dialog-shadow', theme.dialogShadow)
+  root.style.setProperty('--button-shadow', theme.buttonShadow)
+
+  // Apply borders & dividers
   root.style.setProperty('--border-width', theme.borderWidth)
+  root.style.setProperty('--border-style', theme.borderStyle)
+  root.style.setProperty('--divider-style', theme.dividerStyle)
+  root.style.setProperty('--divider-opacity', theme.dividerOpacity)
+
+  // Apply input styles
+  root.style.setProperty('--input-style', theme.inputStyle)
+  root.style.setProperty('--input-border-on-focus', theme.inputBorderOnFocus ? '1' : '0')
+  root.style.setProperty('--placeholder-opacity', theme.placeholderOpacity)
+
+  // Apply button styles
+  root.style.setProperty('--button-style', theme.buttonStyle)
+  root.style.setProperty('--button-weight', theme.buttonWeight)
+  root.style.setProperty('--hover-effect', theme.hoverEffect)
+  root.style.setProperty('--active-effect', theme.activeEffect)
+  root.style.setProperty('--disabled-opacity', theme.disabledOpacity)
+
+  // Apply link styles
+  root.style.setProperty('--link-style', theme.linkStyle)
+  root.style.setProperty('--link-weight', theme.linkWeight)
+
+  // Apply focus styles
+  root.style.setProperty('--focus-ring-width', theme.focusRingWidth)
+  root.style.setProperty('--focus-ring-offset', theme.focusRingOffset)
+  root.style.setProperty('--focus-ring-style', theme.focusRingStyle)
+
+  // Apply icon styles
+  root.style.setProperty('--icon-style', theme.iconStyle)
+  root.style.setProperty('--icon-stroke-width', theme.iconStrokeWidth)
+  root.style.setProperty('--icon-size', theme.iconSize)
+
+  // Apply scrollbar styles
+  root.style.setProperty('--scrollbar-style', theme.scrollbarStyle)
+  root.style.setProperty('--scrollbar-track', theme.scrollbarTrack)
+  root.style.setProperty('--scrollbar-thumb', theme.scrollbarThumb)
+
+  // Apply selection styles
+  root.style.setProperty('--selection-background', theme.selectionBackground)
+  root.style.setProperty('--selection-foreground', theme.selectionForeground)
+
+  // Apply tooltip styles
+  root.style.setProperty('--tooltip-style', theme.tooltipStyle)
+
+  // Apply table styles
+  root.style.setProperty('--table-style', theme.tableStyle)
+  root.style.setProperty('--table-header-weight', theme.tableHeaderWeight)
+
+  // Apply spinner style
+  root.style.setProperty('--spinner-style', theme.spinnerStyle)
+
+  // Apply motion
   root.style.setProperty('--transition-duration', theme.transitionDuration)
   root.style.setProperty('--transition-easing', theme.transitionEasing)
-  root.style.setProperty('--container-max-width', theme.containerMaxWidth)
-  root.style.setProperty('--container-padding', theme.containerPadding)
+  root.style.setProperty('--animation-speed', theme.animationSpeed)
+  root.style.setProperty('--hover-transition', theme.hoverTransition)
+  root.style.setProperty('--enter-transition', theme.enterTransition)
+  root.style.setProperty('--exit-transition', theme.exitTransition)
 }
 
 /** Convert HSL string "h s% l%" to a CSS hsl() color for swatch display */
