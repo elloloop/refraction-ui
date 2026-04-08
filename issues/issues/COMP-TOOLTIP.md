@@ -10,6 +10,23 @@ labels: [feat, a11y]
 
 Build Tooltip primitive and styled wrapper
 
+### Packages
+
+| Package | Type | Description |
+|---------|------|-------------|
+| `@refraction-ui/tooltip` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@refraction-ui/react-tooltip` | React wrapper | React component with hooks binding |
+| `@refraction-ui/angular-tooltip` | Angular wrapper | Angular standalone component |
+| `@refraction-ui/astro-tooltip` | Astro wrapper | Astro component (static or island) |
+
+## Source References
+
+| Project | File | Implementation |
+|---------|------|----------------|
+| **elloloop/stream-mind** | `frontend/src/components/ui/tooltip.tsx` | `Tooltip`, `TooltipTrigger`, `TooltipContent`, `TooltipProvider`. Built on `@base-ui/react/tooltip`. Arrow indicator, configurable placement. |
+
+**Recommended base**: stream-mind version (@base-ui/react) — only implementation found, with arrow support.
+
 ## Acceptance Criteria
 
 - [ ] Tooltip component renders as floating text with trigger

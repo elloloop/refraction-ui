@@ -10,6 +10,23 @@ labels: [feat, a11y]
 
 Build Toast primitive and styled wrapper
 
+### Packages
+
+| Package | Type | Description |
+|---------|------|-------------|
+| `@refraction-ui/toast` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@refraction-ui/react-toast` | React wrapper | React component with hooks binding |
+| `@refraction-ui/angular-toast` | Angular wrapper | Angular standalone component |
+| `@refraction-ui/astro-toast` | Astro wrapper | Astro component (static or island) |
+
+## Source References
+
+| Project | File | Implementation |
+|---------|------|----------------|
+| **elloloop/stream-mind** | `frontend/src/packages/ui/Toast.tsx` | `ToastProvider` + `useToast` hook. Context-based. Three types: success (green), error (red), neutral (gray). Auto-dismiss after 3s. Animated entrance/exit (`toastIn`/`toastOut` keyframes). Bottom center position. |
+
+**Recommended base**: stream-mind version — only implementation found, clean context+hook pattern.
+
 ## Acceptance Criteria
 
 - [ ] Toast component renders as notification with proper positioning

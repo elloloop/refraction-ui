@@ -10,6 +10,25 @@ labels: [feat, a11y]
 
 Build Tabs primitive and styled wrapper
 
+### Packages
+
+| Package | Type | Description |
+|---------|------|-------------|
+| `@refraction-ui/tabs` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@refraction-ui/react-tabs` | React wrapper | React component with hooks binding |
+| `@refraction-ui/angular-tabs` | Angular wrapper | Angular standalone component |
+| `@refraction-ui/astro-tabs` | Astro wrapper | Astro component (static or island) |
+
+## Source References
+
+| Project | File | Implementation |
+|---------|------|----------------|
+| **elloloop/easyloops** | `src/features/question/components/TestResultsPanel.tsx` | Tabbed output panel with Console tab and per-test-case tabs. Active tab highlighting. |
+| **elloloop/stream-mind** | `frontend/src/packages/ui/RegionPicker.tsx` | Two-tab interface (Region / Languages) inside a Popover. Tab-style navigation. |
+| **elloloop/learnloop** | `components/tutoring/VideoControlBar.tsx` | YouTube-style control bar with tab-like speed selector (0.5x/1x/1.5x/2x). |
+
+**Note**: No project has a dedicated, extracted Tabs component — all use inline tab implementations. This will be a new headless + styled component, informed by the patterns above.
+
 ## Acceptance Criteria
 
 - [ ] Tabs component renders as tab list with tab panels

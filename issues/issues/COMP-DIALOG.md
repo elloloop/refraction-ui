@@ -10,6 +10,27 @@ labels: [feat, a11y]
 
 Build Dialog (modal) primitive and styled wrapper
 
+### Packages
+
+| Package | Type | Description |
+|---------|------|-------------|
+| `@refraction-ui/dialog` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@refraction-ui/react-dialog` | React wrapper | React component with hooks binding |
+| `@refraction-ui/angular-dialog` | Angular wrapper | Angular standalone component |
+| `@refraction-ui/astro-dialog` | Astro wrapper | Astro component (static or island) |
+
+## Source References
+
+| Project | File | Implementation |
+|---------|------|----------------|
+| **elloloop/stream-mind** | `frontend/src/components/ui/dialog.tsx` | Full system: `Dialog`, `DialogTrigger`, `DialogPortal`, `DialogClose`, `DialogOverlay`, `DialogContent`, `DialogHeader`, `DialogFooter`, `DialogTitle`, `DialogDescription`. Built on `@base-ui/react/dialog`. Animated open/close with backdrop blur. |
+| **elloloop/stream-mind** | `frontend/src/features/movie/MovieDetails.tsx` | Bottom sheet on mobile (drag-to-close), centered modal on desktop. Keyboard: Escape, Left/Right arrows. |
+| **elloloop/tell-a-tale** | `src/features/admin/components/DatePopup.tsx` | Hand-rolled fixed-position overlay modal. `bg-black/50` backdrop, centered card. Not using Radix Dialog. |
+| **elloloop/stream-mind** | `frontend/src/features/circle/CreateCircleModal.tsx` | Modal with form inside. Transitions to success state. |
+| **elloloop/featuredocs** | `src/components/FeedbackDialog.tsx` | Modal with form, captcha, success animation. |
+
+**Recommended base**: stream-mind version (@base-ui/react) — most complete compound component pattern with all sub-components.
+
 ## Acceptance Criteria
 
 - [ ] Dialog component renders as modal overlay with backdrop

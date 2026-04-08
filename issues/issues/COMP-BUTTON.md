@@ -10,6 +10,27 @@ labels: [feat, a11y]
 
 Build Button primitive and styled wrapper
 
+### Packages
+
+| Package | Type | Description |
+|---------|------|-------------|
+| `@refraction-ui/button` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@refraction-ui/react-button` | React wrapper | React component with hooks binding |
+| `@refraction-ui/angular-button` | Angular wrapper | Angular standalone component |
+| `@refraction-ui/astro-button` | Astro wrapper | Astro component (static or island) |
+
+## Source References
+
+| Project | File | Implementation |
+|---------|------|----------------|
+| **elloloop/stream-mind** | `frontend/src/components/ui/button.tsx` | `Button` + `buttonVariants` via CVA + `@base-ui/react/button`. Variants: default, outline, secondary, ghost, destructive, link. Sizes: xs, sm, default, lg, icon. |
+| **elloloop/tell-a-tale** | `src/shared/components/ui/button.tsx` | shadcn/ui Button via `@radix-ui/react-slot` + CVA. Variants: default, destructive, outline, secondary, ghost, link. Sizes: default, sm, lg, icon. `asChild` support. |
+| **elloloop/one-mission** | `src/shared/components/ui/button.tsx` | Identical to tell-a-tale (same shadcn template). |
+| **elloloop/easyloops** | Various inline | No extracted Button — uses raw `<button>` with Tailwind classes throughout. |
+| **elloloop/learnloop** | `app/globals.css` | `.btn-primary`, `.btn-secondary`, `.btn-ghost`, `.btn-outline` CSS component classes with dark variants. |
+
+**Recommended base**: stream-mind version (CVA + @base-ui/react) — most complete variant set with xs size and icon variants.
+
 ## Acceptance Criteria
 
 - [ ] Button component renders as `<button>` element by default

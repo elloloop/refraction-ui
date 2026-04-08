@@ -1,0 +1,30 @@
+{
+  "name": "refraction-ui",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "turbo build",
+    "test": "turbo test",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test:coverage": "turbo test:coverage",
+    "changeset": "changeset",
+    "release": "changeset publish",
+    "generate": "node scripts/generate-package.mjs"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.0",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "eslint": "^8.50.0",
+    "tsup": "^8.4.0",
+    "turbo": "^2.5.5",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  },
+  "packageManager": "pnpm@10.13.1",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

@@ -10,6 +10,25 @@ labels: [feat, a11y]
 
 Build Dropdown Menu primitive and styled wrapper
 
+### Packages
+
+| Package | Type | Description |
+|---------|------|-------------|
+| `@refraction-ui/dropdown-menu` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@refraction-ui/react-dropdown-menu` | React wrapper | React component with hooks binding |
+| `@refraction-ui/angular-dropdown-menu` | Angular wrapper | Angular standalone component |
+| `@refraction-ui/astro-dropdown-menu` | Astro wrapper | Astro component (static or island) |
+
+## Source References
+
+| Project | File | Implementation |
+|---------|------|----------------|
+| **elloloop/stream-mind** | `frontend/src/components/ui/dropdown-menu.tsx` | Full compound system: `DropdownMenu`, `DropdownMenuTrigger`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuLabel`, `DropdownMenuItem`, `DropdownMenuSub`, `DropdownMenuSubTrigger`, `DropdownMenuSubContent`, `DropdownMenuCheckboxItem`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuSeparator`, `DropdownMenuShortcut`. Built on `@base-ui/react/menu`. Supports sub-menus, checkbox items, radio items. |
+| **elloloop/easyloops** | `src/shared/components/ThemeToggle.tsx` | Custom dropdown (not using Radix/base-ui). Click-outside-to-close. Checkmark on selected. |
+| **elloloop/easyloops** | `src/features/auth/components/LanguageSelector.tsx` | Custom dropdown for programming language selection. Same pattern as ThemeToggle dropdown. |
+
+**Recommended base**: stream-mind version (@base-ui/react) — most complete with sub-menus, checkbox/radio items, and shortcut hints.
+
 ## Acceptance Criteria
 
 - [ ] Dropdown component renders as menu with trigger button

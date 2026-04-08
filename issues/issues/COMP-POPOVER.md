@@ -10,6 +10,24 @@ labels: [feat, a11y]
 
 Build Popover primitive and styled wrapper
 
+### Packages
+
+| Package | Type | Description |
+|---------|------|-------------|
+| `@refraction-ui/popover` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@refraction-ui/react-popover` | React wrapper | React component with hooks binding |
+| `@refraction-ui/angular-popover` | Angular wrapper | Angular standalone component |
+| `@refraction-ui/astro-popover` | Astro wrapper | Astro component (static or island) |
+
+## Source References
+
+| Project | File | Implementation |
+|---------|------|----------------|
+| **elloloop/stream-mind** | `frontend/src/components/ui/popover.tsx` | `Popover`, `PopoverTrigger`, `PopoverContent`, `PopoverHeader`, `PopoverTitle`, `PopoverDescription`. Built on `@base-ui/react/popover`. Animated with positioning. |
+| **elloloop/stream-mind** | `frontend/src/packages/ui/RegionPicker.tsx` | Uses Popover + Command for searchable country/language picker. Two tabs. |
+
+**Recommended base**: stream-mind version (@base-ui/react) — includes header/title/description sub-components.
+
 ## Acceptance Criteria
 
 - [ ] Popover component renders as floating content with trigger

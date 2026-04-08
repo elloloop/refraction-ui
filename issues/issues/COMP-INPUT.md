@@ -10,6 +10,26 @@ labels: [feat, a11y]
 
 Build Input (text/password) primitive and styled wrapper
 
+### Packages
+
+| Package | Type | Description |
+|---------|------|-------------|
+| `@refraction-ui/input` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@refraction-ui/react-input` | React wrapper | React component with hooks binding |
+| `@refraction-ui/angular-input` | Angular wrapper | Angular standalone component |
+| `@refraction-ui/astro-input` | Astro wrapper | Astro component (static or island) |
+
+## Source References
+
+| Project | File | Implementation |
+|---------|------|----------------|
+| **elloloop/stream-mind** | `frontend/src/components/ui/input.tsx` | Styled text input built on `@base-ui/react/input`. Supports aria-invalid, disabled, dark mode. |
+| **elloloop/learnloop** | `app/globals.css` | `.input` CSS component class with focus ring and dark mode variant. |
+| **elloloop/learnloop** | `components/Auth.tsx` | Inline email/password inputs with validation. |
+| **elloloop/easyloops** | Various inline | Raw `<input>` with Tailwind classes, no extracted component. |
+
+**Recommended base**: stream-mind version (@base-ui/react) — proper headless primitive with accessibility built-in.
+
 ## Acceptance Criteria
 
 - [ ] Input component renders as `<input>` element by default
