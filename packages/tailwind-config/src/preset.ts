@@ -53,8 +53,26 @@ export const refractionPreset = {
         lg: 'var(--shadow-lg)',
         xl: 'var(--shadow-xl)',
       },
+      letterSpacing: {
+        tighter: 'var(--letter-spacing-tighter)',
+        tight: 'var(--letter-spacing-tight)',
+        normal: 'var(--letter-spacing-normal)',
+        wide: 'var(--letter-spacing-wide)',
+        wider: 'var(--letter-spacing-wider)',
+      },
+      lineHeight: {
+        tight: 'var(--line-height-tight)',
+        normal: 'var(--line-height-normal)',
+        relaxed: 'var(--line-height-relaxed)',
+      },
       transitionDuration: {
-        DEFAULT: 'var(--transition)',
+        DEFAULT: 'var(--transition-duration)',
+      },
+      transitionTimingFunction: {
+        DEFAULT: 'var(--transition-easing)',
+      },
+      backdropBlur: {
+        DEFAULT: 'var(--backdrop-blur)',
       },
       keyframes,
       animation,

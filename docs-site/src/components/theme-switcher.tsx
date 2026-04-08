@@ -35,13 +35,38 @@ function applyTheme(theme: ThemeDefinition) {
   // Apply radius
   root.style.setProperty('--radius', theme.radius)
 
+  // Apply radius scale
+  root.style.setProperty('--radius-none', theme.radiusScale.none)
+  root.style.setProperty('--radius-sm', theme.radiusScale.sm)
+  root.style.setProperty('--radius-md', theme.radiusScale.md)
+  root.style.setProperty('--radius-lg', theme.radiusScale.lg)
+  root.style.setProperty('--radius-xl', theme.radiusScale.xl)
+  root.style.setProperty('--radius-full', theme.radiusScale.full)
+
   // Apply shadows
   for (const [key, value] of Object.entries(theme.shadows)) {
     root.style.setProperty(`--shadow-${key}`, value)
   }
 
-  // Apply transition
-  root.style.setProperty('--transition', theme.transition)
+  // Apply branding
+  root.style.setProperty('--overlay-opacity', theme.overlayOpacity)
+  root.style.setProperty('--backdrop-blur', theme.backdropBlur)
+  root.style.setProperty('--glass-bg', theme.glassBackground)
+  root.style.setProperty('--spacing-scale', String(theme.spacingScale))
+  root.style.setProperty('--letter-spacing-tighter', theme.letterSpacing.tighter)
+  root.style.setProperty('--letter-spacing-tight', theme.letterSpacing.tight)
+  root.style.setProperty('--letter-spacing-normal', theme.letterSpacing.normal)
+  root.style.setProperty('--letter-spacing-wide', theme.letterSpacing.wide)
+  root.style.setProperty('--letter-spacing-wider', theme.letterSpacing.wider)
+  root.style.setProperty('--line-height-tight', theme.lineHeight.tight)
+  root.style.setProperty('--line-height-normal', theme.lineHeight.normal)
+  root.style.setProperty('--line-height-relaxed', theme.lineHeight.relaxed)
+  root.style.setProperty('--heading-weight', theme.headingWeight)
+  root.style.setProperty('--border-width', theme.borderWidth)
+  root.style.setProperty('--transition-duration', theme.transitionDuration)
+  root.style.setProperty('--transition-easing', theme.transitionEasing)
+  root.style.setProperty('--container-max-width', theme.containerMaxWidth)
+  root.style.setProperty('--container-padding', theme.containerPadding)
 }
 
 /** Convert HSL string "h s% l%" to a CSS hsl() color for swatch display */
