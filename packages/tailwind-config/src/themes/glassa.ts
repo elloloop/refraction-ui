@@ -40,33 +40,25 @@ export interface ThemeDefinition {
   // TYPOGRAPHY
   // ═══════════════════════════════════════════
   fonts: { sans: string; heading: string; mono: string }
-  fontSizes: Record<string, string>
-  fontWeights: { normal: string; medium: string; semibold: string; bold: string }
-  letterSpacing: { tighter: string; tight: string; normal: string; wide: string; wider: string }
-  lineHeight: { tight: string; normal: string; relaxed: string }
   headingWeight: string
   headingLetterSpacing: string
   headingLineHeight: string
+  fontSizeBase: string
 
   // ═══════════════════════════════════════════
   // SHAPE LANGUAGE
   // ═══════════════════════════════════════════
   radius: string
-  radiusScale: { none: string; sm: string; md: string; lg: string; xl: string; '2xl': string; full: string }
   avatarRadius: string
   badgeRadius: string
   buttonRadius: string
-  inputRadius: string
   cardRadius: string
-  tooltipRadius: string
 
   // ═══════════════════════════════════════════
   // DEPTH & ELEVATION
   // ═══════════════════════════════════════════
-  shadows: { none: string; sm: string; md: string; lg: string; xl: string }
+  shadows: { sm: string; md: string; lg: string }
   cardShadow: string
-  dropdownShadow: string
-  dialogShadow: string
   buttonShadow: string
 
   // ═══════════════════════════════════════════
@@ -75,109 +67,41 @@ export interface ThemeDefinition {
   overlayOpacity: string
   backdropBlur: string
   glassBackground: string
-  glassBorder: string
 
   // ═══════════════════════════════════════════
   // SPACING & DENSITY
   // ═══════════════════════════════════════════
-  density: 'compact' | 'comfortable' | 'spacious'
   spacingScale: number
   containerMaxWidth: string
-  containerPadding: string
   cardPadding: string
   inputHeight: string
-  buttonHeight: string
-  sectionGap: string
 
   // ═══════════════════════════════════════════
-  // BORDERS & DIVIDERS
+  // BORDERS
   // ═══════════════════════════════════════════
   borderWidth: string
-  borderStyle: string
-  dividerStyle: string
-  dividerOpacity: string
 
   // ═══════════════════════════════════════════
   // COMPONENT STYLES
   // ═══════════════════════════════════════════
-  // Inputs
   inputStyle: 'bordered' | 'filled' | 'underline'
-  inputBorderOnFocus: boolean
-  placeholderOpacity: string
-
-  // Buttons
   buttonStyle: 'filled' | 'outline' | 'ghost-default'
-  buttonWeight: string
   hoverEffect: 'darken' | 'lighten' | 'shadow-lift' | 'scale'
-  activeEffect: 'scale-down' | 'darken' | 'none'
   disabledOpacity: string
-
-  // Links
   linkStyle: 'underline' | 'color-only' | 'underline-on-hover'
-  linkWeight: string
-
-  // Focus
-  focusRingWidth: string
-  focusRingOffset: string
   focusRingStyle: 'ring' | 'outline' | 'shadow'
-
-  // Icons
   iconStyle: 'outlined' | 'filled' | 'duotone'
   iconStrokeWidth: string
-  iconSize: string
-
-  // Scrollbar
   scrollbarStyle: 'thin' | 'hidden' | 'default'
-  scrollbarTrack: string
-  scrollbarThumb: string
-
-  // Selection
   selectionBackground: string
   selectionForeground: string
-
-  // Tooltips
   tooltipStyle: 'dark' | 'light' | 'primary'
-
-  // Tables
   tableStyle: 'striped' | 'clean' | 'bordered'
-  tableHeaderWeight: string
-
-  // Loading
-  spinnerStyle: 'circle' | 'dots' | 'bar'
-
-  // ═══════════════════════════════════════════
-  // MOTION
-  // ═══════════════════════════════════════════
-  transitionDuration: string
-  transitionEasing: string
-  animationSpeed: 'fast' | 'normal' | 'slow'
-  hoverTransition: string
-  enterTransition: string
-  exitTransition: string
 }
 
 // ---------------------------------------------------------------------------
-// Shared helpers
+// (No shared helpers needed — standard scales use hardcoded defaults)
 // ---------------------------------------------------------------------------
-
-const defaultFontSizes: ThemeDefinition['fontSizes'] = {
-  xs: '0.75rem',
-  sm: '0.875rem',
-  base: '1rem',
-  lg: '1.125rem',
-  xl: '1.25rem',
-  '2xl': '1.5rem',
-  '3xl': '1.875rem',
-  '4xl': '2.25rem',
-  '5xl': '3rem',
-}
-
-const defaultFontWeights: ThemeDefinition['fontWeights'] = {
-  normal: '400',
-  medium: '500',
-  semibold: '600',
-  bold: '700',
-}
 
 // ---------------------------------------------------------------------------
 // 1. Refraction — the DEFAULT theme
@@ -306,101 +230,49 @@ export const refractionTheme: ThemeDefinition = {
     heading: "'Inter', system-ui, sans-serif",
     mono: "'JetBrains Mono', ui-monospace, monospace",
   },
-  fontSizes: { ...defaultFontSizes },
-  fontWeights: { ...defaultFontWeights },
-  letterSpacing: {
-    tighter: '-0.04em', tight: '-0.02em', normal: '0', wide: '0.02em', wider: '0.05em',
-  },
-  lineHeight: {
-    tight: '1.3', normal: '1.5', relaxed: '1.7',
-  },
   headingWeight: '600',
   headingLetterSpacing: '-0.02em',
   headingLineHeight: '1.2',
+  fontSizeBase: '1rem',
 
   radius: '0.375rem',
-  radiusScale: {
-    none: '0', sm: '0.25rem', md: '0.375rem', lg: '0.5rem', xl: '0.75rem', '2xl': '1rem', full: '9999px',
-  },
   avatarRadius: '9999px',
   badgeRadius: '9999px',
   buttonRadius: '0.375rem',
-  inputRadius: '0.375rem',
   cardRadius: '0.5rem',
-  tooltipRadius: '0.375rem',
 
   shadows: {
-    none: 'none',
     sm: '0 1px 2px 0 rgb(0 0 0 / 0.03)',
     md: '0 2px 4px -1px rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.03)',
     lg: '0 6px 10px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03)',
-    xl: '0 12px 20px -4px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.03)',
   },
   cardShadow: '0 1px 2px 0 rgb(0 0 0 / 0.03)',
-  dropdownShadow: '0 6px 10px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03)',
-  dialogShadow: '0 12px 20px -4px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.03)',
   buttonShadow: 'none',
 
   overlayOpacity: '0.5',
   backdropBlur: '8px',
   glassBackground: 'rgba(252, 252, 253, 0.8)',
-  glassBorder: 'rgba(255, 255, 255, 0.15)',
 
-  density: 'comfortable',
   spacingScale: 1.0,
   containerMaxWidth: '1280px',
-  containerPadding: '2rem',
   cardPadding: '1.5rem',
   inputHeight: '2.5rem',
-  buttonHeight: '2.25rem',
-  sectionGap: '4rem',
 
   borderWidth: '1px',
-  borderStyle: 'solid',
-  dividerStyle: 'solid',
-  dividerOpacity: '0.15',
 
   inputStyle: 'bordered',
-  inputBorderOnFocus: false,
-  placeholderOpacity: '0.5',
-
   buttonStyle: 'filled',
-  buttonWeight: '500',
   hoverEffect: 'darken',
-  activeEffect: 'scale-down',
   disabledOpacity: '0.5',
-
   linkStyle: 'color-only',
-  linkWeight: 'inherit',
-
-  focusRingWidth: '2px',
-  focusRingOffset: '2px',
   focusRingStyle: 'ring',
-
   iconStyle: 'outlined',
   iconStrokeWidth: '1.5',
-  iconSize: '1.25rem',
-
   scrollbarStyle: 'thin',
-  scrollbarTrack: 'transparent',
-  scrollbarThumb: 'rgba(0, 0, 0, 0.15)',
-
   selectionBackground: '250 50% 50%',
   selectionForeground: '0 0% 100%',
-
   tooltipStyle: 'dark',
-
   tableStyle: 'clean',
-  tableHeaderWeight: '600',
-
-  spinnerStyle: 'circle',
-
-  transitionDuration: '150ms',
-  transitionEasing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  animationSpeed: 'fast',
-  hoverTransition: '150ms ease',
-  enterTransition: '200ms ease-out',
-  exitTransition: '150ms ease-in',
 }
 
 // ---------------------------------------------------------------------------
@@ -523,106 +395,49 @@ export const luxeTheme: ThemeDefinition = {
     heading: "system-ui, -apple-system, 'Segoe UI', sans-serif",
     mono: "'SF Mono', ui-monospace, monospace",
   },
-  fontSizes: { ...defaultFontSizes },
-  fontWeights: {
-    normal: '400',
-    medium: '500',
-    semibold: '600',
-    bold: '700',
-  },
-  letterSpacing: {
-    tighter: '-0.04em', tight: '-0.01em', normal: '0', wide: '0.05em', wider: '0.1em',
-  },
-  lineHeight: {
-    tight: '1.3', normal: '1.6', relaxed: '1.8',
-  },
   headingWeight: '300',
   headingLetterSpacing: '-0.03em',
   headingLineHeight: '1.1',
+  fontSizeBase: '1rem',
 
   radius: '0.75rem',
-  radiusScale: {
-    none: '0', sm: '0.375rem', md: '0.75rem', lg: '1rem', xl: '1.5rem', '2xl': '2rem', full: '9999px',
-  },
   avatarRadius: '9999px',
   badgeRadius: '9999px',
   buttonRadius: '9999px',
-  inputRadius: '0.75rem',
   cardRadius: '1rem',
-  tooltipRadius: '0.5rem',
 
   shadows: {
-    none: 'none',
     sm: '0 1px 3px 0 rgb(0 0 0 / 0.04)',
     md: '0 4px 8px -2px rgb(0 0 0 / 0.06), 0 2px 4px -2px rgb(0 0 0 / 0.04)',
     lg: '0 8px 16px -4px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04)',
-    xl: '0 16px 24px -6px rgb(0 0 0 / 0.1), 0 6px 10px -4px rgb(0 0 0 / 0.06)',
   },
   cardShadow: '0 4px 8px -2px rgb(0 0 0 / 0.06), 0 2px 4px -2px rgb(0 0 0 / 0.04)',
-  dropdownShadow: '0 8px 16px -4px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04)',
-  dialogShadow: '0 16px 24px -6px rgb(0 0 0 / 0.1), 0 6px 10px -4px rgb(0 0 0 / 0.06)',
   buttonShadow: '0 1px 3px 0 rgb(0 0 0 / 0.04)',
 
   overlayOpacity: '0.35',
   backdropBlur: '20px',
   glassBackground: 'rgba(255, 255, 255, 0.85)',
-  glassBorder: 'rgba(255, 255, 255, 0.25)',
 
-  density: 'spacious',
   spacingScale: 1.15,
   containerMaxWidth: '1200px',
-  containerPadding: '2.5rem',
   cardPadding: '2rem',
   inputHeight: '2.75rem',
-  buttonHeight: '2.75rem',
-  sectionGap: '6rem',
 
   borderWidth: '0px',
-  borderStyle: 'none',
-  dividerStyle: 'solid',
-  dividerOpacity: '0.08',
 
   inputStyle: 'filled',
-  inputBorderOnFocus: false,
-  placeholderOpacity: '0.4',
-
   buttonStyle: 'filled',
-  buttonWeight: '500',
   hoverEffect: 'shadow-lift',
-  activeEffect: 'scale-down',
   disabledOpacity: '0.4',
-
   linkStyle: 'underline-on-hover',
-  linkWeight: 'inherit',
-
-  focusRingWidth: '3px',
-  focusRingOffset: '2px',
   focusRingStyle: 'shadow',
-
   iconStyle: 'filled',
   iconStrokeWidth: '1.5',
-  iconSize: '1.25rem',
-
   scrollbarStyle: 'hidden',
-  scrollbarTrack: 'transparent',
-  scrollbarThumb: 'transparent',
-
   selectionBackground: '220 90% 45%',
   selectionForeground: '0 0% 100%',
-
   tooltipStyle: 'light',
-
   tableStyle: 'clean',
-  tableHeaderWeight: '500',
-
-  spinnerStyle: 'circle',
-
-  transitionDuration: '300ms',
-  transitionEasing: 'cubic-bezier(0.25, 0.1, 0.25, 1.0)',
-  animationSpeed: 'slow',
-  hoverTransition: '300ms ease',
-  enterTransition: '400ms ease-out',
-  exitTransition: '250ms ease-in',
 }
 
 // ---------------------------------------------------------------------------
@@ -748,101 +563,49 @@ export const warmTheme: ThemeDefinition = {
     heading: "system-ui, -apple-system, 'Segoe UI', sans-serif",
     mono: "'JetBrains Mono', ui-monospace, monospace",
   },
-  fontSizes: { ...defaultFontSizes },
-  fontWeights: { ...defaultFontWeights },
-  letterSpacing: {
-    tighter: '-0.03em', tight: '-0.01em', normal: '0', wide: '0.02em', wider: '0.04em',
-  },
-  lineHeight: {
-    tight: '1.35', normal: '1.6', relaxed: '1.75',
-  },
   headingWeight: '600',
   headingLetterSpacing: '-0.01em',
   headingLineHeight: '1.25',
+  fontSizeBase: '1rem',
 
   radius: '0.75rem',
-  radiusScale: {
-    none: '0', sm: '0.375rem', md: '0.75rem', lg: '1rem', xl: '1.25rem', '2xl': '1.5rem', full: '9999px',
-  },
   avatarRadius: '9999px',
   badgeRadius: '9999px',
   buttonRadius: '0.75rem',
-  inputRadius: '0.75rem',
   cardRadius: '1rem',
-  tooltipRadius: '0.5rem',
 
   shadows: {
-    none: 'none',
     sm: '0 1px 3px 0 rgb(120 80 40 / 0.06)',
     md: '0 4px 6px -1px rgb(120 80 40 / 0.08), 0 2px 4px -2px rgb(120 80 40 / 0.06)',
     lg: '0 10px 15px -3px rgb(120 80 40 / 0.08), 0 4px 6px -4px rgb(120 80 40 / 0.06)',
-    xl: '0 20px 25px -5px rgb(120 80 40 / 0.1), 0 8px 10px -6px rgb(120 80 40 / 0.08)',
   },
   cardShadow: '0 1px 3px 0 rgb(120 80 40 / 0.06)',
-  dropdownShadow: '0 10px 15px -3px rgb(120 80 40 / 0.08), 0 4px 6px -4px rgb(120 80 40 / 0.06)',
-  dialogShadow: '0 20px 25px -5px rgb(120 80 40 / 0.1), 0 8px 10px -6px rgb(120 80 40 / 0.08)',
   buttonShadow: 'none',
 
   overlayOpacity: '0.45',
   backdropBlur: '12px',
   glassBackground: 'rgba(255, 252, 248, 0.85)',
-  glassBorder: 'rgba(255, 248, 240, 0.2)',
 
-  density: 'comfortable',
   spacingScale: 1.05,
   containerMaxWidth: '1280px',
-  containerPadding: '2rem',
   cardPadding: '1.5rem',
   inputHeight: '2.5rem',
-  buttonHeight: '2.5rem',
-  sectionGap: '4rem',
 
   borderWidth: '1px',
-  borderStyle: 'solid',
-  dividerStyle: 'solid',
-  dividerOpacity: '0.12',
 
   inputStyle: 'bordered',
-  inputBorderOnFocus: false,
-  placeholderOpacity: '0.5',
-
   buttonStyle: 'filled',
-  buttonWeight: '600',
   hoverEffect: 'darken',
-  activeEffect: 'scale-down',
   disabledOpacity: '0.5',
-
   linkStyle: 'underline',
-  linkWeight: 'inherit',
-
-  focusRingWidth: '2px',
-  focusRingOffset: '2px',
   focusRingStyle: 'ring',
-
   iconStyle: 'outlined',
   iconStrokeWidth: '2',
-  iconSize: '1.25rem',
-
   scrollbarStyle: 'default',
-  scrollbarTrack: 'transparent',
-  scrollbarThumb: 'rgba(120, 80, 40, 0.2)',
-
   selectionBackground: '350 85% 46%',
   selectionForeground: '0 0% 100%',
-
   tooltipStyle: 'dark',
-
   tableStyle: 'clean',
-  tableHeaderWeight: '600',
-
-  spinnerStyle: 'dots',
-
-  transitionDuration: '200ms',
-  transitionEasing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  animationSpeed: 'normal',
-  hoverTransition: '200ms ease',
-  enterTransition: '250ms ease-out',
-  exitTransition: '200ms ease-in',
 }
 
 // ---------------------------------------------------------------------------
@@ -967,101 +730,49 @@ export const signalTheme: ThemeDefinition = {
     heading: "system-ui, -apple-system, 'Segoe UI', sans-serif",
     mono: "'JetBrains Mono', ui-monospace, monospace",
   },
-  fontSizes: { ...defaultFontSizes },
-  fontWeights: { ...defaultFontWeights },
-  letterSpacing: {
-    tighter: '-0.04em', tight: '-0.03em', normal: '-0.01em', wide: '0', wider: '0.02em',
-  },
-  lineHeight: {
-    tight: '1.25', normal: '1.4', relaxed: '1.55',
-  },
   headingWeight: '600',
   headingLetterSpacing: '-0.02em',
   headingLineHeight: '1.2',
+  fontSizeBase: '1rem',
 
   radius: '0.375rem',
-  radiusScale: {
-    none: '0', sm: '0.125rem', md: '0.25rem', lg: '0.375rem', xl: '0.5rem', '2xl': '0.75rem', full: '9999px',
-  },
   avatarRadius: '0.25rem',
   badgeRadius: '0.25rem',
   buttonRadius: '0.25rem',
-  inputRadius: '0.25rem',
   cardRadius: '0.375rem',
-  tooltipRadius: '0.25rem',
 
   shadows: {
-    none: 'none',
     sm: '0 1px 2px 0 rgb(0 0 0 / 0.06)',
     md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.08)',
     lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.08)',
-    xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.08)',
   },
   cardShadow: '0 1px 2px 0 rgb(0 0 0 / 0.06)',
-  dropdownShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.08)',
-  dialogShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.08)',
   buttonShadow: 'none',
 
   overlayOpacity: '0.6',
   backdropBlur: '0px',
   glassBackground: 'rgba(255, 255, 255, 0.95)',
-  glassBorder: 'rgba(255, 255, 255, 0.1)',
 
-  density: 'compact',
   spacingScale: 0.85,
   containerMaxWidth: '1400px',
-  containerPadding: '1.5rem',
   cardPadding: '1rem',
   inputHeight: '2rem',
-  buttonHeight: '1.75rem',
-  sectionGap: '2.5rem',
 
   borderWidth: '1px',
-  borderStyle: 'solid',
-  dividerStyle: 'solid',
-  dividerOpacity: '0.2',
 
   inputStyle: 'bordered',
-  inputBorderOnFocus: false,
-  placeholderOpacity: '0.5',
-
   buttonStyle: 'filled',
-  buttonWeight: '600',
   hoverEffect: 'darken',
-  activeEffect: 'darken',
   disabledOpacity: '0.4',
-
   linkStyle: 'color-only',
-  linkWeight: 'inherit',
-
-  focusRingWidth: '2px',
-  focusRingOffset: '0px',
   focusRingStyle: 'ring',
-
   iconStyle: 'outlined',
   iconStrokeWidth: '1.5',
-  iconSize: '1rem',
-
   scrollbarStyle: 'thin',
-  scrollbarTrack: 'transparent',
-  scrollbarThumb: 'rgba(0, 0, 0, 0.2)',
-
   selectionBackground: '190 80% 32%',
   selectionForeground: '0 0% 100%',
-
   tooltipStyle: 'dark',
-
   tableStyle: 'bordered',
-  tableHeaderWeight: '600',
-
-  spinnerStyle: 'circle',
-
-  transitionDuration: '100ms',
-  transitionEasing: 'cubic-bezier(0.2, 0, 0, 1)',
-  animationSpeed: 'fast',
-  hoverTransition: '100ms ease',
-  enterTransition: '150ms ease-out',
-  exitTransition: '100ms ease-in',
 }
 
 // ---------------------------------------------------------------------------
@@ -1186,106 +897,49 @@ export const pulseTheme: ThemeDefinition = {
     heading: "system-ui, -apple-system, 'Segoe UI', sans-serif",
     mono: "'JetBrains Mono', ui-monospace, monospace",
   },
-  fontSizes: { ...defaultFontSizes },
-  fontWeights: {
-    normal: '400',
-    medium: '500',
-    semibold: '600',
-    bold: '700',
-  },
-  letterSpacing: {
-    tighter: '-0.03em', tight: '-0.01em', normal: '0', wide: '0.03em', wider: '0.06em',
-  },
-  lineHeight: {
-    tight: '1.3', normal: '1.5', relaxed: '1.7',
-  },
   headingWeight: '700',
   headingLetterSpacing: '-0.01em',
   headingLineHeight: '1.15',
+  fontSizeBase: '1rem',
 
   radius: '1rem',
-  radiusScale: {
-    none: '0', sm: '0.5rem', md: '1rem', lg: '1.25rem', xl: '1.5rem', '2xl': '2rem', full: '9999px',
-  },
   avatarRadius: '9999px',
   badgeRadius: '9999px',
   buttonRadius: '9999px',
-  inputRadius: '1rem',
   cardRadius: '1.25rem',
-  tooltipRadius: '0.75rem',
 
   shadows: {
-    none: 'none',
     sm: '0 2px 4px 0 rgb(0 0 0 / 0.08)',
     md: '0 6px 10px -2px rgb(0 0 0 / 0.12), 0 3px 5px -2px rgb(0 0 0 / 0.08)',
     lg: '0 14px 20px -4px rgb(0 0 0 / 0.14), 0 6px 8px -4px rgb(0 0 0 / 0.1)',
-    xl: '0 24px 32px -6px rgb(0 0 0 / 0.16), 0 10px 12px -6px rgb(0 0 0 / 0.1)',
   },
   cardShadow: '0 2px 4px 0 rgb(0 0 0 / 0.08)',
-  dropdownShadow: '0 14px 20px -4px rgb(0 0 0 / 0.14), 0 6px 8px -4px rgb(0 0 0 / 0.1)',
-  dialogShadow: '0 24px 32px -6px rgb(0 0 0 / 0.16), 0 10px 12px -6px rgb(0 0 0 / 0.1)',
   buttonShadow: '0 2px 4px 0 rgb(0 0 0 / 0.08)',
 
   overlayOpacity: '0.5',
   backdropBlur: '16px',
   glassBackground: 'rgba(248, 247, 252, 0.8)',
-  glassBorder: 'rgba(255, 255, 255, 0.18)',
 
-  density: 'comfortable',
   spacingScale: 1.0,
   containerMaxWidth: '1280px',
-  containerPadding: '2rem',
   cardPadding: '1.5rem',
   inputHeight: '2.5rem',
-  buttonHeight: '2.25rem',
-  sectionGap: '4rem',
 
   borderWidth: '1px',
-  borderStyle: 'solid',
-  dividerStyle: 'solid',
-  dividerOpacity: '0.12',
 
   inputStyle: 'filled',
-  inputBorderOnFocus: false,
-  placeholderOpacity: '0.45',
-
   buttonStyle: 'filled',
-  buttonWeight: '600',
   hoverEffect: 'lighten',
-  activeEffect: 'scale-down',
   disabledOpacity: '0.4',
-
   linkStyle: 'color-only',
-  linkWeight: '500',
-
-  focusRingWidth: '2px',
-  focusRingOffset: '2px',
   focusRingStyle: 'ring',
-
   iconStyle: 'filled',
   iconStrokeWidth: '1.5',
-  iconSize: '1.25rem',
-
   scrollbarStyle: 'thin',
-  scrollbarTrack: 'transparent',
-  scrollbarThumb: 'rgba(100, 80, 160, 0.2)',
-
   selectionBackground: '265 80% 55%',
   selectionForeground: '0 0% 100%',
-
   tooltipStyle: 'primary',
-
   tableStyle: 'striped',
-  tableHeaderWeight: '700',
-
-  spinnerStyle: 'dots',
-
-  transitionDuration: '200ms',
-  transitionEasing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
-  animationSpeed: 'normal',
-  hoverTransition: '200ms ease',
-  enterTransition: '250ms cubic-bezier(0.34, 1.56, 0.64, 1)',
-  exitTransition: '150ms ease-in',
 }
 
 // ---------------------------------------------------------------------------
@@ -1410,101 +1064,49 @@ export const monoTheme: ThemeDefinition = {
     heading: "'JetBrains Mono', ui-monospace, monospace",
     mono: "'JetBrains Mono', ui-monospace, monospace",
   },
-  fontSizes: { ...defaultFontSizes },
-  fontWeights: { ...defaultFontWeights },
-  letterSpacing: {
-    tighter: '-0.03em', tight: '-0.02em', normal: '-0.01em', wide: '0', wider: '0.05em',
-  },
-  lineHeight: {
-    tight: '1.35', normal: '1.55', relaxed: '1.7',
-  },
   headingWeight: '500',
   headingLetterSpacing: '-0.02em',
   headingLineHeight: '1.25',
+  fontSizeBase: '1rem',
 
   radius: '0.25rem',
-  radiusScale: {
-    none: '0', sm: '0.125rem', md: '0.25rem', lg: '0.25rem', xl: '0.375rem', '2xl': '0.5rem', full: '9999px',
-  },
   avatarRadius: '0.25rem',
   badgeRadius: '0.125rem',
   buttonRadius: '0.25rem',
-  inputRadius: '0.25rem',
   cardRadius: '0.25rem',
-  tooltipRadius: '0.25rem',
 
   shadows: {
-    none: 'none',
     sm: 'none',
     md: 'none',
     lg: 'none',
-    xl: 'none',
   },
   cardShadow: 'none',
-  dropdownShadow: '0 4px 8px -2px rgb(0 0 0 / 0.06)',
-  dialogShadow: '0 8px 16px -4px rgb(0 0 0 / 0.08)',
   buttonShadow: 'none',
 
   overlayOpacity: '0.65',
   backdropBlur: '0px',
   glassBackground: 'rgba(246, 249, 252, 0.95)',
-  glassBorder: 'rgba(210, 220, 230, 0.2)',
 
-  density: 'comfortable',
   spacingScale: 1.0,
   containerMaxWidth: '1200px',
-  containerPadding: '2rem',
   cardPadding: '1.5rem',
   inputHeight: '2.25rem',
-  buttonHeight: '2rem',
-  sectionGap: '3.5rem',
 
   borderWidth: '1px',
-  borderStyle: 'solid',
-  dividerStyle: 'solid',
-  dividerOpacity: '0.2',
 
   inputStyle: 'bordered',
-  inputBorderOnFocus: false,
-  placeholderOpacity: '0.5',
-
   buttonStyle: 'filled',
-  buttonWeight: '500',
   hoverEffect: 'darken',
-  activeEffect: 'darken',
   disabledOpacity: '0.5',
-
   linkStyle: 'underline-on-hover',
-  linkWeight: '500',
-
-  focusRingWidth: '2px',
-  focusRingOffset: '1px',
   focusRingStyle: 'outline',
-
   iconStyle: 'outlined',
   iconStrokeWidth: '1.5',
-  iconSize: '1rem',
-
   scrollbarStyle: 'default',
-  scrollbarTrack: 'transparent',
-  scrollbarThumb: 'rgba(0, 0, 0, 0.15)',
-
   selectionBackground: '210 10% 23%',
   selectionForeground: '0 0% 100%',
-
   tooltipStyle: 'dark',
-
   tableStyle: 'bordered',
-  tableHeaderWeight: '600',
-
-  spinnerStyle: 'bar',
-
-  transitionDuration: '100ms',
-  transitionEasing: 'linear',
-  animationSpeed: 'fast',
-  hoverTransition: '100ms linear',
-  enterTransition: '150ms ease-out',
-  exitTransition: '100ms ease-in',
 }
 
 // ---------------------------------------------------------------------------
@@ -1540,7 +1142,7 @@ export const glassaTheme = {
 /**
  * Generate a full CSS string from a ThemeDefinition for injection into a
  * <style> tag or CSS file. Covers colors, typography, layout, shadows,
- * transitions, and all branding tokens.
+ * and all branding tokens.
  */
 export function generateThemeCSS(theme: ThemeDefinition = refractionTheme): string {
   const colorVarsLight = Object.entries(theme.colors.light)
@@ -1556,32 +1158,26 @@ export function generateThemeCSS(theme: ThemeDefinition = refractionTheme): stri
     `  --font-heading: ${theme.fonts.heading};`,
     `  --font-mono: ${theme.fonts.mono};`,
     '',
-    `  --font-size-xs: ${theme.fontSizes.xs};`,
-    `  --font-size-sm: ${theme.fontSizes.sm};`,
-    `  --font-size-base: ${theme.fontSizes.base};`,
-    `  --font-size-lg: ${theme.fontSizes.lg};`,
-    `  --font-size-xl: ${theme.fontSizes.xl};`,
-    `  --font-size-2xl: ${theme.fontSizes['2xl']};`,
-    `  --font-size-3xl: ${theme.fontSizes['3xl']};`,
-    `  --font-size-4xl: ${theme.fontSizes['4xl']};`,
-    `  --font-size-5xl: ${theme.fontSizes['5xl']};`,
-    '',
-    `  --font-weight-normal: ${theme.fontWeights.normal};`,
-    `  --font-weight-medium: ${theme.fontWeights.medium};`,
-    `  --font-weight-semibold: ${theme.fontWeights.semibold};`,
-    `  --font-weight-bold: ${theme.fontWeights.bold};`,
+    `  --heading-weight: ${theme.headingWeight};`,
+    `  --heading-letter-spacing: ${theme.headingLetterSpacing};`,
+    `  --heading-line-height: ${theme.headingLineHeight};`,
+    `  --font-size-base: ${theme.fontSizeBase};`,
   ].join('\n')
 
   const layoutVars = [
     `  --radius: ${theme.radius};`,
+    `  --avatar-radius: ${theme.avatarRadius};`,
+    `  --badge-radius: ${theme.badgeRadius};`,
+    `  --button-radius: ${theme.buttonRadius};`,
+    `  --card-radius: ${theme.cardRadius};`,
   ].join('\n')
 
   const shadowVars = [
-    `  --shadow-none: ${theme.shadows.none};`,
     `  --shadow-sm: ${theme.shadows.sm};`,
     `  --shadow-md: ${theme.shadows.md};`,
     `  --shadow-lg: ${theme.shadows.lg};`,
-    `  --shadow-xl: ${theme.shadows.xl};`,
+    `  --card-shadow: ${theme.cardShadow};`,
+    `  --button-shadow: ${theme.buttonShadow};`,
   ].join('\n')
 
   const brandingVars = [
@@ -1589,93 +1185,28 @@ export function generateThemeCSS(theme: ThemeDefinition = refractionTheme): stri
     `  --overlay-opacity: ${theme.overlayOpacity};`,
     `  --backdrop-blur: ${theme.backdropBlur};`,
     `  --glass-bg: ${theme.glassBackground};`,
-    `  --glass-border: ${theme.glassBorder};`,
     // Spacing & density
     `  --spacing-scale: ${theme.spacingScale};`,
     `  --container-max-width: ${theme.containerMaxWidth};`,
-    `  --container-padding: ${theme.containerPadding};`,
     `  --card-padding: ${theme.cardPadding};`,
     `  --input-height: ${theme.inputHeight};`,
-    `  --button-height: ${theme.buttonHeight};`,
-    `  --section-gap: ${theme.sectionGap};`,
-    // Typography
-    `  --letter-spacing-tighter: ${theme.letterSpacing.tighter};`,
-    `  --letter-spacing-tight: ${theme.letterSpacing.tight};`,
-    `  --letter-spacing-normal: ${theme.letterSpacing.normal};`,
-    `  --letter-spacing-wide: ${theme.letterSpacing.wide};`,
-    `  --letter-spacing-wider: ${theme.letterSpacing.wider};`,
-    `  --line-height-tight: ${theme.lineHeight.tight};`,
-    `  --line-height-normal: ${theme.lineHeight.normal};`,
-    `  --line-height-relaxed: ${theme.lineHeight.relaxed};`,
-    `  --heading-weight: ${theme.headingWeight};`,
-    `  --heading-letter-spacing: ${theme.headingLetterSpacing};`,
-    `  --heading-line-height: ${theme.headingLineHeight};`,
-    // Shape language
-    `  --radius-none: ${theme.radiusScale.none};`,
-    `  --radius-sm: ${theme.radiusScale.sm};`,
-    `  --radius-md: ${theme.radiusScale.md};`,
-    `  --radius-lg: ${theme.radiusScale.lg};`,
-    `  --radius-xl: ${theme.radiusScale.xl};`,
-    `  --radius-2xl: ${theme.radiusScale['2xl']};`,
-    `  --radius-full: ${theme.radiusScale.full};`,
-    `  --avatar-radius: ${theme.avatarRadius};`,
-    `  --badge-radius: ${theme.badgeRadius};`,
-    `  --button-radius: ${theme.buttonRadius};`,
-    `  --input-radius: ${theme.inputRadius};`,
-    `  --card-radius: ${theme.cardRadius};`,
-    `  --tooltip-radius: ${theme.tooltipRadius};`,
-    // Component shadows
-    `  --card-shadow: ${theme.cardShadow};`,
-    `  --dropdown-shadow: ${theme.dropdownShadow};`,
-    `  --dialog-shadow: ${theme.dialogShadow};`,
-    `  --button-shadow: ${theme.buttonShadow};`,
-    // Borders & dividers
+    // Borders
     `  --border-width: ${theme.borderWidth};`,
-    `  --border-style: ${theme.borderStyle};`,
-    `  --divider-style: ${theme.dividerStyle};`,
-    `  --divider-opacity: ${theme.dividerOpacity};`,
-    // Inputs
+    // Component styles
     `  --input-style: ${theme.inputStyle};`,
-    `  --input-border-on-focus: ${theme.inputBorderOnFocus ? '1' : '0'};`,
-    `  --placeholder-opacity: ${theme.placeholderOpacity};`,
-    // Buttons
     `  --button-style: ${theme.buttonStyle};`,
-    `  --button-weight: ${theme.buttonWeight};`,
     `  --hover-effect: ${theme.hoverEffect};`,
-    `  --active-effect: ${theme.activeEffect};`,
     `  --disabled-opacity: ${theme.disabledOpacity};`,
-    // Links
     `  --link-style: ${theme.linkStyle};`,
-    `  --link-weight: ${theme.linkWeight};`,
-    // Focus
-    `  --focus-ring-width: ${theme.focusRingWidth};`,
-    `  --focus-ring-offset: ${theme.focusRingOffset};`,
     `  --focus-ring-style: ${theme.focusRingStyle};`,
-    // Icons
     `  --icon-style: ${theme.iconStyle};`,
     `  --icon-stroke-width: ${theme.iconStrokeWidth};`,
-    `  --icon-size: ${theme.iconSize};`,
-    // Scrollbar
     `  --scrollbar-style: ${theme.scrollbarStyle};`,
-    `  --scrollbar-track: ${theme.scrollbarTrack};`,
-    `  --scrollbar-thumb: ${theme.scrollbarThumb};`,
+    `  --tooltip-style: ${theme.tooltipStyle};`,
+    `  --table-style: ${theme.tableStyle};`,
     // Selection
     `  --selection-background: ${theme.selectionBackground};`,
     `  --selection-foreground: ${theme.selectionForeground};`,
-    // Tooltips
-    `  --tooltip-style: ${theme.tooltipStyle};`,
-    // Tables
-    `  --table-style: ${theme.tableStyle};`,
-    `  --table-header-weight: ${theme.tableHeaderWeight};`,
-    // Loading
-    `  --spinner-style: ${theme.spinnerStyle};`,
-    // Motion
-    `  --transition-duration: ${theme.transitionDuration};`,
-    `  --transition-easing: ${theme.transitionEasing};`,
-    `  --animation-speed: ${theme.animationSpeed};`,
-    `  --hover-transition: ${theme.hoverTransition};`,
-    `  --enter-transition: ${theme.enterTransition};`,
-    `  --exit-transition: ${theme.exitTransition};`,
   ].join('\n')
 
   return [

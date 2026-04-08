@@ -4,56 +4,116 @@ import { useState, useCallback, useMemo } from 'react'
 import Link from 'next/link'
 import { Button } from '@refraction-ui/react-button'
 import { Input } from '@refraction-ui/react-input'
-import { COMPLETE_THEME_TEMPLATE } from '../complete-template'
+import { SIMPLE_THEME_TEMPLATE, ADVANCED_THEME_TEMPLATE } from '../complete-template'
 
 // ---------------------------------------------------------------------------
-// Prompt template
+// Types
 // ---------------------------------------------------------------------------
 
-const PROMPT_BEFORE_BRAND = `I need a complete CSS theme configuration for a UI component library called Refraction UI.
+type PromptMode = 'simple' | 'advanced'
+
+// ---------------------------------------------------------------------------
+// Prompt templates
+// ---------------------------------------------------------------------------
+
+const PROMPT_BEFORE_BRAND = `I need a CSS theme configuration for a UI component library called Refraction UI.
 
 My brand is: `
 
-const PROMPT_AFTER_BRAND = `
+function buildPromptAfterBrand(mode: PromptMode): string {
+  if (mode === 'simple') {
+    return `
 
-Generate CSS custom properties in this EXACT format. ALL 95 variables must be included — every category matters:
+Generate CSS custom properties in this EXACT format. Only the essential brand variables are needed:
 
-` + COMPLETE_THEME_TEMPLATE + `
+` + SIMPLE_THEME_TEMPLATE + `
 
-Replace every value above with values that match my brand. Here is what each category controls:
-- COLORS: HSL values (hue saturation% lightness%) for surfaces, brand, semantic, borders, sidebar, and charts
-- TYPOGRAPHY: Font families, 9-step size scale, 4 weights, heading treatment, letter spacing, line heights
-- SHAPE: Base radius, 8-step radius scale, per-component radius overrides
-- DEPTH: 5-step shadow scale + per-component shadows
-- TRANSPARENCY: Overlay opacity, backdrop blur, glass effects
-- SPACING: Density scale, padding, heights, gaps, container sizing
-- BORDERS: Width, style, divider opacity
-- COMPONENT STYLES: Input/button/link/icon/scrollbar/tooltip/table/spinner behavior keywords
-- FOCUS: Ring width, offset, style
-- SELECTION: Text highlight colors
-- MOTION: Transition durations, easings, animation speed, enter/exit transitions
+Replace every value above with values that match my brand. Here is what each variable controls:
+- COLORS: HSL values (hue saturation% lightness%) for surfaces, brand, semantic, borders
+- FONTS: Font family stacks for body text, headings, and monospace code
+- RADIUS: Base border-radius that sets the overall shape feel
 
 Requirements:
 1. All foreground/background color pairs must meet WCAG AA contrast ratio (4.5:1 minimum)
 2. Colors should be beautiful and cohesive, not random
 3. The overall feel should match my brand description
-4. Choose typography, radius, shadows, density, and motion values that reinforce the brand personality
+4. Output ONLY the CSS — no explanation needed`
+  }
+
+  return `
+
+Generate CSS custom properties in this EXACT format. All ~65 variables must be included:
+
+` + ADVANCED_THEME_TEMPLATE + `
+
+Replace every value above with values that match my brand. Here is what each category controls:
+- BRAND COLORS: HSL values (hue saturation% lightness%) for surfaces, brand, semantic, borders
+- EXTENDED COLORS: Card, popover, success, warning, sidebar, and chart colors
+- FONTS: Font family stacks for body text, headings, and monospace code
+- TYPOGRAPHY DETAILS: Heading weight, letter spacing, line height, base font size
+- SHAPE: Base radius and per-component radius overrides
+- DEPTH: Shadow scale and per-component shadows
+- TRANSPARENCY: Overlay opacity, backdrop blur, glass effects
+- DENSITY: Spacing scale, card padding, input height, container width
+- BORDERS: Border width
+- COMPONENT STYLES: Input/button/link/icon/scrollbar/tooltip/table behavior keywords
+- FOCUS: Ring style
+- SELECTION: Text highlight colors
+
+Requirements:
+1. All foreground/background color pairs must meet WCAG AA contrast ratio (4.5:1 minimum)
+2. Colors should be beautiful and cohesive, not random
+3. The overall feel should match my brand description
+4. Choose typography, radius, shadows, density values that reinforce the brand personality
 5. Output ONLY the CSS — no explanation needed`
+}
 
 const DEFAULT_BRAND = '[DESCRIBE YOUR BRAND HERE - e.g., "a luxury hotel booking platform with warm, inviting aesthetics"]'
+
+// ---------------------------------------------------------------------------
+// Mode Toggle component
+// ---------------------------------------------------------------------------
+
+function ModeToggle({ mode, onChange }: { mode: PromptMode; onChange: (m: PromptMode) => void }) {
+  return (
+    <div className="inline-flex rounded-lg border border-border bg-muted/50 p-0.5">
+      <button
+        onClick={() => onChange('simple')}
+        className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
+          mode === 'simple'
+            ? 'bg-background text-foreground shadow-sm'
+            : 'text-muted-foreground hover:text-foreground'
+        }`}
+      >
+        Simple
+      </button>
+      <button
+        onClick={() => onChange('advanced')}
+        className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
+          mode === 'advanced'
+            ? 'bg-background text-foreground shadow-sm'
+            : 'text-muted-foreground hover:text-foreground'
+        }`}
+      >
+        Advanced
+      </button>
+    </div>
+  )
+}
 
 // ---------------------------------------------------------------------------
 // Page
 // ---------------------------------------------------------------------------
 
 export default function GenerateThemePage() {
+  const [mode, setMode] = useState<PromptMode>('simple')
   const [brandDescription, setBrandDescription] = useState('')
   const [copied, setCopied] = useState(false)
 
   const fullPrompt = useMemo(() => {
     const brand = brandDescription.trim() || DEFAULT_BRAND
-    return PROMPT_BEFORE_BRAND + brand + PROMPT_AFTER_BRAND
-  }, [brandDescription])
+    return PROMPT_BEFORE_BRAND + brand + buildPromptAfterBrand(mode)
+  }, [brandDescription, mode])
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(fullPrompt).then(() => {
@@ -75,6 +135,16 @@ export default function GenerateThemePage() {
           </Link>{' '}
           to see it live.
         </p>
+      </div>
+
+      {/* Mode toggle */}
+      <div className="flex items-center gap-4">
+        <ModeToggle mode={mode} onChange={setMode} />
+        <span className="text-sm text-muted-foreground">
+          {mode === 'simple'
+            ? 'Ask the AI for just colors, fonts, and radius (~25 variables)'
+            : 'Ask the AI for full brand control (~65 variables)'}
+        </span>
       </div>
 
       {/* Workflow steps */}
@@ -128,7 +198,7 @@ export default function GenerateThemePage() {
 
         <div className="rounded-lg border border-border bg-card overflow-hidden">
           <div className="flex items-center justify-between border-b border-border bg-muted/30 px-4 py-2">
-            <span className="text-xs font-mono text-muted-foreground">prompt</span>
+            <span className="text-xs font-mono text-muted-foreground">prompt ({mode} mode)</span>
             <Button size="xs" variant="ghost" onClick={handleCopy}>
               {copied ? 'Copied!' : 'Copy'}
             </Button>
