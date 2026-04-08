@@ -2,13 +2,13 @@
 
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { financeConfig } from '../../theme-configs'
+import { clearbankConfig } from '../../theme-configs'
 
 const transactions = [
   { date: 'Apr 5', desc: 'Whole Foods Market', category: 'Groceries', amount: -82.45 },
   { date: 'Apr 5', desc: 'Salary Deposit - Acme Corp', category: 'Income', amount: 4250.00 },
-  { date: 'Apr 4', desc: 'Netflix Subscription', category: 'Entertainment', amount: -15.99 },
-  { date: 'Apr 4', desc: 'Uber Ride', category: 'Transport', amount: -23.50 },
+  { date: 'Apr 4', desc: 'Streaming Subscription', category: 'Entertainment', amount: -15.99 },
+  { date: 'Apr 4', desc: 'Ride Share', category: 'Transport', amount: -23.50 },
   { date: 'Apr 3', desc: 'Transfer to Savings', category: 'Transfer', amount: -500.00 },
   { date: 'Apr 3', desc: 'Amazon.com', category: 'Shopping', amount: -67.89 },
   { date: 'Apr 2', desc: 'Starbucks', category: 'Dining', amount: -6.75 },
@@ -39,7 +39,7 @@ export default function BankingDashboard() {
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/examples/finance" className="text-xl font-bold text-primary">NeoBank</Link>
+          <Link href="/examples/clearbank" className="text-xl font-bold text-primary">ClearBank</Link>
           <div className="flex items-center gap-3">
             <span className="text-sm text-muted-foreground">Alex Morgan</span>
             <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">AM</div>
@@ -67,10 +67,10 @@ export default function BankingDashboard() {
         {/* Quick Actions */}
         <div className="grid gap-4 sm:grid-cols-4">
           {[
-            { label: 'Send Money', href: '/examples/finance/app/transfer', icon: <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" /></svg> },
-            { label: 'Pay Bills', href: '/examples/finance/app', icon: <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" /></svg> },
-            { label: 'Investments', href: '/examples/finance/app', icon: <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" /></svg> },
-            { label: 'Cards', href: '/examples/finance/app', icon: <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" /></svg> },
+            { label: 'Send Money', href: '/examples/clearbank/app/transfer', icon: <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" /></svg> },
+            { label: 'Pay Bills', href: '/examples/clearbank/app', icon: <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" /></svg> },
+            { label: 'Investments', href: '/examples/clearbank/app', icon: <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" /></svg> },
+            { label: 'Cards', href: '/examples/clearbank/app', icon: <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" /></svg> },
           ].map((action) => (
             <Link
               key={action.label}
@@ -147,7 +147,7 @@ export default function BankingDashboard() {
         </div>
       </div>
 
-      <ThemeConfigPanel defaultConfig={financeConfig} />
+      <ThemeConfigPanel defaultConfig={clearbankConfig} />
     </div>
   )
 }

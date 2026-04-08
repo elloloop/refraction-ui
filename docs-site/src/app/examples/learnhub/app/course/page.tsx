@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { educationConfig } from '../../../theme-configs'
+import { learnhubConfig } from '../../../theme-configs'
 
 const curriculum = [
   {
@@ -75,8 +75,8 @@ export default function CourseDetail() {
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/examples/education" className="text-xl font-bold text-primary">LearnHub</Link>
-          <Link href="/examples/education/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/examples/learnhub" className="text-xl font-bold text-primary">LearnHub</Link>
+          <Link href="/examples/learnhub/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Back to Catalog
           </Link>
         </div>
@@ -304,7 +304,7 @@ export default function CourseDetail() {
         </div>
       </div>
 
-      <ThemeConfigPanel defaultConfig={educationConfig} />
+      <ThemeConfigPanel defaultConfig={learnhubConfig} />
     </div>
   )
 }

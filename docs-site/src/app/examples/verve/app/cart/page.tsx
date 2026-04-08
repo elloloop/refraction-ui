@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { ecommerceConfig } from '../../../theme-configs'
+import { verveConfig } from '../../../theme-configs'
 
 interface CartItem {
   id: number
@@ -42,9 +42,9 @@ export default function EcommerceCartPage() {
     <div className="-mx-8 -mt-12">
       {/* Navigation */}
       <nav className="flex items-center justify-between px-8 py-4 border-b border-border bg-background/80 backdrop-blur-sm">
-        <Link href="/examples/ecommerce" className="text-lg font-bold text-foreground tracking-tight">FORMA</Link>
+        <Link href="/examples/verve" className="text-lg font-bold text-foreground tracking-tight">VERVE</Link>
         <div className="flex items-center gap-6">
-          <Link href="/examples/ecommerce/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Shop</Link>
+          <Link href="/examples/verve/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Shop</Link>
           <span className="text-sm text-foreground font-medium">Cart ({items.reduce((s, i) => s + i.quantity, 0)})</span>
         </div>
       </nav>
@@ -60,7 +60,7 @@ export default function EcommerceCartPage() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
             </svg>
             <p className="text-muted-foreground">Your cart is empty.</p>
-            <Link href="/examples/ecommerce/app" className="inline-block text-sm text-primary hover:underline">
+            <Link href="/examples/verve/app" className="inline-block text-sm text-primary hover:underline">
               Continue Shopping &rarr;
             </Link>
           </div>
@@ -118,7 +118,7 @@ export default function EcommerceCartPage() {
                   </div>
                 </div>
               ))}
-              <Link href="/examples/ecommerce/app" className="inline-block text-sm text-primary hover:underline mt-2">
+              <Link href="/examples/verve/app" className="inline-block text-sm text-primary hover:underline mt-2">
                 &larr; Continue Shopping
               </Link>
             </div>
@@ -167,7 +167,7 @@ export default function EcommerceCartPage() {
           </div>
         )}
       </div>
-      <ThemeConfigPanel defaultConfig={ecommerceConfig} />
+      <ThemeConfigPanel defaultConfig={verveConfig} />
     </div>
   )
 }

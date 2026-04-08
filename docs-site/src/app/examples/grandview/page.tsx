@@ -231,7 +231,7 @@ export default function GrandviewLandingPage() {
           <div className="space-y-3">
             <h3 className="font-semibold text-foreground">Follow Us</h3>
             <div className="flex gap-4">
-              {['Instagram', 'Facebook', 'Twitter'].map((social) => (
+              {['Social', 'Facebook', 'Twitter'].map((social) => (
                 <span key={social} className="text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
                   {social}
                 </span>

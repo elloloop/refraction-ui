@@ -67,7 +67,7 @@ export default function ClearBankLanding() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  {['Coffee Shop', 'Netflix', 'Transfer'].map((t) => (
+                  {['Coffee Shop', 'Streaming', 'Transfer'].map((t) => (
                     <div key={t} className="flex items-center justify-between rounded-[var(--radius)] bg-background/50 p-2">
                       <span className="text-xs">{t}</span>
                       <span className="text-xs font-medium">-$12.50</span>

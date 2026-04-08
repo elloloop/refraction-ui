@@ -162,7 +162,7 @@ export default function StudioXLanding() {
           <span className="text-xs text-muted-foreground">&copy; 2026 STUDIO X</span>
           <div className="flex gap-6">
             <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Twitter</span>
-            <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Instagram</span>
+            <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Social</span>
             <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Dribbble</span>
           </div>
         </div>

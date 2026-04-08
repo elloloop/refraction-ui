@@ -161,12 +161,12 @@ export default function EmberLandingPage() {
         </div>
       </section>
 
-      {/* Instagram Grid */}
+      {/* Social Grid */}
       <section className="px-8 py-[var(--section-gap)] bg-muted/20">
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="text-center">
             <h2 className="text-lg font-medium text-foreground">@emberandoak</h2>
-            <p className="text-sm text-muted-foreground mt-1">Follow us on Instagram</p>
+            <p className="text-sm text-muted-foreground mt-1">Follow us on social media</p>
           </div>
           <div className="grid grid-cols-4 gap-2">
             {Array.from({ length: 4 }).map((_, i) => (
@@ -185,7 +185,7 @@ export default function EmberLandingPage() {
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="text-sm text-muted-foreground">&copy; 2026 Ember &amp; Oak. All rights reserved.</span>
           <div className="flex gap-6">
-            {['Instagram', 'Facebook', 'Yelp'].map((social) => (
+            {['Social', 'Facebook', 'Yelp'].map((social) => (
               <span key={social} className="text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
                 {social}
               </span>

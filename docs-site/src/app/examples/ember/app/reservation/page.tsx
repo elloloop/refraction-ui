@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { restaurantConfig } from '../../../theme-configs'
+import { emberConfig } from '../../../theme-configs'
 
 const timeSlots = [
   '5:30 PM', '6:00 PM', '6:30 PM', '7:00 PM', '7:30 PM',
@@ -26,12 +26,12 @@ export default function RestaurantReservationPage() {
     <div className="-mx-8 -mt-12">
       {/* Navigation */}
       <nav className="flex items-center justify-between px-8 py-4 border-b border-border bg-background/80 backdrop-blur-sm">
-        <Link href="/examples/restaurant" className="text-lg font-semibold text-foreground tracking-tight">
-          Embers &amp; Vine
+        <Link href="/examples/ember" className="text-lg font-semibold text-foreground tracking-tight">
+          Ember &amp; Oak
         </Link>
         <div className="flex items-center gap-6">
-          <Link href="/examples/restaurant" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Home</Link>
-          <Link href="/examples/restaurant/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Menu</Link>
+          <Link href="/examples/ember" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Home</Link>
+          <Link href="/examples/ember/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Menu</Link>
           <span className="text-sm text-foreground font-medium">Reservation</span>
         </div>
       </nav>
@@ -162,11 +162,11 @@ export default function RestaurantReservationPage() {
       {/* Footer */}
       <footer className="border-t border-border px-8 py-8 mt-8">
         <div className="max-w-4xl mx-auto flex items-center justify-between text-sm text-muted-foreground">
-          <span>&copy; 2026 Embers &amp; Vine</span>
+          <span>&copy; 2026 Ember &amp; Oak</span>
           <span>+1 (415) 555-0182</span>
         </div>
       </footer>
-      <ThemeConfigPanel defaultConfig={restaurantConfig} />
+      <ThemeConfigPanel defaultConfig={emberConfig} />
     </div>
   )
 }

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { portfolioConfig } from '../../../theme-configs'
+import { studioxConfig } from '../../../theme-configs'
 
 const themeConfig = `:root {
   --background: 240 10% 4%;
@@ -21,8 +21,8 @@ export default function CaseStudy() {
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-          <Link href="/examples/portfolio" className="text-lg font-bold tracking-tight">STUDIO.CO</Link>
-          <Link href="/examples/portfolio/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/examples/studiox" className="text-lg font-bold tracking-tight">STUDIO X</Link>
+          <Link href="/examples/studiox/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             All Work
           </Link>
         </div>
@@ -151,7 +151,7 @@ export default function CaseStudy() {
         {/* Next Project */}
         <div className="border-t border-border pt-12">
           <Link
-            href="/examples/portfolio/app"
+            href="/examples/studiox/app"
             className="group flex items-center justify-between"
           >
             <div>
@@ -165,7 +165,7 @@ export default function CaseStudy() {
         </div>
       </div>
 
-      <ThemeConfigPanel defaultConfig={portfolioConfig} />
+      <ThemeConfigPanel defaultConfig={studioxConfig} />
     </div>
   )
 }

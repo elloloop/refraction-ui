@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { luxuryConfig } from '../../theme-configs'
+import { maisonConfig } from '../../theme-configs'
 
 const products = [
   { id: 1, name: 'Meridian Chronograph', price: '$4,800', category: 'Timepieces' },
@@ -21,12 +21,12 @@ export default function LuxuryCollectionPage() {
     <div className="-mx-8 -mt-12">
       {/* Navigation */}
       <nav className="flex items-center justify-between px-8 py-6 border-b border-border/30">
-        <Link href="/examples/luxury" className="text-sm tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors">
-          Maison Lumiere
+        <Link href="/examples/maison" className="text-sm tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors">
+          Maison Eclat
         </Link>
         <div className="flex items-center gap-8">
           <span className="text-xs tracking-[0.15em] uppercase text-foreground font-medium">Collection</span>
-          <Link href="/examples/luxury/app/product" className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors">Atelier</Link>
+          <Link href="/examples/maison/app/product" className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors">Atelier</Link>
         </div>
       </nav>
 
@@ -42,7 +42,7 @@ export default function LuxuryCollectionPage() {
       <div className="px-8 pb-24">
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-x-8 gap-y-16">
           {products.map((product) => (
-            <Link key={product.id} href="/examples/luxury/app/product" className="group space-y-5">
+            <Link key={product.id} href="/examples/maison/app/product" className="group space-y-5">
               <div className="aspect-[3/4] rounded-[var(--card-radius)] bg-gradient-to-b from-muted/30 to-accent/20 border border-border/20 flex items-center justify-center group-hover:border-border/50 transition-all">
                 <div className="text-center text-muted-foreground">
                   <svg className="h-10 w-10 mx-auto mb-2 opacity-15" fill="none" viewBox="0 0 24 24" strokeWidth={0.5} stroke="currentColor">
@@ -67,14 +67,14 @@ export default function LuxuryCollectionPage() {
       {/* Footer */}
       <footer className="border-t border-border/30 px-8 py-8">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground">&copy; 2026 Maison Lumiere</span>
+          <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground">&copy; 2026 Maison Eclat</span>
           <div className="flex gap-6">
             <span className="text-xs text-muted-foreground">Privacy</span>
             <span className="text-xs text-muted-foreground">Terms</span>
           </div>
         </div>
       </footer>
-      <ThemeConfigPanel defaultConfig={luxuryConfig} />
+      <ThemeConfigPanel defaultConfig={maisonConfig} />
     </div>
   )
 }

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { hotelConfig } from '../../theme-configs'
+import { grandviewConfig } from '../../theme-configs'
 
 const allRooms = [
   { id: 1, name: 'Deluxe Suite', price: 450, rating: 4.9, available: true, image: 'Panoramic suite view', amenities: ['King Bed', 'Ocean View', 'Private Balcony', 'Mini Bar', 'Room Service', 'Jacuzzi'], guests: 2 },
@@ -38,16 +38,16 @@ export default function HotelRoomListing() {
     <div className="-mx-8 -mt-12">
       {/* Navigation */}
       <nav className="flex items-center justify-between px-8 py-4 border-b border-border bg-background/80 backdrop-blur-sm">
-        <Link href="/examples/hotel" className="flex items-center gap-2">
+        <Link href="/examples/grandview" className="flex items-center gap-2">
           <svg className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3H21m-3.75 3H21" />
           </svg>
-          <span className="text-lg font-semibold text-foreground tracking-tight">The Grand Hotel</span>
+          <span className="text-lg font-semibold text-foreground tracking-tight">The Grandview</span>
         </Link>
         <div className="flex items-center gap-6">
-          <Link href="/examples/hotel" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Home</Link>
-          <Link href="/examples/hotel/app" className="text-sm text-foreground font-medium">Rooms</Link>
-          <Link href="/examples/hotel/app/booking" className="rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
+          <Link href="/examples/grandview" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Home</Link>
+          <Link href="/examples/grandview/app" className="text-sm text-foreground font-medium">Rooms</Link>
+          <Link href="/examples/grandview/app/booking" className="rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
             Book Now
           </Link>
         </div>
@@ -158,7 +158,7 @@ export default function HotelRoomListing() {
                     {room.available ? 'Available' : 'Sold Out'}
                   </span>
                   <Link
-                    href="/examples/hotel/app/booking"
+                    href="/examples/grandview/app/booking"
                     className={`rounded-[var(--button-radius)] px-4 py-1.5 text-sm font-medium transition-opacity ${
                       room.available
                         ? 'bg-primary text-primary-foreground hover:opacity-90'
@@ -173,7 +173,7 @@ export default function HotelRoomListing() {
           ))}
         </div>
       </div>
-      <ThemeConfigPanel defaultConfig={hotelConfig} />
+      <ThemeConfigPanel defaultConfig={grandviewConfig} />
     </div>
   )
 }
