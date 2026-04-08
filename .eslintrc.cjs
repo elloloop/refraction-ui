@@ -6,7 +6,7 @@ module.exports = {
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: ['./packages/cli/tsconfig.json', './tsconfig.json'],
+    project: ['./packages/*/tsconfig.json', './tsconfig.json'],
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
@@ -15,7 +15,7 @@ module.exports = {
   ignorePatterns: ['dist', 'node_modules'],
   overrides: [
     {
-      files: ['packages/cli/vitest.config.ts'],
+      files: ['packages/*/vitest.config.ts', 'packages/*/tsup.config.ts'],
       parserOptions: {
         project: null,
       },

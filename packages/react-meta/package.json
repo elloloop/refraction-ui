@@ -1,0 +1,84 @@
+{
+  "name": "@refraction-ui/react",
+  "version": "0.1.0",
+  "description": "All Refraction UI React components in a single package",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@refraction-ui/react-ai": "workspace:*",
+    "@refraction-ui/react-animated-text": "workspace:*",
+    "@refraction-ui/react-auth": "workspace:*",
+    "@refraction-ui/react-badge": "workspace:*",
+    "@refraction-ui/react-bottom-nav": "workspace:*",
+    "@refraction-ui/react-breadcrumbs": "workspace:*",
+    "@refraction-ui/react-button": "workspace:*",
+    "@refraction-ui/react-calendar": "workspace:*",
+    "@refraction-ui/react-charts": "workspace:*",
+    "@refraction-ui/react-code-editor": "workspace:*",
+    "@refraction-ui/react-collapsible": "workspace:*",
+    "@refraction-ui/react-command": "workspace:*",
+    "@refraction-ui/react-content-protection": "workspace:*",
+    "@refraction-ui/react-data-table": "workspace:*",
+    "@refraction-ui/react-device-frame": "workspace:*",
+    "@refraction-ui/react-dialog": "workspace:*",
+    "@refraction-ui/react-dropdown-menu": "workspace:*",
+    "@refraction-ui/react-feedback-dialog": "workspace:*",
+    "@refraction-ui/react-footer": "workspace:*",
+    "@refraction-ui/react-inline-editor": "workspace:*",
+    "@refraction-ui/react-input": "workspace:*",
+    "@refraction-ui/react-input-group": "workspace:*",
+    "@refraction-ui/react-install-prompt": "workspace:*",
+    "@refraction-ui/react-language-selector": "workspace:*",
+    "@refraction-ui/react-markdown-renderer": "workspace:*",
+    "@refraction-ui/react-mobile-nav": "workspace:*",
+    "@refraction-ui/react-navbar": "workspace:*",
+    "@refraction-ui/react-popover": "workspace:*",
+    "@refraction-ui/react-progress-display": "workspace:*",
+    "@refraction-ui/react-resizable-layout": "workspace:*",
+    "@refraction-ui/react-search-bar": "workspace:*",
+    "@refraction-ui/react-sidebar": "workspace:*",
+    "@refraction-ui/react-skeleton": "workspace:*",
+    "@refraction-ui/react-slide-viewer": "workspace:*",
+    "@refraction-ui/react-tabs": "workspace:*",
+    "@refraction-ui/react-textarea": "workspace:*",
+    "@refraction-ui/react-theme": "workspace:*",
+    "@refraction-ui/react-toast": "workspace:*",
+    "@refraction-ui/react-tooltip": "workspace:*",
+    "@refraction-ui/react-version-selector": "workspace:*",
+    "@refraction-ui/react-video-player": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "sideEffects": false,
+  "license": "MIT"
+}

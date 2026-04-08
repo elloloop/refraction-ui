@@ -1,6 +1,5 @@
-import fs from "fs-extra";
-import path from "path";
-import ora from "ora";
+import { existsSync, mkdirSync, writeFileSync, readFileSync } from "node:fs";
+import { dirname } from "node:path";
 import { findConfig as findConfigFile } from "./config";
 
 export interface WriteOptions {
@@ -8,32 +7,36 @@ export interface WriteOptions {
   dryRun?: boolean;
 }
 
+function log(symbol: string, message: string) {
+  console.log(`${symbol} ${message}`);
+}
+
 export async function safeWrite(
   filePath: string,
   content: string,
   options: WriteOptions = {}
 ): Promise<void> {
-  const spinner = ora(`Writing ${filePath}`).start();
-  const exists = await fs.pathExists(filePath);
+  log("-", `Writing ${filePath}`);
+  const exists = existsSync(filePath);
   if (exists && !options.overwrite) {
-    spinner.fail(`File ${filePath} already exists`);
+    log("✖", `File ${filePath} already exists`);
     throw new Error(`File exists: ${filePath}`);
   }
   if (!options.dryRun) {
-    await fs.ensureDir(path.dirname(filePath));
-    await fs.writeFile(filePath, content);
+    mkdirSync(dirname(filePath), { recursive: true });
+    writeFileSync(filePath, content);
   }
-  spinner.succeed(`Wrote ${filePath}`);
+  log("✔", `Wrote ${filePath}`);
 }
 
 export async function safeRead(filePath: string): Promise<string> {
-  const spinner = ora(`Reading ${filePath}`).start();
+  log("-", `Reading ${filePath}`);
   try {
-    const data = await fs.readFile(filePath, "utf8");
-    spinner.succeed(`Read ${filePath}`);
+    const data = readFileSync(filePath, "utf8");
+    log("✔", `Read ${filePath}`);
     return data;
   } catch (err) {
-    spinner.fail(`Failed to read ${filePath}`);
+    log("✖", `Failed to read ${filePath}`);
     throw err;
   }
 }
