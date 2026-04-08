@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { PageShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { grandviewConfig } from '../theme-configs'
 import { rooms, testimonials, socialLinks } from './config'
@@ -24,9 +25,9 @@ function StarRating({ count }: { count: number }) {
 
 export default function GrandviewLandingPage() {
   return (
-    <div className="">
+    <PageShell config={{ navSticky: true }}>
       {/* Navigation */}
-      <nav className="flex items-center justify-between px-8 py-4 border-b border-border bg-background/80 backdrop-blur-sm">
+      <PageShell.Nav className="justify-between bg-background/80 backdrop-blur-sm">
         <div className="flex items-center gap-2">
           <svg className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3H21m-3.75 3H21" />
@@ -41,11 +42,11 @@ export default function GrandviewLandingPage() {
             Book Now
           </Link>
         </div>
-      </nav>
+      </PageShell.Nav>
 
       {/* Hero */}
-      <section className="relative">
-        <div className="h-[480px] bg-gradient-to-br from-primary/20 via-accent to-primary/10 flex items-center justify-center">
+      <PageShell.Section fullWidth className="py-0">
+        <div className="h-[480px] bg-gradient-to-br from-primary/20 via-accent to-primary/10 flex items-center justify-center relative">
           <div className="absolute inset-0 bg-foreground/5" />
           <div className="relative text-center space-y-6 px-8">
             <h1 className="text-5xl font-bold tracking-tight text-foreground" style={{ letterSpacing: 'var(--heading-letter-spacing)' }}>
@@ -65,11 +66,11 @@ export default function GrandviewLandingPage() {
             </Link>
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* About */}
-      <section id="about" className="px-8 py-[var(--section-gap)]">
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <PageShell.Section maxWidth="4xl" className="py-[var(--section-gap)]">
+        <div id="about" className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <h2 className="text-3xl font-semibold tracking-tight text-foreground" style={{ letterSpacing: 'var(--heading-letter-spacing)' }}>
               About Our Hotel
@@ -90,11 +91,11 @@ export default function GrandviewLandingPage() {
             </div>
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Room Types */}
-      <section className="px-8 py-[var(--section-gap)] bg-muted/30">
-        <div className="max-w-4xl mx-auto space-y-8">
+      <PageShell.Section maxWidth="4xl" background="muted" className="py-[var(--section-gap)]">
+        <div className="space-y-8">
           <div className="text-center space-y-2">
             <h2 className="text-3xl font-semibold tracking-tight text-foreground" style={{ letterSpacing: 'var(--heading-letter-spacing)' }}>
               Our Rooms
@@ -143,11 +144,11 @@ export default function GrandviewLandingPage() {
             </Link>
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="px-8 py-[var(--section-gap)]">
-        <div className="max-w-4xl mx-auto space-y-8">
+      <PageShell.Section maxWidth="4xl" className="py-[var(--section-gap)]">
+        <div id="testimonials" className="space-y-8">
           <div className="text-center space-y-2">
             <h2 className="text-3xl font-semibold tracking-tight text-foreground" style={{ letterSpacing: 'var(--heading-letter-spacing)' }}>
               Guest Reviews
@@ -167,43 +168,38 @@ export default function GrandviewLandingPage() {
             ))}
           </div>
         </div>
-      </section>
+      </PageShell.Section>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-muted/30 px-8 py-12">
-        <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-8">
-          <div className="space-y-3">
-            <h3 className="font-semibold text-foreground">Contact</h3>
-            <div className="space-y-2 text-sm text-muted-foreground">
-              <p>+1 (555) 234-5678</p>
-              <p>reservations@thegrandview.com</p>
-            </div>
-          </div>
-          <div className="space-y-3">
-            <h3 className="font-semibold text-foreground">Address</h3>
-            <div className="space-y-2 text-sm text-muted-foreground">
-              <p>1200 Ocean Boulevard</p>
-              <p>Pacific Heights, CA 94115</p>
-              <p>United States</p>
-            </div>
-          </div>
-          <div className="space-y-3">
-            <h3 className="font-semibold text-foreground">Follow Us</h3>
-            <div className="flex gap-4">
-              {socialLinks.map((social) => (
-                <span key={social} className="text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
-                  {social}
-                </span>
-              ))}
-            </div>
+      <PageShell.Footer columns={3}>
+        <div className="space-y-3">
+          <h3 className="font-semibold text-foreground">Contact</h3>
+          <div className="space-y-2 text-sm text-muted-foreground">
+            <p>+1 (555) 234-5678</p>
+            <p>reservations@thegrandview.com</p>
           </div>
         </div>
-        <div className="max-w-4xl mx-auto mt-8 pt-6 border-t border-border text-center text-xs text-muted-foreground">
-          &copy; 2026 The Grandview. All rights reserved.
+        <div className="space-y-3">
+          <h3 className="font-semibold text-foreground">Address</h3>
+          <div className="space-y-2 text-sm text-muted-foreground">
+            <p>1200 Ocean Boulevard</p>
+            <p>Pacific Heights, CA 94115</p>
+            <p>United States</p>
+          </div>
         </div>
-      </footer>
+        <div className="space-y-3">
+          <h3 className="font-semibold text-foreground">Follow Us</h3>
+          <div className="flex gap-4">
+            {socialLinks.map((social) => (
+              <span key={social} className="text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
+                {social}
+              </span>
+            ))}
+          </div>
+        </div>
+      </PageShell.Footer>
 
       <ThemeConfigPanel defaultConfig={grandviewConfig} />
-    </div>
+    </PageShell>
   )
 }
