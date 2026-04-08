@@ -4,6 +4,7 @@ import { useState, useCallback, useMemo } from 'react'
 import Link from 'next/link'
 import { Button } from '@refraction-ui/react-button'
 import { Input } from '@refraction-ui/react-input'
+import { COMPLETE_THEME_TEMPLATE } from '../complete-template'
 
 // ---------------------------------------------------------------------------
 // Prompt template
@@ -15,92 +16,29 @@ My brand is: `
 
 const PROMPT_AFTER_BRAND = `
 
-Generate CSS custom properties in this EXACT format. Every variable must be included:
+Generate CSS custom properties in this EXACT format. ALL 95 variables must be included — every category matters:
 
-:root {
-  /* Colors (HSL values: hue saturation% lightness%) */
-  --background: [H S% L%];
-  --foreground: [H S% L%];
-  --card: [H S% L%];
-  --card-foreground: [H S% L%];
-  --popover: [H S% L%];
-  --popover-foreground: [H S% L%];
-  --primary: [H S% L%];
-  --primary-foreground: [H S% L%];
-  --secondary: [H S% L%];
-  --secondary-foreground: [H S% L%];
-  --accent: [H S% L%];
-  --accent-foreground: [H S% L%];
-  --muted: [H S% L%];
-  --muted-foreground: [H S% L%];
-  --destructive: [H S% L%];
-  --destructive-foreground: [H S% L%];
-  --border: [H S% L%];
-  --input: [H S% L%];
-  --ring: [H S% L%];
+` + COMPLETE_THEME_TEMPLATE + `
 
-  /* Typography */
-  --font-sans: '[font]', system-ui, sans-serif;
-  --font-heading: '[font]', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
-
-  /* Shape */
-  --radius: [value]rem;
-  --avatar-radius: [value];
-  --badge-radius: [value];
-  --button-radius: [value];
-  --card-radius: [value];
-
-  /* Depth */
-  --shadow-sm: [shadow];
-  --shadow-md: [shadow];
-  --shadow-lg: [shadow];
-  --card-shadow: [shadow];
-  --button-shadow: [shadow or none];
-
-  /* Transparency */
-  --overlay-opacity: [0.3-0.7];
-  --backdrop-blur: [0-20]px;
-  --glass-bg: rgba([r],[g],[b],[a]);
-
-  /* Density */
-  --spacing-scale: [0.85-1.15];
-  --card-padding: [value]rem;
-  --input-height: [value]rem;
-  --button-height: [value]rem;
-
-  /* Typography details */
-  --heading-weight: [300-700];
-  --heading-letter-spacing: [value]em;
-  --letter-spacing-tight: [value]em;
-  --line-height-normal: [value];
-
-  /* Component styles (string values) */
-  --input-style: [bordered|filled|underline];
-  --button-style: [filled|outline|ghost-default];
-  --hover-effect: [darken|lighten|shadow-lift|scale];
-  --link-style: [underline|color-only|underline-on-hover];
-  --icon-style: [outlined|filled|duotone];
-  --tooltip-style: [dark|light|primary];
-  --table-style: [striped|clean|bordered];
-  --scrollbar-style: [thin|hidden|default];
-  --focus-ring-style: [ring|outline|shadow];
-
-  /* Motion */
-  --transition-duration: [100-300]ms;
-  --transition-easing: cubic-bezier([values]);
-
-  /* Borders */
-  --border-width: [0-1]px;
-  --disabled-opacity: [0.3-0.6];
-  --placeholder-opacity: [0.3-0.6];
-}
+Replace every value above with values that match my brand. Here is what each category controls:
+- COLORS: HSL values (hue saturation% lightness%) for surfaces, brand, semantic, borders, sidebar, and charts
+- TYPOGRAPHY: Font families, 9-step size scale, 4 weights, heading treatment, letter spacing, line heights
+- SHAPE: Base radius, 8-step radius scale, per-component radius overrides
+- DEPTH: 5-step shadow scale + per-component shadows
+- TRANSPARENCY: Overlay opacity, backdrop blur, glass effects
+- SPACING: Density scale, padding, heights, gaps, container sizing
+- BORDERS: Width, style, divider opacity
+- COMPONENT STYLES: Input/button/link/icon/scrollbar/tooltip/table/spinner behavior keywords
+- FOCUS: Ring width, offset, style
+- SELECTION: Text highlight colors
+- MOTION: Transition durations, easings, animation speed, enter/exit transitions
 
 Requirements:
 1. All foreground/background color pairs must meet WCAG AA contrast ratio (4.5:1 minimum)
 2. Colors should be beautiful and cohesive, not random
 3. The overall feel should match my brand description
-4. Output ONLY the CSS — no explanation needed`
+4. Choose typography, radius, shadows, density, and motion values that reinforce the brand personality
+5. Output ONLY the CSS — no explanation needed`
 
 const DEFAULT_BRAND = '[DESCRIBE YOUR BRAND HERE - e.g., "a luxury hotel booking platform with warm, inviting aesthetics"]'
 
@@ -195,7 +133,7 @@ export default function GenerateThemePage() {
               {copied ? 'Copied!' : 'Copy'}
             </Button>
           </div>
-          <pre className="overflow-x-auto p-4 max-h-[500px] overflow-y-auto">
+          <pre className="overflow-x-auto p-4 max-h-[700px] overflow-y-auto">
             <code className="text-sm font-mono text-foreground leading-relaxed whitespace-pre-wrap break-words">
               {fullPrompt}
             </code>
