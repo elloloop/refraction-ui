@@ -216,8 +216,3 @@ export const socialProofLogos = ['Acme Corp', 'Globex', 'Initech', 'Solaris', 'A
 
 export const formatButtons = ['B', 'I', 'S', '</>']
 
-export const previewMessages = [
-                { name: 'Sarah K.', msg: 'Just deployed the new API endpoint!' },
-                { name: 'Mike R.', msg: 'Nice! The tests are all passing.' },
-                { name: 'Lisa M.', msg: 'Can we review the PR before EOD?' },
-              ]

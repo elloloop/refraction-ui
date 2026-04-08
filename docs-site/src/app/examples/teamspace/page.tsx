@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { teamspaceConfig } from '../theme-configs'
-import { features } from './/config'
+import { features } from './config'
+import { previewChannels, socialProofLogos } from './/config'
 
 export default function TeamspaceLandingPage() {
   return (
@@ -80,7 +81,7 @@ export default function TeamspaceLandingPage() {
           <div className="flex h-64 md:h-80">
             <div className="w-16 md:w-56 bg-[hsl(var(--sidebar-background))] shrink-0 p-3">
               <div className="space-y-1.5">
-                {['# general', '# engineering', '# random', '# design'].map((ch) => (
+                {previewChannels.map((ch) => (
                   <div key={ch} className="text-xs md:text-sm text-white/60 px-2 py-1 rounded truncate">{ch}</div>
                 ))}
               </div>
@@ -139,7 +140,7 @@ export default function TeamspaceLandingPage() {
             From startups to Fortune 100, teams of every size rely on Teamspace to stay connected and productive.
           </p>
           <div className="mt-10 flex items-center justify-center gap-8 flex-wrap">
-            {['Acme Corp', 'Globex', 'Initech', 'Solaris', 'Apex Digital'].map((co) => (
+            {socialProofLogos.map((co) => (
               <span key={co} className="text-lg font-semibold text-muted-foreground/50">{co}</span>
             ))}
           </div>

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { clearbankConfig } from '../theme-configs'
+import { mockTransactions } from './/config'
 
 export default function ClearBankLanding() {
   return (
@@ -67,7 +68,7 @@ export default function ClearBankLanding() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  {['Coffee Shop', 'Streaming', 'Transfer'].map((t) => (
+                  {mockTransactions.map((t) => (
                     <div key={t} className="flex items-center justify-between rounded-[var(--radius)] bg-background/50 p-2">
                       <span className="text-xs">{t}</span>
                       <span className="text-xs font-medium">-$12.50</span>

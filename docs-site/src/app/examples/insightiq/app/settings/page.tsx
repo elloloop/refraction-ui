@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { insightiqConfig } from '../../../theme-configs'
+import { settingsTabs } from '../../config'
 
 const themeConfig = `:root {
   --primary: 250 50% 50%;
@@ -52,7 +53,7 @@ export default function SaasSettings() {
         <div className="p-8 max-w-3xl">
           {/* Tabs */}
           <div className="flex gap-1 border-b border-border">
-            {['Profile', 'Team', 'Billing', 'Integrations'].map((tab) => (
+            {settingsTabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab.toLowerCase())}

@@ -4,7 +4,8 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { insightiqConfig } from '../theme-configs'
-import { faqs } from './/config'
+import { faqs } from './config'
+import { trustedByLogos } from './/config'
 
 export default function InsightIQLanding() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
@@ -58,7 +59,7 @@ export default function InsightIQLanding() {
         <div className="mx-auto max-w-6xl px-6">
           <p className="text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">Trusted by 2,000+ teams worldwide</p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
-            {['Acme Corp', 'Globex Inc', 'Initech', 'Omnicorp', 'Prestige Tech', 'Solaris Group'].map((name) => (
+            {trustedByLogos.map((name) => (
               <span key={name} className="text-lg font-semibold text-muted-foreground/50">{name}</span>
             ))}
           </div>
