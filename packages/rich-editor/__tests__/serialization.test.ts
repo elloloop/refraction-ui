@@ -752,5 +752,183 @@ describe('serialization', () => {
       expect(doc.blocks[0].type).toBe('list-item')
       expect(doc.blocks[0].indent).toBe(1)
     })
+
+    it('toMarkdown handles empty blocks', () => {
+      const doc = createDocument([createBlock('paragraph', [createTextSegment('')])])
+      expect(toMarkdown(doc)).toBe('')
+    })
+
+    it('toHTML handles empty blocks', () => {
+      const doc = createDocument([createBlock('paragraph', [createTextSegment('')])])
+      expect(toHTML(doc)).toBe('<p></p>')
+    })
+
+    it('fromMarkdown handles consecutive empty lines', () => {
+      const doc = fromMarkdown('First\n\n\n\nSecond')
+      // Should have at least First and Second
+      const texts = doc.blocks.map((b) => getBlockText(b))
+      expect(texts).toContain('First')
+      expect(texts).toContain('Second')
+    })
+
+    it('toMarkdown with deeply indented list', () => {
+      const block = createBlock('list-item', [createTextSegment('Deep')], { listType: 'bullet' })
+      block.indent = 3
+      const doc = createDocument([block])
+      expect(toMarkdown(doc)).toBe('      - Deep')
+    })
+
+    it('toHTML escapes quotes in attributes', () => {
+      const doc = createDocument([
+        createBlock('paragraph', [
+          createTextSegment('link', [{ type: 'link', attrs: { href: 'https://example.com/path?a=1&b=2' } }]),
+        ]),
+      ])
+      const html = toHTML(doc)
+      expect(html).toContain('&amp;')
+    })
+
+    it('fromMarkdown parses mixed content line', () => {
+      const doc = fromMarkdown('Hello **bold** and *italic* text')
+      expect(doc.blocks[0].type).toBe('paragraph')
+      const content = doc.blocks[0].content
+      // Should have some bold and some italic segments
+      expect(content.some((s) => s.type === 'text' && s.marks.some((m) => m.type === 'bold'))).toBe(true)
+      expect(content.some((s) => s.type === 'text' && s.marks.some((m) => m.type === 'italic'))).toBe(true)
+    })
+
+    it('fromHTML parses del tag', () => {
+      const doc = fromHTML('<p><del>struck</del></p>')
+      const seg = doc.blocks[0].content[0]
+      if (seg.type === 'text') {
+        expect(seg.marks.some((m) => m.type === 'strikethrough')).toBe(true)
+      }
+    })
+
+    it('fromHTML parses code tag', () => {
+      const doc = fromHTML('<p><code>code</code></p>')
+      const seg = doc.blocks[0].content[0]
+      if (seg.type === 'text') {
+        expect(seg.marks.some((m) => m.type === 'code')).toBe(true)
+      }
+    })
+
+    it('fromHTML parses u tag', () => {
+      const doc = fromHTML('<p><u>underlined</u></p>')
+      const seg = doc.blocks[0].content[0]
+      if (seg.type === 'text') {
+        expect(seg.marks.some((m) => m.type === 'underline')).toBe(true)
+      }
+    })
+
+    it('HTML roundtrip for blockquote', () => {
+      const doc = createDocument([createBlock('blockquote', [createTextSegment('Quote')])])
+      const html = toHTML(doc)
+      const parsed = fromHTML(html)
+      expect(parsed.blocks[0].type).toBe('blockquote')
+      expect(getBlockText(parsed.blocks[0])).toBe('Quote')
+    })
+
+    it('HTML roundtrip for code block', () => {
+      const doc = createDocument([
+        createBlock('code-block', [createTextSegment('let x = 1')], { language: 'js' }),
+      ])
+      const html = toHTML(doc)
+      const parsed = fromHTML(html)
+      expect(parsed.blocks[0].type).toBe('code-block')
+      expect(parsed.blocks[0].meta?.language).toBe('js')
+    })
+
+    it('HTML roundtrip for list items', () => {
+      const doc = createDocument([
+        createBlock('list-item', [createTextSegment('Item A')], { listType: 'bullet' }),
+        createBlock('list-item', [createTextSegment('Item B')], { listType: 'bullet' }),
+      ])
+      const html = toHTML(doc)
+      const parsed = fromHTML(html)
+      expect(parsed.blocks).toHaveLength(2)
+      expect(parsed.blocks[0].type).toBe('list-item')
+    })
+
+    it('HTML roundtrip for divider', () => {
+      const doc = createDocument([createBlock('divider')])
+      const html = toHTML(doc)
+      const parsed = fromHTML(html)
+      expect(parsed.blocks[0].type).toBe('divider')
+    })
+
+    it('HTML roundtrip for image', () => {
+      const doc = createDocument([
+        createBlock('image', [createTextSegment('')], { src: 'pic.jpg', alt: 'Photo' }),
+      ])
+      const html = toHTML(doc)
+      const parsed = fromHTML(html)
+      expect(parsed.blocks[0].type).toBe('image')
+      expect(parsed.blocks[0].meta?.src).toBe('pic.jpg')
+    })
+
+    it('toMarkdown with link and other marks', () => {
+      const doc = createDocument([
+        createBlock('paragraph', [
+          createTextSegment('text', [{ type: 'bold' }, { type: 'link', attrs: { href: 'http://test.com' } }]),
+        ]),
+      ])
+      const md = toMarkdown(doc)
+      expect(md).toContain('**')
+      expect(md).toContain('](http://test.com)')
+    })
+
+    it('fromMarkdown __bold__ with underscores', () => {
+      const doc = fromMarkdown('__bold__')
+      const seg = doc.blocks[0].content[0]
+      if (seg.type === 'text') {
+        expect(seg.marks.some((m) => m.type === 'bold')).toBe(true)
+      }
+    })
+
+    it('markdown roundtrip for inline code', () => {
+      const md = '`code here`'
+      const doc = fromMarkdown(md)
+      const result = toMarkdown(doc)
+      expect(result).toBe(md)
+    })
+
+    it('markdown roundtrip for strikethrough', () => {
+      const md = '~~struck~~'
+      const doc = fromMarkdown(md)
+      const result = toMarkdown(doc)
+      expect(result).toBe(md)
+    })
+
+    it('fromMarkdown with asterisk list', () => {
+      const doc = fromMarkdown('* Item')
+      expect(doc.blocks[0].type).toBe('list-item')
+    })
+
+    it('toPlainText handles indented lists', () => {
+      const block = createBlock('list-item', [createTextSegment('Nested')], { listType: 'bullet' })
+      block.indent = 2
+      const doc = createDocument([block])
+      expect(toPlainText(doc)).toBe('    - Nested')
+    })
+
+    it('toPlainText handles blockquote', () => {
+      const doc = createDocument([createBlock('blockquote', [createTextSegment('Quote text')])])
+      expect(toPlainText(doc)).toBe('Quote text')
+    })
+
+    it('fromHTML self-closing hr', () => {
+      const doc = fromHTML('<hr/>')
+      expect(doc.blocks[0].type).toBe('divider')
+    })
+
+    it('fromHTML with mixed content', () => {
+      const doc = fromHTML('<h1>Title</h1><p>Body</p><hr><p>After</p>')
+      expect(doc.blocks).toHaveLength(4)
+      expect(doc.blocks[0].type).toBe('heading')
+      expect(doc.blocks[1].type).toBe('paragraph')
+      expect(doc.blocks[2].type).toBe('divider')
+      expect(doc.blocks[3].type).toBe('paragraph')
+    })
   })
 })

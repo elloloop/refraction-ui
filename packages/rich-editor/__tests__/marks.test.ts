@@ -527,5 +527,128 @@ describe('marks', () => {
         }
       })
     })
+
+    markTypes.forEach((markType) => {
+      it(`addMark ${markType} on middle of text`, () => {
+        const sel = createSelection(
+          createPosition(b1.id, 3),
+          createPosition(b1.id, 8),
+        )
+        const result = addMark(doc, sel, { type: markType })
+        const content = result.doc.blocks[0].content
+        // Should have segments before, marked, and after
+        expect(content.length).toBeGreaterThanOrEqual(2)
+      })
+    })
+
+    markTypes.forEach((markType) => {
+      it(`removeMark ${markType} does not affect text content`, () => {
+        const block = createBlock('paragraph', [
+          createTextSegment('Hello World', [{ type: markType }]),
+        ])
+        const d = createDocument([block])
+        const sel = createSelection(
+          createPosition(block.id, 0),
+          createPosition(block.id, 11),
+        )
+        const result = removeMark(d, sel, markType)
+        expect(getBlockText(result.doc.blocks[0])).toBe('Hello World')
+      })
+    })
+  })
+
+  // =========================================================================
+  // Edge cases for marks
+  // =========================================================================
+  describe('mark edge cases', () => {
+    it('addMark to entire block', () => {
+      const sel = createSelection(
+        createPosition(b1.id, 0),
+        createPosition(b1.id, 11),
+      )
+      const result = addMark(doc, sel, { type: 'bold' })
+      const content = result.doc.blocks[0].content
+      // All text should be bold
+      for (const seg of content) {
+        if (seg.type === 'text' && seg.text.length > 0) {
+          expect(seg.marks.some((m) => m.type === 'bold')).toBe(true)
+        }
+      }
+    })
+
+    it('addMark twice does not duplicate', () => {
+      const sel = createSelection(
+        createPosition(b1.id, 0),
+        createPosition(b1.id, 5),
+      )
+      const r1 = addMark(doc, sel, { type: 'bold' })
+      const r2 = addMark(r1.doc, sel, { type: 'bold' })
+      const first = r2.doc.blocks[0].content[0]
+      if (first.type === 'text') {
+        const boldCount = first.marks.filter((m) => m.type === 'bold').length
+        expect(boldCount).toBe(1)
+      }
+    })
+
+    it('toggleMark link with attrs', () => {
+      const sel = createSelection(
+        createPosition(b1.id, 0),
+        createPosition(b1.id, 5),
+      )
+      const result = toggleMark(doc, sel, 'link', { href: 'http://test.com' })
+      const first = result.doc.blocks[0].content[0]
+      if (first.type === 'text') {
+        const link = first.marks.find((m) => m.type === 'link')
+        expect(link).toBeDefined()
+      }
+    })
+
+    it('getActiveMarks returns multiple marks when text has them', () => {
+      const block = createBlock('paragraph', [
+        createTextSegment('Hello', [{ type: 'bold' }, { type: 'italic' }, { type: 'underline' }]),
+      ])
+      const d = createDocument([block])
+      const sel = createCollapsedSelection(block.id, 3)
+      const marks = getActiveMarks(d, sel)
+      expect(marks).toHaveLength(3)
+    })
+
+    it('getActiveMarks at boundary between different marks', () => {
+      const block = createBlock('paragraph', [
+        createTextSegment('Bold', [{ type: 'bold' }]),
+        createTextSegment('Italic', [{ type: 'italic' }]),
+      ])
+      const d = createDocument([block])
+      // At offset 4 (boundary), should use previous char which is bold
+      const sel = createCollapsedSelection(block.id, 4)
+      const marks = getActiveMarks(d, sel)
+      expect(marks.some((m) => m.type === 'bold')).toBe(true)
+    })
+
+    it('removeMark on text without that mark is a no-op', () => {
+      const sel = createSelection(
+        createPosition(b1.id, 0),
+        createPosition(b1.id, 5),
+      )
+      const result = removeMark(doc, sel, 'bold')
+      expect(getBlockText(result.doc.blocks[0])).toBe('Hello World')
+    })
+
+    it('addMark preserves other existing marks', () => {
+      const block = createBlock('paragraph', [
+        createTextSegment('Hello', [{ type: 'italic' }]),
+      ])
+      const d = createDocument([block])
+      const sel = createSelection(
+        createPosition(block.id, 0),
+        createPosition(block.id, 5),
+      )
+      const result = addMark(d, sel, { type: 'bold' })
+      const first = result.doc.blocks[0].content[0]
+      if (first.type === 'text') {
+        expect(first.marks.some((m) => m.type === 'bold')).toBe(true)
+        expect(first.marks.some((m) => m.type === 'italic')).toBe(true)
+      }
+    })
   })
 })

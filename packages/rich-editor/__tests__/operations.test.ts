@@ -808,5 +808,201 @@ describe('operations', () => {
       const merged = mergeBlockBackward(split.doc, split.selection)
       expect(getBlockText(merged.doc.blocks[0])).toBe('Hello World')
     })
+
+    it('deleteSelection preserves blocks outside range', () => {
+      const sel = createSelection(
+        createPosition(b1.id, 0),
+        createPosition(b1.id, 11),
+      )
+      const result = deleteSelection(doc, sel)
+      expect(result.doc.blocks).toHaveLength(3)
+      expect(getBlockText(result.doc.blocks[1])).toBe('Second line')
+    })
+
+    it('insertText preserves block count', () => {
+      const sel = createCollapsedSelection(b2.id, 3)
+      const result = insertText(doc, sel, 'X')
+      expect(result.doc.blocks).toHaveLength(3)
+    })
+
+    it('selection is always collapsed after insertText', () => {
+      const sel = createCollapsedSelection(b1.id, 0)
+      const result = insertText(doc, sel, 'Hello')
+      expect(isCollapsed(result.selection)).toBe(true)
+    })
+
+    it('selection is always collapsed after deleteBackward', () => {
+      const sel = createSelection(
+        createPosition(b1.id, 0),
+        createPosition(b1.id, 5),
+      )
+      const result = deleteBackward(doc, sel)
+      expect(isCollapsed(result.selection)).toBe(true)
+    })
+
+    it('selection is always collapsed after deleteForward', () => {
+      const sel = createSelection(
+        createPosition(b1.id, 0),
+        createPosition(b1.id, 5),
+      )
+      const result = deleteForward(doc, sel)
+      expect(isCollapsed(result.selection)).toBe(true)
+    })
+
+    it('selection is always collapsed after deleteSelection', () => {
+      const sel = createSelection(
+        createPosition(b1.id, 2),
+        createPosition(b1.id, 8),
+      )
+      const result = deleteSelection(doc, sel)
+      expect(isCollapsed(result.selection)).toBe(true)
+    })
+
+    it('selection is always collapsed after splitBlock', () => {
+      const sel = createCollapsedSelection(b1.id, 5)
+      const result = splitBlock(doc, sel)
+      expect(isCollapsed(result.selection)).toBe(true)
+    })
+  })
+
+  // =========================================================================
+  // Additional edge cases
+  // =========================================================================
+  describe('additional edge cases', () => {
+    it('insert empty string is a no-op', () => {
+      const sel = createCollapsedSelection(b1.id, 5)
+      const result = insertText(doc, sel, '')
+      expect(getBlockText(result.doc.blocks[0])).toBe('Hello World')
+      expect(result.selection.anchor.offset).toBe(5)
+    })
+
+    it('insert newline character does not split block (raw insert)', () => {
+      const sel = createCollapsedSelection(b1.id, 5)
+      const result = insertText(doc, sel, '\n')
+      expect(result.doc.blocks).toHaveLength(3) // still 3 blocks
+      expect(getBlockText(result.doc.blocks[0])).toBe('Hello\n World')
+    })
+
+    it('deleteBackward at offset 1 leaves empty text', () => {
+      const singleChar = createBlock('paragraph', [createTextSegment('A')])
+      const d = createDocument([singleChar])
+      const sel = createCollapsedSelection(singleChar.id, 1)
+      const result = deleteBackward(d, sel)
+      expect(getBlockTextLength(result.doc.blocks[0])).toBe(0)
+    })
+
+    it('deleteForward in middle of multi-segment content', () => {
+      const block = createBlock('paragraph', [
+        createTextSegment('Hel'),
+        createTextSegment('lo', [{ type: 'bold' }]),
+      ])
+      const d = createDocument([block])
+      const sel = createCollapsedSelection(block.id, 2)
+      const result = deleteForward(d, sel)
+      expect(getBlockText(result.doc.blocks[0])).toBe('Helo')
+    })
+
+    it('mergeBlockBackward with formatted blocks preserves formatting', () => {
+      const b1 = createBlock('paragraph', [createTextSegment('Hello', [{ type: 'bold' }])])
+      const b2 = createBlock('paragraph', [createTextSegment(' World', [{ type: 'italic' }])])
+      const d = createDocument([b1, b2])
+      const sel = createCollapsedSelection(b2.id, 0)
+      const result = mergeBlockBackward(d, sel)
+      expect(result.doc.blocks).toHaveLength(1)
+      // Should have both bold and italic segments
+      const content = result.doc.blocks[0].content
+      expect(content.some((s) => s.type === 'text' && s.marks.some((m) => m.type === 'bold'))).toBe(true)
+      expect(content.some((s) => s.type === 'text' && s.marks.some((m) => m.type === 'italic'))).toBe(true)
+    })
+
+    it('changeBlockType preserves content text', () => {
+      const sel = createCollapsedSelection(b1.id, 0)
+      const types: Array<{ type: any; name: string }> = [
+        { type: 'heading', name: 'heading' },
+        { type: 'blockquote', name: 'blockquote' },
+        { type: 'code-block', name: 'code-block' },
+        { type: 'list-item', name: 'list-item' },
+      ]
+      for (const { type } of types) {
+        const result = changeBlockType(doc, sel, type)
+        expect(getBlockText(result.doc.blocks[0])).toBe('Hello World')
+      }
+    })
+
+    it('multiple indents stack up', () => {
+      const sel = createCollapsedSelection(b1.id, 0)
+      let result = indentBlock(doc, sel)
+      result = indentBlock(result.doc, sel)
+      result = indentBlock(result.doc, sel)
+      expect(result.doc.blocks[0].indent).toBe(3)
+    })
+
+    it('outdent below 0 stays at 0', () => {
+      const sel = createCollapsedSelection(b1.id, 0)
+      const result = outdentBlock(doc, sel)
+      expect(result.doc.blocks[0].indent ?? 0).toBe(0)
+      const result2 = outdentBlock(result.doc, sel)
+      expect(result2.doc.blocks[0].indent ?? 0).toBe(0)
+    })
+
+    it('moveLeft from expanded backward selection collapses to start', () => {
+      const sel = createSelection(
+        createPosition(b1.id, 8),
+        createPosition(b1.id, 2),
+      )
+      const result = moveLeft(doc, sel)
+      expect(result.anchor.offset).toBe(2)
+      expect(isCollapsed(result)).toBe(true)
+    })
+
+    it('moveRight from expanded backward selection collapses to end', () => {
+      const sel = createSelection(
+        createPosition(b1.id, 8),
+        createPosition(b1.id, 2),
+      )
+      const result = moveRight(doc, sel)
+      expect(result.anchor.offset).toBe(8)
+    })
+
+    it('moveDown from expanded selection collapses first', () => {
+      const sel = createSelection(
+        createPosition(b1.id, 2),
+        createPosition(b1.id, 8),
+      )
+      const result = moveDown(doc, sel)
+      expect(result.anchor.blockId).toBe(b2.id)
+    })
+
+    it('insertBlock with divider type', () => {
+      const sel = createCollapsedSelection(b1.id, 0)
+      const result = insertBlock(doc, sel, 'divider')
+      expect(result.doc.blocks[1].type).toBe('divider')
+    })
+
+    it('splitBlock on empty block creates two empty blocks', () => {
+      const empty = createBlock('paragraph')
+      const d = createDocument([empty])
+      const sel = createCollapsedSelection(empty.id, 0)
+      const result = splitBlock(d, sel)
+      expect(result.doc.blocks).toHaveLength(2)
+      expect(getBlockTextLength(result.doc.blocks[0])).toBe(0)
+      expect(getBlockTextLength(result.doc.blocks[1])).toBe(0)
+    })
+
+    it('deleteSelection across all blocks leaves one empty block', () => {
+      const sel = createSelection(
+        createPosition(b1.id, 0),
+        createPosition(b3.id, getBlockTextLength(b3)),
+      )
+      const result = deleteSelection(doc, sel)
+      expect(result.doc.blocks).toHaveLength(1)
+      expect(getBlockTextLength(result.doc.blocks[0])).toBe(0)
+    })
+
+    it('insertText with multi-byte characters', () => {
+      const sel = createCollapsedSelection(b1.id, 0)
+      const result = insertText(doc, sel, '\u{1F600}')
+      expect(getBlockText(result.doc.blocks[0])).toContain('\u{1F600}')
+    })
   })
 })

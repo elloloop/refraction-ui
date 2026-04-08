@@ -4,58 +4,35 @@
 
 import type {
   Document,
-  Block,
-  InlineContent,
   Mark,
   MarkType,
   BlockType,
 } from './model.js'
 import {
   createDocument,
-  getBlockText,
   getBlockTextLength,
-  findBlockById,
-  createTextSegment,
 } from './model.js'
 import type { Selection } from './selection.js'
 import {
-  createCollapsedSelection,
-  isCollapsed,
   selectionAtDocStart,
-  selectAll as selectAllSel,
 } from './selection.js'
 import type { EditorState } from './operations.js'
 import {
   insertText as opInsertText,
   deleteBackward as opDeleteBackward,
   deleteForward as opDeleteForward,
-  deleteSelection as opDeleteSelection,
   splitBlock as opSplitBlock,
   changeBlockType as opChangeBlockType,
   indentBlock as opIndentBlock,
   outdentBlock as opOutdentBlock,
   toggleMark as opToggleMark,
-  addMark as opAddMark,
-  removeMark as opRemoveMark,
   getActiveMarks as opGetActiveMarks,
-  moveLeft,
-  moveRight,
-  moveUp,
-  moveDown,
-  moveToStartOfBlock,
-  moveToEndOfBlock,
-  moveToStartOfDocument,
-  moveToEndOfDocument,
-  expandSelectionWord,
-  insertInlineContent,
 } from './operations.js'
 import { processMarkdownShortcut } from './markdown-shortcuts.js'
 import type { SlashCommand, SlashCommandMenu } from './slash-commands.js'
-import { createSlashCommandMenu, detectSlashTrigger } from './slash-commands.js'
+import { createSlashCommandMenu } from './slash-commands.js'
 import type { MentionOption, MentionMenu } from './mentions.js'
-import { createMentionMenu, detectMentionTrigger } from './mentions.js'
-import type { HistoryManager } from './history.js'
-import { createHistory } from './history.js'
+import { createMentionMenu } from './mentions.js'
 import { toMarkdown, fromMarkdown, toHTML, toPlainText } from './serialization.js'
 
 // ---------------------------------------------------------------------------
@@ -141,19 +118,21 @@ export function createEditor(config?: EditorConfig): EditorAPI {
   })()
 
   let selection: Selection = selectionAtDocStart(doc)
-  const history: HistoryManager = createHistory()
   const slashMenu = createSlashCommandMenu(slashCommands)
   const mentionMenuInstance = createMentionMenu(mentionOptions)
   const subscribers: Set<(state: EditorState) => void> = new Set()
 
-  function getState(): EditorState {
-    return { doc, selection }
+  // Internal undo/redo stacks (stores pre-edit snapshots)
+  let undoStack: EditorState[] = []
+  let redoStack: EditorState[] = []
+  const MAX_HISTORY = 100
+
+  function cloneState(): EditorState {
+    return JSON.parse(JSON.stringify({ doc, selection })) as EditorState
   }
 
-  function setState(state: EditorState): void {
-    doc = state.doc
-    selection = state.selection
-    notify()
+  function getState(): EditorState {
+    return { doc, selection }
   }
 
   function notify(): void {
@@ -165,7 +144,12 @@ export function createEditor(config?: EditorConfig): EditorAPI {
   }
 
   function pushHistory(): void {
-    history.push({ doc: JSON.parse(JSON.stringify(doc)), selection: JSON.parse(JSON.stringify(selection)) })
+    undoStack.push(cloneState())
+    if (undoStack.length > MAX_HISTORY) {
+      undoStack = undoStack.slice(undoStack.length - MAX_HISTORY)
+    }
+    // New edit clears redo
+    redoStack = []
   }
 
   function getPlainTextContent(): string {
@@ -197,7 +181,6 @@ export function createEditor(config?: EditorConfig): EditorAPI {
       if (text.length === 1) {
         const shortcutResult = processMarkdownShortcut(doc, selection, text)
         if (shortcutResult.consumed) {
-          setState({ doc: shortcutResult.doc, sel: shortcutResult.sel } as unknown as EditorState)
           doc = shortcutResult.doc
           selection = shortcutResult.sel
           notify()
@@ -289,25 +272,29 @@ export function createEditor(config?: EditorConfig): EditorAPI {
     mentionMenu: mentionMenuInstance,
 
     undo(): void {
-      const state = history.undo()
-      if (state) {
-        doc = state.doc
-        selection = state.selection
-        notify()
-      }
+      if (undoStack.length === 0) return
+      // Save current state to redo stack
+      redoStack.push(cloneState())
+      // Restore from undo stack
+      const state = undoStack.pop()!
+      doc = state.doc
+      selection = state.selection
+      notify()
     },
 
     redo(): void {
-      const state = history.redo()
-      if (state) {
-        doc = state.doc
-        selection = state.selection
-        notify()
-      }
+      if (redoStack.length === 0) return
+      // Save current state to undo stack
+      undoStack.push(cloneState())
+      // Restore from redo stack
+      const state = redoStack.pop()!
+      doc = state.doc
+      selection = state.selection
+      notify()
     },
 
-    canUndo: () => history.canUndo(),
-    canRedo: () => history.canRedo(),
+    canUndo: () => undoStack.length > 0,
+    canRedo: () => redoStack.length > 0,
 
     getActiveMarks(): Mark[] {
       return opGetActiveMarks(doc, selection)
@@ -346,7 +333,8 @@ export function createEditor(config?: EditorConfig): EditorAPI {
 
     destroy(): void {
       subscribers.clear()
-      history.clear()
+      undoStack = []
+      redoStack = []
     },
   }
 
