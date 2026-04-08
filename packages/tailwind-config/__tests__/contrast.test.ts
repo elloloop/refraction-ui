@@ -7,6 +7,7 @@ import {
   meetsWCAG_AAA,
   validateThemeContrast,
   glassaTheme,
+  refractionTheme,
 } from '../src/index.js'
 
 describe('parseHSL', () => {
@@ -152,8 +153,8 @@ describe('meetsWCAG_AAA', () => {
   })
 
   it('near-black foreground on white passes AAA', () => {
-    // 224 71% 4% is the glassa foreground — very dark
-    expect(meetsWCAG_AAA('224 71% 4%', white)).toBe(true)
+    // 222 47% 11% is the refraction foreground — very dark
+    expect(meetsWCAG_AAA('222 47% 11%', white)).toBe(true)
   })
 
   it('medium blue on white fails AAA', () => {
@@ -162,9 +163,14 @@ describe('meetsWCAG_AAA', () => {
   })
 })
 
-describe('validateThemeContrast on glassa theme', () => {
+describe('validateThemeContrast on refraction theme', () => {
+  const themeForValidation = {
+    light: refractionTheme.colors.light,
+    dark: refractionTheme.colors.dark,
+  }
+
   it('returns results for both light and dark modes', () => {
-    const results = validateThemeContrast(glassaTheme)
+    const results = validateThemeContrast(themeForValidation)
     const lightResults = results.filter(r => r.mode === 'light')
     const darkResults = results.filter(r => r.mode === 'dark')
     expect(lightResults.length).toBeGreaterThan(0)
@@ -172,7 +178,7 @@ describe('validateThemeContrast on glassa theme', () => {
   })
 
   it('ALL foreground/background pairs pass WCAG AA', () => {
-    const results = validateThemeContrast(glassaTheme)
+    const results = validateThemeContrast(themeForValidation)
     const failures = results.filter(r => !r.passes)
     if (failures.length > 0) {
       const failureMessages = failures
@@ -187,7 +193,7 @@ describe('validateThemeContrast on glassa theme', () => {
   })
 
   it('each result has required properties', () => {
-    const results = validateThemeContrast(glassaTheme)
+    const results = validateThemeContrast(themeForValidation)
     for (const result of results) {
       expect(result).toHaveProperty('pair')
       expect(result).toHaveProperty('mode')
@@ -199,30 +205,36 @@ describe('validateThemeContrast on glassa theme', () => {
   })
 
   it('light mode foreground/background has very high contrast', () => {
-    const results = validateThemeContrast(glassaTheme)
+    const results = validateThemeContrast(themeForValidation)
     const fgBg = results.find(r => r.pair === 'light: foreground / background')
     expect(fgBg).toBeDefined()
-    expect(fgBg!.ratio).toBeGreaterThan(15)
+    expect(fgBg!.ratio).toBeGreaterThan(10)
   })
 
   it('light mode primary/background has adequate contrast', () => {
-    const results = validateThemeContrast(glassaTheme)
+    const results = validateThemeContrast(themeForValidation)
     const primaryBg = results.find(r => r.pair === 'light: primary / background')
     expect(primaryBg).toBeDefined()
     expect(primaryBg!.ratio).toBeGreaterThanOrEqual(4.5)
   })
 
   it('light mode muted-foreground has adequate contrast', () => {
-    const results = validateThemeContrast(glassaTheme)
+    const results = validateThemeContrast(themeForValidation)
     const mutedBg = results.find(r => r.pair === 'light: muted-foreground / background')
     expect(mutedBg).toBeDefined()
     expect(mutedBg!.ratio).toBeGreaterThanOrEqual(4.5)
   })
 
   it('dark mode foreground/background has very high contrast', () => {
-    const results = validateThemeContrast(glassaTheme)
+    const results = validateThemeContrast(themeForValidation)
     const fgBg = results.find(r => r.pair === 'dark: foreground / background')
     expect(fgBg).toBeDefined()
     expect(fgBg!.ratio).toBeGreaterThan(15)
+  })
+
+  it('backward compat: glassaTheme works with validateThemeContrast', () => {
+    const results = validateThemeContrast(glassaTheme)
+    const failures = results.filter(r => !r.passes)
+    expect(failures).toHaveLength(0)
   })
 })

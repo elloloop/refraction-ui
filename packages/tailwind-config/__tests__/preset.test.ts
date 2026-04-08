@@ -1,5 +1,28 @@
 import { describe, it, expect } from 'vitest'
-import { refractionPreset, colors, keyframes, animation, utilitiesPlugin, glassaTheme, generateThemeCSS, getThemeVariableNames } from '../src/index.js'
+import {
+  refractionPreset,
+  colors,
+  keyframes,
+  animation,
+  utilitiesPlugin,
+  refractionTheme,
+  luxeTheme,
+  warmTheme,
+  signalTheme,
+  pulseTheme,
+  monoTheme,
+  glassaTheme,
+  THEMES,
+  DEFAULT_THEME,
+  generateThemeCSS,
+  getThemeVariableNames,
+  validateThemeContrast,
+  type ThemeDefinition,
+} from '../src/index.js'
+
+// ---------------------------------------------------------------------------
+// Preset
+// ---------------------------------------------------------------------------
 
 describe('refractionPreset', () => {
   it('uses class-based dark mode', () => {
@@ -27,11 +50,45 @@ describe('refractionPreset', () => {
     expect(refractionPreset.theme.extend.fontFamily.mono[0]).toBe('var(--font-mono)')
   })
 
+  it('extends font sizes via CSS variables', () => {
+    const fs = refractionPreset.theme.extend.fontSize
+    expect(fs.xs).toBe('var(--font-size-xs)')
+    expect(fs.base).toBe('var(--font-size-base)')
+    expect(fs['5xl']).toBe('var(--font-size-5xl)')
+  })
+
+  it('extends box shadows via CSS variables', () => {
+    const bs = refractionPreset.theme.extend.boxShadow
+    expect(bs.sm).toBe('var(--shadow-sm)')
+    expect(bs.md).toBe('var(--shadow-md)')
+    expect(bs.lg).toBe('var(--shadow-lg)')
+    expect(bs.xl).toBe('var(--shadow-xl)')
+  })
+
   it('includes keyframes and animations', () => {
     expect(refractionPreset.theme.extend.keyframes).toBeDefined()
     expect(refractionPreset.theme.extend.animation).toBeDefined()
   })
+
+  it('is a valid object with required keys', () => {
+    expect(typeof refractionPreset).toBe('object')
+    expect(refractionPreset).toHaveProperty('darkMode')
+    expect(refractionPreset).toHaveProperty('theme')
+    expect(refractionPreset.theme).toHaveProperty('container')
+    expect(refractionPreset.theme).toHaveProperty('extend')
+    expect(refractionPreset.theme.extend).toHaveProperty('colors')
+    expect(refractionPreset.theme.extend).toHaveProperty('borderRadius')
+    expect(refractionPreset.theme.extend).toHaveProperty('fontFamily')
+    expect(refractionPreset.theme.extend).toHaveProperty('fontSize')
+    expect(refractionPreset.theme.extend).toHaveProperty('boxShadow')
+    expect(refractionPreset.theme.extend).toHaveProperty('keyframes')
+    expect(refractionPreset.theme.extend).toHaveProperty('animation')
+  })
 })
+
+// ---------------------------------------------------------------------------
+// Colors
+// ---------------------------------------------------------------------------
 
 describe('colors', () => {
   it('maps semantic colors to CSS variables', () => {
@@ -49,156 +106,7 @@ describe('colors', () => {
   it('includes sidebar colors', () => {
     expect(colors.sidebar.DEFAULT).toBe('hsl(var(--sidebar-background))')
   })
-})
 
-describe('keyframes', () => {
-  it('defines all animation keyframes', () => {
-    expect(keyframes['fade-in']).toBeDefined()
-    expect(keyframes['slide-up']).toBeDefined()
-    expect(keyframes['toast-in']).toBeDefined()
-    expect(keyframes['toast-out']).toBeDefined()
-    expect(keyframes['accordion-down']).toBeDefined()
-    expect(keyframes['accordion-up']).toBeDefined()
-    expect(keyframes['scale-in']).toBeDefined()
-  })
-})
-
-describe('animation', () => {
-  it('defines animation utility values', () => {
-    expect(animation['fade-in']).toContain('ease-out')
-    expect(animation['toast-in']).toContain('ease-out')
-    expect(animation['accordion-down']).toContain('ease-out')
-  })
-})
-
-describe('utilitiesPlugin', () => {
-  it('is a function (plugin creator)', () => {
-    expect(typeof utilitiesPlugin).toBe('function')
-  })
-
-  it('registers utilities when called', () => {
-    const utilities: Record<string, unknown> = {}
-    utilitiesPlugin({
-      addUtilities: (u) => Object.assign(utilities, u),
-    })
-    expect(utilities['.scrollbar-hide']).toBeDefined()
-    expect(utilities['.safe-top']).toBeDefined()
-    expect(utilities['.safe-bottom']).toBeDefined()
-    expect(utilities['.snap-lane']).toBeDefined()
-    expect(utilities['.press-scale']).toBeDefined()
-    expect(utilities['.glass']).toBeDefined()
-    expect(utilities['.text-gradient']).toBeDefined()
-  })
-})
-
-describe('glassaTheme (default theme)', () => {
-  it('has light and dark modes', () => {
-    expect(glassaTheme.light).toBeDefined()
-    expect(glassaTheme.dark).toBeDefined()
-  })
-
-  it('light mode has all required CSS variables', () => {
-    const requiredVars = [
-      '--background', '--foreground', '--primary', '--primary-foreground',
-      '--secondary', '--secondary-foreground', '--muted', '--muted-foreground',
-      '--accent', '--accent-foreground', '--destructive', '--destructive-foreground',
-      '--border', '--input', '--ring', '--radius',
-      '--card', '--card-foreground', '--popover', '--popover-foreground',
-      '--chart-1', '--chart-2', '--chart-3', '--chart-4', '--chart-5',
-      '--sidebar-background', '--sidebar-foreground', '--sidebar-primary',
-    ]
-    for (const v of requiredVars) {
-      expect(glassaTheme.light).toHaveProperty(v)
-    }
-  })
-
-  it('dark mode has same variables as light mode', () => {
-    const lightKeys = Object.keys(glassaTheme.light)
-    const darkKeys = Object.keys(glassaTheme.dark)
-    expect(darkKeys).toEqual(lightKeys)
-  })
-
-  it('light and dark have different background values', () => {
-    expect(glassaTheme.light['--background']).not.toBe(glassaTheme.dark['--background'])
-  })
-
-  it('light and dark have different foreground values', () => {
-    expect(glassaTheme.light['--foreground']).not.toBe(glassaTheme.dark['--foreground'])
-  })
-
-  it('all values are valid HSL strings (3 space-separated numbers)', () => {
-    for (const [key, value] of Object.entries(glassaTheme.light)) {
-      if (key === '--radius') continue // radius is rem not hsl
-      expect(value).toMatch(/^\d+(\.\d+)?\s+\d+(\.\d+)?%\s+\d+(\.\d+)?%$/)
-    }
-  })
-
-  it('radius is a rem value', () => {
-    expect(glassaTheme.light['--radius']).toMatch(/rem$/)
-  })
-
-  it('has name', () => {
-    expect(glassaTheme.name).toBe('glassa')
-  })
-})
-
-describe('generateThemeCSS', () => {
-  it('generates valid CSS with :root and .dark selectors', () => {
-    const css = generateThemeCSS()
-    expect(css).toContain(':root {')
-    expect(css).toContain('.dark {')
-  })
-
-  it('includes all CSS variables in output', () => {
-    const css = generateThemeCSS()
-    expect(css).toContain('--background:')
-    expect(css).toContain('--primary:')
-    expect(css).toContain('--radius:')
-  })
-
-  it('light variables are in :root block', () => {
-    const css = generateThemeCSS()
-    const rootBlock = css.split('.dark')[0]
-    expect(rootBlock).toContain('--background:')
-  })
-
-  it('dark variables are in .dark block', () => {
-    const css = generateThemeCSS()
-    const darkBlock = css.split('.dark {')[1]
-    expect(darkBlock).toContain('--background:')
-  })
-})
-
-describe('getThemeVariableNames', () => {
-  it('returns array of variable names', () => {
-    const names = getThemeVariableNames()
-    expect(Array.isArray(names)).toBe(true)
-    expect(names.length).toBeGreaterThan(20)
-  })
-
-  it('all names start with --', () => {
-    for (const name of getThemeVariableNames()) {
-      expect(name.startsWith('--')).toBe(true)
-    }
-  })
-
-  it('includes core variables', () => {
-    const names = getThemeVariableNames()
-    expect(names).toContain('--background')
-    expect(names).toContain('--primary')
-    expect(names).toContain('--radius')
-  })
-})
-
-describe('animation-keyframe consistency', () => {
-  it('all animation keys have matching keyframe definitions', () => {
-    for (const key of Object.keys(animation)) {
-      expect(keyframes[key]).toBeDefined()
-    }
-  })
-})
-
-describe('colors - comprehensive', () => {
   it('background color is defined', () => {
     expect(colors.background).toBe('hsl(var(--background))')
   })
@@ -252,45 +160,58 @@ describe('colors - comprehensive', () => {
   })
 })
 
-describe('borderRadius', () => {
-  it('all border radius values reference --radius CSS variable', () => {
-    const br = refractionPreset.theme.extend.borderRadius
-    expect(br.lg).toContain('var(--radius)')
-    expect(br.md).toContain('var(--radius)')
-    expect(br.sm).toContain('var(--radius)')
-  })
-})
+// ---------------------------------------------------------------------------
+// Keyframes & Animations
+// ---------------------------------------------------------------------------
 
-describe('fontFamily', () => {
-  it('font families have fallback stacks', () => {
-    const ff = refractionPreset.theme.extend.fontFamily
-    expect(ff.sans.length).toBeGreaterThan(1)
-    expect(ff.mono.length).toBeGreaterThan(1)
-    expect(ff.serif.length).toBeGreaterThan(1)
-    expect(ff.heading.length).toBeGreaterThan(1)
+describe('keyframes', () => {
+  it('defines all animation keyframes', () => {
+    expect(keyframes['fade-in']).toBeDefined()
+    expect(keyframes['slide-up']).toBeDefined()
+    expect(keyframes['toast-in']).toBeDefined()
+    expect(keyframes['toast-out']).toBeDefined()
+    expect(keyframes['accordion-down']).toBeDefined()
+    expect(keyframes['accordion-up']).toBeDefined()
+    expect(keyframes['scale-in']).toBeDefined()
   })
-})
 
-describe('container screens', () => {
-  it('has 2xl breakpoint', () => {
-    expect(refractionPreset.theme.container.screens['2xl']).toBe('1400px')
-  })
-})
-
-describe('keyframes - specific properties', () => {
   it('fade-in has from/to opacity', () => {
     expect(keyframes['fade-in'].from.opacity).toBe('0')
     expect(keyframes['fade-in'].to.opacity).toBe('1')
   })
 })
 
-describe('animation - specific durations', () => {
-  it('toast-in uses ease-out', () => {
+describe('animation', () => {
+  it('defines animation utility values', () => {
+    expect(animation['fade-in']).toContain('ease-out')
     expect(animation['toast-in']).toContain('ease-out')
+    expect(animation['accordion-down']).toContain('ease-out')
   })
 })
 
-describe('utilitiesPlugin - specific utilities', () => {
+// ---------------------------------------------------------------------------
+// Utilities plugin
+// ---------------------------------------------------------------------------
+
+describe('utilitiesPlugin', () => {
+  it('is a function (plugin creator)', () => {
+    expect(typeof utilitiesPlugin).toBe('function')
+  })
+
+  it('registers utilities when called', () => {
+    const utilities: Record<string, unknown> = {}
+    utilitiesPlugin({
+      addUtilities: (u) => Object.assign(utilities, u),
+    })
+    expect(utilities['.scrollbar-hide']).toBeDefined()
+    expect(utilities['.safe-top']).toBeDefined()
+    expect(utilities['.safe-bottom']).toBeDefined()
+    expect(utilities['.snap-lane']).toBeDefined()
+    expect(utilities['.press-scale']).toBeDefined()
+    expect(utilities['.glass']).toBeDefined()
+    expect(utilities['.text-gradient']).toBeDefined()
+  })
+
   it('.drag-handle has correct styles', () => {
     const utilities: Record<string, unknown> = {}
     utilitiesPlugin({
@@ -313,17 +234,301 @@ describe('utilitiesPlugin - specific utilities', () => {
   })
 })
 
-describe('refractionPreset - validity', () => {
-  it('is a valid object with required keys', () => {
-    expect(typeof refractionPreset).toBe('object')
-    expect(refractionPreset).toHaveProperty('darkMode')
-    expect(refractionPreset).toHaveProperty('theme')
-    expect(refractionPreset.theme).toHaveProperty('container')
-    expect(refractionPreset.theme).toHaveProperty('extend')
-    expect(refractionPreset.theme.extend).toHaveProperty('colors')
-    expect(refractionPreset.theme.extend).toHaveProperty('borderRadius')
-    expect(refractionPreset.theme.extend).toHaveProperty('fontFamily')
-    expect(refractionPreset.theme.extend).toHaveProperty('keyframes')
-    expect(refractionPreset.theme.extend).toHaveProperty('animation')
+// ---------------------------------------------------------------------------
+// Border radius
+// ---------------------------------------------------------------------------
+
+describe('borderRadius', () => {
+  it('all border radius values reference --radius CSS variable', () => {
+    const br = refractionPreset.theme.extend.borderRadius
+    expect(br.lg).toContain('var(--radius)')
+    expect(br.md).toContain('var(--radius)')
+    expect(br.sm).toContain('var(--radius)')
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Font families
+// ---------------------------------------------------------------------------
+
+describe('fontFamily', () => {
+  it('font families have fallback stacks', () => {
+    const ff = refractionPreset.theme.extend.fontFamily
+    expect(ff.sans.length).toBeGreaterThan(1)
+    expect(ff.mono.length).toBeGreaterThan(1)
+    expect(ff.serif.length).toBeGreaterThan(1)
+    expect(ff.heading.length).toBeGreaterThan(1)
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Container screens
+// ---------------------------------------------------------------------------
+
+describe('container screens', () => {
+  it('has 2xl breakpoint', () => {
+    expect(refractionPreset.theme.container.screens['2xl']).toBe('1400px')
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Animation - keyframe consistency
+// ---------------------------------------------------------------------------
+
+describe('animation-keyframe consistency', () => {
+  it('all animation keys have matching keyframe definitions', () => {
+    for (const key of Object.keys(animation)) {
+      expect(keyframes[key]).toBeDefined()
+    }
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Theme registry
+// ---------------------------------------------------------------------------
+
+describe('THEMES registry', () => {
+  it('contains exactly 6 themes', () => {
+    expect(Object.keys(THEMES)).toHaveLength(6)
+  })
+
+  it('contains all named themes', () => {
+    expect(THEMES.refraction).toBeDefined()
+    expect(THEMES.luxe).toBeDefined()
+    expect(THEMES.warm).toBeDefined()
+    expect(THEMES.signal).toBeDefined()
+    expect(THEMES.pulse).toBeDefined()
+    expect(THEMES.mono).toBeDefined()
+  })
+
+  it('DEFAULT_THEME is refraction', () => {
+    expect(DEFAULT_THEME).toBe('refraction')
+  })
+})
+
+// ---------------------------------------------------------------------------
+// All 6 themes: structural validation
+// ---------------------------------------------------------------------------
+
+const allThemes: [string, ThemeDefinition][] = Object.entries(THEMES)
+
+describe.each(allThemes)('theme "%s" — structural', (_name, theme) => {
+  it('has name, displayName, and description', () => {
+    expect(theme.name).toBeTruthy()
+    expect(theme.displayName).toBeTruthy()
+    expect(theme.description).toBeTruthy()
+  })
+
+  it('has light and dark color modes', () => {
+    expect(theme.colors.light).toBeDefined()
+    expect(theme.colors.dark).toBeDefined()
+  })
+
+  it('light mode has all required CSS color variables', () => {
+    const requiredVars = [
+      '--background', '--foreground', '--primary', '--primary-foreground',
+      '--secondary', '--secondary-foreground', '--muted', '--muted-foreground',
+      '--accent', '--accent-foreground', '--destructive', '--destructive-foreground',
+      '--border', '--input', '--ring', '--radius',
+      '--card', '--card-foreground', '--popover', '--popover-foreground',
+      '--chart-1', '--chart-2', '--chart-3', '--chart-4', '--chart-5',
+      '--sidebar-background', '--sidebar-foreground', '--sidebar-primary',
+    ]
+    for (const v of requiredVars) {
+      expect(theme.colors.light).toHaveProperty(v)
+    }
+  })
+
+  it('dark mode has same variables as light mode', () => {
+    const lightKeys = Object.keys(theme.colors.light).sort()
+    const darkKeys = Object.keys(theme.colors.dark).sort()
+    expect(darkKeys).toEqual(lightKeys)
+  })
+
+  it('light and dark have different background values', () => {
+    expect(theme.colors.light['--background']).not.toBe(theme.colors.dark['--background'])
+  })
+
+  it('all color values are valid HSL strings', () => {
+    for (const [key, value] of Object.entries(theme.colors.light)) {
+      if (key === '--radius') continue
+      expect(value).toMatch(/^\d+(\.\d+)?\s+\d+(\.\d+)?%\s+\d+(\.\d+)?%$/)
+    }
+  })
+
+  it('radius is a rem value', () => {
+    expect(theme.colors.light['--radius']).toMatch(/rem$/)
+    expect(theme.radius).toMatch(/rem$/)
+  })
+
+  it('has font definitions', () => {
+    expect(theme.fonts.sans).toBeTruthy()
+    expect(theme.fonts.heading).toBeTruthy()
+    expect(theme.fonts.mono).toBeTruthy()
+  })
+
+  it('has complete font size scale', () => {
+    const sizes = ['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl'] as const
+    for (const s of sizes) {
+      expect(theme.fontSizes[s]).toMatch(/rem$/)
+    }
+  })
+
+  it('has font weights', () => {
+    expect(theme.fontWeights.normal).toBeTruthy()
+    expect(theme.fontWeights.medium).toBeTruthy()
+    expect(theme.fontWeights.semibold).toBeTruthy()
+    expect(theme.fontWeights.bold).toBeTruthy()
+  })
+
+  it('has shadow definitions', () => {
+    expect(theme.shadows.sm).toBeTruthy()
+    expect(theme.shadows.md).toBeTruthy()
+    expect(theme.shadows.lg).toBeTruthy()
+    expect(theme.shadows.xl).toBeTruthy()
+  })
+
+  it('has transition timing', () => {
+    expect(theme.transition).toBeTruthy()
+  })
+})
+
+// ---------------------------------------------------------------------------
+// All 6 themes: WCAG AA contrast validation
+// ---------------------------------------------------------------------------
+
+describe.each(allThemes)('theme "%s" — WCAG AA contrast', (_name, theme) => {
+  it('ALL foreground/background pairs pass WCAG AA', () => {
+    const themeForValidation = {
+      light: theme.colors.light,
+      dark: theme.colors.dark,
+    }
+    const results = validateThemeContrast(themeForValidation)
+    const failures = results.filter(r => !r.passes)
+    if (failures.length > 0) {
+      const failureMessages = failures
+        .map(f => `  ${f.pair}: ${f.ratio}:1 (needs 4.5:1)`)
+        .join('\n')
+      throw new Error(
+        `WCAG AA contrast failures in "${_name}" theme:\n${failureMessages}\n\n` +
+        'Fix these colors to meet minimum 4.5:1 contrast ratio.',
+      )
+    }
+    expect(failures).toHaveLength(0)
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Backward compat: glassaTheme alias
+// ---------------------------------------------------------------------------
+
+describe('glassaTheme (backward compat)', () => {
+  it('has light and dark modes', () => {
+    expect(glassaTheme.light).toBeDefined()
+    expect(glassaTheme.dark).toBeDefined()
+  })
+
+  it('has name "refraction"', () => {
+    expect(glassaTheme.name).toBe('refraction')
+  })
+
+  it('light mode matches refractionTheme colors', () => {
+    expect(glassaTheme.light['--primary']).toBe(refractionTheme.colors.light['--primary'])
+    expect(glassaTheme.light['--background']).toBe(refractionTheme.colors.light['--background'])
+  })
+})
+
+// ---------------------------------------------------------------------------
+// generateThemeCSS
+// ---------------------------------------------------------------------------
+
+describe('generateThemeCSS', () => {
+  it('generates valid CSS with :root and .dark selectors', () => {
+    const css = generateThemeCSS()
+    expect(css).toContain(':root {')
+    expect(css).toContain('.dark {')
+  })
+
+  it('includes color CSS variables', () => {
+    const css = generateThemeCSS()
+    expect(css).toContain('--background:')
+    expect(css).toContain('--primary:')
+  })
+
+  it('includes font variables', () => {
+    const css = generateThemeCSS()
+    expect(css).toContain('--font-sans:')
+    expect(css).toContain('--font-heading:')
+    expect(css).toContain('--font-mono:')
+  })
+
+  it('includes font size variables', () => {
+    const css = generateThemeCSS()
+    expect(css).toContain('--font-size-xs:')
+    expect(css).toContain('--font-size-base:')
+    expect(css).toContain('--font-size-5xl:')
+  })
+
+  it('includes shadow variables', () => {
+    const css = generateThemeCSS()
+    expect(css).toContain('--shadow-sm:')
+    expect(css).toContain('--shadow-md:')
+    expect(css).toContain('--shadow-lg:')
+    expect(css).toContain('--shadow-xl:')
+  })
+
+  it('includes radius variable', () => {
+    const css = generateThemeCSS()
+    expect(css).toContain('--radius:')
+  })
+
+  it('includes transition variable', () => {
+    const css = generateThemeCSS()
+    expect(css).toContain('--transition:')
+  })
+
+  it('light variables are in :root block', () => {
+    const css = generateThemeCSS()
+    const rootBlock = css.split('.dark')[0]
+    expect(rootBlock).toContain('--background:')
+    expect(rootBlock).toContain('--font-sans:')
+    expect(rootBlock).toContain('--shadow-sm:')
+  })
+
+  it('dark variables are in .dark block', () => {
+    const css = generateThemeCSS()
+    const darkBlock = css.split('.dark {')[1]
+    expect(darkBlock).toContain('--background:')
+  })
+
+  it('accepts a custom theme', () => {
+    const css = generateThemeCSS(monoTheme)
+    expect(css).toContain("'JetBrains Mono'")
+    expect(css).toContain('0 0% 9%') // mono primary
+  })
+})
+
+// ---------------------------------------------------------------------------
+// getThemeVariableNames
+// ---------------------------------------------------------------------------
+
+describe('getThemeVariableNames', () => {
+  it('returns array of variable names', () => {
+    const names = getThemeVariableNames()
+    expect(Array.isArray(names)).toBe(true)
+    expect(names.length).toBeGreaterThan(20)
+  })
+
+  it('all names start with --', () => {
+    for (const name of getThemeVariableNames()) {
+      expect(name.startsWith('--')).toBe(true)
+    }
+  })
+
+  it('includes core variables', () => {
+    const names = getThemeVariableNames()
+    expect(names).toContain('--background')
+    expect(names).toContain('--primary')
+    expect(names).toContain('--radius')
   })
 })
