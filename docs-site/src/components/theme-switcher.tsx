@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useTheme } from '@refraction-ui/react-theme'
 import {
   THEMES,
   DEFAULT_THEME,
@@ -12,8 +13,10 @@ const STORAGE_KEY = 'rfr-theme-preset'
 function applyTheme(theme: ThemeDefinition) {
   const root = document.documentElement
 
-  // Apply light-mode color variables
-  for (const [key, value] of Object.entries(theme.colors.light)) {
+  // Apply color variables based on current light/dark mode
+  const isDark = root.classList.contains('dark')
+  const colors = isDark ? theme.colors.dark : theme.colors.light
+  for (const [key, value] of Object.entries(colors)) {
     root.style.setProperty(key, value)
   }
 
@@ -78,6 +81,7 @@ export function ThemeSwitcher() {
   const [activeTheme, setActiveTheme] = useState<string>(DEFAULT_THEME)
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const { resolved } = useTheme()
 
   // On mount, read persisted theme and apply it
   useEffect(() => {
@@ -89,6 +93,12 @@ export function ThemeSwitcher() {
       applyTheme(THEMES[DEFAULT_THEME])
     }
   }, [])
+
+  // Re-apply theme colors when light/dark mode changes
+  useEffect(() => {
+    const theme = THEMES[activeTheme] || THEMES[DEFAULT_THEME]
+    applyTheme(theme)
+  }, [resolved, activeTheme])
 
   // Close dropdown on outside click
   useEffect(() => {
