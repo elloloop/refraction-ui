@@ -56,12 +56,12 @@ describe('chart colors — colorblind-safe documentation', () => {
   /**
    * Chart colors should be distinguishable for users with color vision deficiencies.
    *
-   * The glassa theme chart colors use hues spread across the spectrum:
-   *   chart-1: 221 (blue)    — distinguishable for protanopia/deuteranopia
-   *   chart-2: 160 (emerald) — distinguishable from blue
-   *   chart-3: 30  (amber)   — warm tone, distinct from cool tones
-   *   chart-4: 280 (purple)  — distinguishable from blue/green
-   *   chart-5: 340 (rose)    — distinguishable from other hues
+   * The refraction theme chart colors use hues spread across the spectrum:
+   *   chart-1: 252 (violet)  — distinguishable for protanopia/deuteranopia
+   *   chart-2: 173 (teal)    — distinguishable from violet
+   *   chart-3: 38  (amber)   — warm tone, distinct from cool tones
+   *   chart-4: 330 (pink)    — distinguishable from blue/green
+   *   chart-5: 201 (sky)     — distinguishable from other hues
    *
    * Recommended: When building charts, supplement colors with:
    *   - Different shapes (circle, square, triangle, diamond, star)
@@ -71,10 +71,10 @@ describe('chart colors — colorblind-safe documentation', () => {
    */
 
   it('chart colors use at least 5 distinct hues', async () => {
-    const { glassaTheme } = await import('../src/themes/glassa.js')
+    const { refractionTheme } = await import('../src/themes/glassa.js')
     const chartKeys = ['--chart-1', '--chart-2', '--chart-3', '--chart-4', '--chart-5'] as const
     const hues = chartKeys.map(key => {
-      const value = glassaTheme.light[key] as string
+      const value = refractionTheme.colors.light[key] as string
       return parseFloat(value.split(' ')[0])
     })
 

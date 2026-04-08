@@ -3,48 +3,79 @@
 @tailwind utilities;
 
 /*
- * Glassa theme CSS variables — the default refraction-ui theme.
- * Generated from @refraction-ui/tailwind-config glassaTheme.
+ * Refraction theme CSS variables — the default refraction-ui theme.
+ * Generated from @refraction-ui/tailwind-config refractionTheme.
  */
 
 :root {
+  /* Colors */
   --background: 0 0% 100%;
-  --foreground: 224 71% 4%;
+  --foreground: 222 47% 11%;
   --card: 0 0% 100%;
-  --card-foreground: 224 71% 4%;
+  --card-foreground: 222 47% 11%;
   --popover: 0 0% 100%;
-  --popover-foreground: 224 71% 4%;
-  --primary: 221 83% 45%;
-  --primary-foreground: 210 40% 98%;
-  --secondary: 220 14% 96%;
-  --secondary-foreground: 220 9% 40%;
-  --accent: 220 14% 96%;
-  --accent-foreground: 220 9% 40%;
-  --muted: 220 14% 96%;
-  --muted-foreground: 220 9% 40%;
-  --destructive: 0 72% 45%;
-  --destructive-foreground: 210 40% 98%;
+  --popover-foreground: 222 47% 11%;
+  --primary: 252 85% 60%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 5% 96%;
+  --secondary-foreground: 240 4% 43%;
+  --accent: 252 30% 95%;
+  --accent-foreground: 252 50% 45%;
+  --muted: 240 5% 96%;
+  --muted-foreground: 240 4% 43%;
+  --destructive: 0 84% 50%;
+  --destructive-foreground: 0 0% 100%;
   --success: 142 71% 35%;
   --success-foreground: 210 40% 98%;
   --warning: 38 92% 50%;
   --warning-foreground: 224 71% 4%;
-  --border: 220 13% 91%;
-  --input: 220 13% 91%;
-  --ring: 221 83% 45%;
-  --radius: 0.625rem;
-  --chart-1: 201 100% 35%;
-  --chart-2: 40 100% 45%;
-  --chart-3: 164 100% 31%;
-  --chart-4: 70 87% 55%;
-  --chart-5: 330 37% 65%;
+  --border: 240 6% 90%;
+  --input: 240 6% 90%;
+  --ring: 252 85% 60%;
+  --radius: 0.5rem;
+  --chart-1: 252 85% 60%;
+  --chart-2: 173 80% 40%;
+  --chart-3: 38 92% 50%;
+  --chart-4: 330 65% 55%;
+  --chart-5: 201 96% 42%;
   --sidebar-background: 0 0% 98%;
-  --sidebar-foreground: 224 71% 4%;
-  --sidebar-primary: 221 83% 45%;
-  --sidebar-primary-foreground: 210 40% 98%;
-  --sidebar-accent: 220 14% 96%;
-  --sidebar-accent-foreground: 220 9% 40%;
-  --sidebar-border: 220 13% 91%;
-  --sidebar-ring: 221 83% 45%;
+  --sidebar-foreground: 222 47% 11%;
+  --sidebar-primary: 252 85% 60%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 252 30% 95%;
+  --sidebar-accent-foreground: 252 50% 45%;
+  --sidebar-border: 240 6% 90%;
+  --sidebar-ring: 252 85% 60%;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Layout */
+  --radius: 0.5rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Transitions */
+  --transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dark {
@@ -54,37 +85,37 @@
   --card-foreground: 210 40% 98%;
   --popover: 222 47% 11%;
   --popover-foreground: 210 40% 98%;
-  --primary: 217 91% 60%;
-  --primary-foreground: 222 47% 11%;
-  --secondary: 217 33% 17%;
-  --secondary-foreground: 210 40% 98%;
-  --accent: 217 33% 17%;
-  --accent-foreground: 210 40% 98%;
-  --muted: 217 33% 17%;
-  --muted-foreground: 215 20% 65%;
+  --primary: 252 78% 68%;
+  --primary-foreground: 252 40% 10%;
+  --secondary: 240 4% 16%;
+  --secondary-foreground: 240 5% 65%;
+  --accent: 252 30% 20%;
+  --accent-foreground: 252 60% 80%;
+  --muted: 240 4% 16%;
+  --muted-foreground: 240 5% 65%;
   --destructive: 0 63% 31%;
   --destructive-foreground: 210 40% 98%;
   --success: 142 71% 45%;
   --success-foreground: 210 40% 98%;
   --warning: 38 92% 50%;
   --warning-foreground: 224 71% 4%;
-  --border: 217 33% 17%;
-  --input: 217 33% 17%;
-  --ring: 217 91% 60%;
-  --radius: 0.625rem;
-  --chart-1: 201 100% 45%;
-  --chart-2: 40 100% 55%;
-  --chart-3: 164 100% 41%;
-  --chart-4: 70 87% 65%;
-  --chart-5: 330 37% 75%;
+  --border: 240 4% 16%;
+  --input: 240 4% 16%;
+  --ring: 252 78% 68%;
+  --radius: 0.5rem;
+  --chart-1: 252 78% 68%;
+  --chart-2: 173 70% 50%;
+  --chart-3: 38 92% 60%;
+  --chart-4: 330 60% 65%;
+  --chart-5: 201 90% 55%;
   --sidebar-background: 224 71% 4%;
   --sidebar-foreground: 210 40% 98%;
-  --sidebar-primary: 217 91% 60%;
-  --sidebar-primary-foreground: 222 47% 11%;
-  --sidebar-accent: 217 33% 17%;
-  --sidebar-accent-foreground: 210 40% 98%;
-  --sidebar-border: 217 33% 17%;
-  --sidebar-ring: 217 91% 60%;
+  --sidebar-primary: 252 78% 68%;
+  --sidebar-primary-foreground: 252 40% 10%;
+  --sidebar-accent: 252 30% 20%;
+  --sidebar-accent-foreground: 252 60% 80%;
+  --sidebar-border: 240 4% 16%;
+  --sidebar-ring: 252 78% 68%;
 }
 
 @layer base {
