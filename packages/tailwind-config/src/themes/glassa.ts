@@ -59,15 +59,39 @@ export interface ThemeDefinition {
   }
   /** Base border-radius */
   radius: string
+  /** Full radius scale for shape language */
+  radiusScale: {
+    none: string; sm: string; md: string; lg: string; xl: string; full: string
+  }
   /** Elevation shadows */
   shadows: {
-    sm: string
-    md: string
-    lg: string
-    xl: string
+    sm: string; md: string; lg: string; xl: string
   }
-  /** Default transition timing */
-  transition: string
+  /** Transparency & glass effects */
+  overlayOpacity: string      // '0.4' (luxe) to '0.7' (functional)
+  backdropBlur: string        // '0px' to '20px'
+  glassBackground: string     // for frosted glass cards
+  /** Spacing density: multiplier for all spacing */
+  density: 'compact' | 'comfortable' | 'spacious'
+  spacingScale: number        // 0.85 compact, 1.0 comfortable, 1.15 spacious
+  /** Letter spacing per context */
+  letterSpacing: {
+    tighter: string; tight: string; normal: string; wide: string; wider: string
+  }
+  /** Line height per context */
+  lineHeight: {
+    tight: string; normal: string; relaxed: string
+  }
+  /** Heading vs body weight balance */
+  headingWeight: string       // '300' airy luxe, '600' bold functional
+  /** Border treatment */
+  borderWidth: string         // '1px' or '0px' (shadow-only separation)
+  /** Motion / animation */
+  transitionDuration: string  // '150ms' snappy to '300ms' elegant
+  transitionEasing: string    // cubic-bezier
+  /** Container sizing */
+  containerMaxWidth: string
+  containerPadding: string
 }
 
 // ---------------------------------------------------------------------------
@@ -223,14 +247,32 @@ export const refractionTheme: ThemeDefinition = {
   fontSizes: { ...defaultFontSizes },
   fontWeights: { ...defaultFontWeights },
   radius: '0.375rem',
+  radiusScale: {
+    none: '0', sm: '0.25rem', md: '0.375rem', lg: '0.5rem', xl: '0.75rem', full: '9999px',
+  },
   shadows: {
-    // Linear-style: barely there, 0.03 opacity
     sm: '0 1px 2px 0 rgb(0 0 0 / 0.03)',
     md: '0 2px 4px -1px rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.03)',
     lg: '0 6px 10px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03)',
     xl: '0 12px 20px -4px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.03)',
   },
-  transition: '150ms cubic-bezier(0.4, 0, 0.2, 1)',
+  overlayOpacity: '0.5',
+  backdropBlur: '8px',
+  glassBackground: 'rgba(252, 252, 253, 0.8)',
+  density: 'comfortable',
+  spacingScale: 1.0,
+  letterSpacing: {
+    tighter: '-0.04em', tight: '-0.02em', normal: '0', wide: '0.02em', wider: '0.05em',
+  },
+  lineHeight: {
+    tight: '1.3', normal: '1.5', relaxed: '1.7',
+  },
+  headingWeight: '600',
+  borderWidth: '1px',
+  transitionDuration: '150ms',
+  transitionEasing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  containerMaxWidth: '1280px',
+  containerPadding: '2rem',
 }
 
 // ---------------------------------------------------------------------------
@@ -362,6 +404,9 @@ export const luxeTheme: ThemeDefinition = {
     bold: '700',
   },
   radius: '0.75rem',
+  radiusScale: {
+    none: '0', sm: '0.375rem', md: '0.75rem', lg: '1rem', xl: '1.5rem', full: '9999px',
+  },
   shadows: {
     // Apple-style: soft, diffused
     sm: '0 1px 3px 0 rgb(0 0 0 / 0.04)',
@@ -369,7 +414,23 @@ export const luxeTheme: ThemeDefinition = {
     lg: '0 8px 16px -4px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04)',
     xl: '0 16px 24px -6px rgb(0 0 0 / 0.1), 0 6px 10px -4px rgb(0 0 0 / 0.06)',
   },
-  transition: '200ms cubic-bezier(0.4, 0, 0.2, 1)',
+  overlayOpacity: '0.35',
+  backdropBlur: '20px',
+  glassBackground: 'rgba(255, 255, 255, 0.85)',
+  density: 'spacious',
+  spacingScale: 1.15,
+  letterSpacing: {
+    tighter: '-0.04em', tight: '-0.01em', normal: '0', wide: '0.05em', wider: '0.1em',
+  },
+  lineHeight: {
+    tight: '1.3', normal: '1.6', relaxed: '1.8',
+  },
+  headingWeight: '300',
+  borderWidth: '0px',
+  transitionDuration: '300ms',
+  transitionEasing: 'cubic-bezier(0.25, 0.1, 0.25, 1.0)',
+  containerMaxWidth: '1200px',
+  containerPadding: '2.5rem',
 }
 
 // ---------------------------------------------------------------------------
@@ -499,6 +560,9 @@ export const warmTheme: ThemeDefinition = {
   fontSizes: { ...defaultFontSizes },
   fontWeights: { ...defaultFontWeights },
   radius: '0.75rem',
+  radiusScale: {
+    none: '0', sm: '0.375rem', md: '0.75rem', lg: '1rem', xl: '1.25rem', full: '9999px',
+  },
   shadows: {
     // Warm-tinted shadows (slightly amber)
     sm: '0 1px 3px 0 rgb(120 80 40 / 0.06)',
@@ -506,7 +570,23 @@ export const warmTheme: ThemeDefinition = {
     lg: '0 10px 15px -3px rgb(120 80 40 / 0.08), 0 4px 6px -4px rgb(120 80 40 / 0.06)',
     xl: '0 20px 25px -5px rgb(120 80 40 / 0.1), 0 8px 10px -6px rgb(120 80 40 / 0.08)',
   },
-  transition: '180ms cubic-bezier(0.4, 0, 0.2, 1)',
+  overlayOpacity: '0.45',
+  backdropBlur: '12px',
+  glassBackground: 'rgba(255, 252, 248, 0.85)',
+  density: 'comfortable',
+  spacingScale: 1.05,
+  letterSpacing: {
+    tighter: '-0.03em', tight: '-0.01em', normal: '0', wide: '0.02em', wider: '0.04em',
+  },
+  lineHeight: {
+    tight: '1.35', normal: '1.6', relaxed: '1.75',
+  },
+  headingWeight: '600',
+  borderWidth: '1px',
+  transitionDuration: '200ms',
+  transitionEasing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  containerMaxWidth: '1280px',
+  containerPadding: '2rem',
 }
 
 // ---------------------------------------------------------------------------
@@ -635,13 +715,32 @@ export const signalTheme: ThemeDefinition = {
   fontSizes: { ...defaultFontSizes },
   fontWeights: { ...defaultFontWeights },
   radius: '0.375rem',
+  radiusScale: {
+    none: '0', sm: '0.125rem', md: '0.25rem', lg: '0.375rem', xl: '0.5rem', full: '9999px',
+  },
   shadows: {
     sm: '0 1px 2px 0 rgb(0 0 0 / 0.06)',
     md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.08)',
     lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.08)',
     xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.08)',
   },
-  transition: '120ms cubic-bezier(0.4, 0, 0.2, 1)',
+  overlayOpacity: '0.6',
+  backdropBlur: '0px',
+  glassBackground: 'rgba(255, 255, 255, 0.95)',
+  density: 'compact',
+  spacingScale: 0.85,
+  letterSpacing: {
+    tighter: '-0.04em', tight: '-0.03em', normal: '-0.01em', wide: '0', wider: '0.02em',
+  },
+  lineHeight: {
+    tight: '1.25', normal: '1.4', relaxed: '1.55',
+  },
+  headingWeight: '600',
+  borderWidth: '1px',
+  transitionDuration: '100ms',
+  transitionEasing: 'cubic-bezier(0.2, 0, 0, 1)',
+  containerMaxWidth: '1400px',
+  containerPadding: '1.5rem',
 }
 
 // ---------------------------------------------------------------------------
@@ -775,6 +874,9 @@ export const pulseTheme: ThemeDefinition = {
     bold: '700',
   },
   radius: '1rem',
+  radiusScale: {
+    none: '0', sm: '0.5rem', md: '1rem', lg: '1.25rem', xl: '1.5rem', full: '9999px',
+  },
   shadows: {
     // Bolder shadows (Spotify/Discord boldness)
     sm: '0 2px 4px 0 rgb(0 0 0 / 0.08)',
@@ -782,7 +884,23 @@ export const pulseTheme: ThemeDefinition = {
     lg: '0 14px 20px -4px rgb(0 0 0 / 0.14), 0 6px 8px -4px rgb(0 0 0 / 0.1)',
     xl: '0 24px 32px -6px rgb(0 0 0 / 0.16), 0 10px 12px -6px rgb(0 0 0 / 0.1)',
   },
-  transition: '150ms cubic-bezier(0.4, 0, 0.2, 1)',
+  overlayOpacity: '0.5',
+  backdropBlur: '16px',
+  glassBackground: 'rgba(248, 247, 252, 0.8)',
+  density: 'comfortable',
+  spacingScale: 1.0,
+  letterSpacing: {
+    tighter: '-0.03em', tight: '-0.01em', normal: '0', wide: '0.03em', wider: '0.06em',
+  },
+  lineHeight: {
+    tight: '1.3', normal: '1.5', relaxed: '1.7',
+  },
+  headingWeight: '700',
+  borderWidth: '1px',
+  transitionDuration: '200ms',
+  transitionEasing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+  containerMaxWidth: '1280px',
+  containerPadding: '2rem',
 }
 
 // ---------------------------------------------------------------------------
@@ -911,6 +1029,9 @@ export const monoTheme: ThemeDefinition = {
   fontSizes: { ...defaultFontSizes },
   fontWeights: { ...defaultFontWeights },
   radius: '0.25rem',
+  radiusScale: {
+    none: '0', sm: '0.125rem', md: '0.25rem', lg: '0.25rem', xl: '0.375rem', full: '9999px',
+  },
   shadows: {
     // No decorative shadows — just borders (Stripe/GitHub style)
     sm: 'none',
@@ -918,7 +1039,23 @@ export const monoTheme: ThemeDefinition = {
     lg: 'none',
     xl: 'none',
   },
-  transition: '100ms linear',
+  overlayOpacity: '0.65',
+  backdropBlur: '0px',
+  glassBackground: 'rgba(246, 249, 252, 0.95)',
+  density: 'comfortable',
+  spacingScale: 1.0,
+  letterSpacing: {
+    tighter: '-0.03em', tight: '-0.02em', normal: '-0.01em', wide: '0', wider: '0.05em',
+  },
+  lineHeight: {
+    tight: '1.35', normal: '1.55', relaxed: '1.7',
+  },
+  headingWeight: '500',
+  borderWidth: '1px',
+  transitionDuration: '100ms',
+  transitionEasing: 'linear',
+  containerMaxWidth: '1200px',
+  containerPadding: '2rem',
 }
 
 // ---------------------------------------------------------------------------
@@ -997,8 +1134,31 @@ export function generateThemeCSS(theme: ThemeDefinition = refractionTheme): stri
     `  --shadow-xl: ${theme.shadows.xl};`,
   ].join('\n')
 
-  const transitionVars = [
-    `  --transition: ${theme.transition};`,
+  const brandingVars = [
+    `  --overlay-opacity: ${theme.overlayOpacity};`,
+    `  --backdrop-blur: ${theme.backdropBlur};`,
+    `  --glass-bg: ${theme.glassBackground};`,
+    `  --spacing-scale: ${theme.spacingScale};`,
+    `  --letter-spacing-tighter: ${theme.letterSpacing.tighter};`,
+    `  --letter-spacing-tight: ${theme.letterSpacing.tight};`,
+    `  --letter-spacing-normal: ${theme.letterSpacing.normal};`,
+    `  --letter-spacing-wide: ${theme.letterSpacing.wide};`,
+    `  --letter-spacing-wider: ${theme.letterSpacing.wider};`,
+    `  --line-height-tight: ${theme.lineHeight.tight};`,
+    `  --line-height-normal: ${theme.lineHeight.normal};`,
+    `  --line-height-relaxed: ${theme.lineHeight.relaxed};`,
+    `  --heading-weight: ${theme.headingWeight};`,
+    `  --border-width: ${theme.borderWidth};`,
+    `  --transition-duration: ${theme.transitionDuration};`,
+    `  --transition-easing: ${theme.transitionEasing};`,
+    `  --container-max-width: ${theme.containerMaxWidth};`,
+    `  --container-padding: ${theme.containerPadding};`,
+    `  --radius-none: ${theme.radiusScale.none};`,
+    `  --radius-sm: ${theme.radiusScale.sm};`,
+    `  --radius-md: ${theme.radiusScale.md};`,
+    `  --radius-lg: ${theme.radiusScale.lg};`,
+    `  --radius-xl: ${theme.radiusScale.xl};`,
+    `  --radius-full: ${theme.radiusScale.full};`,
   ].join('\n')
 
   return [
@@ -1015,8 +1175,8 @@ export function generateThemeCSS(theme: ThemeDefinition = refractionTheme): stri
     '  /* Shadows */',
     shadowVars,
     '',
-    '  /* Transitions */',
-    transitionVars,
+    '  /* Branding */',
+    brandingVars,
     '}',
     '',
     '.dark {',
