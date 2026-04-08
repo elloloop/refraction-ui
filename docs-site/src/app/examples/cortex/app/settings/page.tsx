@@ -26,10 +26,10 @@ export default function SettingsPage() {
     <div
       className="h-screen flex bg-background text-foreground overflow-hidden"
       style={{
-        '--primary': '160 84% 39%',
+        '--primary': '35 92% 50%',
         '--primary-foreground': '0 0% 100%',
-        '--accent': '160 50% 94%',
-        '--accent-foreground': '160 84% 30%',
+        '--accent': '35 50% 94%',
+        '--accent-foreground': '35 92% 35%',
       } as React.CSSProperties}
     >
       {/* Sidebar */}

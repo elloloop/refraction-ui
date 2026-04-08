@@ -18,7 +18,7 @@ const products = [
 
 export default function LuxuryCollectionPage() {
   return (
-    <div className="-mx-8 -mt-12">
+    <div className="">
       {/* Navigation */}
       <nav className="flex items-center justify-between px-8 py-6 border-b border-border/30">
         <Link href="/examples/maison" className="text-sm tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors">

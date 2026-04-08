@@ -96,13 +96,6 @@ const posts = [
   },
 ]
 
-const instaTheme = `:root {
-  --primary: 340 82% 52%;
-  --primary-foreground: 0 0% 100%;
-  --avatar-radius: 9999px;
-  --button-radius: 0.5rem;
-  --card-radius: 0.5rem;
-}`
 
 function HeartIcon({ filled }: { filled: boolean }) {
   if (filled) {
@@ -124,16 +117,16 @@ export default function MomentoFeedPage() {
     <div
       className="min-h-screen bg-background text-foreground"
       style={{
-        '--primary': '340 82% 52%',
+        '--primary': '24 90% 55%',
         '--primary-foreground': '0 0% 100%',
-        '--accent': '340 50% 95%',
-        '--accent-foreground': '340 82% 42%',
+        '--accent': '24 50% 95%',
+        '--accent-foreground': '24 90% 40%',
       } as React.CSSProperties}
     >
       {/* Top nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto max-w-xl flex items-center justify-between px-4 py-3">
-          <Link href="/examples/momento" className="text-xl font-bold tracking-tight bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">
+          <Link href="/examples/momento" className="text-xl font-bold tracking-tight bg-gradient-to-r from-orange-400 via-amber-500 to-rose-500 bg-clip-text text-transparent">
             Momento
           </Link>
           <div className="flex items-center gap-4 text-foreground">

@@ -258,7 +258,7 @@ export default function CourseDetail() {
                       <span>4.8 avg rating</span>
                     </div>
                     <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-                      Jason has 10+ years of experience in web development and has worked at companies like Google, Stripe, and Vercel. He is passionate about teaching and has helped thousands of students launch their tech careers.
+                      Jason has 10+ years of experience in web development and has worked at several leading technology companies. He is passionate about teaching and has helped thousands of students launch their tech careers.
                     </p>
                   </div>
                 </div>

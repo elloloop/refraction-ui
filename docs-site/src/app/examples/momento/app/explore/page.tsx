@@ -35,13 +35,6 @@ const gridItems = [
   { color: 'from-cyan-500 to-blue-700', span: 'col-span-1 row-span-1' },
 ]
 
-const instaTheme = `:root {
-  --primary: 340 82% 52%;
-  --primary-foreground: 0 0% 100%;
-  --avatar-radius: 9999px;
-  --button-radius: 0.5rem;
-  --card-radius: 0.5rem;
-}`
 
 export default function ExplorePage() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -51,10 +44,10 @@ export default function ExplorePage() {
     <div
       className="min-h-screen bg-background text-foreground pb-20"
       style={{
-        '--primary': '340 82% 52%',
+        '--primary': '24 90% 55%',
         '--primary-foreground': '0 0% 100%',
-        '--accent': '340 50% 95%',
-        '--accent-foreground': '340 82% 42%',
+        '--accent': '24 50% 95%',
+        '--accent-foreground': '24 90% 40%',
       } as React.CSSProperties}
     >
       {/* Top nav */}

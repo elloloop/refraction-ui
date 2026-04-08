@@ -15,7 +15,7 @@ export default function MaisonLandingPage() {
   const [email, setEmail] = useState('')
 
   return (
-    <div className="-mx-8 -mt-12">
+    <div className="">
       {/* Navigation */}
       <nav className="flex items-center justify-between px-8 py-6">
         <span className="text-sm tracking-[0.2em] uppercase text-muted-foreground">Maison Eclat</span>
