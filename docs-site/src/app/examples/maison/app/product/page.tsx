@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { maisonConfig } from '../../../theme-configs'
-import { sizes } from '../../config'
+import { sizes, colors } from '../../config'
 
 export default function LuxuryProductPage() {
   const [selectedSize, setSelectedSize] = useState('M')

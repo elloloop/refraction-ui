@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { verveConfig } from '../../../theme-configs'
-import { sizes, reviews } from '../../config'
+import { sizes, colors, reviews } from '../../config'
 
 type Tab = 'details' | 'reviews' | 'shipping'
 
