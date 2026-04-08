@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { healthcareConfig } from '../../../theme-configs'
+import { vitalinkConfig } from '../../../theme-configs'
 
 const specialties = ['General Medicine', 'Cardiology', 'Dermatology', 'Orthopedics', 'Neurology', 'Pediatrics']
 
@@ -63,8 +63,8 @@ export default function BookAppointment() {
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
-          <Link href="/examples/healthcare" className="text-xl font-bold text-primary">MedCare+</Link>
-          <Link href="/examples/healthcare/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/examples/vitalink" className="text-xl font-bold text-primary">VitaLink</Link>
+          <Link href="/examples/vitalink/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Back to Portal
           </Link>
         </div>
@@ -204,7 +204,7 @@ export default function BookAppointment() {
         )}
       </div>
 
-      <ThemeConfigPanel defaultConfig={healthcareConfig} />
+      <ThemeConfigPanel defaultConfig={vitalinkConfig} />
     </div>
   )
 }

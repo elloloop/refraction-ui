@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { aiChatConfig } from '../../../theme-configs'
+import { cortexConfig } from '../../../theme-configs'
 
 const tabs = ['General', 'API Keys', 'Usage']
 
@@ -35,18 +35,18 @@ export default function SettingsPage() {
       {/* Sidebar */}
       <div className="w-64 bg-[hsl(210,15%,7%)] text-white/80 flex flex-col shrink-0">
         <div className="p-3">
-          <Link href="/examples/ai-chat" className="flex items-center gap-2 px-3 py-2 hover:opacity-80 transition-opacity">
+          <Link href="/examples/cortex" className="flex items-center gap-2 px-3 py-2 hover:opacity-80 transition-opacity">
             <div className="h-7 w-7 rounded-full bg-[hsl(160,84%,39%)] flex items-center justify-center">
               <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
               </svg>
             </div>
-            <span className="font-bold text-white text-sm">NovaMind</span>
+            <span className="font-bold text-white text-sm">Cortex</span>
           </Link>
         </div>
         <div className="px-3 mb-3">
           <Link
-            href="/examples/ai-chat/app"
+            href="/examples/cortex/app"
             className="w-full flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-white hover:bg-white/10 transition-colors"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -292,7 +292,7 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      <ThemeConfigPanel defaultConfig={aiChatConfig} />
+      <ThemeConfigPanel defaultConfig={cortexConfig} />
     </div>
   )
 }

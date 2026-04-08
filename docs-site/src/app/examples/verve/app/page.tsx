@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { ecommerceConfig } from '../../theme-configs'
+import { verveConfig } from '../../theme-configs'
 
 const allProducts = [
   { id: 1, name: 'Linen Blend Shirt', price: 68, category: 'Women', color: 'White', size: ['S', 'M', 'L'], rating: 4.5, image: 'Linen shirt' },
@@ -60,11 +60,11 @@ export default function EcommerceProductListing() {
     <div className="-mx-8 -mt-12">
       {/* Navigation */}
       <nav className="flex items-center justify-between px-8 py-4 border-b border-border bg-background/80 backdrop-blur-sm">
-        <Link href="/examples/ecommerce" className="text-lg font-bold text-foreground tracking-tight">FORMA</Link>
+        <Link href="/examples/verve" className="text-lg font-bold text-foreground tracking-tight">VERVE</Link>
         <div className="flex items-center gap-6">
           <span className="text-sm text-foreground font-medium">Shop</span>
-          <Link href="/examples/ecommerce/app/product" className="text-sm text-muted-foreground hover:text-foreground transition-colors">New In</Link>
-          <Link href="/examples/ecommerce/app/cart" className="relative text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/examples/verve/app/product" className="text-sm text-muted-foreground hover:text-foreground transition-colors">New In</Link>
+          <Link href="/examples/verve/app/cart" className="relative text-muted-foreground hover:text-foreground transition-colors">
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
             </svg>
@@ -139,7 +139,7 @@ export default function EcommerceProductListing() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {paginated.map((product) => (
-              <Link key={product.id} href="/examples/ecommerce/app/product" className="group space-y-3">
+              <Link key={product.id} href="/examples/verve/app/product" className="group space-y-3">
                 <div className="aspect-[3/4] rounded-[var(--card-radius)] bg-gradient-to-b from-muted/50 to-accent/30 border border-border flex items-center justify-center group-hover:border-primary/30 transition-colors">
                   <div className="text-center text-muted-foreground">
                     <svg className="h-8 w-8 mx-auto mb-1 opacity-25" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor">
@@ -194,7 +194,7 @@ export default function EcommerceProductListing() {
           )}
         </div>
       </div>
-      <ThemeConfigPanel defaultConfig={ecommerceConfig} />
+      <ThemeConfigPanel defaultConfig={verveConfig} />
     </div>
   )
 }

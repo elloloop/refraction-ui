@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { educationConfig } from '../../theme-configs'
+import { learnhubConfig } from '../../theme-configs'
 
 const allCourses = [
   { title: 'Full-Stack Web Development', instructor: 'Jason Park', rating: 4.8, students: 12400, price: '$79', category: 'Programming', color: 'from-primary/20 to-primary/5' },
@@ -42,7 +42,7 @@ export default function CourseCatalog() {
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/examples/education" className="text-xl font-bold text-primary">LearnHub</Link>
+          <Link href="/examples/learnhub" className="text-xl font-bold text-primary">LearnHub</Link>
           <div className="flex items-center gap-3">
             <span className="text-sm text-muted-foreground">Welcome back, Student</span>
             <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">SJ</div>
@@ -93,7 +93,7 @@ export default function CourseCatalog() {
           {filtered.map((course, i) => (
             <Link
               key={i}
-              href="/examples/education/app/course"
+              href="/examples/learnhub/app/course"
               className="group rounded-[var(--card-radius)] border border-border bg-card overflow-hidden transition-all hover:shadow-md hover:border-primary/30"
             >
               <div className={`aspect-video bg-gradient-to-br ${course.color} flex items-center justify-center`}>
@@ -125,7 +125,7 @@ export default function CourseCatalog() {
         </div>
       </div>
 
-      <ThemeConfigPanel defaultConfig={educationConfig} />
+      <ThemeConfigPanel defaultConfig={learnhubConfig} />
     </div>
   )
 }

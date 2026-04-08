@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { financeConfig } from '../../../theme-configs'
+import { clearbankConfig } from '../../../theme-configs'
 
 const recentRecipients = [
   { name: 'Sarah Chen', initials: 'SC', email: 'sarah@email.com' },
@@ -36,8 +36,8 @@ export default function TransferMoney() {
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-          <Link href="/examples/finance" className="text-xl font-bold text-primary">NeoBank</Link>
-          <Link href="/examples/finance/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/examples/clearbank" className="text-xl font-bold text-primary">ClearBank</Link>
+          <Link href="/examples/clearbank/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Back to Dashboard
           </Link>
         </div>
@@ -171,7 +171,7 @@ export default function TransferMoney() {
         </button>
       </div>
 
-      <ThemeConfigPanel defaultConfig={financeConfig} />
+      <ThemeConfigPanel defaultConfig={clearbankConfig} />
     </div>
   )
 }

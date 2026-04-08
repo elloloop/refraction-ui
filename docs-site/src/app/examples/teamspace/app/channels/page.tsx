@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { slackConfig } from '../../../theme-configs'
+import { teamspaceConfig } from '../../../theme-configs'
 
 const allChannels = [
   { name: 'general', description: 'Company-wide announcements and work-based matters', members: 156, isJoined: true },
@@ -44,7 +44,7 @@ export default function ChannelBrowserPage() {
       {/* Top bar */}
       <div className="flex items-center justify-between border-b border-border bg-background px-4 py-2 shrink-0">
         <div className="flex items-center gap-3">
-          <Link href="/examples/slack/app" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <Link href="/examples/teamspace/app" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <svg className="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
             </svg>
@@ -109,7 +109,7 @@ export default function ChannelBrowserPage() {
         </div>
       </div>
 
-      <ThemeConfigPanel defaultConfig={slackConfig} />
+      <ThemeConfigPanel defaultConfig={teamspaceConfig} />
     </div>
   )
 }

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { luxuryConfig } from '../../../theme-configs'
+import { maisonConfig } from '../../../theme-configs'
 
 const sizes = ['S', 'M', 'L']
 const colors = [
@@ -20,11 +20,11 @@ export default function LuxuryProductPage() {
     <div className="-mx-8 -mt-12">
       {/* Navigation */}
       <nav className="flex items-center justify-between px-8 py-6 border-b border-border/30">
-        <Link href="/examples/luxury" className="text-sm tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors">
-          Maison Lumiere
+        <Link href="/examples/maison" className="text-sm tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors">
+          Maison Eclat
         </Link>
         <div className="flex items-center gap-8">
-          <Link href="/examples/luxury/app" className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors">Collection</Link>
+          <Link href="/examples/maison/app" className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors">Collection</Link>
           <span className="text-xs tracking-[0.15em] uppercase text-foreground font-medium">Product</span>
         </div>
       </nav>
@@ -32,7 +32,7 @@ export default function LuxuryProductPage() {
       {/* Breadcrumb */}
       <div className="px-8 py-4">
         <div className="max-w-4xl mx-auto flex items-center gap-2 text-xs text-muted-foreground">
-          <Link href="/examples/luxury/app" className="hover:text-foreground transition-colors">Collection</Link>
+          <Link href="/examples/maison/app" className="hover:text-foreground transition-colors">Collection</Link>
           <span>/</span>
           <span className="text-foreground">Onyx Clutch</span>
         </div>
@@ -136,14 +136,14 @@ export default function LuxuryProductPage() {
       {/* Footer */}
       <footer className="border-t border-border/30 px-8 py-8 mt-16">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground">&copy; 2026 Maison Lumiere</span>
+          <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground">&copy; 2026 Maison Eclat</span>
           <div className="flex gap-6">
             <span className="text-xs text-muted-foreground">Privacy</span>
             <span className="text-xs text-muted-foreground">Terms</span>
           </div>
         </div>
       </footer>
-      <ThemeConfigPanel defaultConfig={luxuryConfig} />
+      <ThemeConfigPanel defaultConfig={maisonConfig} />
     </div>
   )
 }

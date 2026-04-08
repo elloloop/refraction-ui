@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { instagramConfig } from '../../theme-configs'
+import { momentoConfig } from '../../theme-configs'
 
 const stories = [
   { name: 'Your Story', avatar: 'You', isOwn: true, seen: false },
@@ -119,7 +119,7 @@ function HeartIcon({ filled }: { filled: boolean }) {
   )
 }
 
-export default function InstagramFeedPage() {
+export default function MomentoFeedPage() {
   return (
     <div
       className="min-h-screen bg-background text-foreground"
@@ -133,11 +133,11 @@ export default function InstagramFeedPage() {
       {/* Top nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto max-w-xl flex items-center justify-between px-4 py-3">
-          <Link href="/examples/instagram" className="text-xl font-bold tracking-tight bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">
-            Pixelgram
+          <Link href="/examples/momento" className="text-xl font-bold tracking-tight bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">
+            Momento
           </Link>
           <div className="flex items-center gap-4 text-foreground">
-            <Link href="/examples/instagram/app/explore">
+            <Link href="/examples/momento/app/explore">
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
               </svg>
@@ -194,7 +194,7 @@ export default function InstagramFeedPage() {
                   <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center text-xs font-semibold text-muted-foreground">
                     {post.avatar}
                   </div>
-                  <Link href="/examples/instagram/app/profile" className="text-sm font-semibold text-foreground hover:opacity-70 transition-opacity">
+                  <Link href="/examples/momento/app/profile" className="text-sm font-semibold text-foreground hover:opacity-70 transition-opacity">
                     {post.username}
                   </Link>
                 </div>
@@ -274,13 +274,13 @@ export default function InstagramFeedPage() {
       {/* Bottom nav */}
       <div className="fixed bottom-0 left-0 right-0 border-t border-border bg-background/80 backdrop-blur-sm z-40">
         <div className="mx-auto max-w-xl flex items-center justify-around py-2">
-          <Link href="/examples/instagram/app" className="p-2 text-foreground">
+          <Link href="/examples/momento/app" className="p-2 text-foreground">
             <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
               <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
               <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
             </svg>
           </Link>
-          <Link href="/examples/instagram/app/explore" className="p-2 text-muted-foreground">
+          <Link href="/examples/momento/app/explore" className="p-2 text-muted-foreground">
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
             </svg>
@@ -295,7 +295,7 @@ export default function InstagramFeedPage() {
               <path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
             </svg>
           </button>
-          <Link href="/examples/instagram/app/profile" className="p-2">
+          <Link href="/examples/momento/app/profile" className="p-2">
             <div className="h-6 w-6 rounded-full bg-muted border-2 border-foreground flex items-center justify-center text-[8px] font-bold text-muted-foreground">
               AJ
             </div>
@@ -303,7 +303,7 @@ export default function InstagramFeedPage() {
         </div>
       </div>
 
-      <ThemeConfigPanel defaultConfig={instagramConfig} />
+      <ThemeConfigPanel defaultConfig={momentoConfig} />
     </div>
   )
 }

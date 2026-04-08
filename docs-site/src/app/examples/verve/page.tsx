@@ -201,7 +201,7 @@ export default function VerveLandingPage() {
           <div className="space-y-2">
             <h4 className="text-sm font-medium text-foreground">Follow</h4>
             <div className="space-y-1 text-xs text-muted-foreground">
-              <p className="hover:text-foreground cursor-pointer transition-colors">Instagram</p>
+              <p className="hover:text-foreground cursor-pointer transition-colors">Social</p>
               <p className="hover:text-foreground cursor-pointer transition-colors">Pinterest</p>
               <p className="hover:text-foreground cursor-pointer transition-colors">TikTok</p>
             </div>

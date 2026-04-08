@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { slackConfig } from '../../theme-configs'
+import { teamspaceConfig } from '../../theme-configs'
 
 const channels = [
   { name: 'general', unread: 3 },
@@ -164,7 +164,7 @@ const slackTheme = `:root {
   --button-radius: 0.375rem;
 }`
 
-export default function SlackAppPage() {
+export default function TeamspaceAppPage() {
   const [activeChannel, setActiveChannel] = useState('general')
   const [threadOpen, setThreadOpen] = useState(false)
   const [messageText, setMessageText] = useState('')
@@ -182,13 +182,13 @@ export default function SlackAppPage() {
       {/* Top bar */}
       <div className="flex items-center justify-between border-b border-border bg-background px-4 py-2 shrink-0">
         <div className="flex items-center gap-3">
-          <Link href="/examples/slack" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <Link href="/examples/teamspace" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <div className="h-7 w-7 rounded-[var(--radius)] bg-[hsl(283,70%,45%)] flex items-center justify-center">
               <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
               </svg>
             </div>
-            <span className="font-bold text-foreground text-sm">TeamChat</span>
+            <span className="font-bold text-foreground text-sm">Teamspace</span>
           </Link>
         </div>
         <div className="flex-1 max-w-md mx-4">
@@ -196,7 +196,7 @@ export default function SlackAppPage() {
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
             </svg>
-            Search TeamChat
+            Search Teamspace
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -217,7 +217,7 @@ export default function SlackAppPage() {
             <div>
               <div className="flex items-center justify-between px-2 mb-1">
                 <span className="text-xs font-semibold uppercase tracking-wider text-white/40">Channels</span>
-                <Link href="/examples/slack/app/channels" className="text-white/40 hover:text-white/70 transition-colors">
+                <Link href="/examples/teamspace/app/channels" className="text-white/40 hover:text-white/70 transition-colors">
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                   </svg>
@@ -278,7 +278,7 @@ export default function SlackAppPage() {
           </div>
 
           <div className="p-3 border-t border-white/10">
-            <Link href="/examples/slack/app/channels" className="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-white/60 hover:bg-white/5 hover:text-white/80 transition-colors">
+            <Link href="/examples/teamspace/app/channels" className="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-white/60 hover:bg-white/5 hover:text-white/80 transition-colors">
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25a2.25 2.25 0 0 1-2.25-2.25v-2.25Z" />
               </svg>
@@ -474,7 +474,7 @@ export default function SlackAppPage() {
         )}
       </div>
 
-      <ThemeConfigPanel defaultConfig={slackConfig} />
+      <ThemeConfigPanel defaultConfig={teamspaceConfig} />
     </div>
   )
 }
