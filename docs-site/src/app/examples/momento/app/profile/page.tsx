@@ -18,24 +18,24 @@ const profileData = {
 const tabs = ['Posts', 'Reels', 'Tagged']
 
 const postColors = [
-  'from-blue-400 to-indigo-600',
-  'from-orange-400 to-red-500',
-  'from-emerald-400 to-teal-600',
-  'from-pink-400 to-rose-600',
-  'from-violet-400 to-purple-600',
-  'from-amber-400 to-orange-500',
-  'from-cyan-400 to-blue-500',
-  'from-fuchsia-400 to-pink-600',
-  'from-lime-400 to-emerald-500',
-  'from-red-400 to-pink-500',
-  'from-sky-400 to-cyan-600',
-  'from-yellow-400 to-amber-500',
-  'from-indigo-400 to-violet-600',
-  'from-teal-400 to-cyan-500',
-  'from-rose-400 to-red-500',
-  'from-green-400 to-emerald-600',
-  'from-purple-400 to-indigo-500',
-  'from-orange-500 to-amber-600',
+  'from-primary to-primary/70',
+  'from-primary/80 to-accent',
+  'from-accent to-primary/60',
+  'from-primary to-accent',
+  'from-primary/70 to-primary',
+  'from-primary/80 to-primary',
+  'from-accent to-primary',
+  'from-primary/60 to-accent',
+  'from-primary/50 to-primary',
+  'from-primary to-primary/60',
+  'from-accent to-primary/70',
+  'from-primary/80 to-accent',
+  'from-primary to-primary/50',
+  'from-accent to-primary/80',
+  'from-primary/70 to-accent',
+  'from-primary/60 to-primary',
+  'from-accent to-primary/60',
+  'from-primary to-primary/80',
 ]
 
 
@@ -51,12 +51,6 @@ export default function ProfilePage() {
   return (
     <div
       className="min-h-screen bg-background text-foreground pb-20"
-      style={{
-        '--primary': '24 90% 55%',
-        '--primary-foreground': '0 0% 100%',
-        '--accent': '24 50% 95%',
-        '--accent-foreground': '24 90% 40%',
-      } as React.CSSProperties}
     >
       {/* Top nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
@@ -85,7 +79,7 @@ export default function ProfilePage() {
         <div className="px-4 pt-4">
           <div className="flex items-start gap-6">
             {/* Avatar */}
-            <div className="p-[3px] rounded-full bg-gradient-to-br from-orange-400 via-pink-500 to-purple-600 shrink-0">
+            <div className="p-[3px] rounded-full bg-gradient-to-br from-primary via-accent to-primary/60 shrink-0">
               <div className="rounded-full bg-background p-[2px]">
                 <div className="h-20 w-20 rounded-full bg-muted flex items-center justify-center text-xl font-bold text-muted-foreground">
                   {profileData.avatar}
