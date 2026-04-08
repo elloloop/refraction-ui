@@ -4,14 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { clearbankConfig } from '../../../theme-configs'
-
-const recentRecipients = [
-  { name: 'Sarah Chen', initials: 'SC', email: 'sarah@email.com' },
-  { name: 'Marcus Johnson', initials: 'MJ', email: 'marcus@email.com' },
-  { name: 'Elena Rodriguez', initials: 'ER', email: 'elena@email.com' },
-  { name: 'James Wilson', initials: 'JW', email: 'james@email.com' },
-  { name: 'Priya Patel', initials: 'PP', email: 'priya@email.com' },
-]
+import { recentRecipients } from '../../config'
 
 const themeConfig = `:root {
   --primary: 220 70% 45%;

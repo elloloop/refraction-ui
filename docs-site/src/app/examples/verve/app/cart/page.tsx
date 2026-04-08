@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { verveConfig } from '../../../theme-configs'
+import { initialItems } from '../../config'
 
 interface CartItem {
   id: number
@@ -14,12 +15,6 @@ interface CartItem {
   quantity: number
   image: string
 }
-
-const initialItems: CartItem[] = [
-  { id: 1, name: 'Midi Wrap Dress', size: 'M', color: 'Sage', price: 112, quantity: 1, image: 'Wrap dress' },
-  { id: 2, name: 'Linen Blend Shirt', size: 'S', color: 'White', price: 68, quantity: 2, image: 'Linen shirt' },
-  { id: 3, name: 'Leather Sandals', size: '8', color: 'Tan', price: 95, quantity: 1, image: 'Leather sandals' },
-]
 
 export default function EcommerceCartPage() {
   const [items, setItems] = useState<CartItem[]>(initialItems)

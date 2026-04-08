@@ -3,18 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { vitalinkConfig } from '../theme-configs'
-
-const doctors = [
-  { name: 'Dr. Emily Carter', specialty: 'General Medicine', rating: 4.9, reviews: 234, initials: 'EC' },
-  { name: 'Dr. Michael Kim', specialty: 'Cardiology', rating: 4.8, reviews: 189, initials: 'MK' },
-  { name: 'Dr. Aisha Patel', specialty: 'Dermatology', rating: 4.9, reviews: 312, initials: 'AP' },
-]
-
-const testimonials = [
-  { name: 'Robert Chen', text: 'Booking appointments has never been easier. The telemedicine feature saved me a trip to the clinic.', rating: 5 },
-  { name: 'Maria Santos', text: 'I love being able to see my lab results online. The portal is intuitive and the doctors are very responsive.', rating: 5 },
-  { name: 'David Thompson', text: 'Outstanding care from Dr. Carter. The follow-up process through the portal is seamless.', rating: 4 },
-]
+import { doctors, testimonials } from './/config'
 
 export default function VitaLinkLanding() {
   return (

@@ -4,37 +4,9 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { momentoConfig } from '../../../theme-configs'
-
-const categories = ['For You', 'Travel', 'Architecture', 'Food', 'Art', 'Nature', 'Fashion', 'Music']
+import { categories, gridItems } from '../../config'
 
 /* Masonry-style grid: alternate between small (1x1) and large (2x2) items */
-const gridItems = [
-  { color: 'from-primary to-primary/70', span: 'col-span-1 row-span-1' },
-  { color: 'from-accent to-primary/60', span: 'col-span-1 row-span-1' },
-  { color: 'from-primary/80 to-primary', span: 'col-span-1 row-span-2' },
-  { color: 'from-primary/60 to-accent', span: 'col-span-1 row-span-1' },
-  { color: 'from-primary to-accent', span: 'col-span-1 row-span-1' },
-  { color: 'from-accent to-primary', span: 'col-span-1 row-span-1' },
-  { color: 'from-primary/70 to-primary', span: 'col-span-1 row-span-2' },
-  { color: 'from-primary/50 to-accent', span: 'col-span-1 row-span-1' },
-  { color: 'from-primary to-primary/60', span: 'col-span-1 row-span-1' },
-  { color: 'from-accent to-primary/70', span: 'col-span-1 row-span-1' },
-  { color: 'from-primary/80 to-accent', span: 'col-span-1 row-span-1' },
-  { color: 'from-primary to-primary/50', span: 'col-span-1 row-span-2' },
-  { color: 'from-accent to-primary/80', span: 'col-span-1 row-span-1' },
-  { color: 'from-primary to-accent', span: 'col-span-1 row-span-1' },
-  { color: 'from-primary/70 to-accent', span: 'col-span-1 row-span-1' },
-  { color: 'from-accent to-primary/60', span: 'col-span-1 row-span-1' },
-  { color: 'from-primary/60 to-primary', span: 'col-span-1 row-span-2' },
-  { color: 'from-primary/80 to-primary', span: 'col-span-1 row-span-1' },
-  { color: 'from-accent to-primary', span: 'col-span-1 row-span-1' },
-  { color: 'from-primary to-primary/70', span: 'col-span-1 row-span-1' },
-  { color: 'from-primary/60 to-accent', span: 'col-span-1 row-span-1' },
-  { color: 'from-primary to-primary/50', span: 'col-span-1 row-span-1' },
-  { color: 'from-primary/80 to-accent', span: 'col-span-1 row-span-2' },
-  { color: 'from-accent to-primary/80', span: 'col-span-1 row-span-1' },
-]
-
 
 export default function ExplorePage() {
   const [searchQuery, setSearchQuery] = useState('')

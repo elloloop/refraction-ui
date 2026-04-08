@@ -10,7 +10,7 @@ export function MainContent({ children }: { children: React.ReactNode }) {
 
   if (isExample) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen w-full flex-1">
         {children}
         {/* Small "Built with Refraction UI" badge linking back to docs */}
         <a

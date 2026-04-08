@@ -3,20 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { studioxConfig } from '../theme-configs'
-
-const works = [
-  { title: 'Lumina Rebrand', category: 'Branding', desc: 'Complete brand identity redesign for a fintech startup.', color: 'from-primary/20 via-primary/10 to-transparent' },
-  { title: 'Horizon Dashboard', category: 'Web', desc: 'Analytics dashboard for an enterprise SaaS platform.', color: 'from-[hsl(var(--chart-2))]/20 via-[hsl(var(--chart-2))]/10 to-transparent' },
-  { title: 'Pulse Mobile App', category: 'Mobile', desc: 'Health & fitness app with AI-powered recommendations.', color: 'from-[hsl(var(--chart-4))]/20 via-[hsl(var(--chart-4))]/10 to-transparent' },
-  { title: 'Vertex Campaign', category: 'Marketing', desc: 'Integrated marketing campaign for a product launch.', color: 'from-[hsl(var(--chart-3))]/20 via-[hsl(var(--chart-3))]/10 to-transparent' },
-]
-
-const services = [
-  { title: 'Brand Strategy', desc: 'We define your brand voice, visual identity, and positioning to stand out in the market.' },
-  { title: 'Web Design', desc: 'Pixel-perfect interfaces that convert. From landing pages to complex web applications.' },
-  { title: 'Development', desc: 'Full-stack engineering with modern technologies. Performance and scalability built in.' },
-  { title: 'Marketing', desc: 'Data-driven campaigns that reach your audience. SEO, social, content, and paid media.' },
-]
+import { works, services } from './/config'
 
 export default function StudioXLanding() {
   return (

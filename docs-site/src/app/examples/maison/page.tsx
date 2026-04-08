@@ -4,12 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { maisonConfig } from '../theme-configs'
-
-const featuredProducts = [
-  { name: 'Meridian Chronograph', price: '$4,800', category: 'Timepieces' },
-  { name: 'Onyx Clutch', price: '$2,400', category: 'Leather Goods' },
-  { name: 'Aurelia Necklace', price: '$7,200', category: 'Fine Jewelry' },
-]
+import { featuredProducts } from './/config'
 
 export default function MaisonLandingPage() {
   const [email, setEmail] = useState('')

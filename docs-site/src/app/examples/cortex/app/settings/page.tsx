@@ -4,8 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { cortexConfig } from '../../../theme-configs'
-
-const tabs = ['General', 'API Keys', 'Usage']
+import { tabs } from '../../config'
 
 const aiTheme = `:root {
   --primary: 160 84% 39%;

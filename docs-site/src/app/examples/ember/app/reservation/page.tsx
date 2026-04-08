@@ -4,11 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { emberConfig } from '../../../theme-configs'
-
-const timeSlots = [
-  '5:30 PM', '6:00 PM', '6:30 PM', '7:00 PM', '7:30 PM',
-  '8:00 PM', '8:30 PM', '9:00 PM', '9:30 PM',
-]
+import { timeSlots } from '../../config'
 
 export default function RestaurantReservationPage() {
   const [formData, setFormData] = useState({

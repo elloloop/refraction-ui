@@ -3,18 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { vitalinkConfig } from '../../theme-configs'
-
-const appointments = [
-  { doctor: 'Dr. Emily Carter', specialty: 'General Medicine', date: 'Apr 10, 2026', time: '10:00 AM', type: 'In-person' },
-  { doctor: 'Dr. Michael Kim', specialty: 'Cardiology', date: 'Apr 15, 2026', time: '2:30 PM', type: 'Telemedicine' },
-  { doctor: 'Dr. Aisha Patel', specialty: 'Dermatology', date: 'Apr 22, 2026', time: '11:00 AM', type: 'In-person' },
-]
-
-const labResults = [
-  { name: 'Complete Blood Count', date: 'Apr 2, 2026', status: 'Normal', urgent: false },
-  { name: 'Lipid Panel', date: 'Mar 28, 2026', status: 'Review needed', urgent: true },
-  { name: 'Metabolic Panel', date: 'Mar 28, 2026', status: 'Normal', urgent: false },
-]
+import { appointments, labResults } from '../config'
 
 const themeConfig = `:root {
   --primary: 199 89% 38%;

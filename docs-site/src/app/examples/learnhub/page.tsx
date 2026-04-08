@@ -3,15 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { learnhubConfig } from '../theme-configs'
-
-const popularCourses = [
-  { title: 'Full-Stack Web Development', instructor: 'Jason Park', rating: 4.8, students: 12400, price: '$79', thumb: 'bg-gradient-to-br from-primary/20 to-primary/5' },
-  { title: 'UI/UX Design Fundamentals', instructor: 'Maria Santos', rating: 4.9, students: 8900, price: '$49', thumb: 'bg-gradient-to-br from-[hsl(var(--chart-2))]/20 to-[hsl(var(--chart-2))]/5' },
-  { title: 'Data Science with Python', instructor: 'Dr. Lin Wei', rating: 4.7, students: 15200, price: '$99', thumb: 'bg-gradient-to-br from-[hsl(var(--chart-3))]/20 to-[hsl(var(--chart-3))]/5' },
-  { title: 'Digital Marketing Strategy', instructor: 'Sophie Turner', rating: 4.6, students: 6300, price: '$19', thumb: 'bg-gradient-to-br from-[hsl(var(--chart-4))]/20 to-[hsl(var(--chart-4))]/5' },
-]
-
-const categories = ['Programming', 'Design', 'Business', 'Science', 'Language', 'Marketing', 'Music', 'Photography']
+import { popularCourses, categories } from './/config'
 
 export default function EducationLanding() {
   return (

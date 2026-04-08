@@ -4,25 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { insightiqConfig } from '../theme-configs'
-
-const faqs = [
-  {
-    q: 'How does the free trial work?',
-    a: 'You get full access to all Pro features for 14 days. No credit card required. Cancel anytime.',
-  },
-  {
-    q: 'Can I change plans later?',
-    a: 'Absolutely. Upgrade or downgrade at any time from your dashboard. Changes take effect immediately.',
-  },
-  {
-    q: 'What integrations do you support?',
-    a: 'We integrate with popular project management, CRM, marketing, and analytics platforms, plus 50+ more tools via our API.',
-  },
-  {
-    q: 'Is my data secure?',
-    a: 'Yes. All data is encrypted at rest and in transit. We are SOC 2 Type II certified and GDPR compliant.',
-  },
-]
+import { faqs } from './/config'
 
 export default function InsightIQLanding() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)

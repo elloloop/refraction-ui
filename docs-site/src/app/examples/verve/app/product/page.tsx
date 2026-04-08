@@ -4,19 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { verveConfig } from '../../../theme-configs'
-
-const sizes = ['XS', 'S', 'M', 'L', 'XL']
-const colors = [
-  { name: 'Sage', class: 'bg-success/40' },
-  { name: 'Charcoal', class: 'bg-foreground/70' },
-  { name: 'Ivory', class: 'bg-accent' },
-]
-
-const reviews = [
-  { name: 'Alex M.', rating: 5, date: 'March 2026', text: 'Beautiful quality fabric. Fits true to size and the color is exactly as pictured. Will definitely order more.' },
-  { name: 'Jordan K.', rating: 4, date: 'February 2026', text: 'Great dress for everyday wear. Comfortable and versatile. The wrap style is very flattering.' },
-  { name: 'Casey P.', rating: 5, date: 'January 2026', text: 'Exceeded expectations. The material feels premium and the stitching is impeccable. Fast shipping too.' },
-]
+import { sizes, reviews } from '../../config'
 
 type Tab = 'details' | 'reviews' | 'shipping'
 

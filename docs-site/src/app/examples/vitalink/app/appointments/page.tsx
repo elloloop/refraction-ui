@@ -4,33 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { vitalinkConfig } from '../../../theme-configs'
-
-const specialties = ['General Medicine', 'Cardiology', 'Dermatology', 'Orthopedics', 'Neurology', 'Pediatrics']
-
-const doctorsBySpecialty: Record<string, { name: string; rating: number; available: boolean; initials: string }[]> = {
-  'General Medicine': [
-    { name: 'Dr. Emily Carter', rating: 4.9, available: true, initials: 'EC' },
-    { name: 'Dr. John Rivera', rating: 4.7, available: true, initials: 'JR' },
-  ],
-  'Cardiology': [
-    { name: 'Dr. Michael Kim', rating: 4.8, available: true, initials: 'MK' },
-    { name: 'Dr. Laura Hayes', rating: 4.6, available: false, initials: 'LH' },
-  ],
-  'Dermatology': [
-    { name: 'Dr. Aisha Patel', rating: 4.9, available: true, initials: 'AP' },
-  ],
-  'Orthopedics': [
-    { name: 'Dr. Robert Chang', rating: 4.8, available: true, initials: 'RC' },
-  ],
-  'Neurology': [
-    { name: 'Dr. Sarah Mitchell', rating: 4.7, available: true, initials: 'SM' },
-  ],
-  'Pediatrics': [
-    { name: 'Dr. James Foster', rating: 4.9, available: true, initials: 'JF' },
-  ],
-}
-
-const timeSlots = ['9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM']
+import { specialties, doctorsBySpecialty, timeSlots } from '../../config'
 
 const themeConfig = `:root {
   --primary: 199 89% 38%;

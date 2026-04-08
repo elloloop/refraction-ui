@@ -4,15 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { insightiqConfig } from '../../theme-configs'
-
-const activities = [
-  { date: 'Apr 5, 2026', user: 'Sarah Chen', action: 'Upgraded to Pro plan', status: 'completed' },
-  { date: 'Apr 5, 2026', user: 'Marcus Johnson', action: 'Created new dashboard', status: 'completed' },
-  { date: 'Apr 4, 2026', user: 'Elena Rodriguez', action: 'Exported monthly report', status: 'completed' },
-  { date: 'Apr 4, 2026', user: 'James Wilson', action: 'Invited 3 team members', status: 'pending' },
-  { date: 'Apr 3, 2026', user: 'Priya Patel', action: 'Set up messaging integration', status: 'completed' },
-  { date: 'Apr 3, 2026', user: 'Tom Baker', action: 'Cancelled subscription', status: 'failed' },
-]
+import { activities } from '../config'
 
 const themeConfig = `:root {
   --primary: 250 50% 50%;
