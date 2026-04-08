@@ -420,7 +420,7 @@ describe('selection', () => {
         createPosition(b3.id, 5),
       )
       const text = getSelectedText(testDoc, sel)
-      expect(text).toBe('World\n\nThird')
+      expect(text).toBe(' World\n\nThird')
     })
 
     it('handles cross-block selection with backward direction', () => {
