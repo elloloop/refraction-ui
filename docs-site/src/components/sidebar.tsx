@@ -3,13 +3,91 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-const components = [
-  { name: 'Button', href: '/components/button' },
-  { name: 'Input', href: '/components/input' },
-  { name: 'Dialog', href: '/components/dialog' },
-  { name: 'Badge', href: '/components/badge' },
-  { name: 'Toast', href: '/components/toast' },
-  { name: 'Tabs', href: '/components/tabs' },
+const componentGroups = [
+  {
+    title: 'Core UI',
+    items: [
+      { name: 'Button', href: '/components/button' },
+      { name: 'Input', href: '/components/input' },
+      { name: 'Textarea', href: '/components/textarea' },
+      { name: 'Select', href: '/components/select' },
+      { name: 'Checkbox', href: '/components/checkbox' },
+      { name: 'Switch', href: '/components/switch' },
+      { name: 'OTP Input', href: '/components/otp-input' },
+      { name: 'Badge', href: '/components/badge' },
+      { name: 'Skeleton', href: '/components/skeleton' },
+      { name: 'Avatar', href: '/components/avatar' },
+      { name: 'Calendar', href: '/components/calendar' },
+      { name: 'Tooltip', href: '/components/tooltip' },
+      { name: 'Popover', href: '/components/popover' },
+      { name: 'Collapsible', href: '/components/collapsible' },
+      { name: 'Dialog', href: '/components/dialog' },
+      { name: 'Dropdown Menu', href: '/components/dropdown-menu' },
+      { name: 'Command', href: '/components/command' },
+      { name: 'Toast', href: '/components/toast' },
+      { name: 'Tabs', href: '/components/tabs' },
+    ],
+  },
+  {
+    title: 'Layout',
+    items: [
+      { name: 'Card', href: '/components/card' },
+      { name: 'Navbar', href: '/components/navbar' },
+      { name: 'Sidebar', href: '/components/sidebar-component' },
+      { name: 'Breadcrumbs', href: '/components/breadcrumbs' },
+      { name: 'Footer', href: '/components/footer' },
+      { name: 'Bottom Nav', href: '/components/bottom-nav' },
+    ],
+  },
+  {
+    title: 'Data',
+    items: [
+      { name: 'Data Table', href: '/components/data-table' },
+      { name: 'Progress Display', href: '/components/progress-display' },
+    ],
+  },
+  {
+    title: 'Forms',
+    items: [
+      { name: 'Search Bar', href: '/components/search-bar' },
+      { name: 'Language Selector', href: '/components/language-selector' },
+      { name: 'Version Selector', href: '/components/version-selector' },
+      { name: 'Feedback Dialog', href: '/components/feedback-dialog' },
+      { name: 'Inline Editor', href: '/components/inline-editor' },
+    ],
+  },
+  {
+    title: 'Media',
+    items: [
+      { name: 'Video Player', href: '/components/video-player' },
+      { name: 'Markdown Renderer', href: '/components/markdown-renderer' },
+      { name: 'Code Editor', href: '/components/code-editor' },
+      { name: 'Slide Viewer', href: '/components/slide-viewer' },
+      { name: 'Animated Text', href: '/components/animated-text' },
+    ],
+  },
+  {
+    title: 'Workplace',
+    items: [
+      { name: 'Date Picker', href: '/components/date-picker' },
+      { name: 'Emoji Picker', href: '/components/emoji-picker' },
+      { name: 'File Upload', href: '/components/file-upload' },
+      { name: 'Avatar Group', href: '/components/avatar-group' },
+      { name: 'Presence Indicator', href: '/components/presence-indicator' },
+      { name: 'Reaction Bar', href: '/components/reaction-bar' },
+      { name: 'Status Indicator', href: '/components/status-indicator' },
+      { name: 'Keyboard Shortcut', href: '/components/keyboard-shortcut' },
+      { name: 'Rich Editor', href: '/components/rich-editor' },
+    ],
+  },
+  {
+    title: 'Other',
+    items: [
+      { name: 'Install Prompt', href: '/components/install-prompt' },
+      { name: 'Content Protection', href: '/components/content-protection' },
+      { name: 'Device Frame', href: '/components/device-frame' },
+    ],
+  },
 ]
 
 const navigation = [
@@ -90,34 +168,36 @@ export function Sidebar() {
           })}
         </div>
 
-        {/* Components section */}
-        <div className="mt-8">
-          <h3 className="px-3 text-[11px] font-semibold uppercase tracking-widest text-sidebar-foreground/40 mb-2">
-            Components
-          </h3>
-          <div className="space-y-0.5">
-            {components.map((item) => {
-              const isActive = pathname === item.href
+        {/* Component groups */}
+        {componentGroups.map((group) => (
+          <div key={group.title} className="mt-6">
+            <h3 className="px-3 text-[11px] font-semibold uppercase tracking-widest text-sidebar-foreground/40 mb-2">
+              {group.title}
+            </h3>
+            <div className="space-y-0.5">
+              {group.items.map((item) => {
+                const isActive = pathname === item.href
 
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
-                    isActive
-                      ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium'
-                      : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground'
-                  }`}
-                >
-                  {isActive && (
-                    <span className="h-1 w-1 rounded-full bg-sidebar-primary flex-shrink-0" />
-                  )}
-                  <span className={isActive ? '' : 'ml-3'}>{item.name}</span>
-                </Link>
-              )
-            })}
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
+                      isActive
+                        ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium'
+                        : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground'
+                    }`}
+                  >
+                    {isActive && (
+                      <span className="h-1 w-1 rounded-full bg-sidebar-primary flex-shrink-0" />
+                    )}
+                    <span className={isActive ? '' : 'ml-3'}>{item.name}</span>
+                  </Link>
+                )
+              })}
+            </div>
           </div>
-        </div>
+        ))}
       </nav>
     </aside>
   )
