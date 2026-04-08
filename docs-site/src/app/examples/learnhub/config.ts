@@ -66,3 +66,5 @@ export const reviews = [
   { name: 'Sarah Johnson', rating: 5, text: 'The projects were incredibly practical. I built my portfolio site during the course and landed a job.', date: 'Feb 28, 2026' },
   { name: 'David Chen', rating: 4, text: 'Great content overall. Would love to see more content on server-side rendering in the next update.', date: 'Feb 10, 2026' },
 ]
+
+export const courseTabs = ['Overview', 'Curriculum', 'Reviews', 'Instructor']

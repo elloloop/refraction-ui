@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { maisonConfig } from '../theme-configs'
-import { featuredProducts } from './/config'
+import { featuredProducts } from './config'
 
 export default function MaisonLandingPage() {
   const [email, setEmail] = useState('')

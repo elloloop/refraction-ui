@@ -29,3 +29,9 @@ export const projects = [
 ]
 
 export const filters = ['All', 'Branding', 'Web', 'Mobile', 'Marketing']
+
+export const approachSteps = [
+              { title: 'Discovery', desc: 'Stakeholder interviews, competitive analysis, and audience research to define brand positioning.' },
+              { title: 'Strategy', desc: 'Brand architecture, messaging framework, and visual direction based on research insights.' },
+              { title: 'Execution', desc: 'Logo design, typography system, color palette, and comprehensive brand guidelines.' },
+            ]

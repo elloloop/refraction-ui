@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { learnhubConfig } from '../theme-configs'
-import { popularCourses, categories } from './/config'
+import { popularCourses, categories } from './config'
 
 export default function EducationLanding() {
   return (

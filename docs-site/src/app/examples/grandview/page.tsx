@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { grandviewConfig } from '../theme-configs'
-import { rooms, testimonials } from './/config'
+import { rooms, testimonials, socialLinks } from './config'
 
 function StarRating({ count }: { count: number }) {
   return (
@@ -190,7 +190,7 @@ export default function GrandviewLandingPage() {
           <div className="space-y-3">
             <h3 className="font-semibold text-foreground">Follow Us</h3>
             <div className="flex gap-4">
-              {['Social', 'Facebook', 'Twitter'].map((social) => (
+              {socialLinks.map((social) => (
                 <span key={social} className="text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
                   {social}
                 </span>

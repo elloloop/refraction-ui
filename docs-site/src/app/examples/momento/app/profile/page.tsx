@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { momentoConfig } from '../../../theme-configs'
-import { profileData, tabs, postColors } from '../../config'
+import { profileData, tabs, postColors, storyHighlights } from '../../config'
 
 
 function formatCount(n: number): string {
@@ -92,7 +92,7 @@ export default function ProfilePage() {
 
           {/* Story highlights */}
           <div className="flex gap-4 mt-4 overflow-x-auto py-2 no-scrollbar">
-            {['Travel', 'Food', 'Code', 'Design', 'Fitness'].map((highlight) => (
+            {storyHighlights.map((highlight) => (
               <div key={highlight} className="flex flex-col items-center gap-1 shrink-0">
                 <div className="h-16 w-16 rounded-full border-2 border-border bg-muted/50 flex items-center justify-center text-xs font-medium text-muted-foreground">
                   {highlight.charAt(0)}

@@ -53,3 +53,5 @@ export const initialItems: CartItem[] = [
   { id: 2, name: 'Linen Blend Shirt', size: 'S', color: 'White', price: 68, quantity: 2, image: 'Linen shirt' },
   { id: 3, name: 'Leather Sandals', size: '8', color: 'Tan', price: 95, quantity: 1, image: 'Leather sandals' },
 ]
+
+export const filterSizes = ['XS', 'S', 'M', 'L', 'XL']

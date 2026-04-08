@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { cortexConfig } from '../theme-configs'
-import { capabilities, pricingPlans } from './/config'
+import { capabilities, pricingPlans } from './config'
 
 export default function CortexLandingPage() {
   return (

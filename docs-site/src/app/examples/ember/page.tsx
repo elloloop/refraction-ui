@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { emberConfig } from '../theme-configs'
-import { menuHighlights } from './/config'
+import { menuHighlights, socialLinks } from './config'
 
 export default function EmberLandingPage() {
   return (
@@ -163,7 +163,7 @@ export default function EmberLandingPage() {
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="text-sm text-muted-foreground">&copy; 2026 Ember &amp; Oak. All rights reserved.</span>
           <div className="flex gap-6">
-            {['Social', 'Facebook', 'Yelp'].map((social) => (
+            {socialLinks.map((social) => (
               <span key={social} className="text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
                 {social}
               </span>

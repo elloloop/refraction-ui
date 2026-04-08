@@ -195,3 +195,5 @@ export const postColors = [
   'from-accent to-primary/60',
   'from-primary to-primary/80',
 ]
+
+export const storyHighlights = ['Travel', 'Food', 'Code', 'Design', 'Fitness']
