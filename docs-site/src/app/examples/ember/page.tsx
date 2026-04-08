@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { restaurantConfig } from '../theme-configs'
+import { emberConfig } from '../theme-configs'
 
 const menuHighlights = [
   {
@@ -27,18 +27,18 @@ const menuHighlights = [
   },
 ]
 
-export default function RestaurantLandingPage() {
+export default function EmberLandingPage() {
   return (
     <div className="-mx-8 -mt-12">
       {/* Navigation */}
       <nav className="flex items-center justify-between px-8 py-4 border-b border-border bg-background/80 backdrop-blur-sm">
-        <span className="text-lg font-semibold text-foreground tracking-tight">Embers &amp; Vine</span>
+        <span className="text-lg font-semibold text-foreground tracking-tight">Ember &amp; Oak</span>
         <div className="flex items-center gap-6">
-          <Link href="/examples/restaurant/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Menu</Link>
+          <Link href="/examples/ember/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Menu</Link>
           <Link href="#story" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Our Story</Link>
           <Link href="#location" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Visit</Link>
           <Link
-            href="/examples/restaurant/app/reservation"
+            href="/examples/ember/app/reservation"
             className="rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
           >
             Reserve a Table
@@ -53,13 +53,13 @@ export default function RestaurantLandingPage() {
           <div className="relative text-center space-y-6 px-8">
             <p className="text-sm tracking-[0.15em] uppercase text-muted-foreground">Fine Dining</p>
             <h1 className="text-5xl font-bold tracking-tight text-foreground" style={{ letterSpacing: 'var(--heading-letter-spacing)' }}>
-              Embers &amp; Vine
+              Ember &amp; Oak
             </h1>
             <p className="text-lg text-muted-foreground max-w-md mx-auto">
-              Where fire meets finesse. An intimate dining experience rooted in seasonal ingredients and open-flame cooking.
+              Farm to flame. An intimate dining experience rooted in seasonal ingredients and open-flame cooking.
             </p>
             <Link
-              href="/examples/restaurant/app/reservation"
+              href="/examples/ember/app/reservation"
               className="inline-flex items-center gap-2 rounded-[var(--button-radius)] bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
             >
               Reserve a Table
@@ -89,7 +89,7 @@ export default function RestaurantLandingPage() {
             ))}
           </div>
           <div className="text-center">
-            <Link href="/examples/restaurant/app" className="text-sm text-primary hover:underline">
+            <Link href="/examples/ember/app" className="text-sm text-primary hover:underline">
               View full menu &rarr;
             </Link>
           </div>
@@ -112,7 +112,7 @@ export default function RestaurantLandingPage() {
               Our Story
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Founded by Chef Margaux Delacroix in 2019, Embers &amp; Vine was born from a passion for live-fire cooking and the belief that the best meals come from the simplest, freshest ingredients.
+              Founded by Chef Elena Marchand in 2019, Ember &amp; Oak was born from a passion for live-fire cooking and the belief that the best meals come from the simplest, freshest ingredients.
             </p>
             <p className="text-muted-foreground leading-relaxed">
               Our open kitchen features a custom-built wood-fired grill and hearth, where every dish is kissed by flame. We source exclusively from local farms and foragers, ensuring each plate tells the story of the season.
@@ -145,7 +145,7 @@ export default function RestaurantLandingPage() {
               <div>
                 <h3 className="font-medium text-foreground mb-1">Contact</h3>
                 <p className="text-sm text-muted-foreground">+1 (415) 555-0182</p>
-                <p className="text-sm text-muted-foreground">hello@embersandvine.com</p>
+                <p className="text-sm text-muted-foreground">hello@emberandoak.com</p>
               </div>
             </div>
           </div>
@@ -165,7 +165,7 @@ export default function RestaurantLandingPage() {
       <section className="px-8 py-[var(--section-gap)] bg-muted/20">
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="text-center">
-            <h2 className="text-lg font-medium text-foreground">@embersandvine</h2>
+            <h2 className="text-lg font-medium text-foreground">@emberandoak</h2>
             <p className="text-sm text-muted-foreground mt-1">Follow us on Instagram</p>
           </div>
           <div className="grid grid-cols-4 gap-2">
@@ -183,7 +183,7 @@ export default function RestaurantLandingPage() {
       {/* Footer */}
       <footer className="border-t border-border px-8 py-10">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="text-sm text-muted-foreground">&copy; 2026 Embers &amp; Vine. All rights reserved.</span>
+          <span className="text-sm text-muted-foreground">&copy; 2026 Ember &amp; Oak. All rights reserved.</span>
           <div className="flex gap-6">
             {['Instagram', 'Facebook', 'Yelp'].map((social) => (
               <span key={social} className="text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
@@ -194,7 +194,7 @@ export default function RestaurantLandingPage() {
         </div>
       </footer>
 
-      <ThemeConfigPanel defaultConfig={restaurantConfig} />
+      <ThemeConfigPanel defaultConfig={emberConfig} />
     </div>
   )
 }

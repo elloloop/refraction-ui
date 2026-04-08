@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { luxuryConfig } from '../theme-configs'
+import { maisonConfig } from '../theme-configs'
 
 const featuredProducts = [
   { name: 'Meridian Chronograph', price: '$4,800', category: 'Timepieces' },
@@ -11,17 +11,17 @@ const featuredProducts = [
   { name: 'Aurelia Necklace', price: '$7,200', category: 'Fine Jewelry' },
 ]
 
-export default function LuxuryLaunchPage() {
+export default function MaisonLandingPage() {
   const [email, setEmail] = useState('')
 
   return (
     <div className="-mx-8 -mt-12">
       {/* Navigation */}
       <nav className="flex items-center justify-between px-8 py-6">
-        <span className="text-sm tracking-[0.2em] uppercase text-muted-foreground">Maison Lumiere</span>
+        <span className="text-sm tracking-[0.2em] uppercase text-muted-foreground">Maison Eclat</span>
         <div className="flex items-center gap-8">
-          <Link href="/examples/luxury/app" className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors">Collection</Link>
-          <Link href="/examples/luxury/app/product" className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors">Atelier</Link>
+          <Link href="/examples/maison/app" className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors">Collection</Link>
+          <Link href="/examples/maison/app/product" className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors">Atelier</Link>
         </div>
       </nav>
 
@@ -38,13 +38,13 @@ export default function LuxuryLaunchPage() {
           </div>
           <div className="space-y-6">
             <h1 className="text-4xl font-light tracking-tight text-foreground" style={{ letterSpacing: 'var(--letter-spacing-tight)', fontWeight: 'var(--font-weight-normal)' }}>
-              Maison Lumiere
+              Maison Eclat
             </h1>
             <p className="text-muted-foreground text-lg font-light leading-relaxed max-w-lg mx-auto">
-              A legacy of exquisite craftsmanship, reimagined for the modern era.
+              Crafted for the exceptional. A legacy of exquisite artistry.
             </p>
             <Link
-              href="/examples/luxury/app"
+              href="/examples/maison/app"
               className="inline-block text-xs tracking-[0.15em] uppercase text-foreground border-b border-foreground/30 pb-1 hover:border-foreground transition-colors"
             >
               Discover the Collection
@@ -58,7 +58,7 @@ export default function LuxuryLaunchPage() {
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-3 gap-12">
             {featuredProducts.map((product) => (
-              <Link key={product.name} href="/examples/luxury/app/product" className="group space-y-6">
+              <Link key={product.name} href="/examples/maison/app/product" className="group space-y-6">
                 <div className="aspect-[3/4] rounded-[var(--card-radius)] bg-gradient-to-b from-muted/30 to-accent/20 border border-border/30 flex items-center justify-center group-hover:border-border/60 transition-colors">
                   <div className="text-center text-muted-foreground">
                     <svg className="h-10 w-10 mx-auto mb-2 opacity-20" fill="none" viewBox="0 0 24 24" strokeWidth={0.5} stroke="currentColor">
@@ -85,7 +85,7 @@ export default function LuxuryLaunchPage() {
             The Art of Distinction
           </h2>
           <p className="text-muted-foreground leading-relaxed text-lg font-light">
-            Founded in 1892 in the heart of Paris, Maison Lumiere has cultivated an unwavering dedication to the art of fine craftsmanship. Every piece in our collection represents hundreds of hours of meticulous handwork by our master artisans, each carrying forward a tradition that spans four generations.
+            Founded in 1892 in the heart of Paris, Maison Eclat has cultivated an unwavering dedication to the art of fine craftsmanship. Every piece represents hundreds of hours of meticulous handwork by our master artisans, carrying forward a tradition that spans four generations.
           </p>
           <p className="text-muted-foreground leading-relaxed">
             We believe that true luxury is not merely about materials or price, but about the invisible thread that connects intention, craft, and the person who will carry our work into the world. Each creation is a conversation between past and future.
@@ -118,7 +118,7 @@ export default function LuxuryLaunchPage() {
       {/* Footer */}
       <footer className="border-t border-border/50 px-8 py-8">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground">&copy; 2026 Maison Lumiere</span>
+          <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground">&copy; 2026 Maison Eclat</span>
           <div className="flex gap-6">
             <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Privacy</span>
             <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Terms</span>
@@ -127,7 +127,7 @@ export default function LuxuryLaunchPage() {
         </div>
       </footer>
 
-      <ThemeConfigPanel defaultConfig={luxuryConfig} />
+      <ThemeConfigPanel defaultConfig={maisonConfig} />
     </div>
   )
 }
