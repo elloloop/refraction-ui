@@ -3,10 +3,21 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Core token processing utilities for Refraction UI",
-  "main": "index.js",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "module": "./index.js",
   "exports": {
-    ".": "./index.js"
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "require": "./index.cjs"
+    }
   },
+  "files": [
+    "index.js",
+    "index.cjs",
+    "index.d.ts"
+  ],
   "keywords": [
     "tokens",
     "design-system",
@@ -15,7 +26,14 @@
   ],
   "author": "Refraction UI Team",
   "license": "MIT",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elloloop/refraction-ui.git",
+    "directory": "packages/tokens-core"
+  },
+  "homepage": "https://elloloop.github.io/refraction-ui/",
   "engines": {
     "node": ">=20.0.0"
   }
-} 
+}

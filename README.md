@@ -1,146 +1,134 @@
-# 🌈 Refraction UI
+# Refraction UI
 
-[![CI](https://img.shields.io/github/actions/workflow/status/YOUR_ORG/refraction-ui/ci.yml?label=CI)](#) [![npm](https://img.shields.io/npm/v/@refraction-ui/react.svg)](#) ![license](https://img.shields.io/badge/license-MIT-blue.svg) ![a11y](https://img.shields.io/badge/a11y-WCAG%202.1%20AA-5c6ac4.svg) ![bundle size](https://img.shields.io/badge/component%20%3C%206KB%20gz-ok-brightgreen.svg)
+Per-component headless UI library. 123 packages. Zero external runtime dependencies.
 
-Refraction UI is a shadcn-like, source-first UI kit that is **theming first** and **engine swappable**. You copy the code, you own the code.
-
-## ✨ Highlights
-
-- 🎨 Multi-brand themes with light and dark modes (runtime switch via CSS vars)
-- 🧩 Headless React primitives plus styled wrappers
-- 🛠️ CLI: `init`, `add`, `upgrade`, token import/build, a11y check
-- 🤖 MCP server so LLMs and IDEs can generate or upgrade components
-- ♿ Accessibility baked in (axe in CI, keyboard support, docs notes)
-- 📚 Storybook 8 playground and a guide site with copy-paste snippets
-
-## 🚀 Quick start
+## Quick Start
 
 ```bash
-# clone and install
+# Install just what you need
+pnpm add @refraction-ui/react-button @refraction-ui/react-dialog @refraction-ui/react-theme
+
+# Or install everything
+pnpm add @refraction-ui/react
+```
+
+## Features
+
+- **Headless core** -- pure TypeScript, framework-agnostic
+- **React wrappers** -- thin adapters with proper types
+- **Per-component packages** -- install only what you need
+- **Full brand theming** -- CSS variables control every visual detail
+- **Accessible** -- WCAG AA, colorblind-safe, keyboard navigable
+- **Zero external runtime deps** -- we implement everything ourselves
+
+## Documentation
+
+- [Component Docs](https://elloloop.github.io/refraction-ui/)
+- [Theme Editor](https://elloloop.github.io/refraction-ui/theme/editor)
+- [Example Websites](https://elloloop.github.io/refraction-ui/examples)
+
+## Packages
+
+### Core UI
+
+| Package | Install |
+|---------|---------|
+| Button | `pnpm add @refraction-ui/react-button` |
+| Input | `pnpm add @refraction-ui/react-input` |
+| Textarea | `pnpm add @refraction-ui/react-textarea` |
+| Checkbox | `pnpm add @refraction-ui/react-checkbox` |
+| Switch | `pnpm add @refraction-ui/react-switch` |
+| Select | `pnpm add @refraction-ui/react-select` |
+| Dialog | `pnpm add @refraction-ui/react-dialog` |
+| Popover | `pnpm add @refraction-ui/react-popover` |
+| Tooltip | `pnpm add @refraction-ui/react-tooltip` |
+| Toast | `pnpm add @refraction-ui/react-toast` |
+| Dropdown Menu | `pnpm add @refraction-ui/react-dropdown-menu` |
+| Tabs | `pnpm add @refraction-ui/react-tabs` |
+| Card | `pnpm add @refraction-ui/react-card` |
+| Badge | `pnpm add @refraction-ui/react-badge` |
+| Avatar | `pnpm add @refraction-ui/react-avatar` |
+| Skeleton | `pnpm add @refraction-ui/react-skeleton` |
+| Calendar | `pnpm add @refraction-ui/react-calendar` |
+| Date Picker | `pnpm add @refraction-ui/react-date-picker` |
+| Data Table | `pnpm add @refraction-ui/react-data-table` |
+| Command | `pnpm add @refraction-ui/react-command` |
+
+### Layout and Navigation
+
+| Package | Install |
+|---------|---------|
+| App Shell | `pnpm add @refraction-ui/react-app-shell` |
+| Navbar | `pnpm add @refraction-ui/react-navbar` |
+| Sidebar | `pnpm add @refraction-ui/react-sidebar` |
+| Breadcrumbs | `pnpm add @refraction-ui/react-breadcrumbs` |
+| Footer | `pnpm add @refraction-ui/react-footer` |
+| Bottom Nav | `pnpm add @refraction-ui/react-bottom-nav` |
+| Mobile Nav | `pnpm add @refraction-ui/react-mobile-nav` |
+
+### Advanced
+
+| Package | Install |
+|---------|---------|
+| Rich Editor | `pnpm add @refraction-ui/react-rich-editor` |
+| Code Editor | `pnpm add @refraction-ui/react-code-editor` |
+| Charts | `pnpm add @refraction-ui/react-charts` |
+| File Upload | `pnpm add @refraction-ui/react-file-upload` |
+| Video Player | `pnpm add @refraction-ui/react-video-player` |
+| Auth | `pnpm add @refraction-ui/react-auth` |
+
+### Infrastructure
+
+| Package | Install |
+|---------|---------|
+| Theme | `pnpm add @refraction-ui/react-theme` |
+| Shared Utilities | `pnpm add @refraction-ui/shared` |
+| Tailwind Config | `pnpm add @refraction-ui/tailwind-config` |
+| Tokens Core | `pnpm add @refraction-ui/tokens-core` |
+| CLI | `pnpm add -D @refraction-ui/cli` |
+
+## Theming
+
+### Simple (colors + fonts)
+
+```css
+:root {
+  --primary: 250 50% 50%;
+  --font-sans: 'Inter', sans-serif;
+  --radius: 0.375rem;
+}
+```
+
+### Advanced (full brand control)
+
+See [Theme Reference](https://elloloop.github.io/refraction-ui/theme/reference)
+
+## CLI
+
+```bash
+# Bootstrap a new project with theme CSS and Tailwind config
+npx @refraction-ui/cli init
+
+# Show install command for a component
+npx @refraction-ui/cli add button
+```
+
+## Development
+
+```bash
+# Install dependencies
 pnpm install
 
-# build and test everything
-pnpm build && pnpm test
+# Build all packages
+pnpm build
 
-# run the CLI locally
-pnpm --filter @refraction-ui/cli build
-pnpm dlx ./packages/cli/dist/index.js --help
+# Run tests
+pnpm test
+
+# Typecheck
+pnpm typecheck
 ```
 
-Bootstrap a new project:
+## License
 
-```bash
-npx refraction-ui init
-npx refraction-ui add button dialog
-```
-
-## 🗂️ Repo layout
-
-```
-packages/
-  tokens-core/        token schema, loaders, CSS var builder
-  react/              headless primitives + styled wrappers
-  engines/            behavior adapters (radix, headlessui)
-  cli/                generator, patchers, a11y runner
-  mcp-server/         JSON-RPC tools for IDEs and LLMs
-templates/            component and flow blueprints
-docs/                 architecture, PRD, NFRs, policies
-issues/               markdown issues with dependencies
-```
-
-## 🎨 Theming
-
-1. Put tokens in `refraction-tokens.json` (themes -> modes -> tokens).
-2. `npx refraction-ui tokens build` emits `tokens.css` and Tailwind fragments.
-3. Wrap your app with `<ThemeProvider />` and use `useTheme()` to switch.
-
-## 🔧 CLI overview
-
-```
-refraction-ui init
-refraction-ui add <component...>
-refraction-ui remove <component>
-refraction-ui upgrade <component|all>
-refraction-ui tokens import <file>
-refraction-ui tokens build
-refraction-ui a11y [pattern]
-refraction-ui doctor
-```
-
-Flags: `--dry`, `--diff`, `--framework`, `--engine`, `--strict`.  
-Details: see `docs/contracts/cli-spec.md`.
-
-## 🤖 MCP server
-
-Run:
-
-```bash
-pnpm --filter @refraction-ui/mcp-server dev
-```
-
-Tools: `generate_component`, `scaffold_flow` (auth), `convert_tokens`, `a11y_check`, `upgrade_component`, `docs_lookup`.  
-Schemas live in `docs/contracts/schemas/`.
-
-## ♿ Accessibility
-
-- WCAG 2.1 AA target for all components
-- `refraction-ui a11y` fails CI in strict mode on any violation
-- Dev overlay available to highlight failing nodes
-
-## 📘 Documentation
-
-- Guides: getting started, theming, CLI, MCP - in `docs/` and the site
-- Storybook for interactive examples and tests
-- PRD: `docs/requirements/prd-v0.1.md`
-- Risks, DoD, versioning policy and more are under `docs/`
-
-## 🧭 Roadmap
-
-- Svelte, Vue, Angular renderers
-- More components (Combobox, Date Picker, Data Table)
-- Advanced flows and generators
-- Remote template registry
-
-See `docs/requirements/prd-v0.1.md` and `docs/risks.md` for planned scope.
-
-## 🤝 Contributing
-
-Please read:
-
-- `CONTRIBUTING.md`
-- `CODE_OF_CONDUCT.md`
-- `docs/governance.md` (RFC flow)
-- Add a Changeset for any package change
-
-Good first issues are labeled `good first issue`.
-
-### 🔐 Setting Up Development Environment
-
-Before contributing, ensure the required secrets are configured:
-
-**Required Secrets:**
-
-- `NPM_TOKEN`: For package publishing to npm (elloloop organization)
-- `GITHUB_TOKEN`: Auto-provided by GitHub Actions
-
-**Repository Features:**
-
-- ✅ CodeQL security scanning enabled
-- ✅ Dependabot alerts and security updates enabled
-- ✅ Branch protection rules configured
-- ✅ Dependabot configuration updated
-
-Contact repository maintainers if you need access to additional secrets or features.
-
-## 🔐 Security
-
-Report vulnerabilities privately (contact in README once published). Do not open a public issue.
-
-## 📜 License
-
-MIT (or Apache-2.0). See `LICENSE`.
-
-## 🙏 Acknowledgements
-
-Inspired by shadcn/ui and Radix UI. Thanks to the a11y community and axe-core.
-# Updated PR Description
+MIT
