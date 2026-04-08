@@ -2,8 +2,12 @@
 
 import { useState, useRef, useEffect } from 'react'
 
+type PanelMode = 'simple' | 'advanced'
+
 interface ThemeConfigPanelProps {
   defaultConfig: string
+  /** Optional simple-mode config. If not provided, the panel won't show mode tabs. */
+  simpleConfig?: string
 }
 
 function parseAndApply(css: string) {
@@ -24,11 +28,14 @@ function clearApplied(css: string) {
   }
 }
 
-export function ThemeConfigPanel({ defaultConfig }: ThemeConfigPanelProps) {
+export function ThemeConfigPanel({ defaultConfig, simpleConfig }: ThemeConfigPanelProps) {
   const [open, setOpen] = useState(false)
+  const [mode, setMode] = useState<PanelMode>('simple')
   const [css, setCss] = useState(defaultConfig)
   const [copied, setCopied] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  const hasModes = !!simpleConfig
 
   // Apply default config on mount so the example looks correct
   useEffect(() => {
@@ -36,13 +43,22 @@ export function ThemeConfigPanel({ defaultConfig }: ThemeConfigPanelProps) {
     return () => clearApplied(defaultConfig)
   }, [defaultConfig])
 
+  function handleModeChange(newMode: PanelMode) {
+    if (newMode === mode) return
+    setMode(newMode)
+    const newCss = newMode === 'simple' && simpleConfig ? simpleConfig : defaultConfig
+    setCss(newCss)
+    parseAndApply(newCss)
+  }
+
   function handleApply() {
     parseAndApply(css)
   }
 
   function handleReset() {
-    setCss(defaultConfig)
-    parseAndApply(defaultConfig)
+    const resetCss = mode === 'simple' && simpleConfig ? simpleConfig : defaultConfig
+    setCss(resetCss)
+    parseAndApply(resetCss)
   }
 
   function handleCopy() {
@@ -91,6 +107,34 @@ export function ThemeConfigPanel({ defaultConfig }: ThemeConfigPanelProps) {
             </svg>
           </button>
         </div>
+
+        {/* Mode tabs */}
+        {hasModes && (
+          <div className="border-b border-border px-5 py-3 shrink-0">
+            <div className="inline-flex rounded-lg border border-border bg-muted/50 p-0.5">
+              <button
+                onClick={() => handleModeChange('simple')}
+                className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
+                  mode === 'simple'
+                    ? 'bg-background text-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                Simple
+              </button>
+              <button
+                onClick={() => handleModeChange('advanced')}
+                className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
+                  mode === 'advanced'
+                    ? 'bg-background text-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                Advanced
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Content */}
         <div className="flex-1 overflow-auto p-5">

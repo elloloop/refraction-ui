@@ -1,5 +1,7 @@
-// Complete theme configurations for each example website.
-// Every config includes the full set of CSS custom properties
+// Full brand config (Advanced mode)
+// For Simple mode, only the colors, fonts, and radius are needed.
+//
+// These configs include the full set of CSS custom properties
 // so each example can be independently themed.
 
 export const teamspaceConfig = `:root {
