@@ -156,7 +156,7 @@ export default function ClearBankLanding() {
         </div>
       </footer>
 
-      <ThemeConfigPanel defaultConfig={financeConfig} />
+      <ThemeConfigPanel defaultConfig={clearbankConfig} />
     </div>
   )
 }

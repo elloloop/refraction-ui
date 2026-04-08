@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { healthcareConfig } from '../theme-configs'
+import { vitalinkConfig } from '../theme-configs'
 
 const doctors = [
   { name: 'Dr. Emily Carter', specialty: 'General Medicine', rating: 4.9, reviews: 234, initials: 'EC' },
@@ -16,23 +16,23 @@ const testimonials = [
   { name: 'David Thompson', text: 'Outstanding care from Dr. Carter. The follow-up process through the portal is seamless.', rating: 4 },
 ]
 
-export default function HealthcareLanding() {
+export default function VitaLinkLanding() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <span className="text-xl font-bold text-primary">MedCare+</span>
+          <span className="text-xl font-bold text-primary">VitaLink</span>
           <div className="hidden items-center gap-8 md:flex">
             <a href="#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Services</a>
             <a href="#doctors" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Doctors</a>
             <a href="#testimonials" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Testimonials</a>
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/examples/healthcare/app" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/examples/vitalink/app" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Patient Portal
             </Link>
-            <Link href="/examples/healthcare/app/appointments" className="rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
+            <Link href="/examples/vitalink/app/appointments" className="rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
               Book Appointment
             </Link>
           </div>
@@ -44,7 +44,7 @@ export default function HealthcareLanding() {
         <div className="grid gap-12 lg:grid-cols-2 items-center">
           <div>
             <h1 className="text-5xl font-bold tracking-tight sm:text-6xl">
-              Your health,{' '}
+              Healthcare,{' '}
               <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
                 simplified
               </span>
@@ -53,10 +53,10 @@ export default function HealthcareLanding() {
               Access world-class healthcare from the comfort of your home. Book appointments, view results, and connect with specialists in minutes.
             </p>
             <div className="mt-10 flex gap-4">
-              <Link href="/examples/healthcare/app/appointments" className="rounded-[var(--button-radius)] bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-lg hover:opacity-90 transition-opacity">
+              <Link href="/examples/vitalink/app/appointments" className="rounded-[var(--button-radius)] bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-lg hover:opacity-90 transition-opacity">
                 Book Appointment
               </Link>
-              <Link href="/examples/healthcare/app" className="rounded-[var(--button-radius)] border border-border px-6 py-3 text-sm font-medium text-foreground hover:bg-muted transition-colors">
+              <Link href="/examples/vitalink/app" className="rounded-[var(--button-radius)] border border-border px-6 py-3 text-sm font-medium text-foreground hover:bg-muted transition-colors">
                 Patient Portal
               </Link>
             </div>
@@ -136,7 +136,7 @@ export default function HealthcareLanding() {
                 <span className="ml-1 text-xs text-muted-foreground">{doc.rating} ({doc.reviews})</span>
               </div>
               <Link
-                href="/examples/healthcare/app/appointments"
+                href="/examples/vitalink/app/appointments"
                 className="mt-4 block w-full rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
               >
                 Book Appointment
@@ -171,11 +171,11 @@ export default function HealthcareLanding() {
       {/* Footer */}
       <footer className="border-t border-border py-12">
         <div className="mx-auto max-w-6xl px-6 text-center">
-          <span className="text-sm text-muted-foreground">&copy; 2026 MedCare+. All rights reserved.</span>
+          <span className="text-sm text-muted-foreground">&copy; 2026 VitaLink. All rights reserved.</span>
         </div>
       </footer>
 
-      <ThemeConfigPanel defaultConfig={healthcareConfig} />
+      <ThemeConfigPanel defaultConfig={vitalinkConfig} />
     </div>
   )
 }

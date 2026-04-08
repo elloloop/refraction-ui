@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { hotelConfig } from '../theme-configs'
+import { grandviewConfig } from '../theme-configs'
 
 const rooms = [
   {
@@ -63,7 +63,7 @@ function StarRating({ count }: { count: number }) {
   )
 }
 
-export default function HotelLandingPage() {
+export default function GrandviewLandingPage() {
   return (
     <div className="-mx-8 -mt-12">
       {/* Navigation */}
@@ -72,13 +72,13 @@ export default function HotelLandingPage() {
           <svg className="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3H21m-3.75 3H21" />
           </svg>
-          <span className="text-lg font-semibold text-foreground tracking-tight">The Grand Hotel</span>
+          <span className="text-lg font-semibold text-foreground tracking-tight">The Grandview</span>
         </div>
         <div className="flex items-center gap-6">
-          <Link href="/examples/hotel/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Rooms</Link>
+          <Link href="/examples/grandview/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Rooms</Link>
           <Link href="#about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">About</Link>
           <Link href="#testimonials" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Reviews</Link>
-          <Link href="/examples/hotel/app/booking" className="rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
+          <Link href="/examples/grandview/app/booking" className="rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">
             Book Now
           </Link>
         </div>
@@ -96,7 +96,7 @@ export default function HotelLandingPage() {
               Where timeless elegance meets modern comfort. Discover a sanctuary of refined hospitality on the shores of the Pacific.
             </p>
             <Link
-              href="/examples/hotel/app/booking"
+              href="/examples/grandview/app/booking"
               className="inline-flex items-center gap-2 rounded-[var(--button-radius)] bg-primary px-6 py-3 text-base font-medium text-primary-foreground shadow-[var(--button-shadow)] hover:opacity-90 transition-opacity"
             >
               Book Your Stay
@@ -116,7 +116,7 @@ export default function HotelLandingPage() {
               About Our Hotel
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Nestled along the pristine coastline, The Grand Hotel has been a beacon of luxury hospitality since 1924. Our commitment to extraordinary service, world-class dining, and unparalleled comfort has earned us recognition among the finest hotels worldwide.
+              Nestled along the pristine coastline, The Grandview has been a beacon of timeless hospitality since 1924. Our commitment to extraordinary service, world-class dining, and unparalleled comfort has earned us recognition among the finest hotels worldwide.
             </p>
             <p className="text-muted-foreground leading-relaxed">
               Each of our 200 rooms and suites has been thoughtfully designed to offer a perfect blend of classic elegance and contemporary sophistication, ensuring every guest experience is nothing short of exceptional.
@@ -169,7 +169,7 @@ export default function HotelLandingPage() {
                     ))}
                   </ul>
                   <Link
-                    href="/examples/hotel/app/booking"
+                    href="/examples/grandview/app/booking"
                     className="block text-center rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
                   >
                     Book Now
@@ -179,7 +179,7 @@ export default function HotelLandingPage() {
             ))}
           </div>
           <div className="text-center">
-            <Link href="/examples/hotel/app" className="text-sm text-primary hover:underline">
+            <Link href="/examples/grandview/app" className="text-sm text-primary hover:underline">
               View all rooms &rarr;
             </Link>
           </div>
@@ -217,7 +217,7 @@ export default function HotelLandingPage() {
             <h3 className="font-semibold text-foreground">Contact</h3>
             <div className="space-y-2 text-sm text-muted-foreground">
               <p>+1 (555) 234-5678</p>
-              <p>reservations@thegrandhotel.com</p>
+              <p>reservations@thegrandview.com</p>
             </div>
           </div>
           <div className="space-y-3">
@@ -240,11 +240,11 @@ export default function HotelLandingPage() {
           </div>
         </div>
         <div className="max-w-4xl mx-auto mt-8 pt-6 border-t border-border text-center text-xs text-muted-foreground">
-          &copy; 2026 The Grand Hotel. All rights reserved.
+          &copy; 2026 The Grandview. All rights reserved.
         </div>
       </footer>
 
-      <ThemeConfigPanel defaultConfig={hotelConfig} />
+      <ThemeConfigPanel defaultConfig={grandviewConfig} />
     </div>
   )
 }
