@@ -33,10 +33,10 @@ export const allProducts = [
 ]
 
 export const categoriesFilter = ['All', 'Women', 'Men', 'Accessories']
-const priceRanges = ['All', 'Under $50', '$50 - $100', 'Over $100']
+export const priceRanges = ['All', 'Under $50', '$50 - $100', 'Over $100']
 
 export const sizes = ['XS', 'S', 'M', 'L', 'XL']
-const colors = [
+export const colors = [
   { name: 'Sage', class: 'bg-success/40' },
   { name: 'Charcoal', class: 'bg-foreground/70' },
   { name: 'Ivory', class: 'bg-accent' },

@@ -22,7 +22,7 @@ export const products = [
 ]
 
 export const sizes = ['S', 'M', 'L']
-const colors = [
+export const colors = [
   { name: 'Noir', class: 'bg-foreground' },
   { name: 'Ivory', class: 'bg-accent' },
   { name: 'Cognac', class: 'bg-warning/60' },

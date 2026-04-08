@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { verveConfig } from '../../theme-configs'
-import { allProducts, categoriesFilter } from '../config'
+import { allProducts, categoriesFilter, priceRanges } from '../config'
 
 function StarRating({ rating }: { rating: number }) {
   return (
