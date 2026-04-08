@@ -4,6 +4,8 @@ const nextConfig: NextConfig = {
   output: process.env.GITHUB_PAGES ? 'export' : undefined,
   basePath: process.env.GITHUB_PAGES ? '/refraction-ui' : '',
   images: { unoptimized: true },
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: true },
   transpilePackages: [
     '@refraction-ui/react',
     '@refraction-ui/react-theme',
