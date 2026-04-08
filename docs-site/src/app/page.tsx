@@ -1,15 +1,9 @@
 import Link from 'next/link'
-import { ThemeToggleSection } from './theme-toggle-section'
 import { CopyInstallCommand } from './copy-install-command'
 
 export default function HomePage() {
   return (
     <div className="space-y-16">
-      {/* Theme toggle in top-right */}
-      <div className="flex justify-end">
-        <ThemeToggleSection />
-      </div>
-
       {/* Hero */}
       <div className="space-y-8">
         <div className="space-y-4">

@@ -4,7 +4,6 @@ import { useState, useCallback, useEffect } from 'react'
 import { Button } from '@refraction-ui/react-button'
 import { Badge } from '@refraction-ui/react-badge'
 import { Input } from '@refraction-ui/react-input'
-import { ThemeToggle } from '@refraction-ui/react-theme'
 
 // ---------------------------------------------------------------------------
 // Theme definitions (mirrors ThemeDefinition from @refraction-ui/tailwind-config)
@@ -299,6 +298,21 @@ export function ThemePlayground() {
   const [currentTheme, setCurrentTheme] = useState<PlaygroundTheme>(refractionDefaults)
   const [exported, setExported] = useState(false)
 
+  // On mount, sync with the global theme from localStorage
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('rfr-theme-preset')
+      if (saved && presets[saved]) {
+        const theme = presets[saved]
+        setColorVars({ ...theme.colors })
+        setCurrentTheme(theme)
+        setActivePreset(saved)
+      }
+    } catch {
+      // ignore
+    }
+  }, [])
+
   // Apply ALL theme variables to document root for live preview
   useEffect(() => {
     const root = document.documentElement
@@ -319,20 +333,7 @@ export function ThemePlayground() {
     root.style.setProperty('--shadow-xl', currentTheme.shadows.xl)
     root.style.setProperty('--transition', currentTheme.transition)
 
-    return () => {
-      for (const key of Object.keys(colorVars)) {
-        root.style.removeProperty(key)
-      }
-      root.style.removeProperty('--font-sans')
-      root.style.removeProperty('--font-heading')
-      root.style.removeProperty('--font-mono')
-      root.style.removeProperty('--radius')
-      root.style.removeProperty('--shadow-sm')
-      root.style.removeProperty('--shadow-md')
-      root.style.removeProperty('--shadow-lg')
-      root.style.removeProperty('--shadow-xl')
-      root.style.removeProperty('--transition')
-    }
+    // No cleanup — the global ThemeSwitcher manages theme persistence
   }, [colorVars, currentTheme])
 
   const handleColorChange = useCallback((varName: string, hex: string) => {
@@ -352,6 +353,8 @@ export function ThemePlayground() {
       setColorVars({ ...theme.colors })
       setCurrentTheme(theme)
       setActivePreset(preset)
+      // Persist so the global ThemeSwitcher stays in sync
+      localStorage.setItem('rfr-theme-preset', preset)
     }
   }, [])
 
@@ -405,13 +408,6 @@ export function ThemePlayground() {
             <option value="mono">Mono</option>
             {activePreset === '' && <option value="">Custom</option>}
           </select>
-        </div>
-
-        <div className="space-y-1">
-          <label className="text-xs font-medium text-muted-foreground">Mode</label>
-          <div>
-            <ThemeToggle variant="segmented" />
-          </div>
         </div>
 
         <div className="ml-auto">
