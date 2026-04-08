@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
-import { portfolioConfig } from '../theme-configs'
+import { studioxConfig } from '../theme-configs'
 
 const works = [
   { title: 'Lumina Rebrand', category: 'Branding', desc: 'Complete brand identity redesign for a fintech startup.', color: 'from-primary/20 via-primary/10 to-transparent' },
@@ -18,20 +18,20 @@ const services = [
   { title: 'Marketing', desc: 'Data-driven campaigns that reach your audience. SEO, social, content, and paid media.' },
 ]
 
-export default function PortfolioLanding() {
+export default function StudioXLanding() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-40 bg-background/50 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-          <span className="text-lg font-bold tracking-tight">STUDIO.CO</span>
+          <span className="text-lg font-bold tracking-tight">STUDIO X</span>
           <div className="hidden items-center gap-8 md:flex">
             <a href="#work" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Work</a>
             <a href="#about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">About</a>
             <a href="#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Services</a>
             <a href="#contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Contact</a>
           </div>
-          <Link href="/examples/portfolio/app" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/examples/studiox/app" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             All Work
           </Link>
         </div>
@@ -45,10 +45,10 @@ export default function PortfolioLanding() {
             <span className="block text-muted-foreground">.CO</span>
           </h1>
           <p className="mt-8 max-w-md text-lg text-muted-foreground leading-relaxed">
-            We create digital experiences that move people. Strategy, design, and technology working together.
+            We create digital experiences that inspire. Strategy, design, and technology working together.
           </p>
           <div className="mt-12 flex gap-6">
-            <Link href="/examples/portfolio/app" className="rounded-[var(--button-radius)] bg-foreground px-6 py-3 text-sm font-medium text-background hover:opacity-90 transition-opacity">
+            <Link href="/examples/studiox/app" className="rounded-[var(--button-radius)] bg-foreground px-6 py-3 text-sm font-medium text-background hover:opacity-90 transition-opacity">
               View Our Work
             </Link>
             <a href="#contact" className="rounded-[var(--button-radius)] border border-border px-6 py-3 text-sm font-medium text-foreground hover:bg-muted transition-colors">
@@ -67,7 +67,7 @@ export default function PortfolioLanding() {
       <section id="work" className="mx-auto max-w-6xl px-6 py-24">
         <div className="flex items-center justify-between mb-16">
           <h2 className="text-3xl font-bold tracking-tight">Selected Works</h2>
-          <Link href="/examples/portfolio/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/examples/studiox/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             View All
           </Link>
         </div>
@@ -75,7 +75,7 @@ export default function PortfolioLanding() {
           {works.map((work) => (
             <Link
               key={work.title}
-              href="/examples/portfolio/app/project"
+              href="/examples/studiox/app/project"
               className="group rounded-[var(--card-radius)] border border-border bg-card overflow-hidden transition-all hover:border-foreground/20"
             >
               <div className={`aspect-[4/3] bg-gradient-to-br ${work.color} flex items-center justify-center`}>
@@ -150,8 +150,8 @@ export default function PortfolioLanding() {
           <p className="mt-6 text-muted-foreground leading-relaxed">
             Have a project in mind? We would love to hear about it. Drop us a line and let&apos;s create something amazing.
           </p>
-          <a href="mailto:hello@studio.co" className="mt-8 inline-block text-xl font-medium text-foreground underline underline-offset-4 hover:no-underline transition-all">
-            hello@studio.co
+          <a href="mailto:hello@studiox.co" className="mt-8 inline-block text-xl font-medium text-foreground underline underline-offset-4 hover:no-underline transition-all">
+            hello@studiox.co
           </a>
         </div>
       </section>
@@ -159,7 +159,7 @@ export default function PortfolioLanding() {
       {/* Footer */}
       <footer className="border-t border-border py-8">
         <div className="mx-auto max-w-6xl px-6 flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">&copy; 2026 STUDIO.CO</span>
+          <span className="text-xs text-muted-foreground">&copy; 2026 STUDIO X</span>
           <div className="flex gap-6">
             <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Twitter</span>
             <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Instagram</span>
@@ -168,7 +168,7 @@ export default function PortfolioLanding() {
         </div>
       </footer>
 
-      <ThemeConfigPanel defaultConfig={portfolioConfig} />
+      <ThemeConfigPanel defaultConfig={studioxConfig} />
     </div>
   )
 }
