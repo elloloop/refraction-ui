@@ -14,7 +14,7 @@ export function MainContent({ children }: { children: React.ReactNode }) {
         {children}
         {/* Small "Built with Refraction UI" badge linking back to docs */}
         <a
-          href="/examples"
+          href="/"
           className="fixed bottom-4 left-4 z-50 flex items-center gap-1.5 rounded-full bg-foreground/5 px-3 py-1.5 text-xs text-muted-foreground hover:bg-foreground/10 transition-colors backdrop-blur-sm"
         >
           <span className="h-3 w-3 rounded bg-primary flex items-center justify-center text-[8px] text-primary-foreground font-bold">R</span>

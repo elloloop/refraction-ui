@@ -34,12 +34,6 @@ export default function ChannelBrowserPage() {
   return (
     <div
       className="h-screen flex flex-col bg-background text-foreground overflow-hidden"
-      style={{
-        '--primary': '220 72% 50%',
-        '--primary-foreground': '0 0% 100%',
-        '--accent': '220 40% 95%',
-        '--accent-foreground': '220 72% 35%',
-      } as React.CSSProperties}
     >
       {/* Top bar */}
       <div className="flex items-center justify-between border-b border-border bg-background px-4 py-2 shrink-0">

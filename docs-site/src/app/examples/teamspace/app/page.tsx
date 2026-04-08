@@ -172,19 +172,13 @@ export default function TeamspaceAppPage() {
   return (
     <div
       className="h-screen flex flex-col bg-background text-foreground overflow-hidden"
-      style={{
-        '--primary': '220 72% 50%',
-        '--primary-foreground': '0 0% 100%',
-        '--accent': '220 40% 95%',
-        '--accent-foreground': '220 72% 35%',
-      } as React.CSSProperties}
     >
       {/* Top bar */}
       <div className="flex items-center justify-between border-b border-border bg-background px-4 py-2 shrink-0">
         <div className="flex items-center gap-3">
           <Link href="/examples/teamspace" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <div className="h-7 w-7 rounded-[var(--radius)] bg-[hsl(220,72%,50%)] flex items-center justify-center">
-              <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+            <div className="h-7 w-7 rounded-[var(--radius)] bg-primary flex items-center justify-center">
+              <svg className="h-4 w-4 text-primary-foreground" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
               </svg>
             </div>
@@ -206,7 +200,7 @@ export default function TeamspaceAppPage() {
 
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <div className="w-60 bg-[hsl(220,40%,18%)] text-white/80 flex flex-col shrink-0 overflow-y-auto">
+        <div className="w-60 bg-[hsl(var(--sidebar-background))] text-[hsl(var(--sidebar-foreground))] flex flex-col shrink-0 overflow-y-auto">
           <div className="p-4 border-b border-white/10">
             <h2 className="font-bold text-white text-sm">Acme Workspace</h2>
             <p className="text-xs text-white/50 mt-0.5">5 members</p>
@@ -261,7 +255,7 @@ export default function TeamspaceAppPage() {
                         {dm.avatar}
                       </span>
                       <span
-                        className={`absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[hsl(220,40%,18%)] ${
+                        className={`absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[hsl(var(--sidebar-background))] ${
                           dm.status === 'online'
                             ? 'bg-green-400'
                             : dm.status === 'away'

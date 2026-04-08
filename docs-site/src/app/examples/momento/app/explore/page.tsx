@@ -9,30 +9,30 @@ const categories = ['For You', 'Travel', 'Architecture', 'Food', 'Art', 'Nature'
 
 /* Masonry-style grid: alternate between small (1x1) and large (2x2) items */
 const gridItems = [
-  { color: 'from-rose-400 to-pink-600', span: 'col-span-1 row-span-1' },
-  { color: 'from-blue-400 to-indigo-600', span: 'col-span-1 row-span-1' },
-  { color: 'from-amber-400 to-orange-600', span: 'col-span-1 row-span-2' },
-  { color: 'from-emerald-400 to-teal-600', span: 'col-span-1 row-span-1' },
-  { color: 'from-violet-400 to-purple-600', span: 'col-span-1 row-span-1' },
-  { color: 'from-cyan-400 to-blue-500', span: 'col-span-1 row-span-1' },
-  { color: 'from-fuchsia-400 to-pink-600', span: 'col-span-1 row-span-2' },
-  { color: 'from-lime-400 to-emerald-500', span: 'col-span-1 row-span-1' },
-  { color: 'from-red-400 to-rose-600', span: 'col-span-1 row-span-1' },
-  { color: 'from-sky-400 to-cyan-600', span: 'col-span-1 row-span-1' },
-  { color: 'from-yellow-400 to-amber-500', span: 'col-span-1 row-span-1' },
-  { color: 'from-indigo-400 to-violet-600', span: 'col-span-1 row-span-2' },
-  { color: 'from-teal-400 to-green-500', span: 'col-span-1 row-span-1' },
-  { color: 'from-orange-500 to-red-600', span: 'col-span-1 row-span-1' },
-  { color: 'from-pink-400 to-fuchsia-600', span: 'col-span-1 row-span-1' },
-  { color: 'from-green-400 to-emerald-600', span: 'col-span-1 row-span-1' },
-  { color: 'from-purple-400 to-indigo-500', span: 'col-span-1 row-span-2' },
-  { color: 'from-orange-400 to-amber-600', span: 'col-span-1 row-span-1' },
-  { color: 'from-blue-500 to-sky-600', span: 'col-span-1 row-span-1' },
-  { color: 'from-rose-500 to-red-600', span: 'col-span-1 row-span-1' },
-  { color: 'from-emerald-500 to-teal-700', span: 'col-span-1 row-span-1' },
-  { color: 'from-violet-500 to-purple-700', span: 'col-span-1 row-span-1' },
-  { color: 'from-amber-500 to-yellow-600', span: 'col-span-1 row-span-2' },
-  { color: 'from-cyan-500 to-blue-700', span: 'col-span-1 row-span-1' },
+  { color: 'from-primary to-primary/70', span: 'col-span-1 row-span-1' },
+  { color: 'from-accent to-primary/60', span: 'col-span-1 row-span-1' },
+  { color: 'from-primary/80 to-primary', span: 'col-span-1 row-span-2' },
+  { color: 'from-primary/60 to-accent', span: 'col-span-1 row-span-1' },
+  { color: 'from-primary to-accent', span: 'col-span-1 row-span-1' },
+  { color: 'from-accent to-primary', span: 'col-span-1 row-span-1' },
+  { color: 'from-primary/70 to-primary', span: 'col-span-1 row-span-2' },
+  { color: 'from-primary/50 to-accent', span: 'col-span-1 row-span-1' },
+  { color: 'from-primary to-primary/60', span: 'col-span-1 row-span-1' },
+  { color: 'from-accent to-primary/70', span: 'col-span-1 row-span-1' },
+  { color: 'from-primary/80 to-accent', span: 'col-span-1 row-span-1' },
+  { color: 'from-primary to-primary/50', span: 'col-span-1 row-span-2' },
+  { color: 'from-accent to-primary/80', span: 'col-span-1 row-span-1' },
+  { color: 'from-primary to-accent', span: 'col-span-1 row-span-1' },
+  { color: 'from-primary/70 to-accent', span: 'col-span-1 row-span-1' },
+  { color: 'from-accent to-primary/60', span: 'col-span-1 row-span-1' },
+  { color: 'from-primary/60 to-primary', span: 'col-span-1 row-span-2' },
+  { color: 'from-primary/80 to-primary', span: 'col-span-1 row-span-1' },
+  { color: 'from-accent to-primary', span: 'col-span-1 row-span-1' },
+  { color: 'from-primary to-primary/70', span: 'col-span-1 row-span-1' },
+  { color: 'from-primary/60 to-accent', span: 'col-span-1 row-span-1' },
+  { color: 'from-primary to-primary/50', span: 'col-span-1 row-span-1' },
+  { color: 'from-primary/80 to-accent', span: 'col-span-1 row-span-2' },
+  { color: 'from-accent to-primary/80', span: 'col-span-1 row-span-1' },
 ]
 
 
@@ -43,12 +43,6 @@ export default function ExplorePage() {
   return (
     <div
       className="min-h-screen bg-background text-foreground pb-20"
-      style={{
-        '--primary': '24 90% 55%',
-        '--primary-foreground': '0 0% 100%',
-        '--accent': '24 50% 95%',
-        '--accent-foreground': '24 90% 40%',
-      } as React.CSSProperties}
     >
       {/* Top nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">

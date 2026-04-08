@@ -175,19 +175,13 @@ export default function AIChatAppPage() {
   return (
     <div
       className="h-screen flex bg-background text-foreground overflow-hidden"
-      style={{
-        '--primary': '35 92% 50%',
-        '--primary-foreground': '0 0% 100%',
-        '--accent': '35 50% 94%',
-        '--accent-foreground': '35 92% 35%',
-      } as React.CSSProperties}
     >
       {/* Sidebar */}
-      <div className="w-64 bg-[hsl(210,15%,7%)] text-white/80 flex flex-col shrink-0">
+      <div className="w-64 bg-[hsl(var(--sidebar-background))] text-[hsl(var(--sidebar-foreground))] flex flex-col shrink-0">
         <div className="p-3">
           <Link href="/examples/cortex" className="flex items-center gap-2 px-3 py-2 hover:opacity-80 transition-opacity">
-            <div className="h-7 w-7 rounded-full bg-[hsl(160,84%,39%)] flex items-center justify-center">
-              <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <div className="h-7 w-7 rounded-full bg-primary flex items-center justify-center">
+              <svg className="h-4 w-4 text-primary-foreground" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
               </svg>
             </div>
@@ -288,8 +282,8 @@ export default function AIChatAppPage() {
             {chatMessages.map((msg, idx) => (
               <div key={idx} className={msg.role === 'user' ? 'flex justify-end' : 'flex items-start gap-3'}>
                 {msg.role === 'assistant' && (
-                  <div className="h-8 w-8 rounded-full bg-[hsl(160,84%,39%)] flex items-center justify-center shrink-0 mt-0.5">
-                    <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center shrink-0 mt-0.5">
+                    <svg className="h-4 w-4 text-primary-foreground" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
                     </svg>
                   </div>

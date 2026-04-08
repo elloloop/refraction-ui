@@ -20,7 +20,7 @@ const posts = [
     id: 1,
     username: 'sophia_art',
     avatar: 'SA',
-    imageColor: 'from-amber-400 to-orange-600',
+    imageColor: 'from-primary/80 to-primary',
     imageAspect: 'aspect-square',
     likes: 2847,
     caption: 'Golden hour at the studio. New collection dropping this Friday.',
@@ -33,7 +33,7 @@ const posts = [
     id: 2,
     username: 'mike.travels',
     avatar: 'MT',
-    imageColor: 'from-blue-400 to-cyan-600',
+    imageColor: 'from-accent to-primary/60',
     imageAspect: 'aspect-[4/5]',
     likes: 5621,
     caption: 'Lost in the Swiss Alps. This planet never stops amazing me.',
@@ -46,7 +46,7 @@ const posts = [
     id: 3,
     username: 'cooking_with_j',
     avatar: 'CJ',
-    imageColor: 'from-red-400 to-pink-600',
+    imageColor: 'from-primary to-accent',
     imageAspect: 'aspect-square',
     likes: 1203,
     caption: 'Homemade pasta from scratch. Recipe in bio! #foodie #homemade #pasta',
@@ -59,7 +59,7 @@ const posts = [
     id: 4,
     username: 'alex.dev',
     avatar: 'AD',
-    imageColor: 'from-violet-400 to-purple-700',
+    imageColor: 'from-primary/70 to-primary',
     imageAspect: 'aspect-[4/5]',
     likes: 892,
     caption: 'Late night coding session. Building something cool with React Server Components.',
@@ -72,7 +72,7 @@ const posts = [
     id: 5,
     username: 'fit.emma',
     avatar: 'FE',
-    imageColor: 'from-emerald-400 to-teal-600',
+    imageColor: 'from-accent to-primary',
     imageAspect: 'aspect-square',
     likes: 3456,
     caption: 'Morning run done. 10K in under 45 min - new personal best! Who else ran today?',
@@ -85,7 +85,7 @@ const posts = [
     id: 6,
     username: 'natalie.photo',
     avatar: 'NP',
-    imageColor: 'from-rose-400 to-fuchsia-600',
+    imageColor: 'from-primary to-primary/60',
     imageAspect: 'aspect-[4/5]',
     likes: 7234,
     caption: 'Portrait session with @sophia_art. Natural light only. No retouching needed.',
@@ -116,17 +116,11 @@ export default function MomentoFeedPage() {
   return (
     <div
       className="min-h-screen bg-background text-foreground"
-      style={{
-        '--primary': '24 90% 55%',
-        '--primary-foreground': '0 0% 100%',
-        '--accent': '24 50% 95%',
-        '--accent-foreground': '24 90% 40%',
-      } as React.CSSProperties}
     >
       {/* Top nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto max-w-xl flex items-center justify-between px-4 py-3">
-          <Link href="/examples/momento" className="text-xl font-bold tracking-tight bg-gradient-to-r from-orange-400 via-amber-500 to-rose-500 bg-clip-text text-transparent">
+          <Link href="/examples/momento" className="text-xl font-bold tracking-tight bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent">
             Momento
           </Link>
           <div className="flex items-center gap-4 text-foreground">
@@ -155,7 +149,7 @@ export default function MomentoFeedPage() {
                   ? 'bg-muted'
                   : story.isOwn
                   ? 'bg-border'
-                  : 'bg-gradient-to-br from-orange-400 via-pink-500 to-purple-600'
+                  : 'bg-gradient-to-br from-primary via-accent to-primary/60'
               }`}>
                 <div className="rounded-full bg-background p-[2px]">
                   <div className="h-14 w-14 rounded-full bg-muted flex items-center justify-center text-xs font-semibold text-muted-foreground relative">

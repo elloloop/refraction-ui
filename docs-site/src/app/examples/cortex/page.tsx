@@ -77,12 +77,6 @@ export default function CortexLandingPage() {
   return (
     <div
       className="min-h-screen bg-background text-foreground"
-      style={{
-        '--primary': '35 92% 50%',
-        '--primary-foreground': '0 0% 100%',
-        '--accent': '35 50% 94%',
-        '--accent-foreground': '35 92% 35%',
-      } as React.CSSProperties}
     >
       {/* Nav */}
       <nav className="border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-40">
@@ -125,7 +119,7 @@ export default function CortexLandingPage() {
         </div>
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground leading-tight">
           Your intelligent
-          <span className="text-gradient bg-gradient-to-r from-primary via-amber-400 to-orange-400 block">
+          <span className="text-gradient bg-gradient-to-r from-primary to-primary/60 block">
             assistant
           </span>
         </h1>

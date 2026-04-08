@@ -46,12 +46,6 @@ const features = [
 export default function TeamspaceLandingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground"
-      style={{
-        '--primary': '220 72% 50%',
-        '--primary-foreground': '0 0% 100%',
-        '--accent': '220 40% 95%',
-        '--accent-foreground': '220 72% 35%',
-      } as React.CSSProperties}
     >
       {/* Nav */}
       <nav className="border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-40">
@@ -122,7 +116,7 @@ export default function TeamspaceLandingPage() {
             </div>
           </div>
           <div className="flex h-64 md:h-80">
-            <div className="w-16 md:w-56 bg-[hsl(220,40%,18%)] shrink-0 p-3">
+            <div className="w-16 md:w-56 bg-[hsl(var(--sidebar-background))] shrink-0 p-3">
               <div className="space-y-1.5">
                 {['# general', '# engineering', '# random', '# design'].map((ch) => (
                   <div key={ch} className="text-xs md:text-sm text-white/60 px-2 py-1 rounded truncate">{ch}</div>
