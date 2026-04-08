@@ -1,6 +1,7 @@
 import { CodeEditorExamples } from './examples'
 import { PropsTable } from '@/components/props-table'
 import { CodeBlock } from '@/components/code-block'
+import { InstallCommand } from '@/components/install-command'
 const codeEditorProps = [
   { name: 'value', type: 'string', description: 'Code content.' },
   { name: 'onChange', type: '(value: string) => void', description: 'Callback when code changes.' },
@@ -25,13 +26,17 @@ export default function CodeEditorPage() {
           Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/code-editor</code> core.
         </p>
       </div>
-      <div className="h-px bg-border" />
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Examples</h2>
         <p className="text-sm text-muted-foreground">Editable code with syntax highlighting.</p>
         <CodeEditorExamples section="basic" />
       </section>
-      <div className="h-px bg-border" />
+      {/* Install */}
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
+        <InstallCommand packageName="@refraction-ui/react-code-editor" />
+      </section>
+
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock code={usageCode} /></section>
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Props</h2><PropsTable props={codeEditorProps} /></section>
     </div>

@@ -1,6 +1,7 @@
 import { PresenceIndicatorExamples } from './examples'
 import { PropsTable } from '@/components/props-table'
 import { CodeBlock } from '@/components/code-block'
+import { InstallCommand } from '@/components/install-command'
 const presenceProps = [
   { name: 'status', type: "'online' | 'away' | 'busy' | 'offline'", description: 'Current presence status.' },
   { name: 'showLabel', type: 'boolean', default: 'false', description: 'Show status label text.' },
@@ -23,13 +24,17 @@ export default function PresenceIndicatorPage() {
           Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/presence-indicator</code> core.
         </p>
       </div>
-      <div className="h-px bg-border" />
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Examples</h2>
         <p className="text-sm text-muted-foreground">Four presence states with optional labels.</p>
         <PresenceIndicatorExamples section="basic" />
       </section>
-      <div className="h-px bg-border" />
+      {/* Install */}
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
+        <InstallCommand packageName="@refraction-ui/react-presence-indicator" />
+      </section>
+
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock code={usageCode} /></section>
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Props</h2><PropsTable props={presenceProps} /></section>
     </div>

@@ -234,13 +234,41 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.011em;
+    scroll-behavior: smooth;
   }
 
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    line-height: var(--line-height-relaxed);
     transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Typography hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--heading-weight);
+    letter-spacing: var(--heading-letter-spacing);
+    line-height: var(--heading-line-height);
+  }
+
+  h1 { font-size: var(--font-size-4xl); }
+  h2 { font-size: var(--font-size-2xl); }
+  h3 { font-size: var(--font-size-xl); }
+
+  /* Body paragraph softness */
+  p {
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Code uses mono font consistently */
+  code, pre, kbd {
+    font-family: var(--font-mono);
+  }
+
+  /* Link hover underline */
+  a:hover {
+    text-decoration-color: hsl(var(--primary) / 0.4);
   }
 
   /* Smooth transitions for theme switching on all elements */
@@ -260,11 +288,6 @@
     color: hsl(var(--foreground));
   }
 
-  /* Smooth scroll for anchor links */
-  html {
-    scroll-behavior: smooth;
-  }
-
   /* Focus visible ring for keyboard navigation */
   :focus-visible {
     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
@@ -275,5 +298,14 @@
   /* Gradient text utility */
   .text-gradient {
     @apply bg-clip-text text-transparent;
+  }
+
+  /* Section spacing rhythm */
+  .section-gap {
+    @apply space-y-12;
+  }
+
+  .subsection-gap {
+    @apply space-y-6;
   }
 }

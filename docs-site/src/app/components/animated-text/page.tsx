@@ -1,6 +1,7 @@
 import { AnimatedTextExamples } from './examples'
 import { PropsTable } from '@/components/props-table'
 import { CodeBlock } from '@/components/code-block'
+import { InstallCommand } from '@/components/install-command'
 const animatedTextProps = [
   { name: 'words (AnimatedText)', type: 'string[]', description: 'Array of words to cycle through.' },
   { name: 'text (TypewriterText)', type: 'string', description: 'Text to type out character by character.' },
@@ -28,13 +29,17 @@ export default function AnimatedTextPage() {
           Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/animated-text</code> core.
         </p>
       </div>
-      <div className="h-px bg-border" />
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Examples</h2>
         <p className="text-sm text-muted-foreground">Word carousel rotates words; typewriter types character by character.</p>
         <AnimatedTextExamples section="basic" />
       </section>
-      <div className="h-px bg-border" />
+      {/* Install */}
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
+        <InstallCommand packageName="@refraction-ui/react-animated-text" />
+      </section>
+
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock code={usageCode} /></section>
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Props</h2><PropsTable props={animatedTextProps} /></section>
     </div>

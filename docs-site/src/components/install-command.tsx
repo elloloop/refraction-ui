@@ -2,10 +2,13 @@
 
 import { useState } from 'react'
 
-const command = 'pnpm add @refraction-ui/react'
+interface InstallCommandProps {
+  packageName: string
+}
 
-export function CopyInstallCommand() {
+export function InstallCommand({ packageName }: InstallCommandProps) {
   const [copied, setCopied] = useState(false)
+  const command = `pnpm add ${packageName}`
 
   const handleCopy = async () => {
     try {
@@ -25,14 +28,12 @@ export function CopyInstallCommand() {
   }
 
   return (
-    <div className="inline-flex items-center gap-3 rounded-lg bg-zinc-950 pl-4 pr-2 py-2.5 max-w-md ring-1 ring-white/10 dark:bg-zinc-900">
-      <code className="text-sm font-mono text-zinc-200 flex-1 select-all">
-        <span className="text-zinc-500 select-none">$ </span>
-        {command}
-      </code>
+    <div className="flex items-center gap-3 rounded-lg bg-zinc-950 px-4 py-3 font-mono text-sm dark:bg-zinc-900 dark:ring-1 dark:ring-white/10">
+      <span className="text-zinc-500 select-none">$</span>
+      <code className="flex-1 text-zinc-100 select-all">{command}</code>
       <button
         onClick={handleCopy}
-        className="inline-flex items-center justify-center rounded-md p-1.5 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-200"
+        className="ml-auto inline-flex items-center justify-center rounded-md p-1.5 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-200"
         aria-label="Copy install command"
       >
         {copied ? (

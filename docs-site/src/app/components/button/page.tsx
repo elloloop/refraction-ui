@@ -1,6 +1,7 @@
 import { ButtonExamples } from './examples'
 import { PropsTable } from '@/components/props-table'
 import { CodeBlock } from '@/components/code-block'
+import { InstallCommand } from '@/components/install-command'
 
 const buttonProps = [
   {
@@ -69,9 +70,7 @@ export default function ButtonPage() {
         </p>
       </div>
 
-      <div className="h-px bg-border" />
-
-      {/* Variants */}
+      {/* Live Example — first thing you see */}
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Variants</h2>
         <p className="text-sm text-muted-foreground">
@@ -79,6 +78,20 @@ export default function ButtonPage() {
         </p>
         <ButtonExamples section="variants" />
       </section>
+
+      {/* Install */}
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
+        <InstallCommand packageName="@refraction-ui/react-button" />
+      </section>
+
+      {/* Code */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
+        <CodeBlock code={usageCode} />
+      </section>
+
+      <div className="h-px bg-border" />
 
       {/* Sizes */}
       <section className="space-y-4">
@@ -99,12 +112,6 @@ export default function ButtonPage() {
       </section>
 
       <div className="h-px bg-border" />
-
-      {/* Code */}
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
-        <CodeBlock code={usageCode} />
-      </section>
 
       {/* Props */}
       <section className="space-y-4">
