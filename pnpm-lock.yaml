@@ -38,27 +38,153 @@ importers:
 
   docs-site:
     dependencies:
+      '@refraction-ui/react-animated-text':
+        specifier: workspace:*
+        version: link:../packages/react-animated-text
+      '@refraction-ui/react-avatar':
+        specifier: workspace:*
+        version: link:../packages/react-avatar
+      '@refraction-ui/react-avatar-group':
+        specifier: workspace:*
+        version: link:../packages/react-avatar-group
       '@refraction-ui/react-badge':
         specifier: workspace:*
         version: link:../packages/react-badge
+      '@refraction-ui/react-bottom-nav':
+        specifier: workspace:*
+        version: link:../packages/react-bottom-nav
+      '@refraction-ui/react-breadcrumbs':
+        specifier: workspace:*
+        version: link:../packages/react-breadcrumbs
       '@refraction-ui/react-button':
         specifier: workspace:*
         version: link:../packages/react-button
+      '@refraction-ui/react-calendar':
+        specifier: workspace:*
+        version: link:../packages/react-calendar
+      '@refraction-ui/react-card':
+        specifier: workspace:*
+        version: link:../packages/react-card
+      '@refraction-ui/react-checkbox':
+        specifier: workspace:*
+        version: link:../packages/react-checkbox
+      '@refraction-ui/react-code-editor':
+        specifier: workspace:*
+        version: link:../packages/react-code-editor
+      '@refraction-ui/react-collapsible':
+        specifier: workspace:*
+        version: link:../packages/react-collapsible
+      '@refraction-ui/react-command':
+        specifier: workspace:*
+        version: link:../packages/react-command
+      '@refraction-ui/react-content-protection':
+        specifier: workspace:*
+        version: link:../packages/react-content-protection
+      '@refraction-ui/react-data-table':
+        specifier: workspace:*
+        version: link:../packages/react-data-table
+      '@refraction-ui/react-date-picker':
+        specifier: workspace:*
+        version: link:../packages/react-date-picker
+      '@refraction-ui/react-device-frame':
+        specifier: workspace:*
+        version: link:../packages/react-device-frame
       '@refraction-ui/react-dialog':
         specifier: workspace:*
         version: link:../packages/react-dialog
+      '@refraction-ui/react-dropdown-menu':
+        specifier: workspace:*
+        version: link:../packages/react-dropdown-menu
+      '@refraction-ui/react-emoji-picker':
+        specifier: workspace:*
+        version: link:../packages/react-emoji-picker
+      '@refraction-ui/react-feedback-dialog':
+        specifier: workspace:*
+        version: link:../packages/react-feedback-dialog
+      '@refraction-ui/react-file-upload':
+        specifier: workspace:*
+        version: link:../packages/react-file-upload
+      '@refraction-ui/react-footer':
+        specifier: workspace:*
+        version: link:../packages/react-footer
+      '@refraction-ui/react-inline-editor':
+        specifier: workspace:*
+        version: link:../packages/react-inline-editor
       '@refraction-ui/react-input':
         specifier: workspace:*
         version: link:../packages/react-input
+      '@refraction-ui/react-install-prompt':
+        specifier: workspace:*
+        version: link:../packages/react-install-prompt
+      '@refraction-ui/react-keyboard-shortcut':
+        specifier: workspace:*
+        version: link:../packages/react-keyboard-shortcut
+      '@refraction-ui/react-language-selector':
+        specifier: workspace:*
+        version: link:../packages/react-language-selector
+      '@refraction-ui/react-markdown-renderer':
+        specifier: workspace:*
+        version: link:../packages/react-markdown-renderer
+      '@refraction-ui/react-navbar':
+        specifier: workspace:*
+        version: link:../packages/react-navbar
+      '@refraction-ui/react-otp-input':
+        specifier: workspace:*
+        version: link:../packages/react-otp-input
+      '@refraction-ui/react-popover':
+        specifier: workspace:*
+        version: link:../packages/react-popover
+      '@refraction-ui/react-presence-indicator':
+        specifier: workspace:*
+        version: link:../packages/react-presence-indicator
+      '@refraction-ui/react-progress-display':
+        specifier: workspace:*
+        version: link:../packages/react-progress-display
+      '@refraction-ui/react-reaction-bar':
+        specifier: workspace:*
+        version: link:../packages/react-reaction-bar
+      '@refraction-ui/react-search-bar':
+        specifier: workspace:*
+        version: link:../packages/react-search-bar
+      '@refraction-ui/react-select':
+        specifier: workspace:*
+        version: link:../packages/react-select
+      '@refraction-ui/react-sidebar':
+        specifier: workspace:*
+        version: link:../packages/react-sidebar
+      '@refraction-ui/react-skeleton':
+        specifier: workspace:*
+        version: link:../packages/react-skeleton
+      '@refraction-ui/react-slide-viewer':
+        specifier: workspace:*
+        version: link:../packages/react-slide-viewer
+      '@refraction-ui/react-status-indicator':
+        specifier: workspace:*
+        version: link:../packages/react-status-indicator
+      '@refraction-ui/react-switch':
+        specifier: workspace:*
+        version: link:../packages/react-switch
       '@refraction-ui/react-tabs':
         specifier: workspace:*
         version: link:../packages/react-tabs
+      '@refraction-ui/react-textarea':
+        specifier: workspace:*
+        version: link:../packages/react-textarea
       '@refraction-ui/react-theme':
         specifier: workspace:*
         version: link:../packages/react-theme
       '@refraction-ui/react-toast':
         specifier: workspace:*
         version: link:../packages/react-toast
+      '@refraction-ui/react-tooltip':
+        specifier: workspace:*
+        version: link:../packages/react-tooltip
+      '@refraction-ui/react-version-selector':
+        specifier: workspace:*
+        version: link:../packages/react-version-selector
+      '@refraction-ui/react-video-player':
+        specifier: workspace:*
+        version: link:../packages/react-video-player
       '@refraction-ui/tailwind-config':
         specifier: workspace:*
         version: link:../packages/tailwind-config
