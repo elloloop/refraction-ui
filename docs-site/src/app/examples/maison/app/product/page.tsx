@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { PageShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { maisonConfig } from '../../../theme-configs'
 import { sizes, colors } from '../../config'
@@ -11,9 +12,9 @@ export default function LuxuryProductPage() {
   const [selectedColor, setSelectedColor] = useState('Noir')
 
   return (
-    <div className="">
+    <PageShell config={{ maxWidth: '72rem' }}>
       {/* Navigation */}
-      <nav className="flex items-center justify-between px-8 py-6 border-b border-border/30">
+      <PageShell.Nav className="justify-between border-border/30">
         <Link href="/examples/maison" className="text-sm tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors">
           Maison Eclat
         </Link>
@@ -21,19 +22,19 @@ export default function LuxuryProductPage() {
           <Link href="/examples/maison/app" className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors">Collection</Link>
           <span className="text-xs tracking-[0.15em] uppercase text-foreground font-medium">Product</span>
         </div>
-      </nav>
+      </PageShell.Nav>
 
       {/* Breadcrumb */}
-      <div className="px-8 py-4">
-        <div className="max-w-4xl mx-auto flex items-center gap-2 text-xs text-muted-foreground">
+      <PageShell.Section maxWidth="4xl" className="py-4">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <Link href="/examples/maison/app" className="hover:text-foreground transition-colors">Collection</Link>
           <span>/</span>
           <span className="text-foreground">Onyx Clutch</span>
         </div>
-      </div>
+      </PageShell.Section>
 
       {/* Product */}
-      <div className="max-w-4xl mx-auto px-8 py-8">
+      <PageShell.Section maxWidth="4xl" className="py-8">
         <div className="grid md:grid-cols-2 gap-16">
           {/* Image */}
           <div className="space-y-4">
@@ -125,19 +126,18 @@ export default function LuxuryProductPage() {
             </div>
           </div>
         </div>
-      </div>
+      </PageShell.Section>
 
       {/* Footer */}
-      <footer className="border-t border-border/30 px-8 py-8 mt-16">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground">&copy; 2026 Maison Eclat</span>
-          <div className="flex gap-6">
-            <span className="text-xs text-muted-foreground">Privacy</span>
-            <span className="text-xs text-muted-foreground">Terms</span>
-          </div>
+      <PageShell.Footer columns={2} className="border-border/30 bg-transparent mt-16">
+        <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground">&copy; 2026 Maison Eclat</span>
+        <div className="flex gap-6 justify-end">
+          <span className="text-xs text-muted-foreground">Privacy</span>
+          <span className="text-xs text-muted-foreground">Terms</span>
         </div>
-      </footer>
+      </PageShell.Footer>
+
       <ThemeConfigPanel defaultConfig={maisonConfig} />
-    </div>
+    </PageShell>
   )
 }

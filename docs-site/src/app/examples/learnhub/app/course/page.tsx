@@ -2,16 +2,10 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { PageShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { learnhubConfig } from '../../../theme-configs'
-import { curriculum, reviews, courseTabs } from '../../config'
-
-const themeConfig = `:root {
-  --primary: 262 52% 47%;
-  --background: 0 0% 99%;
-  --card: 0 0% 100%;
-  --border: 240 6% 92%;
-}`
+import { curriculum, reviews } from '../../config'
 
 export default function CourseDetail() {
   const [activeTab, setActiveTab] = useState('overview')
@@ -30,18 +24,16 @@ export default function CourseDetail() {
   )
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <PageShell config={{ navSticky: true, maxWidth: '72rem' }}>
       {/* Nav */}
-      <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/examples/learnhub" className="text-xl font-bold text-primary">LearnHub</Link>
-          <Link href="/examples/learnhub/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            Back to Catalog
-          </Link>
-        </div>
-      </nav>
+      <PageShell.Nav className="justify-between bg-background/80 backdrop-blur-sm">
+        <Link href="/examples/learnhub" className="text-xl font-bold text-primary">LearnHub</Link>
+        <Link href="/examples/learnhub/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          Back to Catalog
+        </Link>
+      </PageShell.Nav>
 
-      <div className="mx-auto max-w-6xl px-6 py-8">
+      <PageShell.Section maxWidth="6xl">
         {/* Header */}
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2 space-y-6">
@@ -75,7 +67,7 @@ export default function CourseDetail() {
 
             {/* Tabs */}
             <div className="flex gap-1 border-b border-border">
-              {courseTabs.map((tab) => (
+              {['Overview', 'Curriculum', 'Reviews', 'Instructor'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab.toLowerCase())}
@@ -261,9 +253,9 @@ export default function CourseDetail() {
             </div>
           </div>
         </div>
-      </div>
+      </PageShell.Section>
 
       <ThemeConfigPanel defaultConfig={learnhubConfig} />
-    </div>
+    </PageShell>
   )
 }
