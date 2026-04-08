@@ -2,9 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
-import { Sidebar } from '@/components/sidebar'
-import { ThemeSwitcher } from '@/components/theme-switcher'
-import { ModeToggle } from '@/components/mode-toggle'
+import { ConditionalSidebar } from '@/components/conditional-sidebar'
+import { MainContent } from '@/components/conditional-layout'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -45,17 +44,10 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans antialiased`}>
         <Providers>
           <div className="flex min-h-screen">
-            <Sidebar />
-            <main className="flex-1 ml-64">
-              {/* Top bar with theme switcher */}
-              <div className="sticky top-0 z-30 flex items-center justify-end gap-3 border-b border-border bg-background/80 backdrop-blur-sm px-8 py-3">
-                <ModeToggle />
-                <ThemeSwitcher />
-              </div>
-              <div className="mx-auto max-w-4xl px-8 py-12">
-                {children}
-              </div>
-            </main>
+            <ConditionalSidebar />
+            <MainContent>
+              {children}
+            </MainContent>
           </div>
         </Providers>
       </body>
