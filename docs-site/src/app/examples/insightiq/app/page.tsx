@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { insightiqConfig } from '../../theme-configs'
-import { activities } from '../config'
+import { activities, chartPeriods, chartMonths } from '../config'
 
 const themeConfig = `:root {
   --primary: 250 50% 50%;
@@ -93,7 +93,7 @@ export default function SaasDashboard() {
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-sm font-semibold">Revenue Overview</h2>
               <div className="flex gap-2">
-                {['Week', 'Month', 'Year'].map((t) => (
+                {chartPeriods.map((t) => (
                   <button key={t} className={`rounded-[var(--radius)] px-3 py-1 text-xs font-medium ${t === 'Month' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}`}>{t}</button>
                 ))}
               </div>
@@ -117,7 +117,7 @@ export default function SaasDashboard() {
               </div>
               {/* X axis */}
               <div className="ml-10 flex justify-around text-xs text-muted-foreground mt-2">
-                {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map((m) => (
+                {chartMonths.map((m) => (
                   <span key={m}>{m}</span>
                 ))}
               </div>

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { vitalinkConfig } from '../theme-configs'
-import { doctors, testimonials } from './/config'
+import { doctors, testimonials } from './config'
 
 export default function VitaLinkLanding() {
   return (

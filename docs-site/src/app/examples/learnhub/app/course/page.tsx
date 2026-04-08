@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { learnhubConfig } from '../../../theme-configs'
-import { curriculum, reviews } from '../../config'
+import { curriculum, reviews, courseTabs } from '../../config'
 
 const themeConfig = `:root {
   --primary: 262 52% 47%;
@@ -75,7 +75,7 @@ export default function CourseDetail() {
 
             {/* Tabs */}
             <div className="flex gap-1 border-b border-border">
-              {['Overview', 'Curriculum', 'Reviews', 'Instructor'].map((tab) => (
+              {courseTabs.map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab.toLowerCase())}

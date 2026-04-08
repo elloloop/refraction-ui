@@ -10,6 +10,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "@refraction-ui/react-app-shell": "workspace:*",
+    "@refraction-ui/app-shell": "workspace:*",
     "@refraction-ui/react-animated-text": "workspace:*",
     "@refraction-ui/react-avatar": "workspace:*",
     "@refraction-ui/react-avatar-group": "workspace:*",
