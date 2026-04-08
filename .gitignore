@@ -138,3 +138,11 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .turbo/
+
+# Playwright
+e2e/results/
+playwright-report/
+
+# Lost Pixel (current and diff — baselines are committed)
+.lostpixel/current/
+.lostpixel/difference/
