@@ -1,6 +1,7 @@
 import { CommandExamples } from './examples'
 import { PropsTable } from '@/components/props-table'
 import { CodeBlock } from '@/components/code-block'
+import { InstallCommand } from '@/components/install-command'
 
 const commandProps = [
   { name: 'open', type: 'boolean', description: 'Controlled open state.' },
@@ -43,17 +44,24 @@ export default function CommandPage() {
           Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/command</code> core.
         </p>
       </div>
-      <div className="h-px bg-border" />
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Examples</h2>
         <p className="text-sm text-muted-foreground">A command palette with grouped items and search filtering.</p>
         <CommandExamples section="basic" />
       </section>
-      <div className="h-px bg-border" />
+      {/* Install */}
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
+        <InstallCommand packageName="@refraction-ui/react-command" />
+      </section>
+
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
         <CodeBlock code={usageCode} />
       </section>
+
+      <div className="h-px bg-border" />
+
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Props</h2>
         <PropsTable props={commandProps} />

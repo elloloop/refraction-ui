@@ -1,4 +1,5 @@
 import { CodeBlock } from '@/components/code-block'
+import { InstallCommand } from '@/components/install-command'
 
 const usageCode = `import { } from '@refraction-ui/react-rich-editor'
 
@@ -19,7 +20,6 @@ export default function RichEditorPage() {
           The core package is defined but exports are not yet available.
         </p>
       </div>
-      <div className="h-px bg-border" />
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Status</h2>
         <p className="text-sm text-muted-foreground">

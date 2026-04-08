@@ -1,6 +1,7 @@
 import { CalendarExamples } from './examples'
 import { PropsTable } from '@/components/props-table'
 import { CodeBlock } from '@/components/code-block'
+import { InstallCommand } from '@/components/install-command'
 
 const calendarProps = [
   { name: 'value', type: 'Date', description: 'Selected date (controlled).' },
@@ -34,17 +35,24 @@ export default function CalendarPage() {
           Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/calendar</code> core.
         </p>
       </div>
-      <div className="h-px bg-border" />
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Examples</h2>
         <p className="text-sm text-muted-foreground">Click a date to select it. Navigate months with the arrow buttons.</p>
         <CalendarExamples section="basic" />
       </section>
-      <div className="h-px bg-border" />
+      {/* Install */}
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
+        <InstallCommand packageName="@refraction-ui/react-calendar" />
+      </section>
+
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
         <CodeBlock code={usageCode} />
       </section>
+
+      <div className="h-px bg-border" />
+
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Props</h2>
         <PropsTable props={calendarProps} />
