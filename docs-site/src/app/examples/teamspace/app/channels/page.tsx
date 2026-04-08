@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { AppShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { teamspaceConfig } from '../../../theme-configs'
 import { allChannels } from '../../config'
@@ -14,23 +15,38 @@ const teamspaceTheme = `:root {
 
 export default function ChannelBrowserPage() {
   return (
-    <div
-      className="h-screen flex flex-col bg-background text-foreground overflow-hidden"
-    >
-      {/* Top bar */}
-      <div className="flex items-center justify-between border-b border-border bg-background px-4 py-2 shrink-0">
-        <div className="flex items-center gap-3">
-          <Link href="/examples/teamspace/app" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <svg className="h-5 w-5 text-muted-foreground" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-            </svg>
-            <span className="text-sm text-muted-foreground">Back to chat</span>
-          </Link>
+    <AppShell config={{ sidebarWidth: '15rem', sidebarCollapsible: true }}>
+      <AppShell.Sidebar className="!bg-[hsl(var(--sidebar-background))] !border-r-0">
+        <div className="flex flex-col h-full bg-[hsl(var(--sidebar-background))] text-[hsl(var(--sidebar-foreground))]">
+          <div className="p-4 border-b border-white/10">
+            <h2 className="font-bold text-white text-sm">Acme Workspace</h2>
+            <p className="text-xs text-white/50 mt-0.5">5 members</p>
+          </div>
+          <div className="p-3 flex-1">
+            <Link
+              href="/examples/teamspace/app"
+              className="flex items-center gap-2 px-2 py-1.5 rounded text-sm text-white/60 hover:bg-white/5 hover:text-white/80 transition-colors"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+              </svg>
+              Back to chat
+            </Link>
+          </div>
         </div>
-      </div>
-
-      <div className="flex-1 overflow-y-auto">
-        <div className="mx-auto max-w-4xl px-6 py-8">
+      </AppShell.Sidebar>
+      <AppShell.Main>
+        <AppShell.Header>
+          <div className="flex items-center gap-3">
+            <Link href="/examples/teamspace/app" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+              <svg className="h-5 w-5 text-muted-foreground sm:hidden" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+              </svg>
+              <span className="text-sm font-semibold text-foreground">Channel Browser</span>
+            </Link>
+          </div>
+        </AppShell.Header>
+        <AppShell.Content maxWidth="4xl">
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-foreground mb-2">Channel browser</h1>
             <p className="text-muted-foreground text-sm">{allChannels.length} channels available</p>
@@ -82,10 +98,36 @@ export default function ChannelBrowserPage() {
               </div>
             ))}
           </div>
-        </div>
-      </div>
-
+        </AppShell.Content>
+      </AppShell.Main>
+      <AppShell.MobileNav>
+        <button className="flex flex-col items-center gap-0.5 text-muted-foreground">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          </svg>
+          <span className="text-[10px]">Home</span>
+        </button>
+        <button className="flex flex-col items-center gap-0.5 text-primary">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
+          </svg>
+          <span className="text-[10px]">Channels</span>
+        </button>
+        <button className="flex flex-col items-center gap-0.5 text-muted-foreground">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
+          </svg>
+          <span className="text-[10px]">DMs</span>
+        </button>
+        <button className="flex flex-col items-center gap-0.5 text-muted-foreground">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+          <span className="text-[10px]">Search</span>
+        </button>
+      </AppShell.MobileNav>
+      <AppShell.Overlay />
       <ThemeConfigPanel defaultConfig={teamspaceConfig} />
-    </div>
+    </AppShell>
   )
 }
