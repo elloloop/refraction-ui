@@ -4,7 +4,7 @@
 - Date: 2025-07-25
 
 ## Context
-We need an interactive playground to demo and test components, run axe checks and visual regression, and give users copy-pasteable examples. shadcn/ui relies on a Next.js docs site, but Storybook provides built-in testing and addon ecosystem. Alternatives: Ladle (faster dev), plain Next docs, or custom playground.
+We need an interactive playground to demo and test components, run axe checks and visual regression, and give users copy-pasteable examples. Storybook provides built-in testing and addon ecosystem. Alternatives: Ladle (faster dev), plain Next.js docs site, or custom playground.
 
 ## Decision
 Adopt Storybook 8 for v0.1:

@@ -2,8 +2,8 @@
 
 ## Goals
 
-- Shadcn-like DX: source files, Tailwind, copy‑paste friendly.
-- Radix-compatible surface, but engine-swappable.
+- Developer-friendly DX: per-component packages, Tailwind-native, install only what you need.
+- Headless core architecture with framework wrappers (React, Angular, Astro).
 - **Multiple named themes (“brands”) are first-class.**
 - **Each theme must provide at least light and dark modes with runtime switching.**
 - Token-first theming with live switching and external token imports.

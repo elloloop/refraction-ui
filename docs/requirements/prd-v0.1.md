@@ -1,11 +1,11 @@
 # Refraction UI – PRD v0.1
 
 ## 1. Vision
-Refraction UI gives teams a shadcn-like, source-first UI kit that is theming-first and engine-swappable. Developers install or generate components, flows and tokens through a CLI or an MCP server. v0.1 delivers the smallest coherent slice.
+Refraction UI is a per-component headless UI library with full brand theming. Developers install only the packages they need, theme everything from one config, and get accessible, tested components across React, Angular, and Astro. v0.1 delivers the smallest coherent slice.
 
 ## 2. Users and jobs
 **Users**
-- Frontend engineers already using shadcn or Radix.
+- Frontend engineers building production apps with React, Angular, or Astro.
 - Design system engineers who need multiple brand themes.
 - LLM/IDE power users who want generators via MCP.
 
