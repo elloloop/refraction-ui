@@ -8,8 +8,7 @@
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
     "test:coverage": "turbo test:coverage",
-    "changeset": "changeset",
-    "release": "changeset publish",
+    "release": "npx multi-semantic-release",
     "generate": "node scripts/generate-package.mjs",
     "e2e": "playwright test",
     "e2e:update": "playwright test --update-snapshots",
@@ -17,7 +16,10 @@
     "visual:update": "lost-pixel update"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^12.0.1",
+    "multi-semantic-release": "^3.0.0",
     "@playwright/test": "1.59.1",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.38.0",
