@@ -1,4 +1,4 @@
-import { cva } from '@refraction-ui/shared'
+import { cva } from '@elloloop/shared'
 
 export const playerVariants = cva({
   base: 'relative overflow-hidden rounded-lg bg-black',

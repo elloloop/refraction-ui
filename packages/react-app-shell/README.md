@@ -1,17 +1,17 @@
-# @refraction-ui/react-app-shell
+# @elloloop/react-app-shell
 
 Application shell layout component for React. Part of [Refraction UI](https://elloloop.github.io/refraction-ui/).
 
 ## Install
 
 ```bash
-pnpm add @refraction-ui/react-app-shell
+pnpm add @elloloop/react-app-shell
 ```
 
 ## Usage
 
 ```tsx
-import { AppShell } from '@refraction-ui/react-app-shell'
+import { AppShell } from '@elloloop/react-app-shell'
 
 <AppShell
   header={<Navbar />}

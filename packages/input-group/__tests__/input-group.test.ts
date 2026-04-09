@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { resetIdCounter } from '@refraction-ui/shared'
+import { resetIdCounter } from '@elloloop/shared'
 import { createInputGroup } from '../src/input-group.js'
 import { inputGroupVariants, inputGroupAddonVariants, inputGroupButtonVariants } from '../src/input-group.styles.js'
 

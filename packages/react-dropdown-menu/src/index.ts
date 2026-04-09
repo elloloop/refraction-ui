@@ -21,4 +21,4 @@ export {
   type DropdownMenuState,
   menuContentVariants,
   menuItemVariants,
-} from '@refraction-ui/dropdown-menu'
+} from '@elloloop/dropdown-menu'

@@ -1,4 +1,4 @@
-import { cva } from '@refraction-ui/shared'
+import { cva } from '@elloloop/shared'
 
 export const navbarVariants = cva({
   base: 'sticky top-0 z-40 w-full border-b',

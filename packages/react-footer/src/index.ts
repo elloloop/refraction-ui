@@ -5,4 +5,4 @@ export {
   type SocialLink,
   type FooterColumn,
   footerVariants,
-} from '@refraction-ui/footer'
+} from '@elloloop/footer'

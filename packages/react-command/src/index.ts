@@ -25,4 +25,4 @@ export {
   commandInputVariants,
   commandItemVariants,
   commandGroupVariants,
-} from '@refraction-ui/command'
+} from '@elloloop/command'

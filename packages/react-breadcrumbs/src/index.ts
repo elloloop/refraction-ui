@@ -6,4 +6,4 @@ export {
   breadcrumbsVariants,
   breadcrumbItemVariants,
   breadcrumbSeparatorStyles,
-} from '@refraction-ui/breadcrumbs'
+} from '@elloloop/breadcrumbs'

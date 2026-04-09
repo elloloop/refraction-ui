@@ -16,4 +16,4 @@ export {
   type TabsState,
   tabsListVariants,
   tabsTriggerVariants,
-} from '@refraction-ui/tabs'
+} from '@elloloop/tabs'

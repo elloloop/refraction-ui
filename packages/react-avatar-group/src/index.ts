@@ -11,4 +11,4 @@ export {
   avatarOverflowBadgeVariants,
   avatarImageStyles,
   avatarPresenceDotVariants,
-} from '@refraction-ui/avatar-group'
+} from '@elloloop/avatar-group'

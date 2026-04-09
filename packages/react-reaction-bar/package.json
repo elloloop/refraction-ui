@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/react-reaction-bar",
+  "name": "@elloloop/react-reaction-bar",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@refraction-ui/reaction-bar": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@elloloop/reaction-bar": "workspace:*",
+    "@elloloop/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

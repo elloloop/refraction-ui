@@ -1,4 +1,4 @@
-import { cva } from '@refraction-ui/shared'
+import { cva } from '@elloloop/shared'
 
 export const emojiPickerContainerStyles =
   'w-80 rounded-lg border bg-popover text-popover-foreground shadow-md'

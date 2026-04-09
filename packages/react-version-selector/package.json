@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/react-version-selector",
+  "name": "@elloloop/react-version-selector",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@refraction-ui/version-selector": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@elloloop/version-selector": "workspace:*",
+    "@elloloop/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

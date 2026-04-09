@@ -15,4 +15,4 @@ export {
   type ToastEntry,
   type ToastManagerAPI,
   toastVariants,
-} from '@refraction-ui/toast'
+} from '@elloloop/toast'

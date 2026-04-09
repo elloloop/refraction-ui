@@ -1,4 +1,4 @@
-import { cva } from '@refraction-ui/shared'
+import { cva } from '@elloloop/shared'
 
 export const radioGroupVariants = cva({
   base: 'flex gap-3',

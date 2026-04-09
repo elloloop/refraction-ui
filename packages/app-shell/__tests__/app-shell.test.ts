@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { resetIdCounter } from '@refraction-ui/shared'
+import { resetIdCounter } from '@elloloop/shared'
 import { createAppShell, resolveBreakpoint } from '../src/app-shell.js'
 
 beforeEach(() => {

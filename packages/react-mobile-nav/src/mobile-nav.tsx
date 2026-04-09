@@ -5,8 +5,8 @@ import {
   mobileNavContentVariants,
   mobileNavTriggerVariants,
   mobileNavLinkVariants,
-} from '@refraction-ui/mobile-nav'
-import { cn, createKeyboardHandler } from '@refraction-ui/shared'
+} from '@elloloop/mobile-nav'
+import { cn, createKeyboardHandler } from '@elloloop/shared'
 
 /* ------------------------------------------------------------------ */
 /*  Context                                                            */

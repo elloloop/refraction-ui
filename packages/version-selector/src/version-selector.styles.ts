@@ -1,4 +1,4 @@
-import { cva } from '@refraction-ui/shared'
+import { cva } from '@elloloop/shared'
 
 export const versionSelectorVariants = cva({
   base: 'relative inline-flex items-center justify-between rounded-md border bg-background text-foreground cursor-pointer',

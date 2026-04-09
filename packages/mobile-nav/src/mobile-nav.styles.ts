@@ -1,5 +1,5 @@
-import { cva } from '@refraction-ui/shared'
-import type { TokenContract } from '@refraction-ui/shared'
+import { cva } from '@elloloop/shared'
+import type { TokenContract } from '@elloloop/shared'
 
 export const mobileNavTokens: TokenContract = {
   name: 'mobile-nav',

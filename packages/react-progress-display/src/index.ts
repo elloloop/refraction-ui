@@ -17,4 +17,4 @@ export {
   badgeGridVariants,
   badgeItemVariants,
   progressBarVariants,
-} from '@refraction-ui/progress-display'
+} from '@elloloop/progress-display'

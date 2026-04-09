@@ -4,7 +4,7 @@
  * No external dependencies (no clsx, no tailwind-merge).
  *
  * For Tailwind class conflict resolution (e.g., 'p-2 p-4' → 'p-4'),
- * consumers can use @refraction-ui/tailwind-config which provides
+ * consumers can use @elloloop/tailwind-config which provides
  * a tw-merge-aware variant of this function.
  */
 

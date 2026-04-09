@@ -8,8 +8,8 @@ import {
   type ColumnDef,
   type SortDirection,
   type DataTableProps as CoreProps,
-} from '@refraction-ui/data-table'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/data-table'
+import { cn } from '@elloloop/shared'
 
 // ---------------------------------------------------------------------------
 // DataTable

@@ -6,8 +6,8 @@ import {
   typewriterVariants,
   type AnimatedTextProps as CoreAnimatedTextProps,
   type TypewriterProps as CoreTypewriterProps,
-} from '@refraction-ui/animated-text'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/animated-text'
+import { cn } from '@elloloop/shared'
 
 /* ------------------------------------------------------------------ */
 /*  AnimatedText — word carousel                                       */

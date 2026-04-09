@@ -5,8 +5,8 @@ import {
   selectContentVariants,
   selectItemVariants,
   type SelectOption,
-} from '@refraction-ui/select'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/select'
+import { cn } from '@elloloop/shared'
 
 /* ─── Context ──────────────────────────────────────────────────── */
 interface SelectContextValue {

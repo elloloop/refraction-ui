@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { resetIdCounter } from '@refraction-ui/shared'
+import { resetIdCounter } from '@elloloop/shared'
 import { createToast, createToastManager } from '../src/toast.js'
 import { toastVariants } from '../src/toast.styles.js'
 

@@ -5,4 +5,4 @@ export {
   type WatermarkConfig,
   contentProtectionVariants,
   watermarkVariants,
-} from '@refraction-ui/content-protection'
+} from '@elloloop/content-protection'

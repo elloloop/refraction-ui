@@ -4,8 +4,8 @@ import {
   installPromptVariants,
   type InstallPromptProps as CoreInstallPromptProps,
   type StorageAdapter,
-} from '@refraction-ui/install-prompt'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/install-prompt'
+import { cn } from '@elloloop/shared'
 
 export interface InstallPromptProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Delay in ms before showing. Default: 3000 */
@@ -42,7 +42,7 @@ function createLocalStorage(): StorageAdapter {
 /**
  * InstallPrompt component — renders a bottom banner prompting PWA installation.
  *
- * Uses the headless @refraction-ui/install-prompt core for state and ARIA attributes.
+ * Uses the headless @elloloop/install-prompt core for state and ARIA attributes.
  * Listens for the `beforeinstallprompt` browser event.
  */
 export const InstallPrompt = React.forwardRef<HTMLDivElement, InstallPromptProps>(

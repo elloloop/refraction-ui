@@ -4,8 +4,8 @@ import {
   searchBarVariants,
   searchResultVariants,
   type SearchBarAPI,
-} from '@refraction-ui/search-bar'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/search-bar'
+import { cn } from '@elloloop/shared'
 
 /* ------------------------------------------------------------------ */
 /*  Context                                                            */

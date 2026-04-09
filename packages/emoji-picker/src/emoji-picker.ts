@@ -1,5 +1,5 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
-import { generateId } from '@refraction-ui/shared'
+import type { AccessibilityProps } from '@elloloop/shared'
+import { generateId } from '@elloloop/shared'
 import {
   EMOJI_DATA,
   EMOJI_CATEGORIES,

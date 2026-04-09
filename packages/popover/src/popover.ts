@@ -1,5 +1,5 @@
-import type { AccessibilityProps, Side, KeyboardHandlerMap } from '@refraction-ui/shared'
-import { generateId, Keys, createKeyboardHandler } from '@refraction-ui/shared'
+import type { AccessibilityProps, Side, KeyboardHandlerMap } from '@elloloop/shared'
+import { generateId, Keys, createKeyboardHandler } from '@elloloop/shared'
 
 export interface PopoverProps {
   open?: boolean

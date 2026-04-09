@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/react-checkbox",
+  "name": "@elloloop/react-checkbox",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@refraction-ui/checkbox": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@elloloop/checkbox": "workspace:*",
+    "@elloloop/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

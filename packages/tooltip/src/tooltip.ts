@@ -1,5 +1,5 @@
-import type { AccessibilityProps, Side } from '@refraction-ui/shared'
-import { generateId } from '@refraction-ui/shared'
+import type { AccessibilityProps, Side } from '@elloloop/shared'
+import { generateId } from '@elloloop/shared'
 
 export interface TooltipProps {
   open?: boolean

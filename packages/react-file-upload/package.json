@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/react-file-upload",
+  "name": "@elloloop/react-file-upload",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@refraction-ui/file-upload": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@elloloop/file-upload": "workspace:*",
+    "@elloloop/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

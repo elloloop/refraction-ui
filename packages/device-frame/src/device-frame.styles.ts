@@ -1,4 +1,4 @@
-import { cva } from '@refraction-ui/shared'
+import { cva } from '@elloloop/shared'
 
 export const deviceFrameVariants = cva({
   base: 'relative overflow-hidden bg-black border-4 border-gray-800 shadow-xl',

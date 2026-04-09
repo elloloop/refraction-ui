@@ -5,8 +5,8 @@ import {
   type DeviceFrameProps as CoreDeviceFrameProps,
   type DeviceType,
   type DeviceOrientation,
-} from '@refraction-ui/device-frame'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/device-frame'
+import { cn } from '@elloloop/shared'
 
 // ---------------------------------------------------------------------------
 // DeviceFrame

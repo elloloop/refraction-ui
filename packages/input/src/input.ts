@@ -1,4 +1,4 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
+import type { AccessibilityProps } from '@elloloop/shared'
 
 export type InputType = 'text' | 'password' | 'email' | 'number' | 'tel' | 'url' | 'search'
 

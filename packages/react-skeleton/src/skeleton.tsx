@@ -3,8 +3,8 @@ import {
   createSkeleton,
   skeletonVariants,
   type SkeletonShape,
-} from '@refraction-ui/skeleton'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/skeleton'
+import { cn } from '@elloloop/shared'
 
 export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
   shape?: SkeletonShape
@@ -17,7 +17,7 @@ export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * Skeleton component -- renders a placeholder loading element.
  *
- * Uses the headless @refraction-ui/skeleton core for ARIA attributes.
+ * Uses the headless @elloloop/skeleton core for ARIA attributes.
  * Styling via Tailwind utility classes (no external CSS-in-JS).
  */
 export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(

@@ -5,8 +5,8 @@ import {
   overlayStyles,
   dialogContentVariants,
   type DialogProps as CoreDialogProps,
-} from '@refraction-ui/dialog'
-import { cn, createKeyboardHandler } from '@refraction-ui/shared'
+} from '@elloloop/dialog'
+import { cn, createKeyboardHandler } from '@elloloop/shared'
 
 // ---------------------------------------------------------------------------
 // Context

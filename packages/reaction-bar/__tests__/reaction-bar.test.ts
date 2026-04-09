@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { resetIdCounter } from '@refraction-ui/shared'
+import { resetIdCounter } from '@elloloop/shared'
 import { createReactionBar, type Reaction } from '../src/reaction-bar.js'
 import {
   reactionBarStyles,

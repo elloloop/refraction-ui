@@ -7,8 +7,8 @@ import {
   commandGroupVariants,
   type CommandProps as CoreCommandProps,
   type CommandItemData,
-} from '@refraction-ui/command'
-import { cn, createKeyboardHandler, Keys } from '@refraction-ui/shared'
+} from '@elloloop/command'
+import { cn, createKeyboardHandler, Keys } from '@elloloop/shared'
 
 // ---------------------------------------------------------------------------
 // Context

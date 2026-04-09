@@ -4,4 +4,4 @@ export { Input, type InputProps } from './input.js'
 export {
   type InputType,
   inputVariants,
-} from '@refraction-ui/input'
+} from '@elloloop/input'

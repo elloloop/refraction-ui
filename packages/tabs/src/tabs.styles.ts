@@ -1,4 +1,4 @@
-import { cva } from '@refraction-ui/shared'
+import { cva } from '@elloloop/shared'
 
 export const tabsListVariants = cva({
   base: 'inline-flex items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground',

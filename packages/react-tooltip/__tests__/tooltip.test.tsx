@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Tooltip, TooltipTrigger, TooltipContent } from '../src/tooltip.js'
-import { resetIdCounter } from '@refraction-ui/shared'
+import { resetIdCounter } from '@elloloop/shared'
 
 beforeEach(() => {
   resetIdCounter()

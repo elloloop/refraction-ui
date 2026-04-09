@@ -4,4 +4,4 @@ export { Skeleton, SkeletonText, type SkeletonProps, type SkeletonTextProps } fr
 export {
   type SkeletonShape,
   skeletonVariants,
-} from '@refraction-ui/skeleton'
+} from '@elloloop/skeleton'

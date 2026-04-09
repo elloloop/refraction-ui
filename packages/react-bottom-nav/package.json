@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/react-bottom-nav",
+  "name": "@elloloop/react-bottom-nav",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@refraction-ui/bottom-nav": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@elloloop/bottom-nav": "workspace:*",
+    "@elloloop/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

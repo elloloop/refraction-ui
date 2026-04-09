@@ -5,8 +5,8 @@ import {
   type AppShellConfig,
   type AppShellState,
   type AppShellAPI,
-} from '@refraction-ui/app-shell'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/app-shell'
+import { cn } from '@elloloop/shared'
 
 // ---------------------------------------------------------------------------
 // Context

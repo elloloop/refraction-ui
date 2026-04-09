@@ -4,8 +4,8 @@ import {
   footerVariants,
   type FooterColumn,
   type SocialLink,
-} from '@refraction-ui/footer'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/footer'
+import { cn } from '@elloloop/shared'
 
 export interface FooterProps extends React.HTMLAttributes<HTMLElement> {
   /** Custom copyright text */
@@ -19,7 +19,7 @@ export interface FooterProps extends React.HTMLAttributes<HTMLElement> {
 /**
  * Footer component — renders a site footer with copyright, social links, and link columns.
  *
- * Uses the headless @refraction-ui/footer core for state and ARIA attributes.
+ * Uses the headless @elloloop/footer core for state and ARIA attributes.
  */
 export const Footer = React.forwardRef<HTMLElement, FooterProps>(
   (

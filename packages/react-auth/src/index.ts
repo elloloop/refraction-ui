@@ -14,7 +14,7 @@ export type {
   OAuthProvider,
   AuthConfig,
   AuthProviderType,
-} from '@refraction-ui/auth'
+} from '@elloloop/auth'
 
 export {
   hasRole,
@@ -24,4 +24,4 @@ export {
   canAccessReviewer,
   getDefaultPortal,
   getAssignableRoles,
-} from '@refraction-ui/auth'
+} from '@elloloop/auth'

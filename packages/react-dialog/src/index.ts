@@ -26,4 +26,4 @@ export {
   type DialogState,
   overlayStyles,
   dialogContentVariants,
-} from '@refraction-ui/dialog'
+} from '@elloloop/dialog'

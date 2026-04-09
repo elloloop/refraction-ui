@@ -1,4 +1,4 @@
-import type { Orientation } from '@refraction-ui/shared'
+import type { Orientation } from '@elloloop/shared'
 
 export interface ResizableLayoutProps {
   orientation?: Orientation

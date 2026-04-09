@@ -1,4 +1,4 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
+import type { AccessibilityProps } from '@elloloop/shared'
 
 export interface ColumnDef<T = Record<string, unknown>> {
   /** Unique column identifier */

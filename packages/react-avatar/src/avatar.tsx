@@ -5,8 +5,8 @@ import {
   avatarImageVariants,
   avatarFallbackVariants,
   type AvatarSize,
-} from '@refraction-ui/avatar'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/avatar'
+import { cn } from '@elloloop/shared'
 
 /* ─── Context ──────────────────────────────────────────────────── */
 interface AvatarContextValue {

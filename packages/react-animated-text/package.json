@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/react-animated-text",
+  "name": "@elloloop/react-animated-text",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@refraction-ui/animated-text": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@elloloop/animated-text": "workspace:*",
+    "@elloloop/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

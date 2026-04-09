@@ -12,4 +12,4 @@ export {
 // Re-export headless types for convenience
 export {
   popoverContentVariants,
-} from '@refraction-ui/popover'
+} from '@elloloop/popover'

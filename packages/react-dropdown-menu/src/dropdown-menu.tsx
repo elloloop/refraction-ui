@@ -6,8 +6,8 @@ import {
   menuItemVariants,
   type DropdownMenuProps as CoreDropdownMenuProps,
   type MenuItemProps as CoreMenuItemProps,
-} from '@refraction-ui/dropdown-menu'
-import { cn, createKeyboardHandler } from '@refraction-ui/shared'
+} from '@elloloop/dropdown-menu'
+import { cn, createKeyboardHandler } from '@elloloop/shared'
 
 // ---------------------------------------------------------------------------
 // Context

@@ -5,8 +5,8 @@ import {
   optionVariants,
   type LanguageSelectorAPI,
   type LanguageOption,
-} from '@refraction-ui/language-selector'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/language-selector'
+import { cn } from '@elloloop/shared'
 
 /* ------------------------------------------------------------------ */
 /*  Context                                                            */

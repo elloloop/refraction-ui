@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/react-progress-display",
+  "name": "@elloloop/react-progress-display",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@refraction-ui/progress-display": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@elloloop/progress-display": "workspace:*",
+    "@elloloop/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

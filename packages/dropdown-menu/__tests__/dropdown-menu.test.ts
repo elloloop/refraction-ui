@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { resetIdCounter } from '@refraction-ui/shared'
+import { resetIdCounter } from '@elloloop/shared'
 import { createDropdownMenu } from '../src/dropdown-menu.js'
 import { menuContentVariants, menuItemVariants } from '../src/dropdown-menu.styles.js'
 

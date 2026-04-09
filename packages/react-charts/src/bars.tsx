@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useContext } from 'react'
-import { createBandScale, createLinearScale, computeExtent } from '@refraction-ui/charts'
+import { createBandScale, createLinearScale, computeExtent } from '@elloloop/charts'
 import { ChartContext } from './chart-context.js'
 
 export interface BarsProps<T = unknown> {

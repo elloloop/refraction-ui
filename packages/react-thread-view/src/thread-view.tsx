@@ -15,8 +15,8 @@ import {
   threadEditedStyles,
   type MessageData,
   type MessageReaction,
-} from '@refraction-ui/thread-view'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/thread-view'
+import { cn } from '@elloloop/shared'
 
 export interface ThreadViewProps {
   messages: MessageData[]

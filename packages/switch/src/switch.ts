@@ -1,5 +1,5 @@
-import type { AccessibilityProps, KeyboardHandlerMap } from '@refraction-ui/shared'
-import { Keys } from '@refraction-ui/shared'
+import type { AccessibilityProps, KeyboardHandlerMap } from '@elloloop/shared'
+import { Keys } from '@elloloop/shared'
 
 export interface SwitchProps {
   checked?: boolean

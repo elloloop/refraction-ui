@@ -3,8 +3,8 @@ import {
   createCodeEditor,
   codeEditorVariants,
   type CodeEditorTheme,
-} from '@refraction-ui/code-editor'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/code-editor'
+import { cn } from '@elloloop/shared'
 
 export interface CodeEditorProps {
   value?: string
@@ -21,7 +21,7 @@ export interface CodeEditorProps {
 /**
  * CodeEditor component — a styled textarea-based code editor.
  *
- * Uses the headless @refraction-ui/code-editor core for state and ARIA.
+ * Uses the headless @elloloop/code-editor core for state and ARIA.
  * Renders a simple monospace textarea with a header bar showing the language
  * label and optional action buttons. Syntax highlighting is a future enhancement.
  */

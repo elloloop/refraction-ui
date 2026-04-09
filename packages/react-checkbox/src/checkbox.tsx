@@ -5,8 +5,8 @@ import {
   checkIconPath,
   indeterminateIconPath,
   type CheckedState,
-} from '@refraction-ui/checkbox'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/checkbox'
+import { cn } from '@elloloop/shared'
 
 export interface CheckboxProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'> {
   checked?: CheckedState
@@ -18,7 +18,7 @@ export interface CheckboxProps extends Omit<React.ButtonHTMLAttributes<HTMLButto
 /**
  * Checkbox component -- renders a styled checkbox with check/indeterminate icons.
  *
- * Uses the headless @refraction-ui/checkbox core for state, ARIA, and keyboard handling.
+ * Uses the headless @elloloop/checkbox core for state, ARIA, and keyboard handling.
  */
 export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
   ({ checked = false, onCheckedChange, disabled = false, size = 'default', className, ...props }, ref) => {

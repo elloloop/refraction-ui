@@ -5,4 +5,4 @@ export {
   type NavTab,
   bottomNavVariants,
   bottomNavTabVariants,
-} from '@refraction-ui/bottom-nav'
+} from '@elloloop/bottom-nav'

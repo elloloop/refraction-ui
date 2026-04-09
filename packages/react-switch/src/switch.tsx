@@ -3,8 +3,8 @@ import {
   createSwitch,
   switchVariants,
   switchThumbVariants,
-} from '@refraction-ui/switch'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/switch'
+import { cn } from '@elloloop/shared'
 
 export interface SwitchProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'> {
   checked?: boolean
@@ -16,7 +16,7 @@ export interface SwitchProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
 /**
  * Switch component -- a toggle switch with accessible keyboard and ARIA support.
  *
- * Uses the headless @refraction-ui/switch core for state, ARIA, and keyboard handling.
+ * Uses the headless @elloloop/switch core for state, ARIA, and keyboard handling.
  */
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
   ({ checked = false, onCheckedChange, disabled = false, size = 'default', className, ...props }, ref) => {
