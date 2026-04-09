@@ -14,10 +14,10 @@ Build Popover primitive and styled wrapper
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/popover` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-popover` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-popover` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-popover` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/popover` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-popover` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-popover` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-popover` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

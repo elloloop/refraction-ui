@@ -8,4 +8,4 @@ export {
   checkboxTokens,
   checkIconPath,
   indeterminateIconPath,
-} from '@refraction-ui/checkbox'
+} from '@elloloop/checkbox'

@@ -14,10 +14,10 @@ Build Dropdown Menu primitive and styled wrapper
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/dropdown-menu` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-dropdown-menu` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-dropdown-menu` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-dropdown-menu` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/dropdown-menu` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-dropdown-menu` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-dropdown-menu` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-dropdown-menu` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

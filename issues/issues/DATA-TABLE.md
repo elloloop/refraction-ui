@@ -15,10 +15,10 @@ Build DataTable — full-featured data table with column filtering, status badge
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/data-table` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-data-table` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-data-table` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-data-table` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/data-table` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-data-table` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-data-table` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-data-table` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

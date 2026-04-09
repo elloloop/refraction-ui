@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { getThemeScript } from '@refraction-ui/theme'
+import { getThemeScript } from '@elloloop/theme'
 
 export interface ThemeScriptProps {
   storageKey?: string

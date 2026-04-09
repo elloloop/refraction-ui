@@ -8,8 +8,8 @@ import {
   progressBarVariants,
   type StatCardData,
   type BadgeData,
-} from '@refraction-ui/progress-display'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/progress-display'
+import { cn } from '@elloloop/shared'
 
 /* ------------------------------------------------------------------ */
 /*  StatsGrid                                                          */

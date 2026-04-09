@@ -5,8 +5,8 @@ import {
   inputGroupAddonVariants,
   inputGroupButtonVariants,
   type InputGroupOrientation,
-} from '@refraction-ui/input-group'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/input-group'
+import { cn } from '@elloloop/shared'
 
 export interface InputGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   orientation?: InputGroupOrientation

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { resetIdCounter } from '@refraction-ui/shared'
+import { resetIdCounter } from '@elloloop/shared'
 import { createAvatarGroup, getInitials, AVATAR_SIZES } from '../src/avatar-group.js'
 import {
   avatarGroupStyles,

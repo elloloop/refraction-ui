@@ -15,10 +15,10 @@ Build VideoPlayer components — custom HTML5 video player with controls, YouTub
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/video-player` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-video-player` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-video-player` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-video-player` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/video-player` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-video-player` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-video-player` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-video-player` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

@@ -14,10 +14,10 @@ Build Tabs primitive and styled wrapper
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/tabs` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-tabs` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-tabs` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-tabs` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/tabs` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-tabs` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-tabs` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-tabs` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

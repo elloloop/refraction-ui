@@ -15,10 +15,10 @@ Build CodeEditor — Monaco Editor wrapper with theme integration, language supp
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/code-editor` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-code-editor` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-code-editor` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-code-editor` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/code-editor` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-code-editor` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-code-editor` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-code-editor` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

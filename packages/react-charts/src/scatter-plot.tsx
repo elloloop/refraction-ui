@@ -4,8 +4,8 @@ import {
   computeExtent,
   combineDimensions,
   formatTick,
-} from '@refraction-ui/charts'
-import type { Margin } from '@refraction-ui/charts'
+} from '@elloloop/charts'
+import type { Margin } from '@elloloop/charts'
 
 export interface ScatterPlotProps<T = unknown> {
   data: T[]

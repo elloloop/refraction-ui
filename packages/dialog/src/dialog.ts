@@ -1,5 +1,5 @@
-import type { AccessibilityProps, KeyboardHandlerMap, FocusTrapConfig } from '@refraction-ui/shared'
-import { createMachine, Keys, generateId, FOCUSABLE_SELECTOR } from '@refraction-ui/shared'
+import type { AccessibilityProps, KeyboardHandlerMap, FocusTrapConfig } from '@elloloop/shared'
+import { createMachine, Keys, generateId, FOCUSABLE_SELECTOR } from '@elloloop/shared'
 
 export interface DialogProps {
   /** Whether the dialog is open (controlled) */

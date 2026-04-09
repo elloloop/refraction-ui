@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import { TTSProvider, useTTS } from '../src/tts-provider.js'
-import { createMockTTSProvider } from '@refraction-ui/ai'
+import { createMockTTSProvider } from '@elloloop/ai'
 
 describe('TTSProvider (SSR)', () => {
   it('renders children', () => {

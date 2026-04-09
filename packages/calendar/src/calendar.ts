@@ -1,5 +1,5 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
-import { generateId } from '@refraction-ui/shared'
+import type { AccessibilityProps } from '@elloloop/shared'
+import { generateId } from '@elloloop/shared'
 
 export interface CalendarProps {
   /** Selected date (controlled) */

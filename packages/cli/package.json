@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/cli",
+  "name": "@elloloop/cli",
   "version": "0.1.0",
   "type": "module",
   "description": "Refraction UI command line interface",

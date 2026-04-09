@@ -5,8 +5,8 @@ import {
   presenceContainerStyles,
   presenceLabelStyles,
   type PresenceStatus,
-} from '@refraction-ui/presence-indicator'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/presence-indicator'
+import { cn } from '@elloloop/shared'
 
 export interface PresenceIndicatorProps {
   status: PresenceStatus

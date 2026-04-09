@@ -15,10 +15,10 @@ Build ResizableLayout and DraggableDivider — CSS-variable-driven resizable pan
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/resizable-layout` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-resizable-layout` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-resizable-layout` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-resizable-layout` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/resizable-layout` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-resizable-layout` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-resizable-layout` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-resizable-layout` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

@@ -1,4 +1,4 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
+import type { AccessibilityProps } from '@elloloop/shared'
 
 export type BadgeVariant = 'default' | 'primary' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning'
 export type BadgeSize = 'sm' | 'md'

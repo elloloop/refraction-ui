@@ -9,7 +9,7 @@ status: pending
 
 ## Summary
 
-Create `@refraction-ui/i18n` package — language configuration, voice registry, region detection, and locale utilities. Consolidates internationalization code from elloloop/learnloop, elloloop/stream-mind, and elloloop/featuredocs.
+Create `@elloloop/i18n` package — language configuration, voice registry, region detection, and locale utilities. Consolidates internationalization code from elloloop/learnloop, elloloop/stream-mind, and elloloop/featuredocs.
 
 ## Source References
 

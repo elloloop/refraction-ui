@@ -64,7 +64,7 @@ Tokens are grouped per **theme** and inside each theme by **mode** (light, dark 
 
 ## Validation
 
-- Zod schema lives in `@refraction-ui/tokens-core`.
+- Zod schema lives in `@elloloop/tokens-core`.
 - `refraction-ui tokens import`:
   - Detects input format (Style Dictionary, Figma Tokens, Token Studio).
   - Normalizes into the schema above.

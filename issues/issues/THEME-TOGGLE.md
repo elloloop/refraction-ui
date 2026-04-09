@@ -15,10 +15,10 @@ Build ThemeToggle component — a 3-way switcher for light/dark/system modes wit
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/theme-toggle` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-theme-toggle` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-theme-toggle` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-theme-toggle` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/theme-toggle` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-theme-toggle` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-theme-toggle` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-theme-toggle` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

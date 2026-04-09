@@ -1,4 +1,4 @@
-import { cva } from '@refraction-ui/shared'
+import { cva } from '@elloloop/shared'
 
 export const searchBarVariants = cva({
   base: 'relative flex items-center w-full rounded-md border bg-background text-foreground',

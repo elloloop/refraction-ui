@@ -7,7 +7,7 @@ import {
   type AuthAPI,
   type User,
   type OAuthProvider,
-} from '@refraction-ui/auth'
+} from '@elloloop/auth'
 
 export interface AuthContextValue {
   user: User | null

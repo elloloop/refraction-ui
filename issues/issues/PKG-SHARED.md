@@ -9,7 +9,7 @@ status: pending
 
 ## Summary
 
-Create `@refraction-ui/shared` — common types, utilities, and contracts used by every headless core and framework wrapper package.
+Create `@elloloop/shared` — common types, utilities, and contracts used by every headless core and framework wrapper package.
 
 ## Exports
 
@@ -53,4 +53,4 @@ export function cn(...inputs: ClassValue[]): string
 - [ ] Keyboard constants
 - [ ] Zero runtime dependencies (clsx and tailwind-merge are the only deps)
 - [ ] Unit tests for all utilities
-- [ ] Published as `@refraction-ui/shared`
+- [ ] Published as `@elloloop/shared`

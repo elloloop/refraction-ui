@@ -15,10 +15,10 @@ Build AnimatedText — scrolling word carousel and character-by-character text r
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/animated-text` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-animated-text` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-animated-text` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-animated-text` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/animated-text` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-animated-text` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-animated-text` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-animated-text` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

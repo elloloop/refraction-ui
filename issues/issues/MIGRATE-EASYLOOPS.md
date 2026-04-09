@@ -9,7 +9,7 @@ status: pending
 
 ## Summary
 
-Migrate elloloop/easyloops to use @refraction-ui/* packages. Large migration — easyloops has the best theme system, many hooks, and unique components.
+Migrate elloloop/easyloops to use @elloloop/* packages. Large migration — easyloops has the best theme system, many hooks, and unique components.
 
 ## Repository Details
 
@@ -19,64 +19,64 @@ Migrate elloloop/easyloops to use @refraction-ui/* packages. Large migration —
 
 ## Components to Replace
 
-### Theme → `@refraction-ui/react/theme`
+### Theme → `@elloloop/react/theme`
 | Current Location | Replace With |
 |-----------------|-------------|
-| `src/features/editor/hooks/useTheme.ts` | `@refraction-ui/react/theme` |
-| `src/shared/components/ThemeProvider.tsx` | `@refraction-ui/react/theme-provider` |
-| `src/shared/components/ThemeToggle.tsx` | `@refraction-ui/react/theme-toggle` |
+| `src/features/editor/hooks/useTheme.ts` | `@elloloop/react/theme` |
+| `src/shared/components/ThemeProvider.tsx` | `@elloloop/react/theme-provider` |
+| `src/shared/components/ThemeToggle.tsx` | `@elloloop/react/theme-toggle` |
 
-### Auth → `@refraction-ui/react/auth`
+### Auth → `@elloloop/react/auth`
 | Current Location | Replace With |
 |-----------------|-------------|
-| `src/features/auth/hooks/useAuth.ts` | `@refraction-ui/react/auth` |
-| `src/features/auth/components/AuthButton.tsx` | `@refraction-ui/react/auth` (adapt) |
-| `src/shared/lib/firebase.ts` | `@refraction-ui/react/auth` |
+| `src/features/auth/hooks/useAuth.ts` | `@elloloop/react/auth` |
+| `src/features/auth/components/AuthButton.tsx` | `@elloloop/react/auth` (adapt) |
+| `src/shared/lib/firebase.ts` | `@elloloop/react/auth` |
 
-### Layout → `@refraction-ui/react/layout`
+### Layout → `@elloloop/react/layout`
 | Current Location | Replace With |
 |-----------------|-------------|
-| `src/shared/components/Header.tsx` | `@refraction-ui/react/navbar` |
-| `src/shared/components/SimpleHeader.tsx` | `@refraction-ui/react/navbar` (variant) |
-| `src/shared/components/Navigation.tsx` | `@refraction-ui/react/navbar` (links) |
-| `src/shared/components/MobileNavigation.tsx` | `@refraction-ui/react/mobile-navigation` |
-| `src/shared/components/MainLayout.tsx` | `@refraction-ui/react/resizable-layout` |
-| `src/shared/components/DraggableDivider.tsx` | `@refraction-ui/react/draggable-divider` |
+| `src/shared/components/Header.tsx` | `@elloloop/react/navbar` |
+| `src/shared/components/SimpleHeader.tsx` | `@elloloop/react/navbar` (variant) |
+| `src/shared/components/Navigation.tsx` | `@elloloop/react/navbar` (links) |
+| `src/shared/components/MobileNavigation.tsx` | `@elloloop/react/mobile-navigation` |
+| `src/shared/components/MainLayout.tsx` | `@elloloop/react/resizable-layout` |
+| `src/shared/components/DraggableDivider.tsx` | `@elloloop/react/draggable-divider` |
 
-### Components → `@refraction-ui/react`
+### Components → `@elloloop/react`
 | Current Location | Replace With |
 |-----------------|-------------|
-| `src/shared/components/CollapsibleSection.tsx` | `@refraction-ui/react/collapsible` |
-| `src/shared/components/AnimatedText.tsx` | `@refraction-ui/react/animated-text` |
-| `src/shared/components/ContentProtection.tsx` | `@refraction-ui/react/content-protection` |
-| `src/shared/components/MarkdownRenderer.tsx` | `@refraction-ui/react/markdown-renderer` |
-| `src/shared/components/SlideViewer.tsx` | `@refraction-ui/react/slide-viewer` |
-| `src/shared/components/MobileUsageTip.tsx` | `@refraction-ui/react/mobile-usage-tip` |
+| `src/shared/components/CollapsibleSection.tsx` | `@elloloop/react/collapsible` |
+| `src/shared/components/AnimatedText.tsx` | `@elloloop/react/animated-text` |
+| `src/shared/components/ContentProtection.tsx` | `@elloloop/react/content-protection` |
+| `src/shared/components/MarkdownRenderer.tsx` | `@elloloop/react/markdown-renderer` |
+| `src/shared/components/SlideViewer.tsx` | `@elloloop/react/slide-viewer` |
+| `src/shared/components/MobileUsageTip.tsx` | `@elloloop/react/mobile-usage-tip` |
 | `src/shared/components/Logo.tsx` | Keep (app-specific) |
 
-### Code Editor → `@refraction-ui/react/media`
+### Code Editor → `@elloloop/react/media`
 | Current Location | Replace With |
 |-----------------|-------------|
-| `src/features/editor/components/MonacoEditor.tsx` | `@refraction-ui/react/code-editor` |
-| `src/features/editor/components/CodeEditor.tsx` | `@refraction-ui/react/code-editor` |
-| `src/shared/components/PythonPlayground.tsx` | `@refraction-ui/react/code-editor` (playground variant) |
+| `src/features/editor/components/MonacoEditor.tsx` | `@elloloop/react/code-editor` |
+| `src/features/editor/components/CodeEditor.tsx` | `@elloloop/react/code-editor` |
+| `src/shared/components/PythonPlayground.tsx` | `@elloloop/react/code-editor` (playground variant) |
 
-### Hooks → `@refraction-ui/react/hooks`
+### Hooks → `@elloloop/react/hooks`
 | Current Location | Replace With |
 |-----------------|-------------|
-| `src/shared/hooks/useResizableLayout.ts` | `@refraction-ui/react/hooks/use-resizable-layout` |
-| `src/shared/hooks/useWindowSize.ts` | `@refraction-ui/react/hooks/use-window-size` |
+| `src/shared/hooks/useResizableLayout.ts` | `@elloloop/react/hooks/use-resizable-layout` |
+| `src/shared/hooks/useWindowSize.ts` | `@elloloop/react/hooks/use-window-size` |
 
 ### Utilities
 | Current Location | Replace With |
 |-----------------|-------------|
-| `src/shared/lib/isTauri.ts` | `@refraction-ui/react/utils/identity` |
-| `src/shared/lib/formatters.ts` | `@refraction-ui/react/utils/format` |
-| `src/shared/lib/shortCodes.ts` | `@refraction-ui/react/utils/short-codes` |
+| `src/shared/lib/isTauri.ts` | `@elloloop/react/utils/identity` |
+| `src/shared/lib/formatters.ts` | `@elloloop/react/utils/format` |
+| `src/shared/lib/shortCodes.ts` | `@elloloop/react/utils/short-codes` |
 
 ## Tasks
 
-- [ ] Add all @refraction-ui/* packages
+- [ ] Add all @elloloop/* packages
 - [ ] Replace theme system (ThemeProvider, ThemeToggle, useTheme)
 - [ ] Replace auth system (useAuth, AuthButton, firebase utils)
 - [ ] Replace layout components (Header, Navigation, MainLayout, DraggableDivider)

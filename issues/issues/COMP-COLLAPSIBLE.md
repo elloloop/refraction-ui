@@ -15,10 +15,10 @@ Build CollapsibleSection — expandable/collapsible panel with icon, title, and 
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/collapsible` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-collapsible` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-collapsible` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-collapsible` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/collapsible` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-collapsible` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-collapsible` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-collapsible` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

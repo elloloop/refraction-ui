@@ -15,10 +15,10 @@ Build MarkdownRenderer — rich markdown renderer supporting embedded components
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/markdown-renderer` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-markdown-renderer` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-markdown-renderer` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-markdown-renderer` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/markdown-renderer` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-markdown-renderer` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-markdown-renderer` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-markdown-renderer` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

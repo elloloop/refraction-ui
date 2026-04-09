@@ -15,10 +15,10 @@ Build Navbar (desktop top navigation) — fixed header with logo, nav links, act
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/navbar` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-navbar` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-navbar` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-navbar` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/navbar` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-navbar` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-navbar` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-navbar` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

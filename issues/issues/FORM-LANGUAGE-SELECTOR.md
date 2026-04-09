@@ -15,10 +15,10 @@ Build LanguageSelector and LocaleSwitcher — dropdown selectors for programming
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/language-selector` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-language-selector` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-language-selector` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-language-selector` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/language-selector` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-language-selector` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-language-selector` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-language-selector` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

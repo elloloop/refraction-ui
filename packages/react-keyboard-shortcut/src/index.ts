@@ -12,4 +12,4 @@ export {
   shortcutBadgeStyles,
   shortcutKeyStyles,
   shortcutSeparatorStyles,
-} from '@refraction-ui/keyboard-shortcut'
+} from '@elloloop/keyboard-shortcut'

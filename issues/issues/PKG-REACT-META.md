@@ -9,27 +9,27 @@ status: pending
 
 ## Summary
 
-Create `@refraction-ui/react` meta-package — a convenience bundle that re-exports all `@refraction-ui/react-*` packages. Users who want everything install one package; users who want granularity install individual `react-*` packages.
+Create `@elloloop/react` meta-package — a convenience bundle that re-exports all `@elloloop/react-*` packages. Users who want everything install one package; users who want granularity install individual `react-*` packages.
 
 ## Usage
 
 ```bash
 # Install everything
-pnpm add @refraction-ui/react
+pnpm add @elloloop/react
 
 # Or pick what you need
-pnpm add @refraction-ui/react-button @refraction-ui/react-dialog @refraction-ui/react-theme
+pnpm add @elloloop/react-button @elloloop/react-dialog @elloloop/react-theme
 ```
 
 ```tsx
 // Both work:
-import { Button } from '@refraction-ui/react'
-import { Button } from '@refraction-ui/react-button'
+import { Button } from '@elloloop/react'
+import { Button } from '@elloloop/react-button'
 ```
 
 ## Acceptance Criteria
 
-- [ ] Re-exports all `@refraction-ui/react-*` packages
+- [ ] Re-exports all `@elloloop/react-*` packages
 - [ ] package.json lists all react-* packages as dependencies
 - [ ] Barrel index.ts with named re-exports (tree-shakeable)
 - [ ] No own source code — pure re-export package

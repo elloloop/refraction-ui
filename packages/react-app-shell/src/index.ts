@@ -40,4 +40,4 @@ export {
   createAppShell,
   createPageShell,
   createAuthShell,
-} from '@refraction-ui/app-shell'
+} from '@elloloop/app-shell'

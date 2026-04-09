@@ -3,8 +3,8 @@ import {
   createAuthShell,
   type AuthShellConfig,
   type AuthShellAPI,
-} from '@refraction-ui/app-shell'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/app-shell'
+import { cn } from '@elloloop/shared'
 
 // ---------------------------------------------------------------------------
 // Context

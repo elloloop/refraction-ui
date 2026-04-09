@@ -9,18 +9,18 @@ status: pending
 
 ## Summary
 
-Build `@refraction-ui/auth` (headless core) — auth state machine, internal adapter resolution, RBAC utilities. The auth provider (Firebase, Supabase, etc.) is an internal implementation detail — the consumer never knows or cares which one is used.
+Build `@elloloop/auth` (headless core) — auth state machine, internal adapter resolution, RBAC utilities. The auth provider (Firebase, Supabase, etc.) is an internal implementation detail — the consumer never knows or cares which one is used.
 
-Also build `@refraction-ui/react-auth`, `@refraction-ui/angular-auth`, and `@refraction-ui/astro-auth` wrappers.
+Also build `@elloloop/react-auth`, `@elloloop/angular-auth`, and `@elloloop/astro-auth` wrappers.
 
 ### Packages
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/auth` | Headless core | Auth state machine, internal adapters (Firebase/Supabase/etc.), RBAC utilities, auto-detection |
-| `@refraction-ui/react-auth` | React wrapper | `<AuthProvider>`, `useAuth()` hook |
-| `@refraction-ui/angular-auth` | Angular wrapper | `RfrAuthProvider` service, `rfrAuth` signal |
-| `@refraction-ui/astro-auth` | Astro wrapper | Server-side auth check, client island for interactive auth |
+| `@elloloop/auth` | Headless core | Auth state machine, internal adapters (Firebase/Supabase/etc.), RBAC utilities, auto-detection |
+| `@elloloop/react-auth` | React wrapper | `<AuthProvider>`, `useAuth()` hook |
+| `@elloloop/angular-auth` | Angular wrapper | `RfrAuthProvider` service, `rfrAuth` signal |
+| `@elloloop/astro-auth` | Astro wrapper | Server-side auth check, client island for interactive auth |
 
 ### Dependency Encapsulation
 
@@ -28,7 +28,7 @@ Also build `@refraction-ui/react-auth`, `@refraction-ui/angular-auth`, and `@ref
 
 ```tsx
 // Consumer code — this is ALL they write. No Firebase. No Supabase. Nothing.
-import { AuthProvider, useAuth } from '@refraction-ui/react-auth'
+import { AuthProvider, useAuth } from '@elloloop/react-auth'
 
 export default function App() {
   return (
@@ -117,7 +117,7 @@ packages/auth/
 ## Public API
 
 ```typescript
-// @refraction-ui/auth — headless core
+// @elloloop/auth — headless core
 // Consumer sees ONLY these. No Firebase. No Supabase. No adapters.
 export type { User, AuthState, UserRole }
 export function createAuth(config?: { provider?: string }): AuthMachine
@@ -127,7 +127,7 @@ export function canAccess(user: User, resource: string): boolean
 ```
 
 ```tsx
-// @refraction-ui/react-auth — React wrapper
+// @elloloop/react-auth — React wrapper
 export function AuthProvider({ children }: { children: React.ReactNode }): JSX.Element
 export function useAuth(): AuthAPI
 export function AuthGuard({ children, roles?, fallback?, redirectTo? }): JSX.Element
@@ -137,6 +137,6 @@ export function AuthGuard({ children, roles?, fallback?, redirectTo? }): JSX.Ele
 
 - Adapters are INTERNAL modules — not separate npm packages
 - `resolve.ts` handles auto-detection: check config, then env vars, then fallback to disabled
-- Firebase SDK, Supabase SDK, etc. are `dependencies` of `@refraction-ui/auth` — bundled via tsup
+- Firebase SDK, Supabase SDK, etc. are `dependencies` of `@elloloop/auth` — bundled via tsup
 - Tree-shaking: only the resolved adapter's code is included in the consumer's bundle
 - Future providers (Auth0, Clerk) are added as new internal adapter files — no new packages needed

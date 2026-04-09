@@ -15,10 +15,10 @@ Build AuthGuard and RoleGuard components — route protection with loading state
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/auth-guard` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-auth-guard` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-auth-guard` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-auth-guard` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/auth-guard` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-auth-guard` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-auth-guard` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-auth-guard` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

@@ -15,10 +15,10 @@ Build Breadcrumbs — auto-generated breadcrumb navigation from the current path
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/breadcrumbs` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-breadcrumbs` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-breadcrumbs` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-breadcrumbs` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/breadcrumbs` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-breadcrumbs` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-breadcrumbs` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-breadcrumbs` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

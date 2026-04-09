@@ -1,4 +1,4 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
+import type { AccessibilityProps } from '@elloloop/shared'
 
 export interface CardProps {
   /** Optional accessible role override */

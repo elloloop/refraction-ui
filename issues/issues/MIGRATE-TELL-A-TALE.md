@@ -9,7 +9,7 @@ status: pending
 
 ## Summary
 
-Migrate elloloop/tell-a-tale to use @refraction-ui/* packages.
+Migrate elloloop/tell-a-tale to use @elloloop/* packages.
 
 ## Repository Details
 
@@ -21,14 +21,14 @@ Migrate elloloop/tell-a-tale to use @refraction-ui/* packages.
 
 | Current Location | Replace With |
 |-----------------|-------------|
-| `src/shared/components/ui/button.tsx` | `@refraction-ui/react/button` |
-| `src/shared/lib/utils.ts` (cn) | `@refraction-ui/react/utils/cn` |
-| `src/features/admin/components/Calendar.tsx` | `@refraction-ui/react/calendar` |
-| `src/shared/components/Header.tsx` | `@refraction-ui/react/navbar` (adapt) |
-| `src/shared/components/Footer.tsx` | `@refraction-ui/react/footer` |
-| `src/app/globals.css` (CSS vars) | `@refraction-ui/tailwind-config` preset |
-| `tailwind.config.ts` | Extend `@refraction-ui/tailwind-config` |
-| `src/shared/lib/logger.ts` | `@refraction-ui/react/utils/logger` |
+| `src/shared/components/ui/button.tsx` | `@elloloop/react/button` |
+| `src/shared/lib/utils.ts` (cn) | `@elloloop/react/utils/cn` |
+| `src/features/admin/components/Calendar.tsx` | `@elloloop/react/calendar` |
+| `src/shared/components/Header.tsx` | `@elloloop/react/navbar` (adapt) |
+| `src/shared/components/Footer.tsx` | `@elloloop/react/footer` |
+| `src/app/globals.css` (CSS vars) | `@elloloop/tailwind-config` preset |
+| `tailwind.config.ts` | Extend `@elloloop/tailwind-config` |
+| `src/shared/lib/logger.ts` | `@elloloop/react/utils/logger` |
 
 ## Dependencies to Remove
 
@@ -40,7 +40,7 @@ Migrate elloloop/tell-a-tale to use @refraction-ui/* packages.
 
 ## Tasks
 
-- [ ] Add `@refraction-ui/react` and `@refraction-ui/tailwind-config`
+- [ ] Add `@elloloop/react` and `@elloloop/tailwind-config`
 - [ ] Replace Button import
 - [ ] Replace cn() import
 - [ ] Replace Calendar with refraction-ui version

@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/react-install-prompt",
+  "name": "@elloloop/react-install-prompt",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@refraction-ui/install-prompt": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@elloloop/install-prompt": "workspace:*",
+    "@elloloop/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

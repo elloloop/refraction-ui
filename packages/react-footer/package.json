@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/react-footer",
+  "name": "@elloloop/react-footer",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@refraction-ui/footer": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@elloloop/footer": "workspace:*",
+    "@elloloop/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

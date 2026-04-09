@@ -4,8 +4,8 @@ import {
   otpInputContainerVariants,
   otpInputSlotVariants,
   type OtpInputType,
-} from '@refraction-ui/otp-input'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/otp-input'
+import { cn } from '@elloloop/shared'
 
 export interface OtpInputProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   length?: number

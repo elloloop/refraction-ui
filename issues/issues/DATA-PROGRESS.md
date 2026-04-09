@@ -15,10 +15,10 @@ Build ProgressDashboard and BadgeDisplay — stats cards, mastery indicators, an
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/progress-display` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-progress-display` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-progress-display` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-progress-display` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/progress-display` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-progress-display` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-progress-display` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-progress-display` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

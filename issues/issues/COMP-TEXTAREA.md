@@ -15,10 +15,10 @@ Build Textarea primitive — auto-sizing textarea with consistent styling tokens
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/textarea` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-textarea` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-textarea` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-textarea` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/textarea` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-textarea` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-textarea` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-textarea` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

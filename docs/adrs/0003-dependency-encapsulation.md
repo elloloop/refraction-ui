@@ -28,17 +28,17 @@ Consumers should never know what auth provider, AI SDK, or internal library we u
 1. **No peer dependencies for implementation details.** Firebase, cmdk, date-fns, marked, etc. are `dependencies` (not `peerDependencies`). They are bundled or resolved internally.
 
 2. **Peer dependencies only for the consumer's framework.** The only peer deps a consumer ever sees:
-   - `react` + `react-dom` (for `@refraction-ui/react-*`)
-   - `@angular/core` (for `@refraction-ui/angular-*`)
-   - `astro` (for `@refraction-ui/astro-*`)
-   - `tailwindcss` (for `@refraction-ui/tailwind-config` — because it's a Tailwind preset)
+   - `react` + `react-dom` (for `@elloloop/react-*`)
+   - `@angular/core` (for `@elloloop/angular-*`)
+   - `astro` (for `@elloloop/astro-*`)
+   - `tailwindcss` (for `@elloloop/tailwind-config` — because it's a Tailwind preset)
 
 3. **Configuration-driven provider selection.** For services with swappable backends (auth, AI, TTS), the provider is selected via configuration — NOT via separate adapter package imports. The consumer never imports Firebase, Supabase, or any provider SDK.
 
    **Consumer code:**
    ```tsx
    // This is ALL the consumer writes. No Firebase. No Supabase. Nothing.
-   import { AuthProvider } from '@refraction-ui/react-auth'
+   import { AuthProvider } from '@elloloop/react-auth'
 
    <AuthProvider>
      <App />
@@ -84,7 +84,7 @@ Consumers should never know what auth provider, AI SDK, or internal library we u
 4. **Internal adapter pattern.** Internally, refraction-ui still uses adapters — but these are internal implementation details, not consumer-facing packages:
 
    ```
-   @refraction-ui/auth (headless core)
+   @elloloop/auth (headless core)
      └── src/
          ├── types.ts           # AuthAdapter interface (internal)
          ├── state-machine.ts   # Auth state management
@@ -108,21 +108,21 @@ Consumers should never know what auth provider, AI SDK, or internal library we u
 ### Internal teams (elloloop projects)
 ```bash
 # Install
-pnpm add @refraction-ui/react-auth
+pnpm add @elloloop/react-auth
 
 # Set env vars (already have these from Firebase projects)
 # FIREBASE_API_KEY=... (existing env vars just work)
 
 # Use
-import { AuthProvider, useAuth } from '@refraction-ui/react-auth'
+import { AuthProvider, useAuth } from '@elloloop/react-auth'
 ```
 
-The consumer never sees Firebase. If we switch to Supabase internally, we update the `@refraction-ui/auth` package, change the env vars in deployment, and zero consumer code changes.
+The consumer never sees Firebase. If we switch to Supabase internally, we update the `@elloloop/auth` package, change the env vars in deployment, and zero consumer code changes.
 
 ### External users (future)
 ```bash
 # Install
-pnpm add @refraction-ui/react-auth
+pnpm add @elloloop/react-auth
 
 # Configure (pick your provider)
 # Option A: env vars
@@ -133,13 +133,13 @@ SUPABASE_ANON_KEY=...
 echo '{ "auth": { "provider": "supabase" } }' > .refractionrc
 
 # Use — identical code regardless of provider
-import { AuthProvider, useAuth } from '@refraction-ui/react-auth'
+import { AuthProvider, useAuth } from '@elloloop/react-auth'
 ```
 
 ## Consequences
 
 **Positive:**
-- Consumers install `@refraction-ui/react-auth` and it just works
+- Consumers install `@elloloop/react-auth` and it just works
 - Provider selection is config/env, not code — no imports to change
 - We can swap Firebase → Supabase with zero consumer impact
 - External users get provider choice without code complexity
@@ -239,7 +239,7 @@ Multi-provider services give the consumer three levels of control:
 
 #### Level 1: Just works (default routing)
 ```typescript
-import { createAI } from '@refraction-ui/ai'
+import { createAI } from '@elloloop/ai'
 
 const ai = createAI()
 await ai.generateText('Summarize this')  // goes to default provider
@@ -297,7 +297,7 @@ const tts = createTTS({
 
 #### Analytics — broadcast (sends to ALL)
 ```typescript
-import { createAnalytics } from '@refraction-ui/analytics'
+import { createAnalytics } from '@elloloop/analytics'
 const analytics = createAnalytics()
 analytics.track('signup_completed', { plan: 'pro' })  // → PostHog AND Mixpanel
 ```

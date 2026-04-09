@@ -9,7 +9,7 @@ status: pending
 
 ## Summary
 
-Migrate elloloop/featuredocs to use @refraction-ui/* packages.
+Migrate elloloop/featuredocs to use @elloloop/* packages.
 
 ## Repository Details
 
@@ -21,32 +21,32 @@ Migrate elloloop/featuredocs to use @refraction-ui/* packages.
 
 | Current Location | Replace With |
 |-----------------|-------------|
-| `src/components/Header.tsx` | `@refraction-ui/react/navbar` |
+| `src/components/Header.tsx` | `@elloloop/react/navbar` |
 | `src/components/FeatureCard.tsx` | Keep (app-specific) or adapt Card from refraction-ui |
-| `src/components/FeedbackBadge.tsx` | `@refraction-ui/react/badge` |
-| `src/components/DeviceFrame.tsx` | `@refraction-ui/react/device-frame` |
+| `src/components/FeedbackBadge.tsx` | `@elloloop/react/badge` |
+| `src/components/DeviceFrame.tsx` | `@elloloop/react/device-frame` |
 | `src/components/DraftBanner.tsx` | Keep (app-specific) |
-| `src/components/VideoPlayer.tsx` | `@refraction-ui/react/video-player` |
-| `src/components/VersionSelector.tsx` | `@refraction-ui/react/version-selector` |
-| `src/components/LocaleSwitcher.tsx` | `@refraction-ui/react/locale-switcher` |
-| `src/components/MarkdownRenderer.tsx` | `@refraction-ui/react/markdown-renderer` |
-| `src/components/FeedbackDialog.tsx` | `@refraction-ui/react/feedback-dialog` |
-| `src/components/FeedbackButton.tsx` | `@refraction-ui/react/feedback-button` |
-| `src/components/TextSelectionFeedback.tsx` | `@refraction-ui/react/text-selection-feedback` |
-| `src/components/AdminFeedbackTable.tsx` | `@refraction-ui/react/data-table` |
-| `src/components/FeatureDocContent.tsx` | `@refraction-ui/react/inline-editor` |
-| `src/components/InlineEditor.tsx` | `@refraction-ui/react/inline-editor` (remove duplicate) |
-| `src/lib/markdown.ts` | `@refraction-ui/react/markdown-renderer` (utils) |
-| `src/lib/types.ts` (LOCALE_DISPLAY_NAMES) | `@refraction-ui/i18n` |
+| `src/components/VideoPlayer.tsx` | `@elloloop/react/video-player` |
+| `src/components/VersionSelector.tsx` | `@elloloop/react/version-selector` |
+| `src/components/LocaleSwitcher.tsx` | `@elloloop/react/locale-switcher` |
+| `src/components/MarkdownRenderer.tsx` | `@elloloop/react/markdown-renderer` |
+| `src/components/FeedbackDialog.tsx` | `@elloloop/react/feedback-dialog` |
+| `src/components/FeedbackButton.tsx` | `@elloloop/react/feedback-button` |
+| `src/components/TextSelectionFeedback.tsx` | `@elloloop/react/text-selection-feedback` |
+| `src/components/AdminFeedbackTable.tsx` | `@elloloop/react/data-table` |
+| `src/components/FeatureDocContent.tsx` | `@elloloop/react/inline-editor` |
+| `src/components/InlineEditor.tsx` | `@elloloop/react/inline-editor` (remove duplicate) |
+| `src/lib/markdown.ts` | `@elloloop/react/markdown-renderer` (utils) |
+| `src/lib/types.ts` (LOCALE_DISPLAY_NAMES) | `@elloloop/i18n` |
 
 ## Also: Deduplicate
 
-- `getLocalizedValue()` is duplicated in 3 files → use `@refraction-ui/react/utils/locale`
+- `getLocalizedValue()` is duplicated in 3 files → use `@elloloop/react/utils/locale`
 - `InlineEditor` and `FeatureDocContent` are near-identical → use single refraction-ui `InlineEditor`
 
 ## Tasks
 
-- [ ] Add @refraction-ui/* packages
+- [ ] Add @elloloop/* packages
 - [ ] Replace all component imports (see table above)
 - [ ] Deduplicate `getLocalizedValue()` across 3 files
 - [ ] Remove `InlineEditor.tsx` (keep `FeatureDocContent` adapted to refraction-ui)

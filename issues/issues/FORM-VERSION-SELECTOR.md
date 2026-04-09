@@ -15,10 +15,10 @@ Build VersionSelector — dropdown for switching between product/app versions wi
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/version-selector` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-version-selector` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-version-selector` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-version-selector` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/version-selector` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-version-selector` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-version-selector` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-version-selector` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

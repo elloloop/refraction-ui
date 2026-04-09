@@ -9,18 +9,18 @@ status: superseded
 
 ## Summary
 
-~~Create `@refraction-ui/react` package — the core React component library.~~
+~~Create `@elloloop/react` package — the core React component library.~~
 
 **SUPERSEDED** by the per-component headless architecture. See:
 
 - **PKG-CORE** — headless architecture definition
 - **PKG-SHARED** — shared types and utilities
-- **PKG-REACT-META** — `@refraction-ui/react` is now a convenience meta-package that re-exports all `@refraction-ui/react-*` packages
+- **PKG-REACT-META** — `@elloloop/react` is now a convenience meta-package that re-exports all `@elloloop/react-*` packages
 - **PKG-ANGULAR-META** — Angular wrapper infrastructure
 - **PKG-ASTRO-META** — Astro wrapper infrastructure
 
 Each component is now its own package pair:
-- `@refraction-ui/<component>` — headless core (pure TS)
-- `@refraction-ui/react-<component>` — React wrapper
-- `@refraction-ui/angular-<component>` — Angular wrapper
-- `@refraction-ui/astro-<component>` — Astro wrapper
+- `@elloloop/<component>` — headless core (pure TS)
+- `@elloloop/react-<component>` — React wrapper
+- `@elloloop/angular-<component>` — Angular wrapper
+- `@elloloop/astro-<component>` — Astro wrapper

@@ -18,4 +18,4 @@ export {
   cardContentVariants,
   cardFooterVariants,
   cardTokens,
-} from '@refraction-ui/card'
+} from '@elloloop/card'

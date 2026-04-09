@@ -14,10 +14,10 @@ Build Toast primitive and styled wrapper
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/toast` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-toast` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-toast` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-toast` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/toast` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-toast` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-toast` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-toast` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

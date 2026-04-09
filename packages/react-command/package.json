@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/react-command",
+  "name": "@elloloop/react-command",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@refraction-ui/command": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@elloloop/command": "workspace:*",
+    "@elloloop/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

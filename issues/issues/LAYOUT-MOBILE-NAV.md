@@ -15,10 +15,10 @@ Build MobileNavigation — hamburger menu with full-width dropdown for mobile vi
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/mobile-nav` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-mobile-nav` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-mobile-nav` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-mobile-nav` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/mobile-nav` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-mobile-nav` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-mobile-nav` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-mobile-nav` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

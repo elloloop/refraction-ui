@@ -1,4 +1,4 @@
-import { cva } from '@refraction-ui/shared'
+import { cva } from '@elloloop/shared'
 
 export const breadcrumbsVariants = cva({
   base: 'flex items-center gap-1.5 text-sm text-muted-foreground',

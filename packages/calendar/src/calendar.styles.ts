@@ -1,4 +1,4 @@
-import { cva } from '@refraction-ui/shared'
+import { cva } from '@elloloop/shared'
 
 export const calendarVariants = cva({
   base: 'p-3 rounded-md border bg-background',

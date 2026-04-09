@@ -6,8 +6,8 @@ import {
   statusPulseVariants,
   statusLabelStyles,
   type StatusType,
-} from '@refraction-ui/status-indicator'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/status-indicator'
+import { cn } from '@elloloop/shared'
 
 export interface StatusIndicatorProps {
   type: StatusType

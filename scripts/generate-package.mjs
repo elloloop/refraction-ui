@@ -30,7 +30,7 @@ if (existsSync(pkgDir)) {
   process.exit(1)
 }
 
-const npmName = `@refraction-ui/${name}`
+const npmName = `@elloloop/${name}`
 
 function generateCore() {
   const pkg = {
@@ -55,7 +55,7 @@ function generateCore() {
       clean: 'rm -rf dist',
     },
     dependencies: {
-      '@refraction-ui/shared': 'workspace:*',
+      '@elloloop/shared': 'workspace:*',
     },
     devDependencies: {},
     sideEffects: false,
@@ -132,8 +132,8 @@ function generateReact() {
       clean: 'rm -rf dist',
     },
     dependencies: {
-      [`@refraction-ui/${coreName}`]: 'workspace:*',
-      '@refraction-ui/shared': 'workspace:*',
+      [`@elloloop/${coreName}`]: 'workspace:*',
+      '@elloloop/shared': 'workspace:*',
     },
     peerDependencies: {
       react: '>=18',

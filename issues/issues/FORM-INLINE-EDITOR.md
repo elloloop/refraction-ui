@@ -15,10 +15,10 @@ Build InlineEditor — inline markdown editor with toolbar, side-by-side preview
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/inline-editor` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-inline-editor` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-inline-editor` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-inline-editor` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/inline-editor` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-inline-editor` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-inline-editor` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-inline-editor` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

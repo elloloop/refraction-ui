@@ -15,10 +15,10 @@ Build ContentProtection — anti-copy wrapper with context menu prevention, copy
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/content-protection` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-content-protection` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-content-protection` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-content-protection` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/content-protection` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-content-protection` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-content-protection` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-content-protection` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

@@ -15,10 +15,10 @@ Build SlideViewer — full-screen course/presentation slide viewer with keyboard
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/slide-viewer` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-slide-viewer` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-slide-viewer` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-slide-viewer` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/slide-viewer` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-slide-viewer` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-slide-viewer` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-slide-viewer` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

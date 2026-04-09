@@ -9,7 +9,7 @@ status: pending
 
 ## Summary
 
-Migrate elloloop/stream-mind frontend to use @refraction-ui/* packages. This is the largest migration — stream-mind is the most component-rich project and the primary source for many refraction-ui components.
+Migrate elloloop/stream-mind frontend to use @elloloop/* packages. This is the largest migration — stream-mind is the most component-rich project and the primary source for many refraction-ui components.
 
 ## Repository Details
 
@@ -20,59 +20,59 @@ Migrate elloloop/stream-mind frontend to use @refraction-ui/* packages. This is 
 
 ## Components to Replace
 
-### UI Primitives → `@refraction-ui/react`
+### UI Primitives → `@elloloop/react`
 | Current Location | Replace With |
 |-----------------|-------------|
-| `frontend/src/components/ui/button.tsx` | `@refraction-ui/react/button` |
-| `frontend/src/components/ui/input.tsx` | `@refraction-ui/react/input` |
-| `frontend/src/components/ui/textarea.tsx` | `@refraction-ui/react/textarea` |
-| `frontend/src/components/ui/dialog.tsx` | `@refraction-ui/react/dialog` |
-| `frontend/src/components/ui/command.tsx` | `@refraction-ui/react/command` |
-| `frontend/src/components/ui/dropdown-menu.tsx` | `@refraction-ui/react/dropdown-menu` |
-| `frontend/src/components/ui/popover.tsx` | `@refraction-ui/react/popover` |
-| `frontend/src/components/ui/tooltip.tsx` | `@refraction-ui/react/tooltip` |
-| `frontend/src/components/ui/input-group.tsx` | `@refraction-ui/react/input-group` |
+| `frontend/src/components/ui/button.tsx` | `@elloloop/react/button` |
+| `frontend/src/components/ui/input.tsx` | `@elloloop/react/input` |
+| `frontend/src/components/ui/textarea.tsx` | `@elloloop/react/textarea` |
+| `frontend/src/components/ui/dialog.tsx` | `@elloloop/react/dialog` |
+| `frontend/src/components/ui/command.tsx` | `@elloloop/react/command` |
+| `frontend/src/components/ui/dropdown-menu.tsx` | `@elloloop/react/dropdown-menu` |
+| `frontend/src/components/ui/popover.tsx` | `@elloloop/react/popover` |
+| `frontend/src/components/ui/tooltip.tsx` | `@elloloop/react/tooltip` |
+| `frontend/src/components/ui/input-group.tsx` | `@elloloop/react/input-group` |
 
-### App-Level Components → `@refraction-ui/react`
+### App-Level Components → `@elloloop/react`
 | Current Location | Replace With |
 |-----------------|-------------|
-| `frontend/src/packages/ui/Toast.tsx` | `@refraction-ui/react/toast` |
-| `frontend/src/packages/ui/Navbar.tsx` | `@refraction-ui/react/navbar` |
-| `frontend/src/packages/ui/BottomNav.tsx` | `@refraction-ui/react/bottom-nav` |
-| `frontend/src/packages/ui/InstallPrompt.tsx` | `@refraction-ui/react/install-prompt` |
+| `frontend/src/packages/ui/Toast.tsx` | `@elloloop/react/toast` |
+| `frontend/src/packages/ui/Navbar.tsx` | `@elloloop/react/navbar` |
+| `frontend/src/packages/ui/BottomNav.tsx` | `@elloloop/react/bottom-nav` |
+| `frontend/src/packages/ui/InstallPrompt.tsx` | `@elloloop/react/install-prompt` |
 
-### Auth → `@refraction-ui/react/auth`
+### Auth → `@elloloop/react/auth`
 | Current Location | Replace With |
 |-----------------|-------------|
-| `frontend/src/lib/auth.tsx` | `@refraction-ui/react/auth-provider` |
-| `frontend/src/lib/firebase.ts` | `@refraction-ui/react/auth` (Firebase adapter) |
-| `frontend/src/features/circle/RegisterFlow.tsx` | `@refraction-ui/react/signup-form` |
-| `frontend/src/features/circle/RecoverFlow.tsx` | `@refraction-ui/react/login-form` |
+| `frontend/src/lib/auth.tsx` | `@elloloop/react/auth-provider` |
+| `frontend/src/lib/firebase.ts` | `@elloloop/react/auth` (Firebase adapter) |
+| `frontend/src/features/circle/RegisterFlow.tsx` | `@elloloop/react/signup-form` |
+| `frontend/src/features/circle/RecoverFlow.tsx` | `@elloloop/react/login-form` |
 
-### Video Player → `@refraction-ui/media`
+### Video Player → `@elloloop/media`
 | Current Location | Replace With |
 |-----------------|-------------|
-| `frontend/src/packages/video-player/*` | `@refraction-ui/media/video` |
+| `frontend/src/packages/video-player/*` | `@elloloop/media/video` |
 
-### Utilities → `@refraction-ui/react/utils`
+### Utilities → `@elloloop/react/utils`
 | Current Location | Replace With |
 |-----------------|-------------|
-| `frontend/src/lib/utils.ts` (cn) | `@refraction-ui/react/utils/cn` |
-| `frontend/src/lib/slugify.ts` | `@refraction-ui/react/utils/slugify` |
-| `frontend/src/lib/cache.ts` | `@refraction-ui/react/utils/cache` |
-| `frontend/src/lib/identity.ts` | `@refraction-ui/react/utils/identity` |
-| `frontend/src/lib/sync.ts` | `@refraction-ui/react/utils/sync` |
+| `frontend/src/lib/utils.ts` (cn) | `@elloloop/react/utils/cn` |
+| `frontend/src/lib/slugify.ts` | `@elloloop/react/utils/slugify` |
+| `frontend/src/lib/cache.ts` | `@elloloop/react/utils/cache` |
+| `frontend/src/lib/identity.ts` | `@elloloop/react/utils/identity` |
+| `frontend/src/lib/sync.ts` | `@elloloop/react/utils/sync` |
 
-### Theme → `@refraction-ui/tailwind-config`
+### Theme → `@elloloop/tailwind-config`
 | Current Location | Replace With |
 |-----------------|-------------|
-| `frontend/src/app/globals.css` (CSS vars) | `@refraction-ui/tailwind-config` preset |
+| `frontend/src/app/globals.css` (CSS vars) | `@elloloop/tailwind-config` preset |
 
-### i18n → `@refraction-ui/i18n`
+### i18n → `@elloloop/i18n`
 | Current Location | Replace With |
 |-----------------|-------------|
-| `frontend/src/lib/detect-region.ts` | `@refraction-ui/i18n/detect-region` |
-| `frontend/src/lib/languages.ts` | `@refraction-ui/i18n/languages` |
+| `frontend/src/lib/detect-region.ts` | `@elloloop/i18n/detect-region` |
+| `frontend/src/lib/languages.ts` | `@elloloop/i18n/languages` |
 
 ## Dependencies to Remove After Migration
 
@@ -85,7 +85,7 @@ Migrate elloloop/stream-mind frontend to use @refraction-ui/* packages. This is 
 
 ## Tasks
 
-- [ ] Add `@refraction-ui/react`, `@refraction-ui/media`, `@refraction-ui/i18n`, `@refraction-ui/tailwind-config` as dependencies
+- [ ] Add `@elloloop/react`, `@elloloop/media`, `@elloloop/i18n`, `@elloloop/tailwind-config` as dependencies
 - [ ] Replace UI primitives imports
 - [ ] Replace auth components imports
 - [ ] Replace video player imports

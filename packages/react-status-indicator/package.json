@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/react-status-indicator",
+  "name": "@elloloop/react-status-indicator",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@refraction-ui/status-indicator": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@elloloop/status-indicator": "workspace:*",
+    "@elloloop/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

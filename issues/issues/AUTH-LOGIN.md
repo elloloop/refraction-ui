@@ -15,10 +15,10 @@ Build LoginForm component — email/password sign-in with Google OAuth option, e
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/login-form` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-login-form` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-login-form` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-login-form` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/login-form` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-login-form` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-login-form` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-login-form` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

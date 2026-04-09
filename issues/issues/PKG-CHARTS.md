@@ -9,7 +9,7 @@ status: pending
 
 ## Summary
 
-Create `@refraction-ui/charts` package — a composable, context-based D3 chart system extracted from tinykite/next-d3. Provides SVG primitives (Bars, Circles, Line, Axes) that compose into higher-level charts (Histogram, ScatterPlot, Timeline).
+Create `@elloloop/charts` package — a composable, context-based D3 chart system extracted from tinykite/next-d3. Provides SVG primitives (Bars, Circles, Line, Axes) that compose into higher-level charts (Histogram, ScatterPlot, Timeline).
 
 ## Source References
 

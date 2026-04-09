@@ -12,4 +12,4 @@ export {
   datePickerDayVariants,
   datePickerTimeStyles,
   datePickerTimeInputStyles,
-} from '@refraction-ui/date-picker'
+} from '@elloloop/date-picker'

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { resetIdCounter } from '@refraction-ui/shared'
+import { resetIdCounter } from '@elloloop/shared'
 import { createMobileNav } from '../src/mobile-nav.js'
 import { mobileNavContentVariants, mobileNavTriggerVariants } from '../src/mobile-nav.styles.js'
 

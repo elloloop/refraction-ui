@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/react-button",
+  "name": "@elloloop/react-button",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@refraction-ui/button": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@elloloop/button": "workspace:*",
+    "@elloloop/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

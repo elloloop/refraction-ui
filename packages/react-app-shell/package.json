@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/react-app-shell",
+  "name": "@elloloop/react-app-shell",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@refraction-ui/app-shell": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@elloloop/app-shell": "workspace:*",
+    "@elloloop/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

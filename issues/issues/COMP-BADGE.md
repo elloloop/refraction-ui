@@ -15,10 +15,10 @@ Build Badge component — small status/label indicator with color variants.
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/badge` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-badge` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-badge` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-badge` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/badge` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-badge` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-badge` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-badge` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

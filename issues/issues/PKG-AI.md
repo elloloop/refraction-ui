@@ -9,7 +9,7 @@ status: pending
 
 ## Summary
 
-Create `@refraction-ui/ai` package — **multi-provider** AI abstraction (Gemini, OpenAI, Anthropic) and TTS system. Unlike auth (single-provider), AI uses **multiple providers simultaneously** with intent-based routing and fallback chains.
+Create `@elloloop/ai` package — **multi-provider** AI abstraction (Gemini, OpenAI, Anthropic) and TTS system. Unlike auth (single-provider), AI uses **multiple providers simultaneously** with intent-based routing and fallback chains.
 
 **Provider SDKs are internal.** Consumer never imports `openai`, `@anthropic-ai/sdk`, or `@google/generative-ai`. All providers auto-detected from env vars. Routing configured in `.refractionrc`. See ADR 0003.
 
@@ -23,7 +23,7 @@ AI and TTS are **multi-provider services** — all configured providers are init
 4. **Get automatic fallback** — if the chosen provider fails, try next in chain
 
 ```typescript
-import { createAI, createTTS } from '@refraction-ui/ai'
+import { createAI, createTTS } from '@elloloop/ai'
 
 const ai = createAI()
 
@@ -186,7 +186,7 @@ packages/ai/
 ## Public API
 
 ```typescript
-// @refraction-ui/ai
+// @elloloop/ai
 export function createAI(config?: AIConfig): AI
 export function createTTS(config?: TTSConfig): TTS
 

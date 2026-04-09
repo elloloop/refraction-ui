@@ -15,10 +15,10 @@ Build Skeleton loading primitives — pulse-animated placeholder shapes for load
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/skeleton` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-skeleton` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-skeleton` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-skeleton` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/skeleton` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-skeleton` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-skeleton` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-skeleton` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

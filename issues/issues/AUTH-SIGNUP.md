@@ -15,10 +15,10 @@ Build SignUpForm component — email/password registration with display name, pa
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/signup-form` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-signup-form` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-signup-form` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-signup-form` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/signup-form` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-signup-form` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-signup-form` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-signup-form` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

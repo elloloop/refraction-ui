@@ -15,10 +15,10 @@ Build Command palette — searchable command/combobox built on cmdk for keyboard
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/command` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-command` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-command` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-command` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/command` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-command` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-command` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-command` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

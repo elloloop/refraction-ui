@@ -6,4 +6,4 @@ export {
   type ButtonSize,
   buttonVariants,
   buttonTokens,
-} from '@refraction-ui/button'
+} from '@elloloop/button'

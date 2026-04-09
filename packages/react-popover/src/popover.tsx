@@ -4,9 +4,9 @@ import {
   createPopover,
   popoverContentVariants,
   type PopoverAPI,
-} from '@refraction-ui/popover'
-import type { Side } from '@refraction-ui/shared'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/popover'
+import type { Side } from '@elloloop/shared'
+import { cn } from '@elloloop/shared'
 
 /* ------------------------------------------------------------------ */
 /*  Context                                                            */

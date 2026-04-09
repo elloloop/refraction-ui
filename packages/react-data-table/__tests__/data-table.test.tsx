@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import * as React from 'react'
 import { renderToString } from 'react-dom/server'
-import { resetIdCounter } from '@refraction-ui/shared'
+import { resetIdCounter } from '@elloloop/shared'
 import { DataTable } from '../src/DataTable.js'
-import type { ColumnDef } from '@refraction-ui/data-table'
+import type { ColumnDef } from '@elloloop/data-table'
 
 beforeEach(() => {
   resetIdCounter()

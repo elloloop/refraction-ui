@@ -15,10 +15,10 @@ Build BottomNav (mobile bottom tab bar) — fixed bottom, icon + label tabs with
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/bottom-nav` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-bottom-nav` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-bottom-nav` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-bottom-nav` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/bottom-nav` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-bottom-nav` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-bottom-nav` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-bottom-nav` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

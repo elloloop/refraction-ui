@@ -14,10 +14,10 @@ Build Tooltip primitive and styled wrapper
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/tooltip` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-tooltip` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-tooltip` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-tooltip` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/tooltip` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-tooltip` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-tooltip` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-tooltip` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

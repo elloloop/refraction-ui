@@ -9,16 +9,16 @@ status: pending
 
 ## Summary
 
-Define and implement the **headless core architecture** — every refraction-ui component ships as a framework-agnostic TypeScript package (`@refraction-ui/<component>`) containing state machines, ARIA computation, keyboard interaction, and validation. Framework wrappers (React, Angular, Astro) are thin adapter packages that bind the core to each framework's reactivity system.
+Define and implement the **headless core architecture** — every refraction-ui component ships as a framework-agnostic TypeScript package (`@elloloop/<component>`) containing state machines, ARIA computation, keyboard interaction, and validation. Framework wrappers (React, Angular, Astro) are thin adapter packages that bind the core to each framework's reactivity system.
 
 ## Architecture
 
 ```
-User installs:     @refraction-ui/react-button
-Which depends on:  @refraction-ui/button (headless core)
+User installs:     @elloloop/react-button
+Which depends on:  @elloloop/button (headless core)
 
                     ┌─────────────────────────┐
-                    │   @refraction-ui/button  │  ← headless core
+                    │   @elloloop/button  │  ← headless core
                     │   (pure TypeScript)       │
                     │                           │
                     │  • State machine          │
@@ -39,10 +39,10 @@ Which depends on:  @refraction-ui/button (headless core)
 
 ## Headless Core Contract
 
-Every `@refraction-ui/<component>` package exports:
+Every `@elloloop/<component>` package exports:
 
 ```typescript
-// @refraction-ui/button
+// @elloloop/button
 
 // 1. State machine / logic
 export interface ButtonState { ... }
@@ -65,11 +65,11 @@ export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'icon'
 
 ## Framework Wrapper Contract
 
-Every `@refraction-ui/react-<component>` package exports:
+Every `@elloloop/react-<component>` package exports:
 
 ```tsx
-// @refraction-ui/react-button
-import { createButton, type ButtonProps } from '@refraction-ui/button'
+// @elloloop/react-button
+import { createButton, type ButtonProps } from '@elloloop/button'
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const api = createButton(props)
@@ -77,14 +77,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, r
   // Render JSX with ARIA props and keyboard handlers
 })
 
-export { buttonVariants } from '@refraction-ui/button'
+export { buttonVariants } from '@elloloop/button'
 ```
 
-Every `@refraction-ui/angular-<component>` package exports:
+Every `@elloloop/angular-<component>` package exports:
 
 ```typescript
-// @refraction-ui/angular-button
-import { createButton } from '@refraction-ui/button'
+// @elloloop/angular-button
+import { createButton } from '@elloloop/button'
 
 @Component({ selector: 'rfr-button', ... })
 export class RfrButton {
@@ -95,12 +95,12 @@ export class RfrButton {
 export class RfrButtonModule {}
 ```
 
-Every `@refraction-ui/astro-<component>` package exports:
+Every `@elloloop/astro-<component>` package exports:
 
 ```astro
 ---
-// @refraction-ui/astro-button
-import { getButtonAriaProps, buttonTokens } from '@refraction-ui/button'
+// @elloloop/astro-button
+import { getButtonAriaProps, buttonTokens } from '@elloloop/button'
 // Astro components are server-rendered by default
 // Interactive components use client:load islands
 ---
@@ -114,86 +114,86 @@ import { getButtonAriaProps, buttonTokens } from '@refraction-ui/button'
 ```
 packages/
   # ─── Headless Core (pure TS, zero framework deps) ───
-  button/               → @refraction-ui/button
-  input/                → @refraction-ui/input
-  textarea/             → @refraction-ui/textarea
-  input-group/          → @refraction-ui/input-group
-  dialog/               → @refraction-ui/dialog
-  popover/              → @refraction-ui/popover
-  tooltip/              → @refraction-ui/tooltip
-  dropdown-menu/        → @refraction-ui/dropdown-menu
-  command/              → @refraction-ui/command
-  toast/                → @refraction-ui/toast
-  tabs/                 → @refraction-ui/tabs
-  badge/                → @refraction-ui/badge
-  skeleton/             → @refraction-ui/skeleton
-  calendar/             → @refraction-ui/calendar
-  collapsible/          → @refraction-ui/collapsible
-  device-frame/         → @refraction-ui/device-frame
-  theme/                → @refraction-ui/theme
-  auth/                 → @refraction-ui/auth
-  navbar/               → @refraction-ui/navbar
-  bottom-nav/           → @refraction-ui/bottom-nav
-  sidebar/              → @refraction-ui/sidebar
-  breadcrumbs/          → @refraction-ui/breadcrumbs
-  footer/               → @refraction-ui/footer
-  mobile-nav/           → @refraction-ui/mobile-nav
-  resizable-layout/     → @refraction-ui/resizable-layout
-  tv-layout/            → @refraction-ui/tv-layout
-  search-bar/           → @refraction-ui/search-bar
-  language-selector/    → @refraction-ui/language-selector
-  version-selector/     → @refraction-ui/version-selector
-  feedback-dialog/      → @refraction-ui/feedback-dialog
-  inline-editor/        → @refraction-ui/inline-editor
-  data-table/           → @refraction-ui/data-table
-  progress-display/     → @refraction-ui/progress-display
-  video-player/         → @refraction-ui/video-player
-  markdown-renderer/    → @refraction-ui/markdown-renderer
-  code-editor/          → @refraction-ui/code-editor
-  slide-viewer/         → @refraction-ui/slide-viewer
-  animated-text/        → @refraction-ui/animated-text
-  install-prompt/       → @refraction-ui/install-prompt
-  content-protection/   → @refraction-ui/content-protection
-  auth-guard/           → @refraction-ui/auth-guard
-  login-form/           → @refraction-ui/login-form
-  signup-form/          → @refraction-ui/signup-form
-  forgot-password/      → @refraction-ui/forgot-password
+  button/               → @elloloop/button
+  input/                → @elloloop/input
+  textarea/             → @elloloop/textarea
+  input-group/          → @elloloop/input-group
+  dialog/               → @elloloop/dialog
+  popover/              → @elloloop/popover
+  tooltip/              → @elloloop/tooltip
+  dropdown-menu/        → @elloloop/dropdown-menu
+  command/              → @elloloop/command
+  toast/                → @elloloop/toast
+  tabs/                 → @elloloop/tabs
+  badge/                → @elloloop/badge
+  skeleton/             → @elloloop/skeleton
+  calendar/             → @elloloop/calendar
+  collapsible/          → @elloloop/collapsible
+  device-frame/         → @elloloop/device-frame
+  theme/                → @elloloop/theme
+  auth/                 → @elloloop/auth
+  navbar/               → @elloloop/navbar
+  bottom-nav/           → @elloloop/bottom-nav
+  sidebar/              → @elloloop/sidebar
+  breadcrumbs/          → @elloloop/breadcrumbs
+  footer/               → @elloloop/footer
+  mobile-nav/           → @elloloop/mobile-nav
+  resizable-layout/     → @elloloop/resizable-layout
+  tv-layout/            → @elloloop/tv-layout
+  search-bar/           → @elloloop/search-bar
+  language-selector/    → @elloloop/language-selector
+  version-selector/     → @elloloop/version-selector
+  feedback-dialog/      → @elloloop/feedback-dialog
+  inline-editor/        → @elloloop/inline-editor
+  data-table/           → @elloloop/data-table
+  progress-display/     → @elloloop/progress-display
+  video-player/         → @elloloop/video-player
+  markdown-renderer/    → @elloloop/markdown-renderer
+  code-editor/          → @elloloop/code-editor
+  slide-viewer/         → @elloloop/slide-viewer
+  animated-text/        → @elloloop/animated-text
+  install-prompt/       → @elloloop/install-prompt
+  content-protection/   → @elloloop/content-protection
+  auth-guard/           → @elloloop/auth-guard
+  login-form/           → @elloloop/login-form
+  signup-form/          → @elloloop/signup-form
+  forgot-password/      → @elloloop/forgot-password
 
   # ─── React Wrappers ───
-  react-button/         → @refraction-ui/react-button
-  react-input/          → @refraction-ui/react-input
-  react-dialog/         → @refraction-ui/react-dialog
-  react-theme/          → @refraction-ui/react-theme
-  react-auth/           → @refraction-ui/react-auth
-  react-navbar/         → @refraction-ui/react-navbar
+  react-button/         → @elloloop/react-button
+  react-input/          → @elloloop/react-input
+  react-dialog/         → @elloloop/react-dialog
+  react-theme/          → @elloloop/react-theme
+  react-auth/           → @elloloop/react-auth
+  react-navbar/         → @elloloop/react-navbar
   ... (one per headless core)
 
   # ─── Angular Wrappers ───
-  angular-button/       → @refraction-ui/angular-button
-  angular-input/        → @refraction-ui/angular-input
-  angular-dialog/       → @refraction-ui/angular-dialog
+  angular-button/       → @elloloop/angular-button
+  angular-input/        → @elloloop/angular-input
+  angular-dialog/       → @elloloop/angular-dialog
   ... (one per headless core)
 
   # ─── Astro Wrappers ───
-  astro-button/         → @refraction-ui/astro-button
-  astro-input/          → @refraction-ui/astro-input
-  astro-dialog/         → @refraction-ui/astro-dialog
+  astro-button/         → @elloloop/astro-button
+  astro-input/          → @elloloop/astro-input
+  astro-dialog/         → @elloloop/astro-dialog
   ... (one per headless core)
 
   # ─── Domain Packages (already framework-specific or pure TS) ───
-  charts/               → @refraction-ui/charts
-  blocks/               → @refraction-ui/blocks
-  media/                → @refraction-ui/media
-  ai/                   → @refraction-ui/ai
-  i18n/                 → @refraction-ui/i18n
-  tailwind-config/      → @refraction-ui/tailwind-config
-  tokens-core/          → @refraction-ui/tokens-core (exists)
-  cli/                  → @refraction-ui/cli (exists)
+  charts/               → @elloloop/charts
+  blocks/               → @elloloop/blocks
+  media/                → @elloloop/media
+  ai/                   → @elloloop/ai
+  i18n/                 → @elloloop/i18n
+  tailwind-config/      → @elloloop/tailwind-config
+  tokens-core/          → @elloloop/tokens-core (exists)
+  cli/                  → @elloloop/cli (exists)
 
   # ─── Meta Packages (convenience bundles) ───
-  react/                → @refraction-ui/react (re-exports all react-* packages)
-  angular/              → @refraction-ui/angular (re-exports all angular-* packages)
-  astro/                → @refraction-ui/astro (re-exports all astro-* packages)
+  react/                → @elloloop/react (re-exports all react-* packages)
+  angular/              → @elloloop/angular (re-exports all angular-* packages)
+  astro/                → @elloloop/astro (re-exports all astro-* packages)
 ```
 
 ## Shared Infrastructure
@@ -202,7 +202,7 @@ Packages that every core and wrapper package depends on:
 
 ```
 packages/
-  shared/               → @refraction-ui/shared
+  shared/               → @elloloop/shared
     src/
       types.ts          # Common types (Size, Variant, etc.)
       tokens.ts         # CSS token contract types
@@ -215,7 +215,7 @@ packages/
 ## Acceptance Criteria
 
 - [ ] ADR documenting headless core architecture decision
-- [ ] `@refraction-ui/shared` package with common types and utilities
+- [ ] `@elloloop/shared` package with common types and utilities
 - [ ] Package generator script/template for scaffolding new core + wrapper packages
 - [ ] Build pipeline: each package builds independently via tsup/unbuild
 - [ ] Publish pipeline: changesets for independent versioning per package
@@ -224,14 +224,14 @@ packages/
 - [ ] CI: test matrix runs per-package, only affected packages on PR
 - [ ] Documentation: "Creating a new component" guide for contributors
 - [ ] At least one component (Button) fully implemented as proof-of-concept:
-  - `@refraction-ui/button` (headless)
-  - `@refraction-ui/react-button` (React wrapper)
-  - `@refraction-ui/angular-button` (Angular wrapper)
-  - `@refraction-ui/astro-button` (Astro wrapper)
+  - `@elloloop/button` (headless)
+  - `@elloloop/react-button` (React wrapper)
+  - `@elloloop/angular-button` (Angular wrapper)
+  - `@elloloop/astro-button` (Astro wrapper)
 
 ## Why This Architecture
 
-1. **Pick what you need**: `pnpm add @refraction-ui/react-dialog` — no bloat
+1. **Pick what you need**: `pnpm add @elloloop/react-dialog` — no bloat
 2. **Framework freedom**: Same logic powering React, Angular, Astro, Vue, Svelte
 3. **Independent versioning**: Patch the button without touching the dialog
 4. **Testable core**: Headless logic is pure TS — easy to unit test without DOM
@@ -249,5 +249,5 @@ packages/
 ## Notes
 
 - Astro is a natural fit because Astro components are server-rendered HTML by default — the headless core provides ARIA/class computation at build time, and interactive components use `client:load` islands with the React/Vue wrapper underneath
-- The meta packages (`@refraction-ui/react`, `@refraction-ui/angular`, `@refraction-ui/astro`) are optional convenience bundles — users who want everything can install one package
+- The meta packages (`@elloloop/react`, `@elloloop/angular`, `@elloloop/astro`) are optional convenience bundles — users who want everything can install one package
 - Domain packages (charts, blocks, media, ai, i18n) may start React-only and add framework wrappers later — they're complex enough that headless extraction is a Phase 2 concern

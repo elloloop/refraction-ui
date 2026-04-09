@@ -15,10 +15,10 @@ Build DeviceFrame — device mockup frames (iPhone, iPad, Android phone/tablet) 
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/device-frame` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-device-frame` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-device-frame` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-device-frame` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/device-frame` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-device-frame` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-device-frame` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-device-frame` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

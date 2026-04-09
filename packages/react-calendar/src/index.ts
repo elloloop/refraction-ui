@@ -13,4 +13,4 @@ export {
   type CalendarState,
   calendarVariants,
   dayVariants,
-} from '@refraction-ui/calendar'
+} from '@elloloop/calendar'

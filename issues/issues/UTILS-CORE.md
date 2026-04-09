@@ -81,7 +81,7 @@ Build the complete utilities library — union of all utility functions across a
 
 ## Acceptance Criteria
 
-- [ ] All utilities exported from `@refraction-ui/react/utils`
+- [ ] All utilities exported from `@elloloop/react/utils`
 - [ ] Each utility independently importable (tree-shakeable)
 - [ ] `cn()` — single canonical implementation
 - [ ] URL utilities: `slugify`, `parseIdFromSlug`, `toSlug`, `generateShortCode`

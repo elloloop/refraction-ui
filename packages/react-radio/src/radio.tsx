@@ -5,8 +5,8 @@ import {
   radioItemVariants,
   radioCircleVariants,
   type RadioGroupProps as CoreRadioGroupProps,
-} from '@refraction-ui/radio'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/radio'
+import { cn } from '@elloloop/shared'
 
 interface RadioContextValue {
   value: string | undefined

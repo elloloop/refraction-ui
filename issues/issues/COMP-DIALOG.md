@@ -14,10 +14,10 @@ Build Dialog (modal) primitive and styled wrapper
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/dialog` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-dialog` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-dialog` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-dialog` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/dialog` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-dialog` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-dialog` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-dialog` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

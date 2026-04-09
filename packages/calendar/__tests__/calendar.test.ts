@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { resetIdCounter } from '@refraction-ui/shared'
+import { resetIdCounter } from '@elloloop/shared'
 import { createCalendar } from '../src/calendar.js'
 import { calendarVariants, dayVariants } from '../src/calendar.styles.js'
 

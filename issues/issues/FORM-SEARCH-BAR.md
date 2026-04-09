@@ -15,10 +15,10 @@ Build SearchBar — search input with mode toggle, suggestions, loading state, a
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/search-bar` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-search-bar` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-search-bar` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-search-bar` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/search-bar` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-search-bar` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-search-bar` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-search-bar` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

@@ -1,4 +1,4 @@
-import { cva } from '@refraction-ui/shared'
+import { cva } from '@elloloop/shared'
 
 export const tableVariants = cva({
   base: 'w-full caption-bottom text-sm border-collapse',

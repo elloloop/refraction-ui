@@ -54,7 +54,7 @@ Build the complete hooks library — union of all custom React hooks across all 
 
 ## Acceptance Criteria
 
-- [ ] All hooks exported from `@refraction-ui/react/hooks`
+- [ ] All hooks exported from `@elloloop/react/hooks`
 - [ ] Each hook is independently importable (tree-shakeable)
 - [ ] `useWindowSize` — hydration-safe, configurable breakpoint
 - [ ] `useOnlineStatus` — real-time online/offline detection

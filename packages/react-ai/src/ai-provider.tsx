@@ -5,7 +5,7 @@ import {
   type AIAPI,
   type AIProvider as AIProviderInterface,
   type GenerateOptions,
-} from '@refraction-ui/ai'
+} from '@elloloop/ai'
 
 export interface AIContextValue {
   generateText: (prompt: string, opts?: GenerateOptions) => Promise<string>

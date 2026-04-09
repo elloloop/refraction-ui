@@ -15,10 +15,10 @@ Build ForgotPasswordForm component — email-based password reset flow with conf
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/forgot-password` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-forgot-password` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-forgot-password` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-forgot-password` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/forgot-password` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-forgot-password` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-forgot-password` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-forgot-password` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

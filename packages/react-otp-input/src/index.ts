@@ -8,4 +8,4 @@ export {
   otpInputContainerVariants,
   otpInputSlotVariants,
   otpInputTokens,
-} from '@refraction-ui/otp-input'
+} from '@elloloop/otp-input'

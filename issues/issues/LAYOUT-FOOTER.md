@@ -15,10 +15,10 @@ Build Footer component — bottom section with copyright, social links, and opti
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/footer` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-footer` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-footer` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-footer` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/footer` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-footer` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-footer` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-footer` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

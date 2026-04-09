@@ -15,10 +15,10 @@ Build TV/10-foot UI components — TVLayout, FocusRing, and useFocusManager for 
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/tv-layout` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-tv-layout` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-tv-layout` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-tv-layout` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/tv-layout` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-tv-layout` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-tv-layout` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-tv-layout` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

@@ -17,4 +17,4 @@ export {
   avatarImageVariants,
   avatarFallbackVariants,
   avatarTokens,
-} from '@refraction-ui/avatar'
+} from '@elloloop/avatar'

@@ -1,11 +1,11 @@
-# @refraction-ui/react-dialog
+# @elloloop/react-dialog
 
 Dialog/modal component for React. Part of [Refraction UI](https://elloloop.github.io/refraction-ui/).
 
 ## Install
 
 ```bash
-pnpm add @refraction-ui/react-dialog
+pnpm add @elloloop/react-dialog
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from '@refraction-ui/react-dialog'
+} from '@elloloop/react-dialog'
 
 <Dialog>
   <DialogTrigger>Open</DialogTrigger>

@@ -14,10 +14,10 @@ Build Input (text/password) primitive and styled wrapper
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/input` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-input` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-input` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-input` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/input` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-input` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-input` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-input` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

@@ -1,4 +1,4 @@
-import { generateId } from '@refraction-ui/shared'
+import { generateId } from '@elloloop/shared'
 
 // ---------------------------------------------------------------------------
 // Types

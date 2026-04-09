@@ -9,7 +9,7 @@ status: pending
 
 ## Summary
 
-Create `@refraction-ui/angular` meta-package and the Angular wrapper infrastructure. Each headless core component gets an Angular wrapper (`@refraction-ui/angular-<component>`) using Angular signals, standalone components, and NgModules for backward compatibility.
+Create `@elloloop/angular` meta-package and the Angular wrapper infrastructure. Each headless core component gets an Angular wrapper (`@elloloop/angular-<component>`) using Angular signals, standalone components, and NgModules for backward compatibility.
 
 ## Source References
 
@@ -19,9 +19,9 @@ Create `@refraction-ui/angular` meta-package and the Angular wrapper infrastruct
 ## Angular Wrapper Pattern
 
 ```typescript
-// @refraction-ui/angular-button
+// @elloloop/angular-button
 import { Component, input, computed } from '@angular/core'
-import { createButton, type ButtonVariant, type ButtonSize } from '@refraction-ui/button'
+import { createButton, type ButtonVariant, type ButtonSize } from '@elloloop/button'
 
 @Component({
   selector: 'rfr-button',
@@ -49,8 +49,8 @@ export class RfrButton {
 - [ ] Standalone components (Angular 16+) as primary API
 - [ ] NgModule exports for backward compatibility (Angular 14+)
 - [ ] Uses Angular signals for reactivity binding to headless core
-- [ ] `@refraction-ui/angular` meta-package re-exports all wrappers
+- [ ] `@elloloop/angular` meta-package re-exports all wrappers
 - [ ] At least Button, Input, Dialog, Theme implemented as proof-of-concept
-- [ ] Angular CLI schematic for `ng add @refraction-ui/angular-button`
+- [ ] Angular CLI schematic for `ng add @elloloop/angular-button`
 - [ ] Unit tests with Angular TestBed
 - [ ] Storybook for Angular (or Compodoc)

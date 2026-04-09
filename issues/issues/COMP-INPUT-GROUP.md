@@ -15,10 +15,10 @@ Build InputGroup — composite input wrapper supporting inline/block addons (ico
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/input-group` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-input-group` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-input-group` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-input-group` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/input-group` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-input-group` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-input-group` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-input-group` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

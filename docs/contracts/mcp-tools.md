@@ -1,6 +1,6 @@
 # MCP Tools (Model Context Protocol)
 
-Server: `@refraction-ui/mcp-server`
+Server: `@elloloop/mcp-server`
 
 ## Tools
 

@@ -15,10 +15,10 @@ Build ThemeProvider component with light/dark/system mode support, CSS variable 
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/theme` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-theme` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-theme` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-theme` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/theme` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-theme` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-theme` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-theme` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

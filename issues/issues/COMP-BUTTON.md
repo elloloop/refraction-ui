@@ -14,10 +14,10 @@ Build Button primitive and styled wrapper
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/button` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-button` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-button` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-button` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/button` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-button` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-button` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-button` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

@@ -6,4 +6,4 @@ export {
   type SidebarSection,
   sidebarVariants,
   sidebarItemVariants,
-} from '@refraction-ui/sidebar'
+} from '@elloloop/sidebar'

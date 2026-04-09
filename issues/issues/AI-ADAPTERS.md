@@ -11,7 +11,7 @@ status: superseded
 
 ~~Create separate adapter packages for AI providers.~~
 
-**SUPERSEDED** — AI provider adapters are now **internal modules** within `@refraction-ui/ai`, not separate packages. See PKG-AI for details.
+**SUPERSEDED** — AI provider adapters are now **internal modules** within `@elloloop/ai`, not separate packages. See PKG-AI for details.
 
 The consumer never imports OpenAI, Anthropic, or Gemini SDKs. Provider selection happens via env vars or `.refractionrc` config:
 
@@ -27,7 +27,7 @@ GOOGLE_AI_API_KEY=...     # → uses Gemini
 
 ```typescript
 // Consumer code — provider is invisible
-import { createAI } from '@refraction-ui/ai'
+import { createAI } from '@elloloop/ai'
 
 const ai = createAI()  // auto-detects from env/config
 const result = await ai.generateText('Explain quantum computing')

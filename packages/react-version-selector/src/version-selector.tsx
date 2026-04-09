@@ -6,8 +6,8 @@ import {
   latestBadgeVariants,
   type VersionSelectorAPI,
   type VersionOption,
-} from '@refraction-ui/version-selector'
-import { cn } from '@refraction-ui/shared'
+} from '@elloloop/version-selector'
+import { cn } from '@elloloop/shared'
 
 /* ------------------------------------------------------------------ */
 /*  Context                                                            */

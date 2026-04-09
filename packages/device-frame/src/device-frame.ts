@@ -1,4 +1,4 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
+import type { AccessibilityProps } from '@elloloop/shared'
 
 export type DeviceType = 'iphone' | 'ipad' | 'android-phone' | 'android-tablet'
 export type DeviceOrientation = 'portrait' | 'landscape'

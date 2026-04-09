@@ -1,5 +1,5 @@
-import type { KeyboardHandlerMap } from '@refraction-ui/shared'
-import { Keys, generateId } from '@refraction-ui/shared'
+import type { KeyboardHandlerMap } from '@elloloop/shared'
+import { Keys, generateId } from '@elloloop/shared'
 
 export interface CommandProps {
   /** Whether the command palette is open (controlled) */

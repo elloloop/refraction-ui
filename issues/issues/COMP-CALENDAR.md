@@ -15,10 +15,10 @@ Build Calendar component — full month calendar grid with navigation, today hig
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/calendar` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-calendar` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-calendar` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-calendar` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/calendar` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-calendar` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-calendar` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-calendar` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

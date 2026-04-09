@@ -12,4 +12,4 @@ export {
   editorVariants,
   toolbarVariants,
   previewVariants,
-} from '@refraction-ui/inline-editor'
+} from '@elloloop/inline-editor'

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { createTooltip } from '../src/tooltip.js'
 import { tooltipContentVariants } from '../src/tooltip.styles.js'
-import { resetIdCounter } from '@refraction-ui/shared'
+import { resetIdCounter } from '@elloloop/shared'
 
 beforeEach(() => {
   resetIdCounter()

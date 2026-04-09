@@ -15,10 +15,10 @@ Build InstallPrompt and MobileUsageTip — PWA install banner and dismissable mo
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/install-prompt` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-install-prompt` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-install-prompt` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-install-prompt` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/install-prompt` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-install-prompt` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-install-prompt` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-install-prompt` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

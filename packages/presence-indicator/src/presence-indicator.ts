@@ -1,4 +1,4 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
+import type { AccessibilityProps } from '@elloloop/shared'
 
 export type PresenceStatus = 'online' | 'offline' | 'away' | 'busy' | 'dnd'
 

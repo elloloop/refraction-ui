@@ -9,7 +9,7 @@ status: pending
 
 ## Summary
 
-Create `@refraction-ui/media` package — audio engine, video export, canvas effects, and project templates. Extracted from elloloop/auteur.one's browser-based video editor.
+Create `@elloloop/media` package — audio engine, video export, canvas effects, and project templates. Extracted from elloloop/auteur.one's browser-based video editor.
 
 ## Source References
 
@@ -74,4 +74,4 @@ packages/media/
 ## Dependencies
 
 - `@ffmpeg/ffmpeg` (peer, for video export)
-- `@refraction-ui/react` (for UI primitives used in player components)
+- `@elloloop/react` (for UI primitives used in player components)

@@ -17,4 +17,4 @@ export {
   mobileNavTriggerVariants,
   mobileNavLinkVariants,
   mobileNavTokens,
-} from '@refraction-ui/mobile-nav'
+} from '@elloloop/mobile-nav'

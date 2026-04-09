@@ -9,7 +9,7 @@ status: pending
 
 ## Summary
 
-Create `@refraction-ui/astro` meta-package and the Astro wrapper infrastructure. Astro components are server-rendered by default — the headless core computes ARIA attributes and CSS classes at build time. Interactive components use Astro's `client:load` / `client:visible` islands with React or vanilla JS underneath.
+Create `@elloloop/astro` meta-package and the Astro wrapper infrastructure. Astro components are server-rendered by default — the headless core computes ARIA attributes and CSS classes at build time. Interactive components use Astro's `client:load` / `client:visible` islands with React or vanilla JS underneath.
 
 ## Source References
 
@@ -21,8 +21,8 @@ Create `@refraction-ui/astro` meta-package and the Astro wrapper infrastructure.
 ### Static components (no JS shipped to client)
 ```astro
 ---
-// @refraction-ui/astro-badge
-import { getBadgeClasses, getBadgeAriaProps } from '@refraction-ui/badge'
+// @elloloop/astro-badge
+import { getBadgeClasses, getBadgeAriaProps } from '@elloloop/badge'
 
 interface Props {
   variant?: 'default' | 'primary' | 'destructive' | 'success'
@@ -41,9 +41,9 @@ const ariaProps = getBadgeAriaProps({ variant })
 ### Interactive components (islands architecture)
 ```astro
 ---
-// @refraction-ui/astro-dialog
+// @elloloop/astro-dialog
 // Uses React island for interactivity
-import { DialogReact } from '@refraction-ui/react-dialog'
+import { DialogReact } from '@elloloop/react-dialog'
 ---
 <DialogReact client:load {...Astro.props}>
   <slot />
@@ -53,9 +53,9 @@ import { DialogReact } from '@refraction-ui/react-dialog'
 ### Hybrid components (server-rendered with progressive enhancement)
 ```astro
 ---
-// @refraction-ui/astro-theme
+// @elloloop/astro-theme
 // Server renders with default, hydrates for system preference detection
-import { ThemeScript, ThemeToggleReact } from '@refraction-ui/react-theme'
+import { ThemeScript, ThemeToggleReact } from '@elloloop/react-theme'
 ---
 <ThemeScript />  <!-- inline script for flash prevention, no framework needed -->
 <ThemeToggleReact client:load />  <!-- hydrates for interaction -->
@@ -76,8 +76,8 @@ import { ThemeScript, ThemeToggleReact } from '@refraction-ui/react-theme'
 - [ ] Static components: zero client JS, server-rendered HTML + CSS
 - [ ] Interactive components: use `client:load` or `client:visible` islands
 - [ ] Hybrid components: server-render structure, hydrate interaction
-- [ ] `@refraction-ui/astro` meta-package re-exports all wrappers
+- [ ] `@elloloop/astro` meta-package re-exports all wrappers
 - [ ] At least Badge (static), Button (progressive), Dialog (interactive), Theme (hybrid) as proof-of-concept
-- [ ] Astro integration for `astro add @refraction-ui/astro`
+- [ ] Astro integration for `astro add @elloloop/astro`
 - [ ] Works with Astro 4+
 - [ ] Documentation showing island patterns

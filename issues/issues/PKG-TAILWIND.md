@@ -9,7 +9,7 @@ status: pending
 
 ## Summary
 
-Create `@refraction-ui/tailwind-config` package — shared Tailwind CSS preset with unified color tokens (light + dark), animations, typography, and utilities. Consolidates Tailwind configuration from all 7+ elloloop Next.js projects.
+Create `@elloloop/tailwind-config` package — shared Tailwind CSS preset with unified color tokens (light + dark), animations, typography, and utilities. Consolidates Tailwind configuration from all 7+ elloloop Next.js projects.
 
 ## Source References
 
@@ -78,4 +78,4 @@ packages/tailwind-config/
 ## Dependencies
 
 - `tailwindcss` (peer)
-- `@refraction-ui/tokens-core` (for token resolution)
+- `@elloloop/tokens-core` (for token resolution)

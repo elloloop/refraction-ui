@@ -362,7 +362,7 @@ scenes/scene-office.jpg              # Office composite
 
 ---
 
-## CSS Filter Utilities (built into @refraction-ui/assets)
+## CSS Filter Utilities (built into @elloloop/assets)
 
 ```css
 /* Monochrome */

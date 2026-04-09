@@ -1,5 +1,5 @@
 {
-  "name": "@refraction-ui/radio",
+  "name": "@elloloop/radio",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -25,7 +25,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@refraction-ui/shared": "workspace:*"
+    "@elloloop/shared": "workspace:*"
   },
   "devDependencies": {},
   "sideEffects": false,

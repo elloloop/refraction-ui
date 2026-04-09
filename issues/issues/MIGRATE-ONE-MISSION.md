@@ -9,7 +9,7 @@ status: pending
 
 ## Summary
 
-Migrate elloloop/one-mission to use @refraction-ui/* packages. Smallest migration — this is a scaffold with only Button and cn().
+Migrate elloloop/one-mission to use @elloloop/* packages. Smallest migration — this is a scaffold with only Button and cn().
 
 ## Repository Details
 
@@ -21,11 +21,11 @@ Migrate elloloop/one-mission to use @refraction-ui/* packages. Smallest migratio
 
 | Current Location | Replace With |
 |-----------------|-------------|
-| `src/shared/components/ui/button.tsx` | `@refraction-ui/react/button` |
-| `src/shared/lib/utils.ts` (cn) | `@refraction-ui/react/utils/cn` |
-| `src/shared/config/firebase.ts` | `@refraction-ui/react/auth` (when needed) |
-| `src/app/globals.css` (CSS vars) | `@refraction-ui/tailwind-config` preset |
-| `tailwind.config.ts` | Extend `@refraction-ui/tailwind-config` |
+| `src/shared/components/ui/button.tsx` | `@elloloop/react/button` |
+| `src/shared/lib/utils.ts` (cn) | `@elloloop/react/utils/cn` |
+| `src/shared/config/firebase.ts` | `@elloloop/react/auth` (when needed) |
+| `src/app/globals.css` (CSS vars) | `@elloloop/tailwind-config` preset |
+| `tailwind.config.ts` | Extend `@elloloop/tailwind-config` |
 
 ## Dependencies to Remove
 
@@ -36,7 +36,7 @@ Migrate elloloop/one-mission to use @refraction-ui/* packages. Smallest migratio
 
 ## Tasks
 
-- [ ] Add `@refraction-ui/react` and `@refraction-ui/tailwind-config`
+- [ ] Add `@elloloop/react` and `@elloloop/tailwind-config`
 - [ ] Replace Button and cn() imports
 - [ ] Update Tailwind config
 - [ ] Remove all unused dependencies (major cleanup)

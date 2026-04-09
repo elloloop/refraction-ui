@@ -83,7 +83,7 @@ const DEFAULT_GLOBALS_CSS = `@tailwind base;
 `;
 
 const TAILWIND_CONFIG = `import type { Config } from 'tailwindcss'
-import { refractionPreset } from '@refraction-ui/tailwind-config'
+import { refractionPreset } from '@elloloop/tailwind-config'
 
 export default {
   content: [
@@ -131,16 +131,16 @@ export function registerInit(program: Command) {
       console.log('Next steps:');
       console.log('');
       console.log('  1. Install dependencies:');
-      console.log('     pnpm add @refraction-ui/react-theme @refraction-ui/tailwind-config');
+      console.log('     pnpm add @elloloop/react-theme @elloloop/tailwind-config');
       console.log('');
       console.log('  2. Add components:');
-      console.log('     pnpm add @refraction-ui/react-button @refraction-ui/react-dialog');
+      console.log('     pnpm add @elloloop/react-button @elloloop/react-dialog');
       console.log('');
       console.log('  3. Wrap your app with ThemeProvider:');
-      console.log('     import { ThemeProvider } from "@refraction-ui/react-theme"');
+      console.log('     import { ThemeProvider } from "@elloloop/react-theme"');
       console.log('');
       console.log('  4. Use components:');
-      console.log('     import { Button } from "@refraction-ui/react-button"');
+      console.log('     import { Button } from "@elloloop/react-button"');
       console.log('');
     });
 
@@ -150,9 +150,9 @@ export function registerInit(program: Command) {
     .action((component: string) => {
       const name = component.startsWith('react-') ? component : `react-${component}`;
       console.log('');
-      console.log(`Install @refraction-ui/${name}:`);
+      console.log(`Install @elloloop/${name}:`);
       console.log('');
-      console.log(`  pnpm add @refraction-ui/${name}`);
+      console.log(`  pnpm add @elloloop/${name}`);
       console.log('');
       console.log('Usage:');
       console.log('');
@@ -161,7 +161,7 @@ export function registerInit(program: Command) {
         .split('-')
         .map((s: string) => s.charAt(0).toUpperCase() + s.slice(1))
         .join('');
-      console.log(`  import { ${pascal} } from "@refraction-ui/${name}"`);
+      console.log(`  import { ${pascal} } from "@elloloop/${name}"`);
       console.log('');
     });
 }

@@ -15,10 +15,10 @@ Build Sidebar — desktop side navigation with role-based sections, icons, and a
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/sidebar` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-sidebar` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-sidebar` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-sidebar` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/sidebar` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-sidebar` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-sidebar` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-sidebar` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

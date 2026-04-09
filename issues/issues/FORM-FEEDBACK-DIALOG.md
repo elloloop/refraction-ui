@@ -15,10 +15,10 @@ Build FeedbackDialog — modal for submitting user feedback with comment, option
 
 | Package | Type | Description |
 |---------|------|-------------|
-| `@refraction-ui/feedback-dialog` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
-| `@refraction-ui/react-feedback-dialog` | React wrapper | React component with hooks binding |
-| `@refraction-ui/angular-feedback-dialog` | Angular wrapper | Angular standalone component |
-| `@refraction-ui/astro-feedback-dialog` | Astro wrapper | Astro component (static or island) |
+| `@elloloop/feedback-dialog` | Headless core | State machine, ARIA, keyboard handlers, CSS token contract |
+| `@elloloop/react-feedback-dialog` | React wrapper | React component with hooks binding |
+| `@elloloop/angular-feedback-dialog` | Angular wrapper | Angular standalone component |
+| `@elloloop/astro-feedback-dialog` | Astro wrapper | Astro component (static or island) |
 
 ## Source References
 

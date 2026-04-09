@@ -14,4 +14,4 @@ export {
   resizableDividerVariants,
   resizablePaneVariants,
   resizableLayoutTokens,
-} from '@refraction-ui/resizable-layout'
+} from '@elloloop/resizable-layout'

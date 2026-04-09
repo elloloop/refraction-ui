@@ -44,160 +44,160 @@ importers:
 
   docs-site:
     dependencies:
-      '@refraction-ui/app-shell':
+      '@elloloop/app-shell':
         specifier: workspace:*
         version: link:../packages/app-shell
-      '@refraction-ui/react-animated-text':
+      '@elloloop/react-animated-text':
         specifier: workspace:*
         version: link:../packages/react-animated-text
-      '@refraction-ui/react-app-shell':
+      '@elloloop/react-app-shell':
         specifier: workspace:*
         version: link:../packages/react-app-shell
-      '@refraction-ui/react-avatar':
+      '@elloloop/react-avatar':
         specifier: workspace:*
         version: link:../packages/react-avatar
-      '@refraction-ui/react-avatar-group':
+      '@elloloop/react-avatar-group':
         specifier: workspace:*
         version: link:../packages/react-avatar-group
-      '@refraction-ui/react-badge':
+      '@elloloop/react-badge':
         specifier: workspace:*
         version: link:../packages/react-badge
-      '@refraction-ui/react-bottom-nav':
+      '@elloloop/react-bottom-nav':
         specifier: workspace:*
         version: link:../packages/react-bottom-nav
-      '@refraction-ui/react-breadcrumbs':
+      '@elloloop/react-breadcrumbs':
         specifier: workspace:*
         version: link:../packages/react-breadcrumbs
-      '@refraction-ui/react-button':
+      '@elloloop/react-button':
         specifier: workspace:*
         version: link:../packages/react-button
-      '@refraction-ui/react-calendar':
+      '@elloloop/react-calendar':
         specifier: workspace:*
         version: link:../packages/react-calendar
-      '@refraction-ui/react-card':
+      '@elloloop/react-card':
         specifier: workspace:*
         version: link:../packages/react-card
-      '@refraction-ui/react-checkbox':
+      '@elloloop/react-checkbox':
         specifier: workspace:*
         version: link:../packages/react-checkbox
-      '@refraction-ui/react-code-editor':
+      '@elloloop/react-code-editor':
         specifier: workspace:*
         version: link:../packages/react-code-editor
-      '@refraction-ui/react-collapsible':
+      '@elloloop/react-collapsible':
         specifier: workspace:*
         version: link:../packages/react-collapsible
-      '@refraction-ui/react-command':
+      '@elloloop/react-command':
         specifier: workspace:*
         version: link:../packages/react-command
-      '@refraction-ui/react-content-protection':
+      '@elloloop/react-content-protection':
         specifier: workspace:*
         version: link:../packages/react-content-protection
-      '@refraction-ui/react-data-table':
+      '@elloloop/react-data-table':
         specifier: workspace:*
         version: link:../packages/react-data-table
-      '@refraction-ui/react-date-picker':
+      '@elloloop/react-date-picker':
         specifier: workspace:*
         version: link:../packages/react-date-picker
-      '@refraction-ui/react-device-frame':
+      '@elloloop/react-device-frame':
         specifier: workspace:*
         version: link:../packages/react-device-frame
-      '@refraction-ui/react-dialog':
+      '@elloloop/react-dialog':
         specifier: workspace:*
         version: link:../packages/react-dialog
-      '@refraction-ui/react-dropdown-menu':
+      '@elloloop/react-dropdown-menu':
         specifier: workspace:*
         version: link:../packages/react-dropdown-menu
-      '@refraction-ui/react-emoji-picker':
+      '@elloloop/react-emoji-picker':
         specifier: workspace:*
         version: link:../packages/react-emoji-picker
-      '@refraction-ui/react-feedback-dialog':
+      '@elloloop/react-feedback-dialog':
         specifier: workspace:*
         version: link:../packages/react-feedback-dialog
-      '@refraction-ui/react-file-upload':
+      '@elloloop/react-file-upload':
         specifier: workspace:*
         version: link:../packages/react-file-upload
-      '@refraction-ui/react-footer':
+      '@elloloop/react-footer':
         specifier: workspace:*
         version: link:../packages/react-footer
-      '@refraction-ui/react-inline-editor':
+      '@elloloop/react-inline-editor':
         specifier: workspace:*
         version: link:../packages/react-inline-editor
-      '@refraction-ui/react-input':
+      '@elloloop/react-input':
         specifier: workspace:*
         version: link:../packages/react-input
-      '@refraction-ui/react-install-prompt':
+      '@elloloop/react-install-prompt':
         specifier: workspace:*
         version: link:../packages/react-install-prompt
-      '@refraction-ui/react-keyboard-shortcut':
+      '@elloloop/react-keyboard-shortcut':
         specifier: workspace:*
         version: link:../packages/react-keyboard-shortcut
-      '@refraction-ui/react-language-selector':
+      '@elloloop/react-language-selector':
         specifier: workspace:*
         version: link:../packages/react-language-selector
-      '@refraction-ui/react-markdown-renderer':
+      '@elloloop/react-markdown-renderer':
         specifier: workspace:*
         version: link:../packages/react-markdown-renderer
-      '@refraction-ui/react-navbar':
+      '@elloloop/react-navbar':
         specifier: workspace:*
         version: link:../packages/react-navbar
-      '@refraction-ui/react-otp-input':
+      '@elloloop/react-otp-input':
         specifier: workspace:*
         version: link:../packages/react-otp-input
-      '@refraction-ui/react-popover':
+      '@elloloop/react-popover':
         specifier: workspace:*
         version: link:../packages/react-popover
-      '@refraction-ui/react-presence-indicator':
+      '@elloloop/react-presence-indicator':
         specifier: workspace:*
         version: link:../packages/react-presence-indicator
-      '@refraction-ui/react-progress-display':
+      '@elloloop/react-progress-display':
         specifier: workspace:*
         version: link:../packages/react-progress-display
-      '@refraction-ui/react-reaction-bar':
+      '@elloloop/react-reaction-bar':
         specifier: workspace:*
         version: link:../packages/react-reaction-bar
-      '@refraction-ui/react-search-bar':
+      '@elloloop/react-search-bar':
         specifier: workspace:*
         version: link:../packages/react-search-bar
-      '@refraction-ui/react-select':
+      '@elloloop/react-select':
         specifier: workspace:*
         version: link:../packages/react-select
-      '@refraction-ui/react-sidebar':
+      '@elloloop/react-sidebar':
         specifier: workspace:*
         version: link:../packages/react-sidebar
-      '@refraction-ui/react-skeleton':
+      '@elloloop/react-skeleton':
         specifier: workspace:*
         version: link:../packages/react-skeleton
-      '@refraction-ui/react-slide-viewer':
+      '@elloloop/react-slide-viewer':
         specifier: workspace:*
         version: link:../packages/react-slide-viewer
-      '@refraction-ui/react-status-indicator':
+      '@elloloop/react-status-indicator':
         specifier: workspace:*
         version: link:../packages/react-status-indicator
-      '@refraction-ui/react-switch':
+      '@elloloop/react-switch':
         specifier: workspace:*
         version: link:../packages/react-switch
-      '@refraction-ui/react-tabs':
+      '@elloloop/react-tabs':
         specifier: workspace:*
         version: link:../packages/react-tabs
-      '@refraction-ui/react-textarea':
+      '@elloloop/react-textarea':
         specifier: workspace:*
         version: link:../packages/react-textarea
-      '@refraction-ui/react-theme':
+      '@elloloop/react-theme':
         specifier: workspace:*
         version: link:../packages/react-theme
-      '@refraction-ui/react-toast':
+      '@elloloop/react-toast':
         specifier: workspace:*
         version: link:../packages/react-toast
-      '@refraction-ui/react-tooltip':
+      '@elloloop/react-tooltip':
         specifier: workspace:*
         version: link:../packages/react-tooltip
-      '@refraction-ui/react-version-selector':
+      '@elloloop/react-version-selector':
         specifier: workspace:*
         version: link:../packages/react-version-selector
-      '@refraction-ui/react-video-player':
+      '@elloloop/react-video-player':
         specifier: workspace:*
         version: link:../packages/react-video-player
-      '@refraction-ui/tailwind-config':
+      '@elloloop/tailwind-config':
         specifier: workspace:*
         version: link:../packages/tailwind-config
       next:
@@ -237,25 +237,25 @@ importers:
 
   packages/ai:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/animated-text:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/app-shell:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/auth:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -265,61 +265,61 @@ importers:
 
   packages/avatar:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/avatar-group:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/badge:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/bottom-nav:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/breadcrumbs:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/button:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/calendar:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/card:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/charts:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/checkbox:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
@@ -344,193 +344,193 @@ importers:
 
   packages/code-editor:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/collapsible:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/command:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/content-protection:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/data-table:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/date-picker:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/device-frame:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/dialog:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/diff-viewer:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/dropdown-menu:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/emoji-picker:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/feedback-dialog:
     dependencies:
-      '@refraction-ui/dialog':
+      '@elloloop/dialog':
         specifier: workspace:*
         version: link:../dialog
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/file-upload:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/footer:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/i18n:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/inline-editor:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/input:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/input-group:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/install-prompt:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/keyboard-shortcut:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/language-selector:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/markdown-renderer:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/media-engines:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/mobile-nav:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/navbar:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/otp-input:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/popover:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/presence-indicator:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/progress-display:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/radio:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/react-ai:
     dependencies:
-      '@refraction-ui/ai':
+      '@elloloop/ai':
         specifier: workspace:*
         version: link:../ai
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -549,10 +549,10 @@ importers:
 
   packages/react-animated-text:
     dependencies:
-      '@refraction-ui/animated-text':
+      '@elloloop/animated-text':
         specifier: workspace:*
         version: link:../animated-text
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -571,10 +571,10 @@ importers:
 
   packages/react-app-shell:
     dependencies:
-      '@refraction-ui/app-shell':
+      '@elloloop/app-shell':
         specifier: workspace:*
         version: link:../app-shell
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -593,10 +593,10 @@ importers:
 
   packages/react-auth:
     dependencies:
-      '@refraction-ui/auth':
+      '@elloloop/auth':
         specifier: workspace:*
         version: link:../auth
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -615,10 +615,10 @@ importers:
 
   packages/react-avatar:
     dependencies:
-      '@refraction-ui/avatar':
+      '@elloloop/avatar':
         specifier: workspace:*
         version: link:../avatar
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -637,10 +637,10 @@ importers:
 
   packages/react-avatar-group:
     dependencies:
-      '@refraction-ui/avatar-group':
+      '@elloloop/avatar-group':
         specifier: workspace:*
         version: link:../avatar-group
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -659,10 +659,10 @@ importers:
 
   packages/react-badge:
     dependencies:
-      '@refraction-ui/badge':
+      '@elloloop/badge':
         specifier: workspace:*
         version: link:../badge
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -681,10 +681,10 @@ importers:
 
   packages/react-bottom-nav:
     dependencies:
-      '@refraction-ui/bottom-nav':
+      '@elloloop/bottom-nav':
         specifier: workspace:*
         version: link:../bottom-nav
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -703,10 +703,10 @@ importers:
 
   packages/react-breadcrumbs:
     dependencies:
-      '@refraction-ui/breadcrumbs':
+      '@elloloop/breadcrumbs':
         specifier: workspace:*
         version: link:../breadcrumbs
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -725,10 +725,10 @@ importers:
 
   packages/react-button:
     dependencies:
-      '@refraction-ui/button':
+      '@elloloop/button':
         specifier: workspace:*
         version: link:../button
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -747,10 +747,10 @@ importers:
 
   packages/react-calendar:
     dependencies:
-      '@refraction-ui/calendar':
+      '@elloloop/calendar':
         specifier: workspace:*
         version: link:../calendar
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -769,10 +769,10 @@ importers:
 
   packages/react-card:
     dependencies:
-      '@refraction-ui/card':
+      '@elloloop/card':
         specifier: workspace:*
         version: link:../card
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -791,10 +791,10 @@ importers:
 
   packages/react-charts:
     dependencies:
-      '@refraction-ui/charts':
+      '@elloloop/charts':
         specifier: workspace:*
         version: link:../charts
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -813,10 +813,10 @@ importers:
 
   packages/react-checkbox:
     dependencies:
-      '@refraction-ui/checkbox':
+      '@elloloop/checkbox':
         specifier: workspace:*
         version: link:../checkbox
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -835,10 +835,10 @@ importers:
 
   packages/react-code-editor:
     dependencies:
-      '@refraction-ui/code-editor':
+      '@elloloop/code-editor':
         specifier: workspace:*
         version: link:../code-editor
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -857,10 +857,10 @@ importers:
 
   packages/react-collapsible:
     dependencies:
-      '@refraction-ui/collapsible':
+      '@elloloop/collapsible':
         specifier: workspace:*
         version: link:../collapsible
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -879,10 +879,10 @@ importers:
 
   packages/react-command:
     dependencies:
-      '@refraction-ui/command':
+      '@elloloop/command':
         specifier: workspace:*
         version: link:../command
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -901,10 +901,10 @@ importers:
 
   packages/react-content-protection:
     dependencies:
-      '@refraction-ui/content-protection':
+      '@elloloop/content-protection':
         specifier: workspace:*
         version: link:../content-protection
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -923,10 +923,10 @@ importers:
 
   packages/react-data-table:
     dependencies:
-      '@refraction-ui/data-table':
+      '@elloloop/data-table':
         specifier: workspace:*
         version: link:../data-table
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -945,10 +945,10 @@ importers:
 
   packages/react-date-picker:
     dependencies:
-      '@refraction-ui/date-picker':
+      '@elloloop/date-picker':
         specifier: workspace:*
         version: link:../date-picker
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -967,10 +967,10 @@ importers:
 
   packages/react-device-frame:
     dependencies:
-      '@refraction-ui/device-frame':
+      '@elloloop/device-frame':
         specifier: workspace:*
         version: link:../device-frame
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -989,10 +989,10 @@ importers:
 
   packages/react-dialog:
     dependencies:
-      '@refraction-ui/dialog':
+      '@elloloop/dialog':
         specifier: workspace:*
         version: link:../dialog
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1011,10 +1011,10 @@ importers:
 
   packages/react-diff-viewer:
     dependencies:
-      '@refraction-ui/diff-viewer':
+      '@elloloop/diff-viewer':
         specifier: workspace:*
         version: link:../diff-viewer
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1036,10 +1036,10 @@ importers:
 
   packages/react-dropdown-menu:
     dependencies:
-      '@refraction-ui/dropdown-menu':
+      '@elloloop/dropdown-menu':
         specifier: workspace:*
         version: link:../dropdown-menu
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1058,10 +1058,10 @@ importers:
 
   packages/react-emoji-picker:
     dependencies:
-      '@refraction-ui/emoji-picker':
+      '@elloloop/emoji-picker':
         specifier: workspace:*
         version: link:../emoji-picker
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1080,10 +1080,10 @@ importers:
 
   packages/react-feedback-dialog:
     dependencies:
-      '@refraction-ui/feedback-dialog':
+      '@elloloop/feedback-dialog':
         specifier: workspace:*
         version: link:../feedback-dialog
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1102,10 +1102,10 @@ importers:
 
   packages/react-file-upload:
     dependencies:
-      '@refraction-ui/file-upload':
+      '@elloloop/file-upload':
         specifier: workspace:*
         version: link:../file-upload
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1124,10 +1124,10 @@ importers:
 
   packages/react-footer:
     dependencies:
-      '@refraction-ui/footer':
+      '@elloloop/footer':
         specifier: workspace:*
         version: link:../footer
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1146,10 +1146,10 @@ importers:
 
   packages/react-inline-editor:
     dependencies:
-      '@refraction-ui/inline-editor':
+      '@elloloop/inline-editor':
         specifier: workspace:*
         version: link:../inline-editor
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1168,10 +1168,10 @@ importers:
 
   packages/react-input:
     dependencies:
-      '@refraction-ui/input':
+      '@elloloop/input':
         specifier: workspace:*
         version: link:../input
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1190,10 +1190,10 @@ importers:
 
   packages/react-input-group:
     dependencies:
-      '@refraction-ui/input-group':
+      '@elloloop/input-group':
         specifier: workspace:*
         version: link:../input-group
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1212,10 +1212,10 @@ importers:
 
   packages/react-install-prompt:
     dependencies:
-      '@refraction-ui/install-prompt':
+      '@elloloop/install-prompt':
         specifier: workspace:*
         version: link:../install-prompt
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1234,10 +1234,10 @@ importers:
 
   packages/react-keyboard-shortcut:
     dependencies:
-      '@refraction-ui/keyboard-shortcut':
+      '@elloloop/keyboard-shortcut':
         specifier: workspace:*
         version: link:../keyboard-shortcut
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1256,10 +1256,10 @@ importers:
 
   packages/react-language-selector:
     dependencies:
-      '@refraction-ui/language-selector':
+      '@elloloop/language-selector':
         specifier: workspace:*
         version: link:../language-selector
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1278,10 +1278,10 @@ importers:
 
   packages/react-markdown-renderer:
     dependencies:
-      '@refraction-ui/markdown-renderer':
+      '@elloloop/markdown-renderer':
         specifier: workspace:*
         version: link:../markdown-renderer
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1300,130 +1300,130 @@ importers:
 
   packages/react-meta:
     dependencies:
-      '@refraction-ui/react-ai':
+      '@elloloop/react-ai':
         specifier: workspace:*
         version: link:../react-ai
-      '@refraction-ui/react-animated-text':
+      '@elloloop/react-animated-text':
         specifier: workspace:*
         version: link:../react-animated-text
-      '@refraction-ui/react-auth':
+      '@elloloop/react-auth':
         specifier: workspace:*
         version: link:../react-auth
-      '@refraction-ui/react-badge':
+      '@elloloop/react-badge':
         specifier: workspace:*
         version: link:../react-badge
-      '@refraction-ui/react-bottom-nav':
+      '@elloloop/react-bottom-nav':
         specifier: workspace:*
         version: link:../react-bottom-nav
-      '@refraction-ui/react-breadcrumbs':
+      '@elloloop/react-breadcrumbs':
         specifier: workspace:*
         version: link:../react-breadcrumbs
-      '@refraction-ui/react-button':
+      '@elloloop/react-button':
         specifier: workspace:*
         version: link:../react-button
-      '@refraction-ui/react-calendar':
+      '@elloloop/react-calendar':
         specifier: workspace:*
         version: link:../react-calendar
-      '@refraction-ui/react-charts':
+      '@elloloop/react-charts':
         specifier: workspace:*
         version: link:../react-charts
-      '@refraction-ui/react-code-editor':
+      '@elloloop/react-code-editor':
         specifier: workspace:*
         version: link:../react-code-editor
-      '@refraction-ui/react-collapsible':
+      '@elloloop/react-collapsible':
         specifier: workspace:*
         version: link:../react-collapsible
-      '@refraction-ui/react-command':
+      '@elloloop/react-command':
         specifier: workspace:*
         version: link:../react-command
-      '@refraction-ui/react-content-protection':
+      '@elloloop/react-content-protection':
         specifier: workspace:*
         version: link:../react-content-protection
-      '@refraction-ui/react-data-table':
+      '@elloloop/react-data-table':
         specifier: workspace:*
         version: link:../react-data-table
-      '@refraction-ui/react-device-frame':
+      '@elloloop/react-device-frame':
         specifier: workspace:*
         version: link:../react-device-frame
-      '@refraction-ui/react-dialog':
+      '@elloloop/react-dialog':
         specifier: workspace:*
         version: link:../react-dialog
-      '@refraction-ui/react-dropdown-menu':
+      '@elloloop/react-dropdown-menu':
         specifier: workspace:*
         version: link:../react-dropdown-menu
-      '@refraction-ui/react-feedback-dialog':
+      '@elloloop/react-feedback-dialog':
         specifier: workspace:*
         version: link:../react-feedback-dialog
-      '@refraction-ui/react-footer':
+      '@elloloop/react-footer':
         specifier: workspace:*
         version: link:../react-footer
-      '@refraction-ui/react-inline-editor':
+      '@elloloop/react-inline-editor':
         specifier: workspace:*
         version: link:../react-inline-editor
-      '@refraction-ui/react-input':
+      '@elloloop/react-input':
         specifier: workspace:*
         version: link:../react-input
-      '@refraction-ui/react-input-group':
+      '@elloloop/react-input-group':
         specifier: workspace:*
         version: link:../react-input-group
-      '@refraction-ui/react-install-prompt':
+      '@elloloop/react-install-prompt':
         specifier: workspace:*
         version: link:../react-install-prompt
-      '@refraction-ui/react-language-selector':
+      '@elloloop/react-language-selector':
         specifier: workspace:*
         version: link:../react-language-selector
-      '@refraction-ui/react-markdown-renderer':
+      '@elloloop/react-markdown-renderer':
         specifier: workspace:*
         version: link:../react-markdown-renderer
-      '@refraction-ui/react-mobile-nav':
+      '@elloloop/react-mobile-nav':
         specifier: workspace:*
         version: link:../react-mobile-nav
-      '@refraction-ui/react-navbar':
+      '@elloloop/react-navbar':
         specifier: workspace:*
         version: link:../react-navbar
-      '@refraction-ui/react-popover':
+      '@elloloop/react-popover':
         specifier: workspace:*
         version: link:../react-popover
-      '@refraction-ui/react-progress-display':
+      '@elloloop/react-progress-display':
         specifier: workspace:*
         version: link:../react-progress-display
-      '@refraction-ui/react-resizable-layout':
+      '@elloloop/react-resizable-layout':
         specifier: workspace:*
         version: link:../react-resizable-layout
-      '@refraction-ui/react-search-bar':
+      '@elloloop/react-search-bar':
         specifier: workspace:*
         version: link:../react-search-bar
-      '@refraction-ui/react-sidebar':
+      '@elloloop/react-sidebar':
         specifier: workspace:*
         version: link:../react-sidebar
-      '@refraction-ui/react-skeleton':
+      '@elloloop/react-skeleton':
         specifier: workspace:*
         version: link:../react-skeleton
-      '@refraction-ui/react-slide-viewer':
+      '@elloloop/react-slide-viewer':
         specifier: workspace:*
         version: link:../react-slide-viewer
-      '@refraction-ui/react-tabs':
+      '@elloloop/react-tabs':
         specifier: workspace:*
         version: link:../react-tabs
-      '@refraction-ui/react-textarea':
+      '@elloloop/react-textarea':
         specifier: workspace:*
         version: link:../react-textarea
-      '@refraction-ui/react-theme':
+      '@elloloop/react-theme':
         specifier: workspace:*
         version: link:../react-theme
-      '@refraction-ui/react-toast':
+      '@elloloop/react-toast':
         specifier: workspace:*
         version: link:../react-toast
-      '@refraction-ui/react-tooltip':
+      '@elloloop/react-tooltip':
         specifier: workspace:*
         version: link:../react-tooltip
-      '@refraction-ui/react-version-selector':
+      '@elloloop/react-version-selector':
         specifier: workspace:*
         version: link:../react-version-selector
-      '@refraction-ui/react-video-player':
+      '@elloloop/react-video-player':
         specifier: workspace:*
         version: link:../react-video-player
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1442,10 +1442,10 @@ importers:
 
   packages/react-mobile-nav:
     dependencies:
-      '@refraction-ui/mobile-nav':
+      '@elloloop/mobile-nav':
         specifier: workspace:*
         version: link:../mobile-nav
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1464,10 +1464,10 @@ importers:
 
   packages/react-navbar:
     dependencies:
-      '@refraction-ui/navbar':
+      '@elloloop/navbar':
         specifier: workspace:*
         version: link:../navbar
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1486,10 +1486,10 @@ importers:
 
   packages/react-otp-input:
     dependencies:
-      '@refraction-ui/otp-input':
+      '@elloloop/otp-input':
         specifier: workspace:*
         version: link:../otp-input
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1508,10 +1508,10 @@ importers:
 
   packages/react-popover:
     dependencies:
-      '@refraction-ui/popover':
+      '@elloloop/popover':
         specifier: workspace:*
         version: link:../popover
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1530,10 +1530,10 @@ importers:
 
   packages/react-presence-indicator:
     dependencies:
-      '@refraction-ui/presence-indicator':
+      '@elloloop/presence-indicator':
         specifier: workspace:*
         version: link:../presence-indicator
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1552,10 +1552,10 @@ importers:
 
   packages/react-progress-display:
     dependencies:
-      '@refraction-ui/progress-display':
+      '@elloloop/progress-display':
         specifier: workspace:*
         version: link:../progress-display
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1574,10 +1574,10 @@ importers:
 
   packages/react-radio:
     dependencies:
-      '@refraction-ui/radio':
+      '@elloloop/radio':
         specifier: workspace:*
         version: link:../radio
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1596,10 +1596,10 @@ importers:
 
   packages/react-reaction-bar:
     dependencies:
-      '@refraction-ui/reaction-bar':
+      '@elloloop/reaction-bar':
         specifier: workspace:*
         version: link:../reaction-bar
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1618,10 +1618,10 @@ importers:
 
   packages/react-resizable-layout:
     dependencies:
-      '@refraction-ui/resizable-layout':
+      '@elloloop/resizable-layout':
         specifier: workspace:*
         version: link:../resizable-layout
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1640,10 +1640,10 @@ importers:
 
   packages/react-rich-editor:
     dependencies:
-      '@refraction-ui/rich-editor':
+      '@elloloop/rich-editor':
         specifier: workspace:*
         version: link:../rich-editor
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1662,10 +1662,10 @@ importers:
 
   packages/react-search-bar:
     dependencies:
-      '@refraction-ui/search-bar':
+      '@elloloop/search-bar':
         specifier: workspace:*
         version: link:../search-bar
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1684,10 +1684,10 @@ importers:
 
   packages/react-select:
     dependencies:
-      '@refraction-ui/select':
+      '@elloloop/select':
         specifier: workspace:*
         version: link:../select
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:
@@ -1706,10 +1706,10 @@ importers:
 
   packages/react-sidebar:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
-      '@refraction-ui/sidebar':
+      '@elloloop/sidebar':
         specifier: workspace:*
         version: link:../sidebar
     devDependencies:
@@ -1728,10 +1728,10 @@ importers:
 
   packages/react-skeleton:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
-      '@refraction-ui/skeleton':
+      '@elloloop/skeleton':
         specifier: workspace:*
         version: link:../skeleton
     devDependencies:
@@ -1750,10 +1750,10 @@ importers:
 
   packages/react-slide-viewer:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
-      '@refraction-ui/slide-viewer':
+      '@elloloop/slide-viewer':
         specifier: workspace:*
         version: link:../slide-viewer
     devDependencies:
@@ -1772,10 +1772,10 @@ importers:
 
   packages/react-status-indicator:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
-      '@refraction-ui/status-indicator':
+      '@elloloop/status-indicator':
         specifier: workspace:*
         version: link:../status-indicator
     devDependencies:
@@ -1794,10 +1794,10 @@ importers:
 
   packages/react-switch:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
-      '@refraction-ui/switch':
+      '@elloloop/switch':
         specifier: workspace:*
         version: link:../switch
     devDependencies:
@@ -1816,10 +1816,10 @@ importers:
 
   packages/react-tabs:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
-      '@refraction-ui/tabs':
+      '@elloloop/tabs':
         specifier: workspace:*
         version: link:../tabs
     devDependencies:
@@ -1838,10 +1838,10 @@ importers:
 
   packages/react-textarea:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
-      '@refraction-ui/textarea':
+      '@elloloop/textarea':
         specifier: workspace:*
         version: link:../textarea
     devDependencies:
@@ -1860,10 +1860,10 @@ importers:
 
   packages/react-theme:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
-      '@refraction-ui/theme':
+      '@elloloop/theme':
         specifier: workspace:*
         version: link:../theme
     devDependencies:
@@ -1882,10 +1882,10 @@ importers:
 
   packages/react-thread-view:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
-      '@refraction-ui/thread-view':
+      '@elloloop/thread-view':
         specifier: workspace:*
         version: link:../thread-view
     devDependencies:
@@ -1904,10 +1904,10 @@ importers:
 
   packages/react-toast:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
-      '@refraction-ui/toast':
+      '@elloloop/toast':
         specifier: workspace:*
         version: link:../toast
     devDependencies:
@@ -1926,10 +1926,10 @@ importers:
 
   packages/react-tooltip:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
-      '@refraction-ui/tooltip':
+      '@elloloop/tooltip':
         specifier: workspace:*
         version: link:../tooltip
     devDependencies:
@@ -1948,10 +1948,10 @@ importers:
 
   packages/react-version-selector:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
-      '@refraction-ui/version-selector':
+      '@elloloop/version-selector':
         specifier: workspace:*
         version: link:../version-selector
     devDependencies:
@@ -1970,10 +1970,10 @@ importers:
 
   packages/react-video-player:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
-      '@refraction-ui/video-player':
+      '@elloloop/video-player':
         specifier: workspace:*
         version: link:../video-player
     devDependencies:
@@ -1992,31 +1992,31 @@ importers:
 
   packages/reaction-bar:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/resizable-layout:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/rich-editor:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/search-bar:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/select:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
@@ -2024,37 +2024,37 @@ importers:
 
   packages/sidebar:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/skeleton:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/slide-viewer:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/status-indicator:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/switch:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/tabs:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
@@ -2062,25 +2062,25 @@ importers:
 
   packages/textarea:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/theme:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/thread-view:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/toast:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
@@ -2088,19 +2088,19 @@ importers:
 
   packages/tooltip:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/version-selector:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 
   packages/video-player:
     dependencies:
-      '@refraction-ui/shared':
+      '@elloloop/shared':
         specifier: workspace:*
         version: link:../shared
 

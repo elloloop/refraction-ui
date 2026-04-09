@@ -9,4 +9,4 @@ export {
   presenceDotVariants,
   presenceContainerStyles,
   presenceLabelStyles,
-} from '@refraction-ui/presence-indicator'
+} from '@elloloop/presence-indicator'

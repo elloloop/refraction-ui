@@ -9,7 +9,7 @@ status: pending
 
 ## Summary
 
-Create `@refraction-ui/blocks` package — interactive block renderers, a canvas-based block engine, and 3D components. Extracted from elloloop/learnloop's tutoring system. These are highly reusable visual/interactive components for educational, diagramming, and data visualization use cases.
+Create `@elloloop/blocks` package — interactive block renderers, a canvas-based block engine, and 3D components. Extracted from elloloop/learnloop's tutoring system. These are highly reusable visual/interactive components for educational, diagramming, and data visualization use cases.
 
 ## Source References
 
@@ -103,4 +103,4 @@ packages/blocks/
 ## Dependencies
 
 - `@react-three/fiber`, `@react-three/drei`, `three` (peer, for 3D)
-- `@refraction-ui/react` (for base primitives)
+- `@elloloop/react` (for base primitives)

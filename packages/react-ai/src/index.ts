@@ -13,4 +13,4 @@ export type {
   TTSProvider as TTSProviderInterface,
   TTSOptions,
   RouterFn,
-} from '@refraction-ui/ai'
+} from '@elloloop/ai'
