@@ -10,8 +10,8 @@ import {
   fileUploadRemoveButtonStyles,
   type FileEntry,
   type FileUploadError,
-} from '@elloloop/file-upload'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/file-upload'
+import { cn } from '@refraction-ui/shared'
 
 export interface FileUploadProps {
   accept?: string

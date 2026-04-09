@@ -13,4 +13,4 @@ export {
   emojiPickerContainerStyles,
   emojiPickerGridStyles,
   emojiPickerEmojiButtonStyles,
-} from '@elloloop/emoji-picker'
+} from '@refraction-ui/emoji-picker'

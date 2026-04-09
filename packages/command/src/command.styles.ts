@@ -1,4 +1,4 @@
-import { cva } from '@elloloop/shared'
+import { cva } from '@refraction-ui/shared'
 
 export const commandVariants = cva({
   base: 'flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground',

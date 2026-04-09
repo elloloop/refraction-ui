@@ -4,8 +4,8 @@ import {
   contentProtectionVariants,
   watermarkVariants,
   type ContentProtectionProps as CoreContentProtectionProps,
-} from '@elloloop/content-protection'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/content-protection'
+import { cn } from '@refraction-ui/shared'
 
 export interface ContentProtectionProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Enable content protection. Default: true */
@@ -22,7 +22,7 @@ export interface ContentProtectionProps extends React.HTMLAttributes<HTMLDivElem
  * ContentProtection component — wraps children to block copy/context menu
  * and optionally renders a watermark overlay.
  *
- * Uses the headless @elloloop/content-protection core for event handlers.
+ * Uses the headless @refraction-ui/content-protection core for event handlers.
  */
 export const ContentProtection = React.forwardRef<HTMLDivElement, ContentProtectionProps>(
   (

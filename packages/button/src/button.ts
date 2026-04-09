@@ -1,5 +1,5 @@
-import type { AccessibilityProps, KeyboardHandlerMap } from '@elloloop/shared'
-import { Keys } from '@elloloop/shared'
+import type { AccessibilityProps, KeyboardHandlerMap } from '@refraction-ui/shared'
+import { Keys } from '@refraction-ui/shared'
 
 export type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'
 export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'icon'

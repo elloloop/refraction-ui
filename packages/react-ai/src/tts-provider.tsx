@@ -5,7 +5,7 @@ import {
   type TTSAPI,
   type TTSProvider as TTSProviderInterface,
   type TTSOptions,
-} from '@elloloop/ai'
+} from '@refraction-ui/ai'
 
 export interface TTSContextValue {
   speak: (text: string, opts?: TTSOptions) => void

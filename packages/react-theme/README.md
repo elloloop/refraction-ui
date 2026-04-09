@@ -1,17 +1,17 @@
-# @elloloop/react-theme
+# @refraction-ui/react-theme
 
 Theme provider and utilities for React. Part of [Refraction UI](https://elloloop.github.io/refraction-ui/).
 
 ## Install
 
 ```bash
-pnpm add @elloloop/react-theme
+pnpm add @refraction-ui/react-theme
 ```
 
 ## Usage
 
 ```tsx
-import { ThemeProvider, useTheme } from '@elloloop/react-theme'
+import { ThemeProvider, useTheme } from '@refraction-ui/react-theme'
 
 function App() {
   return (

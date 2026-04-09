@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import { VersionSelector } from '../src/version-selector.js'
-import { resetIdCounter } from '@elloloop/shared'
+import { resetIdCounter } from '@refraction-ui/shared'
 
 const versions = [
   { value: '3.0.0', label: 'v3.0.0', isLatest: true },

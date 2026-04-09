@@ -6,9 +6,9 @@ import {
   resizablePaneVariants,
   type ResizableLayoutProps as CoreProps,
   type ResizableLayoutAPI,
-} from '@elloloop/resizable-layout'
-import { cn } from '@elloloop/shared'
-import type { Orientation } from '@elloloop/shared'
+} from '@refraction-ui/resizable-layout'
+import { cn } from '@refraction-ui/shared'
+import type { Orientation } from '@refraction-ui/shared'
 
 /* ------------------------------------------------------------------ */
 /*  Context                                                            */

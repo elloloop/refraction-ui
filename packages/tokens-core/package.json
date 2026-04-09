@@ -1,5 +1,5 @@
 {
-  "name": "@elloloop/tokens-core",
+  "name": "@refraction-ui/tokens-core",
   "version": "0.1.0",
   "type": "module",
   "description": "Core token processing utilities for Refraction UI",

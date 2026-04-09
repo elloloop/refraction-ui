@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { resetIdCounter } from '@elloloop/shared'
+import { resetIdCounter } from '@refraction-ui/shared'
 import { createDeviceFrame, type DeviceType } from '../src/device-frame.js'
 import { deviceFrameVariants } from '../src/device-frame.styles.js'
 

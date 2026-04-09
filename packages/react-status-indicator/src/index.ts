@@ -10,4 +10,4 @@ export {
   statusDotVariants,
   statusPulseVariants,
   statusLabelStyles,
-} from '@elloloop/status-indicator'
+} from '@refraction-ui/status-indicator'

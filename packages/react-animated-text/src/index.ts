@@ -13,4 +13,4 @@ export {
   type TypewriterAPI,
   animatedTextVariants,
   typewriterVariants,
-} from '@elloloop/animated-text'
+} from '@refraction-ui/animated-text'

@@ -11,4 +11,4 @@ export {
   type DeviceType,
   type DeviceOrientation,
   deviceFrameVariants,
-} from '@elloloop/device-frame'
+} from '@refraction-ui/device-frame'

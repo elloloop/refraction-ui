@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { createLanguageSelector } from '../src/language-selector.js'
 import { selectorVariants, optionVariants } from '../src/language-selector.styles.js'
-import { resetIdCounter } from '@elloloop/shared'
+import { resetIdCounter } from '@refraction-ui/shared'
 
 const options = [
   { value: 'en', label: 'English', group: 'Popular' },

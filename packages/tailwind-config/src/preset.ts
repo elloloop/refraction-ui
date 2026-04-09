@@ -3,11 +3,11 @@
  * Works with Tailwind v3 (via presets) and v4 (via @import).
  *
  * Usage (Tailwind v3):
- *   const { refractionPreset } = require('@elloloop/tailwind-config')
+ *   const { refractionPreset } = require('@refraction-ui/tailwind-config')
  *   module.exports = { presets: [refractionPreset] }
  *
  * Usage (Tailwind v4):
- *   @import '@elloloop/tailwind-config/css';
+ *   @import '@refraction-ui/tailwind-config/css';
  */
 
 import { colors } from './colors.js'

@@ -1,4 +1,4 @@
-import { cva } from '@elloloop/shared'
+import { cva } from '@refraction-ui/shared'
 
 export const sidebarVariants = cva({
   base: 'hidden md:flex flex-col border-r bg-background',

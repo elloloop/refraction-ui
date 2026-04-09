@@ -1,5 +1,5 @@
 {
-  "name": "@elloloop/react-diff-viewer",
+  "name": "@refraction-ui/react-diff-viewer",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@elloloop/diff-viewer": "workspace:*",
-    "@elloloop/shared": "workspace:*"
+    "@refraction-ui/diff-viewer": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
   },
   "peerDependencies": {
     "@monaco-editor/react": ">=4",

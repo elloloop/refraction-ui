@@ -14,4 +14,4 @@ export {
   headerVariants,
   cellVariants,
   rowVariants,
-} from '@elloloop/data-table'
+} from '@refraction-ui/data-table'

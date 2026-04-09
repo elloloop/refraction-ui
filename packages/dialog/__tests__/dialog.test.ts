@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { resetIdCounter, FOCUSABLE_SELECTOR } from '@elloloop/shared'
+import { resetIdCounter, FOCUSABLE_SELECTOR } from '@refraction-ui/shared'
 import { createDialog } from '../src/dialog.js'
 import { overlayStyles, dialogContentVariants } from '../src/dialog.styles.js'
 

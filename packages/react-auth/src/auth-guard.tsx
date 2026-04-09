@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useAuth } from './auth-provider.js'
-import { hasAnyRole } from '@elloloop/auth'
+import { hasAnyRole } from '@refraction-ui/auth'
 
 export interface AuthGuardProps {
   children: React.ReactNode

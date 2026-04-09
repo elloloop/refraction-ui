@@ -1,4 +1,4 @@
-import { cva } from '@elloloop/shared'
+import { cva } from '@refraction-ui/shared'
 
 export const overlayStyles =
   'fixed inset-0 z-50 bg-black/80'

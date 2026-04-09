@@ -5,4 +5,4 @@ export {
   type InstallPromptState,
   type StorageAdapter,
   installPromptVariants,
-} from '@elloloop/install-prompt'
+} from '@refraction-ui/install-prompt'

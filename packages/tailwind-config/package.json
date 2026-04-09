@@ -1,5 +1,5 @@
 {
-  "name": "@elloloop/tailwind-config",
+  "name": "@refraction-ui/tailwind-config",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",

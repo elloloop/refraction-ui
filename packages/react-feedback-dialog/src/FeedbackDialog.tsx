@@ -5,8 +5,8 @@ import {
   type FeedbackDialogProps as CoreProps,
   type FeedbackData,
   type FeedbackType,
-} from '@elloloop/feedback-dialog'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/feedback-dialog'
+import { cn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // FeedbackDialog

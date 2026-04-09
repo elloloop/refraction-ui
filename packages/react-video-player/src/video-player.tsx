@@ -5,8 +5,8 @@ import {
   controlsVariants,
   overlayVariants,
   type VideoPlayerProps as CoreVideoPlayerProps,
-} from '@elloloop/video-player'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/video-player'
+import { cn } from '@refraction-ui/shared'
 
 export interface VideoPlayerProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'src'>,

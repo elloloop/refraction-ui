@@ -5,8 +5,8 @@ import {
   navLinkVariants,
   type NavLink,
   type NavbarVariant,
-} from '@elloloop/navbar'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/navbar'
+import { cn } from '@refraction-ui/shared'
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   /** Navigation links */
@@ -24,7 +24,7 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
 /**
  * Navbar component — renders a sticky header with navigation links.
  *
- * Uses the headless @elloloop/navbar core for state and ARIA attributes.
+ * Uses the headless @refraction-ui/navbar core for state and ARIA attributes.
  * Hidden on mobile (links use md:flex).
  */
 export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(

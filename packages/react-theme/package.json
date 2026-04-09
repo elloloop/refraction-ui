@@ -1,5 +1,5 @@
 {
-  "name": "@elloloop/react-theme",
+  "name": "@refraction-ui/react-theme",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@elloloop/theme": "workspace:*",
-    "@elloloop/shared": "workspace:*"
+    "@refraction-ui/theme": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

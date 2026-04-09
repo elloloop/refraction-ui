@@ -1,5 +1,5 @@
-import type { KeyboardHandlerMap } from '@elloloop/shared'
-import { generateId, Keys, createKeyboardHandler } from '@elloloop/shared'
+import type { KeyboardHandlerMap } from '@refraction-ui/shared'
+import { generateId, Keys, createKeyboardHandler } from '@refraction-ui/shared'
 
 export interface LanguageOption {
   value: string

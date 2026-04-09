@@ -2,8 +2,8 @@ import * as React from 'react'
 import {
   createTextarea,
   textareaVariants,
-} from '@elloloop/textarea'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/textarea'
+import { cn } from '@refraction-ui/shared'
 
 export interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'size'> {
   size?: 'sm' | 'default' | 'lg'
@@ -13,7 +13,7 @@ export interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
 /**
  * Textarea component — renders a styled textarea with size support.
  *
- * Uses the headless @elloloop/textarea core for state, ARIA, and data attributes.
+ * Uses the headless @refraction-ui/textarea core for state, ARIA, and data attributes.
  * Styling via Tailwind utility classes (no external CSS-in-JS).
  */
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(

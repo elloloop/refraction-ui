@@ -13,4 +13,4 @@ export {
   type FeedbackFormState,
   type FeedbackDialogState,
   feedbackDialogVariants,
-} from '@elloloop/feedback-dialog'
+} from '@refraction-ui/feedback-dialog'

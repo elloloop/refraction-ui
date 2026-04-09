@@ -3,8 +3,8 @@ import {
   createCollapsible,
   collapsibleContentVariants,
   type CollapsibleProps as CoreCollapsibleProps,
-} from '@elloloop/collapsible'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/collapsible'
+import { cn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context

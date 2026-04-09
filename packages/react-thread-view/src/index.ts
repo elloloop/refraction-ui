@@ -17,4 +17,4 @@ export {
   threadTimestampStyles,
   threadBodyStyles,
   threadReactionsStyles,
-} from '@elloloop/thread-view'
+} from '@refraction-ui/thread-view'

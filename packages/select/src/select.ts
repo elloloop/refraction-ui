@@ -1,5 +1,5 @@
-import type { AccessibilityProps, KeyboardHandlerMap } from '@elloloop/shared'
-import { Keys, generateId } from '@elloloop/shared'
+import type { AccessibilityProps, KeyboardHandlerMap } from '@refraction-ui/shared'
+import { Keys, generateId } from '@refraction-ui/shared'
 
 export interface SelectOption {
   value: string

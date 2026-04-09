@@ -4,9 +4,9 @@ import {
   createTooltip,
   tooltipContentVariants,
   type TooltipAPI,
-} from '@elloloop/tooltip'
-import type { Side } from '@elloloop/shared'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/tooltip'
+import type { Side } from '@refraction-ui/shared'
+import { cn } from '@refraction-ui/shared'
 
 /* ------------------------------------------------------------------ */
 /*  Context                                                            */

@@ -1,5 +1,5 @@
 {
-  "name": "@elloloop/react-device-frame",
+  "name": "@refraction-ui/react-device-frame",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@elloloop/device-frame": "workspace:*",
-    "@elloloop/shared": "workspace:*"
+    "@refraction-ui/device-frame": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

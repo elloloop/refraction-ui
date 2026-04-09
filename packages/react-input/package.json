@@ -1,5 +1,5 @@
 {
-  "name": "@elloloop/react-input",
+  "name": "@refraction-ui/react-input",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@elloloop/input": "workspace:*",
-    "@elloloop/shared": "workspace:*"
+    "@refraction-ui/input": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

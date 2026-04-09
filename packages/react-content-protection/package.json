@@ -1,5 +1,5 @@
 {
-  "name": "@elloloop/react-content-protection",
+  "name": "@refraction-ui/react-content-protection",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@elloloop/content-protection": "workspace:*",
-    "@elloloop/shared": "workspace:*"
+    "@refraction-ui/content-protection": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

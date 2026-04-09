@@ -1,5 +1,5 @@
 {
-  "name": "@elloloop/react-calendar",
+  "name": "@refraction-ui/react-calendar",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@elloloop/calendar": "workspace:*",
-    "@elloloop/shared": "workspace:*"
+    "@refraction-ui/calendar": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

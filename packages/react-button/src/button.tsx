@@ -5,8 +5,8 @@ import {
   getButtonType,
   type ButtonVariant,
   type ButtonSize,
-} from '@elloloop/button'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/button'
+import { cn } from '@refraction-ui/shared'
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant
@@ -18,7 +18,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 /**
  * Button component — renders a styled button with variant and size support.
  *
- * Uses the headless @elloloop/button core for state, ARIA, and keyboard handling.
+ * Uses the headless @refraction-ui/button core for state, ARIA, and keyboard handling.
  * Styling via Tailwind utility classes (no external CSS-in-JS).
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

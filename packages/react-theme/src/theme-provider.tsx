@@ -8,7 +8,7 @@ import {
   type ResolvedTheme,
   type ThemeConfig,
   type ThemeAPI,
-} from '@elloloop/theme'
+} from '@refraction-ui/theme'
 
 export interface ThemeContextValue {
   mode: ThemeMode

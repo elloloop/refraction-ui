@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useTheme } from './theme-provider.js'
-import type { ThemeMode } from '@elloloop/theme'
+import type { ThemeMode } from '@refraction-ui/theme'
 
 const modes: { value: ThemeMode; label: string; icon: string }[] = [
   { value: 'light', label: 'Light', icon: 'sun' },

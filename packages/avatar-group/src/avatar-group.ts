@@ -1,5 +1,5 @@
-import type { AccessibilityProps } from '@elloloop/shared'
-import { generateId } from '@elloloop/shared'
+import type { AccessibilityProps } from '@refraction-ui/shared'
+import { generateId } from '@refraction-ui/shared'
 
 export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 export type PresenceStatus = 'online' | 'offline' | 'away' | 'busy' | 'dnd'

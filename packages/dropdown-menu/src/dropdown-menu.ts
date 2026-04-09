@@ -1,5 +1,5 @@
-import type { AccessibilityProps, KeyboardHandlerMap } from '@elloloop/shared'
-import { createMachine, Keys, generateId } from '@elloloop/shared'
+import type { AccessibilityProps, KeyboardHandlerMap } from '@refraction-ui/shared'
+import { createMachine, Keys, generateId } from '@refraction-ui/shared'
 
 export interface DropdownMenuProps {
   /** Whether the menu is open (controlled) */

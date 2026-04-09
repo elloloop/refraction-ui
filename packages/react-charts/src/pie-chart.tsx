@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { arcPath } from '@elloloop/charts'
+import { arcPath } from '@refraction-ui/charts'
 
 const DEFAULT_COLORS = [
   '#4e79a7', '#f28e2b', '#e15759', '#76b7b2',

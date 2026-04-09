@@ -1,5 +1,5 @@
 {
-  "name": "@elloloop/react-mobile-nav",
+  "name": "@refraction-ui/react-mobile-nav",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@elloloop/mobile-nav": "workspace:*",
-    "@elloloop/shared": "workspace:*"
+    "@refraction-ui/mobile-nav": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

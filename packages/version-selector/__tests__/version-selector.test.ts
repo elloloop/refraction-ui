@@ -5,7 +5,7 @@ import {
   optionVariants,
   latestBadgeVariants,
 } from '../src/version-selector.styles.js'
-import { resetIdCounter } from '@elloloop/shared'
+import { resetIdCounter } from '@refraction-ui/shared'
 
 const versions = [
   { value: '3.0.0', label: 'v3.0.0', isLatest: true },

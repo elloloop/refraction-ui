@@ -10,8 +10,8 @@ import {
   type DiffFile,
   type DiffViewerTheme,
   type DiffViewMode,
-} from '@elloloop/diff-viewer'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/diff-viewer'
+import { cn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Types

@@ -10,4 +10,4 @@ export {
   playerVariants,
   controlsVariants,
   overlayVariants,
-} from '@elloloop/video-player'
+} from '@refraction-ui/video-player'

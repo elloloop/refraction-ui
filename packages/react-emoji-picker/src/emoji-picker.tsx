@@ -13,8 +13,8 @@ import {
   emojiPickerSectionLabelStyles,
   type EmojiCategory,
   type EmojiEntry,
-} from '@elloloop/emoji-picker'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/emoji-picker'
+import { cn } from '@refraction-ui/shared'
 
 export interface EmojiPickerProps {
   onSelect?: (emoji: EmojiEntry) => void

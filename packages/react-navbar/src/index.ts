@@ -6,4 +6,4 @@ export {
   type NavbarVariant,
   navbarVariants,
   navLinkVariants,
-} from '@elloloop/navbar'
+} from '@refraction-ui/navbar'

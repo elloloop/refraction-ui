@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { combineDimensions } from '@elloloop/charts'
-import type { Margin } from '@elloloop/charts'
+import { combineDimensions } from '@refraction-ui/charts'
+import type { Margin } from '@refraction-ui/charts'
 import { ChartContext } from './chart-context.js'
 
 export interface ChartProps {

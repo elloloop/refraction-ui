@@ -1,4 +1,4 @@
-import { cva } from '@elloloop/shared'
+import { cva } from '@refraction-ui/shared'
 
 export const collapsibleContentVariants = cva({
   base: 'overflow-hidden transition-all',
