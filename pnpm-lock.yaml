@@ -1303,6 +1303,7 @@ importers:
       '@monaco-editor/react':
         specifier: '>=4'
         version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+    devDependencies:
       '@refraction-ui/react-ai':
         specifier: workspace:*
         version: link:../react-ai
@@ -1486,7 +1487,6 @@ importers:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
-    devDependencies:
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.14
