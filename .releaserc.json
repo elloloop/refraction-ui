@@ -1,0 +1,20 @@
+{
+  "branches": [
+    {
+      "name": "stable",
+      "channel": "latest",
+      "prerelease": false
+    },
+    {
+      "name": "main",
+      "channel": "canary",
+      "prerelease": "canary"
+    }
+  ],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    ["@semantic-release/npm", { "npmPublish": true }],
+    "@semantic-release/github"
+  ]
+}
