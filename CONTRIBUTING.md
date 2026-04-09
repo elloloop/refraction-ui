@@ -7,8 +7,7 @@ Thanks for helping. Please read this before you start.
 2. `pnpm install`.
 3. `pnpm build && pnpm test`.
 4. Create a branch: `feat/dialog-aria-fix`.
-5. Add a Changeset if you change a package: `pnpm changeset`.
-6. Open a PR.
+5. Open a PR.
 
 ## Development
 - Use pnpm workspaces and Turbo tasks.
@@ -21,8 +20,40 @@ Thanks for helping. Please read this before you start.
 - ESLint + Prettier must pass.
 
 ## Commit messages
-- Conventional Commits (`feat:`, `fix:`, `docs:` ...) recommended.
-- Changesets control package version bumps.
+
+We use [Conventional Commits](https://www.conventionalcommits.org/). This is **required** — commit linting is enforced in CI.
+
+```
+feat(button): add loading state
+fix(dialog): resolve focus trap on close
+docs: update component creation guide
+chore: update dependencies
+refactor(theme): simplify token resolution
+test(input): add aria label coverage
+perf(sidebar): reduce re-renders
+```
+
+Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`.
+
+### How versioning works
+
+- Versions are determined **automatically** from conventional commits via [semantic-release](https://semantic-release.gitbook.io/).
+- `fix:` commits trigger a **patch** bump (0.1.0 -> 0.1.1).
+- `feat:` commits trigger a **minor** bump (0.1.0 -> 0.2.0).
+- `feat!:` or `BREAKING CHANGE:` in the footer triggers a **major** bump (0.1.0 -> 1.0.0).
+- No manual version bumps or changelogs needed — it's all automated.
+
+### Release channels
+
+- **`main` branch** publishes canary prereleases (`x.x.x-canary.N`) to npm `@canary` dist-tag.
+- **`stable` branch** publishes stable releases to npm `@latest` dist-tag.
+
+## Pull requests
+
+- PR titles must follow conventional commit format (enforced by CI).
+- PR descriptions must be at least 20 characters.
+- Fill out the PR template completely.
+- All CI checks (lint, test, build, security audit) must pass.
 
 ## Tests
 - Unit: Vitest + @testing-library.
@@ -38,5 +69,5 @@ Thanks for helping. Please read this before you start.
 - Mark if bug is accessibility or security related.
 
 ## Security
-- Report vulnerabilities privately (email in README). Do not open public issues.
-
+- Report vulnerabilities privately via [GitHub Security Advisories](https://github.com/elloloop/refraction-ui/security/advisories/new).
+- Do **not** open public issues for security vulnerabilities.

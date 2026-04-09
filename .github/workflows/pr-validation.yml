@@ -1,0 +1,150 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  pr-title-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            docs
+            style
+            refactor
+            perf
+            test
+            chore
+            ci
+            build
+          requireScope: false
+          subjectPattern: ^(?![A-Z]).+$
+          subjectPatternError: |
+            The subject "{subject}" found in the pull request title "{title}"
+            must not start with an uppercase character.
+
+  pr-description-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.pull_request.body || '';
+            if (body.length < 20) {
+              core.setFailed('PR description must be at least 20 characters. Please describe your changes.');
+            }
+
+  commit-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Lint Commit Messages
+        uses: wagoid/commitlint-github-action@v5
+
+  pr-branch-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check target branch
+        if: github.base_ref != 'main'
+        run: |
+          echo "PRs must target the main branch."
+          exit 1
+
+  lint-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.13.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Lint affected packages
+        run: pnpm turbo lint --continue
+
+  test-check:
+    needs: [lint-check]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.13.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Run tests
+        run: pnpm turbo test --continue
+
+  security-check:
+    needs: [test-check]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.13.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Audit dependencies
+        run: pnpm audit --audit-level=moderate
+
+  build-check:
+    needs: [lint-check]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.13.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build packages
+        run: pnpm turbo build --filter='./packages/*' --continue
+
+  summary:
+    if: failure()
+    needs: [pr-title-lint, pr-description-check, commit-lint, pr-branch-check, lint-check, test-check, security-check, build-check]
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR Validation Summary
+        run: |
+          echo "## PR Validation Failed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "One or more validation checks failed. Please review the failed jobs above." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Requirements" >> $GITHUB_STEP_SUMMARY
+          echo "- PR title must follow conventional commit format" >> $GITHUB_STEP_SUMMARY
+          echo "- PR description must be at least 20 characters" >> $GITHUB_STEP_SUMMARY
+          echo "- All commits must follow conventional commit format" >> $GITHUB_STEP_SUMMARY
+          echo "- Lint, test, build, and security checks must pass" >> $GITHUB_STEP_SUMMARY
