@@ -4,8 +4,8 @@ import {
   proseVariants,
   type MarkdownRendererProps as CoreProps,
   type ComponentDef,
-} from '@elloloop/markdown-renderer'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/markdown-renderer'
+import { cn } from '@refraction-ui/shared'
 
 export type { ComponentDef }
 
@@ -42,7 +42,7 @@ function sanitizeHtml(html: string): string {
 /**
  * MarkdownRenderer component — renders markdown content as sanitized HTML.
  *
- * Uses the headless @elloloop/markdown-renderer core for parsing.
+ * Uses the headless @refraction-ui/markdown-renderer core for parsing.
  * XSS sanitization is applied before rendering via dangerouslySetInnerHTML.
  */
 export const MarkdownRenderer = React.forwardRef<HTMLDivElement, MarkdownRendererProps>(

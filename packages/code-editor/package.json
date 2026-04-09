@@ -1,5 +1,5 @@
 {
-  "name": "@elloloop/code-editor",
+  "name": "@refraction-ui/code-editor",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,7 +26,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@elloloop/shared": "workspace:*"
+    "@refraction-ui/shared": "workspace:*"
   },
   "devDependencies": {},
   "sideEffects": false,

@@ -5,8 +5,8 @@ import {
   shortcutBadgeStyles,
   shortcutKeyStyles,
   shortcutSeparatorStyles,
-} from '@elloloop/keyboard-shortcut'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/keyboard-shortcut'
+import { cn } from '@refraction-ui/shared'
 
 export interface KeyboardShortcutProps {
   /** Key combination */

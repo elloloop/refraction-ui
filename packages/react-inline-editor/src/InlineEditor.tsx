@@ -5,8 +5,8 @@ import {
   toolbarVariants,
   previewVariants,
   type InlineEditorProps as CoreProps,
-} from '@elloloop/inline-editor'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/inline-editor'
+import { cn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // InlineEditor

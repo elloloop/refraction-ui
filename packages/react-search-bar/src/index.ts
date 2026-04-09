@@ -11,4 +11,4 @@ export {
 export {
   searchBarVariants,
   searchResultVariants,
-} from '@elloloop/search-bar'
+} from '@refraction-ui/search-bar'

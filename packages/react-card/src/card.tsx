@@ -12,8 +12,8 @@ import {
   cardDescriptionVariants,
   cardContentVariants,
   cardFooterVariants,
-} from '@elloloop/card'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/card'
+import { cn } from '@refraction-ui/shared'
 
 /**
  * Card -- a container with rounded corners, border, and shadow.

@@ -9,4 +9,4 @@ export {
   reactionAddButtonStyles,
   reactionEmojiStyles,
   reactionCountStyles,
-} from '@elloloop/reaction-bar'
+} from '@refraction-ui/reaction-bar'

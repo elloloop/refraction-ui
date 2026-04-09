@@ -1,4 +1,4 @@
-import type { AccessibilityProps } from '@elloloop/shared'
+import type { AccessibilityProps } from '@refraction-ui/shared'
 
 export type CodeEditorTheme = 'light' | 'dark'
 

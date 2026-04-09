@@ -14,4 +14,4 @@ export {
   progressBarVariants,
   slideTypeBadgeVariants,
   slideViewerTokens,
-} from '@elloloop/slide-viewer'
+} from '@refraction-ui/slide-viewer'

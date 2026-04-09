@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { createPopover } from '../src/popover.js'
 import { popoverContentVariants } from '../src/popover.styles.js'
-import { resetIdCounter } from '@elloloop/shared'
+import { resetIdCounter } from '@refraction-ui/shared'
 
 beforeEach(() => {
   resetIdCounter()

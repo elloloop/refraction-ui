@@ -16,4 +16,4 @@ export {
   type DiffViewMode,
   type DiffViewerAPI,
   type DiffViewerState,
-} from '@elloloop/diff-viewer'
+} from '@refraction-ui/diff-viewer'

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { createSearchBar } from '../src/search-bar.js'
 import { searchBarVariants, searchResultVariants } from '../src/search-bar.styles.js'
-import { resetIdCounter } from '@elloloop/shared'
+import { resetIdCounter } from '@refraction-ui/shared'
 
 beforeEach(() => {
   resetIdCounter()

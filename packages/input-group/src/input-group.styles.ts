@@ -1,5 +1,5 @@
-import { cva } from '@elloloop/shared'
-import type { TokenContract } from '@elloloop/shared'
+import { cva } from '@refraction-ui/shared'
+import type { TokenContract } from '@refraction-ui/shared'
 
 export const inputGroupTokens: TokenContract = {
   name: 'input-group',

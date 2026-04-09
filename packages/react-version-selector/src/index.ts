@@ -9,4 +9,4 @@ export {
   optionVariants,
   latestBadgeVariants,
   type VersionOption,
-} from '@elloloop/version-selector'
+} from '@refraction-ui/version-selector'

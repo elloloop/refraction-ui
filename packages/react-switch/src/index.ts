@@ -6,4 +6,4 @@ export {
   switchVariants,
   switchThumbVariants,
   switchTokens,
-} from '@elloloop/switch'
+} from '@refraction-ui/switch'

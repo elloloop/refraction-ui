@@ -1,5 +1,5 @@
-import type { AccessibilityProps, KeyboardHandlerMap } from '@elloloop/shared'
-import { generateId, Keys } from '@elloloop/shared'
+import type { AccessibilityProps, KeyboardHandlerMap } from '@refraction-ui/shared'
+import { generateId, Keys } from '@refraction-ui/shared'
 
 export type DatePickerView = 'calendar' | 'time'
 

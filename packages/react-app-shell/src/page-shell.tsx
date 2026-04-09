@@ -4,8 +4,8 @@ import {
   type PageShellConfig,
   type SectionConfig,
   type PageShellAPI,
-} from '@elloloop/app-shell'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/app-shell'
+import { cn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context

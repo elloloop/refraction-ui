@@ -1,4 +1,4 @@
-import { cva } from '@elloloop/shared'
+import { cva } from '@refraction-ui/shared'
 
 export const menuContentVariants = cva({
   base: 'z-50 rounded-md border bg-popover shadow-md',

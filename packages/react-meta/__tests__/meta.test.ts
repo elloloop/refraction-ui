@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import * as MetaExports from '../src/index.js'
 
-describe('@elloloop/react (meta package)', () => {
+describe('@refraction-ui/react (meta package)', () => {
   it('exports Button from react-button', () => {
     expect(MetaExports.Button).toBeDefined()
   })

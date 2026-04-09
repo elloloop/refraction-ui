@@ -4,8 +4,8 @@ import {
   badgeVariants,
   type BadgeVariant,
   type BadgeSize,
-} from '@elloloop/badge'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/badge'
+import { cn } from '@refraction-ui/shared'
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: BadgeVariant
@@ -15,7 +15,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * Badge component — renders a styled badge with variant and size support.
  *
- * Uses the headless @elloloop/badge core for state and ARIA attributes.
+ * Uses the headless @refraction-ui/badge core for state and ARIA attributes.
  * Styling via Tailwind utility classes (no external CSS-in-JS).
  */
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(

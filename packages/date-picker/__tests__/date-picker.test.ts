@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { resetIdCounter } from '@elloloop/shared'
+import { resetIdCounter } from '@refraction-ui/shared'
 import { createDatePicker, formatDate } from '../src/date-picker.js'
 import {
   datePickerTriggerStyles,

@@ -1,11 +1,11 @@
-# @elloloop/tailwind-config
+# @refraction-ui/tailwind-config
 
 Tailwind CSS preset for Refraction UI. Part of [Refraction UI](https://elloloop.github.io/refraction-ui/).
 
 ## Install
 
 ```bash
-pnpm add -D @elloloop/tailwind-config
+pnpm add -D @refraction-ui/tailwind-config
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ pnpm add -D @elloloop/tailwind-config
 ```ts
 // tailwind.config.ts
 import type { Config } from 'tailwindcss'
-import { refractionPreset } from '@elloloop/tailwind-config'
+import { refractionPreset } from '@refraction-ui/tailwind-config'
 
 export default {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],

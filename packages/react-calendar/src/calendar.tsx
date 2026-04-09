@@ -5,8 +5,8 @@ import {
   dayVariants,
   type CalendarProps as CoreCalendarProps,
   type CalendarDay,
-} from '@elloloop/calendar'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/calendar'
+import { cn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Calendar

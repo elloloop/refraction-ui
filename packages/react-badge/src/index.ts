@@ -5,4 +5,4 @@ export {
   type BadgeVariant,
   type BadgeSize,
   badgeVariants,
-} from '@elloloop/badge'
+} from '@refraction-ui/badge'

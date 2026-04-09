@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import { SearchBar, SearchResults, SearchResultItem } from '../src/search-bar.js'
-import { resetIdCounter } from '@elloloop/shared'
+import { resetIdCounter } from '@refraction-ui/shared'
 
 beforeEach(() => {
   resetIdCounter()

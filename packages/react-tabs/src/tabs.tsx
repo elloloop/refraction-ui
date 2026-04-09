@@ -4,8 +4,8 @@ import {
   tabsListVariants,
   tabsTriggerVariants,
   type TabsProps as CoreTabsProps,
-} from '@elloloop/tabs'
-import { cn, createKeyboardHandler, Keys } from '@elloloop/shared'
+} from '@refraction-ui/tabs'
+import { cn, createKeyboardHandler, Keys } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context

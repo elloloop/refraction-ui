@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import type { Dimensions, Margin } from '@elloloop/charts'
+import type { Dimensions, Margin } from '@refraction-ui/charts'
 
 export interface ChartContextValue {
   dimensions: Dimensions

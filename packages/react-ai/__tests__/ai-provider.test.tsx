@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import { AIProvider, useAI } from '../src/ai-provider.js'
-import { createMockAIProvider } from '@elloloop/ai'
+import { createMockAIProvider } from '@refraction-ui/ai'
 
 describe('AIProvider (SSR)', () => {
   it('renders children', () => {

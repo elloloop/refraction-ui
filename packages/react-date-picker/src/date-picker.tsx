@@ -9,8 +9,8 @@ import {
   datePickerTimeInputStyles,
   type DatePickerView,
   type CalendarDay,
-} from '@elloloop/date-picker'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/date-picker'
+import { cn } from '@refraction-ui/shared'
 
 export interface DatePickerProps {
   value?: Date

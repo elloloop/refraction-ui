@@ -1,5 +1,5 @@
 {
-  "name": "@elloloop/feedback-dialog",
+  "name": "@refraction-ui/feedback-dialog",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@elloloop/dialog": "workspace:*",
-    "@elloloop/shared": "workspace:*"
+    "@refraction-ui/dialog": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
   },
   "devDependencies": {},
   "sideEffects": false,

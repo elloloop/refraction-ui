@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { resetIdCounter } from '@elloloop/shared'
+import { resetIdCounter } from '@refraction-ui/shared'
 import { createEmojiPicker } from '../src/emoji-picker.js'
 import {
   EMOJI_DATA,

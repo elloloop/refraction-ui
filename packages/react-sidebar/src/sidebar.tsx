@@ -5,8 +5,8 @@ import {
   sidebarItemVariants,
   type SidebarSection,
   type SidebarItem as SidebarItemType,
-} from '@elloloop/sidebar'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/sidebar'
+import { cn } from '@refraction-ui/shared'
 
 export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   /** Sidebar sections with items */
@@ -22,7 +22,7 @@ export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
 /**
  * Sidebar component — renders a vertical navigation panel with sections and items.
  *
- * Uses the headless @elloloop/sidebar core for state, visibility, and ARIA attributes.
+ * Uses the headless @refraction-ui/sidebar core for state, visibility, and ARIA attributes.
  * Hidden on mobile (hidden md:flex via styles).
  */
 export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(

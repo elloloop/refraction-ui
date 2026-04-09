@@ -7,4 +7,4 @@ export {
   type CodeEditorTheme,
   codeEditorVariants,
   codeEditorTokens,
-} from '@elloloop/code-editor'
+} from '@refraction-ui/code-editor'

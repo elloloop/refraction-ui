@@ -17,4 +17,4 @@ export {
   selectContentVariants,
   selectItemVariants,
   selectTokens,
-} from '@elloloop/select'
+} from '@refraction-ui/select'

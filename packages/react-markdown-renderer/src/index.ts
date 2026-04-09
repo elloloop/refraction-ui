@@ -5,4 +5,4 @@ export {
   type MarkdownRendererAPI,
   proseVariants,
   markdownRendererTokens,
-} from '@elloloop/markdown-renderer'
+} from '@refraction-ui/markdown-renderer'

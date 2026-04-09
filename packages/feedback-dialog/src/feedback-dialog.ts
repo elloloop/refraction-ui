@@ -1,6 +1,6 @@
-import type { AccessibilityProps } from '@elloloop/shared'
-import { createDialog, type DialogAPI } from '@elloloop/dialog'
-import { generateId } from '@elloloop/shared'
+import type { AccessibilityProps } from '@refraction-ui/shared'
+import { createDialog, type DialogAPI } from '@refraction-ui/dialog'
+import { generateId } from '@refraction-ui/shared'
 
 export type FeedbackType = 'text' | 'video' | 'general'
 

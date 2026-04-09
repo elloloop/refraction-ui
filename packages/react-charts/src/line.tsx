@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useContext } from 'react'
-import { createLinearScale, computeExtent, linePath } from '@elloloop/charts'
+import { createLinearScale, computeExtent, linePath } from '@refraction-ui/charts'
 import { ChartContext } from './chart-context.js'
 
 export interface LineProps<T = unknown> {

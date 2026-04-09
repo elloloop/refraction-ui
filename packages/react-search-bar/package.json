@@ -1,5 +1,5 @@
 {
-  "name": "@elloloop/react-search-bar",
+  "name": "@refraction-ui/react-search-bar",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@elloloop/search-bar": "workspace:*",
-    "@elloloop/shared": "workspace:*"
+    "@refraction-ui/search-bar": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

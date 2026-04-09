@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { resetIdCounter } from '@elloloop/shared'
+import { resetIdCounter } from '@refraction-ui/shared'
 import { createThreadView, formatTimestamp, formatRelativeTime } from '../src/thread-view.js'
 import type { MessageData } from '../src/thread-view.js'
 import {

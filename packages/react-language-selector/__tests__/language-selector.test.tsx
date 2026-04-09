@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import { LanguageSelector } from '../src/language-selector.js'
-import { resetIdCounter } from '@elloloop/shared'
+import { resetIdCounter } from '@refraction-ui/shared'
 
 const options = [
   { value: 'en', label: 'English', group: 'Popular' },

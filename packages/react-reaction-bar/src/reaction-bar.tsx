@@ -7,8 +7,8 @@ import {
   reactionEmojiStyles,
   reactionCountStyles,
   type Reaction,
-} from '@elloloop/reaction-bar'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/reaction-bar'
+import { cn } from '@refraction-ui/shared'
 
 export interface ReactionBarProps {
   reactions: Reaction[]

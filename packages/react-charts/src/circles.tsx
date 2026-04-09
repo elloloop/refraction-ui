@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useContext } from 'react'
-import { createLinearScale, computeExtent } from '@elloloop/charts'
+import { createLinearScale, computeExtent } from '@refraction-ui/charts'
 import { ChartContext } from './chart-context.js'
 
 export interface CirclesProps<T = unknown> {

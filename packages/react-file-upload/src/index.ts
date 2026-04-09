@@ -11,4 +11,4 @@ export {
   fileUploadDropZoneVariants,
   fileUploadFileListStyles,
   fileUploadFileItemStyles,
-} from '@elloloop/file-upload'
+} from '@refraction-ui/file-upload'

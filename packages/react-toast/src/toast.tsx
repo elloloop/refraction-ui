@@ -6,8 +6,8 @@ import {
   type ToastVariant,
   type ToastEntry,
   type ToastManagerAPI,
-} from '@elloloop/toast'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/toast'
+import { cn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context

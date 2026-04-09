@@ -5,8 +5,8 @@ import {
   breadcrumbItemVariants,
   breadcrumbSeparatorStyles,
   type BreadcrumbItem,
-} from '@elloloop/breadcrumbs'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/breadcrumbs'
+import { cn } from '@refraction-ui/shared'
 
 export interface BreadcrumbsProps extends React.HTMLAttributes<HTMLElement> {
   /** Current pathname to auto-generate breadcrumbs from */
@@ -24,7 +24,7 @@ export interface BreadcrumbsProps extends React.HTMLAttributes<HTMLElement> {
 /**
  * Breadcrumbs component — renders a breadcrumb navigation trail.
  *
- * Uses the headless @elloloop/breadcrumbs core for state and ARIA attributes.
+ * Uses the headless @refraction-ui/breadcrumbs core for state and ARIA attributes.
  */
 export const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
   (

@@ -4,8 +4,8 @@ import {
   bottomNavVariants,
   bottomNavTabVariants,
   type NavTab,
-} from '@elloloop/bottom-nav'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/bottom-nav'
+import { cn } from '@refraction-ui/shared'
 
 export interface BottomNavProps extends React.HTMLAttributes<HTMLElement> {
   /** Tab items */
@@ -17,7 +17,7 @@ export interface BottomNavProps extends React.HTMLAttributes<HTMLElement> {
 /**
  * BottomNav component — renders a fixed bottom navigation bar with tab buttons.
  *
- * Uses the headless @elloloop/bottom-nav core for state and ARIA attributes.
+ * Uses the headless @refraction-ui/bottom-nav core for state and ARIA attributes.
  * Visible on mobile only (md:hidden via styles).
  */
 export const BottomNav = React.forwardRef<HTMLElement, BottomNavProps>(

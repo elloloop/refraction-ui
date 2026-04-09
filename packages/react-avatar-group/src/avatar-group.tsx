@@ -8,8 +8,8 @@ import {
   avatarPresenceDotVariants,
   type AvatarUser,
   type AvatarSize,
-} from '@elloloop/avatar-group'
-import { cn } from '@elloloop/shared'
+} from '@refraction-ui/avatar-group'
+import { cn } from '@refraction-ui/shared'
 
 export interface AvatarGroupProps {
   users: AvatarUser[]

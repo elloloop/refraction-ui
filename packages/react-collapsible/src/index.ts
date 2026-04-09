@@ -12,4 +12,4 @@ export {
   type CollapsibleProps as CoreCollapsibleProps,
   type CollapsibleAPI,
   collapsibleContentVariants,
-} from '@elloloop/collapsible'
+} from '@refraction-ui/collapsible'

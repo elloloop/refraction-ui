@@ -10,4 +10,4 @@ export {
 // Re-export headless types for convenience
 export {
   tooltipContentVariants,
-} from '@elloloop/tooltip'
+} from '@refraction-ui/tooltip'

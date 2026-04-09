@@ -16,4 +16,4 @@ export {
   inputGroupAddonVariants,
   inputGroupButtonVariants,
   inputGroupTokens,
-} from '@elloloop/input-group'
+} from '@refraction-ui/input-group'

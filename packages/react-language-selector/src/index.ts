@@ -8,4 +8,4 @@ export {
   selectorVariants,
   optionVariants,
   type LanguageOption,
-} from '@elloloop/language-selector'
+} from '@refraction-ui/language-selector'

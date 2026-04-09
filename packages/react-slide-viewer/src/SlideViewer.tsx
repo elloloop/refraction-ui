@@ -7,8 +7,8 @@ import {
   type SlideData,
   type BookmarkType,
   type SlideType,
-} from '@elloloop/slide-viewer'
-import { cn, createKeyboardHandler } from '@elloloop/shared'
+} from '@refraction-ui/slide-viewer'
+import { cn, createKeyboardHandler } from '@refraction-ui/shared'
 
 export type { SlideData, BookmarkType, SlideType }
 
@@ -27,7 +27,7 @@ export interface SlideViewerProps {
  * SlideViewer component — slide-based content viewer with navigation,
  * progress bar, type badges, and bookmark support.
  *
- * Uses the headless @elloloop/slide-viewer core for state and navigation.
+ * Uses the headless @refraction-ui/slide-viewer core for state and navigation.
  */
 export const SlideViewer = React.forwardRef<HTMLDivElement, SlideViewerProps>(
   (

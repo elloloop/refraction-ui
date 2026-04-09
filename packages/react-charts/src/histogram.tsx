@@ -5,8 +5,8 @@ import {
   createBandScale,
   combineDimensions,
   formatTick,
-} from '@elloloop/charts'
-import type { Margin } from '@elloloop/charts'
+} from '@refraction-ui/charts'
+import type { Margin } from '@refraction-ui/charts'
 
 export interface HistogramProps {
   data: number[]
