@@ -1,0 +1,56 @@
+---
+import {
+  createBreadcrumbs,
+  breadcrumbsVariants,
+  breadcrumbItemVariants,
+  breadcrumbSeparatorStyles,
+  type BreadcrumbItem,
+} from '@refraction-ui/breadcrumbs'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  pathname?: string
+  items?: BreadcrumbItem[]
+  labels?: Record<string, string>
+  separator?: string
+  maxItems?: number
+}
+
+const { pathname, items, labels, separator, maxItems, class: className, ...props } = Astro.props
+const api = createBreadcrumbs({ pathname, items, labels, separator, maxItems })
+const classes = cn(breadcrumbsVariants(), className)
+---
+
+<nav class={classes} {...api.ariaProps} {...props}>
+  <ol class="flex items-center gap-1.5">
+    {api.items.map((item, index) => {
+      const isLast = api.isLast(index)
+      return (
+        <li class="flex items-center gap-1.5">
+          {index > 0 && (
+            <span class={breadcrumbSeparatorStyles} aria-hidden="true">
+              {api.separator}
+            </span>
+          )}
+          {item.href && !isLast ? (
+            <a
+              href={item.href}
+              class={breadcrumbItemVariants({ active: 'false' })}
+            >
+              {item.label}
+            </a>
+          ) : (
+            <span
+              class={breadcrumbItemVariants({
+                active: isLast ? 'true' : 'false',
+              })}
+              {...api.itemAriaProps(index)}
+            >
+              {item.label}
+            </span>
+          )}
+        </li>
+      )
+    })}
+  </ol>
+</nav>
