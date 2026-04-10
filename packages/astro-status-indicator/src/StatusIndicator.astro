@@ -1,0 +1,31 @@
+---
+import {
+  createStatusIndicator,
+  statusContainerStyles,
+  statusDotVariants,
+  statusPulseVariants,
+  statusLabelStyles,
+  type StatusType,
+} from '@refraction-ui/status-indicator'
+import { cn } from '@refraction-ui/shared'
+
+interface Props {
+  type: StatusType
+  label?: string
+  pulse?: boolean
+  showLabel?: boolean
+  class?: string
+}
+
+const { type, label, pulse, showLabel = true, class: className } = Astro.props
+const api = createStatusIndicator({ type, label, pulse })
+
+const dotClassName = api.pulse
+  ? statusPulseVariants({ type })
+  : statusDotVariants({ type })
+---
+
+<span {...api.ariaProps} class={cn(statusContainerStyles, className)}>
+  <span class={dotClassName} />
+  {showLabel && <span class={statusLabelStyles}>{api.label}</span>}
+</span>
