@@ -1,0 +1,58 @@
+---
+import { createCollapsible } from '@refraction-ui/collapsible'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  open?: boolean
+  disabled?: boolean
+}
+
+const { open = false, disabled = false, class: className, ...props } = Astro.props
+const api = createCollapsible({ open, disabled })
+---
+
+<div
+  data-state={open ? 'open' : 'closed'}
+  data-disabled={disabled ? '' : undefined}
+  data-rfr-collapsible
+  data-rfr-collapsible-content-id={api.contentProps.id}
+  class={className}
+  {...props}
+>
+  <slot />
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rfr-collapsible]').forEach((root) => {
+    const contentId = root.getAttribute('data-rfr-collapsible-content-id') || ''
+
+    root.addEventListener('click', (e) => {
+      const trigger = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-rfr-collapsible-trigger]')
+      if (!trigger) return
+      if (trigger.disabled) return
+
+      const isOpen = root.getAttribute('data-state') === 'open'
+      const newOpen = !isOpen
+
+      root.setAttribute('data-state', newOpen ? 'open' : 'closed')
+      trigger.setAttribute('aria-expanded', String(newOpen))
+      trigger.setAttribute('data-state', newOpen ? 'open' : 'closed')
+
+      const content = root.querySelector('[data-rfr-collapsible-content]') as HTMLElement | null
+      if (content) {
+        content.setAttribute('data-state', newOpen ? 'open' : 'closed')
+        content.hidden = !newOpen
+      }
+
+      root.dispatchEvent(new CustomEvent('toggle', { detail: { open: newOpen } }))
+    })
+
+    root.addEventListener('keydown', (e) => {
+      const trigger = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-rfr-collapsible-trigger]')
+      if (!trigger) return
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        trigger.click()
+      }
+    })
+  })
+</script>

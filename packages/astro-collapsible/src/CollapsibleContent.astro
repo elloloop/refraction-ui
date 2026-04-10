@@ -1,0 +1,21 @@
+---
+import { collapsibleContentVariants } from '@refraction-ui/collapsible'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  open?: boolean
+}
+
+const { open = false, class: className, ...props } = Astro.props
+---
+
+<div
+  role="region"
+  data-state={open ? 'open' : 'closed'}
+  data-rfr-collapsible-content
+  hidden={!open}
+  class={cn(collapsibleContentVariants({ state: open ? 'open' : 'closed' }), className)}
+  {...props}
+>
+  <slot />
+</div>

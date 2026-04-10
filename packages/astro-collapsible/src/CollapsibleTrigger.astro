@@ -1,0 +1,17 @@
+---
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  disabled?: boolean
+}
+
+const { disabled, class: className, ...props } = Astro.props
+---
+
+<button
+  type="button"
+  data-rfr-collapsible-trigger
+  disabled={disabled || undefined}
+  class={className}
+  {...props}
+>
+  <slot />
+</button>
