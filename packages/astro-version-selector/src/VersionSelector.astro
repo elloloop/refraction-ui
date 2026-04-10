@@ -1,0 +1,174 @@
+---
+import {
+  createVersionSelector,
+  versionSelectorVariants,
+  optionVariants,
+  latestBadgeVariants,
+  type VersionOption,
+} from '@refraction-ui/version-selector'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  value?: string
+  versions: VersionOption[]
+  placeholder?: string
+}
+
+const {
+  value = '',
+  versions,
+  placeholder = 'Select version...',
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createVersionSelector({ value, versions })
+const selectedOpt = versions.find((v) => v.value === value)
+const displayLabel = selectedOpt ? selectedOpt.label : placeholder
+---
+
+<div
+  class={cn('rfr-version-selector relative inline-block', className)}
+  data-rfr-version-selector
+  data-rfr-versions={JSON.stringify(versions)}
+  data-rfr-version-value={value}
+  data-rfr-version-placeholder={placeholder}
+  {...props}
+>
+  <!-- Trigger button -->
+  <button
+    type="button"
+    role={api.triggerProps.role}
+    aria-expanded="false"
+    aria-controls={api.triggerProps['aria-controls']}
+    aria-haspopup={api.triggerProps['aria-haspopup']}
+    class={versionSelectorVariants()}
+    data-rfr-version-trigger
+  >
+    <span data-rfr-version-label>{displayLabel}</span>
+    {selectedOpt?.isLatest && (
+      <span class={cn(latestBadgeVariants(), 'ml-2')} data-rfr-version-latest-badge>Latest</span>
+    )}
+    <span aria-hidden="true" class="ml-2">&#x25BE;</span>
+  </button>
+
+  <!-- Dropdown -->
+  <ul
+    role={api.contentProps.role}
+    id={api.contentProps.id}
+    class="absolute top-full left-0 w-full mt-1 rounded-md border bg-popover text-popover-foreground shadow-md z-50 overflow-auto max-h-60"
+    style="display:none"
+    data-rfr-version-dropdown
+  >
+    {versions.map((ver) => {
+      const optProps = api.getOptionProps(ver.value)
+      const isSelected = value === ver.value
+      return (
+        <li
+          role={optProps.role}
+          aria-selected={optProps['aria-selected']}
+          data-value={ver.value}
+          class={optionVariants({ selected: isSelected ? 'true' : 'false' })}
+          data-rfr-version-option
+        >
+          <span>{ver.label}</span>
+          {ver.isLatest && (
+            <span class={latestBadgeVariants()}>Latest</span>
+          )}
+        </li>
+      )
+    })}
+  </ul>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rfr-version-selector]').forEach((root) => {
+    const versions: Array<{ value: string; label: string; isLatest?: boolean }> = JSON.parse(
+      root.getAttribute('data-rfr-versions') || '[]',
+    )
+    const placeholder = root.getAttribute('data-rfr-version-placeholder') || 'Select version...'
+
+    const trigger = root.querySelector<HTMLButtonElement>('[data-rfr-version-trigger]')!
+    const dropdown = root.querySelector<HTMLElement>('[data-rfr-version-dropdown]')!
+    const label = root.querySelector<HTMLElement>('[data-rfr-version-label]')!
+    const options = root.querySelectorAll<HTMLElement>('[data-rfr-version-option]')
+
+    let isOpen = false
+    let selectedValue = root.getAttribute('data-rfr-version-value') || ''
+
+    function setOpen(open: boolean) {
+      isOpen = open
+      dropdown.style.display = isOpen ? '' : 'none'
+      trigger.setAttribute('aria-expanded', String(isOpen))
+    }
+
+    function select(value: string) {
+      selectedValue = value
+      root.setAttribute('data-rfr-version-value', value)
+
+      const opt = versions.find((v) => v.value === value)
+      label.textContent = opt ? opt.label : placeholder
+
+      // Update latest badge on trigger
+      let badge = trigger.querySelector('[data-rfr-version-latest-badge]')
+      if (opt?.isLatest) {
+        if (!badge) {
+          badge = document.createElement('span')
+          badge.setAttribute('data-rfr-version-latest-badge', '')
+          badge.className = trigger.querySelector('[class*="badge"]')?.className || 'inline-flex items-center rounded-full text-xs font-medium px-2 py-0.5 bg-primary/10 text-primary ml-2'
+          // Insert before the arrow
+          const arrow = trigger.querySelector('[aria-hidden]')
+          trigger.insertBefore(badge, arrow)
+        }
+        badge.textContent = 'Latest'
+      } else if (badge) {
+        badge.remove()
+      }
+
+      // Update option states
+      options.forEach((optEl) => {
+        const val = optEl.getAttribute('data-value')
+        const isSel = val === value
+        optEl.setAttribute('aria-selected', String(isSel))
+        // Toggle selected styling
+        if (isSel) {
+          optEl.classList.add('bg-accent/50', 'font-medium')
+        } else {
+          optEl.classList.remove('bg-accent/50', 'font-medium')
+        }
+      })
+
+      setOpen(false)
+      root.dispatchEvent(new CustomEvent('change', { detail: { value }, bubbles: true }))
+    }
+
+    trigger.addEventListener('click', () => setOpen(!isOpen))
+
+    options.forEach((optEl) => {
+      optEl.addEventListener('click', () => {
+        const value = optEl.getAttribute('data-value') || ''
+        select(value)
+      })
+    })
+
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        setOpen(false)
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        setOpen(!isOpen)
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        if (!isOpen) {
+          setOpen(true)
+        }
+      }
+    })
+
+    // Click outside to close
+    document.addEventListener('mousedown', (e) => {
+      if (isOpen && !root.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    })
+  })
+</script>
