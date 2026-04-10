@@ -51,13 +51,14 @@ jobs:
           NPM_TOKEN=$(echo "$NPM_RESPONSE" | jq -r '.token')
           echo "::add-mask::${NPM_TOKEN}"
           echo "NPM_TOKEN=${NPM_TOKEN}" >> $GITHUB_ENV
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
 
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm release
-          version: pnpm version-packages
+          publish: npx changeset publish
+          version: npx changeset version
           commit: "chore: release packages"
           title: "chore: release packages"
         env:
@@ -67,8 +68,8 @@ jobs:
       - name: Canary Release
         if: github.ref == 'refs/heads/main' && steps.changesets.outputs.published != 'true'
         run: |
-          pnpm changeset version --snapshot canary
-          pnpm changeset publish --tag canary
+          npx changeset version --snapshot canary
+          npx changeset publish --tag canary
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ env.NPM_TOKEN }}
