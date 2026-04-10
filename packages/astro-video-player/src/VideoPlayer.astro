@@ -1,0 +1,153 @@
+---
+import {
+  createVideoPlayer,
+  playerVariants,
+  controlsVariants,
+  overlayVariants,
+} from '@refraction-ui/video-player'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  src?: string
+  poster?: string
+  autoplay?: boolean
+  muted?: boolean
+  controls?: boolean
+}
+
+const {
+  src,
+  poster,
+  autoplay = false,
+  muted: initialMuted = false,
+  controls = true,
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createVideoPlayer({ src, poster, autoplay, muted: initialMuted, controls })
+---
+
+{!src ? (
+  <div
+    class={cn(playerVariants(), 'flex items-center justify-center aspect-video', className)}
+    role={api.ariaProps.role}
+    aria-label={api.ariaProps['aria-label'] as string}
+    {...props}
+  >
+    <div class="text-center text-muted-foreground">
+      <p class="text-lg font-medium">Coming soon</p>
+    </div>
+  </div>
+) : (
+  <div
+    class={cn(playerVariants(), 'aspect-video', className)}
+    role={api.ariaProps.role}
+    aria-label={api.ariaProps['aria-label'] as string}
+    data-state={api.dataAttributes['data-state']}
+    data-rfr-video-player
+    {...props}
+  >
+    <video
+      class="h-full w-full"
+      src={src}
+      poster={poster}
+      autoplay={autoplay}
+      muted={initialMuted}
+      data-rfr-video-element
+    />
+
+    {controls && (
+      <div class={overlayVariants({ visibility: 'visible' })} data-rfr-video-overlay>
+        <button
+          type="button"
+          class="rounded-full bg-white/90 p-4 text-black shadow-lg"
+          aria-label="Play"
+          data-rfr-video-play-pause
+        >
+          Play
+        </button>
+      </div>
+    )}
+
+    {controls && (
+      <div class={controlsVariants()} data-rfr-video-controls>
+        <button
+          type="button"
+          class="rounded bg-white/20 px-3 py-1 text-sm text-white"
+          aria-label={initialMuted ? 'Unmute' : 'Mute'}
+          data-rfr-video-mute
+        >
+          {initialMuted ? 'Unmute' : 'Mute'}
+        </button>
+      </div>
+    )}
+  </div>
+)}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rfr-video-player]').forEach((root) => {
+    const video = root.querySelector<HTMLVideoElement>('[data-rfr-video-element]')
+    const overlay = root.querySelector<HTMLElement>('[data-rfr-video-overlay]')
+    const playPauseBtn = root.querySelector<HTMLButtonElement>('[data-rfr-video-play-pause]')
+    const muteBtn = root.querySelector<HTMLButtonElement>('[data-rfr-video-mute]')
+
+    if (!video) return
+
+    let isMuted = video.muted
+
+    function updatePlayState() {
+      const isPlaying = !video!.paused && !video!.ended
+      root.setAttribute('data-state', isPlaying ? 'playing' : 'paused')
+
+      if (overlay) {
+        if (isPlaying) {
+          overlay.classList.add('opacity-0', 'pointer-events-none')
+          overlay.classList.remove('opacity-100')
+        } else {
+          overlay.classList.remove('opacity-0', 'pointer-events-none')
+          overlay.classList.add('opacity-100')
+        }
+      }
+
+      if (playPauseBtn) {
+        playPauseBtn.textContent = isPlaying ? 'Pause' : 'Play'
+        playPauseBtn.setAttribute('aria-label', isPlaying ? 'Pause' : 'Play')
+      }
+    }
+
+    function togglePlay() {
+      if (video!.paused || video!.ended) {
+        video!.play()
+      } else {
+        video!.pause()
+      }
+    }
+
+    function toggleMute() {
+      isMuted = !isMuted
+      video!.muted = isMuted
+      if (muteBtn) {
+        muteBtn.textContent = isMuted ? 'Unmute' : 'Mute'
+        muteBtn.setAttribute('aria-label', isMuted ? 'Unmute' : 'Mute')
+      }
+    }
+
+    video.addEventListener('play', updatePlayState)
+    video.addEventListener('pause', updatePlayState)
+    video.addEventListener('ended', updatePlayState)
+
+    if (playPauseBtn) {
+      playPauseBtn.addEventListener('click', togglePlay)
+    }
+
+    // Click on overlay to toggle play
+    if (overlay) {
+      overlay.addEventListener('click', togglePlay)
+    }
+
+    if (muteBtn) {
+      muteBtn.addEventListener('click', toggleMute)
+    }
+  })
+</script>
