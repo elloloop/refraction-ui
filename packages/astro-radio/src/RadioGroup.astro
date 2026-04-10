@@ -1,0 +1,111 @@
+---
+import { radioGroupVariants } from '@refraction-ui/radio'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  value?: string
+  name?: string
+  disabled?: boolean
+  orientation?: 'horizontal' | 'vertical'
+}
+
+const { value, name, disabled = false, orientation = 'vertical', class: className, ...props } = Astro.props
+---
+
+<div
+  role="radiogroup"
+  aria-orientation={orientation}
+  aria-disabled={disabled || undefined}
+  class={cn(radioGroupVariants({ orientation }), className)}
+  data-rfr-radio-group
+  data-rfr-radio-value={value || ''}
+  data-rfr-radio-name={name || ''}
+  data-rfr-radio-disabled={disabled ? '' : undefined}
+  {...props}
+>
+  <slot />
+  {name && <input type="hidden" name={name} value={value || ''} data-rfr-radio-input />}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rfr-radio-group]').forEach((group) => {
+    const items = () => group.querySelectorAll<HTMLButtonElement>('[data-rfr-radio-item]')
+
+    function selectItem(item: HTMLButtonElement) {
+      const groupDisabled = group.hasAttribute('data-rfr-radio-disabled')
+      if (groupDisabled || item.disabled) return
+
+      const value = item.getAttribute('data-rfr-radio-item-value') || ''
+
+      // Update all items in this group
+      items().forEach((btn) => {
+        const btnValue = btn.getAttribute('data-rfr-radio-item-value') || ''
+        const isSelected = btnValue === value
+        btn.setAttribute('aria-checked', String(isSelected))
+        btn.setAttribute('tabindex', isSelected ? '0' : '-1')
+
+        const label = btn.closest('[data-rfr-radio-item-label]') as HTMLElement | null
+        if (label) {
+          label.setAttribute('data-state', isSelected ? 'checked' : 'unchecked')
+        }
+
+        // Update circle styling
+        const circle = btn as HTMLElement
+        if (isSelected) {
+          circle.classList.add('border-primary', 'bg-primary')
+          circle.classList.remove('border-input')
+          // Ensure inner dot exists
+          if (!circle.querySelector('[data-rfr-radio-dot]')) {
+            const dot = document.createElement('span')
+            dot.className = 'block h-2 w-2 rounded-full bg-primary-foreground mx-auto'
+            dot.setAttribute('data-rfr-radio-dot', '')
+            circle.appendChild(dot)
+          }
+        } else {
+          circle.classList.remove('border-primary', 'bg-primary')
+          circle.classList.add('border-input')
+          const dot = circle.querySelector('[data-rfr-radio-dot]')
+          if (dot) dot.remove()
+        }
+      })
+
+      // Update group data attribute
+      group.setAttribute('data-rfr-radio-value', value)
+
+      // Update hidden input
+      const input = group.querySelector('[data-rfr-radio-input]') as HTMLInputElement | null
+      if (input) input.value = value
+
+      group.dispatchEvent(new CustomEvent('change', { detail: { value } }))
+    }
+
+    group.addEventListener('click', (e) => {
+      const item = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-rfr-radio-item]')
+      if (item) selectItem(item)
+    })
+
+    group.addEventListener('keydown', (e) => {
+      const target = e.target as HTMLElement
+      if (!target.hasAttribute('data-rfr-radio-item')) return
+
+      const allItems = Array.from(items()).filter((i) => !i.disabled)
+      const currentIndex = allItems.indexOf(target as HTMLButtonElement)
+      if (currentIndex === -1) return
+
+      let nextIndex = -1
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault()
+        nextIndex = (currentIndex + 1) % allItems.length
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault()
+        nextIndex = (currentIndex - 1 + allItems.length) % allItems.length
+      }
+
+      if (nextIndex >= 0) {
+        const nextItem = allItems[nextIndex]
+        nextItem.focus()
+        selectItem(nextItem)
+      }
+    })
+  })
+</script>
