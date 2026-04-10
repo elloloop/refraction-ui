@@ -1,0 +1,33 @@
+---
+import {
+  createProgressDisplay,
+  badgeGridVariants,
+  badgeItemVariants,
+  type BadgeData,
+} from '@refraction-ui/progress-display'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  badges: BadgeData[]
+}
+
+const { badges, class: className, ...props } = Astro.props
+const api = createProgressDisplay({ stats: [], badges })
+---
+
+<div class={cn(badgeGridVariants(), className)} {...props}>
+  {api.badges.map((badge) => (
+    <div
+      class={badgeItemVariants({
+        state: badge.isUnlocked ? 'unlocked' : 'locked',
+      })}
+      {...api.getBadgeAriaProps(badge)}
+    >
+      <span class="text-3xl">{badge.icon}</span>
+      <span class="font-medium">{badge.name}</span>
+      {!badge.isUnlocked && (
+        <span class="text-xs text-muted-foreground">Locked</span>
+      )}
+    </div>
+  ))}
+</div>

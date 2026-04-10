@@ -1,0 +1,32 @@
+---
+import {
+  createProgressDisplay,
+  statsGridVariants,
+  statCardVariants,
+  type StatCardData,
+  type BadgeData,
+} from '@refraction-ui/progress-display'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  stats: StatCardData[]
+  badges?: BadgeData[]
+}
+
+const { stats, badges = [], class: className, ...props } = Astro.props
+const api = createProgressDisplay({ stats, badges })
+---
+
+<div class={cn(statsGridVariants(), className)} {...api.ariaProps} {...props}>
+  {api.stats.map((stat) => (
+    <div
+      class={statCardVariants({
+        color: (stat.color as 'default' | 'primary' | 'success' | 'warning' | 'destructive') ?? 'default',
+      })}
+    >
+      {stat.icon && <span class="text-2xl">{stat.icon}</span>}
+      <div class="text-2xl font-bold">{stat.value}</div>
+      <div class="text-sm text-muted-foreground">{stat.label}</div>
+    </div>
+  ))}
+</div>
