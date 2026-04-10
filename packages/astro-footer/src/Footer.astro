@@ -1,0 +1,61 @@
+---
+import {
+  createFooter,
+  footerVariants,
+  type FooterColumn,
+  type SocialLink,
+} from '@refraction-ui/footer'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  copyright?: string
+  socialLinks?: SocialLink[]
+  columns?: FooterColumn[]
+}
+
+const { copyright, socialLinks = [], columns = [], class: className, ...props } = Astro.props
+const api = createFooter({ copyright, socialLinks, columns })
+const classes = cn(footerVariants(), className)
+---
+
+<footer class={classes} {...api.ariaProps} {...props}>
+  <div class="mx-auto max-w-7xl px-4">
+    {columns.length > 0 && (
+      <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
+        {columns.map((column) => (
+          <div>
+            <h3 class="mb-3 text-sm font-semibold">{column.title}</h3>
+            <ul class="space-y-2">
+              {column.links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    )}
+    <div class="flex items-center justify-between pt-8">
+      <p class="text-sm text-muted-foreground">{api.copyrightText}</p>
+      {socialLinks.length > 0 && (
+        <div class="flex items-center gap-4">
+          {socialLinks.map((link) => (
+            <a
+              href={link.href}
+              class="text-muted-foreground transition-colors hover:text-foreground"
+              aria-label={link.label}
+            >
+              {link.icon ?? link.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</footer>
