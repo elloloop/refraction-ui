@@ -1,0 +1,11 @@
+---
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<span class={cn('flex items-center px-3 text-sm text-muted-foreground', className)} {...props}>
+  <slot />
+</span>
