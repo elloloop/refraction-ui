@@ -1,0 +1,34 @@
+---
+/**
+ * Gradient — SVG linear gradient definition.
+ * Use inside a Chart or any SVG element; reference via `url(#id)` in fill/stroke.
+ */
+
+interface Props {
+  /** Gradient ID for referencing */
+  id: string
+  /** Start color */
+  from: string
+  /** End color */
+  to: string
+  /** Direction (default 'vertical') */
+  direction?: 'vertical' | 'horizontal'
+}
+
+const { id, from, to, direction = 'vertical' } = Astro.props
+
+const isVertical = direction === 'vertical'
+---
+
+<defs>
+  <linearGradient
+    id={id}
+    x1="0"
+    y1="0"
+    x2={isVertical ? '0' : '1'}
+    y2={isVertical ? '1' : '0'}
+  >
+    <stop offset="0%" stop-color={from} />
+    <stop offset="100%" stop-color={to} />
+  </linearGradient>
+</defs>

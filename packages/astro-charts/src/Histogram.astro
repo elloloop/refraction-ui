@@ -1,0 +1,107 @@
+---
+/**
+ * Histogram — standalone histogram chart.
+ * Accepts raw numeric data and renders binned bars with axes.
+ */
+import {
+  computeHistogramBins,
+  createLinearScale,
+  createBandScale,
+  combineDimensions,
+  formatTick,
+  type Margin,
+} from '@refraction-ui/charts'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Raw numeric data */
+  data: number[]
+  /** Width of the SVG (default 600) */
+  width?: number
+  /** Height of the SVG (default 400) */
+  height?: number
+  /** Number of bins (default 10) */
+  bins?: number
+  /** Fill color (default 'steelblue') */
+  fill?: string
+  /** Custom margin */
+  margin?: Partial<Margin>
+}
+
+const {
+  data,
+  width = 600,
+  height = 400,
+  bins: binCount = 10,
+  fill = 'steelblue',
+  margin,
+  class: className,
+  ...props
+} = Astro.props
+
+const dimensions = combineDimensions({ width, height, margin })
+const { boundedWidth, boundedHeight } = dimensions
+
+const histBins = computeHistogramBins(data, binCount)
+const maxCount = Math.max(...histBins.map((b) => b.count))
+
+const labels = histBins.map((b) => `${formatTick(b.x0, 'number')}-${formatTick(b.x1, 'number')}`)
+const xScale = createBandScale(labels, [0, boundedWidth], 0.05)
+const yScale = createLinearScale([0, maxCount], [boundedHeight, 0])
+
+const yTicks = yScale.ticks(5)
+---
+
+<svg
+  width={width}
+  height={height}
+  class={className}
+  data-rfr-chart-histogram
+  {...props}
+>
+  <g transform={`translate(${dimensions.margin.left},${dimensions.margin.top})`}>
+    {histBins.map((bin, i) => {
+      const label = labels[i]
+      const barX = xScale(label)
+      const barY = yScale(bin.count)
+      const barHeight = boundedHeight - barY
+      const barWidth = xScale.bandwidth()
+      return (
+        <rect
+          x={barX}
+          y={barY}
+          width={barWidth}
+          height={barHeight}
+          fill={fill}
+        />
+      )
+    })}
+    {/* X Axis */}
+    <g transform={`translate(0,${boundedHeight})`}>
+      {labels.map((label, i) => {
+        const x = xScale(label) + xScale.bandwidth() / 2
+        return (
+          <g transform={`translate(${x},0)`}>
+            <line y2={6} stroke="currentColor" />
+            <text y={18} text-anchor="middle" font-size={10} fill="currentColor">
+              {label}
+            </text>
+          </g>
+        )
+      })}
+    </g>
+    {/* Y Axis */}
+    <g>
+      {yTicks.map((tick) => {
+        const y = yScale(tick)
+        return (
+          <g transform={`translate(0,${y})`}>
+            <line x2={-6} stroke="currentColor" />
+            <text x={-9} dy="0.32em" text-anchor="end" font-size={10} fill="currentColor">
+              {formatTick(tick, 'number')}
+            </text>
+          </g>
+        )
+      })}
+    </g>
+  </g>
+</svg>

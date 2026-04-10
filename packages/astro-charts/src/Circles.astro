@@ -1,0 +1,48 @@
+---
+/**
+ * Circles — circle markers for scatter/bubble chart overlays.
+ * Accepts pre-computed x/y value arrays.
+ */
+import { createLinearScale, computeExtent } from '@refraction-ui/charts'
+
+interface Props {
+  /** X values for each data point */
+  xValues: number[]
+  /** Y values for each data point */
+  yValues: number[]
+  /** Bounded width of the chart area */
+  boundedWidth: number
+  /** Bounded height of the chart area */
+  boundedHeight: number
+  /** Circle radius (default 4) */
+  r?: number
+  /** Fill color (default 'currentColor') */
+  fill?: string
+}
+
+const {
+  xValues,
+  yValues,
+  boundedWidth,
+  boundedHeight,
+  r = 4,
+  fill = 'currentColor',
+} = Astro.props
+
+const [xMin, xMax] = computeExtent(xValues)
+const [yMin, yMax] = computeExtent(yValues)
+
+const xScale = createLinearScale([xMin, xMax], [0, boundedWidth])
+const yScale = createLinearScale([yMin, yMax], [boundedHeight, 0])
+---
+
+<g data-rfr-chart-circles>
+  {xValues.map((xv, i) => (
+    <circle
+      cx={xScale(xv)}
+      cy={yScale(yValues[i])}
+      r={r}
+      fill={fill}
+    />
+  ))}
+</g>

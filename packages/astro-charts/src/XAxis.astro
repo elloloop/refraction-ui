@@ -1,0 +1,46 @@
+---
+/**
+ * XAxis — horizontal axis with tick marks and labels.
+ * Designed to be used inside a Chart's <g> element.
+ */
+
+interface Props {
+  /** Tick values (strings or numbers) */
+  ticks: (number | string)[]
+  /** Pixel positions for each tick value */
+  positions: number[]
+  /** Distance from top of bounded area to axis line */
+  height: number
+  /** Tick mark length (default 6) */
+  tickSize?: number
+  /** Font size for labels (default 12) */
+  fontSize?: number
+}
+
+const {
+  ticks,
+  positions,
+  height,
+  tickSize = 6,
+  fontSize = 12,
+} = Astro.props
+---
+
+<g transform={`translate(0,${height})`} data-rfr-chart-xaxis>
+  {ticks.map((tick, i) => {
+    const x = positions[i]
+    return (
+      <g transform={`translate(${x},0)`}>
+        <line y2={tickSize} stroke="currentColor" />
+        <text
+          y={tickSize + 9}
+          text-anchor="middle"
+          font-size={fontSize}
+          fill="currentColor"
+        >
+          {String(tick)}
+        </text>
+      </g>
+    )
+  })}
+</g>

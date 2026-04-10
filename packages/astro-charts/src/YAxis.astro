@@ -1,0 +1,44 @@
+---
+/**
+ * YAxis — vertical axis with tick marks and labels.
+ * Designed to be used inside a Chart's <g> element.
+ */
+
+interface Props {
+  /** Tick values (strings or numbers) */
+  ticks: (number | string)[]
+  /** Pixel positions for each tick value */
+  positions: number[]
+  /** Tick mark length (default 6) */
+  tickSize?: number
+  /** Font size for labels (default 12) */
+  fontSize?: number
+}
+
+const {
+  ticks,
+  positions,
+  tickSize = 6,
+  fontSize = 12,
+} = Astro.props
+---
+
+<g data-rfr-chart-yaxis>
+  {ticks.map((tick, i) => {
+    const y = positions[i]
+    return (
+      <g transform={`translate(0,${y})`}>
+        <line x2={-tickSize} stroke="currentColor" />
+        <text
+          x={-tickSize - 4}
+          dy="0.32em"
+          text-anchor="end"
+          font-size={fontSize}
+          fill="currentColor"
+        >
+          {String(tick)}
+        </text>
+      </g>
+    )
+  })}
+</g>

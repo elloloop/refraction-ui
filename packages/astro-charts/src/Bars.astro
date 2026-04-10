@@ -1,0 +1,53 @@
+---
+/**
+ * Bars — bar chart rectangles, server-rendered as SVG <rect> elements.
+ * Accepts pre-computed labels and values arrays.
+ */
+import { createBandScale, createLinearScale, computeExtent } from '@refraction-ui/charts'
+
+interface Props {
+  /** Category labels for each bar */
+  labels: string[]
+  /** Numeric values for each bar */
+  values: number[]
+  /** Bounded width of the chart area */
+  boundedWidth: number
+  /** Bounded height of the chart area */
+  boundedHeight: number
+  /** Fill color (default 'currentColor') */
+  fill?: string
+  /** Band padding ratio (default 0.1) */
+  padding?: number
+}
+
+const {
+  labels,
+  values,
+  boundedWidth,
+  boundedHeight,
+  fill = 'currentColor',
+  padding = 0.1,
+} = Astro.props
+
+const [, maxVal] = computeExtent(values)
+const xScale = createBandScale(labels, [0, boundedWidth], padding)
+const yScale = createLinearScale([0, maxVal], [boundedHeight, 0])
+---
+
+<g data-rfr-chart-bars>
+  {labels.map((label, i) => {
+    const barX = xScale(label)
+    const barY = yScale(values[i])
+    const barHeight = boundedHeight - barY
+    const barWidth = xScale.bandwidth()
+    return (
+      <rect
+        x={barX}
+        y={barY}
+        width={barWidth}
+        height={barHeight}
+        fill={fill}
+      />
+    )
+  })}
+</g>
