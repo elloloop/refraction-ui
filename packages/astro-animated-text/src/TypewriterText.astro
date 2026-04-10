@@ -1,0 +1,90 @@
+---
+import { typewriterVariants } from '@refraction-ui/animated-text'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** The text to type out */
+  text: string
+  /** Typing speed in ms per character. Default: 50 */
+  speed?: number
+  /** Delay before starting in ms. Default: 0 */
+  startDelay?: number
+}
+
+const {
+  text,
+  speed = 50,
+  startDelay = 0,
+  class: className,
+  ...props
+} = Astro.props
+
+const classes = cn(typewriterVariants({ cursor: 'blinking' }), className)
+---
+
+<span
+  data-rfr-typewriter
+  data-rfr-typewriter-text={text}
+  data-rfr-typewriter-speed={speed}
+  data-rfr-typewriter-start-delay={startDelay}
+  class={classes}
+  aria-label={text}
+  {...props}
+></span>
+
+<script>
+  function initTypewriters() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-typewriter]').forEach((el) => {
+      if (el.hasAttribute('data-rfr-typewriter-init')) return
+      el.setAttribute('data-rfr-typewriter-init', '')
+
+      const text = el.getAttribute('data-rfr-typewriter-text') || ''
+      const speed = Number(el.getAttribute('data-rfr-typewriter-speed') || 50)
+      const startDelay = Number(el.getAttribute('data-rfr-typewriter-start-delay') || 0)
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+      if (prefersReducedMotion) {
+        el.textContent = text
+        // Remove cursor classes when complete
+        el.className = el.className
+          .replace(/after:inline-block/g, '')
+          .replace(/after:w-\[2px\]/g, '')
+          .replace(/after:h-\[1em\]/g, '')
+          .replace(/after:bg-current/g, '')
+          .replace(/after:ml-\[1px\]/g, '')
+          .replace(/after:animate-blink/g, '')
+          .replace(/after:align-text-bottom/g, '')
+        return
+      }
+
+      let currentIndex = 0
+
+      const startTimeout = setTimeout(() => {
+        function tick() {
+          if (currentIndex < text.length) {
+            currentIndex += 1
+            el.textContent = text.slice(0, currentIndex)
+            setTimeout(tick, speed)
+          } else {
+            // Typing complete — remove cursor
+            el.className = el.className
+              .replace(/after:inline-block/g, '')
+              .replace(/after:w-\[2px\]/g, '')
+              .replace(/after:h-\[1em\]/g, '')
+              .replace(/after:bg-current/g, '')
+              .replace(/after:ml-\[1px\]/g, '')
+              .replace(/after:animate-blink/g, '')
+              .replace(/after:align-text-bottom/g, '')
+          }
+        }
+        tick()
+      }, startDelay)
+
+      el.addEventListener('astro:before-swap', () => clearTimeout(startTimeout), { once: true })
+    })
+  }
+
+  initTypewriters()
+  document.addEventListener('astro:after-swap', initTypewriters)
+</script>
