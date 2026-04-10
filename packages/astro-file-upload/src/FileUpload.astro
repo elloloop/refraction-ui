@@ -1,0 +1,306 @@
+---
+import {
+  createFileUpload,
+  formatFileSize,
+  fileUploadDropZoneVariants,
+  fileUploadFileListStyles,
+  fileUploadFileItemStyles,
+  fileUploadProgressStyles,
+  fileUploadProgressBarStyles,
+  fileUploadRemoveButtonStyles,
+} from '@refraction-ui/file-upload'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  accept?: string
+  maxSize?: number
+  maxFiles?: number
+  multiple?: boolean
+}
+
+const {
+  accept,
+  maxSize,
+  maxFiles,
+  multiple = false,
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createFileUpload({ accept, maxSize, maxFiles, multiple })
+---
+
+<div
+  data-rfr-file-upload
+  data-rfr-file-upload-accept={accept}
+  data-rfr-file-upload-max-size={maxSize ? String(maxSize) : undefined}
+  data-rfr-file-upload-max-files={maxFiles ? String(maxFiles) : undefined}
+  data-rfr-file-upload-multiple={multiple ? 'true' : undefined}
+  class={className}
+  {...props}
+>
+  {/* Hidden file input */}
+  <input
+    data-rfr-file-upload-input
+    type="file"
+    accept={accept}
+    multiple={multiple}
+    aria-hidden="true"
+    tabindex="-1"
+    style="display: none;"
+  />
+
+  {/* Drop zone */}
+  <div
+    data-rfr-file-upload-dropzone
+    role="button"
+    aria-label="Drop files here or click to upload"
+    tabindex="0"
+    class={fileUploadDropZoneVariants({ state: 'idle' })}
+  >
+    <slot>
+      <div class="text-2xl mb-2">&#x1F4C1;</div>
+      <p class="text-sm text-muted-foreground">
+        Drag & drop files here, or click to select
+      </p>
+      {accept && (
+        <p class="text-xs text-muted-foreground mt-1">
+          Accepted: {accept}
+        </p>
+      )}
+      {maxSize && (
+        <p class="text-xs text-muted-foreground">
+          Max size: {formatFileSize(maxSize)}
+        </p>
+      )}
+    </slot>
+  </div>
+
+  {/* File list (populated client-side) */}
+  <div data-rfr-file-upload-list class={fileUploadFileListStyles} hidden></div>
+</div>
+
+<script>
+  function initFileUploads() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-file-upload]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-file-upload-init')) return
+      root.setAttribute('data-rfr-file-upload-init', '')
+
+      const input = root.querySelector<HTMLInputElement>('[data-rfr-file-upload-input]')
+      const dropzone = root.querySelector<HTMLElement>('[data-rfr-file-upload-dropzone]')
+      const fileListEl = root.querySelector<HTMLElement>('[data-rfr-file-upload-list]')
+      if (!input || !dropzone || !fileListEl) return
+
+      const accept = root.getAttribute('data-rfr-file-upload-accept') || ''
+      const maxSize = parseInt(root.getAttribute('data-rfr-file-upload-max-size') || '0', 10) || 0
+      const maxFiles = parseInt(root.getAttribute('data-rfr-file-upload-max-files') || '0', 10) || 0
+      const multiple = root.getAttribute('data-rfr-file-upload-multiple') === 'true'
+
+      interface FileItem {
+        id: string
+        name: string
+        size: number
+        type: string
+      }
+
+      let files: FileItem[] = []
+      let idCounter = 0
+
+      function formatSize(bytes: number): string {
+        if (bytes === 0) return '0 B'
+        const units = ['B', 'KB', 'MB', 'GB']
+        const i = Math.floor(Math.log(bytes) / Math.log(1024))
+        const size = bytes / Math.pow(1024, i)
+        return `${size.toFixed(i === 0 ? 0 : 1)} ${units[i]}`
+      }
+
+      function matchesAccept(fileType: string, fileName: string): boolean {
+        if (!accept) return true
+        const types = accept.split(',').map((t: string) => t.trim())
+        for (const a of types) {
+          if (a.startsWith('.')) {
+            if (fileName.toLowerCase().endsWith(a.toLowerCase())) return true
+          } else if (a.endsWith('/*')) {
+            if (fileType.startsWith(a.slice(0, -2))) return true
+          } else {
+            if (fileType === a) return true
+          }
+        }
+        return false
+      }
+
+      function addFiles(incoming: Array<{ name: string; size: number; type: string }>) {
+        const errors: Array<{ file: string; message: string }> = []
+        const validFiles: FileItem[] = []
+
+        let toProcess = multiple ? incoming : [incoming[0]]
+        const available = maxFiles ? maxFiles - files.length : Infinity
+
+        for (const file of toProcess) {
+          if (validFiles.length >= available) {
+            errors.push({ file: file.name, message: `Maximum of ${maxFiles} files allowed` })
+            continue
+          }
+          if (accept && !matchesAccept(file.type, file.name)) {
+            errors.push({ file: file.name, message: `File type not accepted` })
+            continue
+          }
+          if (maxSize && file.size > maxSize) {
+            errors.push({ file: file.name, message: `File too large (max ${formatSize(maxSize)})` })
+            continue
+          }
+          validFiles.push({
+            id: `rfr-file-${++idCounter}`,
+            name: file.name,
+            size: file.size,
+            type: file.type,
+          })
+        }
+
+        if (errors.length > 0) {
+          root.dispatchEvent(
+            new CustomEvent('rfr-file-upload-error', {
+              detail: { errors },
+              bubbles: true,
+            }),
+          )
+        }
+
+        if (validFiles.length > 0) {
+          if (!multiple) {
+            files = validFiles.slice(0, 1)
+          } else {
+            files = [...files, ...validFiles]
+          }
+          renderFileList()
+          root.dispatchEvent(
+            new CustomEvent('rfr-file-upload-change', {
+              detail: { files: [...files] },
+              bubbles: true,
+            }),
+          )
+        }
+      }
+
+      function removeFile(id: string) {
+        files = files.filter((f) => f.id !== id)
+        renderFileList()
+        root.dispatchEvent(
+          new CustomEvent('rfr-file-upload-change', {
+            detail: { files: [...files] },
+            bubbles: true,
+          }),
+        )
+      }
+
+      function renderFileList() {
+        if (files.length === 0) {
+          fileListEl!.hidden = true
+          fileListEl!.innerHTML = ''
+          return
+        }
+
+        fileListEl!.hidden = false
+        fileListEl!.innerHTML = ''
+
+        for (const file of files) {
+          const item = document.createElement('div')
+          item.className = 'flex items-center gap-3 rounded-md border p-3 text-sm'
+
+          const info = document.createElement('div')
+          info.className = 'flex-1 min-w-0'
+
+          const nameEl = document.createElement('div')
+          nameEl.className = 'font-medium truncate'
+          nameEl.textContent = file.name
+
+          const sizeEl = document.createElement('div')
+          sizeEl.className = 'text-xs text-muted-foreground'
+          sizeEl.textContent = formatSize(file.size)
+
+          info.appendChild(nameEl)
+          info.appendChild(sizeEl)
+          item.appendChild(info)
+
+          const removeBtn = document.createElement('button')
+          removeBtn.type = 'button'
+          removeBtn.className = 'ml-auto text-muted-foreground hover:text-foreground cursor-pointer'
+          removeBtn.setAttribute('aria-label', `Remove ${file.name}`)
+          removeBtn.textContent = '\u00D7'
+          removeBtn.addEventListener('click', (e) => {
+            e.stopPropagation()
+            removeFile(file.id)
+          })
+
+          item.appendChild(removeBtn)
+          fileListEl!.appendChild(item)
+        }
+      }
+
+      // Drop zone click -> open file dialog
+      dropzone.addEventListener('click', () => input!.click())
+      dropzone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          input!.click()
+        }
+      })
+
+      // Drag events
+      const idleClass = 'border-muted-foreground/25'
+      const dragClass = 'border-primary'
+      const dragBgClass = 'bg-primary/5'
+
+      dropzone.addEventListener('dragenter', (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        dropzone.classList.add(dragClass, dragBgClass)
+        dropzone.classList.remove(idleClass)
+      })
+
+      dropzone.addEventListener('dragleave', (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        dropzone.classList.remove(dragClass, dragBgClass)
+        dropzone.classList.add(idleClass)
+      })
+
+      dropzone.addEventListener('dragover', (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+      })
+
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        dropzone.classList.remove(dragClass, dragBgClass)
+        dropzone.classList.add(idleClass)
+
+        const droppedFiles = Array.from(e.dataTransfer?.files || []).map((f) => ({
+          name: f.name,
+          size: f.size,
+          type: f.type,
+        }))
+        if (droppedFiles.length > 0) {
+          addFiles(droppedFiles)
+        }
+      })
+
+      // File input change
+      input.addEventListener('change', () => {
+        const selected = Array.from(input!.files || []).map((f) => ({
+          name: f.name,
+          size: f.size,
+          type: f.type,
+        }))
+        if (selected.length > 0) {
+          addFiles(selected)
+        }
+        input!.value = ''
+      })
+    })
+  }
+
+  initFileUploads()
+  document.addEventListener('astro:after-swap', initFileUploads)
+</script>
