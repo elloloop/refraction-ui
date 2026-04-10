@@ -1,0 +1,19 @@
+---
+import { selectContentVariants } from '@refraction-ui/select'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<div
+  role="listbox"
+  data-state="closed"
+  data-rfr-select-content
+  hidden
+  class={cn(selectContentVariants(), className)}
+  {...props}
+>
+  <slot />
+</div>

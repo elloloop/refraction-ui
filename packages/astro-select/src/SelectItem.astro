@@ -1,0 +1,42 @@
+---
+import { selectItemVariants } from '@refraction-ui/select'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  value: string
+  disabled?: boolean
+  selected?: boolean
+}
+
+const { value, disabled = false, selected = false, class: className, ...props } = Astro.props
+---
+
+<div
+  role="option"
+  aria-selected={selected}
+  aria-disabled={disabled || undefined}
+  data-state={selected ? 'checked' : undefined}
+  data-disabled={disabled ? '' : undefined}
+  tabindex={disabled ? undefined : 0}
+  data-rfr-select-item
+  data-rfr-select-item-value={value}
+  class={cn(selectItemVariants({ selected: selected ? 'true' : 'false' }), className)}
+  {...props}
+>
+  <span data-rfr-select-check style={selected ? '' : 'display: none'} class="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
+    <svg
+      class="h-4 w-4"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M20 6L9 17l-5-5" />
+    </svg>
+  </span>
+  <slot />
+</div>
