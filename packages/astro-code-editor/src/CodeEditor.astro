@@ -1,0 +1,123 @@
+---
+import {
+  createCodeEditor,
+  codeEditorVariants,
+  type CodeEditorTheme,
+} from '@refraction-ui/code-editor'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  value?: string
+  language?: string
+  readOnly?: boolean
+  theme?: CodeEditorTheme
+  placeholder?: string
+  /** Action button labels — click events are dispatched as custom events */
+  actions?: Array<{ label: string }>
+}
+
+const {
+  value = '',
+  language = 'plaintext',
+  readOnly = false,
+  theme = 'light',
+  placeholder,
+  actions,
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createCodeEditor({ value, language, readOnly, theme })
+const containerClasses = cn(codeEditorVariants({ theme }), className)
+---
+
+<div
+  data-rfr-code-editor
+  class={containerClasses}
+  {...api.dataAttributes}
+  {...props}
+>
+  <div class="flex items-center justify-between px-3 py-2 border-b bg-muted/50 text-xs text-muted-foreground">
+    <span data-rfr-code-editor-lang>{api.getLanguageLabel()}</span>
+    {actions && actions.length > 0 && (
+      <div class="flex gap-1" data-rfr-code-editor-actions>
+        {actions.map((action) => (
+          <button
+            type="button"
+            data-rfr-code-editor-action={action.label}
+            class="px-2 py-1 rounded text-xs hover:bg-muted transition-colors"
+          >
+            {action.label}
+          </button>
+        ))}
+      </div>
+    )}
+  </div>
+  <textarea
+    data-rfr-code-editor-textarea
+    value={value}
+    readonly={readOnly}
+    placeholder={placeholder}
+    class="flex-1 w-full p-4 bg-transparent resize-none outline-none font-mono min-h-[200px]"
+    spellcheck="false"
+    autocapitalize="off"
+    autocomplete="off"
+    autocorrect="off"
+    role={api.ariaProps.role}
+    aria-multiline={api.ariaProps['aria-multiline']}
+    aria-label={api.ariaProps['aria-label']}
+    aria-readonly={readOnly ? true : undefined}
+  />
+</div>
+
+<script>
+  function initCodeEditors() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-code-editor]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-code-editor-init')) return
+      root.setAttribute('data-rfr-code-editor-init', '')
+
+      const textarea = root.querySelector<HTMLTextAreaElement>('[data-rfr-code-editor-textarea]')
+      if (!textarea) return
+
+      // Dispatch change events when textarea value changes
+      textarea.addEventListener('input', () => {
+        root.dispatchEvent(
+          new CustomEvent('rfr-code-editor-change', {
+            detail: { value: textarea.value },
+            bubbles: true,
+          }),
+        )
+      })
+
+      // Tab key support: insert tab character instead of moving focus
+      textarea.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          e.preventDefault()
+          const start = textarea.selectionStart
+          const end = textarea.selectionEnd
+          const value = textarea.value
+          textarea.value = value.substring(0, start) + '  ' + value.substring(end)
+          textarea.selectionStart = textarea.selectionEnd = start + 2
+          textarea.dispatchEvent(new Event('input', { bubbles: true }))
+        }
+      })
+
+      // Action button click handlers
+      const actionBtns = root.querySelectorAll<HTMLButtonElement>('[data-rfr-code-editor-action]')
+      actionBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const label = btn.getAttribute('data-rfr-code-editor-action')
+          root.dispatchEvent(
+            new CustomEvent('rfr-code-editor-action', {
+              detail: { label },
+              bubbles: true,
+            }),
+          )
+        })
+      })
+    })
+  }
+
+  initCodeEditors()
+  document.addEventListener('astro:after-swap', initCodeEditors)
+</script>
