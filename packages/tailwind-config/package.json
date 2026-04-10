@@ -1,5 +1,6 @@
 {
   "name": "@refraction-ui/tailwind-config",
+  "description": "Tailwind CSS configuration and design tokens for Refraction UI",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
