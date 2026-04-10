@@ -1,0 +1,14 @@
+---
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<div
+  data-rfr-command-separator
+  role="separator"
+  class={cn('-mx-1 h-px bg-border', className)}
+  {...props}
+/>

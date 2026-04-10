@@ -1,0 +1,170 @@
+---
+import { commandVariants } from '@refraction-ui/command'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Whether the command palette is open */
+  open?: boolean
+}
+
+const { open = true, class: className, ...props } = Astro.props
+---
+
+<div
+  data-rfr-command
+  data-rfr-command-open={open}
+  role="combobox"
+  aria-expanded={open}
+  aria-haspopup="listbox"
+  class={cn(commandVariants(), className)}
+  {...props}
+>
+  <slot />
+</div>
+
+<script>
+  function initCommands() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-command]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-command-init')) return
+      root.setAttribute('data-rfr-command-init', '')
+
+      const input = root.querySelector<HTMLInputElement>('[data-rfr-command-input]')
+      const list = root.querySelector<HTMLElement>('[data-rfr-command-list]')
+      const emptyEl = root.querySelector<HTMLElement>('[data-rfr-command-empty]')
+
+      let selectedIndex = 0
+
+      function getItems(): HTMLElement[] {
+        return Array.from(root.querySelectorAll<HTMLElement>('[data-rfr-command-item]:not([data-disabled])'))
+      }
+
+      function getAllItems(): HTMLElement[] {
+        return Array.from(root.querySelectorAll<HTMLElement>('[data-rfr-command-item]'))
+      }
+
+      function updateSelection() {
+        const items = getItems()
+        items.forEach((item, i) => {
+          const isSelected = i === selectedIndex
+          item.setAttribute('aria-selected', String(isSelected))
+          item.setAttribute('data-selected', isSelected ? '' : 'false')
+          if (isSelected) {
+            item.scrollIntoView({ block: 'nearest' })
+          }
+        })
+      }
+
+      function filterItems() {
+        const query = (input?.value || '').toLowerCase()
+        const allItems = getAllItems()
+        let visibleCount = 0
+
+        // Track which groups have visible items
+        const groupsWithVisible = new Set<HTMLElement>()
+
+        allItems.forEach((item) => {
+          const value = (item.getAttribute('data-value') || item.textContent || '').toLowerCase()
+          const matches = !query || value.includes(query)
+          item.hidden = !matches
+          if (matches && !item.hasAttribute('data-disabled')) {
+            visibleCount++
+          }
+          if (matches) {
+            const group = item.closest<HTMLElement>('[data-rfr-command-group]')
+            if (group) groupsWithVisible.add(group)
+          }
+        })
+
+        // Show/hide groups based on whether they have visible items
+        root.querySelectorAll<HTMLElement>('[data-rfr-command-group]').forEach((group) => {
+          group.hidden = !groupsWithVisible.has(group)
+        })
+
+        // Show/hide empty state
+        if (emptyEl) {
+          emptyEl.hidden = visibleCount > 0 || !query
+        }
+
+        // Reset selection
+        selectedIndex = 0
+        updateSelection()
+      }
+
+      // Input filtering
+      input?.addEventListener('input', () => {
+        filterItems()
+      })
+
+      // Keyboard navigation
+      root.addEventListener('keydown', (e) => {
+        const items = getItems()
+        if (items.length === 0 && e.key !== 'Escape') return
+
+        switch (e.key) {
+          case 'ArrowDown': {
+            e.preventDefault()
+            if (items.length > 0) {
+              selectedIndex = (selectedIndex + 1) % items.length
+              updateSelection()
+            }
+            break
+          }
+          case 'ArrowUp': {
+            e.preventDefault()
+            if (items.length > 0) {
+              selectedIndex = (selectedIndex - 1 + items.length) % items.length
+              updateSelection()
+            }
+            break
+          }
+          case 'Enter': {
+            e.preventDefault()
+            const items = getItems()
+            const selected = items[selectedIndex]
+            if (selected) {
+              selected.click()
+              root.dispatchEvent(
+                new CustomEvent('rfr-command-select', {
+                  detail: { value: selected.getAttribute('data-value') || selected.textContent?.trim() },
+                  bubbles: true,
+                })
+              )
+            }
+            break
+          }
+          case 'Escape': {
+            e.preventDefault()
+            root.dispatchEvent(new CustomEvent('rfr-command-close', { bubbles: true }))
+            break
+          }
+        }
+      })
+
+      // Click on items
+      root.addEventListener('click', (e) => {
+        const item = (e.target as HTMLElement).closest<HTMLElement>('[data-rfr-command-item]')
+        if (item && !item.hasAttribute('data-disabled')) {
+          const items = getItems()
+          const index = items.indexOf(item)
+          if (index >= 0) {
+            selectedIndex = index
+            updateSelection()
+          }
+          root.dispatchEvent(
+            new CustomEvent('rfr-command-select', {
+              detail: { value: item.getAttribute('data-value') || item.textContent?.trim() },
+              bubbles: true,
+            })
+          )
+        }
+      })
+
+      // Initial state
+      if (emptyEl) emptyEl.hidden = true
+      updateSelection()
+    })
+  }
+
+  initCommands()
+  document.addEventListener('astro:after-swap', initCommands)
+</script>

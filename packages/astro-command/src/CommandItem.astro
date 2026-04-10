@@ -1,0 +1,26 @@
+---
+import { commandItemVariants } from '@refraction-ui/command'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  value?: string
+  disabled?: boolean
+}
+
+const { value, disabled = false, class: className, ...props } = Astro.props
+const state = disabled ? 'disabled' : 'default'
+---
+
+<div
+  data-rfr-command-item
+  data-value={value}
+  data-disabled={disabled ? '' : undefined}
+  role="option"
+  aria-selected="false"
+  aria-disabled={disabled}
+  tabindex={-1}
+  class={cn(commandItemVariants({ state }), className)}
+  {...props}
+>
+  <slot />
+</div>
