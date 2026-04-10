@@ -1,0 +1,62 @@
+---
+import {
+  createMarkdownRenderer,
+  proseVariants,
+  type MarkdownRendererProps as CoreProps,
+  type ComponentDef,
+} from '@refraction-ui/markdown-renderer'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  content: string
+  components?: Record<string, ComponentDef>
+  linkResolver?: (url: string) => string
+  size?: 'sm' | 'default' | 'lg'
+}
+
+const {
+  content,
+  components,
+  linkResolver,
+  size,
+  class: className,
+  ...props
+} = Astro.props
+
+const coreProps: CoreProps = { content, components, linkResolver }
+const api = createMarkdownRenderer(coreProps)
+const classes = cn(proseVariants({ size }), className)
+
+/**
+ * Sanitize HTML to prevent XSS attacks.
+ * Strips script tags, on* event attributes, and javascript: URLs.
+ */
+function sanitizeHtml(html: string): string {
+  let sanitized = html
+
+  // Remove <script> tags and their contents
+  sanitized = sanitized.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+
+  // Remove standalone <script> opening/closing tags
+  sanitized = sanitized.replace(/<\/?script[^>]*>/gi, '')
+
+  // Remove on* event handler attributes
+  sanitized = sanitized.replace(/\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '')
+
+  // Remove javascript: URLs from href and src attributes
+  sanitized = sanitized.replace(/(href|src)\s*=\s*["']?\s*javascript\s*:[^"'>]*/gi, '$1=""')
+
+  return sanitized
+}
+
+const sanitizedHtml = sanitizeHtml(api.html)
+---
+
+<div
+  class={classes}
+  role={api.ariaProps.role}
+  aria-label={api.ariaProps['aria-label']}
+  {...props}
+>
+  <Fragment set:html={sanitizedHtml} />
+</div>
