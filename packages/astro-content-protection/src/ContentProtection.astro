@@ -1,0 +1,104 @@
+---
+import {
+  createContentProtection,
+  contentProtectionVariants,
+  watermarkVariants,
+} from '@refraction-ui/content-protection'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Enable content protection. Default: true */
+  enabled?: boolean
+  /** Disable copy/cut. Default: true */
+  disableCopy?: boolean
+  /** Disable right-click context menu. Default: true */
+  disableContextMenu?: boolean
+  /** Watermark text overlay */
+  watermarkText?: string
+}
+
+const {
+  enabled = true,
+  disableCopy = true,
+  disableContextMenu = true,
+  watermarkText,
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createContentProtection({ enabled, disableCopy, disableContextMenu, watermarkText })
+const classes = cn(contentProtectionVariants(), className)
+---
+
+<div
+  data-rfr-content-protection
+  data-rfr-cp-enabled={enabled}
+  data-rfr-cp-disable-copy={disableCopy}
+  data-rfr-cp-disable-context-menu={disableContextMenu}
+  class={classes}
+  {...api.dataAttributes}
+  {...props}
+>
+  <slot />
+  {api.watermarkConfig && (
+    <div
+      class={watermarkVariants()}
+      aria-hidden="true"
+      style={`opacity: ${api.watermarkConfig.opacity}; transform: rotate(${api.watermarkConfig.angle}deg);`}
+    >
+      <svg width="100%" height="100%">
+        <defs>
+          <pattern
+            id="rfr-watermark"
+            x="0"
+            y="0"
+            width="200"
+            height="200"
+            patternUnits="userSpaceOnUse"
+            patternTransform={`rotate(${api.watermarkConfig.angle})`}
+          >
+            <text
+              x="0"
+              y="100"
+              fill="currentColor"
+              font-size="16"
+              font-family="sans-serif"
+            >
+              {api.watermarkConfig.text}
+            </text>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#rfr-watermark)" />
+      </svg>
+    </div>
+  )}
+</div>
+
+<script>
+  function initContentProtection() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-content-protection]').forEach((el) => {
+      if (el.hasAttribute('data-rfr-cp-init')) return
+      el.setAttribute('data-rfr-cp-init', '')
+
+      const enabled = el.getAttribute('data-rfr-cp-enabled') !== 'false'
+      const disableCopy = el.getAttribute('data-rfr-cp-disable-copy') !== 'false'
+      const disableContextMenu = el.getAttribute('data-rfr-cp-disable-context-menu') !== 'false'
+
+      if (!enabled) return
+
+      if (disableCopy) {
+        const prevent = (e: Event) => e.preventDefault()
+        el.addEventListener('copy', prevent)
+        el.addEventListener('cut', prevent)
+        el.addEventListener('selectstart', prevent)
+      }
+
+      if (disableContextMenu) {
+        el.addEventListener('contextmenu', (e) => e.preventDefault())
+      }
+    })
+  }
+
+  initContentProtection()
+  document.addEventListener('astro:after-swap', initContentProtection)
+</script>
