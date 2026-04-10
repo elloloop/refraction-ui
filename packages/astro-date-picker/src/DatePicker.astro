@@ -1,0 +1,398 @@
+---
+import {
+  createDatePicker,
+  formatDate,
+  datePickerTriggerStyles,
+  datePickerDropdownStyles,
+  datePickerDayVariants,
+  datePickerTimeStyles,
+  datePickerTimeInputStyles,
+  type CalendarDay,
+} from '@refraction-ui/date-picker'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Selected date value (ISO string) */
+  value?: string
+  /** Minimum selectable date (ISO string) */
+  minDate?: string
+  /** Maximum selectable date (ISO string) */
+  maxDate?: string
+  /** Show time selection inputs */
+  showTime?: boolean
+  /** Date format string */
+  format?: string
+  /** Placeholder text */
+  placeholder?: string
+  /** Whether the picker is disabled */
+  disabled?: boolean
+}
+
+const {
+  value,
+  minDate,
+  maxDate,
+  showTime = false,
+  format,
+  placeholder = 'Select date...',
+  disabled = false,
+  class: className,
+  ...props
+} = Astro.props
+
+const parsedValue = value ? new Date(value) : undefined
+const parsedMin = minDate ? new Date(minDate) : undefined
+const parsedMax = maxDate ? new Date(maxDate) : undefined
+
+const api = createDatePicker({
+  value: parsedValue,
+  minDate: parsedMin,
+  maxDate: parsedMax,
+  showTime,
+  format,
+  placeholder,
+})
+
+const displayValue = api.formatDisplay()
+const DAY_HEADERS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+const currentMonth = api.state.currentMonth
+const monthLabel = currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+
+function getDayState(day: CalendarDay): 'default' | 'selected' | 'today' | 'disabled' | 'outside' {
+  if (day.isDisabled) return 'disabled'
+  if (day.isSelected) return 'selected'
+  if (day.isToday) return 'today'
+  if (!day.isCurrentMonth) return 'outside'
+  return 'default'
+}
+---
+
+<div
+  data-rfr-datepicker
+  data-rfr-datepicker-value={value || ''}
+  data-rfr-datepicker-min={minDate || ''}
+  data-rfr-datepicker-max={maxDate || ''}
+  data-rfr-datepicker-show-time={showTime}
+  data-rfr-datepicker-format={format || (showTime ? 'YYYY-MM-DD HH:mm' : 'YYYY-MM-DD')}
+  data-rfr-datepicker-placeholder={placeholder}
+  data-rfr-datepicker-year={currentMonth.getFullYear()}
+  data-rfr-datepicker-month={currentMonth.getMonth()}
+  data-state="closed"
+  class={cn('relative inline-block', className)}
+  {...props}
+>
+  <!-- Trigger button -->
+  <button
+    type="button"
+    data-rfr-datepicker-trigger
+    class={cn(datePickerTriggerStyles, disabled && 'opacity-50 cursor-not-allowed')}
+    aria-expanded="false"
+    aria-haspopup="dialog"
+    disabled={disabled}
+  >{displayValue}</button>
+
+  <!-- Dropdown (initially hidden) -->
+  <div
+    data-rfr-datepicker-dropdown
+    class={datePickerDropdownStyles}
+    role="dialog"
+    aria-modal="true"
+    hidden
+  >
+    <!-- Month navigation -->
+    <div class="flex items-center justify-between mb-3">
+      <button
+        type="button"
+        data-rfr-datepicker-prev
+        class="p-1 hover:bg-accent rounded cursor-pointer"
+        aria-label="Previous month"
+      >&lsaquo;</button>
+      <span data-rfr-datepicker-label class="text-sm font-medium">{monthLabel}</span>
+      <button
+        type="button"
+        data-rfr-datepicker-next
+        class="p-1 hover:bg-accent rounded cursor-pointer"
+        aria-label="Next month"
+      >&rsaquo;</button>
+    </div>
+
+    <!-- Calendar grid -->
+    <div class="grid grid-cols-7 gap-0 text-center" role="grid">
+      {DAY_HEADERS.map((d) => (
+        <div class="text-xs text-muted-foreground py-1 font-medium">{d}</div>
+      ))}
+      <div data-rfr-datepicker-grid class="contents">
+        {api.days.map((day) => {
+          const state = getDayState(day)
+          return (
+            <button
+              type="button"
+              class={datePickerDayVariants({ state })}
+              disabled={day.isDisabled}
+              data-rfr-datepicker-day
+              data-date={day.date.toISOString()}
+              aria-selected={day.isSelected}
+              aria-disabled={day.isDisabled}
+            >{day.date.getDate()}</button>
+          )
+        })}
+      </div>
+    </div>
+
+    <!-- Time inputs (optional) -->
+    {showTime && (
+      <div class={datePickerTimeStyles} data-rfr-datepicker-time>
+        <span class="text-sm text-muted-foreground">Time:</span>
+        <input
+          type="number"
+          min="0"
+          max="23"
+          value={parsedValue ? parsedValue.getHours() : 0}
+          class={datePickerTimeInputStyles}
+          aria-label="Hours"
+          data-rfr-datepicker-hours
+        />
+        <span class="text-muted-foreground">:</span>
+        <input
+          type="number"
+          min="0"
+          max="59"
+          value={parsedValue ? parsedValue.getMinutes() : 0}
+          class={datePickerTimeInputStyles}
+          aria-label="Minutes"
+          data-rfr-datepicker-minutes
+        />
+      </div>
+    )}
+  </div>
+</div>
+
+<script>
+  const MONTH_NAMES = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December',
+  ]
+  const DAY_VARIANT_DEFAULT = 'inline-flex h-8 w-8 items-center justify-center rounded-md text-sm cursor-pointer hover:bg-accent hover:text-accent-foreground'
+  const DAY_VARIANT_SELECTED = 'inline-flex h-8 w-8 items-center justify-center rounded-md text-sm cursor-pointer hover:bg-accent hover:text-accent-foreground bg-primary text-primary-foreground hover:bg-primary/90'
+  const DAY_VARIANT_TODAY = 'inline-flex h-8 w-8 items-center justify-center rounded-md text-sm cursor-pointer hover:bg-accent hover:text-accent-foreground border border-accent-foreground'
+  const DAY_VARIANT_DISABLED = 'inline-flex h-8 w-8 items-center justify-center rounded-md text-sm cursor-pointer hover:bg-accent hover:text-accent-foreground text-muted-foreground opacity-50 pointer-events-none'
+  const DAY_VARIANT_OUTSIDE = 'inline-flex h-8 w-8 items-center justify-center rounded-md text-sm cursor-pointer hover:bg-accent hover:text-accent-foreground text-muted-foreground opacity-30'
+
+  function isSameDay(a: Date, b: Date): boolean {
+    return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
+  }
+
+  function padZero(n: number): string {
+    return n < 10 ? `0${n}` : `${n}`
+  }
+
+  function formatDateStr(date: Date | null, fmt: string, showTime: boolean): string {
+    if (!date) return ''
+    let result = fmt
+      .replace('YYYY', String(date.getFullYear()))
+      .replace('MM', padZero(date.getMonth() + 1))
+      .replace('DD', padZero(date.getDate()))
+    if (showTime) {
+      result = result.replace('HH', padZero(date.getHours())).replace('mm', padZero(date.getMinutes()))
+    }
+    return result
+  }
+
+  function isDateDisabled(date: Date, minStr: string, maxStr: string): boolean {
+    if (minStr) {
+      const min = new Date(minStr)
+      const startOfMin = new Date(min.getFullYear(), min.getMonth(), min.getDate())
+      if (date < startOfMin) return true
+    }
+    if (maxStr) {
+      const max = new Date(maxStr)
+      const endOfMax = new Date(max.getFullYear(), max.getMonth(), max.getDate(), 23, 59, 59, 999)
+      if (date > endOfMax) return true
+    }
+    return false
+  }
+
+  function renderDatePickerGrid(root: HTMLElement) {
+    const year = parseInt(root.getAttribute('data-rfr-datepicker-year') || '0', 10)
+    const month = parseInt(root.getAttribute('data-rfr-datepicker-month') || '0', 10)
+    const valueStr = root.getAttribute('data-rfr-datepicker-value') || ''
+    const minStr = root.getAttribute('data-rfr-datepicker-min') || ''
+    const maxStr = root.getAttribute('data-rfr-datepicker-max') || ''
+    const selectedDate = valueStr ? new Date(valueStr) : null
+    const today = new Date()
+
+    const label = root.querySelector<HTMLElement>('[data-rfr-datepicker-label]')
+    if (label) label.textContent = `${MONTH_NAMES[month]} ${year}`
+
+    const grid = root.querySelector<HTMLElement>('[data-rfr-datepicker-grid]')
+    if (!grid) return
+
+    grid.innerHTML = ''
+    const first = new Date(year, month, 1)
+    const startDow = first.getDay()
+    const gridStart = new Date(year, month, 1 - startDow)
+
+    for (let i = 0; i < 42; i++) {
+      const date = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i)
+      const isToday = isSameDay(date, today)
+      const isSelected = selectedDate ? isSameDay(date, selectedDate) : false
+      const isCurrentMonth = date.getMonth() === month
+      const isDisabled = isDateDisabled(date, minStr, maxStr)
+
+      let variant = DAY_VARIANT_DEFAULT
+      if (isDisabled) variant = DAY_VARIANT_DISABLED
+      else if (isSelected) variant = DAY_VARIANT_SELECTED
+      else if (isToday) variant = DAY_VARIANT_TODAY
+      else if (!isCurrentMonth) variant = DAY_VARIANT_OUTSIDE
+
+      const btn = document.createElement('button')
+      btn.type = 'button'
+      btn.className = variant
+      btn.disabled = isDisabled
+      btn.setAttribute('data-rfr-datepicker-day', '')
+      btn.setAttribute('data-date', date.toISOString())
+      btn.setAttribute('aria-selected', String(isSelected))
+      btn.setAttribute('aria-disabled', String(isDisabled))
+      btn.textContent = String(date.getDate())
+      grid.appendChild(btn)
+    }
+  }
+
+  function initDatePickers() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-datepicker]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-datepicker-init')) return
+      root.setAttribute('data-rfr-datepicker-init', '')
+
+      const trigger = root.querySelector<HTMLButtonElement>('[data-rfr-datepicker-trigger]')
+      const dropdown = root.querySelector<HTMLElement>('[data-rfr-datepicker-dropdown]')
+      const showTime = root.getAttribute('data-rfr-datepicker-show-time') === 'true'
+      const fmt = root.getAttribute('data-rfr-datepicker-format') || 'YYYY-MM-DD'
+      const placeholder = root.getAttribute('data-rfr-datepicker-placeholder') || 'Select date...'
+
+      let isOpen = false
+
+      function setOpen(open: boolean) {
+        isOpen = open
+        root.setAttribute('data-state', open ? 'open' : 'closed')
+        trigger?.setAttribute('aria-expanded', String(open))
+        if (dropdown) {
+          if (open) {
+            dropdown.removeAttribute('hidden')
+            renderDatePickerGrid(root)
+          } else {
+            dropdown.setAttribute('hidden', '')
+          }
+        }
+      }
+
+      function updateTriggerLabel() {
+        const valueStr = root.getAttribute('data-rfr-datepicker-value') || ''
+        const date = valueStr ? new Date(valueStr) : null
+        if (trigger) {
+          trigger.textContent = date ? formatDateStr(date, fmt, showTime) : placeholder
+        }
+      }
+
+      // Toggle dropdown
+      trigger?.addEventListener('click', () => {
+        if (trigger.disabled) return
+        setOpen(!isOpen)
+      })
+
+      // Prev month
+      root.querySelector('[data-rfr-datepicker-prev]')?.addEventListener('click', () => {
+        const year = parseInt(root.getAttribute('data-rfr-datepicker-year') || '0', 10)
+        const month = parseInt(root.getAttribute('data-rfr-datepicker-month') || '0', 10)
+        const prev = new Date(year, month - 1, 1)
+        root.setAttribute('data-rfr-datepicker-year', String(prev.getFullYear()))
+        root.setAttribute('data-rfr-datepicker-month', String(prev.getMonth()))
+        renderDatePickerGrid(root)
+      })
+
+      // Next month
+      root.querySelector('[data-rfr-datepicker-next]')?.addEventListener('click', () => {
+        const year = parseInt(root.getAttribute('data-rfr-datepicker-year') || '0', 10)
+        const month = parseInt(root.getAttribute('data-rfr-datepicker-month') || '0', 10)
+        const next = new Date(year, month + 1, 1)
+        root.setAttribute('data-rfr-datepicker-year', String(next.getFullYear()))
+        root.setAttribute('data-rfr-datepicker-month', String(next.getMonth()))
+        renderDatePickerGrid(root)
+      })
+
+      // Day click (delegated on grid's parent)
+      const gridParent = root.querySelector('[role="grid"]')
+      gridParent?.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-rfr-datepicker-day]')
+        if (!btn || btn.disabled) return
+        const dateStr = btn.getAttribute('data-date')
+        if (!dateStr) return
+
+        const selectedDate = new Date(dateStr)
+        // Preserve existing time if showTime
+        if (showTime) {
+          const hoursInput = root.querySelector<HTMLInputElement>('[data-rfr-datepicker-hours]')
+          const minutesInput = root.querySelector<HTMLInputElement>('[data-rfr-datepicker-minutes]')
+          if (hoursInput) selectedDate.setHours(parseInt(hoursInput.value, 10) || 0)
+          if (minutesInput) selectedDate.setMinutes(parseInt(minutesInput.value, 10) || 0)
+        }
+
+        root.setAttribute('data-rfr-datepicker-value', selectedDate.toISOString())
+        updateTriggerLabel()
+        renderDatePickerGrid(root)
+
+        if (!showTime) {
+          setOpen(false)
+        }
+
+        root.dispatchEvent(new CustomEvent('rfr-date-change', {
+          detail: { date: selectedDate, iso: selectedDate.toISOString() },
+          bubbles: true,
+        }))
+      })
+
+      // Time input changes
+      const hoursInput = root.querySelector<HTMLInputElement>('[data-rfr-datepicker-hours]')
+      const minutesInput = root.querySelector<HTMLInputElement>('[data-rfr-datepicker-minutes]')
+
+      function handleTimeChange() {
+        const valueStr = root.getAttribute('data-rfr-datepicker-value') || ''
+        const date = valueStr ? new Date(valueStr) : new Date()
+        if (hoursInput) {
+          const h = parseInt(hoursInput.value, 10)
+          if (!isNaN(h) && h >= 0 && h <= 23) date.setHours(h)
+        }
+        if (minutesInput) {
+          const m = parseInt(minutesInput.value, 10)
+          if (!isNaN(m) && m >= 0 && m <= 59) date.setMinutes(m)
+        }
+        root.setAttribute('data-rfr-datepicker-value', date.toISOString())
+        updateTriggerLabel()
+        root.dispatchEvent(new CustomEvent('rfr-date-change', {
+          detail: { date, iso: date.toISOString() },
+          bubbles: true,
+        }))
+      }
+
+      hoursInput?.addEventListener('change', handleTimeChange)
+      minutesInput?.addEventListener('change', handleTimeChange)
+
+      // Close on outside click
+      document.addEventListener('mousedown', (e) => {
+        if (isOpen && !root.contains(e.target as Node)) {
+          setOpen(false)
+        }
+      })
+
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (isOpen && e.key === 'Escape') {
+          e.preventDefault()
+          setOpen(false)
+        }
+      })
+    })
+  }
+
+  initDatePickers()
+  document.addEventListener('astro:after-swap', initDatePickers)
+</script>
