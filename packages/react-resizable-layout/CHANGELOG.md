@@ -1,0 +1,9 @@
+# @refraction-ui/react-resizable-layout
+
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [30d38ee]
+  - @refraction-ui/shared@0.1.1
+  - @refraction-ui/resizable-layout@0.1.1
