@@ -82,7 +82,7 @@ jobs:
       - run: pnpm turbo build --filter='./packages/*'
       - name: Setup npm auth
         run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > "${NPM_CONFIG_USERCONFIG:-$HOME/.npmrc}"
           npm whoami
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
