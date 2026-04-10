@@ -1,0 +1,84 @@
+---
+import { mobileNavVariants } from '@refraction-ui/mobile-nav'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Whether the nav starts open */
+  defaultOpen?: boolean
+}
+
+const { defaultOpen = false, class: className, ...props } = Astro.props
+---
+
+<nav
+  data-rfr-mobile-nav
+  data-rfr-mobile-nav-default-open={defaultOpen}
+  data-state={defaultOpen ? 'open' : 'closed'}
+  class={cn(mobileNavVariants(), className)}
+  {...props}
+>
+  <slot />
+</nav>
+
+<script>
+  function initMobileNavs() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-mobile-nav]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-mobile-nav-init')) return
+      root.setAttribute('data-rfr-mobile-nav-init', '')
+
+      const defaultOpen = root.getAttribute('data-rfr-mobile-nav-default-open') === 'true'
+      let isOpen = defaultOpen
+
+      const trigger = root.querySelector<HTMLElement>('[data-rfr-mobile-nav-trigger]')
+      const content = root.querySelector<HTMLElement>('[data-rfr-mobile-nav-content]')
+
+      function setState(open: boolean) {
+        isOpen = open
+        const state = open ? 'open' : 'closed'
+        root.setAttribute('data-state', state)
+        trigger?.setAttribute('aria-expanded', String(open))
+        content?.setAttribute('data-state', state)
+
+        // Update trigger icon
+        const openIcon = trigger?.querySelector('[data-rfr-mobile-nav-icon-open]')
+        const closedIcon = trigger?.querySelector('[data-rfr-mobile-nav-icon-closed]')
+        if (openIcon && closedIcon) {
+          if (open) {
+            openIcon.removeAttribute('hidden')
+            closedIcon.setAttribute('hidden', '')
+          } else {
+            openIcon.setAttribute('hidden', '')
+            closedIcon.removeAttribute('hidden')
+          }
+        }
+
+        root.dispatchEvent(new CustomEvent('rfr-mobile-nav-change', { detail: { open }, bubbles: true }))
+      }
+
+      // Trigger click
+      trigger?.addEventListener('click', () => setState(!isOpen))
+
+      // Escape key
+      root.addEventListener('keydown', (e) => {
+        if (!isOpen) return
+        if (e.key === 'Escape') {
+          e.preventDefault()
+          setState(false)
+          trigger?.focus()
+        }
+      })
+
+      // Set initial state for icon visibility
+      if (!defaultOpen) {
+        const openIcon = trigger?.querySelector('[data-rfr-mobile-nav-icon-open]')
+        openIcon?.setAttribute('hidden', '')
+      } else {
+        const closedIcon = trigger?.querySelector('[data-rfr-mobile-nav-icon-closed]')
+        closedIcon?.setAttribute('hidden', '')
+      }
+    })
+  }
+
+  initMobileNavs()
+  document.addEventListener('astro:after-swap', initMobileNavs)
+</script>

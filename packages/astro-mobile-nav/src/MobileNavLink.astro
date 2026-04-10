@@ -1,0 +1,16 @@
+---
+import { mobileNavLinkVariants } from '@refraction-ui/mobile-nav'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.AnchorHTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<a
+  role="menuitem"
+  class={cn(mobileNavLinkVariants(), className)}
+  {...props}
+>
+  <slot />
+</a>
