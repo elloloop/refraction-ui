@@ -1,0 +1,22 @@
+---
+import Skeleton from './Skeleton.astro'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Number of text lines to render. Defaults to 3 */
+  lines?: number
+  /** Whether to animate the skeleton pulse. Defaults to true */
+  animate?: boolean
+}
+
+const { lines = 3, animate, class: className, ...props } = Astro.props
+
+/** Width percentages for each line to create a natural-looking text block */
+const lineWidths = ['100%', '92%', '85%', '96%', '78%', '88%', '94%', '82%']
+---
+
+<div class={cn('space-y-2', className)} {...props}>
+  {Array.from({ length: lines }, (_, i) => (
+    <Skeleton shape="text" width={lineWidths[i % lineWidths.length]} animate={animate} />
+  ))}
+</div>
