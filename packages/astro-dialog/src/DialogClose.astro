@@ -1,0 +1,16 @@
+---
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<button
+  type="button"
+  data-rfr-dialog-close
+  class={cn(className)}
+  {...props}
+>
+  <slot />
+</button>

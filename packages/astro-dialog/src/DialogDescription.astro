@@ -1,0 +1,15 @@
+---
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<p
+  data-rfr-dialog-description
+  class={cn('text-sm text-muted-foreground', className)}
+  {...props}
+>
+  <slot />
+</p>

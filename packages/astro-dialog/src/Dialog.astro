@@ -1,0 +1,138 @@
+---
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Whether the dialog starts open */
+  defaultOpen?: boolean
+  /** Whether the dialog is modal (default: true) */
+  modal?: boolean
+}
+
+const { defaultOpen = false, modal = true, class: className, ...props } = Astro.props
+---
+
+<div
+  data-rfr-dialog
+  data-rfr-dialog-modal={modal}
+  data-rfr-dialog-default-open={defaultOpen}
+  data-state={defaultOpen ? 'open' : 'closed'}
+  class={cn('contents', className)}
+  {...props}
+>
+  <slot />
+</div>
+
+<script>
+  function initDialogs() {
+    const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+
+    document.querySelectorAll<HTMLElement>('[data-rfr-dialog]').forEach((root) => {
+      // Prevent re-init
+      if (root.hasAttribute('data-rfr-dialog-init')) return
+      root.setAttribute('data-rfr-dialog-init', '')
+
+      const isModal = root.getAttribute('data-rfr-dialog-modal') !== 'false'
+      const defaultOpen = root.getAttribute('data-rfr-dialog-default-open') === 'true'
+      let isOpen = defaultOpen
+
+      const trigger = root.querySelector<HTMLElement>('[data-rfr-dialog-trigger]')
+      const overlay = root.querySelector<HTMLElement>('[data-rfr-dialog-overlay]')
+      const content = root.querySelector<HTMLElement>('[data-rfr-dialog-content]')
+      const closeBtns = root.querySelectorAll<HTMLElement>('[data-rfr-dialog-close]')
+
+      function setState(open: boolean) {
+        isOpen = open
+        const state = open ? 'open' : 'closed'
+        root.setAttribute('data-state', state)
+        trigger?.setAttribute('aria-expanded', String(open))
+        overlay?.setAttribute('data-state', state)
+        content?.setAttribute('data-state', state)
+
+        if (open) {
+          overlay?.removeAttribute('hidden')
+          content?.removeAttribute('hidden')
+          // Focus the content or first focusable element
+          if (content) {
+            const firstFocusable = content.querySelector<HTMLElement>(FOCUSABLE)
+            if (firstFocusable) {
+              firstFocusable.focus()
+            } else {
+              content.focus()
+            }
+          }
+          // Prevent body scroll for modal
+          if (isModal) {
+            document.body.style.overflow = 'hidden'
+          }
+        } else {
+          overlay?.setAttribute('hidden', '')
+          content?.setAttribute('hidden', '')
+          if (isModal) {
+            document.body.style.overflow = ''
+          }
+          // Return focus to trigger
+          trigger?.focus()
+        }
+
+        root.dispatchEvent(new CustomEvent('rfr-dialog-change', { detail: { open }, bubbles: true }))
+      }
+
+      // Trigger click
+      trigger?.addEventListener('click', () => setState(!isOpen))
+
+      // Close button clicks
+      closeBtns.forEach((btn) => {
+        btn.addEventListener('click', () => setState(false))
+      })
+
+      // Overlay click-to-close
+      overlay?.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          setState(false)
+        }
+      })
+
+      // Keyboard: Escape to close, Tab trapping for modal
+      root.addEventListener('keydown', (e) => {
+        if (!isOpen) return
+
+        if (e.key === 'Escape') {
+          e.preventDefault()
+          setState(false)
+          return
+        }
+
+        // Focus trap for modal dialogs
+        if (isModal && e.key === 'Tab' && content) {
+          const focusables = content.querySelectorAll<HTMLElement>(FOCUSABLE)
+          if (focusables.length === 0) return
+
+          const first = focusables[0]
+          const last = focusables[focusables.length - 1]
+
+          if (e.shiftKey) {
+            if (document.activeElement === first) {
+              e.preventDefault()
+              last.focus()
+            }
+          } else {
+            if (document.activeElement === last) {
+              e.preventDefault()
+              first.focus()
+            }
+          }
+        }
+      })
+
+      // Set initial state
+      if (!defaultOpen) {
+        overlay?.setAttribute('hidden', '')
+        content?.setAttribute('hidden', '')
+      }
+    })
+  }
+
+  // Run on initial load and after Astro page transitions
+  initDialogs()
+  document.addEventListener('astro:after-swap', initDialogs)
+</script>
