@@ -1,0 +1,49 @@
+---
+import {
+  createInput,
+  inputVariants,
+  type InputType,
+} from '@refraction-ui/input'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  type?: string
+  size?: 'sm' | 'default' | 'lg'
+  disabled?: boolean
+  readonly?: boolean
+  required?: boolean
+  'aria-invalid'?: boolean
+}
+
+const {
+  type = 'text',
+  size,
+  class: className,
+  disabled,
+  readonly,
+  required,
+  'aria-invalid': ariaInvalid,
+  ...props
+} = Astro.props
+
+const api = createInput({
+  type: type as InputType,
+  disabled,
+  readOnly: readonly,
+  required,
+  'aria-invalid': ariaInvalid === true ? true : undefined,
+})
+
+const classes = cn(inputVariants({ size }), className)
+---
+
+<input
+  type={type}
+  class={classes}
+  disabled={disabled}
+  readonly={readonly}
+  required={required}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...props}
+/>
