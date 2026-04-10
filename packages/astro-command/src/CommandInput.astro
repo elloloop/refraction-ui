@@ -1,0 +1,21 @@
+---
+import { commandInputVariants } from '@refraction-ui/command'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  placeholder?: string
+}
+
+const { placeholder = 'Type a command or search...', class: className, ...props } = Astro.props
+---
+
+<input
+  data-rfr-command-input
+  type="text"
+  role="searchbox"
+  aria-autocomplete="list"
+  aria-label="Command input"
+  placeholder={placeholder}
+  class={cn(commandInputVariants(), className)}
+  {...props}
+/>

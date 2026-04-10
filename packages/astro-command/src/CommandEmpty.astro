@@ -1,0 +1,17 @@
+---
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<div
+  data-rfr-command-empty
+  role="presentation"
+  hidden
+  class={cn('py-6 text-center text-sm', className)}
+  {...props}
+>
+  <slot />
+</div>

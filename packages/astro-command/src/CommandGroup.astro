@@ -1,0 +1,25 @@
+---
+import { commandGroupVariants } from '@refraction-ui/command'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  heading?: string
+}
+
+const { heading, class: className, ...props } = Astro.props
+---
+
+<div
+  data-rfr-command-group
+  role="group"
+  aria-label={heading}
+  class={cn(commandGroupVariants(), className)}
+  {...props}
+>
+  {heading && (
+    <div class="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+      {heading}
+    </div>
+  )}
+  <slot />
+</div>

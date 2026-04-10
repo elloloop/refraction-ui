@@ -1,0 +1,17 @@
+---
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<div
+  data-rfr-command-list
+  role="listbox"
+  aria-label="Command suggestions"
+  class={cn('max-h-[300px] overflow-y-auto overflow-x-hidden', className)}
+  {...props}
+>
+  <slot />
+</div>
