@@ -1,0 +1,133 @@
+---
+/**
+ * AuthGuard — server-side component that conditionally renders children
+ * based on auth state. Since Astro is primarily server-rendered, this
+ * component checks auth at SSR time and includes a client-side script
+ * for dynamic scenarios.
+ *
+ * Slots:
+ *   - default: content shown when authenticated
+ *   - fallback: shown while loading / when unauthenticated (no roles check)
+ *   - unauthorized: shown when user lacks required roles
+ */
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Roles required to view the content */
+  roles?: string[]
+  /** URL to redirect to when unauthenticated (client-side) */
+  redirectTo?: string
+  /** Provider type for auto-detection */
+  provider?: 'firebase' | 'supabase' | 'mock' | 'none'
+}
+
+const { roles, redirectTo, provider, class: className, ...props } = Astro.props
+
+const rolesJSON = JSON.stringify(roles ?? [])
+---
+
+<div
+  class={cn('rfr-auth-guard', className)}
+  data-rfr-auth-guard
+  data-rfr-auth-roles={rolesJSON}
+  data-rfr-auth-redirect={redirectTo}
+  data-rfr-auth-provider={provider}
+  {...props}
+>
+  <!-- Loading / fallback state (hidden once auth resolves) -->
+  <div data-rfr-auth-state="loading">
+    <slot name="fallback">
+      <div class="flex items-center justify-center p-8" aria-busy="true" aria-label="Checking authentication">
+        <svg
+          class="animate-spin h-6 w-6"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          />
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          />
+        </svg>
+      </div>
+    </slot>
+  </div>
+
+  <!-- Authenticated content (hidden until auth confirmed) -->
+  <div data-rfr-auth-state="authenticated" style="display:none;">
+    <slot />
+  </div>
+
+  <!-- Unauthorized (hidden unless roles check fails) -->
+  <div data-rfr-auth-state="unauthorized" style="display:none;">
+    <slot name="unauthorized">
+      <div class="flex items-center justify-center p-8 text-muted-foreground" role="alert">
+        <p>You do not have permission to view this content.</p>
+      </div>
+    </slot>
+  </div>
+</div>
+
+<script is:inline>
+  ;(function () {
+    document.querySelectorAll('[data-rfr-auth-guard]').forEach(function (guard) {
+      var redirect = guard.getAttribute('data-rfr-auth-redirect')
+      var roles = []
+      try {
+        roles = JSON.parse(guard.getAttribute('data-rfr-auth-roles') || '[]')
+      } catch (_) { /* */ }
+
+      var loadingEl = guard.querySelector('[data-rfr-auth-state="loading"]')
+      var authedEl = guard.querySelector('[data-rfr-auth-state="authenticated"]')
+      var unauthEl = guard.querySelector('[data-rfr-auth-state="unauthorized"]')
+
+      function showState(state) {
+        if (loadingEl) loadingEl.style.display = state === 'loading' ? '' : 'none'
+        if (authedEl) authedEl.style.display = state === 'authenticated' ? '' : 'none'
+        if (unauthEl) unauthEl.style.display = state === 'unauthorized' ? '' : 'none'
+      }
+
+      function hasAnyRole(user, requiredRoles) {
+        if (!requiredRoles || requiredRoles.length === 0) return true
+        if (!user || !user.roles) return false
+        return requiredRoles.some(function (r) { return user.roles.indexOf(r) !== -1 })
+      }
+
+      function handleAuth(user) {
+        if (!user) {
+          if (redirect) {
+            window.location.href = redirect
+          } else {
+            showState('loading')
+          }
+          return
+        }
+        if (roles.length > 0 && !hasAnyRole(user, roles)) {
+          showState('unauthorized')
+          return
+        }
+        showState('authenticated')
+      }
+
+      // Listen for custom auth events dispatched by the auth system
+      window.addEventListener('rfr:auth:state', function (e) {
+        handleAuth(e.detail && e.detail.user)
+      })
+
+      // Check if auth state is already available
+      if (window.__rfr_auth && window.__rfr_auth._ready) {
+        handleAuth(window.__rfr_auth.user)
+      }
+    })
+  })()
+</script>
