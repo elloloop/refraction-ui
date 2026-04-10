@@ -1,0 +1,129 @@
+---
+import {
+  createCheckbox,
+  checkboxVariants,
+  checkIconPath,
+  indeterminateIconPath,
+  type CheckedState,
+} from '@refraction-ui/checkbox'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  checked?: CheckedState
+  disabled?: boolean
+  size?: 'sm' | 'default' | 'lg'
+  name?: string
+  value?: string
+}
+
+const { checked = false, disabled = false, size = 'default', name, value, class: className, ...props } = Astro.props
+const api = createCheckbox({ checked, disabled })
+const checkedVariant = checked === 'indeterminate' ? 'indeterminate' : checked ? 'true' : 'false'
+---
+
+<button
+  type="button"
+  class={cn(checkboxVariants({ checked: checkedVariant, size }), className)}
+  disabled={disabled}
+  data-rfr-checkbox
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...props}
+>
+  {checked === true && (
+    <svg
+      class="h-full w-full"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d={checkIconPath} />
+    </svg>
+  )}
+  {checked === 'indeterminate' && (
+    <svg
+      class="h-full w-full"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d={indeterminateIconPath} />
+    </svg>
+  )}
+  {name && <input type="hidden" name={name} value={checked === 'indeterminate' ? 'indeterminate' : String(checked)} data-rfr-checkbox-input />}
+</button>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-rfr-checkbox]').forEach((el) => {
+    el.addEventListener('click', () => {
+      if (el.disabled) return
+      const currentState = el.getAttribute('aria-checked')
+      let newChecked: boolean
+      if (currentState === 'mixed') {
+        newChecked = true
+      } else {
+        newChecked = currentState !== 'true'
+      }
+      el.setAttribute('aria-checked', String(newChecked))
+      el.setAttribute('data-state', newChecked ? 'checked' : 'unchecked')
+
+      // Toggle check icon visibility
+      const svg = el.querySelector('svg')
+      if (newChecked) {
+        if (!svg) {
+          const newSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+          newSvg.setAttribute('class', 'h-full w-full')
+          newSvg.setAttribute('viewBox', '0 0 24 24')
+          newSvg.setAttribute('fill', 'none')
+          newSvg.setAttribute('stroke', 'currentColor')
+          newSvg.setAttribute('stroke-width', '3')
+          newSvg.setAttribute('stroke-linecap', 'round')
+          newSvg.setAttribute('stroke-linejoin', 'round')
+          newSvg.setAttribute('aria-hidden', 'true')
+          const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+          path.setAttribute('d', 'M20 6L9 17l-5-5')
+          newSvg.appendChild(path)
+          // Insert before the hidden input if it exists, otherwise append
+          const input = el.querySelector('[data-rfr-checkbox-input]')
+          if (input) {
+            el.insertBefore(newSvg, input)
+          } else {
+            el.appendChild(newSvg)
+          }
+        }
+      } else {
+        if (svg) svg.remove()
+      }
+
+      // Update CSS variant classes for checked state
+      if (newChecked) {
+        el.classList.add('bg-primary', 'text-primary-foreground')
+        el.classList.remove('bg-background')
+      } else {
+        el.classList.remove('bg-primary', 'text-primary-foreground')
+        el.classList.add('bg-background')
+      }
+
+      // Update hidden input
+      const input = el.querySelector('[data-rfr-checkbox-input]') as HTMLInputElement | null
+      if (input) input.value = String(newChecked)
+
+      el.dispatchEvent(new CustomEvent('change', { detail: { checked: newChecked } }))
+    })
+
+    el.addEventListener('keydown', (e) => {
+      if (e.key === ' ') {
+        e.preventDefault()
+        el.click()
+      }
+    })
+  })
+</script>
