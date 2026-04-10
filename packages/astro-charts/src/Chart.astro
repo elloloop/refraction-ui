@@ -1,0 +1,31 @@
+---
+/**
+ * Chart — root SVG container for chart compositions.
+ * Provides chart dimensions via data attributes for sub-components.
+ */
+import { combineDimensions, type Margin } from '@refraction-ui/charts'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  width?: number
+  height?: number
+  margin?: Partial<Margin>
+}
+
+const { width = 600, height = 400, margin, class: className, ...props } = Astro.props
+
+const dimensions = combineDimensions({ width, height, margin })
+const dimensionsJSON = JSON.stringify(dimensions)
+---
+
+<svg
+  width={width}
+  height={height}
+  class={className}
+  data-rfr-chart
+  data-rfr-chart-dimensions={dimensionsJSON}
+  {...props}
+>
+  <g transform={`translate(${dimensions.margin.left},${dimensions.margin.top})`}>
+    <slot />
+  </g>
+</svg>

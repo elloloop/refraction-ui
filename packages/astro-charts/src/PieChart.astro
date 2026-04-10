@@ -1,0 +1,63 @@
+---
+/**
+ * PieChart — standalone pie/donut chart rendered as SVG arcs.
+ */
+import { arcPath } from '@refraction-ui/charts'
+
+const DEFAULT_COLORS = [
+  '#4e79a7', '#f28e2b', '#e15759', '#76b7b2',
+  '#59a14f', '#edc948', '#b07aa1', '#ff9da7',
+  '#9c755f', '#bab0ac',
+]
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Numeric values for each slice */
+  values: number[]
+  /** Width of the SVG (default 300) */
+  width?: number
+  /** Height of the SVG (default 300) */
+  height?: number
+  /** Slice colors */
+  colors?: string[]
+}
+
+const {
+  values,
+  width = 300,
+  height = 300,
+  colors = DEFAULT_COLORS,
+  class: className,
+  ...props
+} = Astro.props
+
+const cx = width / 2
+const cy = height / 2
+const radius = Math.min(cx, cy) - 10
+
+const total = values.reduce((sum, v) => sum + v, 0)
+
+let currentAngle = -Math.PI / 2
+
+const arcs = values.map((val, i) => {
+  const sliceAngle = (val / total) * Math.PI * 2
+  const startAngle = currentAngle
+  const endAngle = currentAngle + sliceAngle
+  currentAngle = endAngle
+  return { startAngle, endAngle, color: colors[i % colors.length] }
+})
+---
+
+<svg
+  width={width}
+  height={height}
+  class={className}
+  data-rfr-chart-pie
+  {...props}
+>
+  {arcs.map((arc) => (
+    <path
+      d={arcPath(cx, cy, radius, arc.startAngle, arc.endAngle)}
+      fill={arc.color}
+    />
+  ))}
+</svg>

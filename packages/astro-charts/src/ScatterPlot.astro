@@ -1,0 +1,95 @@
+---
+/**
+ * ScatterPlot — standalone scatter plot chart.
+ * Accepts pre-computed x/y arrays and renders circles with axes.
+ */
+import { createLinearScale, computeExtent, combineDimensions, formatTick, type Margin } from '@refraction-ui/charts'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** X values for each data point */
+  xValues: number[]
+  /** Y values for each data point */
+  yValues: number[]
+  /** Width of the SVG (default 600) */
+  width?: number
+  /** Height of the SVG (default 400) */
+  height?: number
+  /** Circle radius (default 4) */
+  r?: number
+  /** Fill color (default 'steelblue') */
+  fill?: string
+  /** Custom margin */
+  margin?: Partial<Margin>
+}
+
+const {
+  xValues,
+  yValues,
+  width = 600,
+  height = 400,
+  r = 4,
+  fill = 'steelblue',
+  margin,
+  class: className,
+  ...props
+} = Astro.props
+
+const dimensions = combineDimensions({ width, height, margin })
+const { boundedWidth, boundedHeight } = dimensions
+
+const [xMin, xMax] = computeExtent(xValues)
+const [yMin, yMax] = computeExtent(yValues)
+
+const xScale = createLinearScale([xMin, xMax], [0, boundedWidth])
+const yScale = createLinearScale([yMin, yMax], [boundedHeight, 0])
+
+const xTicks = xScale.ticks(5)
+const yTicks = yScale.ticks(5)
+---
+
+<svg
+  width={width}
+  height={height}
+  class={className}
+  data-rfr-chart-scatter
+  {...props}
+>
+  <g transform={`translate(${dimensions.margin.left},${dimensions.margin.top})`}>
+    {xValues.map((xv, i) => (
+      <circle
+        cx={xScale(xv)}
+        cy={yScale(yValues[i])}
+        r={r}
+        fill={fill}
+      />
+    ))}
+    {/* X Axis */}
+    <g transform={`translate(0,${boundedHeight})`}>
+      {xTicks.map((tick) => {
+        const px = xScale(tick)
+        return (
+          <g transform={`translate(${px},0)`}>
+            <line y2={6} stroke="currentColor" />
+            <text y={18} text-anchor="middle" font-size={10} fill="currentColor">
+              {formatTick(tick, 'number')}
+            </text>
+          </g>
+        )
+      })}
+    </g>
+    {/* Y Axis */}
+    <g>
+      {yTicks.map((tick) => {
+        const py = yScale(tick)
+        return (
+          <g transform={`translate(0,${py})`}>
+            <line x2={-6} stroke="currentColor" />
+            <text x={-9} dy="0.32em" text-anchor="end" font-size={10} fill="currentColor">
+              {formatTick(tick, 'number')}
+            </text>
+          </g>
+        )
+      })}
+    </g>
+  </g>
+</svg>
