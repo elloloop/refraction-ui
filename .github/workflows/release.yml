@@ -80,10 +80,18 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo build --filter='./packages/*'
+      - name: Get npm token via OIDC
+        run: |
+          OIDC_TOKEN=$(curl -sS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://registry.npmjs.org" \
+            -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" | jq -r '.value')
+          NPM_TOKEN=$(curl -sS -X POST 'https://registry.npmjs.org/-/npm/v1/security/oidc/token' \
+            -H 'Content-Type: application/json' \
+            -d "{\"oidcToken\": \"${OIDC_TOKEN}\"}" | jq -r '.token')
+          echo "NPM_TOKEN=${NPM_TOKEN}" >> $GITHUB_ENV
+          echo "::add-mask::${NPM_TOKEN}"
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
         run: npx multi-semantic-release --ignore-private-packages
 
   dependabot-auto-merge:
