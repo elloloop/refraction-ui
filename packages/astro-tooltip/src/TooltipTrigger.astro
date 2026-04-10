@@ -1,0 +1,16 @@
+---
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<span
+  data-rfr-tooltip-trigger
+  tabindex="0"
+  class={cn(className)}
+  {...props}
+>
+  <slot />
+</span>

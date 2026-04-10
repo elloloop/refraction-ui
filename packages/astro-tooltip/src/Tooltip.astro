@@ -1,0 +1,95 @@
+---
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Delay before showing in ms (default: 300) */
+  delayDuration?: number
+}
+
+const { delayDuration = 300, class: className, ...props } = Astro.props
+---
+
+<span
+  data-rfr-tooltip
+  data-rfr-tooltip-delay={delayDuration}
+  data-state="closed"
+  class={cn('relative inline-block', className)}
+  {...props}
+>
+  <slot />
+</span>
+
+<script>
+  function initTooltips() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-tooltip]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-tooltip-init')) return
+      root.setAttribute('data-rfr-tooltip-init', '')
+
+      const delay = parseInt(root.getAttribute('data-rfr-tooltip-delay') || '300', 10)
+      let isOpen = false
+      let timer: ReturnType<typeof setTimeout> | null = null
+
+      const trigger = root.querySelector<HTMLElement>('[data-rfr-tooltip-trigger]')
+      const content = root.querySelector<HTMLElement>('[data-rfr-tooltip-content]')
+
+      function cancelTimer() {
+        if (timer !== null) {
+          clearTimeout(timer)
+          timer = null
+        }
+      }
+
+      function setState(open: boolean) {
+        isOpen = open
+        const state = open ? 'open' : 'closed'
+        root.setAttribute('data-state', state)
+        content?.setAttribute('data-state', state)
+
+        if (open) {
+          content?.removeAttribute('hidden')
+        } else {
+          content?.setAttribute('hidden', '')
+        }
+      }
+
+      function showWithDelay() {
+        cancelTimer()
+        if (delay <= 0) {
+          setState(true)
+          return
+        }
+        timer = setTimeout(() => {
+          setState(true)
+          timer = null
+        }, delay)
+      }
+
+      function hide() {
+        cancelTimer()
+        setState(false)
+      }
+
+      // Mouse events on trigger
+      trigger?.addEventListener('mouseenter', () => showWithDelay())
+      trigger?.addEventListener('mouseleave', () => hide())
+
+      // Focus events on trigger
+      trigger?.addEventListener('focus', () => showWithDelay())
+      trigger?.addEventListener('blur', () => hide())
+
+      // Escape key
+      trigger?.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen) {
+          e.preventDefault()
+          hide()
+        }
+      })
+
+      // Set initial state
+      content?.setAttribute('hidden', '')
+    })
+  }
+
+  initTooltips()
+  document.addEventListener('astro:after-swap', initTooltips)
+</script>

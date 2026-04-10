@@ -1,0 +1,22 @@
+---
+import { tooltipContentVariants } from '@refraction-ui/tooltip'
+import { cn } from '@refraction-ui/shared'
+import type { Side } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  side?: Side
+}
+
+const { side = 'top', class: className, ...props } = Astro.props
+---
+
+<div
+  data-rfr-tooltip-content
+  data-state="closed"
+  role="tooltip"
+  hidden
+  class={cn(tooltipContentVariants({ side }), className)}
+  {...props}
+>
+  <slot />
+</div>
