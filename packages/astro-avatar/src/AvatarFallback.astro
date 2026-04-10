@@ -1,0 +1,18 @@
+---
+import { avatarFallbackVariants, type AvatarSize } from '@refraction-ui/avatar'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  size?: AvatarSize
+}
+
+const { size = 'md', class: className, ...props } = Astro.props
+---
+
+<span
+  class={cn(avatarFallbackVariants({ size }), className)}
+  data-rfr-avatar-fallback
+  {...props}
+>
+  <slot />
+</span>
