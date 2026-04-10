@@ -8,119 +8,69 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
   id-token: write
 
 jobs:
-  commit-lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Lint Commit Messages
-        uses: wagoid/commitlint-github-action@v5
-
-  determine-changes:
-    runs-on: ubuntu-latest
-    outputs:
-      packages_changed: ${{ steps.check.outputs.packages_changed }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Check for package changes
-        id: check
-        run: |
-          BASE_COMMIT=$(git rev-parse ${{ github.sha }}~1 2>/dev/null || echo "")
-          if [ -z "$BASE_COMMIT" ]; then
-            echo "packages_changed=true" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-          CHANGED=$(git diff --name-only "$BASE_COMMIT" "${{ github.sha }}")
-          if echo "$CHANGED" | grep -qE "^packages/|^\.releaserc|^package\.json|^pnpm-lock"; then
-            echo "packages_changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "packages_changed=false" >> $GITHUB_OUTPUT
-          fi
-
-  build-test:
-    runs-on: ubuntu-latest
-    needs: [commit-lint]
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.13.1
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm turbo build --filter='./packages/*'
-      - run: pnpm turbo test --continue
-
   release:
-    if: needs.determine-changes.outputs.packages_changed == 'true'
-    needs: [build-test, determine-changes]
+    name: Release
     runs-on: ubuntu-latest
-    environment: release
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repo
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
           version: 10.13.1
-      - uses: actions/setup-node@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm turbo build --filter='./packages/*'
-      - name: Get npm token via OIDC Trusted Publishing
+          cache: 'pnpm'
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Packages
+        run: pnpm build
+
+      - name: Get npm token via OIDC
+        id: oidc
         run: |
-          # Get OIDC token from GitHub with npm audience
           OIDC_TOKEN=$(curl -sS -f \
             "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=npm:registry.npmjs.org" \
             -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
             | jq -r '.value')
 
-          # Exchange OIDC token for short-lived npm publish token
-          NPM_RESPONSE=$(curl -sS -w "\n%{http_code}" \
+          NPM_RESPONSE=$(curl -sS -f \
             -X POST "https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/%40refraction-ui%2Freact" \
             -H "Authorization: Bearer ${OIDC_TOKEN}")
-          HTTP_CODE=$(echo "$NPM_RESPONSE" | tail -1)
-          BODY=$(echo "$NPM_RESPONSE" | sed '$d')
-
-          if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
-            echo "npm OIDC exchange failed (HTTP $HTTP_CODE):"
-            echo "$BODY" | jq . 2>/dev/null || echo "$BODY"
-            exit 1
-          fi
-
-          NPM_TOKEN=$(echo "$BODY" | jq -r '.token')
+          
+          NPM_TOKEN=$(echo "$NPM_RESPONSE" | jq -r '.token')
           echo "::add-mask::${NPM_TOKEN}"
           echo "NPM_TOKEN=${NPM_TOKEN}" >> $GITHUB_ENV
-          echo "npm OIDC token exchange succeeded"
-      - name: Verify npm auth
-        run: |
-          echo "NPM_TOKEN length: ${#NPM_TOKEN}"
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-          npm whoami
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          ACTIONS_ID_TOKEN_REQUEST_URL: ''
-        run: npx multi-semantic-release --ignore-private-packages
 
-  dependabot-auto-merge:
-    needs: [build-test]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Auto-merge Dependabot PRs
-        uses: fastify/github-action-merge-dependabot@v3
+      - name: Create Release Pull Request or Publish
+        id: changesets
+        uses: changesets/action@v1
         with:
-          github-token: ${{ secrets.GH_TOKEN }}
-          target: minor
+          publish: pnpm release
+          version: pnpm version-packages
+          commit: "chore: release packages"
+          title: "chore: release packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ env.NPM_TOKEN }}
+
+      - name: Canary Release
+        if: github.ref == 'refs/heads/main' && steps.changesets.outputs.published != 'true'
+        run: |
+          pnpm changeset version --snapshot canary
+          pnpm changeset publish --tag canary
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ env.NPM_TOKEN }}
