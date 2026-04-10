@@ -36,7 +36,8 @@ jobs:
             echo "packages_changed=true" >> $GITHUB_OUTPUT
             exit 0
           fi
-          if git diff --name-only "$BASE_COMMIT" "${{ github.sha }}" | grep -q "^packages/"; then
+          CHANGED=$(git diff --name-only "$BASE_COMMIT" "${{ github.sha }}")
+          if echo "$CHANGED" | grep -qE "^packages/|^\.releaserc"; then
             echo "packages_changed=true" >> $GITHUB_OUTPUT
           else
             echo "packages_changed=false" >> $GITHUB_OUTPUT
