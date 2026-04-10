@@ -1,0 +1,152 @@
+---
+import {
+  createFeedbackDialog,
+  feedbackDialogVariants,
+  type FeedbackType,
+} from '@refraction-ui/feedback-dialog'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  open?: boolean
+  type?: FeedbackType
+}
+
+const {
+  open = false,
+  type = 'general',
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createFeedbackDialog({ open, type })
+---
+
+<div
+  class={cn(feedbackDialogVariants({ type }), className)}
+  role={api.ariaProps.role}
+  aria-modal={api.ariaProps['aria-modal'] as any}
+  aria-labelledby={api.ariaProps['aria-labelledby'] as string}
+  aria-describedby={api.ariaProps['aria-describedby'] as string}
+  id={api.ariaProps.id as string}
+  data-state={open ? 'open' : 'closed'}
+  data-rfr-feedback-dialog
+  data-rfr-feedback-type={type}
+  style={open ? undefined : 'display:none'}
+  {...props}
+>
+  <!-- Form view -->
+  <div data-rfr-feedback-form>
+    <h2 id={`${api.ariaProps.id}-title`}>Send Feedback</h2>
+
+    <textarea
+      aria-label="Feedback comment"
+      placeholder="Your feedback..."
+      data-rfr-feedback-comment
+      class="mt-3 w-full min-h-[100px] rounded-md border bg-background px-3 py-2 text-sm"
+    ></textarea>
+
+    <input
+      type="email"
+      aria-label="Email"
+      placeholder="Email (optional)"
+      data-rfr-feedback-email
+      class="mt-2 w-full rounded-md border bg-background px-3 py-2 text-sm"
+    />
+
+    <!-- Honeypot field - hidden from real users -->
+    <input
+      type="text"
+      aria-hidden="true"
+      tabindex="-1"
+      style="position: absolute; left: -9999px"
+      autocomplete="off"
+      name="website"
+      data-rfr-feedback-honeypot
+    />
+
+    <button
+      type="button"
+      data-rfr-feedback-submit
+      class="mt-3 w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+      disabled
+    >
+      Submit
+    </button>
+  </div>
+
+  <!-- Success view (hidden initially) -->
+  <div data-rfr-feedback-success style="display:none">
+    <p data-testid="success-message">Thank you for your feedback!</p>
+    <button
+      type="button"
+      data-rfr-feedback-close
+      class="mt-3 rounded-md border px-4 py-2 text-sm"
+    >
+      Close
+    </button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rfr-feedback-dialog]').forEach((root) => {
+    const formView = root.querySelector<HTMLElement>('[data-rfr-feedback-form]')!
+    const successView = root.querySelector<HTMLElement>('[data-rfr-feedback-success]')!
+    const commentInput = root.querySelector<HTMLTextAreaElement>('[data-rfr-feedback-comment]')!
+    const emailInput = root.querySelector<HTMLInputElement>('[data-rfr-feedback-email]')!
+    const honeypotInput = root.querySelector<HTMLInputElement>('[data-rfr-feedback-honeypot]')!
+    const submitBtn = root.querySelector<HTMLButtonElement>('[data-rfr-feedback-submit]')!
+    const closeBtn = root.querySelector<HTMLButtonElement>('[data-rfr-feedback-close]')!
+
+    function updateSubmitState() {
+      submitBtn.disabled = !commentInput.value.trim()
+    }
+
+    commentInput.addEventListener('input', updateSubmitState)
+
+    submitBtn.addEventListener('click', async () => {
+      // Honeypot check
+      if (honeypotInput.value) return
+      if (!commentInput.value.trim()) return
+
+      submitBtn.disabled = true
+      submitBtn.textContent = 'Submitting...'
+      commentInput.disabled = true
+      emailInput.disabled = true
+
+      const feedbackType = root.getAttribute('data-rfr-feedback-type') || 'general'
+
+      const detail: Record<string, string> = {
+        comment: commentInput.value,
+        type: feedbackType,
+      }
+      if (emailInput.value) {
+        detail.email = emailInput.value
+      }
+
+      const event = new CustomEvent('submit', { detail, bubbles: true, cancelable: true })
+      root.dispatchEvent(event)
+
+      // Show success state
+      formView.style.display = 'none'
+      successView.style.display = ''
+      root.setAttribute('data-state', 'submitted')
+    })
+
+    closeBtn.addEventListener('click', () => {
+      // Reset form
+      commentInput.value = ''
+      emailInput.value = ''
+      honeypotInput.value = ''
+      commentInput.disabled = false
+      emailInput.disabled = false
+      submitBtn.disabled = true
+      submitBtn.textContent = 'Submit'
+      formView.style.display = ''
+      successView.style.display = 'none'
+      root.setAttribute('data-state', 'closed')
+      root.style.display = 'none'
+
+      root.dispatchEvent(new CustomEvent('openchange', { detail: { open: false }, bubbles: true }))
+    })
+  })
+</script>
