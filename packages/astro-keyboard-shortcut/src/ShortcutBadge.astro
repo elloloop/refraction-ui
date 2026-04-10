@@ -1,0 +1,41 @@
+---
+import {
+  createKeyboardShortcut,
+  formatShortcut,
+  shortcutBadgeStyles,
+  shortcutKeyStyles,
+  shortcutSeparatorStyles,
+} from '@refraction-ui/keyboard-shortcut'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Key combination to display */
+  keys: string[]
+  /** Use platform-aware display (Mac symbols). Default: true */
+  platform?: boolean
+}
+
+const { keys, platform = true, class: className, ...props } = Astro.props
+
+const api = createKeyboardShortcut({ keys, onTrigger: () => {}, enabled: false })
+const displayKeys = platform ? api.platformDisplay : api.display
+const isMacDisplay = platform && displayKeys !== api.display
+---
+
+<kbd
+  aria-hidden="true"
+  role="presentation"
+  class={cn(shortcutBadgeStyles, className)}
+  {...props}
+>
+  {isMacDisplay ? (
+    <span>{displayKeys}</span>
+  ) : (
+    keys.map((key, i) => (
+      <>
+        {i > 0 && <span class={shortcutSeparatorStyles}>+</span>}
+        <span class={shortcutKeyStyles}>{formatShortcut([key], false)}</span>
+      </>
+    ))
+  )}
+</kbd>
