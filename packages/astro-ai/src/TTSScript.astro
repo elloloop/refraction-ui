@@ -1,0 +1,60 @@
+---
+/**
+ * TTSScript — injects a <script> that initializes TTS on the page.
+ * Exposes `window.__rfr_tts` for other scripts to call speak / stop.
+ *
+ * Props mirror TTSConfig from @refraction-ui/ai.
+ */
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Default TTS provider name */
+  default?: string
+}
+
+const { default: defaultProvider, ...props } = Astro.props
+
+const configJSON = JSON.stringify({
+  default: defaultProvider,
+})
+---
+
+<script
+  data-rfr-tts-config={configJSON}
+  {...props}
+  is:inline
+>
+  ;(function () {
+    if (window.__rfr_tts) return
+
+    var configEl = document.querySelector('[data-rfr-tts-config]')
+    var config = {}
+    if (configEl) {
+      try { config = JSON.parse(configEl.getAttribute('data-rfr-tts-config') || '{}') } catch (_) { /* */ }
+    }
+
+    window.__rfr_tts = {
+      _config: config,
+      _api: null,
+      _ready: false,
+      init: function (createTTS, providers) {
+        var api = createTTS(config)
+        if (providers) {
+          Object.keys(providers).forEach(function (name) {
+            api.addProvider(name, providers[name])
+          })
+        }
+        window.__rfr_tts._api = api
+        window.__rfr_tts._ready = true
+        window.__rfr_tts.speak = api.speak.bind(api)
+        window.__rfr_tts.stop = api.stop.bind(api)
+        window.__rfr_tts.addProvider = api.addProvider.bind(api)
+        window.__rfr_tts.providers = api.providers
+      },
+      speak: function () { throw new Error('TTS not initialized. Call window.__rfr_tts.init(createTTS, providers) first.') },
+      stop: function () { throw new Error('TTS not initialized.') },
+      addProvider: function () { throw new Error('TTS not initialized.') },
+      providers: [],
+      isSpeaking: false,
+    }
+  })()
+</script>
