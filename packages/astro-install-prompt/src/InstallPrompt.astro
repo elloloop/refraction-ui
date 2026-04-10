@@ -1,0 +1,115 @@
+---
+import { installPromptVariants } from '@refraction-ui/install-prompt'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Delay in ms before showing. Default: 3000 */
+  delay?: number
+  /** Storage key for dismissed state. Default: 'rfr-install-dismissed' */
+  storageKey?: string
+  /** Install button label. Default: 'Install' */
+  installLabel?: string
+  /** Dismiss button label. Default: 'Dismiss' */
+  dismissLabel?: string
+  /** Message text. Default: 'Install this app for a better experience' */
+  message?: string
+}
+
+const {
+  delay = 3000,
+  storageKey = 'rfr-install-dismissed',
+  installLabel = 'Install',
+  dismissLabel = 'Dismiss',
+  message = 'Install this app for a better experience',
+  class: className,
+  ...props
+} = Astro.props
+
+const classes = cn(installPromptVariants(), className)
+---
+
+<div
+  data-rfr-install-prompt
+  data-rfr-ip-delay={delay}
+  data-rfr-ip-storage-key={storageKey}
+  class={classes}
+  role="banner"
+  aria-label="Install application"
+  hidden
+  {...props}
+>
+  <span data-rfr-ip-message>{message}</span>
+  <div>
+    <button type="button" data-rfr-ip-install>
+      {installLabel}
+    </button>
+    <button type="button" data-rfr-ip-dismiss>
+      {dismissLabel}
+    </button>
+  </div>
+</div>
+
+<script>
+  function initInstallPrompts() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-install-prompt]').forEach((el) => {
+      if (el.hasAttribute('data-rfr-ip-init')) return
+      el.setAttribute('data-rfr-ip-init', '')
+
+      const delay = Number(el.getAttribute('data-rfr-ip-delay') || 3000)
+      const storageKey = el.getAttribute('data-rfr-ip-storage-key') || 'rfr-install-dismissed'
+
+      // Check if already dismissed
+      try {
+        if (localStorage.getItem(storageKey) === 'true') return
+      } catch { /* ignore */ }
+
+      let promptEvent: { prompt(): void } | null = null
+
+      const handleBeforeInstall = (e: Event) => {
+        e.preventDefault()
+        promptEvent = e as unknown as { prompt(): void }
+      }
+
+      window.addEventListener('beforeinstallprompt', handleBeforeInstall)
+
+      const timer = setTimeout(() => {
+        // Check dismissed again in case it changed
+        try {
+          if (localStorage.getItem(storageKey) === 'true') return
+        } catch { /* ignore */ }
+
+        if (promptEvent) {
+          el.hidden = false
+          el.dispatchEvent(new CustomEvent('rfr-install-prompt-show', { bubbles: true }))
+        }
+      }, delay)
+
+      // Install button
+      const installBtn = el.querySelector<HTMLElement>('[data-rfr-ip-install]')
+      installBtn?.addEventListener('click', () => {
+        promptEvent?.prompt()
+        el.hidden = true
+        el.dispatchEvent(new CustomEvent('rfr-install-prompt-install', { bubbles: true }))
+      })
+
+      // Dismiss button
+      const dismissBtn = el.querySelector<HTMLElement>('[data-rfr-ip-dismiss]')
+      dismissBtn?.addEventListener('click', () => {
+        el.hidden = true
+        try {
+          localStorage.setItem(storageKey, 'true')
+        } catch { /* ignore */ }
+        el.dispatchEvent(new CustomEvent('rfr-install-prompt-dismiss', { bubbles: true }))
+      })
+
+      // Cleanup
+      el.addEventListener('astro:before-swap', () => {
+        window.removeEventListener('beforeinstallprompt', handleBeforeInstall)
+        clearTimeout(timer)
+      }, { once: true })
+    })
+  }
+
+  initInstallPrompts()
+  document.addEventListener('astro:after-swap', initInstallPrompts)
+</script>
