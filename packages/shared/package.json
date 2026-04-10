@@ -1,5 +1,6 @@
 {
   "name": "@refraction-ui/shared",
+  "description": "Shared utilities for Refraction UI components",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
