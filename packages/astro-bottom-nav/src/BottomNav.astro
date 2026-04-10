@@ -1,0 +1,40 @@
+---
+import {
+  createBottomNav,
+  bottomNavVariants,
+  bottomNavTabVariants,
+  type NavTab,
+} from '@refraction-ui/bottom-nav'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  tabs?: NavTab[]
+  currentPath?: string
+}
+
+const { tabs = [], currentPath, class: className, ...props } = Astro.props
+const api = createBottomNav({ tabs, currentPath })
+const classes = cn(bottomNavVariants(), className)
+---
+
+<nav class={classes} {...api.ariaProps} {...props}>
+  <div class="flex">
+    {tabs.map((tab) => {
+      const active = api.isActive(tab.href)
+      return (
+        <a
+          href={tab.href}
+          class={bottomNavTabVariants({ active: active ? 'true' : 'false' })}
+          {...api.tabAriaProps(tab.href)}
+        >
+          {tab.icon && (
+            <span aria-hidden="true">
+              {active && tab.activeIcon ? tab.activeIcon : tab.icon}
+            </span>
+          )}
+          <span>{tab.label}</span>
+        </a>
+      )
+    })}
+  </div>
+</nav>
