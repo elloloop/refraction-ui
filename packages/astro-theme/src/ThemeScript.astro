@@ -1,0 +1,13 @@
+---
+import { getThemeScript } from '@refraction-ui/theme'
+
+interface Props {
+  storageKey?: string
+  attribute?: 'class' | 'data-theme'
+}
+
+const { storageKey = 'rfr-theme', attribute = 'class' } = Astro.props
+const scriptContent = getThemeScript(storageKey, attribute)
+---
+
+<script set:html={scriptContent} />

@@ -1,0 +1,279 @@
+---
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** 'dropdown' shows a menu, 'segmented' shows inline buttons */
+  variant?: 'dropdown' | 'segmented'
+  /** localStorage key for theme persistence. Default: 'rfr-theme' */
+  storageKey?: string
+  /** Attribute to set on <html>. Default: 'class' */
+  attribute?: 'class' | 'data-theme'
+}
+
+const {
+  variant = 'segmented',
+  storageKey = 'rfr-theme',
+  attribute = 'class',
+  class: className,
+  ...props
+} = Astro.props
+---
+
+{variant === 'segmented' ? (
+  <div
+    data-rfr-theme-toggle
+    data-rfr-theme-variant="segmented"
+    data-rfr-theme-storage-key={storageKey}
+    data-rfr-theme-attribute={attribute}
+    class={cn('inline-flex items-center gap-1 rounded-lg border p-1', className)}
+    role="radiogroup"
+    aria-label="Theme"
+    {...props}
+  >
+    <button
+      type="button"
+      role="radio"
+      aria-checked="false"
+      aria-label="Light"
+      data-rfr-theme-mode="light"
+      class="inline-flex items-center justify-center rounded-md p-1.5 text-sm transition-colors text-muted-foreground hover:bg-muted"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5" />
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+      </svg>
+    </button>
+    <button
+      type="button"
+      role="radio"
+      aria-checked="false"
+      aria-label="Dark"
+      data-rfr-theme-mode="dark"
+      class="inline-flex items-center justify-center rounded-md p-1.5 text-sm transition-colors text-muted-foreground hover:bg-muted"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      </svg>
+    </button>
+    <button
+      type="button"
+      role="radio"
+      aria-checked="false"
+      aria-label="System"
+      data-rfr-theme-mode="system"
+      class="inline-flex items-center justify-center rounded-md p-1.5 text-sm transition-colors text-muted-foreground hover:bg-muted"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+        <line x1="8" y1="21" x2="16" y2="21" />
+        <line x1="12" y1="17" x2="12" y2="21" />
+      </svg>
+    </button>
+  </div>
+) : (
+  <div
+    data-rfr-theme-toggle
+    data-rfr-theme-variant="dropdown"
+    data-rfr-theme-storage-key={storageKey}
+    data-rfr-theme-attribute={attribute}
+    class={cn('relative', className)}
+    {...props}
+  >
+    <button
+      type="button"
+      aria-label="Toggle theme"
+      aria-expanded="false"
+      data-rfr-theme-dropdown-trigger
+      class="inline-flex items-center justify-center rounded-md p-2 text-sm transition-colors hover:bg-muted"
+    >
+      <svg data-rfr-theme-icon="sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5" />
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+      </svg>
+      <svg data-rfr-theme-icon="moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      </svg>
+      <svg data-rfr-theme-icon="monitor" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+        <line x1="8" y1="21" x2="16" y2="21" />
+        <line x1="12" y1="17" x2="12" y2="21" />
+      </svg>
+    </button>
+    <div
+      data-rfr-theme-dropdown-menu
+      class="absolute right-0 top-full mt-1 z-50 min-w-[8rem] rounded-md border bg-popover p-1 shadow-md"
+      role="menu"
+      hidden
+    >
+      <button
+        type="button"
+        role="menuitem"
+        data-rfr-theme-mode="light"
+        class="flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5" />
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+        Light
+      </button>
+      <button
+        type="button"
+        role="menuitem"
+        data-rfr-theme-mode="dark"
+        class="flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+        Dark
+      </button>
+      <button
+        type="button"
+        role="menuitem"
+        data-rfr-theme-mode="system"
+        class="flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+          <line x1="8" y1="21" x2="16" y2="21" />
+          <line x1="12" y1="17" x2="12" y2="21" />
+        </svg>
+        System
+      </button>
+    </div>
+  </div>
+)}
+
+<script>
+  function initThemeToggles() {
+    const ACTIVE_CLASS = 'bg-accent text-accent-foreground'
+    const INACTIVE_CLASS = 'text-muted-foreground hover:bg-muted'
+    const ACTIVE_MENU_CLASS = 'bg-accent'
+
+    const MODE_ICONS: Record<string, string> = {
+      light: 'sun',
+      dark: 'moon',
+      system: 'monitor',
+    }
+
+    document.querySelectorAll<HTMLElement>('[data-rfr-theme-toggle]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-theme-init')) return
+      root.setAttribute('data-rfr-theme-init', '')
+
+      const variant = root.getAttribute('data-rfr-theme-variant')
+      const storageKey = root.getAttribute('data-rfr-theme-storage-key') || 'rfr-theme'
+      const attribute = root.getAttribute('data-rfr-theme-attribute') || 'class'
+
+      function getCurrentMode(): string {
+        try {
+          return localStorage.getItem(storageKey) || 'system'
+        } catch {
+          return 'system'
+        }
+      }
+
+      function resolveTheme(mode: string): string {
+        if (mode === 'system') {
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+        return mode
+      }
+
+      function applyTheme(mode: string) {
+        const resolved = resolveTheme(mode)
+        const el = document.documentElement
+        if (attribute === 'class') {
+          el.classList.remove('light', 'dark')
+          el.classList.add(resolved)
+        } else {
+          el.setAttribute(attribute, resolved)
+        }
+        el.style.colorScheme = resolved
+        try {
+          localStorage.setItem(storageKey, mode)
+        } catch { /* ignore */ }
+      }
+
+      function setMode(mode: string) {
+        applyTheme(mode)
+        updateUI(mode)
+        root.dispatchEvent(new CustomEvent('rfr-theme-change', { detail: { mode, resolved: resolveTheme(mode) }, bubbles: true }))
+      }
+
+      function updateUI(mode: string) {
+        if (variant === 'segmented') {
+          root.querySelectorAll<HTMLElement>('[data-rfr-theme-mode]').forEach((btn) => {
+            const isActive = btn.getAttribute('data-rfr-theme-mode') === mode
+            btn.setAttribute('aria-checked', String(isActive))
+            // Reset classes
+            btn.className = `inline-flex items-center justify-center rounded-md p-1.5 text-sm transition-colors ${isActive ? ACTIVE_CLASS : INACTIVE_CLASS}`
+          })
+        } else {
+          // Dropdown variant
+          const trigger = root.querySelector<HTMLElement>('[data-rfr-theme-dropdown-trigger]')
+          if (trigger) {
+            const iconName = MODE_ICONS[mode] || 'monitor'
+            trigger.querySelectorAll<HTMLElement>('[data-rfr-theme-icon]').forEach((svg) => {
+              svg.style.display = svg.getAttribute('data-rfr-theme-icon') === iconName ? '' : 'none'
+            })
+          }
+          root.querySelectorAll<HTMLElement>('[data-rfr-theme-mode]').forEach((btn) => {
+            const isActive = btn.getAttribute('data-rfr-theme-mode') === mode
+            btn.className = `flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent ${isActive ? ACTIVE_MENU_CLASS : ''}`
+          })
+        }
+      }
+
+      // Handle clicks on mode buttons
+      root.querySelectorAll<HTMLElement>('[data-rfr-theme-mode]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const mode = btn.getAttribute('data-rfr-theme-mode')
+          if (mode) setMode(mode)
+
+          // Close dropdown if open
+          if (variant === 'dropdown') {
+            const menu = root.querySelector<HTMLElement>('[data-rfr-theme-dropdown-menu]')
+            const trigger = root.querySelector<HTMLElement>('[data-rfr-theme-dropdown-trigger]')
+            if (menu) menu.hidden = true
+            if (trigger) trigger.setAttribute('aria-expanded', 'false')
+          }
+        })
+      })
+
+      // Dropdown toggle behavior
+      if (variant === 'dropdown') {
+        const trigger = root.querySelector<HTMLElement>('[data-rfr-theme-dropdown-trigger]')
+        const menu = root.querySelector<HTMLElement>('[data-rfr-theme-dropdown-menu]')
+
+        trigger?.addEventListener('click', () => {
+          const isOpen = !menu?.hidden
+          if (menu) menu.hidden = isOpen
+          trigger.setAttribute('aria-expanded', String(!isOpen))
+        })
+
+        // Close on outside click
+        document.addEventListener('mousedown', (e) => {
+          if (!root.contains(e.target as Node) && menu && !menu.hidden) {
+            menu.hidden = true
+            trigger?.setAttribute('aria-expanded', 'false')
+          }
+        })
+      }
+
+      // Listen for system preference changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        const mode = getCurrentMode()
+        if (mode === 'system') {
+          applyTheme('system')
+        }
+      })
+
+      // Initialize UI
+      updateUI(getCurrentMode())
+    })
+  }
+
+  initThemeToggles()
+  document.addEventListener('astro:after-swap', initThemeToggles)
+</script>
