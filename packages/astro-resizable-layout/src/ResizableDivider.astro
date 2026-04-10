@@ -1,0 +1,27 @@
+---
+/**
+ * ResizableDivider — draggable handle between two panes.
+ * Pointer events are handled by the parent ResizableLayout script.
+ */
+import { resizableDividerVariants } from '@refraction-ui/resizable-layout'
+import { cn } from '@refraction-ui/shared'
+import type { Orientation } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Index of the divider (between pane[index] and pane[index+1]) */
+  index: number
+  /** Orientation inherited from parent (default 'horizontal') */
+  orientation?: Orientation
+}
+
+const { index, orientation = 'horizontal', class: className, ...props } = Astro.props
+---
+
+<div
+  role="separator"
+  aria-orientation={orientation}
+  tabindex="0"
+  class={cn(resizableDividerVariants({ orientation }), className)}
+  data-rfr-divider-index={index}
+  {...props}
+/>
