@@ -94,7 +94,7 @@ jobs:
           HTTP_CODE=$(echo "$NPM_RESPONSE" | tail -1)
           BODY=$(echo "$NPM_RESPONSE" | sed '$d')
 
-          if [ "$HTTP_CODE" != "200" ]; then
+          if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
             echo "npm OIDC exchange failed (HTTP $HTTP_CODE):"
             echo "$BODY" | jq . 2>/dev/null || echo "$BODY"
             exit 1
