@@ -1,0 +1,22 @@
+---
+import { createAvatar, avatarVariants, type AvatarSize } from '@refraction-ui/avatar'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  size?: AvatarSize
+}
+
+const { size = 'md', class: className, ...props } = Astro.props
+const api = createAvatar({ size })
+---
+
+<span
+  class={cn(avatarVariants({ size }), className)}
+  data-rfr-avatar
+  data-rfr-avatar-size={size}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...props}
+>
+  <slot />
+</span>

@@ -1,0 +1,48 @@
+---
+import { avatarImageVariants } from '@refraction-ui/avatar'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  src?: string
+  alt?: string
+}
+
+const { src, alt = '', class: className, ...props } = Astro.props
+---
+
+<img
+  class={cn(avatarImageVariants(), className)}
+  src={src}
+  alt={alt}
+  data-rfr-avatar-image
+  {...props}
+/>
+
+<script>
+  document.querySelectorAll('[data-rfr-avatar-image]').forEach((img) => {
+    const imgEl = img as HTMLImageElement
+    const parent = imgEl.closest('[data-rfr-avatar]')
+    const fallback = parent?.querySelector('[data-rfr-avatar-fallback]') as HTMLElement | null
+
+    // Handle already-loaded images (cached)
+    if (imgEl.complete && imgEl.naturalWidth > 0) {
+      imgEl.style.display = ''
+      if (fallback) fallback.style.display = 'none'
+      return
+    }
+
+    // Hide image until loaded
+    imgEl.style.display = 'none'
+    if (fallback) fallback.style.display = ''
+
+    imgEl.addEventListener('load', () => {
+      imgEl.style.display = ''
+      if (fallback) fallback.style.display = 'none'
+    })
+
+    imgEl.addEventListener('error', () => {
+      imgEl.style.display = 'none'
+      if (fallback) fallback.style.display = ''
+    })
+  })
+</script>
