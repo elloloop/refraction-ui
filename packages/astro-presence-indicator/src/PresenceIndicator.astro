@@ -1,0 +1,26 @@
+---
+import {
+  createPresence,
+  presenceDotVariants,
+  presenceContainerStyles,
+  presenceLabelStyles,
+  type PresenceStatus,
+} from '@refraction-ui/presence-indicator'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  status: PresenceStatus
+  showLabel?: boolean
+  label?: string
+  size?: 'sm' | 'md' | 'lg'
+}
+
+const { status, showLabel = false, label, size = 'md', class: className, ...props } = Astro.props
+const api = createPresence({ status, showLabel, label })
+const classes = cn(presenceContainerStyles, className)
+---
+
+<span class={classes} {...api.ariaProps} {...props}>
+  <span class={presenceDotVariants({ status, size })}></span>
+  {api.showLabel && <span class={presenceLabelStyles}>{api.label}</span>}
+</span>
