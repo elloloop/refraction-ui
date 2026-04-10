@@ -1,0 +1,27 @@
+---
+import {
+  createBadge,
+  badgeVariants,
+  type BadgeVariant,
+  type BadgeSize,
+} from '@refraction-ui/badge'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  variant?: BadgeVariant
+  size?: BadgeSize
+}
+
+const { variant, size, class: className, ...props } = Astro.props
+const api = createBadge({ variant, size })
+const classes = cn(badgeVariants({ variant, size }), className)
+---
+
+<div
+  class={classes}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...props}
+>
+  <slot />
+</div>
