@@ -1,0 +1,263 @@
+---
+import {
+  createDataTable,
+  tableVariants,
+  headerVariants,
+  cellVariants,
+  rowVariants,
+  type ColumnDef,
+  type SortDirection,
+} from '@refraction-ui/data-table'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  columns: ColumnDef[]
+  data: Record<string, unknown>[]
+  sortBy?: string
+  sortDir?: SortDirection
+  emptyMessage?: string
+}
+
+const {
+  columns,
+  data,
+  sortBy,
+  sortDir = 'asc',
+  emptyMessage = 'No data available',
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createDataTable({ columns, data, sortBy, sortDir })
+const sortedData = api.state.sortedData
+const hasFilterable = columns.some((c: ColumnDef) => c.filterable)
+---
+
+<div data-rfr-data-table data-rfr-data-table-columns={JSON.stringify(columns)} data-rfr-data-table-data={JSON.stringify(data)} {...props}>
+  <table class={cn(tableVariants(), className)} role="table">
+    <thead>
+      <tr role="row">
+        {columns.map((col: ColumnDef) => {
+          const hProps = api.getHeaderProps(col)
+          return (
+            <th
+              class={headerVariants({ sortable: col.sortable ? 'true' : 'false' })}
+              role={hProps.role as string}
+              aria-sort={hProps['aria-sort'] as any}
+              data-rfr-data-table-header={col.id}
+              data-sortable={col.sortable ? 'true' : undefined}
+            >
+              {col.header}
+              {col.sortable && sortBy === col.id && (
+                <span aria-hidden="true">{sortDir === 'asc' ? ' \u2191' : ' \u2193'}</span>
+              )}
+            </th>
+          )
+        })}
+      </tr>
+      {hasFilterable && (
+        <tr role="row" data-filter-row="true">
+          {columns.map((col: ColumnDef) => (
+            <th>
+              {col.filterable ? (
+                <input
+                  type="text"
+                  aria-label={`Filter ${col.header}`}
+                  placeholder="Filter..."
+                  data-rfr-data-table-filter={col.id}
+                  class="w-full px-2 py-1 text-sm border rounded"
+                />
+              ) : null}
+            </th>
+          ))}
+        </tr>
+      )}
+    </thead>
+    <tbody data-rfr-data-table-body>
+      {sortedData.length === 0 ? (
+        <tr role="row">
+          <td
+            colspan={columns.length}
+            class="text-center p-4 text-muted-foreground"
+            role="cell"
+          >
+            {emptyMessage}
+          </td>
+        </tr>
+      ) : (
+        sortedData.map((row: Record<string, unknown>, rowIndex: number) => (
+          <tr
+            role="row"
+            class={rowVariants()}
+            data-row-index={rowIndex}
+          >
+            {columns.map((col: ColumnDef) => (
+              <td
+                role="cell"
+                class={cellVariants()}
+                data-column={col.id}
+              >
+                {String(col.accessor(row) ?? '')}
+              </td>
+            ))}
+          </tr>
+        ))
+      )}
+    </tbody>
+  </table>
+</div>
+
+<script>
+  function initDataTables() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-data-table]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-data-table-init')) return
+      root.setAttribute('data-rfr-data-table-init', '')
+
+      let columns: Array<{ id: string; header: string; sortable?: boolean; filterable?: boolean }>
+      let data: Array<Record<string, unknown>>
+
+      try {
+        columns = JSON.parse(root.getAttribute('data-rfr-data-table-columns') || '[]')
+        data = JSON.parse(root.getAttribute('data-rfr-data-table-data') || '[]')
+      } catch {
+        return
+      }
+
+      let sortBy: string | null = null
+      let sortDir: 'asc' | 'desc' = 'asc'
+      const filters: Record<string, string> = {}
+
+      const tbody = root.querySelector<HTMLElement>('[data-rfr-data-table-body]')
+      if (!tbody) return
+
+      // Build accessor functions from column IDs
+      function getCellValue(row: Record<string, unknown>, colId: string): unknown {
+        return row[colId]
+      }
+
+      function getFilteredSortedData(): Array<Record<string, unknown>> {
+        let result = [...data]
+
+        // Apply filters
+        for (const [colId, filterValue] of Object.entries(filters)) {
+          if (!filterValue) continue
+          const lowerFilter = filterValue.toLowerCase()
+          result = result.filter((row) => {
+            const cellValue = getCellValue(row, colId)
+            return String(cellValue ?? '').toLowerCase().includes(lowerFilter)
+          })
+        }
+
+        // Apply sort
+        if (sortBy) {
+          const sBy = sortBy
+          result.sort((a, b) => {
+            const aStr = String(getCellValue(a, sBy) ?? '')
+            const bStr = String(getCellValue(b, sBy) ?? '')
+            const cmp = aStr.localeCompare(bStr, undefined, { numeric: true })
+            return sortDir === 'asc' ? cmp : -cmp
+          })
+        }
+
+        return result
+      }
+
+      function renderRows() {
+        const sorted = getFilteredSortedData()
+        tbody!.innerHTML = ''
+
+        if (sorted.length === 0) {
+          const tr = document.createElement('tr')
+          tr.setAttribute('role', 'row')
+          const td = document.createElement('td')
+          td.setAttribute('colspan', String(columns.length))
+          td.setAttribute('role', 'cell')
+          td.className = 'text-center p-4 text-muted-foreground'
+          td.textContent = root.querySelector('td[role="cell"]')?.textContent || 'No data available'
+          tr.appendChild(td)
+          tbody!.appendChild(tr)
+          return
+        }
+
+        for (let i = 0; i < sorted.length; i++) {
+          const row = sorted[i]
+          const tr = document.createElement('tr')
+          tr.setAttribute('role', 'row')
+          tr.setAttribute('data-row-index', String(i))
+          // Apply row hover styles
+          tr.className = 'border-b transition-colors hover:bg-muted/50'
+
+          for (const col of columns) {
+            const td = document.createElement('td')
+            td.setAttribute('role', 'cell')
+            td.setAttribute('data-column', col.id)
+            td.className = 'p-2 align-middle border-b'
+            td.textContent = String(getCellValue(row, col.id) ?? '')
+            tr.appendChild(td)
+          }
+
+          tbody!.appendChild(tr)
+        }
+
+        root.dispatchEvent(
+          new CustomEvent('rfr-data-table-change', {
+            detail: { sortBy, sortDir, filters: { ...filters } },
+            bubbles: true,
+          }),
+        )
+      }
+
+      // Sort click handlers
+      const headers = root.querySelectorAll<HTMLElement>('[data-rfr-data-table-header]')
+      headers.forEach((th) => {
+        const colId = th.getAttribute('data-rfr-data-table-header')!
+        const isSortable = th.getAttribute('data-sortable') === 'true'
+        if (!isSortable) return
+
+        th.addEventListener('click', () => {
+          if (sortBy === colId) {
+            sortDir = sortDir === 'asc' ? 'desc' : 'asc'
+          } else {
+            sortBy = colId
+            sortDir = 'asc'
+          }
+
+          // Update sort indicators on all headers
+          headers.forEach((h) => {
+            const hColId = h.getAttribute('data-rfr-data-table-header')
+            const indicator = h.querySelector('span[aria-hidden]')
+            if (hColId === sortBy) {
+              h.setAttribute('aria-sort', sortDir === 'asc' ? 'ascending' : 'descending')
+              if (indicator) {
+                indicator.textContent = sortDir === 'asc' ? ' \u2191' : ' \u2193'
+              } else {
+                const span = document.createElement('span')
+                span.setAttribute('aria-hidden', 'true')
+                span.textContent = sortDir === 'asc' ? ' \u2191' : ' \u2193'
+                h.appendChild(span)
+              }
+            } else {
+              h.setAttribute('aria-sort', 'none')
+              if (indicator) indicator.remove()
+            }
+          })
+
+          renderRows()
+        })
+      })
+
+      // Filter input handlers
+      const filterInputs = root.querySelectorAll<HTMLInputElement>('[data-rfr-data-table-filter]')
+      filterInputs.forEach((input) => {
+        const colId = input.getAttribute('data-rfr-data-table-filter')!
+        input.addEventListener('input', () => {
+          filters[colId] = input.value
+          renderRows()
+        })
+      })
+    })
+  }
+
+  initDataTables()
+  document.addEventListener('astro:after-swap', initDataTables)
+</script>
