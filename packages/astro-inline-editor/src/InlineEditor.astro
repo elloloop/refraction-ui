@@ -1,0 +1,169 @@
+---
+import {
+  createInlineEditor,
+  editorVariants,
+  toolbarVariants,
+  previewVariants,
+} from '@refraction-ui/inline-editor'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  value: string
+}
+
+const { value, class: className, ...props } = Astro.props
+
+const api = createInlineEditor({ value })
+---
+
+<div
+  data-rfr-inline-editor
+  data-rfr-inline-editor-value={value}
+  class={cn('contents', className)}
+  {...props}
+>
+  {/* View mode (shown by default) */}
+  <div
+    data-rfr-inline-editor-view
+    class={editorVariants({ state: 'viewing' })}
+    role="button"
+    tabindex="0"
+    aria-label="Click to edit"
+  >
+    <div class={previewVariants()} data-rfr-inline-editor-display>
+      {value}
+    </div>
+  </div>
+
+  {/* Edit mode (hidden by default) */}
+  <div
+    data-rfr-inline-editor-edit
+    class={editorVariants({ state: 'editing' })}
+    hidden
+  >
+    {/* Toolbar */}
+    <div class={toolbarVariants()} role="toolbar" aria-label="Formatting toolbar">
+      {api.toolbarActions.map((action) => (
+        <button
+          type="button"
+          data-rfr-inline-editor-toolbar-action={action.syntax}
+          aria-label={action.name}
+          class="px-2 py-1 rounded text-xs hover:bg-muted transition-colors"
+        >
+          {action.name}
+        </button>
+      ))}
+    </div>
+
+    {/* Editor area: side-by-side textarea + preview */}
+    <div class="flex gap-2 p-2">
+      <textarea
+        data-rfr-inline-editor-textarea
+        class="flex-1 min-h-[100px] resize-y border rounded p-2"
+        aria-label="Editor content"
+      >{value}</textarea>
+      <div
+        class={cn('flex-1', previewVariants())}
+        aria-label="Preview"
+        data-rfr-inline-editor-preview
+      >
+        {value}
+      </div>
+    </div>
+
+    {/* Action buttons */}
+    <div class="flex justify-end gap-2 p-2 border-t">
+      <button type="button" data-rfr-inline-editor-cancel>Cancel</button>
+      <button type="button" data-rfr-inline-editor-save>Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initInlineEditors() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-inline-editor]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-inline-editor-init')) return
+      root.setAttribute('data-rfr-inline-editor-init', '')
+
+      const viewEl = root.querySelector<HTMLElement>('[data-rfr-inline-editor-view]')
+      const editEl = root.querySelector<HTMLElement>('[data-rfr-inline-editor-edit]')
+      const textarea = root.querySelector<HTMLTextAreaElement>('[data-rfr-inline-editor-textarea]')
+      const preview = root.querySelector<HTMLElement>('[data-rfr-inline-editor-preview]')
+      const display = root.querySelector<HTMLElement>('[data-rfr-inline-editor-display]')
+      const cancelBtn = root.querySelector<HTMLButtonElement>('[data-rfr-inline-editor-cancel]')
+      const saveBtn = root.querySelector<HTMLButtonElement>('[data-rfr-inline-editor-save]')
+      const toolbarBtns = root.querySelectorAll<HTMLButtonElement>('[data-rfr-inline-editor-toolbar-action]')
+
+      if (!viewEl || !editEl || !textarea || !preview || !display) return
+
+      let originalValue = root.getAttribute('data-rfr-inline-editor-value') || ''
+
+      function enterEditMode() {
+        viewEl!.hidden = true
+        editEl!.removeAttribute('hidden')
+        textarea!.value = originalValue
+        preview!.textContent = originalValue
+        textarea!.focus()
+      }
+
+      function exitEditMode() {
+        editEl!.hidden = true
+        viewEl!.removeAttribute('hidden')
+      }
+
+      // Click or keyboard to enter edit mode
+      viewEl.addEventListener('click', enterEditMode)
+      viewEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          enterEditMode()
+        }
+      })
+
+      // Live preview as user types
+      textarea.addEventListener('input', () => {
+        preview!.textContent = textarea!.value
+      })
+
+      // Toolbar buttons insert syntax at cursor
+      toolbarBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const syntax = btn.getAttribute('data-rfr-inline-editor-toolbar-action') || ''
+          const start = textarea!.selectionStart
+          const end = textarea!.selectionEnd
+          const val = textarea!.value
+          textarea!.value = val.substring(0, start) + syntax + val.substring(end)
+          textarea!.selectionStart = textarea!.selectionEnd = start + syntax.length
+          textarea!.focus()
+          preview!.textContent = textarea!.value
+        })
+      })
+
+      // Cancel button
+      cancelBtn?.addEventListener('click', () => {
+        exitEditMode()
+        root.dispatchEvent(
+          new CustomEvent('rfr-inline-editor-cancel', { bubbles: true }),
+        )
+      })
+
+      // Save button
+      saveBtn?.addEventListener('click', () => {
+        const newValue = textarea!.value
+        originalValue = newValue
+        display!.textContent = newValue
+        root.setAttribute('data-rfr-inline-editor-value', newValue)
+        exitEditMode()
+        root.dispatchEvent(
+          new CustomEvent('rfr-inline-editor-save', {
+            detail: { value: newValue },
+            bubbles: true,
+          }),
+        )
+      })
+    })
+  }
+
+  initInlineEditors()
+  document.addEventListener('astro:after-swap', initInlineEditors)
+</script>
