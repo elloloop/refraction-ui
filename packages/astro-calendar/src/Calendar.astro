@@ -1,0 +1,259 @@
+---
+import {
+  createCalendar,
+  calendarVariants,
+  dayVariants,
+  type CalendarDay,
+} from '@refraction-ui/calendar'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Selected date (ISO string or Date-compatible value) */
+  value?: string
+  /** Minimum selectable date (ISO string) */
+  minDate?: string
+  /** Maximum selectable date (ISO string) */
+  maxDate?: string
+  /** Disabled date ISO strings */
+  disabledDates?: string[]
+}
+
+const { value, minDate, maxDate, disabledDates = [], class: className, ...props } = Astro.props
+
+const parsedValue = value ? new Date(value) : undefined
+const parsedMin = minDate ? new Date(minDate) : undefined
+const parsedMax = maxDate ? new Date(maxDate) : undefined
+const parsedDisabled = disabledDates.map((d: string) => new Date(d))
+
+const api = createCalendar({
+  value: parsedValue,
+  month: parsedValue ?? new Date(),
+  minDate: parsedMin,
+  maxDate: parsedMax,
+  disabledDates: parsedDisabled,
+})
+
+const MONTH_NAMES = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+]
+
+const DAY_HEADERS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+
+function getDayState(day: CalendarDay): 'selected' | 'today' | 'disabled' | 'outside' | 'default' {
+  if (day.isDisabled) return 'disabled'
+  if (day.isSelected) return 'selected'
+  if (!day.isCurrentMonth) return 'outside'
+  if (day.isToday) return 'today'
+  return 'default'
+}
+
+const monthLabel = `${MONTH_NAMES[api.state.currentMonth.getMonth()]} ${api.state.currentMonth.getFullYear()}`
+const currentYear = api.state.currentMonth.getFullYear()
+const currentMonthIndex = api.state.currentMonth.getMonth()
+---
+
+<div
+  data-rfr-calendar
+  data-rfr-calendar-year={currentYear}
+  data-rfr-calendar-month={currentMonthIndex}
+  data-rfr-calendar-selected={value || ''}
+  data-rfr-calendar-min={minDate || ''}
+  data-rfr-calendar-max={maxDate || ''}
+  data-rfr-calendar-disabled-dates={JSON.stringify(disabledDates)}
+  class={cn(calendarVariants(), className)}
+  role="grid"
+  aria-labelledby={api.ids.label}
+  {...props}
+>
+  <!-- Header: prev, month label, next -->
+  <div class="flex items-center justify-between mb-2">
+    <button
+      type="button"
+      aria-label="Previous month"
+      data-rfr-calendar-prev
+      class="inline-flex items-center justify-center h-7 w-7 rounded-md hover:bg-accent"
+    >&lsaquo;</button>
+    <div
+      id={api.ids.label}
+      data-rfr-calendar-label
+      class="text-sm font-medium"
+      aria-live="polite"
+    >{monthLabel}</div>
+    <button
+      type="button"
+      aria-label="Next month"
+      data-rfr-calendar-next
+      class="inline-flex items-center justify-center h-7 w-7 rounded-md hover:bg-accent"
+    >&rsaquo;</button>
+  </div>
+
+  <!-- Day-of-week headers -->
+  <div class="grid grid-cols-7 gap-1 mb-1" role="row">
+    {DAY_HEADERS.map((d) => (
+      <div
+        class="text-center text-xs font-medium text-muted-foreground h-9 flex items-center justify-center"
+        role="columnheader"
+        aria-label={d}
+      >{d}</div>
+    ))}
+  </div>
+
+  <!-- Day grid -->
+  <div class="grid grid-cols-7 gap-1" role="rowgroup" data-rfr-calendar-grid>
+    {api.days.map((day) => {
+      const state = getDayState(day)
+      const ariaProps = api.getDayAriaProps(day)
+      return (
+        <button
+          type="button"
+          class={dayVariants({ state })}
+          disabled={day.isDisabled}
+          data-rfr-calendar-day
+          data-date={day.date.toISOString()}
+          data-current-month={day.isCurrentMonth ? '' : undefined}
+          role={ariaProps.role as string}
+          aria-selected={ariaProps['aria-selected'] as boolean}
+          aria-disabled={ariaProps['aria-disabled'] as boolean}
+          aria-current={ariaProps['aria-current'] as any}
+          aria-label={ariaProps['aria-label'] as string}
+        >{day.date.getDate()}</button>
+      )
+    })}
+  </div>
+</div>
+
+<script>
+  const MONTH_NAMES = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December',
+  ]
+  const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  const DAY_VARIANT_DEFAULT = 'inline-flex items-center justify-center rounded-md text-sm h-9 w-9 hover:bg-accent hover:text-accent-foreground'
+  const DAY_VARIANT_SELECTED = 'inline-flex items-center justify-center rounded-md text-sm h-9 w-9 bg-primary text-primary-foreground hover:bg-primary/90'
+  const DAY_VARIANT_TODAY = 'inline-flex items-center justify-center rounded-md text-sm h-9 w-9 bg-accent text-accent-foreground'
+  const DAY_VARIANT_DISABLED = 'inline-flex items-center justify-center rounded-md text-sm h-9 w-9 text-muted-foreground opacity-50 cursor-not-allowed'
+  const DAY_VARIANT_OUTSIDE = 'inline-flex items-center justify-center rounded-md text-sm h-9 w-9 text-muted-foreground opacity-50'
+
+  function isSameDay(a: Date, b: Date): boolean {
+    return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
+  }
+
+  function isDateDisabled(date: Date, minDate: Date | null, maxDate: Date | null, disabledDates: Date[]): boolean {
+    if (minDate) {
+      const startOfMin = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate())
+      if (date < startOfMin) return true
+    }
+    if (maxDate) {
+      const endOfMax = new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate(), 23, 59, 59, 999)
+      if (date > endOfMax) return true
+    }
+    return disabledDates.some((d) => isSameDay(d, date))
+  }
+
+  function renderGrid(root: HTMLElement) {
+    const year = parseInt(root.getAttribute('data-rfr-calendar-year') || '0', 10)
+    const month = parseInt(root.getAttribute('data-rfr-calendar-month') || '0', 10)
+    const selectedStr = root.getAttribute('data-rfr-calendar-selected') || ''
+    const minStr = root.getAttribute('data-rfr-calendar-min') || ''
+    const maxStr = root.getAttribute('data-rfr-calendar-max') || ''
+    const disabledStr = root.getAttribute('data-rfr-calendar-disabled-dates') || '[]'
+
+    const selectedDate = selectedStr ? new Date(selectedStr) : null
+    const minDate = minStr ? new Date(minStr) : null
+    const maxDate = maxStr ? new Date(maxStr) : null
+    let disabledDates: Date[] = []
+    try { disabledDates = JSON.parse(disabledStr).map((s: string) => new Date(s)) } catch {}
+
+    const today = new Date()
+
+    // Update label
+    const label = root.querySelector<HTMLElement>('[data-rfr-calendar-label]')
+    if (label) label.textContent = `${MONTH_NAMES[month]} ${year}`
+
+    // Build 42-cell grid
+    const first = new Date(year, month, 1)
+    const startDow = first.getDay()
+    const gridStart = new Date(year, month, 1 - startDow)
+
+    const grid = root.querySelector<HTMLElement>('[data-rfr-calendar-grid]')
+    if (!grid) return
+
+    grid.innerHTML = ''
+
+    for (let i = 0; i < 42; i++) {
+      const date = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + i)
+      const isToday = isSameDay(date, today)
+      const isSelected = selectedDate ? isSameDay(date, selectedDate) : false
+      const isCurrentMonth = date.getMonth() === month
+      const isDisabled = isDateDisabled(date, minDate, maxDate, disabledDates)
+
+      let variant = DAY_VARIANT_DEFAULT
+      if (isDisabled) variant = DAY_VARIANT_DISABLED
+      else if (isSelected) variant = DAY_VARIANT_SELECTED
+      else if (!isCurrentMonth) variant = DAY_VARIANT_OUTSIDE
+      else if (isToday) variant = DAY_VARIANT_TODAY
+
+      const btn = document.createElement('button')
+      btn.type = 'button'
+      btn.className = variant
+      btn.disabled = isDisabled
+      btn.setAttribute('data-rfr-calendar-day', '')
+      btn.setAttribute('data-date', date.toISOString())
+      btn.setAttribute('role', 'gridcell')
+      btn.setAttribute('aria-selected', String(isSelected))
+      btn.setAttribute('aria-disabled', String(isDisabled))
+      if (isToday) btn.setAttribute('aria-current', 'date')
+      btn.setAttribute('aria-label', `${DAY_NAMES[date.getDay()]}, ${date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`)
+      if (isCurrentMonth) btn.setAttribute('data-current-month', '')
+      btn.textContent = String(date.getDate())
+      grid.appendChild(btn)
+    }
+  }
+
+  function initCalendars() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-calendar]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-calendar-init')) return
+      root.setAttribute('data-rfr-calendar-init', '')
+
+      // Prev month
+      root.querySelector('[data-rfr-calendar-prev]')?.addEventListener('click', () => {
+        const year = parseInt(root.getAttribute('data-rfr-calendar-year') || '0', 10)
+        const month = parseInt(root.getAttribute('data-rfr-calendar-month') || '0', 10)
+        const prev = new Date(year, month - 1, 1)
+        root.setAttribute('data-rfr-calendar-year', String(prev.getFullYear()))
+        root.setAttribute('data-rfr-calendar-month', String(prev.getMonth()))
+        renderGrid(root)
+      })
+
+      // Next month
+      root.querySelector('[data-rfr-calendar-next]')?.addEventListener('click', () => {
+        const year = parseInt(root.getAttribute('data-rfr-calendar-year') || '0', 10)
+        const month = parseInt(root.getAttribute('data-rfr-calendar-month') || '0', 10)
+        const next = new Date(year, month + 1, 1)
+        root.setAttribute('data-rfr-calendar-year', String(next.getFullYear()))
+        root.setAttribute('data-rfr-calendar-month', String(next.getMonth()))
+        renderGrid(root)
+      })
+
+      // Day click (delegated)
+      root.querySelector('[data-rfr-calendar-grid]')?.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-rfr-calendar-day]')
+        if (!btn || btn.disabled) return
+        const dateStr = btn.getAttribute('data-date')
+        if (!dateStr) return
+
+        root.setAttribute('data-rfr-calendar-selected', dateStr)
+        renderGrid(root)
+
+        root.dispatchEvent(new CustomEvent('rfr-calendar-select', {
+          detail: { date: new Date(dateStr), iso: dateStr },
+          bubbles: true,
+        }))
+      })
+    })
+  }
+
+  initCalendars()
+  document.addEventListener('astro:after-swap', initCalendars)
+</script>
