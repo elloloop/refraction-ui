@@ -1,0 +1,39 @@
+---
+import {
+  createSkeleton,
+  skeletonVariants,
+  type SkeletonShape,
+} from '@refraction-ui/skeleton'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  shape?: SkeletonShape
+  width?: string | number
+  height?: string | number
+  /** Whether to animate the skeleton pulse. Defaults to true */
+  animate?: boolean
+}
+
+const { shape, width, height, animate, class: className, style, ...props } = Astro.props
+const api = createSkeleton({ shape, animate })
+const classes = cn(skeletonVariants({ shape }), className)
+
+const styleObj: Record<string, string | number> = {}
+if (width !== undefined) styleObj.width = width
+if (height !== undefined) styleObj.height = height
+
+// Merge any existing inline styles
+const existingStyle = typeof style === 'string' ? style : ''
+const extraStyle = Object.entries(styleObj)
+  .map(([k, v]) => `${k}: ${typeof v === 'number' ? `${v}px` : v}`)
+  .join('; ')
+const mergedStyle = [existingStyle, extraStyle].filter(Boolean).join('; ') || undefined
+---
+
+<div
+  class={classes}
+  style={mergedStyle}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...props}
+/>
