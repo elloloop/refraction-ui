@@ -1,0 +1,24 @@
+---
+/**
+ * AuthShellCard — card container within AuthShell for form content.
+ */
+import { createAuthShell, type AuthShellConfig } from '@refraction-ui/app-shell'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Card max-width preset (default 'sm') */
+  maxWidth?: 'xs' | 'sm' | 'md'
+}
+
+const { maxWidth, class: className, ...props } = Astro.props
+
+const api = createAuthShell({ maxWidth })
+---
+
+<div
+  class={cn(api.cardClasses, className)}
+  data-rfr-auth-card
+  {...props}
+>
+  <slot />
+</div>

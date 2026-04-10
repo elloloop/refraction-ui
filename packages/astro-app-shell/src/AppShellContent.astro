@@ -1,0 +1,29 @@
+---
+/**
+ * AppShellContent — scrollable content area within AppShellMain.
+ */
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Tailwind max-width class suffix, e.g. '6xl' -> max-w-6xl */
+  maxWidth?: string
+}
+
+const { maxWidth, class: className, ...props } = Astro.props
+
+const mwClass = maxWidth ? `max-w-${maxWidth} mx-auto w-full` : ''
+---
+
+<main
+  role="main"
+  class={cn(
+    'flex-1 overflow-y-auto',
+    mwClass,
+    'px-4 sm:px-6 lg:px-8 py-6',
+    className,
+  )}
+  data-rfr-shell-content
+  {...props}
+>
+  <slot />
+</main>

@@ -1,0 +1,195 @@
+---
+/**
+ * AppShell — root layout container for app-style layouts with sidebar, header, and main content.
+ * Includes a client-side script for responsive breakpoint detection and sidebar toggling.
+ */
+import { createAppShell, type AppShellConfig } from '@refraction-ui/app-shell'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Sidebar width when expanded (default '16rem') */
+  sidebarWidth?: string
+  /** Sidebar width when collapsed (default '4rem') */
+  sidebarCollapsedWidth?: string
+  /** Header height (default '3.5rem') */
+  headerHeight?: string
+  /** Breakpoint below which layout is mobile (default 768) */
+  mobileBreakpoint?: number
+  /** Breakpoint below which layout is tablet (default 1024) */
+  tabletBreakpoint?: number
+  /** Sidebar position (default 'left') */
+  sidebarPosition?: 'left' | 'right'
+  /** Whether sidebar can collapse on desktop (default true) */
+  sidebarCollapsible?: boolean
+  /** Whether sidebar starts collapsed (default false) */
+  sidebarDefaultCollapsed?: boolean
+  /** Mobile nav position (default 'bottom') */
+  mobileNavPosition?: 'bottom' | 'none'
+}
+
+const {
+  sidebarWidth,
+  sidebarCollapsedWidth,
+  headerHeight,
+  mobileBreakpoint,
+  tabletBreakpoint,
+  sidebarPosition,
+  sidebarCollapsible,
+  sidebarDefaultCollapsed,
+  mobileNavPosition,
+  class: className,
+  ...props
+} = Astro.props
+
+const config: AppShellConfig = {
+  sidebarWidth,
+  sidebarCollapsedWidth,
+  headerHeight,
+  mobileBreakpoint,
+  tabletBreakpoint,
+  sidebarPosition,
+  sidebarCollapsible,
+  sidebarDefaultCollapsed,
+  mobileNavPosition,
+}
+
+const api = createAppShell(config)
+const cssVars = api.getCSSVariables()
+const styleStr = Object.entries(cssVars).map(([k, v]) => `${k}:${v}`).join(';')
+
+const configJSON = JSON.stringify(api.config)
+---
+
+<div
+  class={cn('flex h-screen w-full overflow-hidden', className)}
+  style={styleStr}
+  data-rfr-shell
+  data-rfr-shell-config={configJSON}
+  {...props}
+>
+  <slot />
+</div>
+
+<script is:inline>
+  ;(function () {
+    var shell = document.querySelector('[data-rfr-shell]')
+    if (!shell) return
+
+    var config = {}
+    try { config = JSON.parse(shell.getAttribute('data-rfr-shell-config') || '{}') } catch (_) { /* */ }
+
+    var mobileBp = config.mobileBreakpoint || 768
+    var tabletBp = config.tabletBreakpoint || 1024
+    var sidebarCollapsible = config.sidebarCollapsible !== false
+    var sidebarWidth = config.sidebarWidth || '16rem'
+    var sidebarCollapsedWidth = config.sidebarCollapsedWidth || '4rem'
+    var sidebarPosition = config.sidebarPosition || 'left'
+
+    var state = {
+      breakpoint: 'desktop',
+      sidebarOpen: false,
+      sidebarCollapsed: config.sidebarDefaultCollapsed || false,
+    }
+
+    function isMobile() { return state.breakpoint === 'mobile' }
+
+    function updateBreakpoint() {
+      var w = window.innerWidth
+      var bp = w < mobileBp ? 'mobile' : w < tabletBp ? 'tablet' : 'desktop'
+      if (bp !== state.breakpoint) {
+        state.breakpoint = bp
+        if (bp !== 'mobile') state.sidebarOpen = false
+        applyState()
+      }
+    }
+
+    function toggleSidebar() {
+      if (isMobile()) {
+        state.sidebarOpen = !state.sidebarOpen
+      } else if (sidebarCollapsible) {
+        state.sidebarCollapsed = !state.sidebarCollapsed
+      }
+      applyState()
+    }
+
+    function closeSidebar() {
+      state.sidebarOpen = false
+      applyState()
+    }
+
+    function applyState() {
+      var sidebar = shell.querySelector('[data-rfr-shell-sidebar]')
+      var overlay = shell.querySelector('[data-rfr-shell-overlay]')
+      var mobileNav = shell.querySelector('[data-rfr-shell-mobile-nav]')
+      var hamburgers = shell.querySelectorAll('[data-rfr-shell-toggle]')
+
+      // Update CSS variable for sidebar width
+      var currentWidth = state.sidebarCollapsed ? sidebarCollapsedWidth : sidebarWidth
+      shell.style.setProperty('--shell-sidebar-width', currentWidth)
+
+      if (sidebar) {
+        if (isMobile()) {
+          sidebar.style.position = 'fixed'
+          sidebar.style.top = '0'
+          sidebar.style.zIndex = '40'
+          sidebar.style.width = sidebarWidth
+          sidebar.style[sidebarPosition === 'right' ? 'right' : 'left'] = '0'
+          sidebar.style.transform = state.sidebarOpen
+            ? 'translateX(0)'
+            : sidebarPosition === 'right' ? 'translateX(100%)' : 'translateX(-100%)'
+          sidebar.removeAttribute('data-collapsed')
+        } else {
+          sidebar.style.position = 'relative'
+          sidebar.style.transform = ''
+          sidebar.style.width = currentWidth
+          if (state.sidebarCollapsed) {
+            sidebar.setAttribute('data-collapsed', '')
+          } else {
+            sidebar.removeAttribute('data-collapsed')
+          }
+        }
+        if (state.sidebarOpen) {
+          sidebar.setAttribute('data-open', '')
+        } else {
+          sidebar.removeAttribute('data-open')
+        }
+      }
+
+      if (overlay) {
+        if (isMobile() && state.sidebarOpen) {
+          overlay.style.display = ''
+        } else {
+          overlay.style.display = 'none'
+        }
+      }
+
+      if (mobileNav) {
+        mobileNav.style.display = isMobile() ? '' : 'none'
+      }
+
+      hamburgers.forEach(function (btn) {
+        btn.setAttribute('aria-expanded', String(state.sidebarOpen))
+      })
+    }
+
+    // Bind toggle buttons
+    shell.addEventListener('click', function (e) {
+      var toggle = e.target.closest('[data-rfr-shell-toggle]')
+      if (toggle) {
+        toggleSidebar()
+        return
+      }
+      var overlayClick = e.target.closest('[data-rfr-shell-overlay]')
+      if (overlayClick) {
+        closeSidebar()
+      }
+    })
+
+    // Expose API for external scripts
+    window.__rfr_shell = { toggleSidebar: toggleSidebar, closeSidebar: closeSidebar, state: state }
+
+    // Responsive listener
+    window.addEventListener('resize', updateBreakpoint)
+    updateBreakpoint()
+  })()
+</script>

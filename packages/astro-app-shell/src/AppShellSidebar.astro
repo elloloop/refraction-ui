@@ -1,0 +1,26 @@
+---
+/**
+ * AppShellSidebar — sidebar navigation area within the AppShell.
+ */
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<aside
+  role="navigation"
+  aria-label="Sidebar"
+  class={cn(
+    'flex flex-col shrink-0 overflow-y-auto overflow-x-hidden',
+    'bg-background border-r',
+    'transition-[width,transform] duration-200 ease-in-out',
+    'h-full relative w-[var(--shell-sidebar-width)]',
+    className,
+  )}
+  data-rfr-shell-sidebar
+  {...props}
+>
+  <slot />
+</aside>

@@ -1,0 +1,27 @@
+---
+/**
+ * AppShellMobileNav — fixed bottom navigation bar, visible only on mobile.
+ */
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<nav
+  role="navigation"
+  aria-label="Mobile navigation"
+  class={cn(
+    'fixed bottom-0 left-0 right-0 z-30',
+    'flex items-center justify-around',
+    'border-t bg-background',
+    'h-14',
+    className,
+  )}
+  style="display:none;"
+  data-rfr-shell-mobile-nav
+  {...props}
+>
+  <slot />
+</nav>

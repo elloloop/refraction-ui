@@ -1,0 +1,33 @@
+---
+/**
+ * PageShellNav — navigation bar within PageShell.
+ */
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Whether nav is sticky (default true) */
+  sticky?: boolean
+  /** Whether nav is transparent (default false) */
+  transparent?: boolean
+}
+
+const { sticky = true, transparent = false, class: className, ...props } = Astro.props
+
+const stickyClass = sticky ? 'sticky top-0 z-40' : ''
+const transparentClass = transparent ? 'bg-transparent' : 'bg-background border-b'
+---
+
+<nav
+  role="navigation"
+  aria-label="Main navigation"
+  class={cn(
+    'flex items-center h-[var(--page-nav-height)] px-4 sm:px-6 lg:px-8',
+    stickyClass,
+    transparentClass,
+    className,
+  )}
+  data-rfr-page-nav
+  {...props}
+>
+  <slot />
+</nav>

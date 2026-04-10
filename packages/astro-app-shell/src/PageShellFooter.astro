@@ -1,0 +1,30 @@
+---
+/**
+ * PageShellFooter — footer area within PageShell.
+ */
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Number of grid columns (default 4) */
+  columns?: number
+}
+
+const { columns = 4, class: className, ...props } = Astro.props
+---
+
+<footer
+  role="contentinfo"
+  class={cn(
+    'border-t bg-muted py-12 px-4 sm:px-6 lg:px-8',
+    className,
+  )}
+  data-rfr-page-footer
+  {...props}
+>
+  <div
+    class="mx-auto max-w-[var(--page-max-width)] grid gap-8"
+    style={`grid-template-columns: repeat(${columns}, minmax(0, 1fr));`}
+  >
+    <slot />
+  </div>
+</footer>
