@@ -1,0 +1,162 @@
+---
+/**
+ * ResizableLayout — flex container with resizable panes separated by draggable dividers.
+ * Includes a client-side script for pointer-based drag resize.
+ */
+import {
+  resizableLayoutVariants,
+} from '@refraction-ui/resizable-layout'
+import { cn } from '@refraction-ui/shared'
+import type { Orientation } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Layout direction (default 'horizontal') */
+  orientation?: Orientation
+  /** Initial pane sizes as percentages (must sum to 100) */
+  defaultSizes?: number[]
+  /** Minimum size for each pane (percentage) */
+  minSizes?: number[]
+  /** Maximum size for each pane (percentage) */
+  maxSizes?: number[]
+  /** localStorage key for persisting sizes */
+  persistKey?: string
+}
+
+const {
+  orientation = 'horizontal',
+  defaultSizes = [50, 50],
+  minSizes = [],
+  maxSizes = [],
+  persistKey,
+  class: className,
+  style,
+  ...props
+} = Astro.props
+
+// Build initial CSS variables for pane sizes
+const cssVars = defaultSizes.map((s, i) => `--rfr-pane-${i}-size:${s}%`).join(';')
+const fullStyle = [cssVars, typeof style === 'string' ? style : ''].filter(Boolean).join(';')
+
+const configJSON = JSON.stringify({ orientation, defaultSizes, minSizes, maxSizes, persistKey })
+---
+
+<div
+  class={cn(resizableLayoutVariants({ orientation }), className)}
+  style={fullStyle}
+  data-rfr-resizable-layout
+  data-rfr-resizable-config={configJSON}
+  data-orientation={orientation}
+  {...props}
+>
+  <slot />
+</div>
+
+<script is:inline>
+  ;(function () {
+    document.querySelectorAll('[data-rfr-resizable-layout]').forEach(function (layout) {
+      var config = {}
+      try { config = JSON.parse(layout.getAttribute('data-rfr-resizable-config') || '{}') } catch (_) { /* */ }
+
+      var orientation = config.orientation || 'horizontal'
+      var sizes = null
+      var persistKey = config.persistKey
+      var minSizes = config.minSizes || []
+      var maxSizes = config.maxSizes || []
+
+      // Try loading from localStorage
+      if (persistKey) {
+        try {
+          var stored = localStorage.getItem(persistKey)
+          if (stored) {
+            var parsed = JSON.parse(stored)
+            if (Array.isArray(parsed) && parsed.length === (config.defaultSizes || []).length) {
+              sizes = parsed
+            }
+          }
+        } catch (_) { /* */ }
+      }
+      if (!sizes) {
+        sizes = (config.defaultSizes || [50, 50]).slice()
+      }
+
+      // Apply initial sizes
+      function applySizes() {
+        for (var i = 0; i < sizes.length; i++) {
+          layout.style.setProperty('--rfr-pane-' + i + '-size', sizes[i] + '%')
+        }
+        // Update pane flex-basis
+        var panes = layout.querySelectorAll('[data-rfr-pane-index]')
+        panes.forEach(function (pane) {
+          var idx = parseInt(pane.getAttribute('data-rfr-pane-index'), 10)
+          if (!isNaN(idx) && sizes[idx] !== undefined) {
+            pane.style.flexBasis = sizes[idx] + '%'
+          }
+        })
+      }
+
+      applySizes()
+
+      function clamp(val, min, max) {
+        return Math.min(Math.max(val, min), max)
+      }
+
+      function getMin(i) { return minSizes[i] || 0 }
+      function getMax(i) { return maxSizes[i] || 100 }
+
+      // Handle divider drag
+      var resizingIndex = null
+      var startPos = 0
+      var containerSize = 0
+      var sizesBeforeResize = []
+
+      layout.addEventListener('pointerdown', function (e) {
+        var divider = e.target.closest('[data-rfr-divider-index]')
+        if (!divider) return
+
+        e.preventDefault()
+        divider.setPointerCapture(e.pointerId)
+
+        resizingIndex = parseInt(divider.getAttribute('data-rfr-divider-index'), 10)
+        sizesBeforeResize = sizes.slice()
+
+        var rect = layout.getBoundingClientRect()
+        containerSize = orientation === 'horizontal' ? rect.width : rect.height
+        startPos = orientation === 'horizontal' ? e.clientX : e.clientY
+      })
+
+      layout.addEventListener('pointermove', function (e) {
+        if (resizingIndex === null) return
+
+        var currentPos = orientation === 'horizontal' ? e.clientX : e.clientY
+        var pxDelta = currentPos - startPos
+        var pctDelta = (pxDelta / containerSize) * 100
+
+        var i = resizingIndex
+        var j = i + 1
+        if (j >= sizes.length) return
+
+        var total = sizesBeforeResize[i] + sizesBeforeResize[j]
+        var newI = clamp(sizesBeforeResize[i] + pctDelta, getMin(i), getMax(i))
+        var newJ = clamp(total - newI, getMin(j), getMax(j))
+        newI = total - newJ
+
+        sizes[i] = newI
+        sizes[j] = newJ
+        applySizes()
+      })
+
+      layout.addEventListener('pointerup', function (e) {
+        var divider = e.target.closest('[data-rfr-divider-index]')
+        if (divider && resizingIndex !== null) {
+          divider.releasePointerCapture(e.pointerId)
+        }
+        resizingIndex = null
+        sizesBeforeResize = []
+
+        if (persistKey) {
+          try { localStorage.setItem(persistKey, JSON.stringify(sizes)) } catch (_) { /* */ }
+        }
+      })
+    })
+  })()
+</script>

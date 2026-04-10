@@ -1,0 +1,28 @@
+---
+/**
+ * ResizablePane — a single pane whose size is driven by CSS custom properties.
+ */
+import { resizablePaneVariants } from '@refraction-ui/resizable-layout'
+import { cn } from '@refraction-ui/shared'
+import type { Orientation } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Zero-based index of this pane */
+  index: number
+  /** Orientation inherited from parent (default 'horizontal') */
+  orientation?: Orientation
+}
+
+const { index, orientation = 'horizontal', class: className, style, ...props } = Astro.props
+
+const paneStyle = `flex-basis:var(--rfr-pane-${index}-size, 50%);flex-grow:0;flex-shrink:0;${typeof style === 'string' ? style : ''}`
+---
+
+<div
+  class={cn(resizablePaneVariants({ orientation }), className)}
+  style={paneStyle}
+  data-rfr-pane-index={index}
+  {...props}
+>
+  <slot />
+</div>
