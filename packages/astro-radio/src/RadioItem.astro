@@ -1,0 +1,36 @@
+---
+import { radioItemVariants, radioCircleVariants } from '@refraction-ui/radio'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  value: string
+  disabled?: boolean
+  checked?: boolean
+}
+
+const { value, disabled = false, checked = false, class: className, ...props } = Astro.props
+---
+
+<label
+  class={cn(radioItemVariants({ disabled: disabled ? 'true' : 'false' }), className)}
+  data-state={checked ? 'checked' : 'unchecked'}
+  data-rfr-radio-item-label
+  {...props}
+>
+  <button
+    type="button"
+    role="radio"
+    aria-checked={checked}
+    aria-disabled={disabled || undefined}
+    tabindex={checked ? 0 : -1}
+    disabled={disabled || undefined}
+    class={cn(radioCircleVariants({ checked: checked ? 'true' : 'false' }))}
+    data-rfr-radio-item
+    data-rfr-radio-item-value={value}
+  >
+    {checked && (
+      <span class="block h-2 w-2 rounded-full bg-primary-foreground mx-auto" data-rfr-radio-dot />
+    )}
+  </button>
+  <span class="text-sm"><slot /></span>
+</label>
