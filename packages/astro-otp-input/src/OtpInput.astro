@@ -1,0 +1,253 @@
+---
+import {
+  createOtpInput,
+  otpInputContainerVariants,
+  otpInputSlotVariants,
+  type OtpInputType,
+} from '@refraction-ui/otp-input'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Number of OTP slots */
+  length?: number
+  /** Initial OTP value */
+  value?: string
+  /** Auto-focus first slot */
+  autoFocus?: boolean
+  /** Input type: number or text */
+  type?: OtpInputType
+  /** Whether the input is disabled */
+  disabled?: boolean
+  /** Size variant */
+  size?: 'sm' | 'default' | 'lg'
+  /** Name attribute for the hidden form input */
+  name?: string
+}
+
+const {
+  length = 6,
+  value = '',
+  autoFocus = false,
+  type = 'number',
+  disabled = false,
+  size = 'default',
+  name,
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createOtpInput({ length, value, autoFocus, type, disabled })
+const slots = Array.from({ length }, (_, i) => ({
+  index: i,
+  value: value.charAt(i) || '',
+  slotProps: api.getSlotProps(i),
+}))
+---
+
+<div
+  data-rfr-otp
+  data-rfr-otp-length={length}
+  data-rfr-otp-type={type}
+  data-rfr-otp-disabled={disabled ? 'true' : 'false'}
+  data-rfr-otp-size={size}
+  data-rfr-otp-autofocus={autoFocus ? 'true' : 'false'}
+  class={cn(otpInputContainerVariants({ size }), className)}
+  role="group"
+  aria-label="One-time password input"
+  {...props}
+>
+  {slots.map((slot) => (
+    <input
+      type="text"
+      class={cn(otpInputSlotVariants({
+        size,
+        focused: 'false',
+        filled: slot.value ? 'true' : 'false',
+      }))}
+      value={slot.value}
+      maxlength="1"
+      inputmode={type === 'number' ? 'numeric' : 'text'}
+      pattern={type === 'number' ? '[0-9]*' : undefined}
+      autocomplete={slot.index === 0 ? 'one-time-code' : 'off'}
+      disabled={disabled}
+      aria-label={`Digit ${slot.index + 1} of ${length}`}
+      data-rfr-otp-slot={slot.index}
+      data-slot="otp-slot"
+    />
+  ))}
+  <input
+    type="hidden"
+    data-rfr-otp-hidden
+    name={name}
+    value={value}
+  />
+</div>
+
+<script>
+  // Style class templates for dynamic updates
+  const SIZE_CLASSES: Record<string, { base: string; focused: string; filled: string }> = {
+    sm: {
+      base: 'relative flex items-center justify-center rounded-md border border-input bg-background text-center font-mono shadow-sm transition-all h-8 w-8 text-sm',
+      focused: 'ring-2 ring-ring ring-offset-background',
+      filled: 'border-primary',
+    },
+    default: {
+      base: 'relative flex items-center justify-center rounded-md border border-input bg-background text-center font-mono shadow-sm transition-all h-10 w-10 text-base',
+      focused: 'ring-2 ring-ring ring-offset-background',
+      filled: 'border-primary',
+    },
+    lg: {
+      base: 'relative flex items-center justify-center rounded-md border border-input bg-background text-center font-mono shadow-sm transition-all h-12 w-12 text-lg',
+      focused: 'ring-2 ring-ring ring-offset-background',
+      filled: 'border-primary',
+    },
+  }
+
+  function initOtpInputs() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-otp]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-otp-init')) return
+      root.setAttribute('data-rfr-otp-init', '')
+
+      const length = parseInt(root.getAttribute('data-rfr-otp-length') || '6', 10)
+      const type = root.getAttribute('data-rfr-otp-type') || 'number'
+      const isDisabled = root.getAttribute('data-rfr-otp-disabled') === 'true'
+      const size = root.getAttribute('data-rfr-otp-size') || 'default'
+      const sizeClasses = SIZE_CLASSES[size] || SIZE_CLASSES.default
+
+      const slots = root.querySelectorAll<HTMLInputElement>('[data-rfr-otp-slot]')
+      if (slots.length === 0) return
+
+      function updateSlotClasses(slot: HTMLInputElement, focused: boolean) {
+        const filled = slot.value !== ''
+        let cls = sizeClasses.base
+        if (focused) cls += ' ' + sizeClasses.focused
+        if (filled) cls += ' ' + sizeClasses.filled
+        slot.className = cls
+      }
+
+      const hiddenInput = root.querySelector<HTMLInputElement>('[data-rfr-otp-hidden]')
+
+      function dispatchChange() {
+        const values = Array.from(slots).map((s) => s.value)
+        const combined = values.join('')
+
+        // Sync hidden input for form submission
+        if (hiddenInput) {
+          hiddenInput.value = combined
+        }
+
+        root.dispatchEvent(new CustomEvent('rfr-otp-change', {
+          detail: { value: combined },
+          bubbles: true,
+        }))
+
+        // Check if complete
+        if (combined.length === length && !values.includes('')) {
+          root.dispatchEvent(new CustomEvent('rfr-otp-complete', {
+            detail: { value: combined },
+            bubbles: true,
+          }))
+        }
+      }
+
+      slots.forEach((slot, index) => {
+        // Input handler
+        slot.addEventListener('input', (e) => {
+          if (isDisabled) return
+          const inputValue = slot.value
+          let char = inputValue.slice(-1)
+
+          // Filter for number type
+          if (type === 'number') {
+            char = char.replace(/[^0-9]/g, '')
+          }
+
+          slot.value = char
+
+          updateSlotClasses(slot, true)
+          dispatchChange()
+
+          // Auto-advance to next input
+          if (char && index < length - 1) {
+            slots[index + 1].focus()
+          }
+        })
+
+        // Keydown handler
+        slot.addEventListener('keydown', (e) => {
+          if (isDisabled) return
+
+          if (e.key === 'Backspace') {
+            e.preventDefault()
+            if (slot.value) {
+              slot.value = ''
+              updateSlotClasses(slot, true)
+              dispatchChange()
+            } else if (index > 0) {
+              slots[index - 1].value = ''
+              updateSlotClasses(slots[index - 1], false)
+              slots[index - 1].focus()
+              dispatchChange()
+            }
+          }
+
+          if (e.key === 'ArrowLeft' && index > 0) {
+            e.preventDefault()
+            slots[index - 1].focus()
+          }
+
+          if (e.key === 'ArrowRight' && index < length - 1) {
+            e.preventDefault()
+            slots[index + 1].focus()
+          }
+        })
+
+        // Paste handler
+        slot.addEventListener('paste', (e) => {
+          if (isDisabled) return
+          e.preventDefault()
+          const pasteData = e.clipboardData?.getData('text') || ''
+          let chars = pasteData
+          if (type === 'number') {
+            chars = pasteData.replace(/[^0-9]/g, '')
+          }
+
+          for (let i = 0; i < length; i++) {
+            slots[i].value = chars.charAt(i) || ''
+            updateSlotClasses(slots[i], false)
+          }
+
+          dispatchChange()
+
+          // Focus the last filled or next empty
+          let lastFilled = -1
+          for (let i = length - 1; i >= 0; i--) {
+            if (slots[i].value !== '') { lastFilled = i; break }
+          }
+          const nextIndex = Math.min(lastFilled + 1, length - 1)
+          slots[nextIndex].focus()
+        })
+
+        // Focus/blur classes
+        slot.addEventListener('focus', () => {
+          updateSlotClasses(slot, true)
+          slot.setAttribute('data-focused', '')
+        })
+
+        slot.addEventListener('blur', () => {
+          updateSlotClasses(slot, false)
+          slot.removeAttribute('data-focused')
+        })
+      })
+
+      // Auto-focus first slot
+      const shouldAutoFocus = root.getAttribute('data-rfr-otp-autofocus') === 'true'
+      if (shouldAutoFocus && !isDisabled && slots.length > 0) {
+        slots[0].focus()
+      }
+    })
+  }
+
+  initOtpInputs()
+  document.addEventListener('astro:after-swap', initOtpInputs)
+</script>
