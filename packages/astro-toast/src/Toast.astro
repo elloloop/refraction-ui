@@ -1,0 +1,49 @@
+---
+import { toastVariants, type ToastVariant } from '@refraction-ui/toast'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Visual variant */
+  variant?: ToastVariant
+  /** Auto-dismiss duration in ms (default: 3000). Set to 0 to disable. */
+  duration?: number
+  /** Whether to show a dismiss button */
+  dismissible?: boolean
+  /** Toast message text (alternative to using the default slot) */
+  message?: string
+}
+
+const {
+  variant = 'default',
+  duration = 3000,
+  dismissible = true,
+  message,
+  class: className,
+  ...props
+} = Astro.props
+---
+
+<div
+  data-rfr-toast
+  data-rfr-toast-variant={variant}
+  data-rfr-toast-duration={duration}
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  class={cn(toastVariants({ variant }), className)}
+  {...props}
+>
+  <div class="flex-1">
+    {message ? message : <slot />}
+  </div>
+  {dismissible && (
+    <button
+      type="button"
+      data-rfr-toast-dismiss
+      class="shrink-0"
+      aria-label="Dismiss"
+    >
+      &times;
+    </button>
+  )}
+</div>

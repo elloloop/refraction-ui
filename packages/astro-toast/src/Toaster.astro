@@ -1,0 +1,142 @@
+---
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<div
+  data-rfr-toaster
+  class={cn('fixed bottom-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none', className)}
+  {...props}
+>
+  <slot />
+</div>
+
+<script>
+  function initToaster() {
+    // Initialize all individual toasts (auto-dismiss, pause on hover)
+    document.querySelectorAll<HTMLElement>('[data-rfr-toast]').forEach((toast) => {
+      if (toast.hasAttribute('data-rfr-toast-init')) return
+      toast.setAttribute('data-rfr-toast-init', '')
+
+      const duration = parseInt(toast.getAttribute('data-rfr-toast-duration') || '3000', 10)
+      let timerId: ReturnType<typeof setTimeout> | null = null
+      let remaining = duration
+      let startedAt = 0
+
+      function dismiss() {
+        clearTimer()
+        toast.style.transition = 'opacity 200ms, transform 200ms'
+        toast.style.opacity = '0'
+        toast.style.transform = 'translateX(100%)'
+        setTimeout(() => {
+          toast.remove()
+        }, 200)
+        toast.dispatchEvent(new CustomEvent('rfr-toast-dismiss', { bubbles: true }))
+      }
+
+      function clearTimer() {
+        if (timerId !== null) {
+          clearTimeout(timerId)
+          timerId = null
+        }
+      }
+
+      function startTimer() {
+        if (duration <= 0) return
+        clearTimer()
+        remaining = duration
+        startedAt = Date.now()
+        timerId = setTimeout(dismiss, remaining)
+      }
+
+      function pauseTimer() {
+        if (timerId === null) return
+        clearTimer()
+        remaining = remaining - (Date.now() - startedAt)
+        if (remaining < 0) remaining = 0
+      }
+
+      function resumeTimer() {
+        if (duration <= 0 || remaining <= 0) return
+        clearTimer()
+        startedAt = Date.now()
+        timerId = setTimeout(dismiss, remaining)
+      }
+
+      // Dismiss button
+      const dismissBtn = toast.querySelector<HTMLElement>('[data-rfr-toast-dismiss]')
+      dismissBtn?.addEventListener('click', dismiss)
+
+      // Pause on hover, resume on leave
+      toast.addEventListener('mouseenter', pauseTimer)
+      toast.addEventListener('mouseleave', resumeTimer)
+
+      // Start auto-dismiss
+      startTimer()
+    })
+  }
+
+  // Expose a global function to programmatically add toasts
+  interface ToastOptions {
+    message: string
+    variant?: 'default' | 'success' | 'error' | 'warning'
+    duration?: number
+  }
+
+  const VARIANT_CLASSES: Record<string, string> = {
+    default: 'border bg-background text-foreground',
+    success: 'border-l-4 border-green-500/50 bg-green-50 text-green-900 dark:bg-green-950 dark:text-green-100',
+    error: 'border-l-4 border-red-500/50 bg-red-50 text-red-900 dark:bg-red-950 dark:text-red-100',
+    warning: 'border-l-4 border-amber-500/50 bg-amber-50 text-amber-900 dark:bg-amber-950 dark:text-amber-100',
+  }
+
+  function createToastElement(options: ToastOptions): HTMLElement {
+    const { message, variant = 'default', duration = 3000 } = options
+
+    const toast = document.createElement('div')
+    toast.setAttribute('data-rfr-toast', '')
+    toast.setAttribute('data-rfr-toast-variant', variant)
+    toast.setAttribute('data-rfr-toast-duration', String(duration))
+    toast.setAttribute('role', 'alert')
+    toast.setAttribute('aria-live', 'assertive')
+    toast.setAttribute('aria-atomic', 'true')
+    toast.className = `pointer-events-auto relative flex w-full items-center justify-between gap-2 overflow-hidden rounded-lg border p-4 shadow-lg transition-all ${VARIANT_CLASSES[variant] || VARIANT_CLASSES.default}`
+
+    const content = document.createElement('div')
+    content.className = 'flex-1'
+    content.textContent = message
+
+    const dismissBtn = document.createElement('button')
+    dismissBtn.type = 'button'
+    dismissBtn.setAttribute('data-rfr-toast-dismiss', '')
+    dismissBtn.className = 'shrink-0'
+    dismissBtn.setAttribute('aria-label', 'Dismiss')
+    dismissBtn.innerHTML = '&times;'
+
+    toast.appendChild(content)
+    toast.appendChild(dismissBtn)
+
+    return toast
+  }
+
+  ;(window as any).__rfr_toast = function(options: ToastOptions | string) {
+    const opts: ToastOptions = typeof options === 'string' ? { message: options } : options
+    const toaster = document.querySelector<HTMLElement>('[data-rfr-toaster]')
+    if (!toaster) {
+      console.warn('[refraction-ui] No <Toaster /> found in the document. Add a <Toaster /> component to use programmatic toasts.')
+      return
+    }
+
+    const toast = createToastElement(opts)
+    toaster.appendChild(toast)
+
+    // Re-init to attach event listeners to the new toast
+    initToaster()
+  }
+
+  initToaster()
+  document.addEventListener('astro:after-swap', initToaster)
+</script>
