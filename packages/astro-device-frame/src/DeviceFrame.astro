@@ -1,0 +1,44 @@
+---
+import {
+  createDeviceFrame,
+  deviceFrameVariants,
+  type DeviceType,
+  type DeviceOrientation,
+} from '@refraction-ui/device-frame'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  device: DeviceType
+  orientation?: DeviceOrientation
+}
+
+const { device, orientation = 'portrait', class: className, ...props } = Astro.props
+const api = createDeviceFrame({ device, orientation })
+const classes = cn(deviceFrameVariants({ device, orientation }), className)
+---
+
+<div
+  class={classes}
+  style={`width: ${api.dimensions.width}px; height: ${api.dimensions.height}px;`}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...props}
+>
+  {api.dimensions.notch && (
+    <div
+      class="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-[30px] bg-black rounded-b-2xl z-10"
+      aria-hidden="true"
+      data-part="notch"
+    ></div>
+  )}
+  <div class="relative w-full h-full overflow-hidden bg-white" data-part="screen">
+    <slot />
+  </div>
+  {api.dimensions.homeIndicator && (
+    <div
+      class="absolute bottom-2 left-1/2 -translate-x-1/2 w-[35%] h-[5px] bg-gray-300 rounded-full z-10"
+      aria-hidden="true"
+      data-part="home-indicator"
+    ></div>
+  )}
+</div>
