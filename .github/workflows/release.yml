@@ -44,12 +44,19 @@ jobs:
             -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
             | jq -r '.value')
 
-          # Use the meta package for OIDC trust
+          # Exchange for npm token using the meta package
           NPM_RESPONSE=$(curl -sS -f \
             -X POST "https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/%40refraction-ui%2Freact" \
             -H "Authorization: Bearer ${OIDC_TOKEN}")
           
           NPM_TOKEN=$(echo "$NPM_RESPONSE" | jq -r '.token')
+          
+          if [ -z "$NPM_TOKEN" ] || [ "$NPM_TOKEN" = "null" ]; then
+            echo "❌ Failed to exchange OIDC token for npm token"
+            echo "Response: $NPM_RESPONSE"
+            exit 1
+          fi
+
           echo "::add-mask::${NPM_TOKEN}"
           echo "NPM_TOKEN=${NPM_TOKEN}" >> $GITHUB_ENV
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
@@ -58,8 +65,8 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: ./node_modules/.bin/changeset publish
-          version: ./node_modules/.bin/changeset version
+          publish: pnpm exec changeset publish
+          version: pnpm exec changeset version
           commit: "chore: release packages"
           title: "chore: release packages"
         env:
@@ -69,8 +76,8 @@ jobs:
       - name: Canary Release
         if: github.ref == 'refs/heads/main' && steps.changesets.outputs.published != 'true'
         run: |
-          ./node_modules/.bin/changeset version --snapshot canary
-          ./node_modules/.bin/changeset publish --tag canary
+          pnpm exec changeset version --snapshot canary
+          pnpm exec changeset publish --tag canary
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ env.NPM_TOKEN }}
