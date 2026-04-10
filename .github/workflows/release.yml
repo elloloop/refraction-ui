@@ -80,29 +80,6 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo build --filter='./packages/*'
-      - name: Get npm token via OIDC
-        run: |
-          OIDC_RESPONSE=$(curl -sS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://registry.npmjs.org" \
-            -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}")
-          OIDC_TOKEN=$(echo "$OIDC_RESPONSE" | jq -r '.value')
-          if [ "$OIDC_TOKEN" = "null" ] || [ -z "$OIDC_TOKEN" ]; then
-            echo "Failed to get OIDC token from GitHub"
-            echo "$OIDC_RESPONSE" | jq .
-            exit 1
-          fi
-          NPM_RESPONSE=$(curl -sS -X POST 'https://registry.npmjs.org/-/npm/v1/security/oidc/token' \
-            -H 'Content-Type: application/json' \
-            -d "{\"oidcToken\": \"${OIDC_TOKEN}\"}")
-          NPM_TOKEN=$(echo "$NPM_RESPONSE" | jq -r '.token')
-          if [ "$NPM_TOKEN" = "null" ] || [ -z "$NPM_TOKEN" ]; then
-            echo "Failed to exchange OIDC token for npm token"
-            echo "$NPM_RESPONSE" | jq .
-            exit 1
-          fi
-          echo "NPM_TOKEN=${NPM_TOKEN}" >> $GITHUB_ENV
-          echo "::add-mask::${NPM_TOKEN}"
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-          npm whoami
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
