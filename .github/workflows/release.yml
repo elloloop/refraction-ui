@@ -84,7 +84,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
-        run: npx multi-semantic-release
+        run: npx multi-semantic-release --ignore-private-packages
 
   dependabot-auto-merge:
     needs: [build-test]
