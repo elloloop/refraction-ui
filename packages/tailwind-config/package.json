@@ -27,6 +27,10 @@
   },
   "dependencies": {},
   "devDependencies": {},
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "sideEffects": false,
   "license": "MIT",
   "repository": {
