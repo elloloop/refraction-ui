@@ -1,0 +1,18 @@
+---
+/**
+ * AppShellMain — main content area wrapper (flex column).
+ */
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<div
+  class={cn('flex flex-1 flex-col min-w-0 h-full', className)}
+  data-rfr-shell-main
+  {...props}
+>
+  <slot />
+</div>

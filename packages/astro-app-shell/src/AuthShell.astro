@@ -1,0 +1,31 @@
+---
+/**
+ * AuthShell — centered layout for authentication pages (sign-in, sign-up, etc.).
+ */
+import { createAuthShell, type AuthShellConfig } from '@refraction-ui/app-shell'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Card max-width preset (default 'sm') */
+  maxWidth?: 'xs' | 'sm' | 'md'
+  /** Card position (default 'center') */
+  position?: 'center' | 'left'
+  /** Show decorative background (default true) */
+  showBackground?: boolean
+}
+
+const { maxWidth, position, showBackground, class: className, ...props } = Astro.props
+
+const config: AuthShellConfig = { maxWidth, position, showBackground }
+const api = createAuthShell(config)
+---
+
+<div
+  role="main"
+  aria-label="Authentication"
+  class={cn(api.containerClasses, className)}
+  data-rfr-auth-shell
+  {...props}
+>
+  <slot />
+</div>

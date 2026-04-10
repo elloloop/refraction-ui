@@ -1,0 +1,32 @@
+---
+/**
+ * PageShellSection — a content section within PageShell.
+ */
+import { createPageShell } from '@refraction-ui/app-shell'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Whether section spans edge-to-edge (default false) */
+  fullWidth?: boolean
+  /** Override max-width for this section */
+  maxWidth?: string
+  /** Whether section has padding (default true) */
+  padding?: boolean
+  /** Background variant */
+  background?: 'default' | 'muted' | 'primary' | 'none'
+}
+
+const { fullWidth, maxWidth, padding, background, class: className, ...props } = Astro.props
+
+// Use the default page shell to get section classes
+const api = createPageShell()
+const sectionClasses = api.getSectionClasses({ fullWidth, maxWidth, padding, background })
+---
+
+<section
+  class={cn('py-12', sectionClasses, className)}
+  data-rfr-page-section
+  {...props}
+>
+  <slot />
+</section>

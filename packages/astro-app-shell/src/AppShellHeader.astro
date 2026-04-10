@@ -1,0 +1,54 @@
+---
+/**
+ * AppShellHeader — header area within the AppShell.
+ * On mobile, automatically renders a hamburger toggle button.
+ */
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Hide the hamburger menu button */
+  hideToggle?: boolean
+}
+
+const { hideToggle, class: className, ...props } = Astro.props
+---
+
+<header
+  role="banner"
+  class={cn(
+    'sticky top-0 z-30 flex items-center shrink-0',
+    'h-[var(--shell-header-height)]',
+    'border-b bg-background px-4',
+    className,
+  )}
+  data-rfr-shell-header
+  {...props}
+>
+  {!hideToggle && (
+    <button
+      type="button"
+      aria-label="Toggle sidebar"
+      aria-expanded="false"
+      class="inline-flex items-center justify-center p-2 mr-2 md:hidden"
+      data-rfr-shell-toggle
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </button>
+  )}
+  <slot />
+</header>

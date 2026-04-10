@@ -1,0 +1,36 @@
+---
+/**
+ * PageShell — root layout for marketing/landing pages with nav, sections, footer.
+ */
+import { createPageShell, type PageShellConfig } from '@refraction-ui/app-shell'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Max width for contained sections (default '80rem') */
+  maxWidth?: string
+  /** Navigation bar height (default '4rem') */
+  navHeight?: string
+  /** Whether nav is transparent (default false) */
+  navTransparent?: boolean
+  /** Whether nav is sticky (default true) */
+  navSticky?: boolean
+  /** Number of footer columns (default 4) */
+  footerColumns?: number
+}
+
+const { maxWidth, navHeight, navTransparent, navSticky, footerColumns, class: className, ...props } = Astro.props
+
+const config: PageShellConfig = { maxWidth, navHeight, navTransparent, navSticky, footerColumns }
+const api = createPageShell(config)
+const cssVars = api.getCSSVariables()
+const styleStr = Object.entries(cssVars).map(([k, v]) => `${k}:${v}`).join(';')
+---
+
+<div
+  class={cn('flex min-h-screen flex-col', className)}
+  style={styleStr}
+  data-rfr-page-shell
+  {...props}
+>
+  <slot />
+</div>

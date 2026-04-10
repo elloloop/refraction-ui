@@ -1,0 +1,21 @@
+---
+/**
+ * AppShellOverlay — backdrop overlay shown when mobile sidebar is open.
+ */
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<div
+  aria-hidden="true"
+  class={cn(
+    'fixed inset-0 z-30 bg-black/50 transition-opacity',
+    className,
+  )}
+  style="display:none;"
+  data-rfr-shell-overlay
+  {...props}
+/>
