@@ -1,0 +1,17 @@
+---
+import { searchResultVariants } from '@refraction-ui/search-bar'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<ul
+  role="listbox"
+  data-rfr-search-results
+  class={cn(searchResultVariants(), className)}
+  {...props}
+>
+  <slot />
+</ul>

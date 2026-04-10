@@ -1,0 +1,140 @@
+---
+import {
+  createSearchBar,
+  searchBarVariants,
+} from '@refraction-ui/search-bar'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  placeholder?: string
+  loading?: boolean
+  debounceMs?: number
+}
+
+const {
+  placeholder = 'Search...',
+  loading = false,
+  debounceMs = 300,
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createSearchBar({ placeholder, loading, debounceMs })
+---
+
+<div
+  data-rfr-search-bar
+  data-rfr-search-debounce={String(debounceMs)}
+  class={cn(searchBarVariants(), className)}
+  {...props}
+>
+  <span class="rfr-search-icon" aria-hidden="true">&#x1F50D;</span>
+  <input
+    role={api.inputProps.role}
+    aria-expanded={api.inputProps['aria-expanded']}
+    aria-controls={api.inputProps['aria-controls']}
+    aria-autocomplete={api.inputProps['aria-autocomplete']}
+    placeholder={placeholder}
+    class="rfr-search-input flex-1 bg-transparent outline-none"
+    data-rfr-search-input
+  />
+  <span
+    class="rfr-search-spinner hidden"
+    aria-label="Loading"
+    data-rfr-search-spinner
+  >&#x23F3;</span>
+  <button
+    type="button"
+    class="rfr-search-clear hidden"
+    aria-label="Clear search"
+    data-rfr-search-clear
+  >&#x2715;</button>
+  <slot />
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rfr-search-bar]').forEach((root) => {
+    const input = root.querySelector<HTMLInputElement>('[data-rfr-search-input]')
+    const clearBtn = root.querySelector<HTMLButtonElement>('[data-rfr-search-clear]')
+    const spinner = root.querySelector<HTMLElement>('[data-rfr-search-spinner]')
+    if (!input || !clearBtn || !spinner) return
+
+    const debounceMs = parseInt(root.getAttribute('data-rfr-search-debounce') || '300', 10)
+    let debounceTimer: ReturnType<typeof setTimeout> | undefined
+
+    function updateUI(value: string, isSearching: boolean) {
+      if (isSearching) {
+        spinner!.classList.remove('hidden')
+        clearBtn!.classList.add('hidden')
+      } else if (value.length > 0) {
+        spinner!.classList.add('hidden')
+        clearBtn!.classList.remove('hidden')
+      } else {
+        spinner!.classList.add('hidden')
+        clearBtn!.classList.add('hidden')
+      }
+    }
+
+    function dispatchSearch(value: string) {
+      root.dispatchEvent(
+        new CustomEvent('rfr-search', { detail: { value }, bubbles: true })
+      )
+    }
+
+    function dispatchValueChange(value: string) {
+      root.dispatchEvent(
+        new CustomEvent('rfr-search-change', { detail: { value }, bubbles: true })
+      )
+    }
+
+    function scheduleSearch(value: string) {
+      if (debounceTimer !== undefined) {
+        clearTimeout(debounceTimer)
+      }
+
+      if (value.length > 0) {
+        updateUI(value, true)
+        debounceTimer = setTimeout(() => {
+          dispatchSearch(value)
+          updateUI(value, false)
+        }, debounceMs)
+      } else {
+        updateUI(value, false)
+      }
+    }
+
+    function clear() {
+      if (debounceTimer !== undefined) {
+        clearTimeout(debounceTimer)
+      }
+      input!.value = ''
+      updateUI('', false)
+      dispatchValueChange('')
+      input!.focus()
+    }
+
+    input.addEventListener('input', () => {
+      const value = input.value
+      dispatchValueChange(value)
+      scheduleSearch(value)
+    })
+
+    input.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        clear()
+      } else if (e.key === 'Enter') {
+        e.preventDefault()
+        if (debounceTimer !== undefined) {
+          clearTimeout(debounceTimer)
+        }
+        dispatchSearch(input.value)
+        updateUI(input.value, false)
+      }
+    })
+
+    clearBtn.addEventListener('click', () => {
+      clear()
+    })
+  })
+</script>
