@@ -1,0 +1,16 @@
+---
+import { tabsListVariants } from '@refraction-ui/tabs'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<div
+  role="tablist"
+  class={cn(tabsListVariants(), className)}
+  {...props}
+>
+  <slot />
+</div>

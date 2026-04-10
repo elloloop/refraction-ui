@@ -1,0 +1,20 @@
+---
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  value: string
+  isActive?: boolean
+}
+
+const { value, isActive = false, class: className, ...props } = Astro.props
+---
+
+<div
+  role="tabpanel"
+  tabindex={0}
+  data-state={isActive ? 'active' : 'inactive'}
+  data-rfr-tab-panel={value}
+  hidden={!isActive}
+  class={className}
+  {...props}
+>
+  <slot />
+</div>
