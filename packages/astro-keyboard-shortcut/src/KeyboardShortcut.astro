@@ -1,0 +1,83 @@
+---
+interface Props {
+  /** Key combination (e.g., ['Ctrl', 'K'] or ['Meta', 'Shift', 'P']) */
+  keys: string[]
+  /** Whether the shortcut is enabled. Default: true */
+  enabled?: boolean
+  /** Prevent default browser behavior. Default: true */
+  preventDefault?: boolean
+}
+
+const {
+  keys,
+  enabled = true,
+  preventDefault = true,
+} = Astro.props
+---
+
+<div
+  data-rfr-keyboard-shortcut
+  data-rfr-ks-keys={JSON.stringify(keys)}
+  data-rfr-ks-enabled={enabled}
+  data-rfr-ks-prevent-default={preventDefault}
+  hidden
+  aria-hidden="true"
+></div>
+
+<script>
+  function initKeyboardShortcuts() {
+    const MODIFIER_KEYS = new Set(['Ctrl', 'Control', 'Alt', 'Shift', 'Meta', 'Cmd', 'Command'])
+
+    function normalizeKey(key: string): string {
+      if (key === 'Command' || key === 'Cmd') return 'Meta'
+      if (key === 'Control') return 'Ctrl'
+      return key
+    }
+
+    document.querySelectorAll<HTMLElement>('[data-rfr-keyboard-shortcut]').forEach((el) => {
+      if (el.hasAttribute('data-rfr-ks-init')) return
+      el.setAttribute('data-rfr-ks-init', '')
+
+      const keys: string[] = JSON.parse(el.getAttribute('data-rfr-ks-keys') || '[]')
+      const enabled = el.getAttribute('data-rfr-ks-enabled') !== 'false'
+      const preventDefault = el.getAttribute('data-rfr-ks-prevent-default') !== 'false'
+
+      if (!enabled || keys.length === 0) return
+
+      const normalizedKeys = keys.map(normalizeKey)
+      const modifiers = normalizedKeys.filter((k) => MODIFIER_KEYS.has(k))
+      const regularKeys = normalizedKeys.filter((k) => !MODIFIER_KEYS.has(k))
+
+      function handleKeyDown(e: KeyboardEvent) {
+        const ctrlRequired = modifiers.includes('Ctrl')
+        const altRequired = modifiers.includes('Alt')
+        const shiftRequired = modifiers.includes('Shift')
+        const metaRequired = modifiers.includes('Meta')
+
+        const ctrlMatch = ctrlRequired ? e.ctrlKey : !e.ctrlKey
+        const altMatch = altRequired ? e.altKey : !e.altKey
+        const shiftMatch = shiftRequired ? e.shiftKey : !e.shiftKey
+        const metaMatch = metaRequired ? e.metaKey : !e.metaKey
+
+        if (!ctrlMatch || !altMatch || !shiftMatch || !metaMatch) return
+
+        if (regularKeys.length > 0) {
+          const eventKey = e.key.length === 1 ? e.key.toUpperCase() : e.key
+          const targetKey = regularKeys[0].length === 1 ? regularKeys[0].toUpperCase() : regularKeys[0]
+          if (eventKey !== targetKey) return
+        }
+
+        if (preventDefault) {
+          e.preventDefault()
+        }
+
+        el.dispatchEvent(new CustomEvent('rfr-shortcut-trigger', { detail: { keys }, bubbles: true }))
+      }
+
+      document.addEventListener('keydown', handleKeyDown)
+    })
+  }
+
+  initKeyboardShortcuts()
+  document.addEventListener('astro:after-swap', initKeyboardShortcuts)
+</script>
