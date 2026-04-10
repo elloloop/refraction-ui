@@ -1,0 +1,64 @@
+---
+import {
+  createSidebar,
+  sidebarVariants,
+  sidebarItemVariants,
+  type SidebarSection,
+} from '@refraction-ui/sidebar'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  sections?: SidebarSection[]
+  currentPath?: string
+  collapsed?: boolean
+  userRoles?: string[]
+}
+
+const {
+  sections = [],
+  currentPath,
+  collapsed = false,
+  userRoles,
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createSidebar({ sections, currentPath, collapsed, userRoles })
+const classes = cn(
+  sidebarVariants({ collapsed: collapsed ? 'true' : 'false' }),
+  className,
+)
+---
+
+<aside class={classes} {...api.ariaProps} {...props}>
+  <div class="flex flex-col gap-4 p-4">
+    {api.visibleSections.map((section, sIdx) => (
+      <div>
+        {section.title && !collapsed && (
+          <h3 class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            {section.title}
+          </h3>
+        )}
+        <ul class="space-y-1">
+          {section.items.map((item) => {
+            const active = api.isActive(item.href)
+            return (
+              <li>
+                <a
+                  href={item.href}
+                  class={sidebarItemVariants({
+                    active: active ? 'true' : 'false',
+                  })}
+                  {...api.itemAriaProps(item.href)}
+                >
+                  {item.icon && <span aria-hidden="true">{item.icon}</span>}
+                  {!collapsed && <span>{item.label}</span>}
+                </a>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+    ))}
+  </div>
+</aside>
