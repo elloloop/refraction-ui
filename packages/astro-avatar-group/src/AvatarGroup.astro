@@ -1,0 +1,42 @@
+---
+import {
+  createAvatarGroup,
+  avatarGroupStyles,
+  avatarVariants,
+  avatarOverflowBadgeVariants,
+  avatarImageStyles,
+  avatarPresenceDotVariants,
+  type AvatarUser,
+  type AvatarSize,
+} from '@refraction-ui/avatar-group'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  users: AvatarUser[]
+  max?: number
+  size?: AvatarSize
+}
+
+const { users, max, size = 'md', class: className, ...props } = Astro.props
+const api = createAvatarGroup({ users, max, size })
+---
+
+<div class={cn(avatarGroupStyles, className)} {...api.ariaProps} {...props}>
+  {api.visibleUsers.map((user) => (
+    <div class={avatarVariants({ size })} {...api.getAvatarAriaProps(user)}>
+      {user.src ? (
+        <img src={user.src} alt={user.name} class={avatarImageStyles} />
+      ) : (
+        <span>{api.getInitials(user.name)}</span>
+      )}
+      {user.status && (
+        <span class={avatarPresenceDotVariants({ size, status: user.status })} />
+      )}
+    </div>
+  ))}
+  {api.overflowCount > 0 && (
+    <div class={avatarOverflowBadgeVariants({ size })} {...api.overflowBadgeProps}>
+      +{api.overflowCount}
+    </div>
+  )}
+</div>
