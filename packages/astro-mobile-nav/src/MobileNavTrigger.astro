@@ -1,0 +1,57 @@
+---
+import { mobileNavTriggerVariants } from '@refraction-ui/mobile-nav'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+const hasChildren = Astro.slots.has('default')
+---
+
+<button
+  type="button"
+  data-rfr-mobile-nav-trigger
+  aria-expanded="false"
+  aria-label="Toggle menu"
+  class={cn(mobileNavTriggerVariants(), className)}
+  {...props}
+>
+  {hasChildren ? (
+    <slot />
+  ) : (
+    <Fragment>
+      <svg
+        data-rfr-mobile-nav-icon-closed
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <line x1="4" y1="6" x2="20" y2="6" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="4" y1="18" x2="20" y2="18" />
+      </svg>
+      <svg
+        data-rfr-mobile-nav-icon-open
+        hidden
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </Fragment>
+  )}
+</button>
