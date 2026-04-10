@@ -1,0 +1,165 @@
+---
+import { createSelect } from '@refraction-ui/select'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  value?: string
+  placeholder?: string
+  disabled?: boolean
+  name?: string
+}
+
+const { value, placeholder = 'Select an option', disabled = false, name, class: className, ...props } = Astro.props
+const api = createSelect({ value, disabled, placeholder })
+---
+
+<div
+  data-rfr-select
+  data-rfr-select-value={value || ''}
+  data-rfr-select-disabled={disabled ? '' : undefined}
+  data-rfr-select-trigger-id={api.ids.trigger}
+  data-rfr-select-content-id={api.ids.content}
+  class={className}
+  style="position: relative;"
+  {...props}
+>
+  <slot />
+  {name && <input type="hidden" name={name} value={value || ''} data-rfr-select-input />}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rfr-select]').forEach((root) => {
+    const triggerId = root.getAttribute('data-rfr-select-trigger-id') || ''
+    const contentId = root.getAttribute('data-rfr-select-content-id') || ''
+    let isOpen = false
+
+    function getDisabled() {
+      return root.hasAttribute('data-rfr-select-disabled')
+    }
+
+    function setOpen(open: boolean) {
+      if (getDisabled()) return
+      isOpen = open
+      const trigger = root.querySelector('[data-rfr-select-trigger]') as HTMLElement | null
+      const content = root.querySelector('[data-rfr-select-content]') as HTMLElement | null
+
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', String(isOpen))
+        trigger.setAttribute('data-state', isOpen ? 'open' : 'closed')
+      }
+      if (content) {
+        content.setAttribute('data-state', isOpen ? 'open' : 'closed')
+        content.hidden = !isOpen
+      }
+    }
+
+    function selectValue(value: string, label?: string) {
+      root.setAttribute('data-rfr-select-value', value)
+
+      // Update trigger display text
+      const trigger = root.querySelector('[data-rfr-select-trigger]') as HTMLElement | null
+      if (trigger) {
+        const textEl = trigger.querySelector('[data-rfr-select-value-text]') as HTMLElement | null
+        if (textEl) textEl.textContent = label || value
+      }
+
+      // Update item states
+      root.querySelectorAll<HTMLElement>('[data-rfr-select-item]').forEach((item) => {
+        const itemValue = item.getAttribute('data-rfr-select-item-value') || ''
+        const isSelected = itemValue === value
+        item.setAttribute('aria-selected', String(isSelected))
+        if (isSelected) {
+          item.setAttribute('data-state', 'checked')
+        } else {
+          item.removeAttribute('data-state')
+        }
+        // Show/hide check icon
+        const check = item.querySelector('[data-rfr-select-check]') as HTMLElement | null
+        if (check) {
+          check.style.display = isSelected ? '' : 'none'
+        }
+      })
+
+      // Update hidden input
+      const input = root.querySelector('[data-rfr-select-input]') as HTMLInputElement | null
+      if (input) input.value = value
+
+      root.dispatchEvent(new CustomEvent('change', { detail: { value } }))
+    }
+
+    // Toggle on trigger click
+    root.addEventListener('click', (e) => {
+      const trigger = (e.target as HTMLElement).closest('[data-rfr-select-trigger]')
+      if (trigger) {
+        e.stopPropagation()
+        setOpen(!isOpen)
+        return
+      }
+
+      const item = (e.target as HTMLElement).closest<HTMLElement>('[data-rfr-select-item]')
+      if (item && !item.hasAttribute('data-disabled')) {
+        const value = item.getAttribute('data-rfr-select-item-value') || ''
+        const label = item.textContent?.trim() || value
+        selectValue(value, label)
+        setOpen(false)
+        // Return focus to trigger
+        const triggerEl = root.querySelector('[data-rfr-select-trigger]') as HTMLElement | null
+        if (triggerEl) triggerEl.focus()
+      }
+    })
+
+    // Keyboard handling
+    root.addEventListener('keydown', (e) => {
+      const trigger = (e.target as HTMLElement).closest('[data-rfr-select-trigger]')
+      if (trigger) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          setOpen(!isOpen)
+        } else if (e.key === 'Escape') {
+          setOpen(false)
+        } else if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && !isOpen) {
+          e.preventDefault()
+          setOpen(true)
+        }
+        return
+      }
+
+      // Keyboard nav within content
+      const item = (e.target as HTMLElement).closest<HTMLElement>('[data-rfr-select-item]')
+      if (item) {
+        const items = Array.from(root.querySelectorAll<HTMLElement>('[data-rfr-select-item]:not([data-disabled])'))
+        const currentIndex = items.indexOf(item)
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault()
+          const next = items[(currentIndex + 1) % items.length]
+          if (next) next.focus()
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault()
+          const prev = items[(currentIndex - 1 + items.length) % items.length]
+          if (prev) prev.focus()
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          if (!item.hasAttribute('data-disabled')) {
+            const value = item.getAttribute('data-rfr-select-item-value') || ''
+            const label = item.textContent?.trim() || value
+            selectValue(value, label)
+            setOpen(false)
+            const triggerEl = root.querySelector('[data-rfr-select-trigger]') as HTMLElement | null
+            if (triggerEl) triggerEl.focus()
+          }
+        } else if (e.key === 'Escape') {
+          setOpen(false)
+          const triggerEl = root.querySelector('[data-rfr-select-trigger]') as HTMLElement | null
+          if (triggerEl) triggerEl.focus()
+        }
+      }
+    })
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (isOpen && !root.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    })
+  })
+</script>
