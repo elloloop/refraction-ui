@@ -1,0 +1,49 @@
+---
+import {
+  createNavbar,
+  navbarVariants,
+  navLinkVariants,
+  type NavLink,
+  type NavbarVariant,
+} from '@refraction-ui/navbar'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  links?: NavLink[]
+  currentPath?: string
+  variant?: NavbarVariant
+}
+
+const { links = [], currentPath, variant, class: className, ...props } = Astro.props
+const api = createNavbar({ links, currentPath, variant })
+const classes = cn(navbarVariants({ variant }), className)
+---
+
+<header class={classes} {...props}>
+  <nav
+    class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4"
+    {...api.ariaProps}
+  >
+    <div class="flex-shrink-0">
+      <slot name="logo" />
+    </div>
+    <ul class="hidden items-center gap-6 md:flex">
+      {links.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class={navLinkVariants({
+              active: api.isActive(link.href) ? 'true' : 'false',
+            })}
+            {...api.linkAriaProps(link.href)}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div class="flex items-center gap-2">
+      <slot name="actions" />
+    </div>
+  </nav>
+</header>
