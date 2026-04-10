@@ -1,0 +1,371 @@
+---
+import {
+  createDiffViewer,
+  diffViewerVariants,
+  sidebarVariants,
+  sidebarItemVariants,
+  tabBarVariants,
+  tabVariants,
+  statusBarVariants,
+  type DiffFile,
+  type DiffViewerTheme,
+  type DiffViewMode,
+} from '@refraction-ui/diff-viewer'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  files: DiffFile[]
+  original?: string
+  modified?: string
+  language?: string
+  theme?: DiffViewerTheme
+  viewMode?: DiffViewMode
+  showSidebar?: boolean
+  showTabs?: boolean
+  showStatusBar?: boolean
+  sidebarWidth?: number
+  activeFileIndex?: number
+  statusBarTitle?: string
+  statusBarStatus?: string
+}
+
+const {
+  files,
+  original = '',
+  modified = '',
+  language,
+  theme = 'dark',
+  viewMode = 'side-by-side',
+  showSidebar = true,
+  showTabs = true,
+  showStatusBar = true,
+  sidebarWidth = 220,
+  activeFileIndex = 0,
+  statusBarTitle,
+  statusBarStatus,
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createDiffViewer({
+  files,
+  activeFileIndex,
+  viewMode,
+  theme,
+  language,
+  sidebarOpen: showSidebar,
+})
+
+const activeFile = files[activeFileIndex]
+
+// Compute a simple line-by-line diff for static rendering
+function computeDiffLines(original: string, modified: string) {
+  const origLines = original.split('\n')
+  const modLines = modified.split('\n')
+  const lines: Array<{ type: 'same' | 'add' | 'del'; origNum?: number; modNum?: number; content: string }> = []
+
+  // Simple LCS-based diff
+  const m = origLines.length
+  const n = modLines.length
+  const dp: number[][] = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0))
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      dp[i][j] = origLines[i - 1] === modLines[j - 1]
+        ? dp[i - 1][j - 1] + 1
+        : Math.max(dp[i - 1][j], dp[i][j - 1])
+    }
+  }
+
+  // Backtrack to get diff
+  const result: Array<{ type: 'same' | 'add' | 'del'; origIdx?: number; modIdx?: number; content: string }> = []
+  let i = m, j = n
+  while (i > 0 || j > 0) {
+    if (i > 0 && j > 0 && origLines[i - 1] === modLines[j - 1]) {
+      result.unshift({ type: 'same', origIdx: i, modIdx: j, content: origLines[i - 1] })
+      i--; j--
+    } else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) {
+      result.unshift({ type: 'add', modIdx: j, content: modLines[j - 1] })
+      j--
+    } else if (i > 0) {
+      result.unshift({ type: 'del', origIdx: i, content: origLines[i - 1] })
+      i--
+    }
+  }
+
+  return result
+}
+
+const diffLines = computeDiffLines(original, modified)
+---
+
+<div
+  data-rfr-diff-viewer
+  data-rfr-diff-viewer-files={JSON.stringify(files)}
+  data-rfr-diff-viewer-active={String(activeFileIndex)}
+  data-rfr-diff-viewer-view-mode={viewMode}
+  class={cn(diffViewerVariants({ theme }), className)}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...props}
+>
+  {/* Main area: sidebar + diff content */}
+  <div style="flex: 1; display: flex; overflow: hidden;">
+    {/* File sidebar */}
+    {showSidebar && (
+      <div
+        data-rfr-diff-viewer-sidebar
+        class={sidebarVariants({ theme })}
+        style={`width: ${sidebarWidth}px`}
+      >
+        <div class="px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+          Files ({files.length})
+        </div>
+        {files.map((f, idx) => {
+          const active = idx === activeFileIndex
+          const fname = f.path.split('/').pop() || f.path
+          const dir = f.path.split('/').slice(0, -1).join('/')
+          return (
+            <div
+              data-rfr-diff-viewer-file={String(idx)}
+              class={sidebarItemVariants({ active: active ? 'true' : 'false', theme })}
+            >
+              <div class="flex items-center gap-1">
+                <span class="text-[10px]">{api.getFileStatusIcon(f.status)}</span>
+                <span class={active ? '' : 'opacity-70'}>{fname}</span>
+                <span class="ml-auto text-[10px]">
+                  <span class="text-green-500">+{f.additions}</span>
+                  {f.deletions > 0 && <span class="text-red-500">-{f.deletions}</span>}
+                </span>
+              </div>
+              {dir && (
+                <div class="text-[10px] opacity-50 mt-0.5 pl-4">{dir}</div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    )}
+
+    {/* Diff content area */}
+    <div style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+      {/* Tab bar */}
+      {showTabs && activeFile && (
+        <div class={tabBarVariants({ theme })}>
+          {files.map((f, idx) => {
+            const active = idx === activeFileIndex
+            const fname = f.path.split('/').pop() || f.path
+            return (
+              <div
+                data-rfr-diff-viewer-tab={String(idx)}
+                class={tabVariants({ active: active ? 'true' : 'false', theme })}
+              >
+                <span class="text-[9px]">{api.getFileStatusIcon(f.status)}</span>
+                {fname}
+              </div>
+            )
+          })}
+        </div>
+      )}
+
+      {/* Diff display */}
+      <div style="flex: 1; overflow: auto;" data-rfr-diff-viewer-content>
+        {viewMode === 'side-by-side' ? (
+          <div class="grid grid-cols-2 font-mono text-xs" style="min-width: 100%;">
+            {/* Left (original) column */}
+            <div class="border-r border-gray-700">
+              <div class="px-3 py-1.5 border-b bg-muted/30 text-xs text-muted-foreground font-semibold">
+                Original
+              </div>
+              {diffLines.map((line) => (
+                <div
+                  class={cn(
+                    'px-3 py-0.5 whitespace-pre',
+                    line.type === 'del' && 'bg-red-500/10 text-red-400',
+                    line.type === 'add' && 'invisible h-0 p-0',
+                  )}
+                >
+                  {line.type === 'del' && (
+                    <span class="inline-block w-5 text-right mr-2 text-muted-foreground select-none">{line.origIdx}</span>
+                  )}
+                  {line.type === 'same' && (
+                    <span class="inline-block w-5 text-right mr-2 text-muted-foreground select-none">{line.origIdx}</span>
+                  )}
+                  {line.type !== 'add' && (
+                    <span>{line.type === 'del' ? '- ' : '  '}{line.content}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+            {/* Right (modified) column */}
+            <div>
+              <div class="px-3 py-1.5 border-b bg-muted/30 text-xs text-muted-foreground font-semibold">
+                Modified
+              </div>
+              {diffLines.map((line) => (
+                <div
+                  class={cn(
+                    'px-3 py-0.5 whitespace-pre',
+                    line.type === 'add' && 'bg-green-500/10 text-green-400',
+                    line.type === 'del' && 'invisible h-0 p-0',
+                  )}
+                >
+                  {line.type === 'add' && (
+                    <span class="inline-block w-5 text-right mr-2 text-muted-foreground select-none">{line.modIdx}</span>
+                  )}
+                  {line.type === 'same' && (
+                    <span class="inline-block w-5 text-right mr-2 text-muted-foreground select-none">{line.modIdx}</span>
+                  )}
+                  {line.type !== 'del' && (
+                    <span>{line.type === 'add' ? '+ ' : '  '}{line.content}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          /* Unified/inline view */
+          <div class="font-mono text-xs">
+            <div class="px-3 py-1.5 border-b bg-muted/30 text-xs text-muted-foreground font-semibold">
+              Unified Diff
+            </div>
+            {diffLines.map((line) => (
+              <div
+                class={cn(
+                  'px-3 py-0.5 whitespace-pre',
+                  line.type === 'add' && 'bg-green-500/10 text-green-400',
+                  line.type === 'del' && 'bg-red-500/10 text-red-400',
+                )}
+              >
+                <span class="inline-block w-5 text-right mr-1 text-muted-foreground select-none">
+                  {line.origIdx ?? ''}
+                </span>
+                <span class="inline-block w-5 text-right mr-2 text-muted-foreground select-none">
+                  {line.modIdx ?? ''}
+                </span>
+                <span>
+                  {line.type === 'add' ? '+ ' : line.type === 'del' ? '- ' : '  '}{line.content}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+
+  {/* Status bar */}
+  {showStatusBar && (
+    <div class={statusBarVariants({ theme })}>
+      {statusBarTitle && <span>{statusBarTitle}</span>}
+      {activeFile && <span>{activeFile.path}</span>}
+      <span style="margin-left: auto;">
+        +{api.totalAdditions()} -{api.totalDeletions()}
+      </span>
+      {statusBarStatus && <span>{statusBarStatus}</span>}
+      <span>
+        {files.length} {files.length === 1 ? 'file' : 'files'}
+      </span>
+    </div>
+  )}
+</div>
+
+<script>
+  function initDiffViewers() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-diff-viewer]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-diff-viewer-init')) return
+      root.setAttribute('data-rfr-diff-viewer-init', '')
+
+      let activeIdx = parseInt(root.getAttribute('data-rfr-diff-viewer-active') || '0', 10)
+      const sidebar = root.querySelector<HTMLElement>('[data-rfr-diff-viewer-sidebar]')
+
+      // File selection (sidebar items)
+      const fileItems = root.querySelectorAll<HTMLElement>('[data-rfr-diff-viewer-file]')
+      fileItems.forEach((item) => {
+        item.addEventListener('click', () => {
+          const idx = parseInt(item.getAttribute('data-rfr-diff-viewer-file') || '0', 10)
+          selectFile(idx)
+        })
+      })
+
+      // Tab click
+      const tabs = root.querySelectorAll<HTMLElement>('[data-rfr-diff-viewer-tab]')
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const idx = parseInt(tab.getAttribute('data-rfr-diff-viewer-tab') || '0', 10)
+          selectFile(idx)
+        })
+      })
+
+      function selectFile(idx: number) {
+        activeIdx = idx
+        root.setAttribute('data-rfr-diff-viewer-active', String(idx))
+        root.dispatchEvent(
+          new CustomEvent('rfr-diff-viewer-file-select', {
+            detail: { index: idx },
+            bubbles: true,
+          }),
+        )
+
+        // Update active states visually
+        fileItems.forEach((item) => {
+          const itemIdx = item.getAttribute('data-rfr-diff-viewer-file')
+          const isActive = itemIdx === String(idx)
+          // Toggle active class - swap border color
+          if (isActive) {
+            item.classList.add('border-blue-500', 'bg-gray-800', 'text-gray-100')
+            item.classList.remove('border-transparent', 'text-gray-400')
+          } else {
+            item.classList.remove('border-blue-500', 'bg-gray-800', 'text-gray-100')
+            item.classList.add('border-transparent', 'text-gray-400')
+          }
+        })
+
+        tabs.forEach((tab) => {
+          const tabIdx = tab.getAttribute('data-rfr-diff-viewer-tab')
+          const isActive = tabIdx === String(idx)
+          if (isActive) {
+            tab.classList.add('bg-gray-950', 'text-gray-100')
+            tab.classList.remove('text-gray-400')
+          } else {
+            tab.classList.remove('bg-gray-950', 'text-gray-100')
+            tab.classList.add('text-gray-400')
+          }
+        })
+      }
+
+      // Sidebar toggle
+      function toggleSidebar() {
+        if (!sidebar) return
+        const isHidden = sidebar.hidden
+        sidebar.hidden = !isHidden
+        root.dispatchEvent(
+          new CustomEvent('rfr-diff-viewer-sidebar-toggle', {
+            detail: { open: isHidden },
+            bubbles: true,
+          }),
+        )
+      }
+
+      // Keyboard shortcuts
+      function onKeyDown(e: KeyboardEvent) {
+        if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
+
+        if (e.key === 'j') {
+          const files = root.querySelectorAll('[data-rfr-diff-viewer-file]')
+          const next = Math.min(activeIdx + 1, files.length - 1)
+          selectFile(next)
+        } else if (e.key === 'k') {
+          const prev = Math.max(activeIdx - 1, 0)
+          selectFile(prev)
+        } else if (e.key === 'b') {
+          toggleSidebar()
+        }
+      }
+
+      window.addEventListener('keydown', onKeyDown)
+    })
+  }
+
+  initDiffViewers()
+  document.addEventListener('astro:after-swap', initDiffViewers)
+</script>
