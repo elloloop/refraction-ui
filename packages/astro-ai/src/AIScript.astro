@@ -1,0 +1,69 @@
+---
+/**
+ * AIScript — injects a <script> that initializes the AI client on the page.
+ * Exposes `window.__rfr_ai` for other scripts to call generateText / generateJSON.
+ *
+ * Props mirror AIConfig from @refraction-ui/ai.
+ */
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Default provider name */
+  default?: string
+  /** Fallback chain of provider names */
+  fallback?: string[]
+}
+
+const { default: defaultProvider, fallback, ...props } = Astro.props
+
+const configJSON = JSON.stringify({
+  default: defaultProvider,
+  fallback,
+})
+---
+
+<script
+  data-rfr-ai-config={configJSON}
+  {...props}
+  is:inline
+>
+  ;(function () {
+    // Only initialize once
+    if (window.__rfr_ai) return
+
+    // We cannot import ES modules from an inline script, so we stash the config
+    // and let the consumer call the init function from their own module script.
+    // This inline script sets up the namespace and a deferred init helper.
+    var configEl = document.querySelector('[data-rfr-ai-config]')
+    var config = {}
+    if (configEl) {
+      try { config = JSON.parse(configEl.getAttribute('data-rfr-ai-config') || '{}') } catch (_) { /* */ }
+    }
+
+    // Placeholder that will be replaced once createAI is called
+    window.__rfr_ai = {
+      _config: config,
+      _api: null,
+      _ready: false,
+      init: function (createAI, providers) {
+        var api = createAI(config)
+        if (providers) {
+          Object.keys(providers).forEach(function (name) {
+            api.addProvider(name, providers[name])
+          })
+        }
+        window.__rfr_ai._api = api
+        window.__rfr_ai._ready = true
+        window.__rfr_ai.generateText = api.generateText.bind(api)
+        window.__rfr_ai.generateJSON = api.generateJSON.bind(api)
+        window.__rfr_ai.addProvider = api.addProvider.bind(api)
+        window.__rfr_ai.removeProvider = api.removeProvider.bind(api)
+        window.__rfr_ai.providers = api.providers
+      },
+      generateText: function () { throw new Error('AI not initialized. Call window.__rfr_ai.init(createAI, providers) first.') },
+      generateJSON: function () { throw new Error('AI not initialized. Call window.__rfr_ai.init(createAI, providers) first.') },
+      addProvider: function () { throw new Error('AI not initialized.') },
+      removeProvider: function () { throw new Error('AI not initialized.') },
+      providers: [],
+    }
+  })()
+</script>
