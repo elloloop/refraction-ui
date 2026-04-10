@@ -1,0 +1,96 @@
+---
+import { createTabs } from '@refraction-ui/tabs'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  defaultValue?: string
+  orientation?: 'horizontal' | 'vertical'
+}
+
+const { defaultValue = '', orientation = 'horizontal', class: className, ...props } = Astro.props
+const api = createTabs({ value: defaultValue, orientation })
+---
+
+<div
+  data-orientation={orientation}
+  data-rfr-tabs
+  data-rfr-tabs-value={defaultValue}
+  data-rfr-tabs-id-prefix={api.idPrefix}
+  class={className}
+  {...props}
+>
+  <slot />
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rfr-tabs]').forEach((root) => {
+    const idPrefix = root.getAttribute('data-rfr-tabs-id-prefix') || ''
+
+    function selectTab(value: string) {
+      root.setAttribute('data-rfr-tabs-value', value)
+
+      // Update all triggers
+      root.querySelectorAll<HTMLButtonElement>('[data-rfr-tab-value]').forEach((trigger) => {
+        const triggerValue = trigger.getAttribute('data-rfr-tab-value') || ''
+        const isSelected = triggerValue === value
+        trigger.setAttribute('aria-selected', String(isSelected))
+        trigger.setAttribute('data-state', isSelected ? 'active' : 'inactive')
+        trigger.setAttribute('tabindex', isSelected ? '0' : '-1')
+      })
+
+      // Update all panels
+      root.querySelectorAll<HTMLElement>('[data-rfr-tab-panel]').forEach((panel) => {
+        const panelValue = panel.getAttribute('data-rfr-tab-panel') || ''
+        const isSelected = panelValue === value
+        panel.setAttribute('data-state', isSelected ? 'active' : 'inactive')
+        panel.hidden = !isSelected
+      })
+
+      root.dispatchEvent(new CustomEvent('change', { detail: { value } }))
+    }
+
+    // Handle trigger clicks
+    root.addEventListener('click', (e) => {
+      const trigger = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-rfr-tab-value]')
+      if (!trigger || trigger.disabled) return
+      const value = trigger.getAttribute('data-rfr-tab-value') || ''
+      selectTab(value)
+      trigger.focus()
+    })
+
+    // Keyboard navigation within the tablist
+    root.addEventListener('keydown', (e) => {
+      const trigger = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-rfr-tab-value]')
+      if (!trigger) return
+
+      const orientation = root.getAttribute('data-orientation') || 'horizontal'
+      const triggers = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-rfr-tab-value]')).filter((t) => !t.disabled)
+      const currentIndex = triggers.indexOf(trigger)
+      if (currentIndex === -1) return
+
+      let nextIndex = -1
+      const prevKey = orientation === 'horizontal' ? 'ArrowLeft' : 'ArrowUp'
+      const nextKey = orientation === 'horizontal' ? 'ArrowRight' : 'ArrowDown'
+
+      if (e.key === nextKey) {
+        e.preventDefault()
+        nextIndex = (currentIndex + 1) % triggers.length
+      } else if (e.key === prevKey) {
+        e.preventDefault()
+        nextIndex = (currentIndex - 1 + triggers.length) % triggers.length
+      } else if (e.key === 'Home') {
+        e.preventDefault()
+        nextIndex = 0
+      } else if (e.key === 'End') {
+        e.preventDefault()
+        nextIndex = triggers.length - 1
+      }
+
+      if (nextIndex >= 0) {
+        const nextTrigger = triggers[nextIndex]
+        const nextValue = nextTrigger.getAttribute('data-rfr-tab-value') || ''
+        selectTab(nextValue)
+        nextTrigger.focus()
+      }
+    })
+  })
+</script>

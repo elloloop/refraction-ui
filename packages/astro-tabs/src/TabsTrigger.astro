@@ -1,0 +1,24 @@
+---
+import { tabsTriggerVariants } from '@refraction-ui/tabs'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  value: string
+  isActive?: boolean
+}
+
+const { value, isActive = false, class: className, ...props } = Astro.props
+---
+
+<button
+  type="button"
+  role="tab"
+  aria-selected={isActive}
+  tabindex={isActive ? 0 : -1}
+  data-state={isActive ? 'active' : 'inactive'}
+  data-rfr-tab-value={value}
+  class={cn(tabsTriggerVariants(), className)}
+  {...props}
+>
+  <slot />
+</button>
