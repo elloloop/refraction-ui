@@ -1,0 +1,159 @@
+---
+import {
+  createThreadView,
+  threadContainerStyles,
+  threadMessageStyles,
+  threadAvatarStyles,
+  threadContentStyles,
+  threadAuthorStyles,
+  threadTimestampStyles,
+  threadBodyStyles,
+  threadReactionsStyles,
+  threadReplyIndicatorStyles,
+  threadActionsStyles,
+  threadAttachmentStyles,
+  threadEditedStyles,
+  type MessageData,
+} from '@refraction-ui/thread-view'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  messages: MessageData[]
+  currentUserId?: string
+}
+
+const {
+  messages,
+  currentUserId,
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createThreadView({ messages, currentUserId })
+---
+
+<div
+  role={api.ariaProps.role}
+  aria-label={api.ariaProps['aria-label'] as string}
+  aria-live={api.ariaProps['aria-live'] as any}
+  id={api.ids.thread}
+  class={cn(threadContainerStyles, className)}
+  data-rfr-thread-view
+  {...props}
+>
+  {messages.map((message) => {
+    const msgAriaProps = api.getMessageAriaProps(message)
+    const replyAriaProps = api.getReplyButtonAriaProps(message.id)
+    return (
+      <div
+        class={threadMessageStyles}
+        role={msgAriaProps.role as string}
+        aria-label={msgAriaProps['aria-label'] as string}
+        data-rfr-thread-message
+        data-message-id={message.id}
+      >
+        {/* Avatar */}
+        <div class={threadAvatarStyles}>
+          {message.author.avatarUrl ? (
+            <img
+              src={message.author.avatarUrl}
+              alt={message.author.name}
+              class="h-full w-full object-cover"
+            />
+          ) : (
+            message.author.name.charAt(0).toUpperCase()
+          )}
+        </div>
+
+        {/* Content */}
+        <div class={threadContentStyles}>
+          <div class="flex items-baseline">
+            <span class={threadAuthorStyles}>{message.author.name}</span>
+            <span class={threadTimestampStyles}>
+              {api.formatTimestamp(message.timestamp)}
+            </span>
+            {message.edited && (
+              <span class={threadEditedStyles}>(edited)</span>
+            )}
+          </div>
+
+          <div class={threadBodyStyles}>{message.content}</div>
+
+          {/* Reactions */}
+          {message.reactions && message.reactions.length > 0 && (
+            <div class={threadReactionsStyles}>
+              {message.reactions.map((reaction, i) => (
+                <button
+                  type="button"
+                  class={cn(
+                    'inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-xs cursor-pointer',
+                    reaction.userReacted ? 'border-primary bg-primary/10' : 'border-border',
+                  )}
+                  data-rfr-thread-reaction
+                  data-message-id={message.id}
+                  data-emoji={reaction.emoji}
+                >
+                  {reaction.emoji} {reaction.count}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Reply indicator */}
+          {message.replies && message.replies.length > 0 && (
+            <div class={threadReplyIndicatorStyles}>
+              {message.replies.length} {message.replies.length === 1 ? 'reply' : 'replies'}
+            </div>
+          )}
+
+          {/* Attachments */}
+          {message.attachments && message.attachments.map((attachment) => (
+            <div class={threadAttachmentStyles}>
+              <span>&#x1F4CE;</span>
+              <span class="truncate">{attachment.name}</span>
+            </div>
+          ))}
+
+          {/* Actions (reply button) */}
+          <div class={threadActionsStyles}>
+            <button
+              type="button"
+              class="text-xs text-muted-foreground hover:text-foreground cursor-pointer"
+              role={replyAriaProps.role as string}
+              aria-label={replyAriaProps['aria-label'] as string}
+              data-rfr-thread-reply
+              data-message-id={message.id}
+            >
+              Reply
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  })}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rfr-thread-view]').forEach((root) => {
+    // Handle reaction clicks
+    root.addEventListener('click', (e) => {
+      const reactionBtn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-rfr-thread-reaction]')
+      if (reactionBtn) {
+        const messageId = reactionBtn.getAttribute('data-message-id') || ''
+        const emoji = reactionBtn.getAttribute('data-emoji') || ''
+        root.dispatchEvent(
+          new CustomEvent('react', { detail: { messageId, emoji }, bubbles: true }),
+        )
+        return
+      }
+
+      const replyBtn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-rfr-thread-reply]')
+      if (replyBtn) {
+        const messageId = replyBtn.getAttribute('data-message-id') || ''
+        root.dispatchEvent(
+          new CustomEvent('reply', { detail: { messageId }, bubbles: true }),
+        )
+      }
+    })
+  })
+</script>
