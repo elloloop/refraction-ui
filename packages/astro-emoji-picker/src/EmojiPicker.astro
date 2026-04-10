@@ -1,0 +1,255 @@
+---
+import {
+  createEmojiPicker,
+  EMOJI_DATA,
+  EMOJI_CATEGORIES,
+  CATEGORY_LABELS,
+  getAllEmojis,
+  emojiPickerContainerStyles,
+  emojiPickerSearchStyles,
+  emojiPickerCategoryBarStyles,
+  emojiPickerCategoryTabVariants,
+  emojiPickerGridStyles,
+  emojiPickerEmojiButtonStyles,
+  emojiPickerSectionLabelStyles,
+  type EmojiCategory,
+} from '@refraction-ui/emoji-picker'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Initial active category */
+  category?: EmojiCategory
+}
+
+const { category = 'smileys', class: className, ...props } = Astro.props
+
+const api = createEmojiPicker()
+const initialEmojis = EMOJI_DATA[category]
+
+// Serialize all emoji data for client-side search
+const allEmojisJson = JSON.stringify(
+  getAllEmojis().map((e) => ({
+    e: e.emoji,
+    n: e.name,
+    c: e.category,
+    k: e.keywords,
+  })),
+)
+---
+
+<div
+  data-rfr-emoji-picker
+  data-rfr-emoji-category={category}
+  data-rfr-emoji-all-data={allEmojisJson}
+  class={cn(emojiPickerContainerStyles, className)}
+  role="dialog"
+  aria-labelledby={api.ids.label}
+  {...props}
+>
+  <!-- Hidden label for screen readers -->
+  <span id={api.ids.label} class="sr-only">Emoji Picker</span>
+
+  <!-- Search input -->
+  <input
+    type="search"
+    role="searchbox"
+    aria-label="Search emojis"
+    placeholder="Search emojis..."
+    autocomplete="off"
+    data-rfr-emoji-search
+    class={emojiPickerSearchStyles}
+  />
+
+  <!-- Category tabs -->
+  <div class={emojiPickerCategoryBarStyles} data-rfr-emoji-categories>
+    {api.categoryTabs.map((tab) => (
+      <button
+        type="button"
+        class={emojiPickerCategoryTabVariants({
+          state: tab.category === category ? 'active' : 'inactive',
+        })}
+        data-rfr-emoji-category-tab={tab.category}
+        title={tab.label}
+        aria-label={tab.label}
+      >{tab.emoji}</button>
+    ))}
+  </div>
+
+  <!-- Section label -->
+  <div class={emojiPickerSectionLabelStyles} data-rfr-emoji-section-label>
+    {CATEGORY_LABELS[category]}
+  </div>
+
+  <!-- Emoji grid -->
+  <div class={emojiPickerGridStyles} data-rfr-emoji-grid>
+    {initialEmojis.map((emoji) => (
+      <button
+        type="button"
+        class={emojiPickerEmojiButtonStyles}
+        data-rfr-emoji-btn
+        data-emoji={emoji.emoji}
+        data-name={emoji.name}
+        data-emoji-category={emoji.category}
+        role="button"
+        aria-label={`${emoji.name} ${emoji.emoji}`}
+        title={emoji.name}
+      >{emoji.emoji}</button>
+    ))}
+  </div>
+
+  <!-- No results message -->
+  <div
+    class="col-span-8 text-center text-sm text-muted-foreground py-4 hidden"
+    data-rfr-emoji-empty
+  >No emojis found</div>
+</div>
+
+<script>
+  const CATEGORY_LABELS: Record<string, string> = {
+    smileys: 'Smileys & Emotion',
+    people: 'People & Body',
+    nature: 'Animals & Nature',
+    food: 'Food & Drink',
+    travel: 'Travel & Places',
+    activities: 'Activities',
+    objects: 'Objects',
+    symbols: 'Symbols',
+    flags: 'Flags',
+  }
+
+  const BUTTON_CLASS = 'flex items-center justify-center h-8 w-8 rounded cursor-pointer text-lg hover:bg-accent transition-colors'
+  const TAB_ACTIVE = 'flex-1 py-1.5 text-center text-lg cursor-pointer hover:bg-accent rounded-md transition-colors bg-accent'
+  const TAB_INACTIVE = 'flex-1 py-1.5 text-center text-lg cursor-pointer hover:bg-accent rounded-md transition-colors'
+
+  interface EmojiData {
+    emoji: string
+    name: string
+    category: string
+    keywords: string[]
+  }
+
+  function initEmojiPickers() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-emoji-picker]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-emoji-init')) return
+      root.setAttribute('data-rfr-emoji-init', '')
+
+      let activeCategory = root.getAttribute('data-rfr-emoji-category') || 'smileys'
+      let searchQuery = ''
+
+      // Parse all emoji data from the serialized attribute
+      let allEmojis: EmojiData[] = []
+      const allDataAttr = root.getAttribute('data-rfr-emoji-all-data')
+      if (allDataAttr) {
+        try {
+          allEmojis = JSON.parse(allDataAttr).map((e: { e: string; n: string; c: string; k: string[] }) => ({
+            emoji: e.e,
+            name: e.n,
+            category: e.c,
+            keywords: e.k,
+          }))
+        } catch {}
+      }
+
+      // Group by category
+      const emojisByCategory: Record<string, EmojiData[]> = {}
+      allEmojis.forEach((e) => {
+        if (!emojisByCategory[e.category]) emojisByCategory[e.category] = []
+        emojisByCategory[e.category].push(e)
+      })
+
+      const searchInput = root.querySelector<HTMLInputElement>('[data-rfr-emoji-search]')
+      const grid = root.querySelector<HTMLElement>('[data-rfr-emoji-grid]')
+      const sectionLabel = root.querySelector<HTMLElement>('[data-rfr-emoji-section-label]')
+      const emptyMsg = root.querySelector<HTMLElement>('[data-rfr-emoji-empty]')
+      const categoriesBar = root.querySelector<HTMLElement>('[data-rfr-emoji-categories]')
+      const categoryTabs = root.querySelectorAll<HTMLElement>('[data-rfr-emoji-category-tab]')
+
+      function renderEmojis(emojis: EmojiData[]) {
+        if (!grid) return
+        grid.innerHTML = ''
+        emojis.forEach((emoji) => {
+          const btn = document.createElement('button')
+          btn.type = 'button'
+          btn.className = BUTTON_CLASS
+          btn.setAttribute('data-rfr-emoji-btn', '')
+          btn.setAttribute('data-emoji', emoji.emoji)
+          btn.setAttribute('data-name', emoji.name)
+          btn.setAttribute('data-emoji-category', emoji.category)
+          btn.setAttribute('role', 'button')
+          btn.setAttribute('aria-label', `${emoji.name} ${emoji.emoji}`)
+          btn.setAttribute('title', emoji.name)
+          btn.textContent = emoji.emoji
+          grid.appendChild(btn)
+        })
+
+        if (emptyMsg) {
+          emptyMsg.classList.toggle('hidden', emojis.length > 0)
+        }
+      }
+
+      function updateCategoryTabs() {
+        categoryTabs.forEach((tab) => {
+          const cat = tab.getAttribute('data-rfr-emoji-category-tab')
+          tab.className = cat === activeCategory ? TAB_ACTIVE : TAB_INACTIVE
+        })
+      }
+
+      // Search handler
+      searchInput?.addEventListener('input', () => {
+        searchQuery = searchInput.value
+        if (searchQuery.trim()) {
+          const query = searchQuery.toLowerCase().trim()
+          const results = allEmojis.filter(
+            (e) => e.name.toLowerCase().includes(query) || e.keywords.some((kw) => kw.toLowerCase().includes(query)),
+          )
+          if (sectionLabel) sectionLabel.classList.add('hidden')
+          categoriesBar?.classList.add('hidden')
+          renderEmojis(results)
+        } else {
+          if (sectionLabel) {
+            sectionLabel.classList.remove('hidden')
+            sectionLabel.textContent = CATEGORY_LABELS[activeCategory] || activeCategory
+          }
+          categoriesBar?.classList.remove('hidden')
+          renderEmojis(emojisByCategory[activeCategory] || [])
+        }
+      })
+
+      // Category tab clicks
+      categoryTabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const cat = tab.getAttribute('data-rfr-emoji-category-tab')
+          if (!cat) return
+          activeCategory = cat
+          root.setAttribute('data-rfr-emoji-category', cat)
+          searchQuery = ''
+          if (searchInput) searchInput.value = ''
+          updateCategoryTabs()
+          if (sectionLabel) {
+            sectionLabel.classList.remove('hidden')
+            sectionLabel.textContent = CATEGORY_LABELS[cat] || cat
+          }
+          categoriesBar?.classList.remove('hidden')
+          renderEmojis(emojisByCategory[cat] || [])
+        })
+      })
+
+      // Emoji click (delegated)
+      grid?.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-rfr-emoji-btn]')
+        if (!btn) return
+        const emoji = btn.getAttribute('data-emoji') || ''
+        const name = btn.getAttribute('data-name') || ''
+        const category = btn.getAttribute('data-emoji-category') || ''
+
+        root.dispatchEvent(new CustomEvent('rfr-emoji-select', {
+          detail: { emoji, name, category },
+          bubbles: true,
+        }))
+      })
+    })
+  }
+
+  initEmojiPickers()
+  document.addEventListener('astro:after-swap', initEmojiPickers)
+</script>
