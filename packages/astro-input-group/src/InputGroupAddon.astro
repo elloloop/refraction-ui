@@ -1,0 +1,14 @@
+---
+import { inputGroupAddonVariants, type InputGroupOrientation } from '@refraction-ui/input-group'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  orientation?: InputGroupOrientation
+}
+
+const { orientation = 'horizontal', class: className, ...props } = Astro.props
+---
+
+<div class={cn(inputGroupAddonVariants({ orientation }), className)} {...props}>
+  <slot />
+</div>
