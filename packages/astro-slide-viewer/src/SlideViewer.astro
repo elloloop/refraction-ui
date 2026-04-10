@@ -1,0 +1,231 @@
+---
+import {
+  createSlideViewer,
+  slideViewerVariants,
+  progressBarVariants,
+  slideTypeBadgeVariants,
+  type SlideData,
+} from '@refraction-ui/slide-viewer'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  slides: SlideData[]
+  initialSlide?: number
+  size?: 'compact' | 'default' | 'full'
+}
+
+const {
+  slides,
+  initialSlide = 0,
+  size,
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createSlideViewer({ slides, initialSlide })
+const currentSlide = slides[api.state.currentSlide]
+const slideAriaProps = api.getSlideAriaProps()
+const isBookmarked = api.state.bookmarks.has(api.state.currentSlide)
+const isLastSlide = api.state.currentSlide === api.state.totalSlides - 1
+---
+
+<div
+  class={cn(slideViewerVariants({ size }), className)}
+  tabindex="0"
+  data-rfr-slide-viewer
+  data-rfr-slide-current={api.state.currentSlide}
+  data-rfr-slide-total={api.state.totalSlides}
+  data-rfr-slides={JSON.stringify(slides)}
+  {...props}
+>
+  <!-- Progress bar -->
+  <div class={progressBarVariants({ position: 'top' })}>
+    <div
+      class="h-full bg-primary transition-all duration-300"
+      style={`width: ${api.progress * 100}%`}
+      data-rfr-slide-progress
+    />
+  </div>
+
+  <!-- Header with type badge and bookmark -->
+  <div class="flex items-center justify-between px-4 py-2 border-b">
+    <div class="flex items-center gap-2">
+      {currentSlide && (
+        <span
+          class={slideTypeBadgeVariants({ type: currentSlide.type })}
+          data-rfr-slide-type-badge
+        >
+          {currentSlide.type}
+        </span>
+      )}
+      <span class="text-sm text-muted-foreground" data-rfr-slide-counter>
+        {api.state.currentSlide + 1} / {api.state.totalSlides}
+      </span>
+    </div>
+    <button
+      type="button"
+      class={cn(
+        'px-2 py-1 rounded text-xs transition-colors',
+        isBookmarked
+          ? 'bg-yellow-100 text-yellow-800'
+          : 'hover:bg-muted text-muted-foreground',
+      )}
+      aria-pressed={isBookmarked}
+      aria-label="Toggle bookmark"
+      data-rfr-slide-bookmark
+    >
+      {isBookmarked ? 'Bookmarked' : 'Bookmark'}
+    </button>
+  </div>
+
+  <!-- Slide content -->
+  <div
+    class="flex-1 overflow-auto p-6"
+    role={slideAriaProps.role}
+    aria-roledescription={slideAriaProps['aria-roledescription']}
+    aria-label={slideAriaProps['aria-label'] as string}
+    aria-live={slideAriaProps['aria-live'] as any}
+    data-rfr-slide-content
+  >
+    {currentSlide && <Fragment set:html={currentSlide.content} />}
+    <slot />
+  </div>
+
+  <!-- Navigation buttons -->
+  <div class="flex items-center justify-between px-4 py-3 border-t">
+    <button
+      type="button"
+      disabled={api.state.currentSlide === 0}
+      class="px-4 py-2 rounded text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-muted transition-colors"
+      aria-label="Previous slide"
+      data-rfr-slide-prev
+    >
+      Previous
+    </button>
+    <button
+      type="button"
+      class="px-4 py-2 rounded text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+      aria-label={isLastSlide ? 'Complete' : 'Next slide'}
+      data-rfr-slide-next
+    >
+      {isLastSlide ? 'Complete' : 'Next'}
+    </button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rfr-slide-viewer]').forEach((root) => {
+    const slides: Array<{ id: string; type: string; content: string }> = JSON.parse(
+      root.getAttribute('data-rfr-slides') || '[]',
+    )
+    const totalSlides = slides.length
+    let currentSlide = parseInt(root.getAttribute('data-rfr-slide-current') || '0', 10)
+    const bookmarks = new Set<number>()
+
+    const progressBar = root.querySelector<HTMLElement>('[data-rfr-slide-progress]')
+    const counter = root.querySelector<HTMLElement>('[data-rfr-slide-counter]')
+    const typeBadge = root.querySelector<HTMLElement>('[data-rfr-slide-type-badge]')
+    const contentArea = root.querySelector<HTMLElement>('[data-rfr-slide-content]')
+    const bookmarkBtn = root.querySelector<HTMLButtonElement>('[data-rfr-slide-bookmark]')
+    const prevBtn = root.querySelector<HTMLButtonElement>('[data-rfr-slide-prev]')
+    const nextBtn = root.querySelector<HTMLButtonElement>('[data-rfr-slide-next]')
+
+    function getProgress() {
+      if (totalSlides <= 1) return 1
+      return currentSlide / (totalSlides - 1)
+    }
+
+    function updateUI() {
+      const slide = slides[currentSlide]
+      const progress = getProgress()
+      const isLast = currentSlide === totalSlides - 1
+      const isFirst = currentSlide === 0
+      const isMarked = bookmarks.has(currentSlide)
+
+      if (progressBar) {
+        progressBar.style.width = `${progress * 100}%`
+      }
+
+      if (counter) {
+        counter.textContent = `${currentSlide + 1} / ${totalSlides}`
+      }
+
+      if (typeBadge && slide) {
+        typeBadge.textContent = slide.type
+      }
+
+      if (contentArea && slide) {
+        contentArea.setAttribute(
+          'aria-label',
+          `Slide ${currentSlide + 1} of ${totalSlides}: ${slide.type} slide`,
+        )
+        // Only update innerHTML for data-driven content (preserve slot content)
+        const slotContent = contentArea.querySelector('[data-astro-slot]')
+        if (!slotContent) {
+          contentArea.innerHTML = slide.content
+        }
+      }
+
+      if (bookmarkBtn) {
+        bookmarkBtn.textContent = isMarked ? 'Bookmarked' : 'Bookmark'
+        bookmarkBtn.setAttribute('aria-pressed', String(isMarked))
+        if (isMarked) {
+          bookmarkBtn.className = 'px-2 py-1 rounded text-xs transition-colors bg-yellow-100 text-yellow-800'
+        } else {
+          bookmarkBtn.className = 'px-2 py-1 rounded text-xs transition-colors hover:bg-muted text-muted-foreground'
+        }
+      }
+
+      if (prevBtn) {
+        prevBtn.disabled = isFirst
+      }
+
+      if (nextBtn) {
+        nextBtn.textContent = isLast ? 'Complete' : 'Next'
+        nextBtn.setAttribute('aria-label', isLast ? 'Complete' : 'Next slide')
+      }
+
+      root.setAttribute('data-rfr-slide-current', String(currentSlide))
+      root.dispatchEvent(new CustomEvent('slidechange', { detail: { index: currentSlide } }))
+    }
+
+    function goNext() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++
+        updateUI()
+      } else {
+        root.dispatchEvent(new CustomEvent('complete'))
+      }
+    }
+
+    function goPrev() {
+      if (currentSlide > 0) {
+        currentSlide--
+        updateUI()
+      }
+    }
+
+    function toggleBookmark() {
+      if (bookmarks.has(currentSlide)) {
+        bookmarks.delete(currentSlide)
+      } else {
+        bookmarks.add(currentSlide)
+      }
+      updateUI()
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', goPrev)
+    if (nextBtn) nextBtn.addEventListener('click', goNext)
+    if (bookmarkBtn) bookmarkBtn.addEventListener('click', toggleBookmark)
+
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        goNext()
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        goPrev()
+      }
+    })
+  })
+</script>
