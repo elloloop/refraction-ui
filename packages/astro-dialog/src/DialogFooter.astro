@@ -1,0 +1,14 @@
+---
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<div
+  class={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)}
+  {...props}
+>
+  <slot />
+</div>

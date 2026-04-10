@@ -1,0 +1,17 @@
+---
+import { overlayStyles } from '@refraction-ui/dialog'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<div
+  data-rfr-dialog-overlay
+  data-state="closed"
+  hidden
+  class={cn(overlayStyles, className)}
+  {...props}
+>
+</div>
