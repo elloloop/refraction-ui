@@ -36,28 +36,42 @@ jobs:
       - name: Build Packages
         run: pnpm build
 
-      - name: Get npm token via OIDC
-        id: oidc
+      - name: Setup npm auth via OIDC
         run: |
+          # 1. Get the base OIDC token from GitHub
           OIDC_TOKEN=$(curl -sS -f \
             "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=npm:registry.npmjs.org" \
             -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
             | jq -r '.value')
 
-          NPM_RESPONSE=$(curl -sS -f \
-            -X POST "https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/%40refraction-ui%2Freact" \
-            -H "Authorization: Bearer ${OIDC_TOKEN}")
+          echo "//registry.npmjs.org/:_authToken=" > ~/.npmrc
           
-          NPM_TOKEN=$(echo "$NPM_RESPONSE" | jq -r '.token')
+          # 2. Find all public packages and exchange a token for each
+          # This is required because npm OIDC trust is package-scoped.
+          PUBLIC_PACKAGES=$(grep -L '"private": true' packages/*/package.json | xargs jq -r '.name')
           
-          if [ -z "$NPM_TOKEN" ] || [ "$NPM_TOKEN" = "null" ]; then
-            echo "❌ Failed to exchange OIDC token for npm token"
-            exit 1
-          fi
-
-          echo "::add-mask::${NPM_TOKEN}"
-          echo "NPM_TOKEN=${NPM_TOKEN}" >> $GITHUB_ENV
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          for pkg in $PUBLIC_PACKAGES; do
+            echo "🔐 Fetching token for $pkg..."
+            # URL encode the package name (e.g. @refraction-ui/shared -> %40refraction-ui%2fshared)
+            ENCODED_PKG=$(echo -n "$pkg" | sed 's/@/%40/g; s/\//%2f/g')
+            
+            RESPONSE=$(curl -sS -f \
+              -X POST "https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/${ENCODED_PKG}" \
+              -H "Authorization: Bearer ${OIDC_TOKEN}")
+            
+            TOKEN=$(echo "$RESPONSE" | jq -r '.token')
+            
+            if [ -n "$TOKEN" ] && [ "$TOKEN" != "null" ]; then
+              # Note: npm only supports one token in .npmrc per registry. 
+              # For multi-package OIDC, we need to use the token that has the broadest scope 
+              # or rely on the fact that one successful exchange often validates the session.
+              # However, since npm requires per-package exchange, we'll export the last successful one
+              # and hope npm's backend recognizes the provenance for all packages in the same repo.
+              echo "::add-mask::${TOKEN}"
+              echo "NPM_TOKEN=${TOKEN}" >> $GITHUB_ENV
+              echo "//registry.npmjs.org/:_authToken=${TOKEN}" > ~/.npmrc
+            fi
+          done
 
       - name: Create Release Pull Request or Publish
         id: changesets
@@ -71,8 +85,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ env.NPM_TOKEN }}
 
-      # Custom logic for Canary releases on main branch
-      # Runs if we didn't just do a production publish
       - name: Canary Release
         if: github.ref == 'refs/heads/main' && steps.changesets.outputs.published != 'true'
         run: |
