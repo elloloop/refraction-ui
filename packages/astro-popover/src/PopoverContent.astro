@@ -1,0 +1,23 @@
+---
+import { popoverContentVariants } from '@refraction-ui/popover'
+import { cn } from '@refraction-ui/shared'
+import type { Side } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  side?: Side
+}
+
+const { side = 'bottom', class: className, ...props } = Astro.props
+---
+
+<div
+  data-rfr-popover-content
+  data-state="closed"
+  role="dialog"
+  tabindex="-1"
+  hidden
+  class={cn(popoverContentVariants({ side }), className)}
+  {...props}
+>
+  <slot />
+</div>

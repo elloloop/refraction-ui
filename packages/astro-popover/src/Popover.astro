@@ -1,0 +1,87 @@
+---
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Whether the popover starts open */
+  defaultOpen?: boolean
+}
+
+const { defaultOpen = false, class: className, ...props } = Astro.props
+---
+
+<div
+  data-rfr-popover
+  data-rfr-popover-default-open={defaultOpen}
+  data-state={defaultOpen ? 'open' : 'closed'}
+  class={cn('relative inline-block', className)}
+  {...props}
+>
+  <slot />
+</div>
+
+<script>
+  function initPopovers() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-popover]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-popover-init')) return
+      root.setAttribute('data-rfr-popover-init', '')
+
+      const defaultOpen = root.getAttribute('data-rfr-popover-default-open') === 'true'
+      let isOpen = defaultOpen
+
+      const trigger = root.querySelector<HTMLElement>('[data-rfr-popover-trigger]')
+      const content = root.querySelector<HTMLElement>('[data-rfr-popover-content]')
+      const closeBtns = root.querySelectorAll<HTMLElement>('[data-rfr-popover-close]')
+
+      function setState(open: boolean) {
+        isOpen = open
+        const state = open ? 'open' : 'closed'
+        root.setAttribute('data-state', state)
+        trigger?.setAttribute('aria-expanded', String(open))
+        content?.setAttribute('data-state', state)
+
+        if (open) {
+          content?.removeAttribute('hidden')
+          content?.focus()
+        } else {
+          content?.setAttribute('hidden', '')
+          trigger?.focus()
+        }
+
+        root.dispatchEvent(new CustomEvent('rfr-popover-change', { detail: { open }, bubbles: true }))
+      }
+
+      // Trigger click
+      trigger?.addEventListener('click', () => setState(!isOpen))
+
+      // Close button clicks
+      closeBtns.forEach((btn) => {
+        btn.addEventListener('click', () => setState(false))
+      })
+
+      // Escape key
+      root.addEventListener('keydown', (e) => {
+        if (!isOpen) return
+        if (e.key === 'Escape') {
+          e.preventDefault()
+          setState(false)
+        }
+      })
+
+      // Click outside to close
+      document.addEventListener('click', (e) => {
+        if (!isOpen) return
+        if (!root.contains(e.target as Node)) {
+          setState(false)
+        }
+      })
+
+      // Set initial state
+      if (!defaultOpen) {
+        content?.setAttribute('hidden', '')
+      }
+    })
+  }
+
+  initPopovers()
+  document.addEventListener('astro:after-swap', initPopovers)
+</script>
