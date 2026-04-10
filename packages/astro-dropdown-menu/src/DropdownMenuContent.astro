@@ -1,0 +1,20 @@
+---
+import { menuContentVariants } from '@refraction-ui/dropdown-menu'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+---
+
+<div
+  data-rfr-dropdown-content
+  data-state="closed"
+  role="menu"
+  tabindex="-1"
+  hidden
+  class={cn(menuContentVariants(), className)}
+  {...props}
+>
+  <slot />
+</div>

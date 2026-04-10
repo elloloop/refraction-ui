@@ -1,0 +1,138 @@
+---
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Whether the menu starts open */
+  defaultOpen?: boolean
+}
+
+const { defaultOpen = false, class: className, ...props } = Astro.props
+---
+
+<div
+  data-rfr-dropdown-menu
+  data-rfr-dropdown-default-open={defaultOpen}
+  data-state={defaultOpen ? 'open' : 'closed'}
+  class={cn('relative inline-block', className)}
+  {...props}
+>
+  <slot />
+</div>
+
+<script>
+  function initDropdownMenus() {
+    document.querySelectorAll<HTMLElement>('[data-rfr-dropdown-menu]').forEach((root) => {
+      if (root.hasAttribute('data-rfr-dropdown-init')) return
+      root.setAttribute('data-rfr-dropdown-init', '')
+
+      const defaultOpen = root.getAttribute('data-rfr-dropdown-default-open') === 'true'
+      let isOpen = defaultOpen
+
+      const trigger = root.querySelector<HTMLElement>('[data-rfr-dropdown-trigger]')
+      const content = root.querySelector<HTMLElement>('[data-rfr-dropdown-content]')
+
+      function getItems(): HTMLElement[] {
+        if (!content) return []
+        return Array.from(content.querySelectorAll<HTMLElement>('[role="menuitem"]:not([data-disabled])'))
+      }
+
+      function focusItem(index: number) {
+        const items = getItems()
+        if (items.length === 0) return
+        const clamped = Math.max(0, Math.min(index, items.length - 1))
+        items[clamped].focus()
+      }
+
+      function getCurrentIndex(): number {
+        const items = getItems()
+        return items.indexOf(document.activeElement as HTMLElement)
+      }
+
+      function setState(open: boolean) {
+        isOpen = open
+        const state = open ? 'open' : 'closed'
+        root.setAttribute('data-state', state)
+        trigger?.setAttribute('aria-expanded', String(open))
+        content?.setAttribute('data-state', state)
+
+        if (open) {
+          content?.removeAttribute('hidden')
+          // Focus first menu item
+          requestAnimationFrame(() => focusItem(0))
+        } else {
+          content?.setAttribute('hidden', '')
+          trigger?.focus()
+        }
+
+        root.dispatchEvent(new CustomEvent('rfr-dropdown-change', { detail: { open }, bubbles: true }))
+      }
+
+      // Trigger click
+      trigger?.addEventListener('click', () => setState(!isOpen))
+
+      // Click outside to close
+      document.addEventListener('click', (e) => {
+        if (!isOpen) return
+        if (!root.contains(e.target as Node)) {
+          setState(false)
+        }
+      })
+
+      // Keyboard navigation
+      root.addEventListener('keydown', (e) => {
+        if (!isOpen) return
+
+        switch (e.key) {
+          case 'Escape':
+            e.preventDefault()
+            setState(false)
+            break
+          case 'ArrowDown': {
+            e.preventDefault()
+            const idx = getCurrentIndex()
+            focusItem(idx + 1)
+            break
+          }
+          case 'ArrowUp': {
+            e.preventDefault()
+            const idx = getCurrentIndex()
+            focusItem(idx - 1)
+            break
+          }
+          case 'Home':
+            e.preventDefault()
+            focusItem(0)
+            break
+          case 'End':
+            e.preventDefault()
+            focusItem(getItems().length - 1)
+            break
+          case 'Enter':
+          case ' ':
+            // Let the menuitem handle its own click via the browser
+            if ((document.activeElement as HTMLElement)?.getAttribute('role') === 'menuitem') {
+              e.preventDefault()
+              ;(document.activeElement as HTMLElement).click()
+            }
+            break
+        }
+      })
+
+      // Menu item clicks close the menu
+      content?.addEventListener('click', (e) => {
+        const item = (e.target as HTMLElement).closest<HTMLElement>('[role="menuitem"]')
+        if (item && !item.hasAttribute('data-disabled')) {
+          setState(false)
+        }
+      })
+
+      // Set initial state
+      if (!defaultOpen) {
+        content?.setAttribute('hidden', '')
+      }
+    })
+  }
+
+  initDropdownMenus()
+  document.addEventListener('astro:after-swap', initDropdownMenus)
+</script>
