@@ -1,0 +1,51 @@
+---
+import {
+  createTextarea,
+  textareaVariants,
+} from '@refraction-ui/textarea'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  size?: 'sm' | 'default' | 'lg'
+  disabled?: boolean
+  readonly?: boolean
+  required?: boolean
+  rows?: number
+  maxRows?: number
+  'aria-invalid'?: boolean
+}
+
+const {
+  size,
+  class: className,
+  disabled,
+  readonly,
+  required,
+  rows,
+  maxRows,
+  'aria-invalid': ariaInvalid,
+  ...props
+} = Astro.props
+
+const api = createTextarea({
+  disabled,
+  readOnly: readonly,
+  required,
+  rows,
+  maxRows,
+  'aria-invalid': ariaInvalid === true ? true : undefined,
+})
+
+const classes = cn(textareaVariants({ size }), className)
+---
+
+<textarea
+  class={classes}
+  disabled={disabled}
+  readonly={readonly}
+  required={required}
+  rows={rows}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...props}
+><slot /></textarea>
