@@ -111,7 +111,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/elloloop/refraction-ui.git",
+    "url": "git+https://github.com/elloloop/refraction-ui.git",
     "directory": "packages/react-meta"
   },
   "homepage": "https://elloloop.github.io/refraction-ui/"
