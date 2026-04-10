@@ -1,0 +1,15 @@
+---
+import { createCardTitle, cardTitleVariants } from '@refraction-ui/card'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  size?: 'sm' | 'default' | 'lg'
+}
+
+const { size, class: className, ...props } = Astro.props
+const api = createCardTitle()
+---
+
+<h3 class={cn(cardTitleVariants({ size }), className)} {...api.dataAttributes} {...props}>
+  <slot />
+</h3>

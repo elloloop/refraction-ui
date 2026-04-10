@@ -1,0 +1,13 @@
+---
+import { createCardHeader, cardHeaderVariants } from '@refraction-ui/card'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+const api = createCardHeader()
+---
+
+<div class={cn(cardHeaderVariants(), className)} {...api.dataAttributes} {...props}>
+  <slot />
+</div>
