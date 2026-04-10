@@ -1,0 +1,260 @@
+---
+/**
+ * RichEditor — rich text editor component using a contenteditable div + toolbar.
+ *
+ * Uses the headless @refraction-ui/rich-editor core for document model reference.
+ * Renders a contenteditable div with a formatting toolbar, keyboard shortcuts,
+ * and optional character/word count display.
+ */
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Initial content (plain text or HTML) */
+  content?: string
+  /** Placeholder text shown when empty */
+  placeholder?: string
+  /** Read-only mode */
+  readOnly?: boolean
+  /** Maximum character count */
+  maxLength?: number
+  /** Show toolbar (default true) */
+  showToolbar?: boolean
+  /** Show character/word count (default false) */
+  showCount?: boolean
+  /** Hidden input name for form submission */
+  name?: string
+}
+
+const {
+  content = '',
+  placeholder = 'Start typing...',
+  readOnly = false,
+  maxLength,
+  showToolbar = true,
+  showCount = false,
+  name,
+  class: className,
+  ...props
+} = Astro.props
+
+const configJSON = JSON.stringify({
+  placeholder,
+  readOnly,
+  maxLength,
+  showCount,
+})
+---
+
+<div
+  class={cn(
+    'rfr-rich-editor rounded-md border bg-background overflow-hidden',
+    readOnly && 'opacity-75',
+    className,
+  )}
+  data-rfr-rich-editor
+  data-rfr-rich-editor-config={configJSON}
+  {...props}
+>
+  {showToolbar && !readOnly && (
+    <div
+      class="flex flex-wrap items-center gap-1 border-b px-2 py-1 bg-muted/50"
+      role="toolbar"
+      aria-label="Formatting options"
+      data-rfr-editor-toolbar
+    >
+      <button type="button" class="inline-flex items-center justify-center rounded px-2 py-1 text-sm font-bold hover:bg-muted" data-rfr-editor-action="bold" aria-label="Bold" title="Bold (Ctrl+B)">B</button>
+      <button type="button" class="inline-flex items-center justify-center rounded px-2 py-1 text-sm italic hover:bg-muted" data-rfr-editor-action="italic" aria-label="Italic" title="Italic (Ctrl+I)"><em>I</em></button>
+      <button type="button" class="inline-flex items-center justify-center rounded px-2 py-1 text-sm line-through hover:bg-muted" data-rfr-editor-action="strikethrough" aria-label="Strikethrough" title="Strikethrough"><s>S</s></button>
+      <button type="button" class="inline-flex items-center justify-center rounded px-2 py-1 text-sm font-mono hover:bg-muted" data-rfr-editor-action="code" aria-label="Code" title="Inline code">&lt;/&gt;</button>
+      <span class="mx-1 h-4 w-px bg-border" aria-hidden="true"></span>
+      <button type="button" class="inline-flex items-center justify-center rounded px-2 py-1 text-sm font-bold hover:bg-muted" data-rfr-editor-action="heading" aria-label="Heading" title="Heading">H</button>
+      <button type="button" class="inline-flex items-center justify-center rounded px-2 py-1 text-sm hover:bg-muted" data-rfr-editor-action="blockquote" aria-label="Blockquote" title="Blockquote">&ldquo;</button>
+      <button type="button" class="inline-flex items-center justify-center rounded px-2 py-1 text-sm hover:bg-muted" data-rfr-editor-action="list-item" aria-label="List" title="Bullet list">&bull;</button>
+      <span class="mx-1 h-4 w-px bg-border" aria-hidden="true"></span>
+      <button type="button" class="inline-flex items-center justify-center rounded px-2 py-1 text-sm hover:bg-muted" data-rfr-editor-action="undo" aria-label="Undo" title="Undo (Ctrl+Z)">&#8630;</button>
+      <button type="button" class="inline-flex items-center justify-center rounded px-2 py-1 text-sm hover:bg-muted" data-rfr-editor-action="redo" aria-label="Redo" title="Redo (Ctrl+Y)">&#8631;</button>
+    </div>
+  )}
+
+  <div
+    class={cn(
+      'min-h-[8rem] px-3 py-2 text-sm prose prose-sm dark:prose-invert max-w-none focus:outline-none',
+      readOnly && 'cursor-default',
+    )}
+    contenteditable={!readOnly ? 'true' : 'false'}
+    role="textbox"
+    aria-multiline="true"
+    aria-placeholder={placeholder}
+    aria-readonly={readOnly ? 'true' : undefined}
+    data-rfr-editor-content
+    data-placeholder={placeholder}
+  >
+    <Fragment set:html={content} />
+  </div>
+
+  {showCount && (
+    <div
+      class="flex justify-end gap-3 border-t px-3 py-1 text-xs text-muted-foreground"
+      data-rfr-editor-count
+    >
+      <span data-rfr-editor-char-count>0 chars</span>
+      <span data-rfr-editor-word-count>0 words</span>
+    </div>
+  )}
+
+  {name && <input type="hidden" name={name} value={content} data-rfr-editor-input />}
+</div>
+
+<style>
+  [data-rfr-editor-content]:empty::before {
+    content: attr(data-placeholder);
+    color: var(--muted-foreground, #9ca3af);
+    pointer-events: none;
+  }
+  [data-rfr-editor-content] {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-rfr-rich-editor]').forEach((editor) => {
+    const contentEl = editor.querySelector('[data-rfr-editor-content]') as HTMLElement
+    const toolbar = editor.querySelector('[data-rfr-editor-toolbar]')
+    const hiddenInput = editor.querySelector('[data-rfr-editor-input]') as HTMLInputElement | null
+    const charCountEl = editor.querySelector('[data-rfr-editor-char-count]')
+    const wordCountEl = editor.querySelector('[data-rfr-editor-word-count]')
+
+    if (!contentEl) return
+
+    let config: Record<string, unknown> = {}
+    try { config = JSON.parse(editor.getAttribute('data-rfr-rich-editor-config') || '{}') } catch { /* */ }
+
+    function updateCounts() {
+      if (!charCountEl && !wordCountEl) return
+      const text = contentEl.innerText || ''
+      if (charCountEl) charCountEl.textContent = `${text.length} chars`
+      if (wordCountEl) {
+        const trimmed = text.trim()
+        const wc = trimmed === '' ? 0 : trimmed.split(/\s+/).length
+        wordCountEl.textContent = `${wc} words`
+      }
+    }
+
+    function enforceMaxLength() {
+      const maxLen = config.maxLength as number | undefined
+      if (!maxLen) return
+      const text = contentEl.innerText || ''
+      if (text.length > maxLen) {
+        contentEl.innerText = text.slice(0, maxLen)
+        const range = document.createRange()
+        const sel = window.getSelection()
+        range.selectNodeContents(contentEl)
+        range.collapse(false)
+        sel?.removeAllRanges()
+        sel?.addRange(range)
+      }
+    }
+
+    function syncHiddenInput() {
+      if (hiddenInput) hiddenInput.value = contentEl.innerHTML
+    }
+
+    contentEl.addEventListener('input', () => {
+      enforceMaxLength()
+      updateCounts()
+      syncHiddenInput()
+      editor.dispatchEvent(new CustomEvent('rfr:editor:change', {
+        detail: { html: contentEl.innerHTML, text: contentEl.innerText || '' },
+        bubbles: true,
+      }))
+    })
+
+    // Toolbar actions
+    toolbar?.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest('[data-rfr-editor-action]')
+      if (!btn) return
+
+      const action = btn.getAttribute('data-rfr-editor-action')
+      contentEl.focus()
+
+      switch (action) {
+        case 'bold':
+          document.execCommand('bold')
+          break
+        case 'italic':
+          document.execCommand('italic')
+          break
+        case 'strikethrough':
+          document.execCommand('strikeThrough')
+          break
+        case 'code': {
+          const sel = window.getSelection()
+          if (sel && sel.rangeCount > 0 && !sel.isCollapsed) {
+            const range = sel.getRangeAt(0)
+            const code = document.createElement('code')
+            code.className = 'bg-muted px-1 rounded text-sm font-mono'
+            try { range.surroundContents(code) } catch { /* cross-node selection */ }
+          } else {
+            document.execCommand('formatBlock', false, 'pre')
+          }
+          break
+        }
+        case 'heading':
+          document.execCommand('formatBlock', false, 'h2')
+          break
+        case 'blockquote':
+          document.execCommand('formatBlock', false, 'blockquote')
+          break
+        case 'list-item':
+          document.execCommand('insertUnorderedList')
+          break
+        case 'undo':
+          document.execCommand('undo')
+          break
+        case 'redo':
+          document.execCommand('redo')
+          break
+      }
+
+      updateCounts()
+      syncHiddenInput()
+    })
+
+    // Keyboard shortcuts
+    contentEl.addEventListener('keydown', (e) => {
+      if (config.readOnly) {
+        e.preventDefault()
+        return
+      }
+      const mod = e.ctrlKey || e.metaKey
+      if (mod && e.key === 'b') {
+        e.preventDefault()
+        document.execCommand('bold')
+      } else if (mod && e.key === 'i') {
+        e.preventDefault()
+        document.execCommand('italic')
+      } else if (mod && e.key === 'z') {
+        e.preventDefault()
+        if (e.shiftKey) {
+          document.execCommand('redo')
+        } else {
+          document.execCommand('undo')
+        }
+      } else if (mod && e.key === 'y') {
+        e.preventDefault()
+        document.execCommand('redo')
+      }
+    })
+
+    // Expose API on element for external scripts
+    ;(editor as any).__rfr_editor = {
+      getHTML: () => contentEl.innerHTML,
+      getText: () => contentEl.innerText || '',
+      setContent: (html: string) => { contentEl.innerHTML = html; updateCounts(); syncHiddenInput() },
+      clear: () => { contentEl.innerHTML = ''; updateCounts(); syncHiddenInput() },
+    }
+
+    updateCounts()
+  })
+</script>
