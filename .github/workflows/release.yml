@@ -80,19 +80,30 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo build --filter='./packages/*'
       - name: Get npm token via OIDC Trusted Publishing
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const {getIDToken} = require('@actions/core');
-            const idToken = await getIDToken('npm:registry.npmjs.org');
-            const resp = await fetch(
-              'https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/%40refraction-ui%2Freact',
-              { method: 'POST', headers: { Authorization: `Bearer ${idToken}` } }
-            );
-            const body = await resp.json();
-            if (!resp.ok) throw new Error(`npm OIDC exchange failed: ${body.message}`);
-            core.setSecret(body.token);
-            core.exportVariable('NPM_TOKEN', body.token);
+        run: |
+          # Get OIDC token from GitHub with npm audience
+          OIDC_TOKEN=$(curl -sS -f \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=npm:registry.npmjs.org" \
+            -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            | jq -r '.value')
+
+          # Exchange OIDC token for short-lived npm publish token
+          NPM_RESPONSE=$(curl -sS -w "\n%{http_code}" \
+            -X POST "https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/%40refraction-ui%2Freact" \
+            -H "Authorization: Bearer ${OIDC_TOKEN}")
+          HTTP_CODE=$(echo "$NPM_RESPONSE" | tail -1)
+          BODY=$(echo "$NPM_RESPONSE" | sed '$d')
+
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "npm OIDC exchange failed (HTTP $HTTP_CODE):"
+            echo "$BODY" | jq . 2>/dev/null || echo "$BODY"
+            exit 1
+          fi
+
+          NPM_TOKEN=$(echo "$BODY" | jq -r '.token')
+          echo "::add-mask::${NPM_TOKEN}"
+          echo "NPM_TOKEN=${NPM_TOKEN}" >> $GITHUB_ENV
+          echo "npm OIDC token exchange succeeded"
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
