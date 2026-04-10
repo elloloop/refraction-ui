@@ -1,0 +1,89 @@
+---
+import {
+  createSwitch,
+  switchVariants,
+  switchThumbVariants,
+} from '@refraction-ui/switch'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  checked?: boolean
+  disabled?: boolean
+  size?: 'sm' | 'default' | 'lg'
+  name?: string
+}
+
+const { checked = false, disabled = false, size = 'default', name, class: className, ...props } = Astro.props
+const api = createSwitch({ checked, disabled })
+---
+
+<button
+  type="button"
+  role="switch"
+  aria-checked={String(checked)}
+  data-state={checked ? 'checked' : 'unchecked'}
+  data-disabled={disabled ? '' : undefined}
+  class={cn(switchVariants({ checked: checked ? 'true' : 'false', size }), className)}
+  disabled={disabled}
+  data-rfr-switch
+  data-rfr-switch-size={size}
+  {...props}
+>
+  <span class={cn(switchThumbVariants({ checked: checked ? 'true' : 'false', size }))} data-rfr-switch-thumb />
+  {name && <input type="hidden" name={name} value={String(checked)} data-rfr-switch-input />}
+</button>
+
+<script>
+  const THUMB_TRANSLATE: Record<string, string> = {
+    sm: 'translate-x-3',
+    default: 'translate-x-4',
+    lg: 'translate-x-5',
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-rfr-switch]').forEach((el) => {
+    el.addEventListener('click', () => {
+      if (el.disabled) return
+      const checked = el.getAttribute('aria-checked') === 'true'
+      const newChecked = !checked
+      const size = el.getAttribute('data-rfr-switch-size') || 'default'
+
+      el.setAttribute('aria-checked', String(newChecked))
+      el.setAttribute('data-state', newChecked ? 'checked' : 'unchecked')
+
+      // Update track classes
+      if (newChecked) {
+        el.classList.add('bg-primary')
+        el.classList.remove('bg-input')
+      } else {
+        el.classList.remove('bg-primary')
+        el.classList.add('bg-input')
+      }
+
+      // Update thumb position
+      const thumb = el.querySelector('[data-rfr-switch-thumb]') as HTMLElement
+      if (thumb) {
+        const translateClass = THUMB_TRANSLATE[size] || THUMB_TRANSLATE.default
+        if (newChecked) {
+          thumb.classList.remove('translate-x-0')
+          thumb.classList.add(translateClass)
+        } else {
+          thumb.classList.remove(translateClass)
+          thumb.classList.add('translate-x-0')
+        }
+      }
+
+      // Update hidden input
+      const input = el.querySelector('[data-rfr-switch-input]') as HTMLInputElement | null
+      if (input) input.value = String(newChecked)
+
+      el.dispatchEvent(new CustomEvent('change', { detail: { checked: newChecked } }))
+    })
+
+    el.addEventListener('keydown', (e) => {
+      if (e.key === ' ') {
+        e.preventDefault()
+        el.click()
+      }
+    })
+  })
+</script>
