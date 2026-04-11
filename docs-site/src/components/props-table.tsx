@@ -30,13 +30,13 @@ export function PropsTable({ props }: PropsTableProps) {
                 </code>
               </td>
               <td className="px-4 py-3 align-top">
-                <code className="inline-block rounded-md bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 text-xs font-mono text-zinc-600 dark:text-zinc-300 max-w-[200px] break-words">
+                <code className="inline-block rounded-md bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 text-xs font-mono text-zinc-600 dark:text-zinc-300 break-words whitespace-pre-wrap">
                   {prop.type}
                 </code>
               </td>
-              <td className="px-4 py-3 align-top whitespace-nowrap">
+              <td className="px-4 py-3 align-top">
                 {prop.default ? (
-                  <code className="inline-block rounded-md bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 text-xs font-mono text-zinc-600 dark:text-zinc-300">
+                  <code className="inline-block rounded-md bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 text-xs font-mono text-zinc-600 dark:text-zinc-300 break-words whitespace-pre-wrap">
                     {prop.default}
                   </code>
                 ) : (
