@@ -1,0 +1,30 @@
+{
+  "name": "@refraction-ui/solid",
+  "version": "0.1.0",
+  "description": "All Refraction UI Solid components in one package",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {},
+  "peerDependencies": {
+    "solid-js": ">=1.0.0"
+  },
+  "devDependencies": {
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elloloop/refraction-ui.git",
+    "directory": "packages/solid-meta"
+  },
+  "homepage": "https://elloloop.github.io/refraction-ui/"
+}
