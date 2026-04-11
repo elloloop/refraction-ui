@@ -11,6 +11,19 @@ A headless core UI library with framework-specific wrappers. Zero external runti
 - **Svelte** (`@refraction-ui/svelte`) - 🚧 *Planned / Work in Progress*
 - **Solid** (`@refraction-ui/solid`) - 🚧 *Planned / Work in Progress*
 
+## Components
+
+**Core UI**
+- ✅ Accordion, Avatar, Badge, Button, Calendar, Card, Charts, Checkbox, Code Editor, Collapsible, Command, Data Table, Date Picker, Dialog, Dropdown Menu, Input, Popover, Radio, Resizable Layout, Rich Editor, Select, Skeleton, Slide Viewer, Switch, Tabs, Textarea, Toast, Tooltip.
+- 🚧 *Planned:* Carousel, Context Menu, Hover Card, Menubar, Navigation Menu, Scroll Area, Slider.
+
+**Layout & Navigation**
+- ✅ App Shell, Bottom Nav, Breadcrumbs, Footer, Mobile Nav, Navbar, Sidebar.
+- 🚧 *Planned:* Pagination, Stepper.
+
+**Advanced & Utilities**
+- ✅ Auth, Content Protection, Diff Viewer, Emoji Picker, Feedback Dialog, File Upload, I18n, Inline Editor, Install Prompt, Keyboard Shortcut, Language Selector, Markdown Renderer, Presence Indicator, Progress Display, Reaction Bar, Search Bar, Status Indicator, Theme, Thread View, Version Selector, Video Player.
+
 ## Quick Start
 
 ```bash

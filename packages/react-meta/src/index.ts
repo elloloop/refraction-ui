@@ -15,6 +15,7 @@
 export * from '@refraction-ui/react-theme'
 
 // Components (alphabetical)
+export * from '@refraction-ui/react-accordion'
 // Note: react-ai and react-charts are stubs with no exports yet.
 // They are included as dependencies but skipped here until they have exports.
 export * from '@refraction-ui/react-animated-text'

@@ -9,11 +9,11 @@
   "files": [
     "src"
   ],
-  "dependencies": {},
   "peerDependencies": {
     "astro": ">=4.0.0"
   },
   "devDependencies": {
+    "@refraction-ui/astro-accordion": "workspace:*",
     "@refraction-ui/astro-ai": "workspace:*",
     "@refraction-ui/astro-animated-text": "workspace:*",
     "@refraction-ui/astro-app-shell": "workspace:*",

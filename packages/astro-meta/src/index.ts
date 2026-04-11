@@ -11,6 +11,7 @@
 export * from '@refraction-ui/astro-theme'
 
 // Components (alphabetical)
+export * from '@refraction-ui/astro-accordion'
 export * from '@refraction-ui/astro-ai'
 export * from '@refraction-ui/astro-animated-text'
 export * from '@refraction-ui/astro-app-shell'
