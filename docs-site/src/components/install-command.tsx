@@ -1,14 +1,22 @@
 'use client'
 
 import { useState } from 'react'
+import { useFramework } from './framework-context'
 
 interface InstallCommandProps {
-  packageName: string
+  packageName?: string
+  basePackage?: string
 }
 
-export function InstallCommand({ packageName }: InstallCommandProps) {
+export function InstallCommand({ packageName, basePackage }: InstallCommandProps) {
   const [copied, setCopied] = useState(false)
-  const command = `pnpm add ${packageName}`
+  const { framework } = useFramework()
+  
+  const finalPackageName = basePackage 
+    ? `@refraction-ui/${framework}-${basePackage}`
+    : packageName
+
+  const command = `pnpm add ${finalPackageName}`
 
   const handleCopy = async () => {
     try {

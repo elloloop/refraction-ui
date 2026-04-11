@@ -2,11 +2,13 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useMobileNav } from './mobile-nav-context'
 
 const componentGroups = [
   {
     title: 'Core UI',
     items: [
+      { name: 'Accordion', href: '/components/accordion' },
       { name: 'Button', href: '/components/button' },
       { name: 'Input', href: '/components/input' },
       { name: 'Textarea', href: '/components/textarea' },
@@ -137,9 +139,22 @@ const navigation = [
 
 export function Sidebar() {
   const pathname = usePathname()
+  const { isOpen, setIsOpen } = useMobileNav()
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-sidebar-border bg-sidebar-background text-sidebar-foreground overflow-y-auto">
+    <>
+      {/* Mobile overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm md:hidden transition-opacity"
+          onClick={() => setIsOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      <aside className={`fixed left-0 top-0 z-40 h-screen w-64 border-r border-sidebar-border bg-sidebar-background text-sidebar-foreground overflow-y-auto transition-transform duration-300 ease-in-out md:translate-x-0 ${
+        isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
+      }`}>
       {/* Logo */}
       <div className="px-6 py-6">
         <Link href="/" className="flex items-center gap-2.5">
@@ -166,6 +181,7 @@ export function Sidebar() {
 
             return (
               <Link
+                onClick={() => setIsOpen(false)}
                 key={item.href}
                 href={item.href}
                 className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
@@ -195,6 +211,7 @@ export function Sidebar() {
 
                 return (
                   <Link
+                onClick={() => setIsOpen(false)}
                     key={item.href}
                     href={item.href}
                     className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
@@ -226,6 +243,7 @@ export function Sidebar() {
 
                 return (
                   <Link
+                onClick={() => setIsOpen(false)}
                     key={item.href}
                     href={item.href}
                     className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
@@ -246,5 +264,6 @@ export function Sidebar() {
         ))}
       </nav>
     </aside>
+    </>
   )
 }
