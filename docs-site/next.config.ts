@@ -3,6 +3,7 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   output: process.env.GITHUB_PAGES ? 'export' : undefined,
   basePath: process.env.GITHUB_PAGES ? '/refraction-ui' : '',
+  trailingSlash: true,
   images: { unoptimized: true },
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
