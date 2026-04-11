@@ -6,14 +6,13 @@ async function publish() {
   const isCanary = process.argv.includes('--canary');
   console.log(`📦 Starting OIDC publish (${isCanary ? 'Canary' : 'Latest'})...`);
 
-  // 1. Get the list of packages to publish
-  // We use changeset status to find what has changed
-  const statusOutput = execSync('pnpm exec changeset status --output status.json').toString();
-  const status = JSON.parse(fs.readFileSync('status.json', 'utf8'));
-  const packagesToPublish = status.releases;
+  // 1. Find all public packages in the workspace
+  const packagesStr = execSync('pnpm ls -r --depth -1 --json').toString();
+  const allPackages = JSON.parse(packagesStr);
+  const publicPackages = allPackages.filter(pkg => !pkg.private);
 
-  if (packagesToPublish.length === 0) {
-    console.log('✅ No packages need publishing.');
+  if (publicPackages.length === 0) {
+    console.log('✅ No public packages found.');
     return;
   }
 
@@ -28,11 +27,32 @@ async function publish() {
   const oidcResponse = execSync(`curl -sS -f "${idTokenUrl}&audience=npm:registry.npmjs.org" -H "Authorization: Bearer ${idToken}"`).toString();
   const githubOidcToken = JSON.parse(oidcResponse).value;
 
-  // 3. Publish each package with its own token
-  for (const release of packagesToPublish) {
-    const pkgName = release.name;
-    const pkgPath = release.dir; // Note: changesets status provides the directory
+  // 3. Check and publish each package
+  for (const pkg of publicPackages) {
+    const pkgName = pkg.name;
+    const pkgVersion = pkg.version;
+    const pkgPath = pkg.path;
+
+    console.log(`\n🔍 Checking ${pkgName}@${pkgVersion}...`);
     
+    // Check if version is already published
+    let isPublished = false;
+    try {
+      const publishedVersionsStr = execSync(`npm info ${pkgName} versions --json`, { stdio: ['pipe', 'pipe', 'ignore'] }).toString();
+      const publishedVersions = JSON.parse(publishedVersionsStr);
+      if (publishedVersions.includes(pkgVersion)) {
+        isPublished = true;
+      }
+    } catch (err) {
+      // 404 means the package has never been published before
+      console.log(`ℹ️  ${pkgName} not found on npm. Publishing first version.`);
+    }
+
+    if (isPublished) {
+      console.log(`⏭️  ${pkgName}@${pkgVersion} is already published. Skipping.`);
+      continue;
+    }
+
     console.log(`🔐 Fetching npm token for ${pkgName}...`);
     const encodedPkg = pkgName.replace('@', '%40').replace('/', '%2f');
     
@@ -44,10 +64,9 @@ async function publish() {
       const npmrcPath = path.join(process.cwd(), '.npmrc.tmp');
       fs.writeFileSync(npmrcPath, `//registry.npmjs.org/:_authToken=${npmToken}\n`);
 
-      console.log(`🚀 Publishing ${pkgName}@${release.newVersion}...`);
+      console.log(`🚀 Publishing ${pkgName}@${pkgVersion}...`);
       
       const tag = isCanary ? 'canary' : 'latest';
-      // We run publish inside the package directory
       execSync(`npm publish --userconfig ${npmrcPath} --tag ${tag} --access public --provenance`, {
         cwd: pkgPath,
         stdio: 'inherit'
