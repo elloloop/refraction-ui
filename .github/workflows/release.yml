@@ -36,11 +36,36 @@ jobs:
       - name: Build Packages
         run: pnpm build
 
-      - name: Setup npm auth
+      - name: Setup npm auth via OIDC
         run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # 1. Get the base OIDC token from GitHub
+          OIDC_TOKEN=$(curl -sS -f \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=npm:registry.npmjs.org" \
+            -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            | jq -r '.value')
+
+          echo "//registry.npmjs.org/:_authToken=" > ~/.npmrc
+          
+          # 2. Find all public packages and exchange a token for each
+          PUBLIC_PACKAGES=$(grep -L '"private": true' packages/*/package.json | xargs jq -r '.name')
+          
+          for pkg in $PUBLIC_PACKAGES; do
+            echo "🔐 Fetching token for $pkg..."
+            ENCODED_PKG=$(echo -n "$pkg" | sed 's/@/%40/g; s/\//%2f/g')
+            
+            RESPONSE=$(curl -sS -f \
+              -X POST "https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/${ENCODED_PKG}" \
+              -H "Authorization: Bearer ${OIDC_TOKEN}" || echo "")
+            
+            if [ -n "$RESPONSE" ]; then
+              TOKEN=$(echo "$RESPONSE" | jq -r '.token')
+              if [ -n "$TOKEN" ] && [ "$TOKEN" != "null" ]; then
+                echo "::add-mask::${TOKEN}"
+                echo "NPM_TOKEN=${TOKEN}" >> $GITHUB_ENV
+                echo "//registry.npmjs.org/:_authToken=${TOKEN}" > ~/.npmrc
+              fi
+            fi
+          done
 
       - name: Create Release Pull Request or Publish
         id: changesets
@@ -52,9 +77,8 @@ jobs:
           title: "chore: release packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ env.NPM_TOKEN }}
 
-      # Custom logic for Canary releases on main branch
       - name: Canary Release
         if: github.ref == 'refs/heads/main' && steps.changesets.outputs.published != 'true'
         run: |
@@ -62,4 +86,4 @@ jobs:
           pnpm exec changeset publish --tag canary
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ env.NPM_TOKEN }}
