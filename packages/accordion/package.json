@@ -28,6 +28,7 @@
     "@refraction-ui/shared": "workspace:*"
   },
   "devDependencies": {},
+  "private": true,
   "sideEffects": false,
   "license": "MIT"
 }

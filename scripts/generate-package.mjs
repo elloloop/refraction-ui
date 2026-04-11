@@ -145,6 +145,7 @@ function generateReact() {
       react: '^19.0.0',
       'react-dom': '^19.0.0',
     },
+    private: true,
     sideEffects: false,
     license: 'MIT',
   }
@@ -207,3 +208,4 @@ switch (type) {
 }
 
 console.log(`✓ Created packages/${name} (${type})`)
+e})`)
