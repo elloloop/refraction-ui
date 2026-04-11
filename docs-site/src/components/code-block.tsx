@@ -1,24 +1,30 @@
 'use client'
 
 import { useState } from 'react'
+import { useFramework, Framework } from './framework-context'
 
 interface CodeBlockProps {
-  code: string
+  code?: string
+  frameworks?: Partial<Record<Framework, string>>
   language?: string
   showLineNumbers?: boolean
 }
 
-export function CodeBlock({ code, language = 'tsx', showLineNumbers = false }: CodeBlockProps) {
+export function CodeBlock({ code, frameworks, language = 'tsx', showLineNumbers = false }: CodeBlockProps) {
   const [copied, setCopied] = useState(false)
+  const { framework } = useFramework()
+
+  const displayCode = frameworks?.[framework] || code || ''
 
   const handleCopy = async () => {
+    if (!displayCode) return
     try {
-      await navigator.clipboard.writeText(code)
+      await navigator.clipboard.writeText(displayCode)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {
       const textarea = document.createElement('textarea')
-      textarea.value = code
+      textarea.value = displayCode
       document.body.appendChild(textarea)
       textarea.select()
       document.execCommand('copy')
@@ -28,7 +34,15 @@ export function CodeBlock({ code, language = 'tsx', showLineNumbers = false }: C
     }
   }
 
-  const lines = code.split('\n')
+  const lines = displayCode.split('\n')
+
+  if (!displayCode) {
+    return (
+      <div className="rounded-xl bg-zinc-950 p-6 text-sm text-zinc-500 italic text-center dark:bg-zinc-900 ring-1 ring-white/10">
+        Code example not yet available for {framework}.
+      </div>
+    )
+  }
 
   return (
     <div className="group relative rounded-xl bg-zinc-950 overflow-hidden ring-1 ring-white/10 dark:bg-zinc-900">
@@ -85,7 +99,7 @@ export function CodeBlock({ code, language = 'tsx', showLineNumbers = false }: C
             </table>
           ) : (
             <code className="block px-5 font-mono text-zinc-200 whitespace-pre">
-              {code}
+              {displayCode}
             </code>
           )}
         </pre>
