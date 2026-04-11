@@ -22,5 +22,6 @@
     "url": "https://github.com/elloloop/refraction-ui.git",
     "directory": "packages/astro-input-group"
   },
-  "homepage": "https://elloloop.github.io/refraction-ui/"
+  "homepage": "https://elloloop.github.io/refraction-ui/",
+  "private": true
 }
