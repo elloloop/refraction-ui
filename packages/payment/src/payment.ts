@@ -1,19 +1,16 @@
-export type PaymentProvider = 'stripe' | 'paypal' | 'custom';
-
 export interface PaymentProps {
-  provider?: PaymentProvider;
-  clientSecret?: string;
-  clientId?: string;
-  amount?: number;
-  currency?: string;
+  disabled?: boolean;
 }
 
 export interface PaymentAPI {
   props: PaymentProps;
 }
 
-export function createPayment(props: PaymentProps): PaymentAPI {
+export function createPayment(props: PaymentProps = {}): PaymentAPI {
   return {
-    props,
+    props: {
+      ...props,
+      'data-slot': 'payment',
+    } as PaymentProps & Record<string, unknown>,
   };
 }
