@@ -33,7 +33,7 @@ const sortedData = api.state.sortedData
 const hasFilterable = columns.some((c: ColumnDef) => c.filterable)
 ---
 
-<div data-rfr-data-table data-rfr-data-table-columns={JSON.stringify(columns)} data-rfr-data-table-data={JSON.stringify(data)} {...props}>
+<div class="relative w-full overflow-auto" data-rfr-data-table data-rfr-data-table-columns={JSON.stringify(columns)} data-rfr-data-table-data={JSON.stringify(data)} {...props}>
   <table class={cn(tableVariants(), className)} role="table">
     <thead>
       <tr role="row">
