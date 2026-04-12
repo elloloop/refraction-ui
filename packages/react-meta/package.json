@@ -115,5 +115,11 @@
     "url": "git+https://github.com/elloloop/refraction-ui.git",
     "directory": "packages/react-meta"
   },
-  "homepage": "https://elloloop.github.io/refraction-ui/"
+  "homepage": "https://elloloop.github.io/refraction-ui/",
+  "dependencies": {
+    "@refraction-ui/react-table-of-contents": "workspace:*",
+    "@refraction-ui/react-carousel": "workspace:*",
+    "@refraction-ui/react-slider": "workspace:*",
+    "@refraction-ui/react-pagination": "workspace:*"
+  }
 }

@@ -86,5 +86,11 @@
     "url": "git+https://github.com/elloloop/refraction-ui.git",
     "directory": "packages/astro-meta"
   },
-  "homepage": "https://elloloop.github.io/refraction-ui/"
+  "homepage": "https://elloloop.github.io/refraction-ui/",
+  "dependencies": {
+    "@refraction-ui/astro-table-of-contents": "workspace:*",
+    "@refraction-ui/astro-carousel": "workspace:*",
+    "@refraction-ui/astro-slider": "workspace:*",
+    "@refraction-ui/astro-pagination": "workspace:*"
+  }
 }

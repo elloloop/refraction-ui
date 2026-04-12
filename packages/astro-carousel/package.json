@@ -1,0 +1,27 @@
+{
+  "name": "@refraction-ui/astro-carousel",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@refraction-ui/carousel": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "astro": ">=4.0.0"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elloloop/refraction-ui.git",
+    "directory": "packages/astro-carousel"
+  },
+  "homepage": "https://elloloop.github.io/refraction-ui/",
+  "private": true
+}

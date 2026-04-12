@@ -9,7 +9,12 @@
   "files": [
     "src"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "@refraction-ui/vue-table-of-contents": "workspace:*",
+    "@refraction-ui/vue-carousel": "workspace:*",
+    "@refraction-ui/vue-slider": "workspace:*",
+    "@refraction-ui/vue-pagination": "workspace:*"
+  },
   "peerDependencies": {
     "vue": ">=3.0.0"
   },

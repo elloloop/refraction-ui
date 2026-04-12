@@ -1,0 +1,22 @@
+{
+  "name": "@refraction-ui/vue-table-of-contents",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@refraction-ui/table-of-contents": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": ">=3.0.0"
+  },
+  "devDependencies": {},
+  "sideEffects": false,
+  "license": "MIT"
+}

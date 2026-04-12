@@ -148,3 +148,8 @@ export * from '@refraction-ui/react-select'
 export * from '@refraction-ui/react-status-indicator'
 export * from '@refraction-ui/react-switch'
 export * from '@refraction-ui/react-thread-view'
+
+export * from '@refraction-ui/react-table-of-contents'
+export * from '@refraction-ui/react-carousel'
+export * from '@refraction-ui/react-slider'
+export * from '@refraction-ui/react-pagination'

@@ -22,3 +22,8 @@ export * from '@refraction-ui/angular-switch'
 export * from '@refraction-ui/angular-tabs'
 export * from '@refraction-ui/angular-textarea'
 export * from '@refraction-ui/angular-tooltip'
+
+export * from '@refraction-ui/angular-table-of-contents'
+export * from '@refraction-ui/angular-carousel'
+export * from '@refraction-ui/angular-slider'
+export * from '@refraction-ui/angular-pagination'

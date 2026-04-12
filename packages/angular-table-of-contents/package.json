@@ -1,0 +1,22 @@
+{
+  "name": "@refraction-ui/angular-table-of-contents",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@refraction-ui/table-of-contents": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=18.0.0"
+  },
+  "devDependencies": {},
+  "sideEffects": false,
+  "license": "MIT"
+}

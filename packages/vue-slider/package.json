@@ -1,0 +1,13 @@
+{
+  "name": "@refraction-ui/vue-slider",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@refraction-ui/slider": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": ">=3.0.0"
+  }
+}

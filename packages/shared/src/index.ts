@@ -41,6 +41,10 @@ export type {
 } from './live-region.js'
 
 export type {
+  EngineAdapter,
+} from './engine-adapter.js'
+
+export type {
   SkipLinkProps,
 } from './skip-link.js'
 

@@ -25,7 +25,11 @@
     "@refraction-ui/angular-switch": "workspace:*",
     "@refraction-ui/angular-tabs": "workspace:*",
     "@refraction-ui/angular-textarea": "workspace:*",
-    "@refraction-ui/angular-tooltip": "workspace:*"
+    "@refraction-ui/angular-tooltip": "workspace:*",
+    "@refraction-ui/angular-table-of-contents": "workspace:*",
+    "@refraction-ui/angular-carousel": "workspace:*",
+    "@refraction-ui/angular-slider": "workspace:*",
+    "@refraction-ui/angular-pagination": "workspace:*"
   },
   "peerDependencies": {
     "@angular/core": ">=18.0.0"

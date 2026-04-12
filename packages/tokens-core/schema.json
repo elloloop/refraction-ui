@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "themes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "modes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "global": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "semantic": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "components": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["modes"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["themes"],
+  "additionalProperties": false
+}

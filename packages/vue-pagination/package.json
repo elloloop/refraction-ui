@@ -1,0 +1,23 @@
+{
+  "name": "@refraction-ui/vue-pagination",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@refraction-ui/pagination": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": ">=3.0.0"
+  },
+  "devDependencies": {
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "sideEffects": false,
+  "license": "MIT"
+}

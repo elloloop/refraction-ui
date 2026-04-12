@@ -71,3 +71,8 @@ export * from '@refraction-ui/astro-toast'
 export * from '@refraction-ui/astro-tooltip'
 export * from '@refraction-ui/astro-version-selector'
 export * from '@refraction-ui/astro-video-player'
+
+export * from '@refraction-ui/astro-table-of-contents'
+export * from '@refraction-ui/astro-carousel'
+export * from '@refraction-ui/astro-slider'
+export * from '@refraction-ui/astro-pagination'

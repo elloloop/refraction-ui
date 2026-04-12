@@ -1,0 +1,21 @@
+{
+  "name": "@refraction-ui/astro-table-of-contents",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@refraction-ui/table-of-contents": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "astro": ">=4.0.0"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "private": true
+}

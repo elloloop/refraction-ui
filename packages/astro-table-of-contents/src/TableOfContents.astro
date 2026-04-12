@@ -1,0 +1,53 @@
+---
+import { cn } from '@refraction-ui/shared';
+
+export interface Props extends astroHTML.JSX.HTMLAttributes {
+  selectors?: string;
+}
+
+const { selectors = 'h2, h3, h4', class: className, ...props } = Astro.props;
+---
+
+<nav class={cn("space-y-1 refraction-toc", className)} data-selectors={selectors} {...props as any}>
+  <ul class="m-0 list-none p-0 toc-list">
+  </ul>
+</nav>
+
+<script>
+  import { parseHeadings, observeHeadings } from '@refraction-ui/table-of-contents';
+
+  document.querySelectorAll('.refraction-toc').forEach((el) => {
+    const selectors = el.getAttribute('data-selectors') || 'h2, h3, h4';
+    const container = document.body;
+    const headings = parseHeadings(container, selectors);
+    const list = el.querySelector('.toc-list');
+    
+    if (!list || headings.length === 0) return;
+
+    headings.forEach(heading => {
+      const li = document.createElement('li');
+      li.className = `py-1 ${heading.level === 3 ? 'pl-4' : heading.level === 4 ? 'pl-8' : ''}`;
+      
+      const a = document.createElement('a');
+      a.href = `#${heading.id}`;
+      a.className = 'block text-sm transition-colors hover:text-foreground text-muted-foreground toc-link';
+      a.textContent = heading.text;
+      a.dataset.id = heading.id;
+      
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+
+    observeHeadings(headings.map(h => h.id), (activeId) => {
+      el.querySelectorAll('.toc-link').forEach(link => {
+        if ((link as HTMLAnchorElement).dataset.id === activeId) {
+          link.classList.remove('text-muted-foreground');
+          link.classList.add('font-medium', 'text-foreground');
+        } else {
+          link.classList.remove('font-medium', 'text-foreground');
+          link.classList.add('text-muted-foreground');
+        }
+      });
+    });
+  });
+</script>
