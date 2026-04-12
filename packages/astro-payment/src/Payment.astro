@@ -1,0 +1,19 @@
+---
+import type { PaymentProps } from '@refraction-ui/payment';
+
+interface Props extends PaymentProps {
+  stripeKey: string;
+}
+
+const { clientSecret, stripeKey } = Astro.props;
+---
+
+<div class="refraction-payment" data-client-secret={clientSecret} data-stripe-key={stripeKey}>
+  <div id="payment-element-placeholder">Payment Element Placeholder (Astro)</div>
+  <button id="submit-payment">Pay</button>
+</div>
+
+<script>
+  // Basic initialization placeholder
+  console.log('Stripe initialized in Astro component.');
+</script>

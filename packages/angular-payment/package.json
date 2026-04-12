@@ -1,0 +1,21 @@
+{
+  "name": "@refraction-ui/angular-payment",
+  "private": true,
+  "version": "0.1.0",
+  "dependencies": {
+    "@refraction-ui/payment": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "@angular/core": "^16.0.0 || ^17.0.0 || ^18.0.0"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "main": "src/index.ts"
+}

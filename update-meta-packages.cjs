@@ -13,7 +13,8 @@ const newComponents = [
   'skip-to-content',
   'code-block',
   'link-card',
-  'card-grid'
+  'card-grid',
+  'payment'
 ];
 const frameworks = ['react', 'astro', 'angular', 'vue'];
 

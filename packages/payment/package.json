@@ -1,0 +1,27 @@
+{
+  "name": "@refraction-ui/payment",
+  "private": true,
+  "version": "0.1.0",
+  "dependencies": {
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "devDependencies": {},
+  "sideEffects": false,
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  }
+}
