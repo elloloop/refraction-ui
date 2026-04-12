@@ -1,5 +1,11 @@
 # @refraction-ui/tailwind-config
 
+## 0.1.2
+
+### Patch Changes
+
+- c083c7d: docs: update readme to reflect supported and planned frameworks and trigger a final release test
+
 ## 0.1.1
 
 ### Patch Changes
