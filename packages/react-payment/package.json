@@ -6,13 +6,7 @@
     "@refraction-ui/payment": "workspace:*",
     "@refraction-ui/shared": "workspace:*"
   },
-  "peerDependencies": {
-    "@stripe/react-stripe-js": "^3.0.0",
-    "@stripe/stripe-js": "^5.0.0"
-  },
   "devDependencies": {
-    "@stripe/react-stripe-js": "^3.0.0",
-    "@stripe/stripe-js": "^5.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "react": "^19.0.0",
@@ -35,5 +29,6 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
-  }
+  },
+  "type": "module"
 }

@@ -17,5 +17,6 @@
     "lint": "eslint src --ext .ts,.tsx",
     "typecheck": "tsc --noEmit"
   },
-  "main": "src/index.ts"
+  "main": "src/index.ts",
+  "type": "module"
 }
