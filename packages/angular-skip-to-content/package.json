@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "files": [
     "src"
   ],
@@ -19,5 +16,6 @@
     "@refraction-ui/shared": "workspace:*"
   },
   "sideEffects": false,
-  "license": "MIT"
+  "license": "MIT",
+  "main": "src/index.ts"
 }

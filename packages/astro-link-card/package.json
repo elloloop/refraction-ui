@@ -6,7 +6,9 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "dependencies": {
     "@refraction-ui/link-card": "workspace:*",
     "@refraction-ui/shared": "workspace:*"

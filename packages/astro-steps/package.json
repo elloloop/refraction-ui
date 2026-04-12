@@ -6,7 +6,9 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "dependencies": {
     "@refraction-ui/steps": "workspace:*",
     "@refraction-ui/shared": "workspace:*"

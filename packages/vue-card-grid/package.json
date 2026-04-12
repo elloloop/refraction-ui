@@ -3,11 +3,20 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "main": "src/index.ts",
+  "main": "./dist/index.cjs",
   "dependencies": {
     "@refraction-ui/card-grid": "workspace:*"
   },
   "peerDependencies": {
     "vue": ">=3.0.0"
+  },
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
   }
 }
