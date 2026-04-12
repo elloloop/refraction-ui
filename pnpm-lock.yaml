@@ -462,6 +462,9 @@ importers:
       '@refraction-ui/angular-pagination':
         specifier: workspace:*
         version: link:../angular-pagination
+      '@refraction-ui/angular-payment':
+        specifier: workspace:*
+        version: link:../angular-payment
       '@refraction-ui/angular-popover':
         specifier: workspace:*
         version: link:../angular-popover
@@ -509,6 +512,18 @@ importers:
         specifier: workspace:*
         version: link:../pagination
     devDependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/angular-payment:
+    dependencies:
+      '@angular/core':
+        specifier: ^16.0.0 || ^17.0.0 || ^18.0.0
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+      '@refraction-ui/payment':
+        specifier: workspace:*
+        version: link:../payment
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -1173,6 +1188,9 @@ importers:
       '@refraction-ui/astro-pagination':
         specifier: workspace:*
         version: link:../astro-pagination
+      '@refraction-ui/astro-payment':
+        specifier: workspace:*
+        version: link:../astro-payment
       '@refraction-ui/astro-skip-to-content':
         specifier: workspace:*
         version: link:../astro-skip-to-content
@@ -1417,6 +1435,18 @@ importers:
       '@refraction-ui/pagination':
         specifier: workspace:*
         version: link:../pagination
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: '>=4.0.0'
+        version: 6.1.5(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.45.1)(typescript@5.8.3)
+
+  packages/astro-payment:
+    dependencies:
+      '@refraction-ui/payment':
+        specifier: workspace:*
+        version: link:../payment
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -2019,6 +2049,12 @@ importers:
         version: link:../shared
 
   packages/pagination:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/payment:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -3012,6 +3048,9 @@ importers:
       '@refraction-ui/react-pagination':
         specifier: workspace:*
         version: link:../react-pagination
+      '@refraction-ui/react-payment':
+        specifier: workspace:*
+        version: link:../react-payment
       '@refraction-ui/react-skip-to-content':
         specifier: workspace:*
         version: link:../react-skip-to-content
@@ -3302,6 +3341,34 @@ importers:
         specifier: workspace:*
         version: link:../shared
     devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+
+  packages/react-payment:
+    dependencies:
+      '@refraction-ui/payment':
+        specifier: workspace:*
+        version: link:../payment
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@stripe/react-stripe-js':
+        specifier: ^3.0.0
+        version: 3.10.0(@stripe/stripe-js@5.10.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@stripe/stripe-js':
+        specifier: ^5.0.0
+        version: 5.10.0
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.14
@@ -4100,6 +4167,9 @@ importers:
       '@refraction-ui/vue-pagination':
         specifier: workspace:*
         version: link:../vue-pagination
+      '@refraction-ui/vue-payment':
+        specifier: workspace:*
+        version: link:../vue-payment
       '@refraction-ui/vue-skip-to-content':
         specifier: workspace:*
         version: link:../vue-skip-to-content
@@ -4132,6 +4202,18 @@ importers:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
+
+  packages/vue-payment:
+    dependencies:
+      '@refraction-ui/payment':
+        specifier: workspace:*
+        version: link:../payment
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      vue:
+        specifier: ^3.0.0
+        version: 3.5.32(typescript@5.8.3)
 
   packages/vue-skip-to-content:
     dependencies:
@@ -5221,6 +5303,17 @@ packages:
 
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
+
+  '@stripe/react-stripe-js@3.10.0':
+    resolution: {integrity: sha512-UPqHZwMwDzGSax0ZI7XlxR3tZSpgIiZdk3CiwjbTK978phwR/fFXeAXQcN/h8wTAjR4ZIAzdlI9DbOqJhuJdeg==}
+    peerDependencies:
+      '@stripe/stripe-js': '>=1.44.1 <8.0.0'
+      react: '>=16.8.0 <20.0.0'
+      react-dom: '>=16.8.0 <20.0.0'
+
+  '@stripe/stripe-js@5.10.0':
+    resolution: {integrity: sha512-PTigkxMdMUP6B5ISS7jMqJAKhgrhZwjprDqR1eATtFfh0OpKVNp110xiH+goeVdrJ29/4LeZJR4FaHHWstsu0A==}
+    engines: {node: '>=12.16'}
 
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
@@ -6578,6 +6671,10 @@ packages:
   longest-streak@3.1.0:
     resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}
 
+  loose-envify@1.4.0:
+    resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
+    hasBin: true
+
   lost-pixel@3.22.0:
     resolution: {integrity: sha512-BS0kfcLUSjlMdXBKq5XYr2ejZcB8kvL42ANZ5nVH+AomeWIKaoco9UAZGH/UXHdWLVEpYwBfSJCvdbs67G+YrA==}
     engines: {node: '>=18'}
@@ -7145,6 +7242,9 @@ packages:
     resolution: {integrity: sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw==}
     engines: {node: '>=6'}
 
+  prop-types@15.8.1:
+    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
+
   property-information@7.1.0:
     resolution: {integrity: sha512-TwEZ+X+yCJmYfL7TPUOcvBZ4QfoT5YenQiJuX//0th53DE6w0xxLEtfK3iyryQFddXuvkIk51EEgrJQ0WJkOmQ==}
 
@@ -7172,6 +7272,9 @@ packages:
     resolution: {integrity: sha512-AXJdLo8kgMbimY95O2aKQqsz2iWi9jMgKJhRBAxECE4IFxfcazB2LmzloIoibJI3C12IlY20+KFaLv+71bUJeQ==}
     peerDependencies:
       react: ^19.2.4
+
+  react-is@16.13.1:
+    resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
   react@19.2.4:
     resolution: {integrity: sha512-9nfp2hYpCwOjAN+8TZFGhtWEwgvWHXqESH8qT89AT/lWklpLON22Lc8pEtnpsZz7VmawabSU0gCjnj8aC0euHQ==}
@@ -8845,6 +8948,15 @@ snapshots:
 
   '@shikijs/vscode-textmate@10.0.2': {}
 
+  '@stripe/react-stripe-js@3.10.0(@stripe/stripe-js@5.10.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@stripe/stripe-js': 5.10.0
+      prop-types: 15.8.1
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+
+  '@stripe/stripe-js@5.10.0': {}
+
   '@swc/helpers@0.5.15':
     dependencies:
       tslib: 2.8.1
@@ -10367,6 +10479,10 @@ snapshots:
 
   longest-streak@3.1.0: {}
 
+  loose-envify@1.4.0:
+    dependencies:
+      js-tokens: 4.0.0
+
   lost-pixel@3.22.0(@types/node@24.1.0)(playwright-core@1.59.1)(typescript@5.8.3):
     dependencies:
       '@types/xml2js': 0.4.14
@@ -11100,6 +11216,12 @@ snapshots:
 
   prismjs@1.30.0: {}
 
+  prop-types@15.8.1:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react-is: 16.13.1
+
   property-information@7.1.0: {}
 
   proxy-from-env@1.1.0: {}
@@ -11118,6 +11240,8 @@ snapshots:
     dependencies:
       react: 19.2.4
       scheduler: 0.27.0
+
+  react-is@16.13.1: {}
 
   react@19.2.4: {}
 
