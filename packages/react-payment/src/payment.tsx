@@ -2,7 +2,9 @@ import * as React from 'react';
 import { createPayment, type PaymentProps as CorePaymentProps } from '@refraction-ui/payment';
 import { cn } from '@refraction-ui/shared';
 
-export interface PaymentProps extends React.HTMLAttributes<HTMLDivElement>, CorePaymentProps {}
+export interface PaymentProps extends React.HTMLAttributes<HTMLDivElement>, CorePaymentProps {
+  disabled?: boolean;
+}
 
 export const Payment = React.forwardRef<HTMLDivElement, PaymentProps>(
   ({ className, disabled, ...props }, ref) => {
