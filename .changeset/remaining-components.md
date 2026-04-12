@@ -11,7 +11,6 @@
 "@refraction-ui/code-block": patch
 "@refraction-ui/link-card": patch
 "@refraction-ui/card-grid": patch
-"refraction-ui-docs": patch
 ---
 
 feat: add remaining requested components (Callout, Steps, FileTree, Icon System, SkipToContent, CodeBlock, LinkCard, CardGrid) across all supported frameworks

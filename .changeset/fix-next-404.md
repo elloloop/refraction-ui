@@ -1,5 +1,4 @@
 ---
-"refraction-ui-docs": patch
 "@refraction-ui/react": patch
 "@refraction-ui/react-accordion": patch
 ---
