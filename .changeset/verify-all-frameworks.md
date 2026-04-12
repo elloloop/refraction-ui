@@ -3,8 +3,6 @@
 "@refraction-ui/astro": patch
 "@refraction-ui/angular": patch
 "@refraction-ui/vue": patch
-"@refraction-ui/svelte": patch
-"@refraction-ui/solid": patch
 "@refraction-ui/shared": patch
 "@refraction-ui/tailwind-config": patch
 ---
