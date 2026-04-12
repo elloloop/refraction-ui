@@ -1,9 +1,9 @@
-import type { User, AuthState, AuthStatus, AuthConfig, AuthAdapter } from './types.js'
+import type { User, AuthState, AuthStatus, AuthConfig, AuthAdapter, OAuthProvider } from './types.js'
 
 export interface AuthAPI {
   getState(): AuthState
   signIn(email: string, password: string): Promise<User>
-  signInWithOAuth(provider: 'google' | 'github' | 'apple'): Promise<User>
+  signInWithOAuth(provider: OAuthProvider): Promise<User>
   signUp(email: string, password: string, displayName: string): Promise<User>
   signOut(): Promise<void>
   resetPassword(email: string): Promise<void>
@@ -14,7 +14,7 @@ export interface AuthAPI {
 
 export function createAuth(
   adapter: AuthAdapter,
-  config: AuthConfig = {},
+  config: Omit<AuthConfig, 'adapter'> = {},
 ): AuthAPI {
   const listeners = new Set<(state: AuthState) => void>()
   let state: AuthState = { user: null, status: 'loading' }

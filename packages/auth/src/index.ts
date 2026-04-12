@@ -4,7 +4,6 @@ export type {
   AuthStatus,
   OAuthProvider,
   AuthConfig,
-  AuthProviderType,
   AuthAdapter,
 } from './types.js'
 
@@ -20,5 +19,4 @@ export {
   getAssignableRoles,
 } from './rbac.js'
 
-export { resolveAdapter } from './adapters/resolve.js'
 export { createMockAdapter } from './adapters/mock.js'

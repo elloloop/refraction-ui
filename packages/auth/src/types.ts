@@ -16,11 +16,11 @@ export interface AuthState {
 }
 
 /** OAuth providers */
-export type OAuthProvider = 'google' | 'github' | 'apple'
+export type OAuthProvider = string
 
 /**
- * AuthAdapter — internal interface implemented by provider adapters.
- * Consumers never see this. It's used internally to abstract Firebase/Supabase/etc.
+ * AuthAdapter — interface implemented by provider adapters (e.g. Firebase, Supabase, Auth0).
+ * Consumers must provide an implementation of this adapter to the AuthProvider.
  */
 export interface AuthAdapter {
   signIn(email: string, password: string): Promise<User>
@@ -32,12 +32,9 @@ export interface AuthAdapter {
   onAuthStateChange(callback: (user: User | null) => void): () => void
 }
 
-/** Provider configuration — read from env or .refractionrc */
-export type AuthProviderType = 'firebase' | 'supabase' | 'mock' | 'none'
-
 export interface AuthConfig {
-  /** Explicit provider. If omitted, auto-detected from env vars. */
-  provider?: AuthProviderType
+  /** The adapter implementation for your specific auth provider (Supabase, Firebase, Auth0, Custom, etc.) */
+  adapter: AuthAdapter
   /** Token refresh interval in minutes. Default: 50 */
   tokenRefreshInterval?: number
   /** Enable E2E test mode with mock user */

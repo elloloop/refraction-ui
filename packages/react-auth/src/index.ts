@@ -13,7 +13,7 @@ export type {
   AuthStatus,
   OAuthProvider,
   AuthConfig,
-  AuthProviderType,
+  AuthAdapter,
 } from '@refraction-ui/auth'
 
 export {

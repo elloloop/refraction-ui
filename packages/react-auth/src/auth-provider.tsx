@@ -1,7 +1,6 @@
 import * as React from 'react'
 import {
   createAuth,
-  resolveAdapter,
   type AuthState,
   type AuthConfig,
   type AuthAPI,
@@ -29,10 +28,13 @@ export interface AuthProviderProps extends AuthConfig {
 
 /**
  * AuthProvider — wraps your app with auth context.
- * Zero config required. Provider auto-detected from env vars.
+ * You must provide an AuthAdapter implementation.
  *
  * ```tsx
- * <AuthProvider>
+ * import { AuthProvider } from '@refraction-ui/react-auth'
+ * import { myCustomAdapter } from './auth'
+ * 
+ * <AuthProvider adapter={myCustomAdapter}>
  *   <App />
  * </AuthProvider>
  * ```
@@ -41,8 +43,10 @@ export function AuthProvider({ children, ...config }: AuthProviderProps) {
   const authRef = React.useRef<AuthAPI | null>(null)
 
   if (!authRef.current) {
-    const adapter = resolveAdapter(config.provider)
-    authRef.current = createAuth(adapter, config)
+    if (!config.adapter) {
+      throw new Error('[refraction-ui/react-auth] You must provide an `adapter` to AuthProvider.')
+    }
+    authRef.current = createAuth(config.adapter, config)
   }
 
   const [state, setState] = React.useState<AuthState>(() => authRef.current!.getState())
