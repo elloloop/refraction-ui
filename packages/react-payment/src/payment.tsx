@@ -1,88 +1,86 @@
-import React from 'react';
-import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import { createPayment, type PaymentProps as CorePaymentProps, type PaymentProvider } from '@refraction-ui/payment';
+import * as React from 'react';
+import { createPayment, type PaymentProps as CorePaymentProps } from '@refraction-ui/payment';
+import { cn } from '@refraction-ui/shared';
 
-export interface PaymentProps extends CorePaymentProps {
-  provider?: PaymentProvider;
-  stripeKey?: string;
-  clientId?: string; // For PayPal or others
-  children?: React.ReactNode;
-}
-
-const StripeForm = () => {
-  const stripe = useStripe();
-  const elements = useElements();
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (!stripe || !elements) return;
-
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: { return_url: window.location.href },
-    });
-
-    if (error) console.error(error);
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <PaymentElement />
-      <button 
-        type="submit" 
-        disabled={!stripe} 
-        className="w-full rounded-md bg-zinc-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-zinc-800 disabled:opacity-50 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
-      >
-        Pay securely
-      </button>
-    </form>
-  );
-};
-
-const StripePayment = ({ stripeKey, clientSecret }: { stripeKey?: string; clientSecret?: string }) => {
-  const stripePromise = React.useMemo(() => stripeKey ? loadStripe(stripeKey) : null, [stripeKey]);
-
-  if (!stripePromise || !clientSecret) {
-    return <div className="p-4 text-sm text-destructive border border-destructive/20 rounded-md">Missing Stripe configuration (stripeKey or clientSecret).</div>;
-  }
-
-  return (
-    <Elements stripe={stripePromise} options={{ clientSecret }}>
-      <StripeForm />
-    </Elements>
-  );
-};
-
-const PaypalPayment = ({ clientId }: { clientId?: string }) => {
-  if (!clientId) {
-    return <div className="p-4 text-sm text-destructive border border-destructive/20 rounded-md">Missing PayPal configuration (clientId).</div>;
-  }
-  return (
-    <div className="flex flex-col gap-4 p-4 border rounded-md">
-      <p className="text-sm text-muted-foreground">PayPal integration placeholder. Render PayPal buttons here using your client ID: {clientId}</p>
-      <button className="w-full rounded-md bg-[#0070ba] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#005ea6]">
-        Pay with PayPal
-      </button>
-    </div>
-  );
-};
+export interface PaymentProps extends React.HTMLAttributes<HTMLDivElement>, CorePaymentProps {}
 
 export const Payment = React.forwardRef<HTMLDivElement, PaymentProps>(
-  ({ provider = 'stripe', stripeKey, clientSecret, clientId, children, ...props }, ref) => {
-    
-    // Core headless setup logic (e.g. data attributes, states)
-    const api = createPayment({ provider, clientSecret, clientId, ...props });
+  ({ className, disabled, ...props }, ref) => {
+    const api = createPayment({ disabled });
 
     return (
-      <div ref={ref} className="w-full max-w-md mx-auto" {...api.props}>
-        {provider === 'stripe' && <StripePayment stripeKey={stripeKey} clientSecret={clientSecret} />}
-        {provider === 'paypal' && <PaypalPayment clientId={clientId} />}
-        {provider === 'custom' && children}
-      </div>
+      <div
+        ref={ref}
+        className={cn(
+          "w-full max-w-md mx-auto p-6 border border-border rounded-xl bg-card text-card-foreground shadow-sm",
+          disabled && "opacity-50 pointer-events-none",
+          className
+        )}
+        {...api.props}
+        {...props}
+      />
     );
   }
 );
-
 Payment.displayName = 'Payment';
+
+export interface PaymentHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export const PaymentHeader = React.forwardRef<HTMLDivElement, PaymentHeaderProps>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn("mb-6 flex flex-col gap-1.5", className)} {...props} />
+  )
+);
+PaymentHeader.displayName = 'PaymentHeader';
+
+export interface PaymentTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
+
+export const PaymentTitle = React.forwardRef<HTMLHeadingElement, PaymentTitleProps>(
+  ({ className, ...props }, ref) => (
+    <h3 ref={ref} className={cn("text-xl font-semibold leading-none tracking-tight", className)} {...props} />
+  )
+);
+PaymentTitle.displayName = 'PaymentTitle';
+
+export interface PaymentDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {}
+
+export const PaymentDescription = React.forwardRef<HTMLParagraphElement, PaymentDescriptionProps>(
+  ({ className, ...props }, ref) => (
+    <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
+  )
+);
+PaymentDescription.displayName = 'PaymentDescription';
+
+export interface PaymentContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export const PaymentContent = React.forwardRef<HTMLDivElement, PaymentContentProps>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn("flex flex-col gap-4", className)} {...props} />
+  )
+);
+PaymentContent.displayName = 'PaymentContent';
+
+export interface PaymentFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export const PaymentFooter = React.forwardRef<HTMLDivElement, PaymentFooterProps>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn("mt-6 flex flex-col gap-3", className)} {...props} />
+  )
+);
+PaymentFooter.displayName = 'PaymentFooter';
+
+export interface PaymentButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+
+export const PaymentButton = React.forwardRef<HTMLButtonElement, PaymentButtonProps>(
+  ({ className, ...props }, ref) => (
+    <button
+      ref={ref}
+      className={cn(
+        "inline-flex w-full items-center justify-center whitespace-nowrap rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+        className
+      )}
+      {...props}
+    />
+  )
+);
+PaymentButton.displayName = 'PaymentButton';

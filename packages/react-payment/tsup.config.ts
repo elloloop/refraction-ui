@@ -7,5 +7,5 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   treeshake: true,
-  external: ["react", "react-dom", "@stripe/react-stripe-js", "@stripe/stripe-js"]
+  external: ["react", "react-dom"]
 })
