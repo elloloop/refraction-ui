@@ -1,0 +1,23 @@
+{
+  "name": "@refraction-ui/angular-progress-display",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@refraction-ui/progress-display": "workspace:*"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "sideEffects": false,
+  "license": "MIT"
+}

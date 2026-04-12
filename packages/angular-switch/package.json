@@ -1,0 +1,13 @@
+{
+  "name": "@refraction-ui/angular-switch",
+  "private": true,
+  "version": "0.1.1",
+  "type": "module",
+  "main": "./src/index.ts",
+  "dependencies": {
+    "@refraction-ui/switch": "workspace:*"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=18.0.0"
+  }
+}

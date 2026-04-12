@@ -30,7 +30,7 @@ export default function RichEditorPage() {
       <div className="h-px bg-border" />
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Package</h2>
-        <CodeBlock code={usageCode} />
+        <CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: '<!-- Angular implementation pending -->', vue: '<!-- Vue implementation pending -->' }} />
       </section>
     </div>
   )

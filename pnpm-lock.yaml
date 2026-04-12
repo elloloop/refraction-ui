@@ -253,15 +253,242 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/angular-accordion:
+    dependencies:
+      '@angular/core':
+        specifier: '>=18.0.0'
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+      '@refraction-ui/accordion':
+        specifier: workspace:*
+        version: link:../accordion
+    devDependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/angular-avatar:
+    dependencies:
+      '@angular/common':
+        specifier: ^16.0.0 || ^17.0.0 || ^18.0.0
+        version: 18.2.14(@angular/core@18.2.14(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: ^16.0.0 || ^17.0.0 || ^18.0.0
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+      '@refraction-ui/avatar':
+        specifier: workspace:*
+        version: link:../avatar
+
+  packages/angular-badge:
+    dependencies:
+      '@angular/core':
+        specifier: ^16.0.0 || ^17.0.0 || ^18.0.0
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+      '@refraction-ui/badge':
+        specifier: workspace:*
+        version: link:../badge
+
+  packages/angular-breadcrumbs:
+    dependencies:
+      '@angular/core':
+        specifier: '>=18.0.0'
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+      '@refraction-ui/breadcrumbs':
+        specifier: workspace:*
+        version: link:../breadcrumbs
+    devDependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/angular-button:
+    dependencies:
+      '@angular/core':
+        specifier: ^16.0.0 || ^17.0.0 || ^18.0.0
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+      '@refraction-ui/button':
+        specifier: workspace:*
+        version: link:../button
+
+  packages/angular-card:
+    dependencies:
+      '@angular/core':
+        specifier: ^16.0.0 || ^17.0.0 || ^18.0.0
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+      '@refraction-ui/card':
+        specifier: workspace:*
+        version: link:../card
+
+  packages/angular-checkbox:
+    dependencies:
+      '@angular/core':
+        specifier: '>=18.0.0'
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+      '@refraction-ui/checkbox':
+        specifier: workspace:*
+        version: link:../checkbox
+
+  packages/angular-dialog:
+    dependencies:
+      '@refraction-ui/dialog':
+        specifier: workspace:*
+        version: link:../dialog
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/core':
+        specifier: ^18.0.0
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+
+  packages/angular-input:
+    dependencies:
+      '@angular/core':
+        specifier: '>=18.0.0'
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+      '@refraction-ui/input':
+        specifier: workspace:*
+        version: link:../input
+
   packages/angular-meta:
     dependencies:
       '@angular/core':
         specifier: '>=18.0.0'
         version: 21.2.8(rxjs@7.8.2)
+      '@refraction-ui/angular-accordion':
+        specifier: workspace:*
+        version: link:../angular-accordion
+      '@refraction-ui/angular-avatar':
+        specifier: workspace:*
+        version: link:../angular-avatar
+      '@refraction-ui/angular-badge':
+        specifier: workspace:*
+        version: link:../angular-badge
+      '@refraction-ui/angular-breadcrumbs':
+        specifier: workspace:*
+        version: link:../angular-breadcrumbs
+      '@refraction-ui/angular-button':
+        specifier: workspace:*
+        version: link:../angular-button
+      '@refraction-ui/angular-card':
+        specifier: workspace:*
+        version: link:../angular-card
+      '@refraction-ui/angular-checkbox':
+        specifier: workspace:*
+        version: link:../angular-checkbox
+      '@refraction-ui/angular-dialog':
+        specifier: workspace:*
+        version: link:../angular-dialog
+      '@refraction-ui/angular-input':
+        specifier: workspace:*
+        version: link:../angular-input
+      '@refraction-ui/angular-popover':
+        specifier: workspace:*
+        version: link:../angular-popover
+      '@refraction-ui/angular-progress-display':
+        specifier: workspace:*
+        version: link:../angular-progress-display
+      '@refraction-ui/angular-skeleton':
+        specifier: workspace:*
+        version: link:../angular-skeleton
+      '@refraction-ui/angular-switch':
+        specifier: workspace:*
+        version: link:../angular-switch
+      '@refraction-ui/angular-tabs':
+        specifier: workspace:*
+        version: link:../angular-tabs
+      '@refraction-ui/angular-textarea':
+        specifier: workspace:*
+        version: link:../angular-textarea
+      '@refraction-ui/angular-tooltip':
+        specifier: workspace:*
+        version: link:../angular-tooltip
     devDependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
+
+  packages/angular-popover:
+    dependencies:
+      '@refraction-ui/popover':
+        specifier: workspace:*
+        version: link:../popover
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/core':
+        specifier: ^18.0.0
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+
+  packages/angular-progress-display:
+    dependencies:
+      '@angular/core':
+        specifier: '>=18.0.0'
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+      '@refraction-ui/progress-display':
+        specifier: workspace:*
+        version: link:../progress-display
+    devDependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/angular-skeleton:
+    dependencies:
+      '@angular/core':
+        specifier: '>=18.0.0'
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+      '@refraction-ui/skeleton':
+        specifier: workspace:*
+        version: link:../skeleton
+    devDependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/angular-switch:
+    dependencies:
+      '@angular/core':
+        specifier: '>=18.0.0'
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+      '@refraction-ui/switch':
+        specifier: workspace:*
+        version: link:../switch
+
+  packages/angular-tabs:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/tabs':
+        specifier: workspace:*
+        version: link:../tabs
+    devDependencies:
+      '@angular/core':
+        specifier: ^18.0.0
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+
+  packages/angular-textarea:
+    dependencies:
+      '@angular/core':
+        specifier: '>=18.0.0'
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+      '@refraction-ui/textarea':
+        specifier: workspace:*
+        version: link:../textarea
+
+  packages/angular-tooltip:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/tooltip':
+        specifier: workspace:*
+        version: link:../tooltip
+    devDependencies:
+      '@angular/core':
+        specifier: ^18.0.0
+        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
 
   packages/animated-text:
     dependencies:
@@ -3158,6 +3385,20 @@ packages:
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
+
+  '@angular/common@18.2.14':
+    resolution: {integrity: sha512-ZPRswzaVRiqcfZoowuAM22Hr2/z10ajWOUoFDoQ9tWqz/fH/773kJv2F9VvePIekgNPCzaizqv9gF6tGNqaAwg==}
+    engines: {node: ^18.19.1 || ^20.11.1 || >=22.0.0}
+    peerDependencies:
+      '@angular/core': 18.2.14
+      rxjs: ^6.5.3 || ^7.4.0
+
+  '@angular/core@18.2.14':
+    resolution: {integrity: sha512-BIPrCs93ZZTY9ym7yfoTgAQ5rs706yoYeAdrgc8kh/bDbM9DawxKlgeKBx2FLt09Y0YQ1bFhKVp0cV4gDEaMxQ==}
+    engines: {node: ^18.19.1 || ^20.11.1 || >=22.0.0}
+    peerDependencies:
+      rxjs: ^6.5.3 || ^7.4.0
+      zone.js: ~0.14.10
 
   '@angular/core@21.2.8':
     resolution: {integrity: sha512-hI7n4t8qgFJaVV55LIaNuzcdP+/IeuqQRu3huSLo47Gf6uZAD0Acj4Ye9SC8YNmhUu5/RiImngm9NOlcI2oCJA==}
@@ -6934,6 +7175,9 @@ packages:
   zod@4.3.6:
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
 
+  zone.js@0.14.10:
+    resolution: {integrity: sha512-YGAhaO7J5ywOXW6InXNlLmfU194F8lVgu7bRntUF3TiG8Y3nBK0x1UJJuHUP/e8IyihkjCYqhCScpSwnlaSRkQ==}
+
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
@@ -6945,6 +7189,18 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.12
       '@jridgewell/trace-mapping': 0.3.29
+
+  '@angular/common@18.2.14(@angular/core@18.2.14(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)':
+    dependencies:
+      '@angular/core': 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
+      rxjs: 7.8.2
+      tslib: 2.8.1
+
+  '@angular/core@18.2.14(rxjs@7.8.2)(zone.js@0.14.10)':
+    dependencies:
+      rxjs: 7.8.2
+      tslib: 2.8.1
+      zone.js: 0.14.10
 
   '@angular/core@21.2.8(rxjs@7.8.2)':
     dependencies:
@@ -10875,5 +11131,7 @@ snapshots:
   zod@3.23.8: {}
 
   zod@4.3.6: {}
+
+  zone.js@0.14.10: {}
 
   zwitch@2.0.4: {}

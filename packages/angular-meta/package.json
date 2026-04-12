@@ -9,7 +9,24 @@
   "files": [
     "src"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "@refraction-ui/angular-accordion": "workspace:*",
+    "@refraction-ui/angular-avatar": "workspace:*",
+    "@refraction-ui/angular-badge": "workspace:*",
+    "@refraction-ui/angular-breadcrumbs": "workspace:*",
+    "@refraction-ui/angular-button": "workspace:*",
+    "@refraction-ui/angular-card": "workspace:*",
+    "@refraction-ui/angular-checkbox": "workspace:*",
+    "@refraction-ui/angular-dialog": "workspace:*",
+    "@refraction-ui/angular-input": "workspace:*",
+    "@refraction-ui/angular-popover": "workspace:*",
+    "@refraction-ui/angular-progress-display": "workspace:*",
+    "@refraction-ui/angular-skeleton": "workspace:*",
+    "@refraction-ui/angular-switch": "workspace:*",
+    "@refraction-ui/angular-tabs": "workspace:*",
+    "@refraction-ui/angular-textarea": "workspace:*",
+    "@refraction-ui/angular-tooltip": "workspace:*"
+  },
   "peerDependencies": {
     "@angular/core": ">=18.0.0"
   },
