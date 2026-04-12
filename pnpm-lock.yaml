@@ -2364,11 +2364,18 @@ importers:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
       react:
-        specifier: '>=18'
+        specifier: ^19.0.0
         version: 19.2.4
       react-dom:
-        specifier: '>=18'
+        specifier: ^19.0.0
         version: 19.2.4(react@19.2.4)
 
   packages/react-carousel:
@@ -2726,7 +2733,20 @@ importers:
         specifier: ^19.0.0
         version: 19.2.4(react@19.2.4)
 
-  packages/react-file-tree: {}
+  packages/react-file-tree:
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
 
   packages/react-file-upload:
     dependencies:
@@ -2772,7 +2792,20 @@ importers:
         specifier: ^19.0.0
         version: 19.2.4(react@19.2.4)
 
-  packages/react-icon-system: {}
+  packages/react-icon-system:
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
 
   packages/react-inline-editor:
     dependencies:
@@ -2914,11 +2947,18 @@ importers:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.3(@types/react@19.2.14)
       react:
-        specifier: '>=18'
+        specifier: ^19.0.0
         version: 19.2.4
       react-dom:
-        specifier: '>=18'
+        specifier: ^19.0.0
         version: 19.2.4(react@19.2.4)
 
   packages/react-markdown-renderer:
