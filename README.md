@@ -8,8 +8,12 @@ A headless core UI library with framework-specific wrappers. Zero external runti
 - **Astro** (`@refraction-ui/astro`) - ✅ Fully Supported
 - **Angular** (`@refraction-ui/angular`) - 🚧 *Planned / Work in Progress*
 - **Vue** (`@refraction-ui/vue`) - 🚧 *Planned / Work in Progress*
-- **Svelte** (`@refraction-ui/svelte`) - 🚧 *Planned / Work in Progress*
-- **Solid** (`@refraction-ui/solid`) - 🚧 *Planned / Work in Progress*
+
+## Community Help Wanted
+
+We'd love to see Refraction UI support the following frameworks! If you're interested in building the wrappers for these, please open an issue or PR:
+- **Svelte** (`@refraction-ui/svelte`)
+- **Solid** (`@refraction-ui/solid`)
 
 ## Components
 

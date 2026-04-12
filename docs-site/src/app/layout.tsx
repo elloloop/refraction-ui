@@ -1,14 +1,8 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
 import { ConditionalSidebar } from '@/components/conditional-sidebar'
 import { MainContent } from '@/components/conditional-layout'
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
-})
 
 export const metadata: Metadata = {
   title: 'Refraction UI - Component Documentation',
@@ -41,7 +35,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`font-sans antialiased`}>
         <Providers>
           <div className="flex min-h-screen">
             <ConditionalSidebar />
@@ -54,3 +48,4 @@ export default function RootLayout({
     </html>
   )
 }
+

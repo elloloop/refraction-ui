@@ -3075,28 +3075,8 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
-  packages/solid-meta:
-    dependencies:
-      solid-js:
-        specifier: '>=1.0.0'
-        version: 1.9.12
-    devDependencies:
-      '@refraction-ui/shared':
-        specifier: workspace:*
-        version: link:../shared
-
   packages/status-indicator:
     dependencies:
-      '@refraction-ui/shared':
-        specifier: workspace:*
-        version: link:../shared
-
-  packages/svelte-meta:
-    dependencies:
-      svelte:
-        specifier: '>=4.0.0'
-        version: 5.55.3(@typescript-eslint/types@8.38.0)
-    devDependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -4205,11 +4185,6 @@ packages:
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
 
-  '@sveltejs/acorn-typescript@1.0.9':
-    resolution: {integrity: sha512-lVJX6qEgs/4DOcRTpo56tmKzVPtoWAaVbL4hfO7t7NVwl9AAXzQR6cihesW1BmNMPl+bK6dreu2sOKBP2Q9CIA==}
-    peerDependencies:
-      acorn: ^8.9.0
-
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
 
@@ -4558,10 +4533,6 @@ packages:
 
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
-
-  aria-query@5.3.1:
-    resolution: {integrity: sha512-Z/ZeOgVl7bcSYZ/u/rh0fOpvEpq//LZmdbkXyc7syVzjPAhfOa9ebsdTSjEBDU4vs5nC98Kfduj1uFo0qyET3g==}
-    engines: {node: '>= 0.4'}
 
   aria-query@5.3.2:
     resolution: {integrity: sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==}
@@ -5016,9 +4987,6 @@ packages:
     deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
 
-  esm-env@1.2.2:
-    resolution: {integrity: sha512-Epxrv+Nr/CaL4ZcFGPJIYLWFom+YeV1DqMLHJoEd9SYRxNbaFruBwfEX/kkHUJf55j2+TUbmDcmuilbP1TmXHA==}
-
   espree@9.6.1:
     resolution: {integrity: sha512-oruZaFkjorTpF32kDSI5/75ViwGeZginGGy2NoOSg3Q9bnwlnmDm4HLnkl0RE3n+njDXR037aY1+x58Z/zFdwQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -5031,14 +4999,6 @@ packages:
   esquery@1.6.0:
     resolution: {integrity: sha512-ca9pw9fomFcKPvFLXhBKUK90ZvGibiGOvRJNbjljY7s7uq/5YO4BOzcYtJqExdx99rF6aAcnRxHmcUHcz6sQsg==}
     engines: {node: '>=0.10'}
-
-  esrap@2.2.5:
-    resolution: {integrity: sha512-/yLB1538mag+dn0wsePTe8C0rDIjUOaJpMs2McodSzmM2msWcZsBSdRtg6HOBt0A/r82BN+Md3pgwSc/uWt2Ig==}
-    peerDependencies:
-      '@typescript-eslint/types': ^8.2.0
-    peerDependenciesMeta:
-      '@typescript-eslint/types':
-        optional: true
 
   esrecurse@4.3.0:
     resolution: {integrity: sha512-KmfKL3b6G+RXvP8N1vr3Tq1kL/oCFgn2NYXEtqP8/L3pKapUA4G8cFVaoF3SU323CD4XypR/ffioHmkti6/Tag==}
@@ -5387,9 +5347,6 @@ packages:
     resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
     engines: {node: '>=12'}
 
-  is-reference@3.0.3:
-    resolution: {integrity: sha512-ixkJoqQvAP88E6wLydLGGqCJsrFUnqoH6HnaczB8XmDH1oaWU+xxdptvikTgaEhtZ53Ky6YXiBuUI2WXLMCwjw==}
-
   is-stream@2.0.1:
     resolution: {integrity: sha512-hFoiJiTl63nn+kstHGBtewWSKnQLpyb155KHheA1l39uvtO9nWIop1p3udqPcUd/xbF1VLMO4n7OI6p7RbngDg==}
     engines: {node: '>=8'}
@@ -5559,9 +5516,6 @@ packages:
   load-tsconfig@0.2.5:
     resolution: {integrity: sha512-IXO6OCs9yg8tMKzfPZ1YmheJbZCiEsnBdcB03l0OcfK9prKnJb96siuHCr5Fl37/yo9DnKU+TLpxzTUspw9shg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-
-  locate-character@3.0.0:
-    resolution: {integrity: sha512-SW13ws7BjaeJ6p7Q6CO2nchbYEc3X3J6WrmTTDto7yMPqVSZTUyY5Tjbid+Ab8gLnATtygYtiDIJGQRRn2ZOiA==}
 
   locate-path@5.0.0:
     resolution: {integrity: sha512-t7hw9pI+WvuwNJXwk5zVHpyhIqzg2qTlklJOf0mVxGSbe3Fp2VieZcduNYjaLDoy6p9uGpQEGWG87WpMKlNq8g==}
@@ -6313,16 +6267,6 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  seroval-plugins@1.5.2:
-    resolution: {integrity: sha512-qpY0Cl+fKYFn4GOf3cMiq6l72CpuVaawb6ILjubOQ+diJ54LfOWaSSPsaswN8DRPIPW4Yq+tE1k5aKd7ILyaFg==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      seroval: ^1.0
-
-  seroval@1.5.2:
-    resolution: {integrity: sha512-xcRN39BdsnO9Tf+VzsE7b3JyTJASItIV1FVFewJKCFcW4s4haIKS3e6vj8PGB9qBwC7tnuOywQMdv5N4qkzi7Q==}
-    engines: {node: '>=10'}
-
   serve-handler@6.1.6:
     resolution: {integrity: sha512-x5RL9Y2p5+Sh3D38Fh9i/iQ5ZK+e4xuXRd/pGbM4D13tgo/MGwbttUk8emytcr1YYzBYs+apnUngBDFYfpjPuQ==}
 
@@ -6367,9 +6311,6 @@ packages:
   smol-toml@1.6.1:
     resolution: {integrity: sha512-dWUG8F5sIIARXih1DTaQAX4SsiTXhInKf1buxdY9DIg4ZYPZK5nGM1VRIYmEbDbsHt7USo99xSLFu5Q1IqTmsg==}
     engines: {node: '>= 18'}
-
-  solid-js@1.9.12:
-    resolution: {integrity: sha512-QzKaSJq2/iDrWR1As6MHZQ8fQkdOBf8GReYb7L5iKwMGceg7HxDcaOHk0at66tNgn9U2U7dXo8ZZpLIAmGMzgw==}
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -6456,10 +6397,6 @@ packages:
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
-
-  svelte@5.55.3:
-    resolution: {integrity: sha512-dS1N+i3bA1v+c4UDb750MlN5vCO82G6vxh8HeTsPsTdJ1BLsN1zxSyDlIdBBqUjqZ/BxEwM8UrFf98aaoVnZFQ==}
-    engines: {node: '>=18'}
 
   svgo@4.0.1:
     resolution: {integrity: sha512-XDpWUOPC6FEibaLzjfe0ucaV0YrOjYotGJO1WpF0Zd+n6ZGEQUsSugaoLq9QkEZtAfQIxT42UChcssDVPP3+/w==}
@@ -6990,9 +6927,6 @@ packages:
   yocto-queue@1.2.2:
     resolution: {integrity: sha512-4LCcse/U2MHZ63HAJVE+v71o7yOdIe4cZ70Wpf8D/IyjDKYQLV5GD46B+hSTjJsvV5PztjvHoU580EftxjDZFQ==}
     engines: {node: '>=12.20'}
-
-  zimmerframe@1.1.4:
-    resolution: {integrity: sha512-B58NGBEoc8Y9MWWCQGl/gq9xBCe4IiKM0a2x7GZdQKOW5Exr8S1W24J6OgM1njK8xCRGvAJIL/MxXHf6SkmQKQ==}
 
   zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
@@ -7859,10 +7793,6 @@ snapshots:
 
   '@shikijs/vscode-textmate@10.0.2': {}
 
-  '@sveltejs/acorn-typescript@1.0.9(acorn@8.16.0)':
-    dependencies:
-      acorn: 8.16.0
-
   '@swc/helpers@0.5.15':
     dependencies:
       tslib: 2.8.1
@@ -7994,7 +7924,8 @@ snapshots:
     dependencies:
       csstype: 3.2.3
 
-  '@types/trusted-types@2.0.7': {}
+  '@types/trusted-types@2.0.7':
+    optional: true
 
   '@types/unist@3.0.3': {}
 
@@ -8259,8 +8190,6 @@ snapshots:
       sprintf-js: 1.0.3
 
   argparse@2.0.1: {}
-
-  aria-query@5.3.1: {}
 
   aria-query@5.3.2: {}
 
@@ -8835,8 +8764,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  esm-env@1.2.2: {}
-
   espree@9.6.1:
     dependencies:
       acorn: 8.15.0
@@ -8848,12 +8775,6 @@ snapshots:
   esquery@1.6.0:
     dependencies:
       estraverse: 5.3.0
-
-  esrap@2.2.5(@typescript-eslint/types@8.38.0):
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.5
-    optionalDependencies:
-      '@typescript-eslint/types': 8.38.0
 
   esrecurse@4.3.0:
     dependencies:
@@ -9234,10 +9155,6 @@ snapshots:
 
   is-plain-obj@4.1.0: {}
 
-  is-reference@3.0.3:
-    dependencies:
-      '@types/estree': 1.0.8
-
   is-stream@2.0.1: {}
 
   is-subdir@1.2.0:
@@ -9379,8 +9296,6 @@ snapshots:
   lines-and-columns@1.2.4: {}
 
   load-tsconfig@0.2.5: {}
-
-  locate-character@3.0.0: {}
 
   locate-path@5.0.0:
     dependencies:
@@ -10340,12 +10255,6 @@ snapshots:
 
   semver@7.7.4: {}
 
-  seroval-plugins@1.5.2(seroval@1.5.2):
-    dependencies:
-      seroval: 1.5.2
-
-  seroval@1.5.2: {}
-
   serve-handler@6.1.6:
     dependencies:
       bytes: 3.0.0
@@ -10423,12 +10332,6 @@ snapshots:
 
   smol-toml@1.6.1: {}
 
-  solid-js@1.9.12:
-    dependencies:
-      csstype: 3.2.3
-      seroval: 1.5.2
-      seroval-plugins: 1.5.2(seroval@1.5.2)
-
   source-map-js@1.2.1: {}
 
   source-map@0.7.6: {}
@@ -10503,27 +10406,6 @@ snapshots:
       has-flag: 4.0.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
-
-  svelte@5.55.3(@typescript-eslint/types@8.38.0):
-    dependencies:
-      '@jridgewell/remapping': 2.3.5
-      '@jridgewell/sourcemap-codec': 1.5.5
-      '@sveltejs/acorn-typescript': 1.0.9(acorn@8.16.0)
-      '@types/estree': 1.0.8
-      '@types/trusted-types': 2.0.7
-      acorn: 8.16.0
-      aria-query: 5.3.1
-      axobject-query: 4.1.0
-      clsx: 2.1.1
-      devalue: 5.7.1
-      esm-env: 1.2.2
-      esrap: 2.2.5(@typescript-eslint/types@8.38.0)
-      is-reference: 3.0.3
-      locate-character: 3.0.0
-      magic-string: 0.30.21
-      zimmerframe: 1.1.4
-    transitivePeerDependencies:
-      - '@typescript-eslint/types'
 
   svgo@4.0.1:
     dependencies:
@@ -10989,8 +10871,6 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   yocto-queue@1.2.2: {}
-
-  zimmerframe@1.1.4: {}
 
   zod@3.23.8: {}
 
