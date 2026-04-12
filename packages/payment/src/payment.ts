@@ -1,5 +1,9 @@
+export type PaymentProvider = 'stripe' | 'paypal' | 'custom';
+
 export interface PaymentProps {
+  provider?: PaymentProvider;
   clientSecret?: string;
+  clientId?: string;
   amount?: number;
   currency?: string;
 }
