@@ -37,3 +37,7 @@ export * from '@refraction-ui/angular-code-block'
 export * from '@refraction-ui/angular-link-card'
 export * from '@refraction-ui/angular-card-grid'
 
+
+export * from '@refraction-ui/angular-payment'
+
+

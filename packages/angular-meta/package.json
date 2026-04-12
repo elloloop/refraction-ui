@@ -37,7 +37,8 @@
     "@refraction-ui/angular-skip-to-content": "workspace:*",
     "@refraction-ui/angular-code-block": "workspace:*",
     "@refraction-ui/angular-link-card": "workspace:*",
-    "@refraction-ui/angular-card-grid": "workspace:*"
+    "@refraction-ui/angular-card-grid": "workspace:*",
+    "@refraction-ui/angular-payment": "workspace:*"
   },
   "peerDependencies": {
     "@angular/core": ">=18.0.0"
