@@ -1,0 +1,17 @@
+---
+import { createLinkCard } from '@refraction-ui/link-card'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.AnchorHTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+const api = createLinkCard(props as any)
+---
+
+<a
+  class={cn(className)}
+  {...api.dataAttributes}
+  {...props}
+>
+  <slot />
+</a>

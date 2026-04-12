@@ -29,7 +29,15 @@
     "@refraction-ui/angular-table-of-contents": "workspace:*",
     "@refraction-ui/angular-carousel": "workspace:*",
     "@refraction-ui/angular-slider": "workspace:*",
-    "@refraction-ui/angular-pagination": "workspace:*"
+    "@refraction-ui/angular-pagination": "workspace:*",
+    "@refraction-ui/angular-callout": "workspace:*",
+    "@refraction-ui/angular-steps": "workspace:*",
+    "@refraction-ui/angular-file-tree": "workspace:*",
+    "@refraction-ui/angular-icon-system": "workspace:*",
+    "@refraction-ui/angular-skip-to-content": "workspace:*",
+    "@refraction-ui/angular-code-block": "workspace:*",
+    "@refraction-ui/angular-link-card": "workspace:*",
+    "@refraction-ui/angular-card-grid": "workspace:*"
   },
   "peerDependencies": {
     "@angular/core": ">=18.0.0"

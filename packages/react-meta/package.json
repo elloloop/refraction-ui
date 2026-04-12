@@ -120,6 +120,14 @@
     "@refraction-ui/react-table-of-contents": "workspace:*",
     "@refraction-ui/react-carousel": "workspace:*",
     "@refraction-ui/react-slider": "workspace:*",
-    "@refraction-ui/react-pagination": "workspace:*"
+    "@refraction-ui/react-pagination": "workspace:*",
+    "@refraction-ui/react-callout": "workspace:*",
+    "@refraction-ui/react-steps": "workspace:*",
+    "@refraction-ui/react-file-tree": "workspace:*",
+    "@refraction-ui/react-icon-system": "workspace:*",
+    "@refraction-ui/react-skip-to-content": "workspace:*",
+    "@refraction-ui/react-code-block": "workspace:*",
+    "@refraction-ui/react-link-card": "workspace:*",
+    "@refraction-ui/react-card-grid": "workspace:*"
   }
 }

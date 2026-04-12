@@ -91,6 +91,14 @@
     "@refraction-ui/astro-table-of-contents": "workspace:*",
     "@refraction-ui/astro-carousel": "workspace:*",
     "@refraction-ui/astro-slider": "workspace:*",
-    "@refraction-ui/astro-pagination": "workspace:*"
+    "@refraction-ui/astro-pagination": "workspace:*",
+    "@refraction-ui/astro-callout": "workspace:*",
+    "@refraction-ui/astro-steps": "workspace:*",
+    "@refraction-ui/astro-file-tree": "workspace:*",
+    "@refraction-ui/astro-icon-system": "workspace:*",
+    "@refraction-ui/astro-skip-to-content": "workspace:*",
+    "@refraction-ui/astro-code-block": "workspace:*",
+    "@refraction-ui/astro-link-card": "workspace:*",
+    "@refraction-ui/astro-card-grid": "workspace:*"
   }
 }

@@ -1,7 +1,20 @@
 const fs = require('fs');
 const path = require('path');
 
-const newComponents = ['table-of-contents', 'carousel', 'slider', 'pagination'];
+const newComponents = [
+  'table-of-contents',
+  'carousel',
+  'slider',
+  'pagination',
+  'callout',
+  'steps',
+  'file-tree',
+  'icon-system',
+  'skip-to-content',
+  'code-block',
+  'link-card',
+  'card-grid'
+];
 const frameworks = ['react', 'astro', 'angular', 'vue'];
 
 frameworks.forEach(fw => {

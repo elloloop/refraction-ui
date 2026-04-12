@@ -1,0 +1,13 @@
+{
+  "name": "@refraction-ui/vue-code-block",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@refraction-ui/code-block": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": ">=3.0.0"
+  }
+}

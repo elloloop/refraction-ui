@@ -13,7 +13,15 @@
     "@refraction-ui/vue-table-of-contents": "workspace:*",
     "@refraction-ui/vue-carousel": "workspace:*",
     "@refraction-ui/vue-slider": "workspace:*",
-    "@refraction-ui/vue-pagination": "workspace:*"
+    "@refraction-ui/vue-pagination": "workspace:*",
+    "@refraction-ui/vue-callout": "workspace:*",
+    "@refraction-ui/vue-steps": "workspace:*",
+    "@refraction-ui/vue-file-tree": "workspace:*",
+    "@refraction-ui/vue-icon-system": "workspace:*",
+    "@refraction-ui/vue-skip-to-content": "workspace:*",
+    "@refraction-ui/vue-code-block": "workspace:*",
+    "@refraction-ui/vue-link-card": "workspace:*",
+    "@refraction-ui/vue-card-grid": "workspace:*"
   },
   "peerDependencies": {
     "vue": ">=3.0.0"

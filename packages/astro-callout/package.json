@@ -1,0 +1,19 @@
+{
+  "name": "@refraction-ui/astro-callout",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": ["src"],
+  "dependencies": {
+    "@refraction-ui/callout": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "astro": ">=4.0.0"
+  },
+  "sideEffects": false,
+  "license": "MIT"
+}

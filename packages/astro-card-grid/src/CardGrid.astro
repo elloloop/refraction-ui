@@ -1,0 +1,17 @@
+---
+import { createCardGrid } from '@refraction-ui/card-grid'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+const api = createCardGrid(props as any)
+---
+
+<div
+  class={cn(className)}
+  {...api.dataAttributes}
+  {...props}
+>
+  <slot />
+</div>
