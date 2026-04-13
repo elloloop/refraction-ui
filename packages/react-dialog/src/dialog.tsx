@@ -97,12 +97,23 @@ export interface DialogTriggerProps extends React.ButtonHTMLAttributes<HTMLButto
 }
 
 export const DialogTrigger = React.forwardRef<HTMLButtonElement, DialogTriggerProps>(
-  ({ onClick, children, ...props }, ref) => {
+  ({ onClick, asChild, children, ...props }, ref) => {
     const { open, onOpenChange, contentId } = useDialogContext()
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       onOpenChange(!open)
       onClick?.(e)
+    }
+
+    if (asChild && React.isValidElement(children)) {
+      return React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
+        ref,
+        'aria-expanded': open,
+        'aria-controls': contentId,
+        'aria-haspopup': 'dialog',
+        onClick: handleClick,
+        ...props,
+      })
     }
 
     return React.createElement(
@@ -299,15 +310,25 @@ DialogDescription.displayName = 'DialogDescription'
 // DialogClose
 // ---------------------------------------------------------------------------
 
-export interface DialogCloseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export interface DialogCloseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  asChild?: boolean
+}
 
 export const DialogClose = React.forwardRef<HTMLButtonElement, DialogCloseProps>(
-  ({ onClick, children, ...props }, ref) => {
+  ({ onClick, asChild, children, ...props }, ref) => {
     const { onOpenChange } = useDialogContext()
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       onOpenChange(false)
       onClick?.(e)
+    }
+
+    if (asChild && React.isValidElement(children)) {
+      return React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
+        ref,
+        onClick: handleClick,
+        ...props,
+      })
     }
 
     return React.createElement(
