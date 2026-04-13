@@ -3,8 +3,6 @@
  * Creates variant-driven class name functions for components.
  */
 
-type ClassValue = string | undefined | null | false
-
 interface VariantConfig {
   [variant: string]: Record<string, string>
 }
