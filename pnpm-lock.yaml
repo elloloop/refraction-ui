@@ -278,6 +278,15 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/angular-animated-text:
+    dependencies:
+      '@angular/core':
+        specifier: ^19.2.16
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
+      '@refraction-ui/animated-text':
+        specifier: workspace:*
+        version: link:../animated-text
+
   packages/angular-avatar:
     dependencies:
       '@angular/common':
@@ -451,6 +460,9 @@ importers:
       '@refraction-ui/angular-accordion':
         specifier: workspace:*
         version: link:../angular-accordion
+      '@refraction-ui/angular-animated-text':
+        specifier: workspace:*
+        version: link:../angular-animated-text
       '@refraction-ui/angular-avatar':
         specifier: workspace:*
         version: link:../angular-avatar
