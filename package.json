@@ -34,5 +34,19 @@
   "packageManager": "pnpm@10.13.1",
   "engines": {
     "node": ">=20.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "form-data": "^4.0.4",
+      "axios": "^1.15.0",
+      "picomatch": "^4.0.4",
+      "glob": "^10.5.0",
+      "@angular/common": "^19.2.16",
+      "@angular/core": "^19.2.16",
+      "rollup": "^4.59.0",
+      "flatted": "^3.4.2",
+      "minimatch": "^9.0.7",
+      "eslint>minimatch": "^3.1.4"
+    }
   }
 }
