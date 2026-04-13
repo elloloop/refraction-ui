@@ -1,5 +1,11 @@
 # @refraction-ui/astro
 
+## 0.4.3
+
+### Patch Changes
+
+- d6c99d0: fix: force version bump to resolve npm registry canary conflict
+
 ## 0.4.2
 
 ### Patch Changes
