@@ -14,17 +14,31 @@ if (fs.existsSync(distDir)) {
 }
 fs.mkdirSync(distDir, { recursive: true });
 
-// 2. Read package.json to get dependencies
-const pkgJsonPath = path.join(__dirname, 'package.json');
-const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf-8'));
-const allDeps = { ...pkgJson.dependencies, ...pkgJson.devDependencies };
+// 2. Resolve all workspace dependencies recursively
+const workspaceDepsToCopy = new Set();
 
-const workspaceDeps = Object.keys(allDeps).filter(
-  (dep) => dep.startsWith('@refraction-ui/') && allDeps[dep].includes('workspace:')
-);
+function resolveWorkspaceDeps(pkgDir) {
+  const pkgJsonPath = path.join(pkgDir, 'package.json');
+  if (!fs.existsSync(pkgJsonPath)) return;
+  
+  const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf-8'));
+  const allDeps = { ...pkgJson.dependencies, ...pkgJson.devDependencies, ...pkgJson.peerDependencies };
+  
+  for (const dep of Object.keys(allDeps)) {
+    if (dep.startsWith('@refraction-ui/')) {
+      const folderName = dep.replace('@refraction-ui/', '');
+      if (!workspaceDepsToCopy.has(folderName)) {
+        workspaceDepsToCopy.add(folderName);
+        resolveWorkspaceDeps(path.join(rootPackagesDir, folderName));
+      }
+    }
+  }
+}
+
+resolveWorkspaceDeps(__dirname);
 
 // 3. Copy files for each workspace dependency
-const copiedPackages = [];
+const copiedPackages = Array.from(workspaceDepsToCopy);
 
 function copyDir(src, dest) {
   if (!fs.existsSync(src)) return;
@@ -43,14 +57,12 @@ function copyDir(src, dest) {
   }
 }
 
-for (const dep of workspaceDeps) {
-  const folderName = dep.replace('@refraction-ui/', '');
+for (const folderName of copiedPackages) {
   const srcPath = path.join(rootPackagesDir, folderName, 'src');
   const destPath = path.join(distDir, folderName);
 
   if (fs.existsSync(srcPath)) {
     copyDir(srcPath, destPath);
-    copiedPackages.push(folderName);
   }
 }
 
@@ -68,15 +80,24 @@ function rewriteImports(dir) {
       // Calculate relative depth to the base dist directory
       const relativeToDist = path.relative(path.dirname(fullPath), distDir);
       
+      // Rewrite static imports
       content = content.replace(/from\s+['"]@refraction-ui\/([^'"]+)['"]/g, (match, pkgName) => {
-        // Make sure the imported package is one of our copied packages
         if (copiedPackages.includes(pkgName)) {
-          // E.g. if we are in dist/astro-button/index.ts, relativeToDist is '..'
-          // We want to import from '../shared/index.ts'
           const relativeImportPath = relativeToDist === '' 
             ? `./${pkgName}/index.ts` 
             : `${relativeToDist}/${pkgName}/index.ts`;
           return `from '${relativeImportPath}'`;
+        }
+        return match;
+      });
+
+      // Rewrite dynamic imports
+      content = content.replace(/import\s*\(\s*['"]@refraction-ui\/([^'"]+)['"]\s*\)/g, (match, pkgName) => {
+        if (copiedPackages.includes(pkgName)) {
+          const relativeImportPath = relativeToDist === '' 
+            ? `./${pkgName}/index.ts` 
+            : `${relativeToDist}/${pkgName}/index.ts`;
+          return `import('${relativeImportPath}')`;
         }
         return match;
       });
@@ -91,11 +112,11 @@ rewriteImports(distDir);
 // 5. Generate index.ts for the meta-package
 let indexContent = '// Auto-generated meta-package index\n';
 for (const folderName of copiedPackages) {
-  // Only re-export astro-* components in the root index, not shared utils
+  // Only re-export astro-* components and core shared components directly expected by users
   if (folderName.startsWith('astro-') || folderName === 'shared') {
      indexContent += `export * from './${folderName}/index.ts';\n`;
   }
 }
 fs.writeFileSync(path.join(distDir, 'index.ts'), indexContent);
 
-console.log('Astro meta-package built successfully!');
+console.log('Astro meta-package built successfully. Copied packages:', copiedPackages.length);
