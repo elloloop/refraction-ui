@@ -1,5 +1,11 @@
 # @refraction-ui/angular
 
+## 0.3.3
+
+### Patch Changes
+
+- fix: direct version bump to bypass canary tag and publish to latest
+
 ## 0.3.2
 
 ### Patch Changes
