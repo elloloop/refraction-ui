@@ -1,7 +1,7 @@
 {
   "name": "@refraction-ui/vue-payment",
   "private": true,
-  "version": "0.1.2",
+  "version": "0.1.3",
   "dependencies": {
     "@refraction-ui/payment": "workspace:*",
     "@refraction-ui/shared": "workspace:*"

@@ -1,5 +1,16 @@
 # @refraction-ui/react-payment
 
+## 0.3.0
+
+### Minor Changes
+
+- 29a896e: feat(payment): extract standalone Payment UI components and narrow focus to Stripe implementation
+
+### Patch Changes
+
+- Updated dependencies [29a896e]
+  - @refraction-ui/payment@0.3.0
+
 ## 0.2.1
 
 ### Patch Changes

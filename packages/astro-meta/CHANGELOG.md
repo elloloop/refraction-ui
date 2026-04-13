@@ -1,5 +1,18 @@
 # @refraction-ui/astro
 
+## 0.4.0
+
+### Minor Changes
+
+- 29a896e: feat(command-input): add robust headless rich text command input primitive (like Slack/ChatGPT) for complex mentions and slashed commands
+- 29a896e: feat: add robust HTTP wrapper client with auth interceptors and type safety
+  feat: add location-selector component featuring independent, autocomplete-enabled Country and Language selection dropdowns (powered by core i18n logic)
+
+### Patch Changes
+
+- @refraction-ui/astro-command-input@0.1.1
+- @refraction-ui/astro-payment@0.1.3
+
 ## 0.3.1
 
 ### Patch Changes
