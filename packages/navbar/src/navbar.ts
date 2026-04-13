@@ -19,7 +19,7 @@ export interface NavbarAPI {
 }
 
 export function createNavbar(props: NavbarProps = {}): NavbarAPI {
-  const { links = [], currentPath = '/' } = props
+  const { currentPath = '/' } = props
 
   function isActive(href: string): boolean {
     if (href === '/') return currentPath === '/'

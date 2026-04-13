@@ -37,7 +37,7 @@ export interface TypewriterAPI {
 }
 
 export function createAnimatedText(props: AnimatedTextProps): AnimatedTextAPI {
-  const { words, interval: _interval = 2500, transitionDuration: _transitionDuration = 1000 } = props
+  const { words } = props
 
   const state: AnimatedTextState = {
     currentIndex: 0,
@@ -61,7 +61,7 @@ export function createAnimatedText(props: AnimatedTextProps): AnimatedTextAPI {
 }
 
 export function createTypewriter(props: TypewriterProps): TypewriterAPI {
-  const { text, speed: _speed = 50, startDelay: _startDelay = 0 } = props
+  const { text } = props
 
   const state: TypewriterState = {
     currentIndex: 0,
