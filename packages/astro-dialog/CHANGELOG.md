@@ -1,5 +1,12 @@
 # @refraction-ui/astro-dialog
 
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [f98992f]
+  - @refraction-ui/dialog@0.1.4
+
 ## 0.2.2
 
 ### Patch Changes
