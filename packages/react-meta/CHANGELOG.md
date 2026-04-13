@@ -1,5 +1,11 @@
 # @refraction-ui/react
 
+## 0.3.1
+
+### Patch Changes
+
+- a1bbf02: fix: move all internal workspace package references to devDependencies to prevent EUNSUPPORTEDPROTOCOL during npm install of meta-packages
+
 ## 0.3.0
 
 ### Minor Changes
