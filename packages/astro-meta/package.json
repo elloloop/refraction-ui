@@ -4,11 +4,14 @@
   "description": "All Refraction UI Astro components in one package",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./dist/index.ts"
   },
   "files": [
-    "src"
+    "dist"
   ],
+  "scripts": {
+    "build": "node build.mjs"
+  },
   "peerDependencies": {
     "astro": ">=4.0.0"
   },
