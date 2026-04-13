@@ -23,14 +23,6 @@ interface LanguageSelectorContextValue {
 
 const LanguageSelectorContext = React.createContext<LanguageSelectorContextValue | null>(null)
 
-function useLanguageSelectorContext(): LanguageSelectorContextValue {
-  const ctx = React.useContext(LanguageSelectorContext)
-  if (!ctx) {
-    throw new Error('LanguageSelector compound components must be used within <LanguageSelector>')
-  }
-  return ctx
-}
-
 /* ------------------------------------------------------------------ */
 /*  LanguageSelector (root component)                                  */
 /* ------------------------------------------------------------------ */
