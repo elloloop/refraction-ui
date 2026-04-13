@@ -1,0 +1,56 @@
+---
+import { createLocationSelector } from '@refraction-ui/location-selector'
+import { cn } from '@refraction-ui/shared'
+
+export interface Props {
+  defaultCountry?: string
+  defaultLanguage?: string
+  className?: string
+}
+
+const {
+  defaultCountry = 'US',
+  defaultLanguage = 'en',
+  className
+} = Astro.props
+
+const api = createLocationSelector({
+  defaultCountry,
+  defaultLanguage
+})
+---
+
+<div class={cn('flex flex-col gap-4 sm:flex-row', className)}>
+  <div class="flex flex-col gap-1.5 flex-1">
+    <label for={api.countryProps.id} class="text-sm font-medium">Country</label>
+    <select
+      id={api.countryProps.id}
+      name={api.countryProps.name}
+      class="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+    >
+      {api.countries.map((c: any) => {
+        const value = c.code || c.id || c;
+        const label = c.name || c.label || c;
+        return (
+          <option value={value} selected={value === defaultCountry}>{label}</option>
+        )
+      })}
+    </select>
+  </div>
+  <div class="flex flex-col gap-1.5 flex-1">
+    <label for={api.languageProps.id} class="text-sm font-medium">Language</label>
+    <select
+      id={api.languageProps.id}
+      name={api.languageProps.name}
+      class="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+    >
+      {api.languages.map((l: any) => {
+        const value = l.code || l.id || l;
+        const label = l.name || l.label || l;
+        return (
+          <option value={value} selected={value === defaultLanguage}>{label}</option>
+        )
+      })}
+    </select>
+  </div>
+</div>

@@ -100,6 +100,7 @@
     "@refraction-ui/astro-code-block": "workspace:*",
     "@refraction-ui/astro-link-card": "workspace:*",
     "@refraction-ui/astro-card-grid": "workspace:*",
-    "@refraction-ui/astro-payment": "workspace:*"
+    "@refraction-ui/astro-payment": "workspace:*",
+    "@refraction-ui/astro-command-input": "workspace:*"
   }
 }

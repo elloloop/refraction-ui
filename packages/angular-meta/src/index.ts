@@ -41,3 +41,5 @@ export * from '@refraction-ui/angular-card-grid'
 export * from '@refraction-ui/angular-payment'
 
 
+
+export * from '@refraction-ui/angular-command-input'

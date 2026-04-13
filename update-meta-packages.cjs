@@ -14,7 +14,8 @@ const newComponents = [
   'code-block',
   'link-card',
   'card-grid',
-  'payment'
+  'payment',
+  'command-input'
 ];
 const frameworks = ['react', 'astro', 'angular', 'vue'];
 

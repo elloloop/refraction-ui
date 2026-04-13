@@ -1,0 +1,19 @@
+{
+  "name": "@refraction-ui/astro-location-selector",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@refraction-ui/location-selector": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "astro": ">=4.0.0"
+  }
+}

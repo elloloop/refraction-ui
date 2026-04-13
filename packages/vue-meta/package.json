@@ -22,7 +22,8 @@
     "@refraction-ui/vue-code-block": "workspace:*",
     "@refraction-ui/vue-link-card": "workspace:*",
     "@refraction-ui/vue-card-grid": "workspace:*",
-    "@refraction-ui/vue-payment": "workspace:*"
+    "@refraction-ui/vue-payment": "workspace:*",
+    "@refraction-ui/vue-command-input": "workspace:*"
   },
   "peerDependencies": {
     "vue": ">=3.0.0"

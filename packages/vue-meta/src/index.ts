@@ -25,3 +25,5 @@ export * from '@refraction-ui/vue-card-grid'
 export * from '@refraction-ui/vue-payment'
 
 
+
+export * from '@refraction-ui/vue-command-input'

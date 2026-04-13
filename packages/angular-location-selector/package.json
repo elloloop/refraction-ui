@@ -1,0 +1,15 @@
+{
+  "name": "@refraction-ui/angular-location-selector",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "dependencies": {
+    "@refraction-ui/location-selector": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "@angular/core": "^16.0.0 || ^17.0.0 || ^18.0.0",
+    "@angular/common": "^16.0.0 || ^17.0.0 || ^18.0.0",
+    "@angular/forms": "^16.0.0 || ^17.0.0 || ^18.0.0"
+  }
+}

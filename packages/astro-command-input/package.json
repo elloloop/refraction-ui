@@ -1,0 +1,16 @@
+{
+  "name": "@refraction-ui/astro-command-input",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@refraction-ui/command-input": "workspace:*"
+  },
+  "scripts": {
+    "lint": "eslint src --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
