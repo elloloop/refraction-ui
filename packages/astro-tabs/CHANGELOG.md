@@ -1,5 +1,15 @@
 # @refraction-ui/astro-tabs
 
+## 0.2.1
+
+### Patch Changes
+
+- 33d3a5e: fix: resolve horizontal scrollbar/overflow issues on mobile viewports for DataTable, Tabs, and Breadcrumbs components
+- Updated dependencies [33d3a5e]
+- Updated dependencies [c083c7d]
+  - @refraction-ui/tabs@0.1.2
+  - @refraction-ui/shared@0.1.2
+
 ## 0.2.0
 
 ### Minor Changes

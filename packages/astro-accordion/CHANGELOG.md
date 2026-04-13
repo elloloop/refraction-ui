@@ -1,5 +1,15 @@
 # @refraction-ui/astro-button
 
+## 0.1.1
+
+### Patch Changes
+
+- 89882b5: feat: add accordion component
+- Updated dependencies [89882b5]
+- Updated dependencies [c083c7d]
+  - @refraction-ui/accordion@0.1.1
+  - @refraction-ui/shared@0.1.2
+
 ## 0.2.0
 
 ### Minor Changes

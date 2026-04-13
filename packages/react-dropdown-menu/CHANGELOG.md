@@ -1,5 +1,13 @@
 # @refraction-ui/react-dropdown-menu
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [c083c7d]
+  - @refraction-ui/shared@0.1.2
+  - @refraction-ui/dropdown-menu@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes
