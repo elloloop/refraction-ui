@@ -1,5 +1,13 @@
 # @refraction-ui/react-progress-display
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [dabcbd6]
+  - @refraction-ui/shared@0.1.3
+  - @refraction-ui/progress-display@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes

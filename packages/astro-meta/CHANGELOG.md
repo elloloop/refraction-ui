@@ -1,5 +1,22 @@
 # @refraction-ui/astro
 
+## 0.3.1
+
+### Patch Changes
+
+- dabcbd6: chore: force release to update latest npm tags
+  - @refraction-ui/astro-callout@0.1.2
+  - @refraction-ui/astro-card-grid@0.1.2
+  - @refraction-ui/astro-carousel@0.1.2
+  - @refraction-ui/astro-code-block@0.1.2
+  - @refraction-ui/astro-link-card@0.1.2
+  - @refraction-ui/astro-pagination@0.1.2
+  - @refraction-ui/astro-payment@0.1.2
+  - @refraction-ui/astro-skip-to-content@0.1.2
+  - @refraction-ui/astro-slider@0.1.2
+  - @refraction-ui/astro-steps@0.1.2
+  - @refraction-ui/astro-table-of-contents@0.1.2
+
 ## 0.3.0
 
 ### Minor Changes

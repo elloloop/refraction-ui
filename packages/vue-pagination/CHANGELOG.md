@@ -1,5 +1,11 @@
 # @refraction-ui/vue-pagination
 
+## 0.1.2
+
+### Patch Changes
+
+- @refraction-ui/pagination@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes

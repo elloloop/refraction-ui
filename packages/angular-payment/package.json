@@ -1,7 +1,7 @@
 {
   "name": "@refraction-ui/angular-payment",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "dependencies": {
     "@refraction-ui/payment": "workspace:*",
     "@refraction-ui/shared": "workspace:*"

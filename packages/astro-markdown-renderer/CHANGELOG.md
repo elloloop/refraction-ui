@@ -1,5 +1,13 @@
 # @refraction-ui/astro-markdown-renderer
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [dabcbd6]
+  - @refraction-ui/shared@0.1.3
+  - @refraction-ui/markdown-renderer@0.1.3
+
 ## 0.2.1
 
 ### Patch Changes
