@@ -278,6 +278,19 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/angular-ai:
+    dependencies:
+      '@refraction-ui/ai':
+        specifier: workspace:*
+        version: link:../ai
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/core':
+        specifier: ^19.2.16
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
+
   packages/angular-avatar:
     dependencies:
       '@angular/common':
