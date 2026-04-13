@@ -147,8 +147,57 @@ SelectTrigger.displayName = 'SelectTrigger'
 export interface SelectContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
-  ({ className, children, ...props }, ref) => {
-    const { open, contentId, triggerId } = React.useContext(SelectContext)
+  ({ className, children, ...props }, forwardedRef) => {
+    const { open, contentId, triggerId, setOpen } = React.useContext(SelectContext)
+    const containerRef = React.useRef<HTMLDivElement>(null)
+
+    // Merge refs
+    const ref = React.useCallback(
+      (node: HTMLDivElement) => {
+        containerRef.current = node
+        if (typeof forwardedRef === 'function') forwardedRef(node)
+        else if (forwardedRef) forwardedRef.current = node
+      },
+      [forwardedRef]
+    )
+
+    React.useEffect(() => {
+      if (open && containerRef.current) {
+        const firstOption = containerRef.current.querySelector('[role="option"]:not([aria-disabled="true"])') as HTMLElement
+        if (firstOption) {
+          // Delay focus slightly to ensure DOM is ready
+          setTimeout(() => firstOption.focus(), 0)
+        }
+      }
+    }, [open])
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (!containerRef.current) return
+
+      const options = Array.from(
+        containerRef.current.querySelectorAll('[role="option"]:not([aria-disabled="true"])')
+      ) as HTMLElement[]
+
+      if (!options.length) return
+
+      const currentIndex = options.indexOf(document.activeElement as HTMLElement)
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault()
+        const nextIndex = currentIndex < options.length - 1 ? currentIndex + 1 : 0
+        options[nextIndex]?.focus()
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        const prevIndex = currentIndex > 0 ? currentIndex - 1 : options.length - 1
+        options[prevIndex]?.focus()
+      } else if (e.key === 'Escape') {
+        e.preventDefault()
+        setOpen(false)
+        // Focus back to trigger
+        const trigger = document.getElementById(triggerId)
+        if (trigger) trigger.focus()
+      }
+    }
 
     if (!open) return null
 
@@ -160,6 +209,8 @@ export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps
         role="listbox"
         aria-labelledby={triggerId}
         data-state={open ? 'open' : 'closed'}
+        onKeyDown={handleKeyDown}
+        tabIndex={-1}
         {...props}
       >
         {children}
@@ -177,13 +228,15 @@ export interface SelectItemProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
   ({ className, children, value: itemValue, disabled: itemDisabled = false, ...props }, ref) => {
-    const { value, onValueChange, setOpen } = React.useContext(SelectContext)
+    const { value, onValueChange, setOpen, triggerId } = React.useContext(SelectContext)
     const isSelected = value === itemValue
 
     const handleClick = () => {
       if (!itemDisabled) {
         onValueChange(itemValue)
         setOpen(false)
+        const trigger = document.getElementById(triggerId)
+        if (trigger) setTimeout(() => trigger.focus(), 0)
       }
     }
 
@@ -192,6 +245,8 @@ export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
         e.preventDefault()
         onValueChange(itemValue)
         setOpen(false)
+        const trigger = document.getElementById(triggerId)
+        if (trigger) setTimeout(() => trigger.focus(), 0)
       }
     }
 

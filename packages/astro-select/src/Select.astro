@@ -49,6 +49,12 @@ const api = createSelect({ value, disabled, placeholder })
       if (content) {
         content.setAttribute('data-state', isOpen ? 'open' : 'closed')
         content.hidden = !isOpen
+        if (isOpen) {
+          setTimeout(() => {
+            const firstItem = content.querySelector('[data-rfr-select-item]:not([data-disabled])') as HTMLElement | null
+            if (firstItem) firstItem.focus()
+          }, 0)
+        }
       }
     }
 
