@@ -435,6 +435,7 @@ importers:
       '@angular/core':
         specifier: '>=18.0.0'
         version: 21.2.8(rxjs@7.8.2)
+    devDependencies:
       '@refraction-ui/angular-accordion':
         specifier: workspace:*
         version: link:../angular-accordion
@@ -525,7 +526,6 @@ importers:
       '@refraction-ui/angular-tooltip':
         specifier: workspace:*
         version: link:../angular-tooltip
-    devDependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -1209,48 +1209,6 @@ importers:
 
   packages/astro-meta:
     dependencies:
-      '@refraction-ui/astro-callout':
-        specifier: workspace:*
-        version: link:../astro-callout
-      '@refraction-ui/astro-card-grid':
-        specifier: workspace:*
-        version: link:../astro-card-grid
-      '@refraction-ui/astro-carousel':
-        specifier: workspace:*
-        version: link:../astro-carousel
-      '@refraction-ui/astro-code-block':
-        specifier: workspace:*
-        version: link:../astro-code-block
-      '@refraction-ui/astro-command-input':
-        specifier: workspace:*
-        version: link:../astro-command-input
-      '@refraction-ui/astro-file-tree':
-        specifier: workspace:*
-        version: link:../astro-file-tree
-      '@refraction-ui/astro-icon-system':
-        specifier: workspace:*
-        version: link:../astro-icon-system
-      '@refraction-ui/astro-link-card':
-        specifier: workspace:*
-        version: link:../astro-link-card
-      '@refraction-ui/astro-pagination':
-        specifier: workspace:*
-        version: link:../astro-pagination
-      '@refraction-ui/astro-payment':
-        specifier: workspace:*
-        version: link:../astro-payment
-      '@refraction-ui/astro-skip-to-content':
-        specifier: workspace:*
-        version: link:../astro-skip-to-content
-      '@refraction-ui/astro-slider':
-        specifier: workspace:*
-        version: link:../astro-slider
-      '@refraction-ui/astro-steps':
-        specifier: workspace:*
-        version: link:../astro-steps
-      '@refraction-ui/astro-table-of-contents':
-        specifier: workspace:*
-        version: link:../astro-table-of-contents
       astro:
         specifier: '>=4.0.0'
         version: 6.1.5(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.45.1)(typescript@5.8.3)
@@ -1291,15 +1249,27 @@ importers:
       '@refraction-ui/astro-calendar':
         specifier: workspace:*
         version: link:../astro-calendar
+      '@refraction-ui/astro-callout':
+        specifier: workspace:*
+        version: link:../astro-callout
       '@refraction-ui/astro-card':
         specifier: workspace:*
         version: link:../astro-card
+      '@refraction-ui/astro-card-grid':
+        specifier: workspace:*
+        version: link:../astro-card-grid
+      '@refraction-ui/astro-carousel':
+        specifier: workspace:*
+        version: link:../astro-carousel
       '@refraction-ui/astro-charts':
         specifier: workspace:*
         version: link:../astro-charts
       '@refraction-ui/astro-checkbox':
         specifier: workspace:*
         version: link:../astro-checkbox
+      '@refraction-ui/astro-code-block':
+        specifier: workspace:*
+        version: link:../astro-code-block
       '@refraction-ui/astro-code-editor':
         specifier: workspace:*
         version: link:../astro-code-editor
@@ -1309,6 +1279,9 @@ importers:
       '@refraction-ui/astro-command':
         specifier: workspace:*
         version: link:../astro-command
+      '@refraction-ui/astro-command-input':
+        specifier: workspace:*
+        version: link:../astro-command-input
       '@refraction-ui/astro-content-protection':
         specifier: workspace:*
         version: link:../astro-content-protection
@@ -1336,12 +1309,18 @@ importers:
       '@refraction-ui/astro-feedback-dialog':
         specifier: workspace:*
         version: link:../astro-feedback-dialog
+      '@refraction-ui/astro-file-tree':
+        specifier: workspace:*
+        version: link:../astro-file-tree
       '@refraction-ui/astro-file-upload':
         specifier: workspace:*
         version: link:../astro-file-upload
       '@refraction-ui/astro-footer':
         specifier: workspace:*
         version: link:../astro-footer
+      '@refraction-ui/astro-icon-system':
+        specifier: workspace:*
+        version: link:../astro-icon-system
       '@refraction-ui/astro-inline-editor':
         specifier: workspace:*
         version: link:../astro-inline-editor
@@ -1360,6 +1339,9 @@ importers:
       '@refraction-ui/astro-language-selector':
         specifier: workspace:*
         version: link:../astro-language-selector
+      '@refraction-ui/astro-link-card':
+        specifier: workspace:*
+        version: link:../astro-link-card
       '@refraction-ui/astro-markdown-renderer':
         specifier: workspace:*
         version: link:../astro-markdown-renderer
@@ -1372,6 +1354,12 @@ importers:
       '@refraction-ui/astro-otp-input':
         specifier: workspace:*
         version: link:../astro-otp-input
+      '@refraction-ui/astro-pagination':
+        specifier: workspace:*
+        version: link:../astro-pagination
+      '@refraction-ui/astro-payment':
+        specifier: workspace:*
+        version: link:../astro-payment
       '@refraction-ui/astro-popover':
         specifier: workspace:*
         version: link:../astro-popover
@@ -1405,15 +1393,27 @@ importers:
       '@refraction-ui/astro-skeleton':
         specifier: workspace:*
         version: link:../astro-skeleton
+      '@refraction-ui/astro-skip-to-content':
+        specifier: workspace:*
+        version: link:../astro-skip-to-content
       '@refraction-ui/astro-slide-viewer':
         specifier: workspace:*
         version: link:../astro-slide-viewer
+      '@refraction-ui/astro-slider':
+        specifier: workspace:*
+        version: link:../astro-slider
       '@refraction-ui/astro-status-indicator':
         specifier: workspace:*
         version: link:../astro-status-indicator
+      '@refraction-ui/astro-steps':
+        specifier: workspace:*
+        version: link:../astro-steps
       '@refraction-ui/astro-switch':
         specifier: workspace:*
         version: link:../astro-switch
+      '@refraction-ui/astro-table-of-contents':
+        specifier: workspace:*
+        version: link:../astro-table-of-contents
       '@refraction-ui/astro-tabs':
         specifier: workspace:*
         version: link:../astro-tabs
@@ -3139,48 +3139,6 @@ importers:
       '@monaco-editor/react':
         specifier: '>=4'
         version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@refraction-ui/react-callout':
-        specifier: workspace:*
-        version: link:../react-callout
-      '@refraction-ui/react-card-grid':
-        specifier: workspace:*
-        version: link:../react-card-grid
-      '@refraction-ui/react-carousel':
-        specifier: workspace:*
-        version: link:../react-carousel
-      '@refraction-ui/react-code-block':
-        specifier: workspace:*
-        version: link:../react-code-block
-      '@refraction-ui/react-command-input':
-        specifier: workspace:*
-        version: link:../react-command-input
-      '@refraction-ui/react-file-tree':
-        specifier: workspace:*
-        version: link:../react-file-tree
-      '@refraction-ui/react-icon-system':
-        specifier: workspace:*
-        version: link:../react-icon-system
-      '@refraction-ui/react-link-card':
-        specifier: workspace:*
-        version: link:../react-link-card
-      '@refraction-ui/react-pagination':
-        specifier: workspace:*
-        version: link:../react-pagination
-      '@refraction-ui/react-payment':
-        specifier: workspace:*
-        version: link:../react-payment
-      '@refraction-ui/react-skip-to-content':
-        specifier: workspace:*
-        version: link:../react-skip-to-content
-      '@refraction-ui/react-slider':
-        specifier: workspace:*
-        version: link:../react-slider
-      '@refraction-ui/react-steps':
-        specifier: workspace:*
-        version: link:../react-steps
-      '@refraction-ui/react-table-of-contents':
-        specifier: workspace:*
-        version: link:../react-table-of-contents
     devDependencies:
       '@refraction-ui/accordion':
         specifier: workspace:*
@@ -3221,15 +3179,27 @@ importers:
       '@refraction-ui/react-calendar':
         specifier: workspace:*
         version: link:../react-calendar
+      '@refraction-ui/react-callout':
+        specifier: workspace:*
+        version: link:../react-callout
       '@refraction-ui/react-card':
         specifier: workspace:*
         version: link:../react-card
+      '@refraction-ui/react-card-grid':
+        specifier: workspace:*
+        version: link:../react-card-grid
+      '@refraction-ui/react-carousel':
+        specifier: workspace:*
+        version: link:../react-carousel
       '@refraction-ui/react-charts':
         specifier: workspace:*
         version: link:../react-charts
       '@refraction-ui/react-checkbox':
         specifier: workspace:*
         version: link:../react-checkbox
+      '@refraction-ui/react-code-block':
+        specifier: workspace:*
+        version: link:../react-code-block
       '@refraction-ui/react-code-editor':
         specifier: workspace:*
         version: link:../react-code-editor
@@ -3239,6 +3209,9 @@ importers:
       '@refraction-ui/react-command':
         specifier: workspace:*
         version: link:../react-command
+      '@refraction-ui/react-command-input':
+        specifier: workspace:*
+        version: link:../react-command-input
       '@refraction-ui/react-content-protection':
         specifier: workspace:*
         version: link:../react-content-protection
@@ -3266,12 +3239,18 @@ importers:
       '@refraction-ui/react-feedback-dialog':
         specifier: workspace:*
         version: link:../react-feedback-dialog
+      '@refraction-ui/react-file-tree':
+        specifier: workspace:*
+        version: link:../react-file-tree
       '@refraction-ui/react-file-upload':
         specifier: workspace:*
         version: link:../react-file-upload
       '@refraction-ui/react-footer':
         specifier: workspace:*
         version: link:../react-footer
+      '@refraction-ui/react-icon-system':
+        specifier: workspace:*
+        version: link:../react-icon-system
       '@refraction-ui/react-inline-editor':
         specifier: workspace:*
         version: link:../react-inline-editor
@@ -3290,6 +3269,9 @@ importers:
       '@refraction-ui/react-language-selector':
         specifier: workspace:*
         version: link:../react-language-selector
+      '@refraction-ui/react-link-card':
+        specifier: workspace:*
+        version: link:../react-link-card
       '@refraction-ui/react-markdown-renderer':
         specifier: workspace:*
         version: link:../react-markdown-renderer
@@ -3302,6 +3284,12 @@ importers:
       '@refraction-ui/react-otp-input':
         specifier: workspace:*
         version: link:../react-otp-input
+      '@refraction-ui/react-pagination':
+        specifier: workspace:*
+        version: link:../react-pagination
+      '@refraction-ui/react-payment':
+        specifier: workspace:*
+        version: link:../react-payment
       '@refraction-ui/react-popover':
         specifier: workspace:*
         version: link:../react-popover
@@ -3335,15 +3323,27 @@ importers:
       '@refraction-ui/react-skeleton':
         specifier: workspace:*
         version: link:../react-skeleton
+      '@refraction-ui/react-skip-to-content':
+        specifier: workspace:*
+        version: link:../react-skip-to-content
       '@refraction-ui/react-slide-viewer':
         specifier: workspace:*
         version: link:../react-slide-viewer
+      '@refraction-ui/react-slider':
+        specifier: workspace:*
+        version: link:../react-slider
       '@refraction-ui/react-status-indicator':
         specifier: workspace:*
         version: link:../react-status-indicator
+      '@refraction-ui/react-steps':
+        specifier: workspace:*
+        version: link:../react-steps
       '@refraction-ui/react-switch':
         specifier: workspace:*
         version: link:../react-switch
+      '@refraction-ui/react-table-of-contents':
+        specifier: workspace:*
+        version: link:../react-table-of-contents
       '@refraction-ui/react-tabs':
         specifier: workspace:*
         version: link:../react-tabs
@@ -4273,6 +4273,13 @@ importers:
 
   packages/vue-meta:
     dependencies:
+      vue:
+        specifier: '>=3.0.0'
+        version: 3.5.32(typescript@5.8.3)
+    devDependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@refraction-ui/vue-callout':
         specifier: workspace:*
         version: link:../vue-callout
@@ -4315,13 +4322,6 @@ importers:
       '@refraction-ui/vue-table-of-contents':
         specifier: workspace:*
         version: link:../vue-table-of-contents
-      vue:
-        specifier: '>=3.0.0'
-        version: 3.5.32(typescript@5.8.3)
-    devDependencies:
-      '@refraction-ui/shared':
-        specifier: workspace:*
-        version: link:../shared
 
   packages/vue-pagination:
     dependencies:

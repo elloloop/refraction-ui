@@ -25,11 +25,11 @@ frameworks.forEach(fw => {
 
   if (fs.existsSync(pkgJsonPath)) {
     const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf-8'));
-    if (!pkgJson.dependencies) pkgJson.dependencies = {};
+    if (!pkgJson.devDependencies) pkgJson.devDependencies = {};
     newComponents.forEach(comp => {
       const depName = `@refraction-ui/${fw}-${comp}`;
       // Note: for table-of-contents, the package might be @refraction-ui/react-table-of-contents
-      pkgJson.dependencies[depName] = 'workspace:*';
+      pkgJson.devDependencies[depName] = 'workspace:*';
     });
     fs.writeFileSync(pkgJsonPath, JSON.stringify(pkgJson, null, 2) + '\n');
   }
