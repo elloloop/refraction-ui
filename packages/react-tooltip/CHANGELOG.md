@@ -1,5 +1,13 @@
 # @refraction-ui/react-tooltip
 
+## 0.1.4
+
+### Patch Changes
+
+- f98992f: fix: update component configurations and dependencies
+- Updated dependencies [f98992f]
+  - @refraction-ui/tooltip@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes

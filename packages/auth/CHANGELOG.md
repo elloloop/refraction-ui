@@ -1,5 +1,11 @@
 # @refraction-ui/auth
 
+## 0.2.2
+
+### Patch Changes
+
+- f98992f: fix: update component configurations and dependencies
+
 ## 0.2.1
 
 ### Patch Changes

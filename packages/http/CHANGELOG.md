@@ -1,5 +1,11 @@
 # @refraction-ui/http
 
+## 0.2.1
+
+### Patch Changes
+
+- f98992f: fix: update component configurations and dependencies
+
 ## 0.2.0
 
 ### Minor Changes
