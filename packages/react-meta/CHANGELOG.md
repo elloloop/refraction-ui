@@ -1,5 +1,22 @@
 # @refraction-ui/react
 
+## 0.2.1
+
+### Patch Changes
+
+- dabcbd6: chore: force release to update latest npm tags
+  - @refraction-ui/react-callout@0.1.2
+  - @refraction-ui/react-card-grid@0.1.2
+  - @refraction-ui/react-carousel@0.1.2
+  - @refraction-ui/react-code-block@0.1.2
+  - @refraction-ui/react-link-card@0.1.2
+  - @refraction-ui/react-pagination@0.1.2
+  - @refraction-ui/react-payment@0.2.1
+  - @refraction-ui/react-skip-to-content@0.1.2
+  - @refraction-ui/react-slider@0.1.2
+  - @refraction-ui/react-steps@0.1.2
+  - @refraction-ui/react-table-of-contents@0.1.2
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,5 +1,22 @@
 # @refraction-ui/vue
 
+## 0.2.1
+
+### Patch Changes
+
+- dabcbd6: chore: force release to update latest npm tags
+  - @refraction-ui/vue-pagination@0.1.2
+  - @refraction-ui/vue-payment@0.1.2
+  - @refraction-ui/vue-table-of-contents@0.1.2
+  - @refraction-ui/vue-callout@0.1.2
+  - @refraction-ui/vue-card-grid@0.1.2
+  - @refraction-ui/vue-carousel@0.1.2
+  - @refraction-ui/vue-code-block@0.1.2
+  - @refraction-ui/vue-link-card@0.1.2
+  - @refraction-ui/vue-skip-to-content@0.1.2
+  - @refraction-ui/vue-slider@0.1.2
+  - @refraction-ui/vue-steps@0.1.2
+
 ## 0.2.0
 
 ### Minor Changes

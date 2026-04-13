@@ -1,5 +1,38 @@
 # @refraction-ui/angular
 
+## 0.2.1
+
+### Patch Changes
+
+- dabcbd6: chore: force release to update latest npm tags
+  - @refraction-ui/angular-accordion@0.1.2
+  - @refraction-ui/angular-breadcrumbs@0.1.2
+  - @refraction-ui/angular-carousel@0.1.2
+  - @refraction-ui/angular-code-block@0.1.2
+  - @refraction-ui/angular-dialog@0.1.2
+  - @refraction-ui/angular-pagination@0.1.2
+  - @refraction-ui/angular-payment@0.1.2
+  - @refraction-ui/angular-popover@0.1.2
+  - @refraction-ui/angular-progress-display@0.1.2
+  - @refraction-ui/angular-skeleton@0.1.2
+  - @refraction-ui/angular-skip-to-content@0.1.2
+  - @refraction-ui/angular-table-of-contents@0.1.2
+  - @refraction-ui/angular-tabs@0.1.2
+  - @refraction-ui/angular-tooltip@0.1.2
+  - @refraction-ui/angular-avatar@0.1.2
+  - @refraction-ui/angular-badge@0.1.2
+  - @refraction-ui/angular-button@0.1.2
+  - @refraction-ui/angular-callout@0.1.2
+  - @refraction-ui/angular-card@0.1.2
+  - @refraction-ui/angular-card-grid@0.1.2
+  - @refraction-ui/angular-checkbox@0.1.3
+  - @refraction-ui/angular-input@0.1.3
+  - @refraction-ui/angular-link-card@0.1.2
+  - @refraction-ui/angular-slider@0.1.2
+  - @refraction-ui/angular-steps@0.1.2
+  - @refraction-ui/angular-switch@0.1.3
+  - @refraction-ui/angular-textarea@0.1.3
+
 ## 0.2.0
 
 ### Minor Changes

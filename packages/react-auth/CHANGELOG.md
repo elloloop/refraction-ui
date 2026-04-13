@@ -1,5 +1,13 @@
 # @refraction-ui/react-auth
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies [dabcbd6]
+  - @refraction-ui/shared@0.1.3
+  - @refraction-ui/auth@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes
