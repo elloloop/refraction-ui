@@ -103,20 +103,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "sideEffects": false,
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/elloloop/refraction-ui.git",
-    "directory": "packages/react-meta"
-  },
-  "homepage": "https://elloloop.github.io/refraction-ui/",
-  "dependencies": {
+    "react-dom": "^19.0.0",
     "@refraction-ui/react-table-of-contents": "workspace:*",
     "@refraction-ui/react-carousel": "workspace:*",
     "@refraction-ui/react-slider": "workspace:*",
@@ -131,5 +118,16 @@
     "@refraction-ui/react-card-grid": "workspace:*",
     "@refraction-ui/react-payment": "workspace:*",
     "@refraction-ui/react-command-input": "workspace:*"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elloloop/refraction-ui.git",
+    "directory": "packages/react-meta"
+  },
+  "homepage": "https://elloloop.github.io/refraction-ui/"
 }

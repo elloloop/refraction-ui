@@ -9,7 +9,11 @@
   "files": [
     "src"
   ],
-  "dependencies": {
+  "peerDependencies": {
+    "vue": ">=3.0.0"
+  },
+  "devDependencies": {
+    "@refraction-ui/shared": "workspace:*",
     "@refraction-ui/vue-table-of-contents": "workspace:*",
     "@refraction-ui/vue-carousel": "workspace:*",
     "@refraction-ui/vue-slider": "workspace:*",
@@ -24,12 +28,6 @@
     "@refraction-ui/vue-card-grid": "workspace:*",
     "@refraction-ui/vue-payment": "workspace:*",
     "@refraction-ui/vue-command-input": "workspace:*"
-  },
-  "peerDependencies": {
-    "vue": ">=3.0.0"
-  },
-  "devDependencies": {
-    "@refraction-ui/shared": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

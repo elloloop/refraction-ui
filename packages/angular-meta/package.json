@@ -9,7 +9,11 @@
   "files": [
     "src"
   ],
-  "dependencies": {
+  "peerDependencies": {
+    "@angular/core": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@refraction-ui/shared": "workspace:*",
     "@refraction-ui/angular-accordion": "workspace:*",
     "@refraction-ui/angular-avatar": "workspace:*",
     "@refraction-ui/angular-badge": "workspace:*",
@@ -40,12 +44,6 @@
     "@refraction-ui/angular-card-grid": "workspace:*",
     "@refraction-ui/angular-payment": "workspace:*",
     "@refraction-ui/angular-command-input": "workspace:*"
-  },
-  "peerDependencies": {
-    "@angular/core": ">=18.0.0"
-  },
-  "devDependencies": {
-    "@refraction-ui/shared": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

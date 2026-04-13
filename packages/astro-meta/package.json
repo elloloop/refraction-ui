@@ -74,20 +74,7 @@
     "@refraction-ui/astro-tooltip": "workspace:*",
     "@refraction-ui/astro-version-selector": "workspace:*",
     "@refraction-ui/astro-video-player": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "sideEffects": false,
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/elloloop/refraction-ui.git",
-    "directory": "packages/astro-meta"
-  },
-  "homepage": "https://elloloop.github.io/refraction-ui/",
-  "dependencies": {
+    "@refraction-ui/shared": "workspace:*",
     "@refraction-ui/astro-table-of-contents": "workspace:*",
     "@refraction-ui/astro-carousel": "workspace:*",
     "@refraction-ui/astro-slider": "workspace:*",
@@ -102,5 +89,16 @@
     "@refraction-ui/astro-card-grid": "workspace:*",
     "@refraction-ui/astro-payment": "workspace:*",
     "@refraction-ui/astro-command-input": "workspace:*"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elloloop/refraction-ui.git",
+    "directory": "packages/astro-meta"
+  },
+  "homepage": "https://elloloop.github.io/refraction-ui/"
 }
