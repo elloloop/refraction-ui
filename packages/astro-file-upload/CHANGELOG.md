@@ -1,5 +1,12 @@
 # @refraction-ui/astro-file-upload
 
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [f98992f]
+  - @refraction-ui/file-upload@0.1.4
+
 ## 0.2.2
 
 ### Patch Changes

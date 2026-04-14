@@ -1,5 +1,12 @@
 # @refraction-ui/angular-table-of-contents
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [f98992f]
+  - @refraction-ui/table-of-contents@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes

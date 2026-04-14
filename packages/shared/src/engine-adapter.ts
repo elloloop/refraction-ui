@@ -1,10 +1,10 @@
 export interface EngineAdapter<
-  TState = Record<string, any>,
-  TMethods = Record<string, any>,
-  TReturnProps = Record<string, any>
+  TState = Record<string, unknown>,
+  TMethods = Record<string, unknown>,
+  TReturnProps = Record<string, unknown>
 > {
   name: string;
   state: TState;
   methods: TMethods;
-  getProps: (elementName: string, props?: Record<string, any>) => TReturnProps;
+  getProps: (elementName: string, props?: Record<string, unknown>) => TReturnProps;
 }

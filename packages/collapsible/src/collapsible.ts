@@ -1,4 +1,3 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
 import { generateId, Keys, createKeyboardHandler } from '@refraction-ui/shared'
 
 export interface CollapsibleProps {

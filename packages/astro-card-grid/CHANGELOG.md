@@ -1,5 +1,12 @@
 # @refraction-ui/astro-card-grid
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [f98992f]
+  - @refraction-ui/card-grid@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes

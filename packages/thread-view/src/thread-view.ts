@@ -147,7 +147,7 @@ export function createThreadView(props: ThreadViewProps): ThreadViewAPI {
     }
   }
 
-  function getReplyButtonAriaProps(messageId: string): Record<string, unknown> {
+  function getReplyButtonAriaProps(_messageId: string): Record<string, unknown> {
     return {
       role: 'button',
       'aria-label': `Reply to message`,

@@ -1,5 +1,11 @@
 # @refraction-ui/skip-to-content
 
+## 0.1.3
+
+### Patch Changes
+
+- f98992f: fix: update component configurations and dependencies
+
 ## 0.1.2
 
 ### Patch Changes

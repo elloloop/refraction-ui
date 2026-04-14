@@ -1,5 +1,12 @@
 # @refraction-ui/astro-auth
 
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [f98992f]
+  - @refraction-ui/auth@0.2.2
+
 ## 0.2.2
 
 ### Patch Changes

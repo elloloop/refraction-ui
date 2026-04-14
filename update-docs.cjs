@@ -24,7 +24,7 @@ const files = walkDir(targetDir);
 let changedCount = 0;
 
 const regex = /<CodeBlock\s+code=\{usageCode\}\s*\/>/g;
-const replacement = `<CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: '<!-- Angular implementation pending -->', vue: '<!-- Vue implementation pending -->' }} />`;
+const replacement = `<CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: '<!-- Angular implementation pending -->' }} />`;
 
 files.forEach(file => {
   const content = fs.readFileSync(file, 'utf8');

@@ -1,5 +1,5 @@
 import type { AccessibilityProps, KeyboardHandlerMap, FocusTrapConfig } from '@refraction-ui/shared'
-import { createMachine, Keys, generateId, FOCUSABLE_SELECTOR } from '@refraction-ui/shared'
+import { createMachine, Keys, generateId } from '@refraction-ui/shared'
 
 export interface DialogProps {
   /** Whether the dialog is open (controlled) */

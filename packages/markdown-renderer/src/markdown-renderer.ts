@@ -214,13 +214,13 @@ function extractComponents(
   const extracted: Array<{ name: string; props: Record<string, string> }> = []
 
   for (const [name, def] of Object.entries(components)) {
-    const matches = content.matchAll(def.pattern)
-    for (const _match of matches) {
+    const matches = Array.from(content.matchAll(def.pattern))
+    matches.forEach(() => {
       extracted.push({
         name,
         props: { ...def.props },
       })
-    }
+    })
   }
 
   return extracted

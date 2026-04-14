@@ -81,12 +81,12 @@ export function createFocusTrap(config: FocusTrapConfig): FocusTrap {
       if (config.initialFocus) {
         const target = config.initialFocus()
         if (target && 'focus' in target) {
-          ;(target as HTMLElement).focus()
+          (target as HTMLElement).focus()
         }
       } else {
         const focusable = getFocusableElements(config.container)
         if (focusable.length > 0) {
-          ;(focusable[0] as HTMLElement).focus()
+          (focusable[0] as HTMLElement).focus()
         }
       }
 
@@ -112,7 +112,7 @@ export function createFocusTrap(config: FocusTrapConfig): FocusTrap {
         previouslyFocused &&
         'focus' in previouslyFocused
       ) {
-        ;(previouslyFocused as HTMLElement).focus()
+        (previouslyFocused as HTMLElement).focus()
       }
     },
 

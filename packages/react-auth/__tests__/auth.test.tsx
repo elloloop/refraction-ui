@@ -7,7 +7,7 @@ import { AuthGuard } from '../src/auth-guard.js'
 describe('AuthProvider (SSR)', () => {
   it('renders children', () => {
     const html = renderToString(
-      React.createElement(AuthProvider, { provider: 'mock' },
+      React.createElement(AuthProvider, { adapter: { onAuthStateChange: () => () => {} } as any },
         React.createElement('div', null, 'App content'),
       ),
     )
@@ -23,7 +23,7 @@ describe('AuthProvider (SSR)', () => {
       roles: ['admin'],
     }
     const html = renderToString(
-      React.createElement(AuthProvider, { testMode: true, testUser, provider: 'mock' },
+      React.createElement(AuthProvider, { testMode: true, testUser, adapter: { onAuthStateChange: () => () => {} } as any },
         React.createElement('div', null, 'Authenticated'),
       ),
     )
@@ -41,7 +41,7 @@ describe('AuthGuard (SSR)', () => {
       roles: ['admin'],
     }
     const html = renderToString(
-      React.createElement(AuthProvider, { testMode: true, testUser, provider: 'mock' },
+      React.createElement(AuthProvider, { testMode: true, testUser, adapter: { onAuthStateChange: () => () => {} } as any },
         React.createElement(AuthGuard, null,
           React.createElement('div', null, 'Protected content'),
         ),
@@ -52,7 +52,7 @@ describe('AuthGuard (SSR)', () => {
 
   it('renders fallback when not authenticated', () => {
     const html = renderToString(
-      React.createElement(AuthProvider, { provider: 'mock' },
+      React.createElement(AuthProvider, { adapter: { onAuthStateChange: () => () => {} } as any },
         React.createElement(AuthGuard, {
           fallback: React.createElement('div', null, 'Loading...'),
         },
@@ -76,7 +76,7 @@ describe('AuthGuard with roles (SSR)', () => {
       roles: ['admin'],
     }
     const html = renderToString(
-      React.createElement(AuthProvider, { testMode: true, testUser, provider: 'mock' },
+      React.createElement(AuthProvider, { testMode: true, testUser, adapter: { onAuthStateChange: () => () => {} } as any },
         React.createElement(AuthGuard, { roles: ['admin'] },
           React.createElement('div', null, 'Admin content'),
         ),
@@ -94,7 +94,7 @@ describe('AuthGuard with roles (SSR)', () => {
       roles: ['student'],
     }
     const html = renderToString(
-      React.createElement(AuthProvider, { testMode: true, testUser, provider: 'mock' },
+      React.createElement(AuthProvider, { testMode: true, testUser, adapter: { onAuthStateChange: () => () => {} } as any },
         React.createElement(AuthGuard, {
           roles: ['admin'],
           unauthorized: React.createElement('div', null, 'Access denied'),
@@ -109,7 +109,7 @@ describe('AuthGuard with roles (SSR)', () => {
 
   it('renders children immediately with AuthProvider', () => {
     const html = renderToString(
-      React.createElement(AuthProvider, { provider: 'mock' },
+      React.createElement(AuthProvider, { adapter: { onAuthStateChange: () => () => {} } as any },
         React.createElement('div', null, 'Immediate content'),
       ),
     )
