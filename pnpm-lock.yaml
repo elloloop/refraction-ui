@@ -2386,6 +2386,9 @@ importers:
       '@refraction-ui/button':
         specifier: workspace:*
         version: link:../button
+      '@refraction-ui/react-keyboard-shortcut':
+        specifier: workspace:*
+        version: link:../react-keyboard-shortcut
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
