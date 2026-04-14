@@ -25,7 +25,7 @@ export interface ButtonAPI {
 }
 
 export function createButton(props: ButtonProps = {}): ButtonAPI {
-  const { disabled = false, loading = false, type = 'button' } = props
+  const { disabled = false, loading = false } = props
   const isInteractive = !disabled && !loading
 
   const ariaProps: Partial<AccessibilityProps> = {}

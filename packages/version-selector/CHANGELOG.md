@@ -1,5 +1,11 @@
 # @refraction-ui/version-selector
 
+## 0.1.4
+
+### Patch Changes
+
+- f98992f: fix: update component configurations and dependencies
+
 ## 0.1.3
 
 ### Patch Changes

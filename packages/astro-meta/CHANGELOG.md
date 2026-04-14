@@ -1,5 +1,37 @@
 # @refraction-ui/astro
 
+## 0.4.5
+
+### Patch Changes
+
+- fix: direct version bump to bypass canary tag and publish to latest
+
+## 0.4.4
+
+### Patch Changes
+
+- 5f12c8a: fix(astro): bundle transitive workspace dependencies in astro-meta to resolve missing core logic
+
+  - Updated custom build script for astro-meta to dynamically traverse and bundle all internal `@refraction-ui/*` dependencies (e.g. `app-shell`, `ai`, `auth`, `charts`) that are required by the Astro components.
+  - Ensures the single-package distribution is completely standalone and does not throw 404s when attempting to resolve internal core packages.
+
+## 0.4.3
+
+### Patch Changes
+
+- d6c99d0: fix: force version bump to resolve npm registry canary conflict
+
+## 0.4.2
+
+### Patch Changes
+
+- dff56a1: fix: implement source copier build strategy for astro meta-package
+
+  - Added a custom build script that consolidates all private `astro-*` workspace components into a single `dist` directory.
+  - Updated internal imports to relative paths.
+  - Configured the meta-package to export the unified `dist` folder.
+  - Ensures consumers can use the library as a single package while retaining Astro's native component optimizations.
+
 ## 0.4.1
 
 ### Patch Changes

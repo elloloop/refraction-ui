@@ -1,6 +1,6 @@
 {
   "name": "@refraction-ui/angular",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "description": "All Refraction UI Angular components in one package",
   "type": "module",
   "exports": {

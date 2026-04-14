@@ -6,7 +6,6 @@ const frameworks: { id: Framework; label: string; status?: string }[] = [
   { id: 'react', label: 'React' },
   { id: 'astro', label: 'Astro' },
   { id: 'angular', label: 'Angular', status: 'WIP' },
-  { id: 'vue', label: 'Vue', status: 'WIP' },
 ]
 
 export function FrameworkTabs() {

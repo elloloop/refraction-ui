@@ -130,7 +130,7 @@ export class CommandInput {
       return;
     }
 
-    const triggerChars = this.options.triggers.map((t) => t.char.replace(/[.*+?^\${}()|[\\]\\\\]/g, '\\\\$&'));
+    const triggerChars = this.options.triggers.map((t) => t.char.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&'));
     const patternStr = `(^|\\\\s)(${triggerChars.join('|')})([^\\\\s]*)`;
     const regex = new RegExp(patternStr, 'g');
     

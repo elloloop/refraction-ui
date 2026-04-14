@@ -1,5 +1,13 @@
 # @refraction-ui/react-steps
 
+## 0.1.3
+
+### Patch Changes
+
+- f98992f: fix: update component configurations and dependencies
+- Updated dependencies [f98992f]
+  - @refraction-ui/steps@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes

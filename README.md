@@ -7,7 +7,6 @@ A headless core UI library with framework-specific wrappers. Zero external runti
 - **React** (`@refraction-ui/react`) - ✅ Fully Supported
 - **Astro** (`@refraction-ui/astro`) - ✅ Fully Supported
 - **Angular** (`@refraction-ui/angular`) - 🚧 *Planned / Work in Progress*
-- **Vue** (`@refraction-ui/vue`) - 🚧 *Planned / Work in Progress*
 
 ## Community Help Wanted
 

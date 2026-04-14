@@ -1,5 +1,11 @@
 # @refraction-ui/react-location-selector
 
+## 0.1.2
+
+### Patch Changes
+
+- @refraction-ui/location-selector@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes

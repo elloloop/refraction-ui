@@ -43,7 +43,7 @@ export function AuthProvider({ children, ...config }: AuthProviderProps) {
   const authRef = React.useRef<AuthAPI | null>(null)
 
   if (!authRef.current) {
-    if (!config.adapter) {
+    if (!config.adapter && !config.testMode) {
       throw new Error('[refraction-ui/react-auth] You must provide an `adapter` to AuthProvider.')
     }
     authRef.current = createAuth(config.adapter, config)

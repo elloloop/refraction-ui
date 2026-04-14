@@ -1,5 +1,12 @@
 # @refraction-ui/angular-tabs
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [f98992f]
+  - @refraction-ui/tabs@0.1.4
+
 ## 0.1.2
 
 ### Patch Changes

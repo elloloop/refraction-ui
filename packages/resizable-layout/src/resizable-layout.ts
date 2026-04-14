@@ -43,7 +43,7 @@ export function createResizableLayout(props: ResizableLayoutProps = {}): Resizab
     persistKey,
   } = props
 
-  let sizes = loadSizes(persistKey) ?? [...defaultSizes]
+  const sizes = loadSizes(persistKey) ?? [...defaultSizes]
   let resizingIndex: number | null = null
   let sizesBeforeResize: number[] = []
 
