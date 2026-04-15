@@ -6,6 +6,7 @@ import {
   type ButtonVariant,
   type ButtonSize,
 } from '@refraction-ui/button'
+import { useShortcut, ShortcutHint } from '@refraction-ui/react-keyboard-shortcut'
 import { cn } from '@refraction-ui/shared'
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -13,6 +14,8 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   size?: ButtonSize
   loading?: boolean
   asChild?: boolean
+  shortcut?: string
+  action?: string
 }
 
 /**
@@ -22,33 +25,59 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
  * Styling via Tailwind utility classes (no external CSS-in-JS).
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant, size, loading, asChild, className, disabled, children, ...props }, ref) => {
+  ({ variant, size, loading, asChild, className, disabled, children, shortcut, action, ...props }, ref) => {
     const api = createButton({ variant, size, disabled, loading, asChild, type: props.type })
     const classes = cn(buttonVariants({ variant, size }), className)
+    
+    const internalRef = React.useRef<HTMLButtonElement>(null)
+    const mergedRef = React.useCallback(
+      (node: HTMLButtonElement | null) => {
+        internalRef.current = node
+        if (typeof ref === 'function') ref(node)
+        else if (ref) ref.current = node
+      },
+      [ref]
+    )
+
+    useShortcut({
+      shortcut,
+      action,
+      enabled: !disabled && !loading && (!!shortcut || !!action),
+      onTrigger: () => {
+        internalRef.current?.click()
+      },
+    })
 
     // When asChild, render the child element directly with button props merged in.
     // This allows <Button asChild><a href="/">Link</a></Button>
     if (asChild && React.isValidElement(children)) {
       return React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
-        ref,
-        className: cn(classes, (children.props as Record<string, unknown>).className as string),
+        ref: mergedRef,
+        className: cn(classes, (children.props as Record<string, unknown>).className as string, 'relative'),
         type: getButtonType({ type: props.type }),
         ...api.ariaProps,
         ...api.dataAttributes,
         ...props,
+        children: (
+          <>
+            {(shortcut || action) && <ShortcutHint shortcut={shortcut} action={action} className="right-4" />}
+            {(children.props as Record<string, unknown>).children}
+          </>
+        )
       })
     }
 
     return (
       <button
-        ref={ref}
+        ref={mergedRef}
         type={getButtonType({ type: props.type }) as 'button' | 'submit' | 'reset'}
-        className={classes}
+        className={cn(classes, 'relative')}
         disabled={disabled || loading}
         {...api.ariaProps}
         {...api.dataAttributes}
         {...props}
       >
+        {(shortcut || action) && <ShortcutHint shortcut={shortcut} action={action} className="right-4" />}
         {loading && (
           <svg
             className="animate-spin h-4 w-4"

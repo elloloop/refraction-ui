@@ -8,12 +8,9 @@
     "typecheck": "pnpm -w typecheck"
   },
   "dependencies": {
-    "next": "^15.5.15",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "@refraction-ui/react-app-shell": "workspace:*",
     "@refraction-ui/app-shell": "workspace:*",
     "@refraction-ui/react-animated-text": "workspace:*",
+    "@refraction-ui/react-app-shell": "workspace:*",
     "@refraction-ui/react-avatar": "workspace:*",
     "@refraction-ui/react-avatar-group": "workspace:*",
     "@refraction-ui/react-badge": "workspace:*",
@@ -62,16 +59,20 @@
     "@refraction-ui/react-tooltip": "workspace:*",
     "@refraction-ui/react-version-selector": "workspace:*",
     "@refraction-ui/react-video-player": "workspace:*",
-    "@refraction-ui/tailwind-config": "workspace:*"
+    "@refraction-ui/tailwind-config": "workspace:*",
+    "next": "^15.5.15",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "shiki": "4.0.2"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.0",
     "@tailwindcss/postcss": "^4.0.0",
-    "postcss": "^8.4.0",
-    "autoprefixer": "^10.4.0",
-    "typescript": "^5.8.0",
+    "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "@types/node": "^22.0.0"
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.8.0"
   }
 }

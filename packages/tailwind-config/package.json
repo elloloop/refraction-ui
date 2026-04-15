@@ -26,8 +26,9 @@
     "lint": "eslint src --ext .ts",
     "clean": "rm -rf dist"
   },
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "@tailwindcss/typography": "0.5.19"
+  },
   "publishConfig": {
     "access": "public"
   },

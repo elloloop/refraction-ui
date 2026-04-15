@@ -67,7 +67,10 @@ const BACKGROUND_CLASSES: Record<NonNullable<SectionConfig['background']>, strin
 // ---------------------------------------------------------------------------
 
 export function createPageShell(config?: PageShellConfig): PageShellAPI {
-  const resolved: Required<PageShellConfig> = { ...DEFAULTS, ...config }
+  const resolved: Required<PageShellConfig> = {
+    ...DEFAULTS,
+    ...(config ? Object.fromEntries(Object.entries(config).filter(([_, v]) => v !== undefined)) : {})
+  } as Required<PageShellConfig>
 
   function getSectionClasses(sectionConfig?: SectionConfig): string {
     const {
