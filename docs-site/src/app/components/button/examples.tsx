@@ -12,11 +12,11 @@ export function ButtonExamples({ section }: ButtonExamplesProps) {
       <div className="rounded-xl border border-border bg-card p-8">
         <div className="flex flex-wrap items-start gap-6">
           <div className="flex flex-col items-center gap-2.5">
-            <Button variant="default">Default</Button>
+            <Button variant="default" action="save" onClick={() => alert('Saved!')}>Default</Button>
             <span className="text-xs text-muted-foreground font-medium">Default</span>
           </div>
           <div className="flex flex-col items-center gap-2.5">
-            <Button variant="destructive">Destructive</Button>
+            <Button variant="destructive" shortcut="Ctrl+D" onClick={() => alert('Deleted!')}>Destructive</Button>
             <span className="text-xs text-muted-foreground font-medium">Destructive</span>
           </div>
           <div className="flex flex-col items-center gap-2.5">

@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useFramework, Framework } from './framework-context'
+import { codeToHtml } from 'shiki'
 
 interface CodeBlockProps {
   code?: string
@@ -12,9 +13,37 @@ interface CodeBlockProps {
 
 export function CodeBlock({ code, frameworks, language = 'tsx', showLineNumbers = false }: CodeBlockProps) {
   const [copied, setCopied] = useState(false)
+  const [html, setHtml] = useState<string>('')
   const { framework } = useFramework()
 
   const displayCode = frameworks?.[framework] || code || ''
+
+  useEffect(() => {
+    let isMounted = true
+    async function highlight() {
+      if (!displayCode) {
+        if (isMounted) setHtml('')
+        return
+      }
+      try {
+        const highlighted = await codeToHtml(displayCode, {
+          lang: language,
+          theme: 'github-dark',
+        })
+        if (isMounted) {
+          // Remove the outer <pre> and <code> wrappers shiki adds, 
+          // because we provide our own custom wrapper structure below.
+          // Or we can just render Shiki's output directly inside our container.
+          // Shiki outputs <pre class="shiki github-dark" ...><code>...</code></pre>
+          setHtml(highlighted)
+        }
+      } catch (e) {
+        if (isMounted) setHtml(`<pre><code class="block px-5 font-mono text-zinc-200 whitespace-pre">${displayCode}</code></pre>`)
+      }
+    }
+    highlight()
+    return () => { isMounted = false }
+  }, [displayCode, language])
 
   const handleCopy = async () => {
     if (!displayCode) return
@@ -34,8 +63,6 @@ export function CodeBlock({ code, frameworks, language = 'tsx', showLineNumbers 
     }
   }
 
-  const lines = displayCode.split('\n')
-
   if (!displayCode) {
     return (
       <div className="rounded-xl bg-zinc-950 p-6 text-sm text-zinc-500 italic text-center dark:bg-zinc-900 ring-1 ring-white/10">
@@ -45,7 +72,7 @@ export function CodeBlock({ code, frameworks, language = 'tsx', showLineNumbers 
   }
 
   return (
-    <div className="group relative rounded-xl bg-zinc-950 overflow-hidden ring-1 ring-white/10 dark:bg-zinc-900">
+    <div className="group relative rounded-xl bg-[#24292e] overflow-hidden ring-1 ring-white/10">
       {/* Header bar */}
       <div className="flex items-center justify-between border-b border-white/5 px-4 py-2.5">
         <div className="flex items-center gap-2">
@@ -80,29 +107,14 @@ export function CodeBlock({ code, frameworks, language = 'tsx', showLineNumbers 
         </div>
       </div>
       {/* Code content */}
-      <div className="overflow-x-auto">
-        <pre className="py-4 text-[13px] leading-relaxed">
-          {showLineNumbers ? (
-            <table className="w-full border-collapse">
-              <tbody>
-                {lines.map((line, i) => (
-                  <tr key={i} className="hover:bg-white/[0.02]">
-                    <td className="w-12 select-none border-r border-white/5 pr-4 text-right font-mono text-xs text-zinc-600">
-                      {i + 1}
-                    </td>
-                    <td className="pl-4 pr-6">
-                      <code className="font-mono text-zinc-200 whitespace-pre">{line}</code>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <code className="block px-5 font-mono text-zinc-200 whitespace-pre">
-              {displayCode}
-            </code>
-          )}
-        </pre>
+      <div className="overflow-x-auto text-[13px] leading-relaxed [&>pre]:!bg-transparent [&>pre]:!p-4 [&_code]:!font-mono [&_code]:!text-[13px]">
+        {html ? (
+          <div dangerouslySetInnerHTML={{ __html: html }} />
+        ) : (
+          <pre className="py-4">
+            <code className="block px-5 font-mono text-zinc-200 whitespace-pre">{displayCode}</code>
+          </pre>
+        )}
       </div>
     </div>
   )

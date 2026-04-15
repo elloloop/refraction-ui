@@ -5,8 +5,110 @@ import {
   shortcutBadgeStyles,
   shortcutKeyStyles,
   shortcutSeparatorStyles,
+  altHintState,
+  globalShortcutRegistry,
+  SANE_DEFAULTS,
 } from '@refraction-ui/keyboard-shortcut'
 import { cn } from '@refraction-ui/shared'
+
+export const ShortcutContext = React.createContext<boolean>(false)
+
+export function ShortcutProvider({ children }: { children: React.ReactNode }) {
+  const [showHints, setShowHints] = React.useState(altHintState.snapshot)
+
+  React.useEffect(() => {
+    altHintState.init()
+    return altHintState.subscribe(setShowHints)
+  }, [])
+
+  return (
+    <ShortcutContext.Provider value={showHints}>
+      {children}
+    </ShortcutContext.Provider>
+  )
+}
+
+export interface UseShortcutOptions {
+  shortcut?: string;
+  action?: string;
+  onTrigger: () => void;
+  enabled?: boolean;
+  preventDefault?: boolean;
+}
+
+export function useShortcut({
+  shortcut,
+  action,
+  onTrigger,
+  enabled = true,
+  preventDefault = true,
+}: UseShortcutOptions) {
+  const showHints = React.useContext(ShortcutContext);
+
+  const keys = React.useMemo(() => {
+    if (shortcut) {
+      return shortcut.split('+').map((s) => s.trim());
+    }
+    if (action && SANE_DEFAULTS[action]) {
+      return SANE_DEFAULTS[action];
+    }
+    return [];
+  }, [shortcut, action]);
+
+  const apiRef = React.useRef(
+    createKeyboardShortcut({ keys, onTrigger, enabled, preventDefault })
+  );
+
+  React.useEffect(() => {
+    apiRef.current = createKeyboardShortcut({ keys, onTrigger, enabled, preventDefault });
+  }, [keys, onTrigger, enabled, preventDefault]);
+
+  React.useEffect(() => {
+    if (!enabled || keys.length === 0) return;
+
+    const handler = () => { apiRef.current.handler(new KeyboardEvent('keydown')); };
+    globalShortcutRegistry.register(keys, handler);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      apiRef.current.handler(e);
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      globalShortcutRegistry.unregister(keys);
+    };
+  }, [enabled, keys]);
+
+  return { keys, showHints };
+}
+
+export interface ShortcutHintProps extends Omit<ShortcutBadgeProps, 'keys'> {
+  shortcut?: string;
+  action?: string;
+}
+
+export function ShortcutHint({ shortcut, action, className, platform = true, ...props }: ShortcutHintProps) {
+  const showHints = React.useContext(ShortcutContext);
+
+  const keys = React.useMemo(() => {
+    if (shortcut) {
+      return shortcut.split('+').map((s) => s.trim());
+    }
+    if (action && SANE_DEFAULTS[action]) {
+      return SANE_DEFAULTS[action];
+    }
+    return [];
+  }, [shortcut, action]);
+
+  if (!showHints || keys.length === 0) return null;
+
+  return (
+    <div className={cn("absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none z-10", className)}>
+      <ShortcutBadge keys={keys} platform={platform} {...props} />
+    </div>
+  );
+}
 
 export interface KeyboardShortcutProps {
   /** Key combination */

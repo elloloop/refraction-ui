@@ -1,5 +1,13 @@
 # @refraction-ui/angular
 
+## 0.3.4
+
+### Patch Changes
+
+- fix: trigger fresh release for select component fixes
+
+  - Fixed select keyboard navigation and hover styles that were missed in the previous force-pushed release.
+
 ## 0.3.3
 
 ### Patch Changes
