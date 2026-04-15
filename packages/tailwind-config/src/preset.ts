@@ -12,9 +12,11 @@
 
 import { colors } from './colors.js'
 import { keyframes, animation } from './animations.js'
+import typography from '@tailwindcss/typography'
 
 export const refractionPreset = {
   darkMode: 'class' as const,
+  plugins: [typography],
   theme: {
     container: {
       center: true,

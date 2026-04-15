@@ -131,7 +131,10 @@ function makeState(
 // ---------------------------------------------------------------------------
 
 export function createAppShell(config?: AppShellConfig): AppShellAPI {
-  const resolved: Required<AppShellConfig> = { ...DEFAULTS, ...config }
+  const resolved: Required<AppShellConfig> = {
+    ...DEFAULTS,
+    ...(config ? Object.fromEntries(Object.entries(config).filter(([_, v]) => v !== undefined)) : {})
+  } as Required<AppShellConfig>
 
   // Internal mutable state
   let sidebarOpen = false
