@@ -1,5 +1,3 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
-
 export interface ShortcutProps {
   /** Key combination (e.g., ['Ctrl', 'K'] or ['Meta', 'Shift', 'P']) */
   keys: string[]
@@ -151,3 +149,90 @@ export function createKeyboardShortcut(props: ShortcutProps): KeyboardShortcutAP
     badgeAriaProps,
   }
 }
+
+export const SANE_DEFAULTS: Record<string, string[]> = {
+  save: ['Meta', 's'],
+  search: ['Meta', 'k'],
+  close: ['Escape'],
+  submit: ['Meta', 'Enter'],
+  undo: ['Meta', 'z'],
+  redo: ['Meta', 'Shift', 'z'],
+  copy: ['Meta', 'c'],
+  paste: ['Meta', 'v'],
+  cut: ['Meta', 'x'],
+  new: ['Meta', 'n'],
+  print: ['Meta', 'p'],
+  help: ['?'],
+};
+
+export class ShortcutRegistry {
+  private shortcuts: Map<string, () => void> = new Map();
+
+  register(keys: string[], handler: () => void) {
+    const keyStr = keys.map(k => k.toLowerCase()).sort().join('+');
+    if (this.shortcuts.has(keyStr)) {
+      console.warn(`Shortcut ${keyStr} is already registered.`);
+    }
+    this.shortcuts.set(keyStr, handler);
+  }
+
+  unregister(keys: string[]) {
+    const keyStr = keys.map(k => k.toLowerCase()).sort().join('+');
+    this.shortcuts.delete(keyStr);
+  }
+}
+
+export const globalShortcutRegistry = new ShortcutRegistry();
+
+export class AltHintState {
+  private showHints = false;
+  private listeners: Set<(show: boolean) => void> = new Set();
+  private initialized = false;
+
+  init() {
+    if (this.initialized || typeof window === 'undefined') return;
+    this.initialized = true;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Alt') {
+        this.setShowHints(true);
+      }
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (e.key === 'Alt') {
+        this.setShowHints(false);
+      }
+    };
+
+    const handleBlur = () => {
+      this.setShowHints(false);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+    window.addEventListener('blur', handleBlur);
+  }
+
+  private setShowHints(value: boolean) {
+    if (this.showHints !== value) {
+      this.showHints = value;
+      this.listeners.forEach((listener) => listener(value));
+    }
+  }
+
+  subscribe(listener: (show: boolean) => void) {
+    this.listeners.add(listener);
+    listener(this.showHints);
+    return () => {
+      this.listeners.delete(listener);
+    };
+  }
+
+  get snapshot() {
+    return this.showHints;
+  }
+}
+
+export const altHintState = new AltHintState();
+

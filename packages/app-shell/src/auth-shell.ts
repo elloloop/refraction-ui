@@ -47,7 +47,10 @@ const MAX_WIDTH_CLASSES: Record<AuthShellConfig['maxWidth'] & string, string> = 
 // ---------------------------------------------------------------------------
 
 export function createAuthShell(config?: AuthShellConfig): AuthShellAPI {
-  const resolved: Required<AuthShellConfig> = { ...DEFAULTS, ...config }
+  const resolved: Required<AuthShellConfig> = {
+    ...DEFAULTS,
+    ...(config ? Object.fromEntries(Object.entries(config).filter(([_, v]) => v !== undefined)) : {})
+  } as Required<AuthShellConfig>
 
   const containerParts: string[] = ['min-h-screen', 'flex', 'w-full']
 
