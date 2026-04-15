@@ -3,9 +3,8 @@ import {
   createTabs,
   tabsListVariants,
   tabsTriggerVariants,
-  type TabsProps as CoreTabsProps,
 } from '@refraction-ui/tabs'
-import { cn, createKeyboardHandler, Keys } from '@refraction-ui/shared'
+import { cn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context
@@ -93,7 +92,7 @@ Tabs.displayName = 'Tabs'
 // TabsList
 // ---------------------------------------------------------------------------
 
-export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}
+export type TabsListProps = React.HTMLAttributes<HTMLDivElement>
 
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
   ({ className, ...props }, ref) => {
@@ -121,7 +120,7 @@ export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonE
 
 export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
   ({ value, className, onClick, onKeyDown, children, ...props }, ref) => {
-    const { value: activeValue, onValueChange, orientation, idPrefix } = useTabsContext()
+    const { value: activeValue, onValueChange, idPrefix } = useTabsContext()
 
     const isSelected = activeValue === value
     const tabId = `${idPrefix}-tab-${value}`

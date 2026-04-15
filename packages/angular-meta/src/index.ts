@@ -8,6 +8,7 @@
 
 export * from '@refraction-ui/angular-accordion'
 export * from '@refraction-ui/angular-avatar'
+export * from '@refraction-ui/angular-animated-text'
 export * from '@refraction-ui/angular-badge'
 export * from '@refraction-ui/angular-breadcrumbs'
 export * from '@refraction-ui/angular-button'
