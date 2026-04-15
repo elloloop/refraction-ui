@@ -28,7 +28,8 @@
   },
   "dependencies": {
     "@refraction-ui/button": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@refraction-ui/shared": "workspace:*",
+    "@refraction-ui/react-keyboard-shortcut": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

@@ -1,6 +1,6 @@
 {
   "name": "@refraction-ui/angular",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "All Refraction UI Angular components in one package",
   "type": "module",
   "exports": {
@@ -16,7 +16,6 @@
     "@refraction-ui/shared": "workspace:*",
     "@refraction-ui/angular-accordion": "workspace:*",
     "@refraction-ui/angular-avatar": "workspace:*",
-    "@refraction-ui/angular-animated-text": "workspace:*",
     "@refraction-ui/angular-badge": "workspace:*",
     "@refraction-ui/angular-breadcrumbs": "workspace:*",
     "@refraction-ui/angular-button": "workspace:*",
