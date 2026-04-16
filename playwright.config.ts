@@ -4,6 +4,7 @@ export default defineConfig({
   testDir: './e2e',
   outputDir: './e2e/results',
   snapshotDir: './e2e/snapshots',
+  snapshotPathTemplate: '{snapshotDir}/{testFileDir}/{testFileName}-snapshots/{arg}-{projectName}{ext}',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,

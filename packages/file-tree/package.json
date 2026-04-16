@@ -17,5 +17,6 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
-  }
+  },
+  "type": "module"
 }

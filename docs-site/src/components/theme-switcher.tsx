@@ -143,6 +143,7 @@ export function ThemeSwitcher() {
     <div ref={dropdownRef} className="relative">
       {/* Trigger button */}
       <button
+        data-testid="theme-switcher"
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 rounded-full border border-border bg-background/80 backdrop-blur-sm px-3 py-1.5 text-sm font-medium text-foreground shadow-sm hover:bg-accent/50 transition-colors"
         aria-haspopup="listbox"
