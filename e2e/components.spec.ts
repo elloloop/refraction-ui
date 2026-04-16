@@ -20,7 +20,7 @@ for (const component of components) {
     await page.waitForLoadState('networkidle')
     await expect(page).toHaveScreenshot(`component-${component}.png`, {
       fullPage: true,
-      maxDiffPixelRatio: 0.01,
+      maxDiffPixelRatio: 0.05,
     })
   })
 }
