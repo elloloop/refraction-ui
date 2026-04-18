@@ -65,6 +65,15 @@ const nextConfig: NextConfig = {
     '@refraction-ui/toast',
     '@refraction-ui/tabs',
     '@refraction-ui/theme',
+    '@refraction-ui/keyboard-shortcut',
+    '@refraction-ui/file-tree',
+    '@refraction-ui/code-block',
+    '@refraction-ui/callout',
+    '@refraction-ui/payment',
+    '@refraction-ui/skip-to-content',
+    '@refraction-ui/steps',
+    '@refraction-ui/command-input',
+    '@refraction-ui/table-of-contents',
   ],
 }
 
