@@ -90,23 +90,23 @@ export function createDropdownMenu(props: DropdownMenuProps = {}): DropdownMenuA
   }
 
   const keyboardHandlers: KeyboardHandlerMap = {
-    [Keys.Escape]: (e) => {
+    [Keys.Escape]: (e: KeyboardEvent) => {
       e.preventDefault()
       closeMenu()
     },
-    [Keys.ArrowDown]: (e) => {
+    [Keys.ArrowDown]: (e: KeyboardEvent) => {
       e.preventDefault()
     },
-    [Keys.ArrowUp]: (e) => {
+    [Keys.ArrowUp]: (e: KeyboardEvent) => {
       e.preventDefault()
     },
-    [Keys.Enter]: (e) => {
+    [Keys.Enter]: (e: KeyboardEvent) => {
       e.preventDefault()
     },
-    [Keys.Home]: (e) => {
+    [Keys.Home]: (e: KeyboardEvent) => {
       e.preventDefault()
     },
-    [Keys.End]: (e) => {
+    [Keys.End]: (e: KeyboardEvent) => {
       e.preventDefault()
     },
   }
