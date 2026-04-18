@@ -67,14 +67,8 @@ jobs:
           cache: pnpm
       - name: Install deps
         run: pnpm install --frozen-lockfile
-      - name: Lint
-        run: pnpm turbo lint --continue
-      - name: Typecheck
-        run: pnpm turbo typecheck --continue
-      - name: Unit tests
-        run: pnpm turbo test --continue -- --coverage
-      - name: Build packages
-        run: pnpm turbo build --continue
+      - name: Run CI
+        run: make ci
       - name: Storybook tests (axe + interactions)
         run: pnpm turbo storybook:test --continue
       - name: Bundle size check
