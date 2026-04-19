@@ -63,7 +63,7 @@ jobs:
           echo "PRs must target the main branch."
           exit 1
 
-  lint-check:
+  validation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -76,65 +76,15 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - name: Lint affected packages
-        run: pnpm turbo lint --continue
-
-  test-check:
-    needs: [lint-check]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.13.1
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - name: Run tests
-        run: pnpm turbo test --continue
-
-  security-check:
-    needs: [test-check]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.13.1
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
+      - run: make install
+      - name: Run CI
+        run: make ci
       - name: Audit dependencies
-        run: pnpm audit --audit-level high
-
-  build-check:
-    needs: [lint-check]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.13.1
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - name: Build packages
-        run: pnpm turbo build --filter='./packages/*' --continue
+        run: make audit
 
   summary:
     if: failure()
-    needs: [pr-title-lint, pr-description-check, commit-lint, pr-branch-check, lint-check, test-check, security-check, build-check]
+    needs: [pr-title-lint, pr-description-check, commit-lint, pr-branch-check, validation]
     runs-on: ubuntu-latest
     steps:
       - name: PR Validation Summary

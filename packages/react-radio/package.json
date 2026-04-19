@@ -20,7 +20,7 @@
     "dev": "tsup --watch",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
+    "test:coverage": "vitest run --coverage --passWithNoTests",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts,.tsx",
     "clean": "rm -rf dist"
@@ -34,10 +34,10 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "@types/react": "19.0.0",
+    "@types/react-dom": "19.0.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "sideEffects": false,
   "license": "MIT"
