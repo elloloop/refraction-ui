@@ -1,0 +1,52 @@
+name: Deploy Flutter Docs to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/flutter/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: flutter-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.2
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.16.0
+        with:
+          flutter-version: '3.19.6'
+          channel: 'stable'
+
+      - name: System Audit
+        working-directory: packages/flutter
+        run: make check
+
+      - name: Build Web Application Documentation
+        working-directory: packages/flutter
+        run: make build-web
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3.0.1
+        with:
+          path: packages/flutter/example/build/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4.0.4
