@@ -22,4 +22,4 @@ test:
 
 # Documentation Web Application compilation
 build-web: pub-get
-	cd example && flutter build web --base-href /refraction-ui/ --release
+	cd example && flutter build web --base-href /refraction-ui/flutter/ --release
