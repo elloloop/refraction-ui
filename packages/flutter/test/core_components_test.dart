@@ -11,7 +11,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
-            colors: RefractionColors.light,
+            data: RefractionThemeData.light(),
             child: Scaffold(
               body: RefractionButton(
                 onPressed: () => tapped = true,
@@ -31,7 +31,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
-            colors: RefractionColors.light,
+            data: RefractionThemeData.light(),
             child: Scaffold(body: const RefractionBadge(child: Text('Beta'))),
           ),
         ),

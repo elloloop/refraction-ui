@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'refraction_colors.dart';
+import 'refraction_theme_data.dart';
 
 class RefractionTheme extends InheritedTheme {
-  final RefractionColors colors;
-  final double borderRadius;
+  final RefractionThemeData data;
 
-  const RefractionTheme({
-    Key? key,
-    required this.colors,
-    this.borderRadius = 8.0,
-    required Widget child,
-  }) : super(key: key, child: child);
+  const RefractionTheme({super.key, required this.data, required super.child});
+
+  // Forward properties for backwards compatibility
+  RefractionColors get colors => data.colors;
+  double get borderRadius => data.borderRadius;
 
   static RefractionTheme? maybeOf(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<RefractionTheme>();
@@ -24,19 +23,16 @@ class RefractionTheme extends InheritedTheme {
 
   @override
   bool updateShouldNotify(RefractionTheme oldWidget) {
-    return colors != oldWidget.colors || borderRadius != oldWidget.borderRadius;
+    return data != oldWidget.data;
   }
 
   @override
   Widget wrap(BuildContext context, Widget child) {
-    return RefractionTheme(
-      colors: colors,
-      borderRadius: borderRadius,
-      child: child,
-    );
+    return RefractionTheme(data: data, child: child);
   }
 }
 
 extension RefractionThemeExtension on BuildContext {
+  RefractionThemeData get refractionTheme => RefractionTheme.of(this).data;
   RefractionColors get refractionColors => RefractionTheme.of(this).colors;
 }

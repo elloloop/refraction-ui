@@ -11,7 +11,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
-            colors: RefractionColors.light,
+            data: RefractionThemeData.light(),
             child: const Scaffold(body: RefractionOtpInput(length: 4)),
           ),
         ),
@@ -26,7 +26,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
-            colors: RefractionColors.light,
+            data: RefractionThemeData.light(),
             child: const Scaffold(body: RefractionOtpInput(length: 3)),
           ),
         ),
@@ -56,7 +56,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: RefractionTheme(
-              colors: RefractionColors.light,
+              data: RefractionThemeData.light(),
               child: const Scaffold(body: RefractionOtpInput(length: 3)),
             ),
           ),

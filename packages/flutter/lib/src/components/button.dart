@@ -120,7 +120,7 @@ class _RefractionButtonState extends State<RefractionButton> {
     }
 
     Widget content = DefaultTextStyle(
-      style: TextStyle(
+      style: theme.data.textStyle.copyWith(
         color: foregroundColor,
         fontSize: fontSize,
         fontWeight: FontWeight.w500,

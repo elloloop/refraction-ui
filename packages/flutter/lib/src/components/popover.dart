@@ -70,15 +70,12 @@ class _RefractionPopoverState extends State<RefractionPopover> {
                               theme.borderRadius,
                             ),
                             border: Border.all(color: colors.border),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 16,
-                                offset: const Offset(0, 8),
-                              ),
-                            ],
+                            boxShadow: theme.data.heavyShadow,
                           ),
-                          child: widget.content,
+                          child: DefaultTextStyle(
+                            style: theme.data.textStyle,
+                            child: widget.content,
+                          ),
                         ),
                       ),
                     );
