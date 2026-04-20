@@ -2,6 +2,7 @@ library refraction_ui;
 
 export 'src/theme/refraction_colors.dart';
 export 'src/theme/refraction_theme.dart';
+export 'src/theme/refraction_theme_data.dart';
 export 'src/components/badge.dart';
 export 'src/components/button.dart';
 export 'src/components/checkbox.dart';

@@ -8,7 +8,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
-            colors: RefractionColors.light,
+            data: RefractionThemeData.light(),
             child: Scaffold(
               body: const RefractionTooltip(
                 message: Text('Help Text'),
@@ -28,7 +28,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
-            colors: RefractionColors.light,
+            data: RefractionThemeData.light(),
             child: Scaffold(
               body: Builder(
                 builder: (context) => RefractionButton(

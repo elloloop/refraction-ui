@@ -17,24 +17,20 @@ class RefractionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = RefractionTheme.of(context).colors;
+    final theme = RefractionTheme.of(context).data;
+    final colors = theme.colors;
+
     return Container(
       width: width,
       height: height,
       padding: padding,
       decoration: BoxDecoration(
         color: colors.card,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(theme.borderRadius),
         border: Border.all(color: colors.border),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: theme.softShadow,
       ),
-      child: child,
+      child: DefaultTextStyle(style: theme.textStyle, child: child),
     );
   }
 }
@@ -63,15 +59,17 @@ class RefractionCardTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = RefractionTheme.of(context).colors;
+    final theme = RefractionTheme.of(context).data;
     return Text(
       text,
-      style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-        letterSpacing: -0.5,
-        color: colors.foreground,
-      ).merge(style),
+      style: theme.textStyle
+          .copyWith(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            letterSpacing: -0.5,
+            color: theme.colors.foreground,
+          )
+          .merge(style),
     );
   }
 }
@@ -84,14 +82,16 @@ class RefractionCardDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = RefractionTheme.of(context).colors;
+    final theme = RefractionTheme.of(context).data;
     return Text(
       text,
-      style: TextStyle(
-        fontSize: 14,
-        color: colors.mutedForeground,
-        height: 1.5,
-      ).merge(style),
+      style: theme.textStyle
+          .copyWith(
+            fontSize: 14,
+            color: theme.colors.mutedForeground,
+            height: 1.5,
+          )
+          .merge(style),
     );
   }
 }

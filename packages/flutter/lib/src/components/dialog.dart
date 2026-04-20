@@ -10,7 +10,8 @@ class RefractionDialog {
     List<Widget>? actions,
     bool barrierDismissible = true,
   }) {
-    final theme = RefractionTheme.of(context);
+    final themeProvider = RefractionTheme.of(context);
+    final theme = themeProvider.data;
     final colors = theme.colors;
 
     return showGeneralDialog<T>(
@@ -30,8 +31,7 @@ class RefractionDialog {
         return ScaleTransition(
           scale: Tween<double>(begin: 0.95, end: 1.0).animate(curve),
           child: RefractionTheme(
-            colors: theme.colors,
-            borderRadius: theme.borderRadius,
+            data: theme,
             child: FadeTransition(
               opacity: curve,
               child: AlertDialog(
@@ -41,8 +41,11 @@ class RefractionDialog {
                   borderRadius: BorderRadius.circular(theme.borderRadius * 1.5),
                   side: BorderSide(color: colors.border),
                 ),
+                elevation: theme.heavyShadow != null
+                    ? 0
+                    : 24, // Use custom shadow if provided
                 title: DefaultTextStyle(
-                  style: TextStyle(
+                  style: theme.textStyle.copyWith(
                     color: colors.foreground,
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -51,7 +54,10 @@ class RefractionDialog {
                   child: title,
                 ),
                 content: DefaultTextStyle(
-                  style: TextStyle(color: colors.mutedForeground, fontSize: 14),
+                  style: theme.textStyle.copyWith(
+                    color: colors.mutedForeground,
+                    fontSize: 14,
+                  ),
                   child: content,
                 ),
                 actions:

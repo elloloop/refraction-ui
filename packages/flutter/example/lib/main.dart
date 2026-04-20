@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:refraction_ui/refraction_ui.dart';
 import 'dev_tools/device_frame.dart';
+import 'apps/family_calendar_app.dart';
+import 'apps/pregnancy_tracker_app.dart';
 
 void main() {
   runApp(const RefractionDemoApp());
@@ -17,6 +19,8 @@ class _RefractionDemoAppState extends State<RefractionDemoApp> {
   bool isDarkMode = true;
   DeviceType selectedDevice = DeviceType.iphone;
   String selectedComponent = 'Buttons';
+  double themeRadius = 8.0;
+  String themeFont = 'System'; // Default
 
   final List<String> components = [
     'Buttons',
@@ -29,21 +33,31 @@ class _RefractionDemoAppState extends State<RefractionDemoApp> {
     'Skeleton & Footer',
   ];
 
+  final List<String> apps = ['Family Calendar', 'Pregnancy Tracker'];
+
   @override
   Widget build(BuildContext context) {
-    final colors = isDarkMode ? RefractionColors.dark : RefractionColors.light;
+    final baseData = isDarkMode
+        ? RefractionThemeData.dark()
+        : RefractionThemeData.light();
+    final themeData = baseData.copyWith(
+      borderRadius: themeRadius,
+      fontFamily: themeFont == 'System' ? null : themeFont,
+    );
+    final colors = themeData.colors;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Refraction UI Flutter',
       theme: ThemeData(
         scaffoldBackgroundColor: colors.background,
+        fontFamily: themeFont == 'System' ? null : themeFont,
         colorScheme: isDarkMode
             ? const ColorScheme.dark()
             : const ColorScheme.light(),
       ),
       home: RefractionTheme(
-        colors: colors,
+        data: themeData,
         child: Scaffold(
           backgroundColor: isDarkMode
               ? const Color(0xFF09090B)
@@ -118,49 +132,147 @@ class _RefractionDemoAppState extends State<RefractionDemoApp> {
                     _buildDeviceToggle('iPhone', DeviceType.iphone, colors),
                     _buildDeviceToggle('Android', DeviceType.android, colors),
                     _buildDeviceToggle('Tablet', DeviceType.tablet, colors),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        "COMPONENTS",
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: colors.mutedForeground,
-                          letterSpacing: 1.2,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
                     Expanded(
-                      child: ListView.builder(
-                        itemCount: components.length,
-                        itemBuilder: (context, index) {
-                          final comp = components[index];
-                          final isSelected = selectedComponent == comp;
-                          return InkWell(
-                            onTap: () =>
-                                setState(() => selectedComponent = comp),
-                            child: Container(
-                              color: isSelected
-                                  ? colors.primary.withOpacity(0.05)
-                                  : Colors.transparent,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 24,
-                                vertical: 10,
-                              ),
-                              child: Text(
-                                comp,
-                                style: TextStyle(
-                                  color: isSelected
-                                      ? colors.primary
-                                      : colors.mutedForeground,
-                                  fontWeight: isSelected
-                                      ? FontWeight.w600
-                                      : FontWeight.w400,
-                                ),
+                      child: ListView(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              "BRANDING",
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: colors.mutedForeground,
+                                letterSpacing: 1.2,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          );
-                        },
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text("Radius"),
+                                    Text(themeRadius.toStringAsFixed(1)),
+                                  ],
+                                ),
+                                Slider(
+                                  value: themeRadius,
+                                  min: 0,
+                                  max: 24,
+                                  activeColor: colors.primary,
+                                  onChanged: (val) => setState(() => themeRadius = val),
+                                ),
+                                const SizedBox(height: 16),
+                                const Text("Typeface"),
+                                const SizedBox(height: 8),
+                                RefractionSelect<String>(
+                                  value: themeFont,
+                                  items: const [
+                                    DropdownMenuItem(
+                                      value: 'System',
+                                      child: Text('System (Default)'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Georgia',
+                                      child: Text('Georgia (Serif)'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: 'Courier',
+                                      child: Text('Courier (Mono)'),
+                                    ),
+                                  ],
+                                  onChanged: (val) {
+                                    if (val != null)
+                                      setState(() => themeFont = val);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              "COMPONENTS",
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: colors.mutedForeground,
+                                letterSpacing: 1.2,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          ...components.map((comp) {
+                            final isSelected = selectedComponent == comp;
+                            return InkWell(
+                              onTap: () =>
+                                  setState(() => selectedComponent = comp),
+                              child: Container(
+                                color: isSelected
+                                    ? colors.primary.withOpacity(0.05)
+                                    : Colors.transparent,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24,
+                                  vertical: 10,
+                                ),
+                                child: Text(
+                                  comp,
+                                  style: TextStyle(
+                                    color: isSelected
+                                        ? colors.primary
+                                        : colors.mutedForeground,
+                                    fontWeight: isSelected
+                                        ? FontWeight.w600
+                                        : FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              "APPS",
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: colors.mutedForeground,
+                                letterSpacing: 1.2,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          ...apps.map((app) {
+                            final isSelected = selectedComponent == app;
+                            return InkWell(
+                              onTap: () =>
+                                  setState(() => selectedComponent = app),
+                              child: Container(
+                                color: isSelected
+                                    ? colors.primary.withOpacity(0.05)
+                                    : Colors.transparent,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24,
+                                  vertical: 10,
+                                ),
+                                child: Text(
+                                  app,
+                                  style: TextStyle(
+                                    color: isSelected
+                                        ? colors.primary
+                                        : colors.mutedForeground,
+                                    fontWeight: isSelected
+                                        ? FontWeight.w600
+                                        : FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ],
                       ),
                     ),
                   ],
@@ -549,6 +661,12 @@ class _ComponentCanvas extends StatelessWidget {
             ),
           ],
         );
+        break;
+      case 'Family Calendar':
+        content = const FamilyCalendarApp();
+        break;
+      case 'Pregnancy Tracker':
+        content = const PregnancyTrackerApp();
         break;
     }
 

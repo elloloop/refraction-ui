@@ -8,7 +8,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
-            colors: RefractionColors.light,
+            data: RefractionThemeData.light(),
             child: Scaffold(
               body: const RefractionInput(placeholder: 'Enter name'),
             ),
@@ -25,7 +25,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
-            colors: RefractionColors.light,
+            data: RefractionThemeData.light(),
             child: Scaffold(
               body: RefractionCheckbox(
                 value: false,
@@ -45,7 +45,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
-            colors: RefractionColors.light,
+            data: RefractionThemeData.light(),
             child: Scaffold(
               body: RefractionSwitch(
                 value: false,

@@ -10,7 +10,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
-            colors: RefractionColors.light,
+            data: RefractionThemeData.light(),
             child: Scaffold(
               body: RefractionTabs(
                 tabs: const ['Tab 1', 'Tab 2', 'Tab 3'],
@@ -41,7 +41,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
-            colors: RefractionColors.light,
+            data: RefractionThemeData.light(),
             child: Scaffold(
               body: RefractionTabs(
                 tabs: const ['Tab 1', 'Tab 2'],
@@ -71,7 +71,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
-            colors: RefractionColors.light,
+            data: RefractionThemeData.light(),
             child: Scaffold(
               body: RefractionTabs(
                 tabs: const [
