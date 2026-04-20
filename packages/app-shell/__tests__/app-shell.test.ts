@@ -31,6 +31,11 @@ describe('createAppShell — default config', () => {
     // Rest are defaults
     expect(api.config.sidebarCollapsedWidth).toBe('4rem')
   })
+
+  it('drops undefined config values so they do not overwrite defaults', () => {
+    const api = createAppShell({ sidebarWidth: undefined })
+    expect(api.config.sidebarWidth).toBe('16rem')
+  })
 })
 
 // ---------------------------------------------------------------------------

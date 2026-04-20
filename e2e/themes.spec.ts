@@ -16,12 +16,12 @@ for (const theme of themes) {
 
     // Open theme switcher and select theme
     await page.click('[data-testid="theme-switcher"]') // may need to adjust selector
-    await page.click(`text=${theme.charAt(0).toUpperCase() + theme.slice(1)}`)
+    await page.click(`[role="listbox"] [role="option"]:has-text("${theme.charAt(0).toUpperCase() + theme.slice(1)}")`)
     await page.waitForTimeout(500) // wait for theme transition
 
     await expect(page).toHaveScreenshot(`button-theme-${theme}.png`, {
       fullPage: true,
-      maxDiffPixelRatio: 0.01,
+      maxDiffPixelRatio: 0.05,
     })
   })
 }

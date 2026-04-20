@@ -45,11 +45,11 @@ jobs:
           node-version-file: ".nvmrc"
           cache: pnpm
       - name: Install deps
-        run: pnpm install --frozen-lockfile
+        run: make install
       - name: Check for outdated dependencies
         run: pnpm outdated || true
       - name: Audit dependencies
-        run: pnpm audit --audit-level high
+        run: make audit
 
   build-test:
     runs-on: ubuntu-latest
@@ -66,19 +66,13 @@ jobs:
           node-version-file: ".nvmrc"
           cache: pnpm
       - name: Install deps
-        run: pnpm install --frozen-lockfile
-      - name: Lint
-        run: pnpm turbo lint --continue
-      - name: Typecheck
-        run: pnpm turbo typecheck --continue
-      - name: Unit tests
-        run: pnpm turbo test --continue -- --coverage
-      - name: Build packages
-        run: pnpm turbo build --continue
+        run: make install
+      - name: Run CI
+        run: make ci-coverage
       - name: Storybook tests (axe + interactions)
-        run: pnpm turbo storybook:test --continue
+        run: make storybook
       - name: Bundle size check
-        run: pnpm turbo size:check --continue
+        run: make size-check
       - name: Upload coverage reports
         uses: codecov/codecov-action@v4
         with:
@@ -101,8 +95,8 @@ jobs:
           node-version-file: ".nvmrc"
           cache: pnpm
       - name: Install deps
-        run: pnpm install --frozen-lockfile
+        run: make install
       - name: Build for performance testing
-        run: pnpm turbo build --continue
+        run: make build
       - name: Run bundle analysis
-        run: pnpm turbo size:analyze --continue || echo "Bundle analysis completed"
+        run: make size-analyze

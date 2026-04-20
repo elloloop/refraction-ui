@@ -37,6 +37,20 @@ jobs:
       - name: Build docs site
         run: GITHUB_PAGES=true pnpm --filter refraction-ui-docs build
 
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.16.0
+        with:
+          channel: 'stable'
+
+      - name: Build Flutter UI Prototype
+        working-directory: packages/flutter
+        run: make build-web
+        
+      - name: Merge Flutter Web into Docs
+        run: |
+          mkdir -p docs-site/out/flutter
+          cp -r packages/flutter/example/build/web/* docs-site/out/flutter/
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: docs-site/out

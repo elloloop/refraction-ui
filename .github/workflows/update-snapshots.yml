@@ -1,0 +1,38 @@
+name: Update Visual Snapshots
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-snapshots:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.13.1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: make install
+      - run: make build-packages
+      
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps
+
+      - name: Update Snapshots
+        run: pnpm e2e:update
+
+      - name: Upload Snapshots Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: updated-snapshots
+          path: e2e/snapshots/
+          retention-days: 1

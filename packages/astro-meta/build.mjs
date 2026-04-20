@@ -102,6 +102,33 @@ function rewriteImports(dir) {
         return match;
       });
 
+      // Add missing extensions to self-referential relative exports
+      if (entry.name === 'index.ts') {
+         content = content.replace(/export\s+\*\s+from\s+['"](\.\/[^'"]+)['"]/g, (match, target) => {
+            if (target.endsWith('.ts') || target.endsWith('.astro') || target.endsWith('.tsx')) return match;
+            
+            const targetName = target.endsWith('.js') ? target.slice(0, -3).replace('./', '') : target.replace('./', '');
+            const dir = path.dirname(fullPath);
+            
+            // For target ending with .js, we strictly rewrite to .ts since we know it mapped to TS
+            if (target.endsWith('.js')) {
+               return `export * from '${target.slice(0, -3)}.ts'`;
+            }
+            
+            if (fs.existsSync(path.join(dir, targetName + '.astro'))) {
+               // Must rewrite to default export for .astro
+               const nameParts = targetName.replace(/^astro-/, '').split('-');
+               const camelName = nameParts.map(s => s.charAt(0).toUpperCase() + s.slice(1)).join('');
+               return `export { default as ${camelName} } from '${target}.astro'`;
+            } else if (fs.existsSync(path.join(dir, targetName + '.ts'))) {
+               return `export * from '${target}.ts'`;
+            } else if (fs.existsSync(path.join(dir, targetName + '.tsx'))) {
+               return `export * from '${target}.tsx'`;
+            }
+            return match;
+         });
+      }
+
       fs.writeFileSync(fullPath, content);
     }
   }
@@ -118,5 +145,35 @@ for (const folderName of copiedPackages) {
   }
 }
 fs.writeFileSync(path.join(distDir, 'index.ts'), indexContent);
+
+// 6. Verify all re-exports resolve
+for (const folderName of copiedPackages) {
+  const indexTsPath = path.join(distDir, folderName, 'index.ts');
+  if (fs.existsSync(indexTsPath)) {
+    const content = fs.readFileSync(indexTsPath, 'utf8');
+    
+    // Check wildcard exports
+    const importMatches = [...content.matchAll(/export \\* from '([^']+)'/g)];
+    for (const match of importMatches) {
+       const target = match[1];
+       const targetPath = path.resolve(path.dirname(indexTsPath), target);
+       if (!fs.existsSync(targetPath)) {
+         console.error(`Missing file extension in ${folderName}/index.ts: ${target}`);
+         process.exit(1);
+       }
+    }
+    
+    // Check named exports
+    const namedMatches = [...content.matchAll(/export \\{.*\\} from '([^']+)'/g)];
+    for (const match of namedMatches) {
+       const target = match[1];
+       const targetPath = path.resolve(path.dirname(indexTsPath), target);
+       if (!fs.existsSync(targetPath)) {
+         console.error(`Missing file extension in ${folderName}/index.ts: ${target}`);
+         process.exit(1);
+       }
+    }
+  }
+}
 
 console.log('Astro meta-package built successfully. Copied packages:', copiedPackages.length);
