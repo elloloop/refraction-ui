@@ -60,18 +60,12 @@ export function DatePicker({
 
   // Rebuild days based on the currentMonth state
   const days = React.useMemo(() => {
-    const dp = createDatePicker({
-      value,
-      minDate,
-      maxDate,
-      open: true,
-    })
-    // Manually shift the month by adjusting the api
     const tempApi = createDatePicker({
       value,
       minDate,
       maxDate,
       open: true,
+      defaultMonth: currentMonth,
     })
     return tempApi.days
   }, [value, minDate, maxDate, currentMonth])
@@ -187,7 +181,7 @@ export function DatePicker({
           ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((d) =>
             React.createElement('div', { key: d, className: 'text-xs text-muted-foreground py-1 font-medium' }, d),
           ),
-          api.days.map((day, i) => {
+          days.map((day, i) => {
             let state: 'default' | 'selected' | 'today' | 'disabled' | 'outside' = 'default'
             if (day.isDisabled) state = 'disabled'
             else if (day.isSelected) state = 'selected'
