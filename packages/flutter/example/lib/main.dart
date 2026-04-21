@@ -317,6 +317,22 @@ class _AppShell extends ConsumerWidget {
             ),
           ),
         );
+      case '/docs/badges':
+        return PreviewCanvas(
+          title: "Badges",
+          description: "Small status indicators and labels.",
+          child: Center(
+            child: Wrap(
+              spacing: 16,
+              children: const [
+                RefractionBadge(child: Text("Primary")),
+                RefractionBadge(variant: RefractionBadgeVariant.secondary, child: Text("Secondary")),
+                RefractionBadge(variant: RefractionBadgeVariant.outline, child: Text("Outline")),
+                RefractionBadge(variant: RefractionBadgeVariant.destructive, child: Text("Destructive")),
+              ],
+            ),
+          ),
+        );
       case '/docs/inputs-&-forms':
         return PreviewCanvas(
           title: "Inputs & Forms",
@@ -329,10 +345,162 @@ class _AppShell extends ConsumerWidget {
                 const SizedBox(height: 16),
                 const RefractionInput(placeholder: "Password", obscureText: true),
                 const SizedBox(height: 16),
+                const RefractionInput(placeholder: "Disabled Input", disabled: true),
+                const SizedBox(height: 16),
                 RefractionButton(onPressed: () {}, child: const Center(child: Text("Submit"))),
               ],
             ),
           ),
+        );
+      case '/docs/select-&-dropdowns':
+        return PreviewCanvas(
+          title: "Select & Dropdowns",
+          description: "Display a list of choices on temporary surfaces.",
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 300),
+              child: RefractionSelect<String>(
+                value: "Option 1",
+                placeholder: "Select an option",
+                items: const [
+                  DropdownMenuItem(value: "Option 1", child: Text("Option 1")),
+                  DropdownMenuItem(value: "Option 2", child: Text("Option 2")),
+                  DropdownMenuItem(value: "Option 3", child: Text("Option 3")),
+                ],
+                onChanged: (val) {},
+              ),
+            ),
+          ),
+        );
+      case '/docs/tabs':
+        return PreviewCanvas(
+          title: "Tabs",
+          description: "A set of layered sections of content.",
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 400),
+              child: RefractionTabs(
+                tabs: const ['Account', 'Password', 'Settings'],
+                children: const [
+                  Padding(padding: EdgeInsets.all(16.0), child: Text("Make changes to your account here.")),
+                  Padding(padding: EdgeInsets.all(16.0), child: Text("Change your password here.")),
+                  Padding(padding: EdgeInsets.all(16.0), child: Text("Manage your settings here.")),
+                ],
+              ),
+            ),
+          ),
+        );
+      case '/docs/cards-&-layouts':
+        return PreviewCanvas(
+          title: "Cards",
+          description: "Displays a card with header, content, and footer.",
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 350),
+              child: RefractionCard(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const RefractionCardHeader(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          RefractionCardTitle("Create project"),
+                          SizedBox(height: 4),
+                          RefractionCardDescription("Deploy your new project in one-click."),
+                        ],
+                      ),
+                    ),
+                    const RefractionCardContent(
+                      child: RefractionInput(placeholder: "Name of your project"),
+                    ),
+                    RefractionCardFooter(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          RefractionButton(variant: RefractionButtonVariant.outline, onPressed: () {}, child: const Text("Cancel")),
+                          RefractionButton(onPressed: () {}, child: const Text("Deploy")),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      case '/docs/popovers-&-tooltips':
+        return PreviewCanvas(
+          title: "Popovers & Tooltips",
+          description: "Floating interactive panels.",
+          child: Center(
+            child: Wrap(
+              spacing: 32,
+              children: [
+                RefractionTooltip(
+                  message: const Text("Add to library"),
+                  child: RefractionButton(variant: RefractionButtonVariant.outline, onPressed: () {}, child: const Text("Hover me")),
+                ),
+                RefractionPopover(
+                  content: const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text("Popover content goes here."),
+                  ),
+                  trigger: RefractionButton(onPressed: () {}, child: const Text("Click for Popover")),
+                ),
+              ],
+            ),
+          ),
+        );
+      case '/docs/toasts':
+         return PreviewCanvas(
+          title: "Toasts",
+          description: "A succinct message that is displayed temporarily.",
+          child: Center(
+            child: RefractionButton(
+              onPressed: () {
+                RefractionToast.show(
+                  context: context,
+                  title: "Scheduled: Catch up",
+                  description: "Friday, February 10, 2024 at 5:57 PM",
+                );
+              },
+              child: const Text("Show Toast"),
+            ),
+          ),
+        );
+      case '/docs/navbar-&-navigation':
+        return const PreviewCanvas(
+          title: "Navbar",
+          description: "Top-level routing components.",
+          child: RefractionNavbar(
+            logo: Text("Brand"),
+            currentPath: "/home",
+            links: [
+              NavLink(label: "Home", href: "/home"),
+              NavLink(label: "Features", href: "/features"),
+              NavLink(label: "Pricing", href: "/pricing"),
+            ],
+          ),
+        );
+      case '/docs/introduction':
+        return _buildArticlePage(
+          context,
+          "Introduction",
+          "Refraction UI Flutter is a port of the world-class Refraction UI framework. Designed with painstaking attention to detail, it maps perfectly to Mobbin archetypes, offering you pure production-ready aesthetics instantly.\n\nUse this library to stop reinventing the wheel and build professional, beautiful Flutter web and mobile applications.",
+        );
+      case '/docs/installation':
+        return _buildArticlePage(
+          context,
+          "Installation",
+          "Add the following to your pubspec.yaml:\n\n```yaml\ndependencies:\n  refraction_ui: ^1.0.0\n```\n\nRun `flutter pub get` and wrap your app in a `RefractionTheme` to inject the design tokens globally.",
+        );
+      case '/docs/theming':
+         return _buildArticlePage(
+          context,
+          "Theming",
+          "Refraction UI features 5 beautifully curated archetypes out of the box: Minimal, Fintech, Wellness, Creative, and Productivity. \n\nYou can easily construct these factories like so:\n`RefractionThemeData.minimalDark()` or `RefractionThemeData.fintechLight()` and supply them directly to the `RefractionTheme` container.",
         );
       default:
         // Render a generic placeholder for other components
@@ -343,5 +511,38 @@ class _AppShell extends ConsumerWidget {
           child: const Center(child: Text("Preview rendered here.")),
         );
     }
+  }
+
+  Widget _buildArticlePage(BuildContext context, String title, String body) {
+    final theme = RefractionTheme.of(context).data;
+    
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: theme.textStyle.copyWith(
+            fontSize: 48,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -1,
+          ),
+        ),
+        const SizedBox(height: 24),
+        Container(
+          width: double.infinity,
+          height: 1,
+          color: theme.colors.border,
+        ),
+        const SizedBox(height: 32),
+        Text(
+          body,
+          style: theme.textStyle.copyWith(
+            fontSize: 18,
+            height: 1.6,
+            color: theme.colors.mutedForeground,
+          ),
+        ),
+      ],
+    );
   }
 }
