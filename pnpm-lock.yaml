@@ -327,6 +327,19 @@ importers:
         specifier: workspace:*
         version: link:../button
 
+  packages/angular-calendar:
+    dependencies:
+      '@refraction-ui/calendar':
+        specifier: workspace:*
+        version: link:../calendar
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
+
   packages/angular-callout:
     dependencies:
       '@angular/core':
