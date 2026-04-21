@@ -1,5 +1,13 @@
 # @refraction-ui/astro-pagination
 
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies [6319dc8]
+  - @refraction-ui/shared@0.1.4
+  - @refraction-ui/pagination@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes

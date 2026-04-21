@@ -1,5 +1,13 @@
 # @refraction-ui/astro-diff-viewer
 
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [6319dc8]
+  - @refraction-ui/shared@0.1.4
+  - @refraction-ui/diff-viewer@0.1.4
+
 ## 0.2.2
 
 ### Patch Changes

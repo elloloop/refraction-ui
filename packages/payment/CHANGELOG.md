@@ -1,5 +1,12 @@
 # @refraction-ui/payment
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [6319dc8]
+  - @refraction-ui/shared@0.1.4
+
 ## 0.3.0
 
 ### Minor Changes

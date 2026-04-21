@@ -1,5 +1,13 @@
 # @refraction-ui/react-command-input
 
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies [6319dc8]
+  - @refraction-ui/shared@0.1.4
+  - @refraction-ui/command-input@0.1.2
+
 ## 1.0.1
 
 ### Patch Changes

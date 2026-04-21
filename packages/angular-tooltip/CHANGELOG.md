@@ -1,5 +1,13 @@
 # @refraction-ui/angular-tooltip
 
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies [6319dc8]
+  - @refraction-ui/shared@0.1.4
+  - @refraction-ui/tooltip@0.1.5
+
 ## 0.1.3
 
 ### Patch Changes

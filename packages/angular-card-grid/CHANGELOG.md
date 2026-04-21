@@ -1,5 +1,11 @@
 # @refraction-ui/angular-card-grid
 
+## 0.1.4
+
+### Patch Changes
+
+- @refraction-ui/card-grid@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes

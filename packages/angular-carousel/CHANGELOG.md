@@ -1,5 +1,11 @@
 # @refraction-ui/angular-carousel
 
+## 0.1.4
+
+### Patch Changes
+
+- @refraction-ui/carousel@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes

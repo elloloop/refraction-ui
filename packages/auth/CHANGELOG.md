@@ -1,5 +1,12 @@
 # @refraction-ui/auth
 
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [6319dc8]
+  - @refraction-ui/shared@0.1.4
+
 ## 0.2.2
 
 ### Patch Changes

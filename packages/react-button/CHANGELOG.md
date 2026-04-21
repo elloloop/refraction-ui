@@ -1,5 +1,14 @@
 # @refraction-ui/react-button
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [6319dc8]
+  - @refraction-ui/shared@0.1.4
+  - @refraction-ui/button@0.1.4
+  - @refraction-ui/react-keyboard-shortcut@0.2.1
+
 ## 0.1.4
 
 ### Patch Changes

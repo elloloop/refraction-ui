@@ -1,5 +1,11 @@
 # @refraction-ui/angular-link-card
 
+## 0.1.4
+
+### Patch Changes
+
+- @refraction-ui/link-card@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes
