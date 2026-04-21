@@ -58,7 +58,6 @@
   "homepage": "https://elloloop.github.io/refraction-ui/",
   "dependencies": {
     "@refraction-ui/angular-accordion": "workspace:*",
-    "@refraction-ui/angular-animated-text": "workspace:*",
     "@refraction-ui/angular-avatar": "workspace:*",
     "@refraction-ui/angular-badge": "workspace:*",
     "@refraction-ui/angular-breadcrumbs": "workspace:*",
@@ -90,6 +89,7 @@
     "@refraction-ui/angular-table-of-contents": "workspace:*",
     "@refraction-ui/angular-tabs": "workspace:*",
     "@refraction-ui/angular-textarea": "workspace:*",
-    "@refraction-ui/angular-tooltip": "workspace:*"
+    "@refraction-ui/angular-tooltip": "workspace:*",
+    "@refraction-ui/angular-data-table": "workspace:*"
   }
 }

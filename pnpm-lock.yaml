@@ -408,6 +408,19 @@ importers:
         specifier: workspace:*
         version: link:../command-input
 
+  packages/angular-data-table:
+    dependencies:
+      '@refraction-ui/data-table':
+        specifier: workspace:*
+        version: link:../data-table
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
+
   packages/angular-date-picker:
     dependencies:
       '@refraction-ui/date-picker':
@@ -479,7 +492,6 @@ importers:
       '@angular/core':
         specifier: 19.2.20
         version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
-    devDependencies:
       '@refraction-ui/angular-accordion':
         specifier: workspace:*
         version: link:../angular-accordion
@@ -495,6 +507,9 @@ importers:
       '@refraction-ui/angular-button':
         specifier: workspace:*
         version: link:../angular-button
+      '@refraction-ui/angular-calendar':
+        specifier: workspace:*
+        version: link:../angular-calendar
       '@refraction-ui/angular-callout':
         specifier: workspace:*
         version: link:../angular-callout
@@ -516,6 +531,12 @@ importers:
       '@refraction-ui/angular-command-input':
         specifier: workspace:*
         version: link:../angular-command-input
+      '@refraction-ui/angular-data-table':
+        specifier: workspace:*
+        version: link:../angular-data-table
+      '@refraction-ui/angular-date-picker':
+        specifier: workspace:*
+        version: link:../angular-date-picker
       '@refraction-ui/angular-dialog':
         specifier: workspace:*
         version: link:../angular-dialog
@@ -531,6 +552,9 @@ importers:
       '@refraction-ui/angular-link-card':
         specifier: workspace:*
         version: link:../angular-link-card
+      '@refraction-ui/angular-location-selector':
+        specifier: workspace:*
+        version: link:../angular-location-selector
       '@refraction-ui/angular-pagination':
         specifier: workspace:*
         version: link:../angular-pagination
@@ -570,6 +594,7 @@ importers:
       '@refraction-ui/angular-tooltip':
         specifier: workspace:*
         version: link:../angular-tooltip
+    devDependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
