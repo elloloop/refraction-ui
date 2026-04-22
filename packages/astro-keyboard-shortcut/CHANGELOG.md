@@ -1,5 +1,13 @@
 # @refraction-ui/astro-keyboard-shortcut
 
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies [6319dc8]
+  - @refraction-ui/shared@0.1.4
+  - @refraction-ui/keyboard-shortcut@0.2.1
+
 ## 0.2.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @refraction-ui/angular-progress-display
 
+## 0.1.4
+
+### Patch Changes
+
+- @refraction-ui/progress-display@0.1.5
+
 ## 0.1.3
 
 ### Patch Changes

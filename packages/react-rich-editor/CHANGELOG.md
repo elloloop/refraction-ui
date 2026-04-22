@@ -1,5 +1,13 @@
 # @refraction-ui/react-rich-editor
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [6319dc8]
+  - @refraction-ui/shared@0.1.4
+  - @refraction-ui/rich-editor@0.1.5
+
 ## 0.1.4
 
 ### Patch Changes

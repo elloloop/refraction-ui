@@ -1,5 +1,13 @@
 # @refraction-ui/react-input
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [6319dc8]
+  - @refraction-ui/shared@0.1.4
+  - @refraction-ui/input@0.1.4
+
 ## 0.1.4
 
 ### Patch Changes

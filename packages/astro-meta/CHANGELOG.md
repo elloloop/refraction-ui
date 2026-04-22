@@ -1,5 +1,11 @@
 # @refraction-ui/astro
 
+## 0.4.7
+
+### Patch Changes
+
+- 6319dc8: Trigger full publish cycle to synchronize npm latest tag
+
 ## 0.4.6
 
 ### Patch Changes

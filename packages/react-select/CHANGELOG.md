@@ -1,5 +1,13 @@
 # @refraction-ui/react-select
 
+## 0.1.6
+
+### Patch Changes
+
+- Updated dependencies [6319dc8]
+  - @refraction-ui/shared@0.1.4
+  - @refraction-ui/select@0.1.6
+
 ## 0.1.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @refraction-ui/react
 
+## 0.3.6
+
+### Patch Changes
+
+- 6319dc8: Trigger full publish cycle to synchronize npm latest tag
+
 ## 0.3.5
 
 ### Patch Changes

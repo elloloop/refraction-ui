@@ -1,5 +1,11 @@
 # @refraction-ui/angular
 
+## 0.3.5
+
+### Patch Changes
+
+- 6319dc8: Trigger full publish cycle to synchronize npm latest tag
+
 ## 0.3.4
 
 ### Patch Changes
