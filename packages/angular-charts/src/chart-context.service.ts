@@ -1,0 +1,21 @@
+import { Injectable, signal, WritableSignal } from '@angular/core';
+import type { Dimensions, Margin } from '@refraction-ui/charts';
+
+export interface ChartContextValue {
+  dimensions: Dimensions;
+}
+
+const DEFAULT_MARGIN: Margin = { top: 40, right: 30, bottom: 40, left: 75 };
+
+@Injectable()
+export class ChartContextService {
+  readonly context: WritableSignal<ChartContextValue> = signal({
+    dimensions: {
+      width: 600,
+      height: 400,
+      margin: DEFAULT_MARGIN,
+      boundedWidth: 600 - DEFAULT_MARGIN.left - DEFAULT_MARGIN.right,
+      boundedHeight: 400 - DEFAULT_MARGIN.top - DEFAULT_MARGIN.bottom,
+    }
+  });
+}
