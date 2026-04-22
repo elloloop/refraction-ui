@@ -17,6 +17,7 @@
     "@refraction-ui/react-button": "workspace:*",
     "@refraction-ui/react-calendar": "workspace:*",
     "@refraction-ui/react-card": "workspace:*",
+    "@refraction-ui/react-charts": "workspace:*",
     "@refraction-ui/react-checkbox": "workspace:*",
     "@refraction-ui/react-code-editor": "workspace:*",
     "@refraction-ui/react-collapsible": "workspace:*",

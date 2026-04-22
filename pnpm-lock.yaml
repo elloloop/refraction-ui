@@ -95,6 +95,9 @@ importers:
       '@refraction-ui/react-card':
         specifier: workspace:*
         version: link:../packages/react-card
+      '@refraction-ui/react-charts':
+        specifier: workspace:*
+        version: link:../packages/react-charts
       '@refraction-ui/react-checkbox':
         specifier: workspace:*
         version: link:../packages/react-checkbox
@@ -296,6 +299,22 @@ importers:
         specifier: workspace:*
         version: link:../avatar
 
+  packages/angular-avatar-group:
+    dependencies:
+      '@refraction-ui/avatar-group':
+        specifier: workspace:*
+        version: link:../avatar-group
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/common':
+        specifier: 19.2.20
+        version: 19.2.20(@angular/core@19.2.20(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
+
   packages/angular-badge:
     dependencies:
       '@angular/core':
@@ -392,6 +411,22 @@ importers:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
+
+  packages/angular-charts:
+    dependencies:
+      '@refraction-ui/charts':
+        specifier: workspace:*
+        version: link:../charts
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/common':
+        specifier: 19.2.20
+        version: 19.2.20(@angular/core@19.2.20(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
 
   packages/angular-checkbox:
     dependencies:
