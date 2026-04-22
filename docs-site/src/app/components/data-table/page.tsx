@@ -28,6 +28,38 @@ export function MyComponent() {
   )
 }`
 
+const angularUsageCode = `import { Component } from '@angular/core';
+import { DataTableComponent } from '@refraction-ui/angular-data-table';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [DataTableComponent],
+  template: \`
+    <re-data-table
+      [columns]="columns"
+      [data]="data"
+      (sortChange)="onSort($event)"
+    />
+  \`,
+})
+export class AppComponent {
+  columns = [
+    { id: 'name', header: 'Name', accessor: (r: any) => r.name, sortable: true, filterable: true },
+    { id: 'role', header: 'Role', accessor: (r: any) => r.role, sortable: true },
+    { id: 'status', header: 'Status', accessor: (r: any) => r.status },
+  ];
+
+  data = [
+    { id: 1, name: 'Alice Johnson', role: 'Engineer', status: 'Active' },
+    { id: 2, name: 'Bob Smith', role: 'Designer', status: 'Active' },
+  ];
+
+  onSort(event: { columnId: string; direction: 'asc' | 'desc' }) {
+    console.log('Sort changed:', event);
+  }
+}`
+
 export default function DataTablePage() {
   return (
     <div className="space-y-12">
@@ -54,7 +86,7 @@ export default function DataTablePage() {
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
-        <CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: '<!-- Angular implementation pending -->' }} />
+        <CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: angularUsageCode }} />
       </section>
 
       <div className="h-px bg-border" />
