@@ -24,6 +24,26 @@ export function MyComponent() {
   )
 }`
 
+const angularUsageCode = `import { Component } from '@angular/core';
+import { BottomNavComponent } from '@refraction-ui/angular-bottom-nav';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [BottomNavComponent],
+  template: \`
+    <re-bottom-nav
+      [tabs]="[
+        { label: 'Home', href: '/' },
+        { label: 'Search', href: '/search' },
+        { label: 'Profile', href: '/profile' }
+      ]"
+      currentPath="/"
+    ></re-bottom-nav>
+  \`
+})
+export class AppComponent {}`
+
 export default function BottomNavPage() {
   return (
     <div className="space-y-12">
@@ -50,7 +70,7 @@ export default function BottomNavPage() {
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
-        <CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: '<!-- Angular implementation pending -->' }} />
+        <CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: angularUsageCode }} />
       </section>
 
       <div className="h-px bg-border" />

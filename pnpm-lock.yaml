@@ -305,6 +305,19 @@ importers:
         specifier: workspace:*
         version: link:../badge
 
+  packages/angular-bottom-nav:
+    dependencies:
+      '@refraction-ui/bottom-nav':
+        specifier: workspace:*
+        version: link:../bottom-nav
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
+
   packages/angular-breadcrumbs:
     dependencies:
       '@angular/core':
@@ -501,6 +514,9 @@ importers:
       '@refraction-ui/angular-badge':
         specifier: workspace:*
         version: link:../angular-badge
+      '@refraction-ui/angular-bottom-nav':
+        specifier: workspace:*
+        version: link:../angular-bottom-nav
       '@refraction-ui/angular-breadcrumbs':
         specifier: workspace:*
         version: link:../angular-breadcrumbs
