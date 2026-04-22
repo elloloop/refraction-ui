@@ -17,6 +17,29 @@ export function MyComponent() {
     />
   )
 }`
+const angularUsageCode = `import { Component } from '@angular/core';
+import { AvatarGroupComponent } from '@refraction-ui/angular-avatar-group';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [AvatarGroupComponent],
+  template: \`
+    <re-avatar-group
+      [users]="users"
+      [max]="3"
+      size="md"
+    />
+  \`,
+})
+export class AppComponent {
+  users = [
+    { id: '1', name: 'Alice', src: '/avatar.jpg' },
+    { id: '2', name: 'Bob' },
+    { id: '3', name: 'Charlie', status: 'online' },
+    { id: '4', name: 'Diana' },
+  ];
+}`
 export default function AvatarGroupPage() {
   return (
     <div className="space-y-12">
@@ -41,7 +64,7 @@ export default function AvatarGroupPage() {
         <InstallCommand packageName="@refraction-ui/react-avatar-group" />
       </section>
 
-      <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: '<!-- Angular implementation pending -->' }} /></section>
+      <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: angularUsageCode }} /></section>
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Props</h2><PropsTable props={avatarGroupProps} /></section>
     </div>
   )
