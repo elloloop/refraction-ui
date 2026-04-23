@@ -256,6 +256,79 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
+  docs-site-tvkit:
+    dependencies:
+      '@refraction-ui/react-app-shell':
+        specifier: workspace:*
+        version: link:../packages/react-app-shell
+      '@refraction-ui/react-badge':
+        specifier: workspace:*
+        version: link:../packages/react-badge
+      '@refraction-ui/react-button':
+        specifier: workspace:*
+        version: link:../packages/react-button
+      '@refraction-ui/react-card':
+        specifier: workspace:*
+        version: link:../packages/react-card
+      '@refraction-ui/react-code-editor':
+        specifier: workspace:*
+        version: link:../packages/react-code-editor
+      '@refraction-ui/react-footer':
+        specifier: workspace:*
+        version: link:../packages/react-footer
+      '@refraction-ui/react-navbar':
+        specifier: workspace:*
+        version: link:../packages/react-navbar
+      '@refraction-ui/react-sidebar':
+        specifier: workspace:*
+        version: link:../packages/react-sidebar
+      '@refraction-ui/react-tabs':
+        specifier: workspace:*
+        version: link:../packages/react-tabs
+      '@refraction-ui/react-theme':
+        specifier: workspace:*
+        version: link:../packages/react-theme
+      '@refraction-ui/react-tooltip':
+        specifier: workspace:*
+        version: link:../packages/react-tooltip
+      '@refraction-ui/tailwind-config':
+        specifier: workspace:*
+        version: link:../packages/tailwind-config
+      next:
+        specifier: 15.5.15
+        version: 15.5.15(@playwright/test@1.59.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+    devDependencies:
+      '@tailwindcss/postcss':
+        specifier: 4.0.0
+        version: 4.0.0
+      '@types/node':
+        specifier: 22.0.0
+        version: 22.0.0
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      autoprefixer:
+        specifier: 10.4.0
+        version: 10.4.0(postcss@8.4.0)
+      postcss:
+        specifier: 8.4.0
+        version: 8.4.0
+      tailwindcss:
+        specifier: 3.4.0
+        version: 3.4.0(ts-node@10.9.2(@types/node@22.0.0)(typescript@5.8.3))
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+
   packages/accordion:
     dependencies:
       '@refraction-ui/shared':

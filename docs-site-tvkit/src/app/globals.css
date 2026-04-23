@@ -1,0 +1,311 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Refraction theme CSS variables — the default refraction-ui theme.
+ * Inspired by Linear.app + Vercel: calm violet, crisp, professional.
+ * Generated from @refraction-ui/tailwind-config refractionTheme.
+ */
+
+:root {
+  /* Colors */
+  --background: 0 0% 99%;
+  --foreground: 240 10% 10%;
+  --card: 0 0% 99%;
+  --card-foreground: 240 10% 10%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 10%;
+  --primary: 250 50% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 5% 96%;
+  --secondary-foreground: 240 4% 44%;
+  --accent: 250 30% 95%;
+  --accent-foreground: 250 50% 40%;
+  --muted: 240 5% 96%;
+  --muted-foreground: 240 4% 44%;
+  --destructive: 0 84% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 142 71% 35%;
+  --success-foreground: 0 0% 100%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 240 10% 10%;
+  --border: 240 6% 92%;
+  --input: 240 6% 92%;
+  --ring: 250 50% 50%;
+  --radius: 0.375rem;
+  --chart-1: 250 50% 50%;
+  --chart-2: 173 80% 36%;
+  --chart-3: 38 92% 50%;
+  --chart-4: 330 65% 50%;
+  --chart-5: 201 96% 42%;
+  --sidebar-background: 0 0% 98%;
+  --sidebar-foreground: 240 10% 10%;
+  --sidebar-primary: 250 50% 50%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 250 30% 95%;
+  --sidebar-accent-foreground: 250 50% 40%;
+  --sidebar-border: 240 6% 92%;
+  --sidebar-ring: 250 50% 50%;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Layout */
+  --radius: 0.375rem;
+
+  /* Shadows */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --shadow-md: 0 2px 4px -1px rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.03);
+  --shadow-lg: 0 6px 10px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+  --shadow-xl: 0 12px 20px -4px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+
+  /* Glass & overlay */
+  --overlay-opacity: 0.5;
+  --backdrop-blur: 8px;
+  --glass-bg: rgba(252, 252, 253, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.15);
+
+  /* Spacing & density */
+  --spacing-scale: 1;
+  --container-max-width: 1280px;
+  --container-padding: 2rem;
+  --card-padding: 1.5rem;
+  --input-height: 2.5rem;
+  --button-height: 2.25rem;
+  --section-gap: 4rem;
+
+  /* Typography tokens */
+  --letter-spacing-tighter: -0.04em;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.02em;
+  --letter-spacing-wider: 0.05em;
+  --line-height-tight: 1.3;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+  --heading-weight: 600;
+  --heading-letter-spacing: -0.02em;
+  --heading-line-height: 1.2;
+
+  /* Shape language */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+  --avatar-radius: 9999px;
+  --badge-radius: 9999px;
+  --button-radius: 0.375rem;
+  --input-radius: 0.375rem;
+  --card-radius: 0.5rem;
+  --tooltip-radius: 0.375rem;
+
+  /* Component shadows */
+  --card-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --dropdown-shadow: 0 6px 10px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+  --dialog-shadow: 0 12px 20px -4px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+  --button-shadow: none;
+
+  /* Borders & dividers */
+  --border-width: 1px;
+  --border-style: solid;
+  --divider-style: solid;
+  --divider-opacity: 0.15;
+
+  /* Inputs */
+  --input-style: bordered;
+  --input-border-on-focus: 0;
+  --placeholder-opacity: 0.5;
+
+  /* Buttons */
+  --button-style: filled;
+  --button-weight: 500;
+  --hover-effect: darken;
+  --active-effect: scale-down;
+  --disabled-opacity: 0.5;
+
+  /* Links */
+  --link-style: color-only;
+  --link-weight: inherit;
+
+  /* Focus */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-style: ring;
+
+  /* Icons */
+  --icon-style: outlined;
+  --icon-stroke-width: 1.5;
+  --icon-size: 1.25rem;
+
+  /* Scrollbar */
+  --scrollbar-style: thin;
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(0, 0, 0, 0.15);
+
+  /* Selection */
+  --selection-background: 250 50% 50%;
+  --selection-foreground: 0 0% 100%;
+
+  /* Tooltips */
+  --tooltip-style: dark;
+
+  /* Tables */
+  --table-style: clean;
+  --table-header-weight: 600;
+
+  /* Loading */
+  --spinner-style: circle;
+
+  /* Motion */
+  --transition-duration: 150ms;
+  --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-speed: fast;
+  --hover-transition: 150ms ease;
+  --enter-transition: 200ms ease-out;
+  --exit-transition: 150ms ease-in;
+}
+
+.dark {
+  --background: 240 10% 4%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 8%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 8%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 250 50% 65%;
+  --primary-foreground: 240 10% 4%;
+  --secondary: 240 5% 16%;
+  --secondary-foreground: 240 5% 65%;
+  --accent: 250 30% 20%;
+  --accent-foreground: 250 60% 80%;
+  --muted: 240 5% 16%;
+  --muted-foreground: 240 5% 65%;
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 0 0% 98%;
+  --success: 142 71% 45%;
+  --success-foreground: 0 0% 98%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 240 10% 4%;
+  --border: 240 5% 16%;
+  --input: 240 5% 16%;
+  --ring: 250 50% 65%;
+  --radius: 0.375rem;
+  --chart-1: 250 50% 65%;
+  --chart-2: 173 70% 50%;
+  --chart-3: 38 92% 60%;
+  --chart-4: 330 60% 65%;
+  --chart-5: 201 90% 55%;
+  --sidebar-background: 240 10% 4%;
+  --sidebar-foreground: 0 0% 98%;
+  --sidebar-primary: 250 50% 65%;
+  --sidebar-primary-foreground: 240 10% 4%;
+  --sidebar-accent: 250 30% 20%;
+  --sidebar-accent-foreground: 250 60% 80%;
+  --sidebar-border: 240 5% 16%;
+  --sidebar-ring: 250 50% 65%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.011em;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    line-height: var(--line-height-relaxed);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Typography hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--heading-weight);
+    letter-spacing: var(--heading-letter-spacing);
+    line-height: var(--heading-line-height);
+  }
+
+  h1 { font-size: var(--font-size-4xl); }
+  h2 { font-size: var(--font-size-2xl); }
+  h3 { font-size: var(--font-size-xl); }
+
+  /* Body paragraph softness */
+  p {
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Code uses mono font consistently */
+  code, pre, kbd {
+    font-family: var(--font-mono);
+  }
+
+  /* Link hover underline */
+  a:hover {
+    text-decoration-color: hsl(var(--primary) / 0.4);
+  }
+
+  /* Smooth transitions for theme switching on all elements */
+  *,
+  *::before,
+  *::after {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  ::selection {
+    background: hsl(var(--selection-background) / 0.2);
+    color: hsl(var(--foreground));
+  }
+
+  ::-moz-selection {
+    background: hsl(var(--selection-background) / 0.2);
+    color: hsl(var(--foreground));
+  }
+
+  /* Focus visible ring for keyboard navigation */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer utilities {
+  /* Gradient text utility */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+  }
+
+  /* Section spacing rhythm */
+  .section-gap {
+    @apply space-y-12;
+  }
+
+  .subsection-gap {
+    @apply space-y-6;
+  }
+}
