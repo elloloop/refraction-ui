@@ -13,6 +13,40 @@ export function MyComponent() {
   const [code, setCode] = useState('const x = 1')
   return <CodeEditor value={code} onChange={setCode} language="javascript" />
 }`
+const angularUsageCode = `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CodeEditorComponent } from '@refraction-ui/angular-code-editor';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CodeEditorComponent, FormsModule],
+  template: \`
+    <div class="space-y-4">
+      <select [(ngModel)]="language" class="border p-2 rounded">
+        <option value="typescript">TypeScript</option>
+        <option value="python">Python</option>
+        <option value="java">Java</option>
+      </select>
+
+      <re-code-editor
+        [(value)]="code"
+        [language]="language"
+        theme="dark"
+      />
+
+      <div class="mt-4">
+        <h4>Output:</h4>
+        <pre>{{ code }}</pre>
+      </div>
+    </div>
+  \`,
+})
+export class AppComponent {
+  code = 'print("Hello from Refraction UI!")';
+  language = 'python';
+}`;
+
 export default function CodeEditorPage() {
   return (
     <div className="space-y-12">
@@ -37,7 +71,7 @@ export default function CodeEditorPage() {
         <InstallCommand packageName="@refraction-ui/react-code-editor" />
       </section>
 
-      <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: '<!-- Angular implementation pending -->' }} /></section>
+      <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: angularUsageCode }} /></section>
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Props</h2><PropsTable props={codeEditorProps} /></section>
     </div>
   )

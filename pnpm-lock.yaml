@@ -95,6 +95,9 @@ importers:
       '@refraction-ui/react-card':
         specifier: workspace:*
         version: link:../packages/react-card
+      '@refraction-ui/react-charts':
+        specifier: workspace:*
+        version: link:../packages/react-charts
       '@refraction-ui/react-checkbox':
         specifier: workspace:*
         version: link:../packages/react-checkbox
@@ -246,6 +249,9 @@ importers:
       autoprefixer:
         specifier: 10.4.0
         version: 10.4.0(postcss@8.4.0)
+      cross-env:
+        specifier: 10.1.0
+        version: 10.1.0
       postcss:
         specifier: 8.4.0
         version: 8.4.0
@@ -293,6 +299,22 @@ importers:
         specifier: workspace:*
         version: link:../avatar
 
+  packages/angular-avatar-group:
+    dependencies:
+      '@refraction-ui/avatar-group':
+        specifier: workspace:*
+        version: link:../avatar-group
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/common':
+        specifier: 19.2.20
+        version: 19.2.20(@angular/core@19.2.20(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
+
   packages/angular-badge:
     dependencies:
       '@angular/core':
@@ -301,6 +323,19 @@ importers:
       '@refraction-ui/badge':
         specifier: workspace:*
         version: link:../badge
+
+  packages/angular-bottom-nav:
+    dependencies:
+      '@refraction-ui/bottom-nav':
+        specifier: workspace:*
+        version: link:../bottom-nav
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
 
   packages/angular-breadcrumbs:
     dependencies:
@@ -323,6 +358,19 @@ importers:
       '@refraction-ui/button':
         specifier: workspace:*
         version: link:../button
+
+  packages/angular-calendar:
+    dependencies:
+      '@refraction-ui/calendar':
+        specifier: workspace:*
+        version: link:../calendar
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
 
   packages/angular-callout:
     dependencies:
@@ -364,6 +412,22 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/angular-charts:
+    dependencies:
+      '@refraction-ui/charts':
+        specifier: workspace:*
+        version: link:../charts
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/common':
+        specifier: 19.2.20
+        version: 19.2.20(@angular/core@19.2.20(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
+
   packages/angular-checkbox:
     dependencies:
       '@angular/core':
@@ -386,11 +450,53 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/angular-code-editor:
+    dependencies:
+      '@refraction-ui/code-editor':
+        specifier: workspace:*
+        version: link:../code-editor
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/common':
+        specifier: 19.2.20
+        version: 19.2.20(@angular/core@19.2.20(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
+
   packages/angular-command-input:
     dependencies:
       '@refraction-ui/command-input':
         specifier: workspace:*
         version: link:../command-input
+
+  packages/angular-data-table:
+    dependencies:
+      '@refraction-ui/data-table':
+        specifier: workspace:*
+        version: link:../data-table
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
+
+  packages/angular-date-picker:
+    dependencies:
+      '@refraction-ui/date-picker':
+        specifier: workspace:*
+        version: link:../date-picker
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
 
   packages/angular-dialog:
     dependencies:
@@ -450,7 +556,6 @@ importers:
       '@angular/core':
         specifier: 19.2.20
         version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
-    devDependencies:
       '@refraction-ui/angular-accordion':
         specifier: workspace:*
         version: link:../angular-accordion
@@ -460,12 +565,18 @@ importers:
       '@refraction-ui/angular-badge':
         specifier: workspace:*
         version: link:../angular-badge
+      '@refraction-ui/angular-bottom-nav':
+        specifier: workspace:*
+        version: link:../angular-bottom-nav
       '@refraction-ui/angular-breadcrumbs':
         specifier: workspace:*
         version: link:../angular-breadcrumbs
       '@refraction-ui/angular-button':
         specifier: workspace:*
         version: link:../angular-button
+      '@refraction-ui/angular-calendar':
+        specifier: workspace:*
+        version: link:../angular-calendar
       '@refraction-ui/angular-callout':
         specifier: workspace:*
         version: link:../angular-callout
@@ -478,15 +589,27 @@ importers:
       '@refraction-ui/angular-carousel':
         specifier: workspace:*
         version: link:../angular-carousel
+      '@refraction-ui/angular-charts':
+        specifier: workspace:*
+        version: link:../angular-charts
       '@refraction-ui/angular-checkbox':
         specifier: workspace:*
         version: link:../angular-checkbox
       '@refraction-ui/angular-code-block':
         specifier: workspace:*
         version: link:../angular-code-block
+      '@refraction-ui/angular-code-editor':
+        specifier: workspace:*
+        version: link:../angular-code-editor
       '@refraction-ui/angular-command-input':
         specifier: workspace:*
         version: link:../angular-command-input
+      '@refraction-ui/angular-data-table':
+        specifier: workspace:*
+        version: link:../angular-data-table
+      '@refraction-ui/angular-date-picker':
+        specifier: workspace:*
+        version: link:../angular-date-picker
       '@refraction-ui/angular-dialog':
         specifier: workspace:*
         version: link:../angular-dialog
@@ -502,6 +625,9 @@ importers:
       '@refraction-ui/angular-link-card':
         specifier: workspace:*
         version: link:../angular-link-card
+      '@refraction-ui/angular-location-selector':
+        specifier: workspace:*
+        version: link:../angular-location-selector
       '@refraction-ui/angular-pagination':
         specifier: workspace:*
         version: link:../angular-pagination
@@ -541,6 +667,7 @@ importers:
       '@refraction-ui/angular-tooltip':
         specifier: workspace:*
         version: link:../angular-tooltip
+    devDependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -4448,6 +4575,9 @@ packages:
   '@emnapi/runtime@1.9.2':
     resolution: {integrity: sha512-3U4+MIWHImeyu1wnmVygh5WlgfYDtyf0k8AbLhMFxOipihf6nrWC4syIm/SwEeec0mNSafiiNnMJwbza/Is6Lw==}
 
+  '@epic-web/invariant@1.0.0':
+    resolution: {integrity: sha512-lrTPqgvfFQtR/eY/qkIzp98OGdNJu0m5ji3q/nJI8v3SXkRKEnWiOxMmbvcSoAIzv/cGiuvRy57k4suKQSAdwA==}
+
   '@esbuild/aix-ppc64@0.19.12':
     resolution: {integrity: sha512-bmoCYyWdEL3wDQIVbcyzRyeKLgk2WtWLTWz1ZIAZF/EGbNOwSA6ew3PftJ1PqMiOOGu0OyFMzG53L0zqIpPeNA==}
     engines: {node: '>=12'}
@@ -6077,6 +6207,11 @@ packages:
 
   create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
+
+  cross-env@10.1.0:
+    resolution: {integrity: sha512-GsYosgnACZTADcmEyJctkJIoqAhHjttw7RsFrVoJNXbsWWqaq6Ym+7kZjq6mS45O0jij6vtiReppKQEtqWy6Dw==}
+    engines: {node: '>=20'}
+    hasBin: true
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -8694,6 +8829,8 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
+  '@epic-web/invariant@1.0.0': {}
+
   '@esbuild/aix-ppc64@0.19.12':
     optional: true
 
@@ -10022,6 +10159,11 @@ snapshots:
       typescript: 5.8.3
 
   create-require@1.1.1: {}
+
+  cross-env@10.1.0:
+    dependencies:
+      '@epic-web/invariant': 1.0.0
+      cross-spawn: 7.0.6
 
   cross-spawn@7.0.6:
     dependencies:
