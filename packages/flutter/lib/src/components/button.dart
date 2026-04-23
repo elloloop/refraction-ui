@@ -157,7 +157,7 @@ class _RefractionButtonState extends State<RefractionButton> {
             curve: Curves.easeInOut,
             constraints: BoxConstraints(
               minWidth: minWidth ?? 0.0,
-              minHeight: minHeight ?? 0.0,
+              minHeight: minHeight,
             ),
             padding: padding,
             decoration: BoxDecoration(
