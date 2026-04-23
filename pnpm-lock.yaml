@@ -511,6 +511,22 @@ importers:
         specifier: 19.2.20
         version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
 
+  packages/angular-emoji-picker:
+    dependencies:
+      '@refraction-ui/emoji-picker':
+        specifier: workspace:*
+        version: link:../emoji-picker
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/common':
+        specifier: 19.2.20
+        version: 19.2.20(@angular/core@19.2.20(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
+
   packages/angular-file-tree: {}
 
   packages/angular-icon-system: {}
@@ -613,6 +629,9 @@ importers:
       '@refraction-ui/angular-dialog':
         specifier: workspace:*
         version: link:../angular-dialog
+      '@refraction-ui/angular-emoji-picker':
+        specifier: workspace:*
+        version: link:../angular-emoji-picker
       '@refraction-ui/angular-file-tree':
         specifier: workspace:*
         version: link:../angular-file-tree

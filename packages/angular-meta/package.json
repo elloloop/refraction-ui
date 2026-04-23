@@ -46,7 +46,8 @@
     "@refraction-ui/angular-command-input": "workspace:*",
     "@refraction-ui/angular-bottom-nav": "workspace:*",
     "@refraction-ui/angular-charts": "workspace:*",
-    "@refraction-ui/angular-code-editor": "workspace:*"
+    "@refraction-ui/angular-code-editor": "workspace:*",
+    "@refraction-ui/angular-emoji-picker": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
@@ -96,6 +97,7 @@
     "@refraction-ui/angular-data-table": "workspace:*",
     "@refraction-ui/angular-bottom-nav": "workspace:*",
     "@refraction-ui/angular-charts": "workspace:*",
-    "@refraction-ui/angular-code-editor": "workspace:*"
+    "@refraction-ui/angular-code-editor": "workspace:*",
+    "@refraction-ui/angular-emoji-picker": "workspace:*"
   }
 }

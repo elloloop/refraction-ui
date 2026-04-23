@@ -10,6 +10,23 @@ const usageCode = `import { EmojiPicker } from '@refraction-ui/react-emoji-picke
 export function MyComponent() {
   return <EmojiPicker onSelect={(emoji) => console.log(emoji)} />
 }`
+const angularUsageCode = `import { Component } from '@angular/core';
+import { EmojiPickerComponent } from '@refraction-ui/angular-emoji-picker';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [EmojiPickerComponent],
+  template: \`
+    <re-emoji-picker (select)="onSelect($event)" />
+  \`,
+})
+export class AppComponent {
+  onSelect(emoji: any) {
+    console.log('Selected:', emoji);
+  }
+}`;
+
 export default function EmojiPickerPage() {
   return (
     <div className="space-y-12">
@@ -34,7 +51,7 @@ export default function EmojiPickerPage() {
         <InstallCommand packageName="@refraction-ui/react-emoji-picker" />
       </section>
 
-      <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: '<!-- Angular implementation pending -->' }} /></section>
+      <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: angularUsageCode }} /></section>
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Props</h2><PropsTable props={emojiProps} /></section>
     </div>
   )
