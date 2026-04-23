@@ -450,6 +450,22 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/angular-code-editor:
+    dependencies:
+      '@refraction-ui/code-editor':
+        specifier: workspace:*
+        version: link:../code-editor
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/common':
+        specifier: 19.2.20
+        version: 19.2.20(@angular/core@19.2.20(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
+
   packages/angular-command-input:
     dependencies:
       '@refraction-ui/command-input':
@@ -573,12 +589,18 @@ importers:
       '@refraction-ui/angular-carousel':
         specifier: workspace:*
         version: link:../angular-carousel
+      '@refraction-ui/angular-charts':
+        specifier: workspace:*
+        version: link:../angular-charts
       '@refraction-ui/angular-checkbox':
         specifier: workspace:*
         version: link:../angular-checkbox
       '@refraction-ui/angular-code-block':
         specifier: workspace:*
         version: link:../angular-code-block
+      '@refraction-ui/angular-code-editor':
+        specifier: workspace:*
+        version: link:../angular-code-editor
       '@refraction-ui/angular-command-input':
         specifier: workspace:*
         version: link:../angular-command-input

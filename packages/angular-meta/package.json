@@ -44,7 +44,9 @@
     "@refraction-ui/angular-card-grid": "workspace:*",
     "@refraction-ui/angular-payment": "workspace:*",
     "@refraction-ui/angular-command-input": "workspace:*",
-    "@refraction-ui/angular-bottom-nav": "workspace:*"
+    "@refraction-ui/angular-bottom-nav": "workspace:*",
+    "@refraction-ui/angular-charts": "workspace:*",
+    "@refraction-ui/angular-code-editor": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
@@ -92,6 +94,8 @@
     "@refraction-ui/angular-textarea": "workspace:*",
     "@refraction-ui/angular-tooltip": "workspace:*",
     "@refraction-ui/angular-data-table": "workspace:*",
-    "@refraction-ui/angular-bottom-nav": "workspace:*"
+    "@refraction-ui/angular-bottom-nav": "workspace:*",
+    "@refraction-ui/angular-charts": "workspace:*",
+    "@refraction-ui/angular-code-editor": "workspace:*"
   }
 }
