@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { vitalinkConfig } from '../theme-configs'
 import { doctors, testimonials } from './config'
+import { VitalinkLogo } from '@/components/logos';
+
 
 export default function VitaLinkLanding() {
   return (
@@ -11,7 +13,7 @@ export default function VitaLinkLanding() {
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <span className="text-xl font-bold text-primary">VitaLink</span>
+          <span className="text-xl font-bold text-primary"><VitalinkLogo className="h-6 w-auto" /></span>
           <div className="hidden items-center gap-8 md:flex">
             <a href="#services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Services</a>
             <a href="#doctors" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Doctors</a>

@@ -6,6 +6,8 @@ import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { insightiqConfig } from '../theme-configs'
 import { faqs } from './config'
 import { trustedByLogos } from './/config'
+import { InsightIqLogo } from '@/components/logos';
+
 
 export default function InsightIQLanding() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
@@ -15,7 +17,7 @@ export default function InsightIQLanding() {
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <span className="text-xl font-bold text-primary">InsightIQ</span>
+          <span className="text-xl font-bold text-primary"><InsightIqLogo className="h-6 w-auto" /></span>
           <div className="hidden items-center gap-8 md:flex">
             <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Features</a>
             <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Pricing</a>

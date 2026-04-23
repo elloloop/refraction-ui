@@ -5,6 +5,8 @@ import { AppShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { clearbankConfig } from '../../theme-configs'
 import { transactions, spending } from '../config'
+import { ClearbankLogo } from '@/components/logos';
+
 
 const themeConfig = `:root {
   --primary: 220 70% 45%;
@@ -26,7 +28,7 @@ export default function BankingDashboard() {
     <AppShell config={{ sidebarWidth: '15rem', sidebarCollapsible: true }}>
       <AppShell.Sidebar>
         <div className="flex h-14 items-center gap-2 border-b border-border px-5">
-          <Link href="/examples/clearbank" className="text-lg font-bold text-primary">ClearBank</Link>
+          <Link href="/examples/clearbank" className="text-lg font-bold text-primary"><ClearbankLogo className="h-6 w-auto" /></Link>
         </div>
         <nav className="mt-4 space-y-1 px-3">
           {sidebarNavItems.map((item) => (

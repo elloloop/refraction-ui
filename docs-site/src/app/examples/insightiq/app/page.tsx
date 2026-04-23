@@ -6,6 +6,8 @@ import { AppShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { insightiqConfig } from '../../theme-configs'
 import { activities, chartPeriods, chartMonths } from '../config'
+import { InsightIqLogo } from '@/components/logos';
+
 
 const themeConfig = `:root {
   --primary: 250 50% 50%;
@@ -35,7 +37,7 @@ export default function SaasDashboard() {
     <AppShell config={{ sidebarWidth: '15rem', sidebarCollapsible: true }}>
       <AppShell.Sidebar>
         <div className="flex h-14 items-center gap-2 border-b border-border px-5">
-          <span className="text-lg font-bold text-primary">InsightIQ</span>
+          <span className="text-lg font-bold text-primary"><InsightIqLogo className="h-6 w-auto" /></span>
         </div>
         <nav className="mt-4 space-y-1 px-3">
           {sidebarNavItems.map((item) => (

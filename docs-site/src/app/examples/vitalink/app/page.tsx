@@ -5,6 +5,8 @@ import { AppShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { vitalinkConfig } from '../../theme-configs'
 import { appointments, labResults } from '../config'
+import { VitalinkLogo } from '@/components/logos';
+
 
 const themeConfig = `:root {
   --primary: 199 89% 38%;
@@ -27,7 +29,7 @@ export default function PatientPortal() {
     <AppShell config={{ sidebarWidth: '15rem', sidebarCollapsible: true }}>
       <AppShell.Sidebar>
         <div className="flex h-14 items-center gap-2 border-b border-border px-5">
-          <Link href="/examples/vitalink" className="text-lg font-bold text-primary">VitaLink</Link>
+          <Link href="/examples/vitalink" className="text-lg font-bold text-primary"><VitalinkLogo className="h-6 w-auto" /></Link>
         </div>
         <nav className="mt-4 space-y-1 px-3">
           {sidebarNavItems.map((item) => (

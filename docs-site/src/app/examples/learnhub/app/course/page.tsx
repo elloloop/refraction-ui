@@ -6,6 +6,8 @@ import { PageShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { learnhubConfig } from '../../../theme-configs'
 import { curriculum, reviews } from '../../config'
+import { LearnhubLogo } from '@/components/logos';
+
 
 export default function CourseDetail() {
   const [activeTab, setActiveTab] = useState('overview')
@@ -27,7 +29,7 @@ export default function CourseDetail() {
     <PageShell config={{ navSticky: true, maxWidth: '72rem' }}>
       {/* Nav */}
       <PageShell.Nav className="justify-between bg-background/80 backdrop-blur-sm">
-        <Link href="/examples/learnhub" className="text-xl font-bold text-primary">LearnHub</Link>
+        <Link href="/examples/learnhub" className="text-xl font-bold text-primary"><LearnhubLogo className="h-6 w-auto" /></Link>
         <Link href="/examples/learnhub/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
           Back to Catalog
         </Link>

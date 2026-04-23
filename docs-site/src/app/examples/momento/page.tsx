@@ -5,15 +5,15 @@ import { PageShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { momentoConfig } from '../theme-configs'
 import { features } from './config'
+import { MomentoLogo } from '@/components/logos';
+
 
 export default function MomentoLandingPage() {
   return (
     <PageShell config={{ navSticky: true, maxWidth: '72rem' }}>
       {/* Nav */}
       <PageShell.Nav className="justify-between bg-background/80 backdrop-blur-sm">
-        <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent">
-          Momento
-        </span>
+        <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent"><MomentoLogo className="h-6 w-auto" /></span>
         <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
           <span className="hover:text-foreground cursor-pointer transition-colors">Features</span>
           <span className="hover:text-foreground cursor-pointer transition-colors">Safety</span>

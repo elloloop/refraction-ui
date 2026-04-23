@@ -6,6 +6,8 @@ import { PageShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { maisonConfig } from '../theme-configs'
 import { featuredProducts } from './config'
+import { MaisonLogo } from '@/components/logos';
+
 
 export default function MaisonLandingPage() {
   const [email, setEmail] = useState('')
@@ -14,7 +16,7 @@ export default function MaisonLandingPage() {
     <PageShell config={{ maxWidth: '72rem', navTransparent: true, navSticky: false }}>
       {/* Navigation */}
       <PageShell.Nav className="justify-between py-6">
-        <span className="text-sm tracking-[0.2em] uppercase text-muted-foreground">Maison Eclat</span>
+        <span className="text-sm tracking-[0.2em] uppercase text-muted-foreground"><MaisonLogo className="h-6 w-auto" /></span>
         <div className="flex items-center gap-8">
           <Link href="/examples/maison/app" className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors">Collection</Link>
           <Link href="/examples/maison/app/product" className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors">Atelier</Link>
@@ -33,9 +35,7 @@ export default function MaisonLandingPage() {
             </div>
           </div>
           <div className="space-y-6">
-            <h1 className="text-4xl font-light tracking-tight text-foreground" style={{ letterSpacing: 'var(--letter-spacing-tight)', fontWeight: 'var(--font-weight-normal)' }}>
-              Maison Eclat
-            </h1>
+            <h1 className="text-4xl font-light tracking-tight text-foreground" style={{ letterSpacing: 'var(--letter-spacing-tight)', fontWeight: 'var(--font-weight-normal)' }}><MaisonLogo className="h-6 w-auto" /></h1>
             <p className="text-muted-foreground text-lg font-light leading-relaxed max-w-lg mx-auto">
               Crafted for the exceptional. A legacy of exquisite artistry.
             </p>

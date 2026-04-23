@@ -5,6 +5,8 @@ import { AppShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { momentoConfig } from '../../theme-configs'
 import { stories, posts } from '../config'
+import { MomentoLogo } from '@/components/logos';
+
 
 
 function HeartIcon({ filled }: { filled: boolean }) {
@@ -28,9 +30,7 @@ export default function MomentoFeedPage() {
       <AppShell.Main>
         <AppShell.Header className="bg-background/80 backdrop-blur-sm">
           <div className="mx-auto max-w-xl flex items-center justify-between w-full">
-            <Link href="/examples/momento" className="text-xl font-bold tracking-tight bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent">
-              Momento
-            </Link>
+            <Link href="/examples/momento" className="text-xl font-bold tracking-tight bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent"><MomentoLogo className="h-6 w-auto" /></Link>
             <div className="flex items-center gap-4 text-foreground">
               <Link href="/examples/momento/app/explore">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">

@@ -5,15 +5,15 @@ import { PageShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { maisonConfig } from '../../theme-configs'
 import { products } from '../config'
+import { MaisonLogo } from '@/components/logos';
+
 
 export default function LuxuryCollectionPage() {
   return (
     <PageShell config={{ maxWidth: '72rem' }}>
       {/* Navigation */}
       <PageShell.Nav className="justify-between border-border/30">
-        <Link href="/examples/maison" className="text-sm tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors">
-          Maison Eclat
-        </Link>
+        <Link href="/examples/maison" className="text-sm tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors"><MaisonLogo className="h-6 w-auto" /></Link>
         <div className="flex items-center gap-8">
           <span className="text-xs tracking-[0.15em] uppercase text-foreground font-medium">Collection</span>
           <Link href="/examples/maison/app/product" className="text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors">Atelier</Link>

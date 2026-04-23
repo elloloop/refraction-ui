@@ -5,6 +5,8 @@ import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { teamspaceConfig } from '../theme-configs'
 import { features } from './config'
 import { previewChannels, socialProofLogos } from './/config'
+import { TeamspaceLogo } from '@/components/logos';
+
 
 export default function TeamspaceLandingPage() {
   return (
@@ -19,7 +21,7 @@ export default function TeamspaceLandingPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
               </svg>
             </div>
-            <span className="text-xl font-bold text-foreground">Teamspace</span>
+            <span className="text-xl font-bold text-foreground"><TeamspaceLogo className="h-6 w-auto" /></span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
             <span className="hover:text-foreground cursor-pointer transition-colors">Product</span>
