@@ -50,8 +50,17 @@ export default function MomentoLandingPage() {
                     <div className="h-3 bg-white/20 rounded-full w-24 mx-auto" />
                   </div>
                   <div className="mt-8 grid grid-cols-3 gap-2 w-full">
-                    {Array.from({ length: 6 }, (_, i) => (
-                      <div key={i} className="aspect-square rounded-lg bg-white/20" />
+                    {[
+                      '/assets/people/ea/ea-4-portrait.jpg',
+                      '/assets/scenes/scene-cafe.jpg',
+                      '/assets/people/me/me-3-portrait.jpg',
+                      '/assets/animals/dogs/dog-4-portrait.jpg',
+                      '/assets/people/am/am-4-portrait.jpg',
+                      '/assets/scenes/scene-park.jpg'
+                    ].map((src, i) => (
+                      <div key={i} className="aspect-square rounded-lg bg-white/20 overflow-hidden">
+                        <img src={src} alt="Gallery item" className="w-full h-full object-cover" />
+                      </div>
                     ))}
                   </div>
                 </div>

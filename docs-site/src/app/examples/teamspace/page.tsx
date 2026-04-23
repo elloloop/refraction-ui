@@ -90,12 +90,14 @@ export default function TeamspaceLandingPage() {
             </div>
             <div className="flex-1 p-4 space-y-3">
               {[
-                { name: 'Sarah K.', msg: 'Just deployed the new API endpoint!' },
-                { name: 'Mike R.', msg: 'Nice! The tests are all passing.' },
-                { name: 'Lisa M.', msg: 'Can we review the PR before EOD?' },
+                { name: 'Sarah K.', msg: 'Just deployed the new API endpoint!', avatar: '/assets/people/eu/eu-3-portrait.jpg' },
+                { name: 'Mike R.', msg: 'Nice! The tests are all passing.', avatar: '/assets/people/af/af-4-portrait.jpg' },
+                { name: 'Lisa M.', msg: 'Can we review the PR before EOD?', avatar: '/assets/people/sa/sa-3-portrait.jpg' },
               ].map((m) => (
                 <div key={m.name} className="flex items-start gap-3">
-                  <div className="h-8 w-8 rounded-[var(--radius)] bg-muted shrink-0" />
+                  <div className="h-8 w-8 rounded-[var(--radius)] bg-muted shrink-0 overflow-hidden">
+                    <img src={m.avatar} alt={m.name} className="w-full h-full object-cover" />
+                  </div>
                   <div>
                     <span className="text-sm font-semibold text-foreground">{m.name}</span>
                     <p className="text-sm text-muted-foreground">{m.msg}</p>
