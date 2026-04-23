@@ -1,0 +1,5 @@
+.next/
+out/
+.turbo/
+tsconfig.tsbuildinfo
+node_modules/
