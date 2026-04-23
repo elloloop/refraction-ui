@@ -1,12 +1,13 @@
 {
   "name": "@refraction-ui/astro-app-shell",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
   },
   "files": [
-    "src"
+    "src",
+    "README.md"
   ],
   "dependencies": {
     "@refraction-ui/app-shell": "workspace:*",
@@ -22,6 +23,5 @@
     "url": "https://github.com/elloloop/refraction-ui.git",
     "directory": "packages/astro-app-shell"
   },
-  "homepage": "https://elloloop.github.io/refraction-ui/",
-  "private": true
+  "homepage": "https://elloloop.github.io/refraction-ui/"
 }
