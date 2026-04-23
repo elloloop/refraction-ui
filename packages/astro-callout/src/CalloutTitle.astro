@@ -1,0 +1,17 @@
+---
+import { createCalloutTitle, calloutTitleVariants } from '@refraction-ui/callout'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+const api = createCalloutTitle()
+---
+
+<h5
+  class={cn(calloutTitleVariants(), className)}
+  {...api.dataAttributes}
+  {...props}
+>
+  <slot />
+</h5>

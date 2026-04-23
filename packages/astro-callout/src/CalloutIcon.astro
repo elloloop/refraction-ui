@@ -1,0 +1,17 @@
+---
+import { createCalloutIcon } from '@refraction-ui/callout'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+const api = createCalloutIcon()
+---
+
+<div
+  class={cn('flex-shrink-0 mt-0.5', className)}
+  {...api.dataAttributes}
+  {...props}
+>
+  <slot />
+</div>

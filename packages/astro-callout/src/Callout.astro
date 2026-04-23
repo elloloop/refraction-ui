@@ -1,3 +1,20 @@
 ---
+import { createCallout, calloutVariants } from '@refraction-ui/callout'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  variant?: 'default' | 'destructive' | 'success' | 'warning' | 'info'
+}
+
+const { variant = 'default', class: className, ...props } = Astro.props
+const api = createCallout({ role: variant === 'destructive' ? 'alert' : 'region' })
 ---
-<div></div>
+
+<div
+  class={cn(calloutVariants({ variant }), className)}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...props}
+>
+  <slot />
+</div>
