@@ -1,6 +1,6 @@
 {
   "name": "@refraction-ui/astro-code-block",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"

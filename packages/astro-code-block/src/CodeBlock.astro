@@ -1,3 +1,17 @@
 ---
+import { createCodeBlock, codeBlockVariants } from '@refraction-ui/code-block'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+const api = createCodeBlock()
 ---
-<div></div>
+
+<div
+  class={cn(codeBlockVariants(), className)}
+  {...api.dataAttributes}
+  {...props}
+>
+  <slot />
+</div>
