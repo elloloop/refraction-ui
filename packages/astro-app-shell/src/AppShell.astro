@@ -191,5 +191,16 @@ const configJSON = JSON.stringify(api.config)
     // Responsive listener
     window.addEventListener('resize', updateBreakpoint)
     updateBreakpoint()
+
+    // Dev warning: ensure AppShellHeader is placed correctly inside AppShellMain
+    var header = shell.querySelector('[data-rfr-shell-header]')
+    var main = shell.querySelector('[data-rfr-shell-main]')
+    if (header && main && !main.contains(header)) {
+      console.warn(
+        '[refraction-ui] <AppShellHeader> should be placed inside <AppShellMain>, ' +
+        'not as a direct child of <AppShell>. The current placement collapses ' +
+        'the header into a vertical sliver. See: https://github.com/elloloop/refraction-ui/tree/main/packages/astro-app-shell#readme'
+      )
+    }
   })()
 </script>
