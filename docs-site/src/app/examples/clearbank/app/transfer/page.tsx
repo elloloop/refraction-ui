@@ -5,6 +5,8 @@ import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { clearbankConfig } from '../../../theme-configs'
 import { recentRecipients, quickAmounts } from '../../config'
+import { ClearbankLogo } from '@/components/logos';
+
 
 const themeConfig = `:root {
   --primary: 220 70% 45%;
@@ -29,7 +31,7 @@ export default function TransferMoney() {
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-          <Link href="/examples/clearbank" className="text-xl font-bold text-primary">ClearBank</Link>
+          <Link href="/examples/clearbank" className="text-xl font-bold text-primary"><ClearbankLogo className="h-6 w-auto" /></Link>
           <Link href="/examples/clearbank/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Back to Dashboard
           </Link>

@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { cortexConfig } from '../theme-configs'
 import { capabilities, pricingPlans } from './config'
+import { CortexLogo } from '@/components/logos';
+
 
 export default function CortexLandingPage() {
   return (
@@ -19,7 +21,7 @@ export default function CortexLandingPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 0 0-2.455 2.456Z" />
               </svg>
             </div>
-            <span className="text-xl font-bold text-foreground">Cortex</span>
+            <span className="text-xl font-bold text-foreground"><CortexLogo className="h-6 w-auto" /></span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
             <span className="hover:text-foreground cursor-pointer transition-colors">Features</span>
@@ -99,7 +101,7 @@ export default function CortexLandingPage() {
           <div className="rounded-[var(--card-radius)] border border-border bg-card shadow-lg overflow-hidden">
             <div className="border-b border-border bg-muted/30 px-4 py-3 flex items-center gap-2">
               <div className="h-3 w-3 rounded-full bg-primary/60" />
-              <span className="text-sm font-medium text-foreground">Cortex</span>
+              <span className="text-sm font-medium text-foreground"><CortexLogo className="h-6 w-auto" /></span>
               <span className="text-xs text-muted-foreground ml-auto">Model: Cortex-4</span>
             </div>
             <div className="p-6 space-y-6">

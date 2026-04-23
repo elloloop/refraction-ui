@@ -5,6 +5,8 @@ import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { vitalinkConfig } from '../../../theme-configs'
 import { specialties, doctorsBySpecialty, timeSlots } from '../../config'
+import { VitalinkLogo } from '@/components/logos';
+
 
 const themeConfig = `:root {
   --primary: 199 89% 38%;
@@ -37,7 +39,7 @@ export default function BookAppointment() {
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
-          <Link href="/examples/vitalink" className="text-xl font-bold text-primary">VitaLink</Link>
+          <Link href="/examples/vitalink" className="text-xl font-bold text-primary"><VitalinkLogo className="h-6 w-auto" /></Link>
           <Link href="/examples/vitalink/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Back to Portal
           </Link>

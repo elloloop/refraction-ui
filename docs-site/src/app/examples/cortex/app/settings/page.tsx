@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { cortexConfig } from '../../../theme-configs'
 import { tabs } from '../../config'
+import { CortexLogo } from '@/components/logos';
+
 
 const aiTheme = `:root {
   --primary: 160 84% 39%;
@@ -34,7 +36,7 @@ export default function SettingsPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
               </svg>
             </div>
-            <span className="font-bold text-white text-sm">Cortex</span>
+            <span className="font-bold text-white text-sm"><CortexLogo className="h-6 w-auto" /></span>
           </Link>
         </div>
         <div className="px-3 mb-3">

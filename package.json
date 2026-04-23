@@ -49,5 +49,6 @@
       "minimatch": "9.0.7",
       "eslint>minimatch": "3.1.4"
     }
-  }
+  },
+  "version": "0.0.1"
 }

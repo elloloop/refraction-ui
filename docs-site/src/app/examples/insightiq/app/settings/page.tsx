@@ -5,6 +5,8 @@ import { useState } from 'react'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { insightiqConfig } from '../../../theme-configs'
 import { settingsTabs } from '../../config'
+import { InsightIqLogo } from '@/components/logos';
+
 
 const themeConfig = `:root {
   --primary: 250 50% 50%;
@@ -23,7 +25,7 @@ export default function SaasSettings() {
       {/* Sidebar */}
       <aside className="fixed inset-y-0 left-0 z-30 w-60 border-r border-border bg-card">
         <div className="flex h-14 items-center gap-2 border-b border-border px-5">
-          <span className="text-lg font-bold text-primary">InsightIQ</span>
+          <span className="text-lg font-bold text-primary"><InsightIqLogo className="h-6 w-auto" /></span>
         </div>
         <nav className="mt-4 space-y-1 px-3">
           {[

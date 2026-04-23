@@ -6,6 +6,8 @@ import { AppShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { verveConfig } from '../../theme-configs'
 import { allProducts, categoriesFilter, priceRanges, filterSizes } from '../config'
+import { VerveLogo } from '@/components/logos';
+
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -44,7 +46,7 @@ export default function EcommerceProductListing() {
     <AppShell config={{ sidebarWidth: '14rem', sidebarCollapsible: true }}>
       <AppShell.Sidebar>
         <div className="p-5 border-b border-border">
-          <Link href="/examples/verve" className="text-lg font-bold text-foreground tracking-tight">VERVE</Link>
+          <Link href="/examples/verve" className="text-lg font-bold text-foreground tracking-tight"><VerveLogo className="h-6 w-auto" /></Link>
         </div>
         <div className="p-5 space-y-6 overflow-y-auto flex-1">
           <div>
@@ -106,7 +108,7 @@ export default function EcommerceProductListing() {
       <AppShell.Main>
         <AppShell.Header>
           <div className="flex items-center gap-4 flex-1">
-            <Link href="/examples/verve" className="text-lg font-bold text-foreground tracking-tight sm:hidden">VERVE</Link>
+            <Link href="/examples/verve" className="text-lg font-bold text-foreground tracking-tight sm:hidden"><VerveLogo className="h-6 w-auto" /></Link>
             <span className="text-sm text-foreground font-medium hidden sm:inline">Shop</span>
             <Link href="/examples/verve/app/product" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:inline">New In</Link>
           </div>

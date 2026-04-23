@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { clearbankConfig } from '../theme-configs'
 import { mockTransactions } from './/config'
+import { ClearbankLogo } from '@/components/logos';
+
 
 export default function ClearBankLanding() {
   return (
@@ -11,7 +13,7 @@ export default function ClearBankLanding() {
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <span className="text-xl font-bold text-primary">ClearBank</span>
+          <span className="text-xl font-bold text-primary"><ClearbankLogo className="h-6 w-auto" /></span>
           <div className="hidden items-center gap-8 md:flex">
             <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Features</a>
             <a href="#security" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Security</a>

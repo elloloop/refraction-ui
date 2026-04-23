@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { verveConfig } from '../theme-configs'
 import { featuredProducts, categoryCards } from './config'
+import { VerveLogo } from '@/components/logos';
+
 
 export default function VerveLandingPage() {
   const [email, setEmail] = useState('')
@@ -13,7 +15,7 @@ export default function VerveLandingPage() {
     <div className="">
       {/* Navigation */}
       <nav className="flex items-center justify-between px-8 py-4 border-b border-border bg-background/80 backdrop-blur-sm">
-        <Link href="/examples/verve" className="text-lg font-bold text-foreground tracking-tight">VERVE</Link>
+        <Link href="/examples/verve" className="text-lg font-bold text-foreground tracking-tight"><VerveLogo className="h-6 w-auto" /></Link>
         <div className="flex items-center gap-6">
           <Link href="/examples/verve/app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Shop</Link>
           <Link href="/examples/verve/app/product" className="text-sm text-muted-foreground hover:text-foreground transition-colors">New In</Link>
@@ -164,7 +166,7 @@ export default function VerveLandingPage() {
       <footer className="border-t border-border bg-muted/20 px-8 py-10">
         <div className="max-w-4xl mx-auto grid md:grid-cols-4 gap-8">
           <div className="space-y-3">
-            <h3 className="font-bold text-foreground">VERVE</h3>
+            <h3 className="font-bold text-foreground"><VerveLogo className="h-6 w-auto" /></h3>
             <p className="text-xs text-muted-foreground">Style redefined for modern living.</p>
           </div>
           <div className="space-y-2">

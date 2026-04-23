@@ -5,13 +5,15 @@ import { PageShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { learnhubConfig } from '../theme-configs'
 import { popularCourses, categories } from './config'
+import { LearnhubLogo } from '@/components/logos';
+
 
 export default function EducationLanding() {
   return (
     <PageShell config={{ navSticky: true, maxWidth: '72rem' }}>
       {/* Nav */}
       <PageShell.Nav className="justify-between bg-background/80 backdrop-blur-sm">
-        <span className="text-xl font-bold text-primary">LearnHub</span>
+        <span className="text-xl font-bold text-primary"><LearnhubLogo className="h-6 w-auto" /></span>
         <div className="hidden items-center gap-8 md:flex">
           <a href="#courses" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Courses</a>
           <a href="#categories" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Categories</a>

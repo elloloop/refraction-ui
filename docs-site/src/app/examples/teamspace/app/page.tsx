@@ -6,6 +6,8 @@ import { AppShell, useAppShell } from '@refraction-ui/react-app-shell'
 import { ThemeConfigPanel } from '@/components/theme-config-panel'
 import { teamspaceConfig } from '../../theme-configs'
 import { channels, dms, messages, threadMessages, formatButtons } from '../config'
+import { TeamspaceLogo } from '@/components/logos';
+
 
 const teamspaceTheme = `:root {
   --primary: 220 72% 50%;
@@ -315,7 +317,7 @@ export default function TeamspaceAppPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
                 </svg>
               </div>
-              <span className="font-bold text-foreground text-sm">Teamspace</span>
+              <span className="font-bold text-foreground text-sm"><TeamspaceLogo className="h-6 w-auto" /></span>
             </Link>
             <div className="flex-1 max-w-md mx-4 hidden sm:block">
               <div className="flex items-center gap-2 rounded-[var(--radius)] border border-border bg-muted/50 px-3 py-1.5 text-sm text-muted-foreground">
