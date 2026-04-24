@@ -1,6 +1,5 @@
 packages:
   - 'packages/*'
   - 'docs-site'
-  - 'docs-site-tvkit'
 
 strictPeerDependencies: false
