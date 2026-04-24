@@ -4,7 +4,7 @@ export const datePickerTriggerStyles =
   'inline-flex items-center gap-2 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring cursor-pointer'
 
 export const datePickerDropdownStyles =
-  'absolute z-50 mt-1 rounded-md border bg-popover p-4 text-popover-foreground shadow-md'
+  'absolute z-50 mt-1 w-max rounded-md border bg-popover p-4 text-popover-foreground shadow-md'
 
 export const datePickerGridStyles = 'w-full border-collapse'
 
