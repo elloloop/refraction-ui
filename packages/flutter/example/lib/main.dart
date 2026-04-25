@@ -7,6 +7,7 @@ import 'pages/home_page.dart';
 import 'pages/docs_layout.dart';
 import 'pages/chat_input_page.dart';
 import 'pages/accordion_page.dart';
+import 'pages/menus_page.dart';
 import 'pages/command_menu_page.dart';
 import 'pages/radio_group_page.dart';
 import 'pages/progress_slider_page.dart';
@@ -50,6 +51,7 @@ class RefractionDemoApp extends ConsumerWidget {
 
   final List<String> components = const [
     'Accordion',
+    'Menus',
     'Command Menu',
     'Radio Group',
     'Progress Slider',
@@ -293,6 +295,8 @@ class _AppShell extends ConsumerWidget {
     switch (route) {
       case '/docs/accordion':
         return const AccordionPage();
+      case '/docs/menus':
+        return const MenusPage();
       case '/docs/command-menu':
         return const CommandMenuPage();
       case '/docs/radio-group':
