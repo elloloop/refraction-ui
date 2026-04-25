@@ -6,6 +6,7 @@ import 'package:refraction_ui/refraction_ui.dart';
 import 'pages/home_page.dart';
 import 'pages/docs_layout.dart';
 import 'pages/chat_input_page.dart';
+import 'pages/accordion_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -43,6 +44,7 @@ class RefractionDemoApp extends ConsumerWidget {
   const RefractionDemoApp({super.key});
 
   final List<String> components = const [
+    'Accordion',
     'Buttons',
     'Badges',
     'Inputs & Forms',
@@ -279,6 +281,8 @@ class _AppShell extends ConsumerWidget {
   // Very simple mocked content mapper
   Widget _buildDocsContent(String route, BuildContext context) {
     switch (route) {
+      case '/docs/accordion':
+        return const AccordionPage();
       case '/docs/pregnancy-tracker':
         return const PreviewCanvas(
           title: "Pregnancy Tracker Layout",
