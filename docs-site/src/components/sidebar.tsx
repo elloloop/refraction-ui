@@ -135,6 +135,15 @@ const navigation = [
       </svg>
     ),
   },
+  {
+    name: 'Flutter UI',
+    href: '/flutter/',
+    icon: (
+      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+      </svg>
+    ),
+  },
 ]
 
 export function Sidebar() {
@@ -178,6 +187,27 @@ export function Sidebar() {
             const isActive = item.href === '/'
               ? pathname === '/'
               : pathname.startsWith(item.href)
+
+            const isExternal = item.href.startsWith('/flutter');
+
+            if (isExternal) {
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
+                    isActive
+                      ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium'
+                      : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground'
+                  }`}
+                >
+                  <span className={isActive ? 'text-sidebar-primary' : 'text-sidebar-foreground/50'}>
+                    {item.icon}
+                  </span>
+                  {item.name}
+                </a>
+              )
+            }
 
             return (
               <Link
