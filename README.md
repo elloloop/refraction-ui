@@ -24,6 +24,21 @@ We'd love to see Refraction UI support the following frameworks! If you're inter
 - ✅ App Shell, Bottom Nav, Breadcrumbs, Footer, Mobile Nav, Navbar, Sidebar.
 - 🚧 *Planned:* Pagination, Stepper.
 
+### App Shell Composition
+
+When using the App Shell components, the header must be placed inside the `AppShellMain` container, not as a direct sibling of the sidebar. This ensures the flex layout calculates the main column correctly.
+
+```astro
+<AppShell>
+  <AppShellSidebar>...</AppShellSidebar>
+  <AppShellMain>
+    <AppShellHeader>...</AppShellHeader>
+    <AppShellContent>...</AppShellContent>
+  </AppShellMain>
+  <AppShellOverlay />
+</AppShell>
+```
+
 **Advanced & Utilities**
 - ✅ Auth, Content Protection, Diff Viewer, Emoji Picker, Feedback Dialog, File Upload, I18n, Inline Editor, Install Prompt, Keyboard Shortcut, Language Selector, Markdown Renderer, Presence Indicator, Progress Display, Reaction Bar, Search Bar, Status Indicator, Theme, Thread View, Version Selector, Video Player.
 
