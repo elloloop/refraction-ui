@@ -5,6 +5,7 @@ import 'package:refraction_ui/refraction_ui.dart';
 // Import our layouts and pages
 import 'pages/home_page.dart';
 import 'pages/docs_layout.dart';
+import 'pages/chat_input_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -352,6 +353,8 @@ class _AppShell extends ConsumerWidget {
             ),
           ),
         );
+      case '/docs/chat-input':
+        return const ChatInputPage();
       case '/docs/select-&-dropdowns':
         return PreviewCanvas(
           title: "Select & Dropdowns",

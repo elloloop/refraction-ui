@@ -6,6 +6,7 @@ export 'src/theme/refraction_theme_data.dart';
 export 'src/components/badge.dart';
 export 'src/components/button.dart';
 export 'src/components/checkbox.dart';
+export 'src/components/chat_input.dart';
 export 'src/components/dialog.dart';
 export 'src/components/input.dart';
 export 'src/components/otp_input.dart';
