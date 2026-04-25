@@ -7,6 +7,7 @@ import 'pages/home_page.dart';
 import 'pages/docs_layout.dart';
 import 'pages/chat_input_page.dart';
 import 'pages/accordion_page.dart';
+import 'pages/avatar_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -45,6 +46,7 @@ class RefractionDemoApp extends ConsumerWidget {
 
   final List<String> components = const [
     'Accordion',
+    'Avatar',
     'Buttons',
     'Badges',
     'Inputs & Forms',
@@ -283,6 +285,8 @@ class _AppShell extends ConsumerWidget {
     switch (route) {
       case '/docs/accordion':
         return const AccordionPage();
+      case '/docs/avatar':
+        return const AvatarPage();
       case '/docs/pregnancy-tracker':
         return const PreviewCanvas(
           title: "Pregnancy Tracker Layout",
