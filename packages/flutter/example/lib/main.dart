@@ -7,6 +7,7 @@ import 'pages/home_page.dart';
 import 'pages/docs_layout.dart';
 import 'pages/chat_input_page.dart';
 import 'pages/accordion_page.dart';
+import 'pages/alert_page.dart';
 import 'pages/avatar_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
@@ -46,6 +47,7 @@ class RefractionDemoApp extends ConsumerWidget {
 
   final List<String> components = const [
     'Accordion',
+    'Alert',
     'Avatar',
     'Buttons',
     'Badges',
@@ -285,6 +287,8 @@ class _AppShell extends ConsumerWidget {
     switch (route) {
       case '/docs/accordion':
         return const AccordionPage();
+      case '/docs/alert':
+        return const AlertPage();
       case '/docs/avatar':
         return const AvatarPage();
       case '/docs/pregnancy-tracker':
