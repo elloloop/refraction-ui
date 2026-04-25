@@ -51,18 +51,18 @@ export const channels = [
 ]
 
 export const dms = [
-  { name: 'Sarah Kim', status: 'online', avatar: 'SK' },
-  { name: 'Mike Rodriguez', status: 'online', avatar: 'MR' },
-  { name: 'Lisa Monroe', status: 'offline', avatar: 'LM' },
-  { name: 'James Chen', status: 'away', avatar: 'JC' },
-  { name: 'Ana Petrova', status: 'online', avatar: 'AP' },
+  { name: 'Sarah Kim', status: 'online', avatar: <img src="/assets/people/ea/ea-1-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="SK" /> },
+  { name: 'Mike Rodriguez', status: 'online', avatar: <img src="/assets/people/af/af-2-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="MR" /> },
+  { name: 'Lisa Monroe', status: 'offline', avatar: <img src="/assets/people/eu/eu-2-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="LM" /> },
+  { name: 'James Chen', status: 'away', avatar: <img src="/assets/people/am/am-1-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="JC" /> },
+  { name: 'Ana Petrova', status: 'online', avatar: <img src="/assets/people/me/me-2-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="AP" /> },
 ]
 
 export const messages = [
   {
     id: 1,
     user: 'Sarah Kim',
-    avatar: 'SK',
+    avatar: <img src="/assets/people/ea/ea-1-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="SK" />,
     time: '9:15 AM',
     text: 'Good morning team! The new CI pipeline is live. Build times dropped from 8 min to under 3 min.',
     reactions: [{ emoji: '🎉', count: 5 }, { emoji: '🚀', count: 3 }],
@@ -71,7 +71,7 @@ export const messages = [
   {
     id: 2,
     user: 'Mike Rodriguez',
-    avatar: 'MR',
+    avatar: <img src="/assets/people/af/af-2-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="MR" />,
     time: '9:18 AM',
     text: 'Incredible! How did you manage that?',
     reactions: [],
@@ -80,7 +80,7 @@ export const messages = [
   {
     id: 3,
     user: 'Sarah Kim',
-    avatar: 'SK',
+    avatar: <img src="/assets/people/ea/ea-1-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="SK" />,
     time: '9:20 AM',
     text: 'Switched to incremental builds + parallel test sharding. Here\'s the config:',
     reactions: [],
@@ -89,7 +89,7 @@ export const messages = [
   {
     id: 4,
     user: 'Sarah Kim',
-    avatar: 'SK',
+    avatar: <img src="/assets/people/ea/ea-1-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="SK" />,
     time: '9:20 AM',
     text: null,
     code: `# turbo.json
@@ -111,7 +111,7 @@ export const messages = [
   {
     id: 5,
     user: 'Lisa Monroe',
-    avatar: 'LM',
+    avatar: <img src="/assets/people/eu/eu-2-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="LM" />,
     time: '9:32 AM',
     text: 'The design system updates are ready for review: https://figma.com/file/abc123',
     reactions: [{ emoji: '👍', count: 4 }],
@@ -120,7 +120,7 @@ export const messages = [
   {
     id: 6,
     user: 'James Chen',
-    avatar: 'JC',
+    avatar: <img src="/assets/people/am/am-1-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="JC" />,
     time: '9:45 AM',
     text: 'Has anyone tested the new auth flow on mobile? I\'m seeing some weird behavior with the SSO redirect.',
     reactions: [],
@@ -129,7 +129,7 @@ export const messages = [
   {
     id: 7,
     user: 'Ana Petrova',
-    avatar: 'AP',
+    avatar: <img src="/assets/people/me/me-2-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="AP" />,
     time: '9:48 AM',
     text: '@James Chen Yes, reproduced on iOS Safari. Looks like the callback URL is missing the port in dev mode. Quick fix:',
     reactions: [],
@@ -138,7 +138,7 @@ export const messages = [
   {
     id: 8,
     user: 'Ana Petrova',
-    avatar: 'AP',
+    avatar: <img src="/assets/people/me/me-2-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="AP" />,
     time: '9:48 AM',
     text: null,
     code: `const callbackUrl = process.env.NODE_ENV === 'development'
@@ -150,7 +150,7 @@ export const messages = [
   {
     id: 9,
     user: 'Mike Rodriguez',
-    avatar: 'MR',
+    avatar: <img src="/assets/people/af/af-2-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="MR" />,
     time: '10:02 AM',
     text: 'Reminder: Sprint retro at 2pm today. Please add your items to the board before then.',
     reactions: [{ emoji: '✅', count: 6 }],
@@ -159,7 +159,7 @@ export const messages = [
   {
     id: 10,
     user: 'Lisa Monroe',
-    avatar: 'LM',
+    avatar: <img src="/assets/people/eu/eu-2-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="LM" />,
     time: '10:15 AM',
     text: 'Just published the updated component library docs. Check the new color token page!',
     reactions: [{ emoji: '🎨', count: 3 }, { emoji: '💯', count: 2 }],
@@ -168,7 +168,7 @@ export const messages = [
   {
     id: 11,
     user: 'James Chen',
-    avatar: 'JC',
+    avatar: <img src="/assets/people/am/am-1-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="JC" />,
     time: '10:30 AM',
     text: 'Fixed the SSO issue. PR is up: #1247. Ana, could you review when you get a chance?',
     reactions: [{ emoji: '🔥', count: 2 }],
@@ -177,7 +177,7 @@ export const messages = [
   {
     id: 12,
     user: 'Sarah Kim',
-    avatar: 'SK',
+    avatar: <img src="/assets/people/ea/ea-1-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="SK" />,
     time: '10:45 AM',
     text: 'Team standup notes are in the wiki. Big milestone: we hit 99.9% uptime this quarter!',
     reactions: [{ emoji: '🎉', count: 8 }, { emoji: '🏆', count: 4 }],
@@ -186,9 +186,9 @@ export const messages = [
 ]
 
 export const threadMessages = [
-  { user: 'Mike Rodriguez', avatar: 'MR', time: '9:20 AM', text: 'This is a huge win for DX!' },
-  { user: 'Lisa Monroe', avatar: 'LM', time: '9:25 AM', text: 'Can we apply the same approach to the staging pipeline?' },
-  { user: 'Sarah Kim', avatar: 'SK', time: '9:30 AM', text: 'Absolutely! I\'ll create a ticket for it.' },
+  { user: 'Mike Rodriguez', avatar: <img src="/assets/people/af/af-2-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="MR" />, time: '9:20 AM', text: 'This is a huge win for DX!' },
+  { user: 'Lisa Monroe', avatar: <img src="/assets/people/eu/eu-2-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="LM" />, time: '9:25 AM', text: 'Can we apply the same approach to the staging pipeline?' },
+  { user: 'Sarah Kim', avatar: <img src="/assets/people/ea/ea-1-portrait.jpg" className="w-full h-full object-cover rounded-[var(--radius)]" alt="SK" />, time: '9:30 AM', text: 'Absolutely! I\'ll create a ticket for it.' },
 ]
 
 export const allChannels = [
