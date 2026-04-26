@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ElementRef, Renderer2, HostListener, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, HostListener, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppShellConfig, resolveBreakpoint } from '@refraction-ui/app-shell';
 import { AppShellService } from './app-shell.service';

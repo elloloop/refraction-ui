@@ -9,6 +9,12 @@
   "files": [
     "src"
   ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts"
+  },
   "dependencies": {
     "@refraction-ui/device-frame": "workspace:*",
     "@refraction-ui/shared": "workspace:*"

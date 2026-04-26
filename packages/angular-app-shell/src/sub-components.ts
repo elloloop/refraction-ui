@@ -35,7 +35,7 @@ export class AppShellSidebarComponent {
     const isRight = api.config.sidebarPosition === 'right';
     const borderClass = isRight ? 'border-l' : 'border-r';
     
-    let classes = [borderClass];
+    const classes = [borderClass];
 
     if (state.isMobile) {
       classes.push('fixed top-0 z-40');
