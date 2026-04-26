@@ -22,6 +22,22 @@ export function DeviceFrameExamples({ section }: DeviceFrameExamplesProps) {
               </div>
             </DeviceFrame>
           </div>
+          <div className="space-y-2">
+            <span className="text-xs text-muted-foreground font-medium">Macbook</span>
+            <DeviceFrame device="macbook" className="w-80">
+              <div className="p-4 bg-gradient-to-br from-orange-500 to-red-500 text-white text-xs h-full flex items-center justify-center">
+                Desktop App
+              </div>
+            </DeviceFrame>
+          </div>
+          <div className="space-y-2">
+            <span className="text-xs text-muted-foreground font-medium">Browser</span>
+            <DeviceFrame device="browser" className="w-80">
+              <div className="p-4 bg-gradient-to-br from-indigo-500 to-blue-500 text-white text-xs h-full flex items-center justify-center">
+                Web Application
+              </div>
+            </DeviceFrame>
+          </div>
         </div>
       </div>
     )

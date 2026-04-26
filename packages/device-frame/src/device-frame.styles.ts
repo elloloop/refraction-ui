@@ -8,6 +8,8 @@ export const deviceFrameVariants = cva({
       ipad: 'rounded-[18px] border-[6px]',
       'android-phone': 'rounded-[24px] border-4',
       'android-tablet': 'rounded-[16px] border-4',
+      macbook: 'rounded-[12px] border-[10px] border-b-[20px]',
+      browser: 'rounded-[4px] border-t-[24px] border-x-2 border-b-2',
     },
     orientation: {
       portrait: '',

@@ -16,6 +16,24 @@ export function MyComponent() {
     </DeviceFrame>
   )
 }`
+const angularUsageCode = `import { Component } from '@angular/core';
+import { DeviceFrameComponent } from '@refraction-ui/angular-device-frame';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [DeviceFrameComponent],
+  template: \`
+    <re-device-frame device="iphone" orientation="portrait">
+      <div class="p-8 text-center">
+        <h2 class="text-xl font-bold">Your App Here</h2>
+        <p class="text-gray-500">Render any Angular component inside this frame.</p>
+      </div>
+    </re-device-frame>
+  \`,
+})
+export class AppComponent {}`;
+
 export default function DeviceFramePage() {
   return (
     <div className="space-y-12">
@@ -40,7 +58,7 @@ export default function DeviceFramePage() {
         <InstallCommand packageName="@refraction-ui/react-device-frame" />
       </section>
 
-      <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: '<!-- Angular implementation pending -->' }} /></section>
+      <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->', angular: angularUsageCode }} /></section>
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Props</h2><PropsTable props={deviceProps} /></section>
     </div>
   )

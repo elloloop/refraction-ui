@@ -1,6 +1,6 @@
 import type { AccessibilityProps } from '@refraction-ui/shared'
 
-export type DeviceType = 'iphone' | 'ipad' | 'android-phone' | 'android-tablet'
+export type DeviceType = 'iphone' | 'ipad' | 'android-phone' | 'android-tablet' | 'macbook' | 'browser'
 export type DeviceOrientation = 'portrait' | 'landscape'
 
 export interface DeviceFrameProps {
@@ -69,6 +69,20 @@ const DEVICE_SPECS: Record<DeviceType, DeviceSpec> = {
     notch: false,
     homeIndicator: false,
   },
+  macbook: {
+    width: 1280,
+    height: 800,
+    radius: 12,
+    notch: false,
+    homeIndicator: false,
+  },
+  browser: {
+    width: 1024,
+    height: 768,
+    radius: 4,
+    notch: false,
+    homeIndicator: false,
+  },
 }
 
 const DEVICE_LABELS: Record<DeviceType, string> = {
@@ -76,6 +90,8 @@ const DEVICE_LABELS: Record<DeviceType, string> = {
   ipad: 'iPad',
   'android-phone': 'Android Phone',
   'android-tablet': 'Android Tablet',
+  macbook: 'Macbook',
+  browser: 'Web Browser',
 }
 
 export function createDeviceFrame(props: DeviceFrameProps): DeviceFrameAPI {

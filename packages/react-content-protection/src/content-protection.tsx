@@ -3,7 +3,6 @@ import {
   createContentProtection,
   contentProtectionVariants,
   watermarkVariants,
-  type ContentProtectionProps as CoreContentProtectionProps,
 } from '@refraction-ui/content-protection'
 import { cn } from '@refraction-ui/shared'
 

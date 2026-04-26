@@ -498,6 +498,22 @@ importers:
         specifier: 19.2.20
         version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
 
+  packages/angular-device-frame:
+    dependencies:
+      '@refraction-ui/device-frame':
+        specifier: workspace:*
+        version: link:../device-frame
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/common':
+        specifier: 19.2.20
+        version: 19.2.20(@angular/core@19.2.20(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.14.10)
+
   packages/angular-dialog:
     dependencies:
       '@refraction-ui/dialog':
@@ -626,6 +642,9 @@ importers:
       '@refraction-ui/angular-date-picker':
         specifier: workspace:*
         version: link:../angular-date-picker
+      '@refraction-ui/angular-device-frame':
+        specifier: workspace:*
+        version: link:../angular-device-frame
       '@refraction-ui/angular-dialog':
         specifier: workspace:*
         version: link:../angular-dialog

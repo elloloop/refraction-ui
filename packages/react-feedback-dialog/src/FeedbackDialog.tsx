@@ -2,7 +2,6 @@ import * as React from 'react'
 import {
   createFeedbackDialog,
   feedbackDialogVariants,
-  type FeedbackDialogProps as CoreProps,
   type FeedbackData,
   type FeedbackType,
 } from '@refraction-ui/feedback-dialog'
