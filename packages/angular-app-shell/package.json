@@ -1,0 +1,32 @@
+{
+  "name": "@refraction-ui/angular-app-shell",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@refraction-ui/app-shell": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=18.0.0",
+    "@angular/common": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@angular/core": "18.0.0",
+    "@angular/common": "18.0.0"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elloloop/refraction-ui.git",
+    "directory": "packages/angular-app-shell"
+  },
+  "homepage": "https://elloloop.github.io/refraction-ui/"
+}
