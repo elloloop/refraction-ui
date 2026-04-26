@@ -1,5 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { createAppShell, type AppShellConfig, type AppShellState, type AppShellAPI, type BreakpointName } from '@refraction-ui/app-shell';
+import { createAppShell } from '@refraction-ui/app-shell';
+import type { AppShellConfig, AppShellState, AppShellAPI, BreakpointName } from '@refraction-ui/app-shell';
 
 @Injectable()
 export class AppShellService {

@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding } from '@angular/core';
+import { Component, Input, HostBinding, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppShellService } from './app-shell.service';
 
@@ -30,7 +30,7 @@ export class AppShellSidebarComponent {
   get hostClasses() {
     const api = this.shell.apiInstance;
     const state = this.shell.state();
-    if (!state) return '';
+    if (!state || !api) return '';
 
     const isRight = api.config.sidebarPosition === 'right';
     const borderClass = isRight ? 'border-l' : 'border-r';
@@ -201,8 +201,10 @@ export class AppShellMobileNavComponent {
   @HostBinding('style.display')
   get display() {
     const state = this.shell.state();
-    const config = this.shell.apiInstance.config;
-    return (state?.isMobile && config.mobileNavPosition !== 'none') ? 'flex' : 'none';
+    const api = this.shell.apiInstance;
+    if (!state || !api) return 'none';
+    const config = api.config;
+    return (state.isMobile && config.mobileNavPosition !== 'none') ? 'flex' : 'none';
   }
   
   @HostBinding('attr.role') role = 'navigation';

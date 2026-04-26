@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, HostListener, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppShellConfig, resolveBreakpoint } from '@refraction-ui/app-shell';
+import { resolveBreakpoint, type AppShellConfig } from '@refraction-ui/app-shell';
 import { AppShellService } from './app-shell.service';
 
 @Component({
