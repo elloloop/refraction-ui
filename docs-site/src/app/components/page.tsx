@@ -26,6 +26,7 @@ const components = [
   { name: 'Tabs', href: '/components/tabs', description: 'Tabbed interface with keyboard navigation and ARIA support.', category: 'Core UI' },
 
   // Layout
+  { name: 'App Shell', href: '/components/app-shell', description: 'Full application layout with responsive sidebar, header, and content areas.', category: 'Layout' },
   { name: 'Card', href: '/components/card', description: 'Container with header, content, and footer compound components.', category: 'Layout' },
   { name: 'Navbar', href: '/components/navbar', description: 'Sticky header with navigation links, logo, and action slots.', category: 'Layout' },
   { name: 'Sidebar', href: '/components/sidebar-component', description: 'Vertical navigation panel with sections, items, and collapsed mode.', category: 'Layout' },
