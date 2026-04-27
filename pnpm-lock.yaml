@@ -2629,6 +2629,25 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-combobox:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-command:
     dependencies:
       '@refraction-ui/command':
@@ -2939,6 +2958,31 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-form:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+      react-hook-form:
+        specifier: 7.54.2
+        version: 7.54.2(react@19.0.0)
+
   packages/react-icon-system:
     devDependencies:
       '@types/react':
@@ -3157,6 +3201,9 @@ importers:
       '@monaco-editor/react':
         specifier: '>=4'
         version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-hook-form:
+        specifier: '>=7.43.0'
+        version: 7.54.2(react@19.0.0)
     devDependencies:
       '@refraction-ui/accordion':
         specifier: workspace:*
@@ -3224,6 +3271,9 @@ importers:
       '@refraction-ui/react-collapsible':
         specifier: workspace:*
         version: link:../react-collapsible
+      '@refraction-ui/react-combobox':
+        specifier: workspace:*
+        version: link:../react-combobox
       '@refraction-ui/react-command':
         specifier: workspace:*
         version: link:../react-command
@@ -3266,6 +3316,9 @@ importers:
       '@refraction-ui/react-footer':
         specifier: workspace:*
         version: link:../react-footer
+      '@refraction-ui/react-form':
+        specifier: workspace:*
+        version: link:../react-form
       '@refraction-ui/react-icon-system':
         specifier: workspace:*
         version: link:../react-icon-system
@@ -3335,6 +3388,9 @@ importers:
       '@refraction-ui/react-select':
         specifier: workspace:*
         version: link:../react-select
+      '@refraction-ui/react-sheet':
+        specifier: workspace:*
+        version: link:../react-sheet
       '@refraction-ui/react-sidebar':
         specifier: workspace:*
         version: link:../react-sidebar
@@ -3693,6 +3749,25 @@ importers:
       '@refraction-ui/select':
         specifier: workspace:*
         version: link:../select
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-sheet:
+    dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -7505,6 +7580,12 @@ packages:
     resolution: {integrity: sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==}
     peerDependencies:
       react: ^19.0.0
+
+  react-hook-form@7.54.2:
+    resolution: {integrity: sha512-eHpAUgUjWbZocoQYUHposymRb4ZP6d0uwUnooL2uOybA9/3tPUvoAKqEWK1WaSiTxxOfTpffNZP7QwlnM3/gEg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
 
   react@18.0.0:
     resolution: {integrity: sha512-x+VL6wbT4JRVPm7EGxXhZ8w8LTROaxPXOqhlGyVSrv0sB1jkyFGgXxJ8LVoPRLvPR6/CIZGFmfzqUa2NYeMr2A==}
@@ -11713,6 +11794,10 @@ snapshots:
     dependencies:
       react: 19.0.0
       scheduler: 0.25.0
+
+  react-hook-form@7.54.2(react@19.0.0):
+    dependencies:
+      react: 19.0.0
 
   react@18.0.0:
     dependencies:

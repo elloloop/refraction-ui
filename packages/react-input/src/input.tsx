@@ -6,6 +6,22 @@ import {
 import { cn } from '@refraction-ui/shared'
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  /**
+   * Visual size of the input.
+   *
+   * Note: this prop intentionally **shadows** the native HTML `size`
+   * attribute (which would otherwise control the visible character width
+   * of the `<input>` element). We re-purpose the name for our visual
+   * size variants (`'sm' | 'default' | 'lg'`) because in practice almost
+   * no one uses the native character-width `size` attribute, while
+   * visual sizing is a near-universal need.
+   *
+   * If you need the native character-width behavior, set it via
+   * `htmlSize` on the underlying DOM through a `ref`, or render a plain
+   * `<input>` instead.
+   *
+   * See the package README's "Sizing" section for more.
+   */
   size?: 'sm' | 'default' | 'lg'
 }
 

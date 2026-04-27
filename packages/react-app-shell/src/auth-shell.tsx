@@ -72,7 +72,7 @@ export interface AuthShellCardProps {
   className?: string
 }
 
-function Card({ children, className }: AuthShellCardProps) {
+function AuthShellCard({ children, className }: AuthShellCardProps) {
   const { api } = useAuthShell()
 
   return React.createElement(
@@ -85,14 +85,14 @@ function Card({ children, className }: AuthShellCardProps) {
   )
 }
 
-Card.displayName = 'AuthShell.Card'
+AuthShellCard.displayName = 'AuthShell.Card'
 
 // ---------------------------------------------------------------------------
 // Compound export
 // ---------------------------------------------------------------------------
 
 export const AuthShell = Object.assign(AuthShellRoot, {
-  Card,
+  Card: AuthShellCard,
 })
 
 export type { AuthShellConfig, AuthShellAPI }

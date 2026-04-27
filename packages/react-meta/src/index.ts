@@ -12,7 +12,9 @@
  */
 
 // Core / theme
-export * from '@refraction-ui/react-theme'
+// NOTE: Theme exports moved to opt-in subpath '@refraction-ui/react/theme'
+// to avoid name clashes with consumers' existing theme systems (e.g. next-themes).
+// Import via: `import { ThemeProvider } from '@refraction-ui/react/theme'`
 
 // Components (alphabetical)
 export * from '@refraction-ui/react-accordion'
@@ -27,6 +29,7 @@ export * from '@refraction-ui/react-button'
 export * from '@refraction-ui/react-calendar'
 export * from '@refraction-ui/react-code-editor'
 export * from '@refraction-ui/react-collapsible'
+export * from '@refraction-ui/react-combobox'
 export * from '@refraction-ui/react-command'
 export * from '@refraction-ui/react-content-protection'
 export * from '@refraction-ui/react-data-table'
@@ -35,6 +38,7 @@ export * from '@refraction-ui/react-dialog'
 export * from '@refraction-ui/react-dropdown-menu'
 export * from '@refraction-ui/react-feedback-dialog'
 export * from '@refraction-ui/react-footer'
+export * from '@refraction-ui/react-form'
 export * from '@refraction-ui/react-inline-editor'
 export * from '@refraction-ui/react-input'
 export * from '@refraction-ui/react-input-group'
@@ -45,6 +49,7 @@ export * from '@refraction-ui/react-navbar'
 export * from '@refraction-ui/react-popover'
 export * from '@refraction-ui/react-search-bar'
 export * from '@refraction-ui/react-sidebar'
+export * from '@refraction-ui/react-sheet'
 export * from '@refraction-ui/react-skeleton'
 export * from '@refraction-ui/react-tabs'
 export * from '@refraction-ui/react-textarea'

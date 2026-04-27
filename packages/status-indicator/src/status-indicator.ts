@@ -24,7 +24,7 @@ export interface StatusAPI {
   color: string
 }
 
-const STATUS_COLORS: Record<StatusType, string> = {
+const STATUS_INDICATOR_COLORS: Record<StatusType, string> = {
   success: 'green',
   error: 'red',
   warning: 'yellow',
@@ -33,7 +33,7 @@ const STATUS_COLORS: Record<StatusType, string> = {
   neutral: 'gray',
 }
 
-const STATUS_LABELS: Record<StatusType, string> = {
+const STATUS_INDICATOR_LABELS: Record<StatusType, string> = {
   success: 'Success',
   error: 'Error',
   warning: 'Warning',
@@ -42,13 +42,16 @@ const STATUS_LABELS: Record<StatusType, string> = {
   neutral: 'Neutral',
 }
 
-export { STATUS_COLORS, STATUS_LABELS }
+export {
+  STATUS_INDICATOR_COLORS as STATUS_COLORS,
+  STATUS_INDICATOR_LABELS as STATUS_LABELS,
+}
 
 export function createStatusIndicator(props: StatusProps): StatusAPI {
   const { type, label: labelOverride, pulse: pulseOverride } = props
 
-  const color = STATUS_COLORS[type]
-  const label = labelOverride ?? STATUS_LABELS[type]
+  const color = STATUS_INDICATOR_COLORS[type]
+  const label = labelOverride ?? STATUS_INDICATOR_LABELS[type]
   const pulse = pulseOverride ?? (type === 'pending')
 
   const ariaProps: Partial<AccessibilityProps> & Record<string, unknown> = {
