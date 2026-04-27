@@ -2,7 +2,16 @@ name: refraction_ui
 description: "A headless, highly customizable, and fully accessible Flutter UI library matching Refraction UI."
 version: 0.1.0
 homepage: https://elloloop.github.io/refraction-ui
-repository: https://github.com/elloloop/refraction-ui-flutter
+repository: https://github.com/elloloop/refraction-ui
+issue_tracker: https://github.com/elloloop/refraction-ui/issues
+documentation: https://elloloop.github.io/refraction-ui/flutter/
+
+topics:
+  - ui
+  - widgets
+  - design-system
+  - components
+  - theme
 
 environment:
   sdk: ^3.10.1
