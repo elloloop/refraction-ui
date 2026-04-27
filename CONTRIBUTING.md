@@ -43,10 +43,24 @@ Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chor
 - `feat!:` or `BREAKING CHANGE:` in the footer triggers a **major** bump (0.1.0 -> 1.0.0).
 - No manual version bumps or changelogs needed — it's all automated.
 
-### Release channels
+### Release channels (npm)
 
 - **`main` branch** publishes canary prereleases (`x.x.x-canary.N`) to npm `@canary` dist-tag.
 - **`stable` branch** publishes stable releases to npm `@latest` dist-tag.
+
+> **Note**: the bullets above describe the JS / npm release flow. The actual mechanism in this repo is [Changesets](https://github.com/changesets/changesets) (see `.changeset/` and `pnpm release`), not semantic-release — the conventional-commit rules above are still enforced for commit-lint, but versions are bumped from the changeset files in PRs, not from commit messages.
+
+### Releasing the Flutter package (`refraction_ui`)
+
+The Flutter package is published to **pub.dev**, separately from the npm packages, via a tag-driven workflow. See [`packages/flutter/RELEASING.md`](packages/flutter/RELEASING.md) for the full procedure. TL;DR:
+
+```sh
+# bump packages/flutter/pubspec.yaml + CHANGELOG.md, merge to main, then:
+git tag refraction_ui-v0.1.1
+git push origin refraction_ui-v0.1.1
+```
+
+The `flutter-publish` workflow runs analyzer + tests + dry-run before doing the actual `dart pub publish`, gated by GitHub-OIDC trust on pub.dev.
 
 ## Pull requests
 
