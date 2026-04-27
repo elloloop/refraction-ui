@@ -7,14 +7,14 @@ class RefractionPopover extends StatefulWidget {
   final Offset offset;
 
   const RefractionPopover({
-    Key? key,
+    super.key,
     required this.trigger,
     required this.content,
     this.offset = const Offset(0, 8),
-  }) : super(key: key);
+  });
 
   @override
-  _RefractionPopoverState createState() => _RefractionPopoverState();
+  State<RefractionPopover> createState() => _RefractionPopoverState();
 }
 
 class _RefractionPopoverState extends State<RefractionPopover> {

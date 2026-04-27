@@ -14,7 +14,7 @@ class RefractionRichChatInput extends StatefulWidget {
   final bool disabled;
 
   const RefractionRichChatInput({
-    Key? key,
+    super.key,
     this.controller,
     this.placeholder = "Message...",
     this.prefixIcon,
@@ -24,10 +24,10 @@ class RefractionRichChatInput extends StatefulWidget {
     this.minLines = 1,
     this.maxLines = 5,
     this.disabled = false,
-  }) : super(key: key);
+  });
 
   @override
-  _RefractionRichChatInputState createState() => _RefractionRichChatInputState();
+  State<RefractionRichChatInput> createState() => _RefractionRichChatInputState();
 }
 
 class _RefractionRichChatInputState extends State<RefractionRichChatInput> {

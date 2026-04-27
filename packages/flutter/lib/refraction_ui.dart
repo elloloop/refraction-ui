@@ -1,4 +1,4 @@
-library refraction_ui;
+library;
 
 export 'src/theme/refraction_colors.dart';
 export 'src/theme/refraction_theme.dart';

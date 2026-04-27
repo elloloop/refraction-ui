@@ -9,15 +9,15 @@ class RefractionOtpInput extends StatefulWidget {
   final bool autofocus;
 
   const RefractionOtpInput({
-    Key? key,
+    super.key,
     this.length = 6,
     this.onCompleted,
     this.onChanged,
     this.autofocus = false,
-  }) : super(key: key);
+  });
 
   @override
-  _RefractionOtpInputState createState() => _RefractionOtpInputState();
+  State<RefractionOtpInput> createState() => _RefractionOtpInputState();
 }
 
 class _RefractionOtpInputState extends State<RefractionOtpInput> {

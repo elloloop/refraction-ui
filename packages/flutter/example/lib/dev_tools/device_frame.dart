@@ -8,10 +8,10 @@ class RefractionDeviceFrame extends StatefulWidget {
   final DeviceType deviceType;
 
   const RefractionDeviceFrame({
-    Key? key,
+    super.key,
     required this.child,
     this.deviceType = DeviceType.iphone,
-  }) : super(key: key);
+  });
 
   @override
   _RefractionDeviceFrameState createState() => _RefractionDeviceFrameState();
@@ -32,7 +32,7 @@ class _RefractionDeviceFrameState extends State<RefractionDeviceFrame> {
     super.dispose();
   }
 
-  String _debugFocus = "INIT";
+  final String _debugFocus = "INIT";
 
   void _handleFocusChange() {
     final focus = FocusManager.instance.primaryFocus;

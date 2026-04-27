@@ -7,15 +7,14 @@ class RefractionTabs extends StatefulWidget {
   final int initialIndex;
 
   const RefractionTabs({
-    Key? key,
+    super.key,
     required this.tabs,
     required this.children,
     this.initialIndex = 0,
-  }) : assert(tabs.length == children.length),
-       super(key: key);
+  }) : assert(tabs.length == children.length);
 
   @override
-  _RefractionTabsState createState() => _RefractionTabsState();
+  State<RefractionTabs> createState() => _RefractionTabsState();
 }
 
 class _RefractionTabsState extends State<RefractionTabs> {
@@ -67,7 +66,7 @@ class _RefractionTabsState extends State<RefractionTabs> {
                       boxShadow: isSelected
                           ? [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
+                                color: Colors.black.withValues(alpha: 0.05),
                                 blurRadius: 2,
                                 offset: const Offset(0, 1),
                               ),

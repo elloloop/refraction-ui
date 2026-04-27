@@ -8,10 +8,10 @@ class RefractionBadge extends StatelessWidget {
   final RefractionBadgeVariant variant;
 
   const RefractionBadge({
-    Key? key,
+    super.key,
     required this.child,
     this.variant = RefractionBadgeVariant.primary,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,6 @@ class RefractionBadge extends StatelessWidget {
         borderColor = colors.border;
         break;
       case RefractionBadgeVariant.primary:
-      default:
         backgroundColor = colors.primary;
         foregroundColor = colors.primaryForeground;
         break;

@@ -75,7 +75,7 @@ class RefractionBreadcrumbs extends StatelessWidget {
               separator,
               style: TextStyle(
                 fontSize: 14,
-                color: colors.mutedForeground.withOpacity(0.5),
+                color: colors.mutedForeground.withValues(alpha: 0.5),
               ),
             ),
           ),

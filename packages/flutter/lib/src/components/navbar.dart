@@ -42,7 +42,7 @@ class RefractionNavbar extends StatelessWidget implements PreferredSizeWidget {
     return Container(
       height: preferredSize.height,
       decoration: BoxDecoration(
-        color: colors.background.withOpacity(0.95), // Slight glass feel
+        color: colors.background.withValues(alpha: 0.95), // Slight glass feel
         border: Border(bottom: BorderSide(color: colors.border)),
       ),
       child: SafeArea(
@@ -94,7 +94,7 @@ class RefractionNavbar extends StatelessWidget implements PreferredSizeWidget {
                 const Spacer(),
 
               // Trailing Actions Slot
-              if (actions != null) actions!,
+              ?actions,
             ],
           ),
         ),

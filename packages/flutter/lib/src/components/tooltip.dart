@@ -7,11 +7,11 @@ class RefractionTooltip extends StatelessWidget {
   final Duration waitDuration;
 
   const RefractionTooltip({
-    Key? key,
+    super.key,
     required this.message,
     required this.child,
     this.waitDuration = const Duration(milliseconds: 300),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class RefractionTooltip extends StatelessWidget {
         border: Border.all(color: colors.border),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),

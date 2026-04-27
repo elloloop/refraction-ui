@@ -20,16 +20,16 @@ class RefractionButton extends StatefulWidget {
   final bool isLoading;
 
   const RefractionButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.child,
     this.variant = RefractionButtonVariant.primary,
     this.size = RefractionButtonSize.defaultSize,
     this.isLoading = false,
-  }) : super(key: key);
+  });
 
   @override
-  _RefractionButtonState createState() => _RefractionButtonState();
+  State<RefractionButton> createState() => _RefractionButtonState();
 }
 
 class _RefractionButtonState extends State<RefractionButton> {
@@ -47,7 +47,7 @@ class _RefractionButtonState extends State<RefractionButton> {
     switch (widget.variant) {
       case RefractionButtonVariant.destructive:
         backgroundColor = _isHovered
-            ? colors.destructive.withOpacity(0.9)
+            ? colors.destructive.withValues(alpha: 0.9)
             : colors.destructive;
         foregroundColor = colors.destructiveForeground;
         break;
@@ -60,7 +60,7 @@ class _RefractionButtonState extends State<RefractionButton> {
         break;
       case RefractionButtonVariant.secondary:
         backgroundColor = _isHovered
-            ? colors.secondary.withOpacity(0.8)
+            ? colors.secondary.withValues(alpha: 0.8)
             : colors.secondary;
         foregroundColor = colors.secondaryForeground;
         break;
@@ -75,18 +75,17 @@ class _RefractionButtonState extends State<RefractionButton> {
         foregroundColor = colors.primary;
         break;
       case RefractionButtonVariant.primary:
-      default:
         backgroundColor = _isHovered
-            ? colors.primary.withOpacity(0.9)
+            ? colors.primary.withValues(alpha: 0.9)
             : colors.primary;
         foregroundColor = colors.primaryForeground;
         break;
     }
 
     if (widget.onPressed == null) {
-      backgroundColor = backgroundColor.withOpacity(0.5);
-      foregroundColor = foregroundColor.withOpacity(0.5);
-      if (borderColor != null) borderColor = borderColor.withOpacity(0.5);
+      backgroundColor = backgroundColor.withValues(alpha: 0.5);
+      foregroundColor = foregroundColor.withValues(alpha: 0.5);
+      if (borderColor != null) borderColor = borderColor.withValues(alpha: 0.5);
     }
 
     EdgeInsetsGeometry padding;
@@ -112,7 +111,6 @@ class _RefractionButtonState extends State<RefractionButton> {
         minHeight = 36.0;
         break;
       case RefractionButtonSize.defaultSize:
-      default:
         padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 10);
         fontSize = 14.0;
         minHeight = 36.0;
