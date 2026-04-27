@@ -33,7 +33,7 @@ class RefractionBottomNav extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: colors.background.withOpacity(0.95),
+        color: colors.background.withValues(alpha: 0.95),
         border: Border(top: BorderSide(color: colors.border)),
       ),
       child: SafeArea(

@@ -9,16 +9,16 @@ class RefractionSelect<T> extends StatefulWidget {
   final bool disabled;
 
   const RefractionSelect({
-    Key? key,
+    super.key,
     required this.items,
     this.value,
     this.onChanged,
     this.placeholder,
     this.disabled = false,
-  }) : super(key: key);
+  });
 
   @override
-  _RefractionSelectState createState() => _RefractionSelectState();
+  State<RefractionSelect> createState() => _RefractionSelectState();
 }
 
 class _RefractionSelectState<T> extends State<RefractionSelect<T>> {

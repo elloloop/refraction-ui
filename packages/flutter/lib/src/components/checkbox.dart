@@ -7,14 +7,14 @@ class RefractionCheckbox extends StatefulWidget {
   final bool disabled;
 
   const RefractionCheckbox({
-    Key? key,
+    super.key,
     required this.value,
     this.onChanged,
     this.disabled = false,
-  }) : super(key: key);
+  });
 
   @override
-  _RefractionCheckboxState createState() => _RefractionCheckboxState();
+  State<RefractionCheckbox> createState() => _RefractionCheckboxState();
 }
 
 class _RefractionCheckboxState extends State<RefractionCheckbox> {

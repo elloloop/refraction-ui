@@ -7,14 +7,14 @@ class RefractionSwitch extends StatefulWidget {
   final bool disabled;
 
   const RefractionSwitch({
-    Key? key,
+    super.key,
     required this.value,
     this.onChanged,
     this.disabled = false,
-  }) : super(key: key);
+  });
 
   @override
-  _RefractionSwitchState createState() => _RefractionSwitchState();
+  State<RefractionSwitch> createState() => _RefractionSwitchState();
 }
 
 class _RefractionSwitchState extends State<RefractionSwitch> {
@@ -79,7 +79,7 @@ class _RefractionSwitchState extends State<RefractionSwitch> {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
+                            color: Colors.black.withValues(alpha: 0.1),
                             blurRadius: 2,
                             offset: const Offset(0, 1),
                           ),

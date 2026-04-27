@@ -12,7 +12,7 @@ class RefractionInput extends StatefulWidget {
   final int maxLines;
 
   const RefractionInput({
-    Key? key,
+    super.key,
     this.controller,
     this.placeholder,
     this.obscureText = false,
@@ -21,10 +21,10 @@ class RefractionInput extends StatefulWidget {
     this.suffix,
     this.onChanged,
     this.maxLines = 1,
-  }) : super(key: key);
+  });
 
   @override
-  _RefractionInputState createState() => _RefractionInputState();
+  State<RefractionInput> createState() => _RefractionInputState();
 }
 
 class _RefractionInputState extends State<RefractionInput> {
@@ -105,12 +105,12 @@ class RefractionTextarea extends StatelessWidget {
   final ValueChanged<String>? onChanged;
 
   const RefractionTextarea({
-    Key? key,
+    super.key,
     this.controller,
     this.placeholder,
     this.disabled = false,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
