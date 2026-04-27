@@ -14,7 +14,7 @@ export const versionSelectorVariants = cva({
   },
 })
 
-export const optionVariants = cva({
+const versionSelectorOptionVariants = cva({
   base: 'flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-accent',
   variants: {
     selected: {
@@ -26,6 +26,8 @@ export const optionVariants = cva({
     selected: 'false',
   },
 })
+
+export { versionSelectorOptionVariants as optionVariants }
 
 export const latestBadgeVariants = cva({
   base: 'inline-flex items-center rounded-full text-xs font-medium px-2 py-0.5',

@@ -11,7 +11,13 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./theme": {
+      "types": "./dist/theme.d.ts",
+      "import": "./dist/theme.js",
+      "require": "./dist/theme.cjs"
+    },
+    "./styles.css": "./dist/styles.css"
   },
   "files": [
     "dist"
@@ -29,10 +35,14 @@
   "peerDependencies": {
     "@monaco-editor/react": ">=4",
     "react": ">=18",
-    "react-dom": ">=18"
+    "react-dom": ">=18",
+    "react-hook-form": ">=7.43.0"
   },
   "peerDependenciesMeta": {
     "@monaco-editor/react": {
+      "optional": true
+    },
+    "react-hook-form": {
       "optional": true
     }
   },
@@ -55,6 +65,7 @@
     "@refraction-ui/react-checkbox": "workspace:*",
     "@refraction-ui/react-code-editor": "workspace:*",
     "@refraction-ui/react-collapsible": "workspace:*",
+    "@refraction-ui/react-combobox": "workspace:*",
     "@refraction-ui/react-command": "workspace:*",
     "@refraction-ui/react-content-protection": "workspace:*",
     "@refraction-ui/react-data-table": "workspace:*",
@@ -67,6 +78,7 @@
     "@refraction-ui/react-feedback-dialog": "workspace:*",
     "@refraction-ui/react-file-upload": "workspace:*",
     "@refraction-ui/react-footer": "workspace:*",
+    "@refraction-ui/react-form": "workspace:*",
     "@refraction-ui/react-inline-editor": "workspace:*",
     "@refraction-ui/react-input": "workspace:*",
     "@refraction-ui/react-input-group": "workspace:*",
@@ -117,7 +129,8 @@
     "@refraction-ui/react-link-card": "workspace:*",
     "@refraction-ui/react-card-grid": "workspace:*",
     "@refraction-ui/react-payment": "workspace:*",
-    "@refraction-ui/react-command-input": "workspace:*"
+    "@refraction-ui/react-command-input": "workspace:*",
+    "@refraction-ui/react-sheet": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

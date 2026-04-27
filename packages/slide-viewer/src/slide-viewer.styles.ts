@@ -26,7 +26,7 @@ export const slideViewerVariants = cva({
   },
 })
 
-export const progressBarVariants = cva({
+const slideViewerProgressBarVariants = cva({
   base: 'h-1 w-full bg-muted rounded-full overflow-hidden',
   variants: {
     position: {
@@ -39,6 +39,8 @@ export const progressBarVariants = cva({
     position: 'top',
   },
 })
+
+export { slideViewerProgressBarVariants as progressBarVariants }
 
 export const slideTypeBadgeVariants = cva({
   base: 'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',

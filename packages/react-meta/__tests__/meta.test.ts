@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import * as MetaExports from '../src/index.js'
+import * as ThemeExports from '../src/theme.js'
 
 describe('@refraction-ui/react (meta package)', () => {
   it('exports Button from react-button', () => {
@@ -25,13 +26,24 @@ describe('@refraction-ui/react (meta package)', () => {
     expect(MetaExports.DialogClose).toBeDefined()
   })
 
-  it('exports ThemeProvider from react-theme', () => {
-    expect(MetaExports.ThemeProvider).toBeDefined()
+  it('exposes ThemeProvider via @refraction-ui/react/theme subpath', () => {
+    expect(ThemeExports.ThemeProvider).toBeDefined()
   })
 
-  it('exports useTheme hook from react-theme', () => {
-    expect(MetaExports.useTheme).toBeDefined()
-    expect(typeof MetaExports.useTheme).toBe('function')
+  it('exposes useTheme hook via @refraction-ui/react/theme subpath', () => {
+    expect(ThemeExports.useTheme).toBeDefined()
+    expect(typeof ThemeExports.useTheme).toBe('function')
+  })
+
+  it('does NOT export ThemeProvider from main entry (opt-in only)', () => {
+    expect((MetaExports as Record<string, unknown>).ThemeProvider).toBeUndefined()
+  })
+
+  it('exports Sheet compound components from react-sheet', () => {
+    expect(MetaExports.Sheet).toBeDefined()
+    expect(MetaExports.SheetTrigger).toBeDefined()
+    expect(MetaExports.SheetContent).toBeDefined()
+    expect(MetaExports.SheetClose).toBeDefined()
   })
 
   it('exports Tabs compound components from react-tabs', () => {

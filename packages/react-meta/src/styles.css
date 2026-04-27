@@ -1,0 +1,296 @@
+/*
+ * @refraction-ui/react — default theme stylesheet
+ *
+ * Refraction UI components are headless: they read CSS custom properties
+ * for color, typography, layout, and motion. This stylesheet defines a
+ * complete, working set of defaults so consumers can render components
+ * out of the box without authoring tokens themselves.
+ *
+ * Usage:
+ *
+ *   import '@refraction-ui/react/styles.css'
+ *
+ * The stylesheet is opt-in. Consumers who already define their own tokens
+ * (or who use `@refraction-ui/tailwind-config`'s preset) should NOT import
+ * this file — every component will continue to work with consumer-defined
+ * tokens.
+ *
+ * Override a single token by re-declaring it after the import, for example:
+ *
+ *   :root {
+ *     --primary: 280 70% 50%;
+ *     --radius: 0.5rem;
+ *   }
+ *
+ * Dark mode follows the `react-theme` ThemeProvider convention: the dark
+ * palette activates when `.dark` is on the html/root element (the default
+ * `attribute: 'class'` mode), or when `[data-theme="dark"]` is set (the
+ * alternative `attribute: 'data-theme'` mode). Both selectors are wired
+ * up below so either ThemeProvider configuration "just works".
+ *
+ * The default palette is the canonical "Refraction" theme defined in
+ * @refraction-ui/tailwind-config/src/themes/glassa.ts (Linear + Vercel-
+ * inspired calm violet on a near-white surface, subtle 6% borders, 0.375rem
+ * radius, system/Inter font stack).
+ */
+
+:root {
+  /* ─────────────────────────────────────────────────────────────────────
+     Color tokens (HSL triplets — components wrap them as hsl(var(--token)))
+     ───────────────────────────────────────────────────────────────────── */
+  --background: 0 0% 99%;
+  --foreground: 240 10% 10%;
+  --card: 0 0% 99%;
+  --card-foreground: 240 10% 10%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 10%;
+
+  --primary: 250 50% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 5% 96%;
+  --secondary-foreground: 240 4% 44%;
+  --accent: 250 30% 95%;
+  --accent-foreground: 250 50% 40%;
+
+  --muted: 240 5% 96%;
+  --muted-foreground: 240 4% 44%;
+
+  --destructive: 0 84% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 142 71% 35%;
+  --success-foreground: 0 0% 100%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 240 10% 10%;
+
+  --border: 240 6% 92%;
+  --input: 240 6% 92%;
+  --ring: 250 50% 50%;
+
+  /* Charts (colorblind-safe spread) */
+  --chart-1: 250 50% 50%;
+  --chart-2: 173 80% 36%;
+  --chart-3: 38 92% 50%;
+  --chart-4: 330 65% 50%;
+  --chart-5: 201 96% 42%;
+
+  /* Sidebar */
+  --sidebar-background: 0 0% 98%;
+  --sidebar-foreground: 240 10% 10%;
+  --sidebar-primary: 250 50% 50%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 250 30% 95%;
+  --sidebar-accent-foreground: 250 50% 40%;
+  --sidebar-border: 240 6% 92%;
+  --sidebar-ring: 250 50% 50%;
+
+  /* ─────────────────────────────────────────────────────────────────────
+     Shape language
+     ───────────────────────────────────────────────────────────────────── */
+  --radius: 0.375rem;
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+
+  --avatar-radius: 9999px;
+  --badge-radius: 9999px;
+  --button-radius: 0.375rem;
+  --input-radius: 0.375rem;
+  --card-radius: 0.5rem;
+  --tooltip-radius: 0.375rem;
+
+  /* ─────────────────────────────────────────────────────────────────────
+     Typography
+     ───────────────────────────────────────────────────────────────────── */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-heading: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: ui-serif, Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --letter-spacing-tighter: -0.04em;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.02em;
+  --letter-spacing-wider: 0.05em;
+
+  --line-height-tight: 1.3;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  --heading-weight: 600;
+  --heading-letter-spacing: -0.02em;
+  --heading-line-height: 1.2;
+
+  /* ─────────────────────────────────────────────────────────────────────
+     Shadows / elevation
+     ───────────────────────────────────────────────────────────────────── */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --shadow-md: 0 2px 4px -1px rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.03);
+  --shadow-lg: 0 6px 10px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+  --shadow-xl: 0 12px 20px -4px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+
+  --card-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --dropdown-shadow: 0 6px 10px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+  --dialog-shadow: 0 12px 20px -4px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+  --button-shadow: none;
+
+  /* ─────────────────────────────────────────────────────────────────────
+     Glass / overlay
+     ───────────────────────────────────────────────────────────────────── */
+  --overlay-opacity: 0.5;
+  --backdrop-blur: 8px;
+  --glass-bg: rgba(252, 252, 253, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.15);
+
+  /* ─────────────────────────────────────────────────────────────────────
+     Spacing & density
+     ───────────────────────────────────────────────────────────────────── */
+  --spacing-scale: 1;
+  --container-max-width: 1280px;
+  --container-padding: 2rem;
+  --card-padding: 1.5rem;
+  --input-height: 2.5rem;
+  --button-height: 2.25rem;
+  --section-gap: 4rem;
+
+  /* ─────────────────────────────────────────────────────────────────────
+     Layout / app-shell
+     ───────────────────────────────────────────────────────────────────── */
+  --page-max-width: 1280px;
+  --page-nav-height: 3.5rem;
+  --shell-header-height: 3.5rem;
+  --shell-sidebar-width: 16rem;
+  --shell-sidebar-full-width: 16rem;
+
+  /* ─────────────────────────────────────────────────────────────────────
+     Borders & dividers
+     ───────────────────────────────────────────────────────────────────── */
+  --border-width: 1px;
+  --border-style: solid;
+  --divider-style: solid;
+  --divider-opacity: 0.15;
+
+  /* ─────────────────────────────────────────────────────────────────────
+     Component behavior tokens
+     ───────────────────────────────────────────────────────────────────── */
+  --input-style: bordered;
+  --input-border-on-focus: 0;
+  --placeholder-opacity: 0.5;
+
+  --button-style: filled;
+  --button-weight: 500;
+  --hover-effect: darken;
+  --active-effect: scale-down;
+  --disabled-opacity: 0.5;
+
+  --link-style: color-only;
+  --link-weight: inherit;
+
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-style: ring;
+
+  --icon-style: outlined;
+  --icon-stroke-width: 1.5;
+  --icon-size: 1.25rem;
+
+  --scrollbar-style: thin;
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(0, 0, 0, 0.15);
+
+  --tooltip-style: dark;
+  --table-style: clean;
+  --table-header-weight: 600;
+  --spinner-style: circle;
+
+  /* ─────────────────────────────────────────────────────────────────────
+     Selection
+     ───────────────────────────────────────────────────────────────────── */
+  --selection-background: 250 50% 50%;
+  --selection-foreground: 0 0% 100%;
+
+  /* ─────────────────────────────────────────────────────────────────────
+     Motion
+     ───────────────────────────────────────────────────────────────────── */
+  --transition-duration: 150ms;
+  --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-speed: fast;
+  --hover-transition: 150ms ease;
+  --enter-transition: 200ms ease-out;
+  --exit-transition: 150ms ease-in;
+}
+
+/*
+ * Dark mode — activated by `.dark` class (default ThemeProvider mode)
+ * or by `[data-theme="dark"]` (attribute mode). Matches the convention
+ * implemented in @refraction-ui/theme/src/dom-adapters.ts.
+ */
+.dark,
+[data-theme='dark'] {
+  --background: 240 10% 4%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 8%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 8%;
+  --popover-foreground: 0 0% 98%;
+
+  --primary: 250 50% 65%;
+  --primary-foreground: 240 10% 4%;
+  --secondary: 240 5% 16%;
+  --secondary-foreground: 240 5% 65%;
+  --accent: 250 30% 20%;
+  --accent-foreground: 250 60% 80%;
+
+  --muted: 240 5% 16%;
+  --muted-foreground: 240 5% 65%;
+
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 0 0% 98%;
+  --success: 142 71% 45%;
+  --success-foreground: 0 0% 98%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 240 10% 4%;
+
+  --border: 240 5% 16%;
+  --input: 240 5% 16%;
+  --ring: 250 50% 65%;
+
+  --chart-1: 250 50% 65%;
+  --chart-2: 173 70% 50%;
+  --chart-3: 38 92% 60%;
+  --chart-4: 330 60% 65%;
+  --chart-5: 201 90% 55%;
+
+  --sidebar-background: 240 10% 4%;
+  --sidebar-foreground: 0 0% 98%;
+  --sidebar-primary: 250 50% 65%;
+  --sidebar-primary-foreground: 240 10% 4%;
+  --sidebar-accent: 250 30% 20%;
+  --sidebar-accent-foreground: 250 60% 80%;
+  --sidebar-border: 240 5% 16%;
+  --sidebar-ring: 250 50% 65%;
+
+  /* Glass / scrollbar tweaks for dark surface */
+  --glass-bg: rgba(20, 20, 24, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.18);
+}
