@@ -2,17 +2,58 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/refraction_theme.dart';
 
+/// A multi-line text input tailored for chat composition.
+///
+/// Pressing `Enter` submits the message via [onSubmitted] and clears the
+/// field; `Shift+Enter` inserts a newline. The field grows from [minLines] up
+/// to [maxLines] before scrolling. Optional [prefixIcon] and [suffixIcon]
+/// slots host attachment buttons, send buttons, etc.
+///
+/// The controller may be provided externally; if omitted, an internal
+/// controller is created and disposed automatically.
+///
+/// ```dart
+/// RefractionRichChatInput(
+///   placeholder: 'Send a message...',
+///   onSubmitted: (text) => sendMessage(text),
+///   suffixIcon: const Icon(Icons.send),
+/// )
+/// ```
 class RefractionRichChatInput extends StatefulWidget {
+  /// Optional externally-managed controller. If null, an internal one is
+  /// created and disposed with the widget.
   final TextEditingController? controller;
+
+  /// Hint text shown when the field is empty. Defaults to `'Message...'`.
   final String placeholder;
+
+  /// Optional widget rendered to the left of the text field.
   final Widget? prefixIcon;
+
+  /// Optional widget rendered to the right of the text field, typically a
+  /// send button.
   final Widget? suffixIcon;
+
+  /// Called with the trimmed text content when the user presses `Enter`.
+  ///
+  /// The field is cleared after a successful submission. Empty (whitespace
+  /// only) submissions are ignored.
   final ValueChanged<String>? onSubmitted;
+
+  /// Called on every keystroke with the current text content.
   final ValueChanged<String>? onChanged;
+
+  /// Minimum number of lines the field renders at. Defaults to `1`.
   final int minLines;
+
+  /// Maximum number of lines before the field starts scrolling internally.
+  /// Defaults to `5`.
   final int maxLines;
+
+  /// When true, the field is read-only and rendered with the muted palette.
   final bool disabled;
 
+  /// Creates a [RefractionRichChatInput].
   const RefractionRichChatInput({
     super.key,
     this.controller,

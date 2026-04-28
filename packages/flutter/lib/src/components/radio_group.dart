@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 
+/// A single option offered by a [RefractionRadioGroup].
+///
+/// Each item carries a strongly typed [value] (the value reported via the
+/// group's `onChanged` callback when this item is selected) plus
+/// presentation metadata.
+///
+/// ```dart
+/// const RefractionRadioItem<String>(
+///   value: 'monthly',
+///   label: 'Monthly',
+///   description: r'$10 per month, cancel any time.',
+/// );
+/// ```
 class RefractionRadioItem<T> {
+  /// The value associated with this radio item.
+  ///
+  /// Reported via [RefractionRadioGroup.onChanged] when selected and
+  /// compared against [RefractionRadioGroup.groupValue] to determine the
+  /// selected state.
   final T value;
+
+  /// Primary text shown next to the radio circle.
   final String label;
+
+  /// Optional secondary text shown beneath [label] in
+  /// [RefractionColors.mutedForeground].
   final String? description;
+
+  /// When `true`, the option cannot be selected and is rendered with
+  /// reduced opacity.
   final bool disabled;
 
+  /// Creates an immutable description of a radio option.
   const RefractionRadioItem({
     required this.value,
     required this.label,
@@ -15,11 +42,53 @@ class RefractionRadioItem<T> {
   });
 }
 
+/// A vertically stacked group of radio buttons that share a single value.
+///
+/// `RefractionRadioGroup` is the Flutter analogue of the
+/// `RefractionRadioGroup` component from the React, Angular and Astro
+/// Refraction UI packages (a shadcn-equivalent pattern). Selection is
+/// driven by [groupValue] — the item whose [RefractionRadioItem.value]
+/// equals this is rendered as selected.
+///
+/// The widget is generic in `T`, allowing strongly typed values such as
+/// enums or domain models to flow through unchanged.
+///
+/// ```dart
+/// enum Plan { monthly, yearly }
+///
+/// Plan plan = Plan.monthly;
+/// RefractionRadioGroup<Plan>(
+///   groupValue: plan,
+///   onChanged: (next) => setState(() => plan = next!),
+///   items: const [
+///     RefractionRadioItem(value: Plan.monthly, label: 'Monthly'),
+///     RefractionRadioItem(
+///       value: Plan.yearly,
+///       label: 'Yearly',
+///       description: 'Save 20%',
+///     ),
+///   ],
+/// );
+/// ```
+///
+/// See also:
+///
+///  * [RefractionRadioItem], the data type accepted by [items].
 class RefractionRadioGroup<T> extends StatelessWidget {
+  /// The options to render, in order.
   final List<RefractionRadioItem<T>> items;
+
+  /// The currently selected value.
+  ///
+  /// May be `null` to indicate that no option is selected.
   final T? groupValue;
+
+  /// Called with the new value when the user picks a different option.
+  ///
+  /// Set to `null` to render the entire group as read-only.
   final ValueChanged<T?>? onChanged;
 
+  /// Creates a radio group with the supplied [items].
   const RefractionRadioGroup({
     super.key,
     required this.items,

@@ -1,3 +1,39 @@
+/// Refraction UI for Flutter — a headless, accessible, token-driven UI
+/// component library.
+///
+/// Refraction UI ships the same primitive set across React, Angular, Astro,
+/// and Flutter so a single design language travels with your product across
+/// every surface. Components are built on a small set of semantic color
+/// tokens (see [RefractionColors]) and a single [RefractionThemeData] so an
+/// app-wide visual change is one line. See [RefractionThemeExtension] for
+/// the convenience [BuildContext] getters used throughout the docs.
+///
+/// Live demo of the Flutter primitives:
+/// <https://elloloop.github.io/refraction-ui/flutter/>
+///
+/// ## Getting started
+///
+/// Wrap your app in a [RefractionTheme] near the root and pass a
+/// [RefractionThemeData] — every Refraction widget below it picks up the
+/// active palette via the [RefractionThemeExtension] getters on
+/// [BuildContext].
+///
+/// ```dart
+/// import 'package:flutter/material.dart';
+/// import 'package:refraction_ui/refraction_ui.dart';
+///
+/// void main() {
+///   runApp(
+///     RefractionTheme(
+///       data: RefractionThemeData.light(),
+///       child: const MaterialApp(home: MyHomePage()),
+///     ),
+///   );
+/// }
+/// ```
+///
+/// Switch palettes by swapping the factory — for example
+/// `RefractionThemeData.fintechDark()` or `RefractionThemeData.wellnessLight()`.
 library;
 
 export 'src/theme/refraction_colors.dart';

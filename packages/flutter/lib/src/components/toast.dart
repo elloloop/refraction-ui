@@ -1,7 +1,39 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 
+/// Imperative API for showing transient toast notifications.
+///
+/// `RefractionToast` is the Flutter analogue of the `RefractionToast`
+/// component from the React, Angular and Astro Refraction UI packages
+/// (a shadcn-equivalent pattern). Unlike the declarative web variants,
+/// the Flutter version is invoked imperatively via the static [show]
+/// method which inserts an [OverlayEntry] above the current screen,
+/// animates it in from the bottom-right, and removes it after [duration].
+///
+/// ```dart
+/// ElevatedButton(
+///   onPressed: () => RefractionToast.show(
+///     context: context,
+///     title: 'Saved',
+///     description: 'Your changes have been synced.',
+///   ),
+///   child: const Text('Save'),
+/// );
+/// ```
+///
+/// The toast paints itself with [RefractionColors.card] and
+/// [RefractionColors.border]. The class itself is never instantiated;
+/// only the static API is meant to be used.
 class RefractionToast {
+  /// Displays a toast at the bottom-right of the nearest [Overlay].
+  ///
+  /// The toast contains a bold [title] and an optional [description] line
+  /// rendered in [RefractionColors.mutedForeground]. After [duration] has
+  /// elapsed the [OverlayEntry] is removed automatically; pass a longer
+  /// [duration] for messages that need more reading time.
+  ///
+  /// The [context] must have an ancestor [Overlay] — typically the one
+  /// created by [MaterialApp].
   static void show({
     required BuildContext context,
     required String title,

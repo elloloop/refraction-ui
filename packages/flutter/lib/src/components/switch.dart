@@ -1,11 +1,38 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 
+/// A compact two-state toggle, themed with [RefractionTheme].
+///
+/// `RefractionSwitch` is the Flutter analogue of the `RefractionSwitch`
+/// component from the React, Angular and Astro Refraction UI packages
+/// (a shadcn-equivalent pattern). It paints the off state with
+/// [RefractionColors.input], the on state with [RefractionColors.primary]
+/// and surfaces a hover ring drawn from [RefractionColors.ring].
+///
+/// Use it for instant boolean toggles such as feature flags or
+/// notification preferences.
+///
+/// ```dart
+/// bool wifi = true;
+/// RefractionSwitch(
+///   value: wifi,
+///   onChanged: (next) => setState(() => wifi = next),
+/// );
+/// ```
 class RefractionSwitch extends StatefulWidget {
+  /// Whether the switch is currently in the on state.
   final bool value;
+
+  /// Called with the new boolean when the user toggles the switch.
+  ///
+  /// Set to `null` (or set [disabled] to `true`) to render as read-only.
   final ValueChanged<bool>? onChanged;
+
+  /// When `true`, the switch is rendered with reduced opacity, the cursor
+  /// changes to a forbidden symbol on web/desktop, and taps are ignored.
   final bool disabled;
 
+  /// Creates a switch bound to [value].
   const RefractionSwitch({
     super.key,
     required this.value,

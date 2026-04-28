@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 
+/// A single selectable entry inside a [RefractionDropdownMenu].
 class RefractionMenuItem {
+  /// Optional leading icon rendered before [label].
   final Widget? icon;
+
+  /// Visible label of the item.
   final String label;
+
+  /// Optional keyboard shortcut hint (e.g. `'Cmd+S'`) shown at the trailing
+  /// edge. Purely informational; the menu does not bind it.
   final String? shortcut;
+
+  /// Invoked when the item is tapped. The menu closes automatically
+  /// before the callback runs.
   final VoidCallback onSelected;
 
+  /// Creates a [RefractionMenuItem].
   const RefractionMenuItem({
     this.icon,
     required this.label,
@@ -15,11 +26,46 @@ class RefractionMenuItem {
   });
 }
 
+/// A button-attached overlay menu of [RefractionMenuItem]s.
+///
+/// The [trigger] widget is wrapped in a tap target. Tapping it pops the menu
+/// open below the trigger; tapping outside or selecting an item closes it.
+///
+/// Mirrors the shadcn-ui `DropdownMenu` primitive shipped in the React,
+/// Angular, and Astro Refraction UI packages.
+///
+/// ```dart
+/// RefractionDropdownMenu(
+///   trigger: const RefractionButton(
+///     onPressed: null, // tap is handled by the menu
+///     child: Text('Options'),
+///   ),
+///   items: [
+///     RefractionMenuItem(
+///       icon: const Icon(Icons.edit),
+///       label: 'Rename',
+///       onSelected: rename,
+///     ),
+///     RefractionMenuItem(
+///       icon: const Icon(Icons.delete),
+///       label: 'Delete',
+///       shortcut: 'Del',
+///       onSelected: delete,
+///     ),
+///   ],
+/// )
+/// ```
 class RefractionDropdownMenu extends StatefulWidget {
+  /// Widget that opens the menu when tapped.
   final Widget trigger;
+
+  /// Items rendered inside the popup, top to bottom.
   final List<RefractionMenuItem> items;
+
+  /// Width of the popup in logical pixels. Defaults to `220`.
   final double width;
 
+  /// Creates a [RefractionDropdownMenu].
   const RefractionDropdownMenu({
     super.key,
     required this.trigger,

@@ -1,13 +1,54 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 
+/// A themed dropdown for choosing a single value out of a finite set.
+///
+/// `RefractionSelect` is the Flutter sibling of the `RefractionSelect`
+/// component from the React, Angular and Astro Refraction UI packages
+/// (a shadcn-equivalent pattern). Internally it wraps Flutter's
+/// [DropdownButton] but paints the chrome with [RefractionColors.input],
+/// [RefractionColors.background] and [RefractionColors.popover] so it
+/// matches the rest of the design system.
+///
+/// The widget is generic in `T`; supply [items] of [DropdownMenuItem] for
+/// the desired value type and bind [value] / [onChanged] in the usual
+/// `setState` pattern:
+///
+/// ```dart
+/// String? city = 'sf';
+/// RefractionSelect<String>(
+///   value: city,
+///   placeholder: 'Choose a city',
+///   onChanged: (v) => setState(() => city = v),
+///   items: const [
+///     DropdownMenuItem(value: 'sf', child: Text('San Francisco')),
+///     DropdownMenuItem(value: 'nyc', child: Text('New York')),
+///     DropdownMenuItem(value: 'tk', child: Text('Tokyo')),
+///   ],
+/// );
+/// ```
+///
+/// Set [disabled] to `true` to render the control as inactive.
 class RefractionSelect<T> extends StatefulWidget {
+  /// The options exposed by the dropdown.
   final List<DropdownMenuItem<T>> items;
+
+  /// The currently selected value, or `null` to show the [placeholder].
   final T? value;
+
+  /// Called with the new value when the user picks a different option.
+  ///
+  /// Set to `null` to render the field as read-only.
   final ValueChanged<T?>? onChanged;
+
+  /// Text shown when [value] is `null`.
   final String? placeholder;
+
+  /// When `true`, the field is rendered with reduced opacity and ignores
+  /// taps.
   final bool disabled;
 
+  /// Creates a select dropdown bound to [value] over the given [items].
   const RefractionSelect({
     super.key,
     required this.items,
