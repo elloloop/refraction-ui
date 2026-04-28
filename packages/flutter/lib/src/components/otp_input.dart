@@ -2,12 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/refraction_theme.dart';
 
+/// A segmented one-time-password (OTP) input rendered as a row of single
+/// digit fields.
+///
+/// `RefractionOtpInput` is the Flutter counterpart of the `RefractionOtpInput`
+/// component shipped with the React, Angular and Astro versions of Refraction
+/// UI (a shadcn-equivalent pattern). It exposes [length] independent boxes,
+/// only accepts digits, and automatically advances focus as the user types.
+/// Pressing backspace inside an empty box jumps focus to the previous box
+/// for fast correction.
+///
+/// Two callbacks are provided:
+///
+///  * [onChanged] fires on every keystroke with the partial value.
+///  * [onCompleted] fires once when the user has filled every box.
+///
+/// ```dart
+/// RefractionOtpInput(
+///   length: 6,
+///   autofocus: true,
+///   onChanged: (value) => debugPrint('partial: $value'),
+///   onCompleted: (value) => verifyOtp(value),
+/// );
+/// ```
+///
+/// The borders animate between [RefractionColors.input], [RefractionColors.border]
+/// and [RefractionColors.ring] depending on focus and fill state.
 class RefractionOtpInput extends StatefulWidget {
+  /// Number of digit boxes rendered. Defaults to `6`.
   final int length;
+
+  /// Called once when every box has been filled with a digit.
   final ValueChanged<String>? onCompleted;
+
+  /// Called on every change with the concatenated partial value.
   final ValueChanged<String>? onChanged;
+
+  /// When `true`, the first box is focused on mount.
   final bool autofocus;
 
+  /// Creates an OTP input with [length] boxes.
   const RefractionOtpInput({
     super.key,
     this.length = 6,

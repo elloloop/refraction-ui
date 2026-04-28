@@ -1,11 +1,49 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 
+/// A lightweight floating panel anchored to a [trigger] widget.
+///
+/// `RefractionPopover` mirrors the `RefractionPopover` component from the
+/// React, Angular and Astro flavours of Refraction UI (a shadcn-equivalent
+/// pattern). Tapping the [trigger] opens an [Overlay] containing [content]
+/// positioned just below the trigger; tapping anywhere else dismisses it.
+///
+/// The popover paints itself with [RefractionColors.popover] and animates
+/// in with a quick scale + fade. It is best suited for medium-density UI
+/// such as filter pickers, share menus or quick-edit forms. For longer
+/// blocking interactions prefer a dialog instead.
+///
+/// ```dart
+/// RefractionPopover(
+///   trigger: const RefractionButton(label: 'Filters'),
+///   content: Padding(
+///     padding: const EdgeInsets.all(12),
+///     child: Column(
+///       children: const [
+///         Text('Filter by status'),
+///         // ...
+///       ],
+///     ),
+///   ),
+/// );
+/// ```
+///
+/// See also:
+///
+///  * [RefractionTooltip] for a smaller, hover-only variant.
 class RefractionPopover extends StatefulWidget {
+  /// The widget the user taps to toggle the popover.
   final Widget trigger;
+
+  /// The content rendered inside the floating panel when open.
   final Widget content;
+
+  /// Pixel offset applied to the popover relative to the bottom of [trigger].
+  ///
+  /// Defaults to `Offset(0, 8)` which leaves an 8px gap.
   final Offset offset;
 
+  /// Creates a popover anchored to [trigger] showing [content] when tapped.
   const RefractionPopover({
     super.key,
     required this.trigger,

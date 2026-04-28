@@ -2,12 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/refraction_theme.dart';
 
+/// A single selectable entry inside a [RefractionCommandMenu].
 class RefractionCommandItem {
+  /// Leading icon displayed beside [label].
   final Widget icon;
+
+  /// Human-readable label, also used for substring filtering against the
+  /// search query.
   final String label;
+
+  /// Optional keyboard shortcut hint, displayed at the trailing edge —
+  /// for example `'⌘K'`. Purely informational; the menu does not bind it.
   final String? shortcut;
+
+  /// Invoked when the user taps the item or presses `Enter` while it is
+  /// highlighted.
   final VoidCallback onSelected;
 
+  /// Creates a [RefractionCommandItem].
   const RefractionCommandItem({
     required this.icon,
     required this.label,
@@ -16,20 +28,60 @@ class RefractionCommandItem {
   });
 }
 
+/// A named cluster of [RefractionCommandItem]s rendered under a single
+/// heading inside a [RefractionCommandMenu].
 class RefractionCommandGroup {
+  /// Section heading rendered in uppercase muted text.
   final String heading;
+
+  /// Items belonging to this group, in display order.
   final List<RefractionCommandItem> items;
 
+  /// Creates a [RefractionCommandGroup].
   const RefractionCommandGroup({
     required this.heading,
     required this.items,
   });
 }
 
+/// A searchable command palette — the equivalent of macOS Spotlight or
+/// VS Code's command palette.
+///
+/// Renders a search field followed by [groups] of items. Typing in the field
+/// filters items whose [RefractionCommandItem.label] contains the (case-
+/// insensitive) query. Use the up/down arrow keys to move the highlight and
+/// `Enter` to invoke the highlighted item's [RefractionCommandItem.onSelected].
+///
+/// Mirrors the shadcn-ui `Command` primitive shipped in the React, Angular,
+/// and Astro Refraction UI packages.
+///
+/// ```dart
+/// RefractionCommandMenu(
+///   placeholder: 'Search actions...',
+///   groups: [
+///     RefractionCommandGroup(
+///       heading: 'General',
+///       items: [
+///         RefractionCommandItem(
+///           icon: const Icon(Icons.settings),
+///           label: 'Open Settings',
+///           shortcut: 'Cmd+,',
+///           onSelected: () => openSettings(),
+///         ),
+///       ],
+///     ),
+///   ],
+/// )
+/// ```
 class RefractionCommandMenu extends StatefulWidget {
+  /// Groups of commands rendered inside the menu.
   final List<RefractionCommandGroup> groups;
+
+  /// Hint text for the search field. Defaults to
+  /// `'Type a command or search...'`.
   final String placeholder;
 
+  /// Creates a [RefractionCommandMenu].
   const RefractionCommandMenu({
     super.key,
     required this.groups,

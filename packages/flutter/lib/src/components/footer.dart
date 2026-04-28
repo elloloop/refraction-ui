@@ -1,34 +1,84 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 
+/// A social-media link displayed in the trailing row of [RefractionFooter].
+///
+/// If [icon] is provided it is used as the visual; otherwise [label] is
+/// rendered as text. Tapping the link emits [href] through
+/// [RefractionFooter.onNavigate].
 class SocialLink {
+  /// Accessible label, also used as the visual fallback when [icon] is null.
   final String label;
+
+  /// Navigation target reported through [RefractionFooter.onNavigate].
   final String href;
+
+  /// Optional icon — typically a brand glyph.
   final Widget? icon;
 
+  /// Creates a [SocialLink].
   const SocialLink({required this.label, required this.href, this.icon});
 }
 
+/// A single navigational link displayed inside a [FooterColumn].
 class FooterLink {
+  /// Visible text of the link.
   final String label;
+
+  /// Navigation target reported through [RefractionFooter.onNavigate].
   final String href;
 
+  /// Creates a [FooterLink].
   const FooterLink({required this.label, required this.href});
 }
 
+/// A titled column of [FooterLink]s rendered inside a [RefractionFooter].
 class FooterColumn {
+  /// Column heading.
   final String title;
+
+  /// Links displayed beneath the heading.
   final List<FooterLink> links;
 
+  /// Creates a [FooterColumn].
   const FooterColumn({required this.title, required this.links});
 }
 
+/// Site-wide footer with link columns, social links, and a copyright row.
+///
+/// Renders the [columns] of [FooterLink]s in a wrapping row; below them a
+/// divider separates the bottom row containing [copyright] (left) and
+/// [socialLinks] (right). All link taps emit through [onNavigate].
+///
+/// ```dart
+/// RefractionFooter(
+///   copyright: '(c) 2026 Acme',
+///   onNavigate: (href) => router.go(href),
+///   columns: const [
+///     FooterColumn(title: 'Product', links: [
+///       FooterLink(label: 'Pricing', href: '/pricing'),
+///     ]),
+///   ],
+///   socialLinks: const [
+///     SocialLink(label: 'Twitter', href: 'https://twitter.com/acme'),
+///   ],
+/// )
+/// ```
 class RefractionFooter extends StatelessWidget {
+  /// Copyright text shown at the bottom-left. If null, defaults to the
+  /// current year prefixed with the copyright symbol.
   final String? copyright;
+
+  /// Social links shown at the bottom-right.
   final List<SocialLink> socialLinks;
+
+  /// Columns of footer links shown above the divider. Defaults to empty.
   final List<FooterColumn> columns;
+
+  /// Called with the tapped link's href.
   final ValueChanged<String>? onNavigate;
 
+  /// Creates a [RefractionFooter].
   const RefractionFooter({
     super.key,
     this.copyright,

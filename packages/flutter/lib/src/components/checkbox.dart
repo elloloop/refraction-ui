@@ -1,11 +1,41 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 
+/// A square checkbox styled with Refraction tokens.
+///
+/// Controlled by [value] and [onChanged]: when the user taps the checkbox,
+/// [onChanged] is called with the toggled value (the opposite of [value]).
+/// Pass `null` for [onChanged] (or set [disabled] to true) to render the
+/// checkbox as non-interactive.
+///
+/// Mirrors the shadcn-ui `Checkbox` primitive shipped in the React, Angular,
+/// and Astro Refraction UI packages.
+///
+/// ```dart
+/// bool agreed = false;
+///
+/// StatefulBuilder(
+///   builder: (context, setState) => RefractionCheckbox(
+///     value: agreed,
+///     onChanged: (v) => setState(() => agreed = v ?? false),
+///   ),
+/// )
+/// ```
 class RefractionCheckbox extends StatefulWidget {
+  /// Current checked state.
   final bool value;
+
+  /// Called when the user toggles the checkbox.
+  ///
+  /// The argument is the new desired value (`!value`). It is typed as
+  /// `bool?` for compatibility with tri-state callbacks but never null in
+  /// practice.
   final ValueChanged<bool?>? onChanged;
+
+  /// When true, the checkbox is rendered at half opacity and ignores taps.
   final bool disabled;
 
+  /// Creates a [RefractionCheckbox].
   const RefractionCheckbox({
     super.key,
     required this.value,

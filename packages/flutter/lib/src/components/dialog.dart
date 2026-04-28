@@ -2,7 +2,45 @@ import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 import 'button.dart';
 
+/// Static helper for displaying themed modal dialogs.
+///
+/// [RefractionDialog] is not instantiated directly; call [show] to push a
+/// scaled-and-faded dialog using the active [RefractionTheme]. The dialog
+/// inherits the parent theme so children may continue to read tokens via
+/// [RefractionTheme.of].
+///
+/// Mirrors the shadcn-ui `Dialog` primitive shipped in the React, Angular,
+/// and Astro Refraction UI packages.
+///
+/// ```dart
+/// final result = await RefractionDialog.show<bool>(
+///   context: context,
+///   title: const Text('Delete file?'),
+///   content: const Text('This action cannot be undone.'),
+///   actions: [
+///     RefractionButton(
+///       variant: RefractionButtonVariant.outline,
+///       onPressed: () => Navigator.of(context).pop(false),
+///       child: const Text('Cancel'),
+///     ),
+///     RefractionButton(
+///       variant: RefractionButtonVariant.destructive,
+///       onPressed: () => Navigator.of(context).pop(true),
+///       child: const Text('Delete'),
+///     ),
+///   ],
+/// );
+/// ```
 class RefractionDialog {
+  /// Pushes a Refraction-themed modal dialog onto the navigator.
+  ///
+  /// The dialog displays [title] and [content] using theme typography, and
+  /// shows [actions] in the footer. If [actions] is null, a single
+  /// outline-styled `Close` button is rendered.
+  ///
+  /// Returns a future that completes with the value passed to
+  /// `Navigator.pop`, or `null` if dismissed by tapping the barrier (only
+  /// possible when [barrierDismissible] is true).
   static Future<T?> show<T>({
     required BuildContext context,
     required Widget title,

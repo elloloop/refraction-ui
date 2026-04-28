@@ -1,10 +1,47 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 
+/// A vertically stacked set of expandable sections.
+///
+/// Each section is provided as a [RefractionAccordionItem] and toggles open
+/// or closed when its header is tapped. By default only one item can be open
+/// at a time; set [allowMultiple] to `true` to allow several open simultaneously.
+///
+/// Mirrors the `Accordion` primitive from the React, Angular, and Astro
+/// Refraction UI packages (which wrap shadcn-ui's `Accordion`).
+///
+/// ```dart
+/// RefractionAccordion(
+///   allowMultiple: false,
+///   children: const [
+///     RefractionAccordionItem(
+///       title: Text('Is it accessible?'),
+///       content: Text('Yes. It uses keyboard focus and ARIA labels.'),
+///     ),
+///     RefractionAccordionItem(
+///       title: Text('Is it themeable?'),
+///       content: Text('Yes. It reads tokens from RefractionTheme.'),
+///     ),
+///   ],
+/// )
+/// ```
+///
+/// Visual styling — borders, hover background, and chevron color — comes from
+/// [RefractionTheme.of] tokens such as [RefractionColors.border] and
+/// [RefractionColors.mutedForeground].
 class RefractionAccordion extends StatefulWidget {
+  /// The collapsible sections to display in order.
   final List<RefractionAccordionItem> children;
+
+  /// Whether multiple items may be expanded at once.
+  ///
+  /// When `false` (the default), opening one item collapses any other open
+  /// item. When `true`, items expand and collapse independently.
   final bool allowMultiple;
 
+  /// Creates a [RefractionAccordion].
+  ///
+  /// [children] is required and provides each collapsible section.
   const RefractionAccordion({
     super.key,
     required this.children,
@@ -50,10 +87,18 @@ class _RefractionAccordionState extends State<RefractionAccordion> {
   }
 }
 
+/// A single collapsible section displayed inside a [RefractionAccordion].
+///
+/// Holds the [title] shown in the always-visible header row and the [content]
+/// revealed when the section is expanded.
 class RefractionAccordionItem {
+  /// The widget rendered in the header row, typically a [Text] label.
   final Widget title;
+
+  /// The widget rendered in the expanded body of the item.
   final Widget content;
 
+  /// Creates a [RefractionAccordionItem] with the supplied [title] and [content].
   const RefractionAccordionItem({
     required this.title,
     required this.content,

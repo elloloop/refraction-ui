@@ -1,26 +1,98 @@
 import 'package:flutter/material.dart';
 
+/// Semantic color tokens used by every Refraction UI widget.
+///
+/// Refraction UI never references raw colors inside components — it always
+/// reads through this token set so that one swap of [RefractionColors] (via
+/// [RefractionThemeData]) re-skins the entire app. The token names match
+/// the React/Angular/Astro Refraction libraries and the shadcn convention
+/// (`primary` / `primaryForeground`, `card` / `cardForeground`, …) so
+/// designers can reuse the same Figma variables across platforms.
+///
+/// Each "thing" token is paired with a `Foreground` token that is
+/// guaranteed to read accessibly on top of it — for example, draw text in
+/// [primaryForeground] when the surface beneath it is filled with
+/// [primary].
+///
+/// Implements [ThemeExtension] so it can also be plugged into a Material
+/// `ThemeData.extensions` list when interoperating with Material widgets.
 class RefractionColors extends ThemeExtension<RefractionColors> {
+  /// Brand action color. Used for primary buttons, links, selected states,
+  /// focused indicators, and other "this is the main call to action"
+  /// surfaces.
   final Color primary;
+
+  /// Foreground color (text/icons) for content drawn on top of [primary].
   final Color primaryForeground;
+
+  /// Secondary surface color. Used for secondary buttons, soft chips, and
+  /// supporting surfaces that need to recede behind [primary].
   final Color secondary;
+
+  /// Foreground color (text/icons) for content drawn on top of [secondary].
   final Color secondaryForeground;
+
+  /// Destructive / danger color. Used for delete buttons, error toasts,
+  /// validation messages, and irreversible actions.
   final Color destructive;
+
+  /// Foreground color (text/icons) for content drawn on top of
+  /// [destructive].
   final Color destructiveForeground;
+
+  /// Muted surface color. Used for de-emphasized backgrounds — disabled
+  /// fields, skeleton placeholders, quiet grouping panels.
   final Color muted;
+
+  /// Foreground color for text/icons on top of [muted]. Also commonly used
+  /// directly for secondary copy such as captions and hints.
   final Color mutedForeground;
+
+  /// Accent surface color. Used for hover/active states on neutral
+  /// surfaces and for subtle highlights.
   final Color accent;
+
+  /// Foreground color (text/icons) for content drawn on top of [accent].
   final Color accentForeground;
+
+  /// Page background — the bottommost surface of the app.
   final Color background;
+
+  /// Default foreground color for body text and icons drawn directly on
+  /// [background].
   final Color foreground;
+
+  /// Card surface color. Used for raised content blocks that sit above
+  /// [background].
   final Color card;
+
+  /// Foreground color (text/icons) for content drawn on top of [card].
   final Color cardForeground;
+
+  /// Floating-surface color used by popovers, dropdowns, menus, and
+  /// command palettes.
   final Color popover;
+
+  /// Foreground color (text/icons) for content drawn on top of [popover].
   final Color popoverForeground;
+
+  /// Hairline color used for dividers and component borders.
   final Color border;
+
+  /// Border/fill color for input controls — text fields, selects,
+  /// checkboxes in their resting state.
   final Color input;
+
+  /// Focus ring color drawn around interactive elements when they receive
+  /// keyboard focus. Should provide strong contrast against [background].
   final Color ring;
 
+  /// Creates a [RefractionColors] palette.
+  ///
+  /// All tokens are required — there are no implicit fallbacks, so a
+  /// custom palette must explicitly opt into every semantic role. For most
+  /// apps, prefer one of the curated constants ([minimalLight],
+  /// [fintechDark], [wellnessLight], …) and use [copyWith] to tweak.
   const RefractionColors({
     required this.primary,
     required this.primaryForeground,
@@ -43,8 +115,8 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     required this.ring,
   });
 
-  // --- MINIMAL PALETTE ---
-  // Pure monochrome aesthetics. Deepest blacks, pure whites, soft grays.
+  /// Minimal palette, light mode. Pure monochrome — Apple/Nike aesthetic
+  /// with deepest blacks, pure whites, and soft neutral grays.
   static const RefractionColors minimalLight = RefractionColors(
     primary: Color(0xFF000000),
     primaryForeground: Color(0xFFFFFFFF),
@@ -67,6 +139,8 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     ring: Color(0xFFD1D1D6),
   );
 
+  /// Minimal palette, dark mode. Inverse monochrome — pure black surfaces,
+  /// pure white primaries.
   static const RefractionColors minimalDark = RefractionColors(
     primary: Color(0xFFFFFFFF),
     primaryForeground: Color(0xFF000000),
@@ -89,8 +163,8 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     ring: Color(0xFF48484A),
   );
 
-  // --- FINTECH PALETTE ---
-  // Neon accents + heavy deep backgrounds
+  /// Fintech palette, light mode. Revolut-inspired — neon green primary on
+  /// a crisp neutral surface for high-confidence financial UI.
   static const RefractionColors fintechLight = RefractionColors(
     primary: Color(0xFF00D632),
     primaryForeground: Color(0xFFFFFFFF),
@@ -113,6 +187,8 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     ring: Color(0xFF00D632),
   );
 
+  /// Fintech palette, dark mode. Bright accent green over deep blue-black
+  /// chrome — high-contrast trading/banking aesthetic.
   static const RefractionColors fintechDark = RefractionColors(
     primary: Color(0xFF05FF3E),
     primaryForeground: Color(0xFF051810),
@@ -135,8 +211,8 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     ring: Color(0xFF05FF3E),
   );
 
-  // --- WELLNESS PALETTE ---
-  // Warm off-whites, organic taupe borders, soft coral accents
+  /// Wellness palette, light mode. Warm off-whites, organic taupe borders,
+  /// soft coral accents — Flo/Headspace inspired.
   static const RefractionColors wellnessLight = RefractionColors(
     primary: Color(0xFFFF6E66),
     primaryForeground: Color(0xFFFFFFFF),
@@ -159,6 +235,8 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     ring: Color(0xFFFFb6b3),
   );
 
+  /// Wellness palette, dark mode. Warm browns and muted coral primaries
+  /// for a calm, low-stimulation evening UI.
   static const RefractionColors wellnessDark = RefractionColors(
     primary: Color(0xFFFF837D),
     primaryForeground: Color(0xFF2A2320),
@@ -181,8 +259,8 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     ring: Color(0xFFFF837D),
   );
 
-  // --- CREATIVE PALETTE ---
-  // Discord-style Blurple logic, absolute blacks
+  /// Creative palette, light mode. Discord-style "blurple" primaries on
+  /// neutral white — well suited to gaming, social, and creative tools.
   static const RefractionColors creativeLight = RefractionColors(
     primary: Color(0xFF5046E5),
     primaryForeground: Color(0xFFFFFFFF),
@@ -205,6 +283,8 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     ring: Color(0xFF5046E5),
   );
 
+  /// Creative palette, dark mode. Indigo primaries on near-black surfaces
+  /// for an OLED-friendly creative-tool aesthetic.
   static const RefractionColors creativeDark = RefractionColors(
     primary: Color(0xFF6366F1),
     primaryForeground: Color(0xFFFFFFFF),
@@ -227,8 +307,8 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     ring: Color(0xFF6366F1),
   );
 
-  // --- PRODUCTIVITY PALETTE ---
-  // Linear styling, subdued indigos on crisp clean grays
+  /// Productivity palette, light mode. Linear-style subdued blues on crisp
+  /// clean grays — designed for long-session task and tracking apps.
   static const RefractionColors productivityLight = RefractionColors(
     primary: Color(0xFF3B82F6),
     primaryForeground: Color(0xFFFFFFFF),
@@ -251,6 +331,8 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     ring: Color(0xFF3B82F6),
   );
 
+  /// Productivity palette, dark mode. Soft sky blue primaries on graphite
+  /// surfaces — easy on the eyes during long focused sessions.
   static const RefractionColors productivityDark = RefractionColors(
     primary: Color(0xFF60A5FA),
     primaryForeground: Color(0xFF121212),
@@ -273,10 +355,22 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     ring: Color(0xFF60A5FA),
   );
 
-  // Default bindings to Minimal
+  /// Default light palette. Currently aliases [minimalLight].
   static const RefractionColors light = minimalLight;
+
+  /// Default dark palette. Currently aliases [minimalDark].
   static const RefractionColors dark = minimalDark;
 
+  /// Returns a copy of this palette with the given tokens replaced.
+  ///
+  /// Pass only the colors you want to change; everything else is carried
+  /// through from the receiver. Useful for branding tweaks like a custom
+  /// primary while keeping the rest of a curated palette intact.
+  ///
+  /// ```dart
+  /// final brand = RefractionColors.minimalLight
+  ///     .copyWith(primary: const Color(0xFF7C3AED));
+  /// ```
   @override
   ThemeExtension<RefractionColors> copyWith({
     Color? primary,
@@ -322,6 +416,13 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     );
   }
 
+  /// Linearly interpolates every token between this palette and [other] by
+  /// the fraction [t] (0.0 = this, 1.0 = other).
+  ///
+  /// Used by Flutter's animation machinery when a [ThemeData] containing
+  /// this extension is animated — for example, cross-fading between light
+  /// and dark mode. Returns the receiver unchanged when [other] is not a
+  /// [RefractionColors].
   @override
   ThemeExtension<RefractionColors> lerp(
     ThemeExtension<RefractionColors>? other,

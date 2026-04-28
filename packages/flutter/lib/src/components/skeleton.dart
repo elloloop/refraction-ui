@@ -1,14 +1,72 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 
-enum SkeletonShape { text, circular, rectangular }
+/// The visual primitive a [RefractionSkeleton] should mimic.
+enum SkeletonShape {
+  /// A short rounded rectangle suitable for placeholder text.
+  ///
+  /// Defaults the height to `16` if not supplied and uses a small corner
+  /// radius.
+  text,
 
+  /// A circle. When only one of width/height is supplied the other is
+  /// matched automatically so the shape stays round.
+  circular,
+
+  /// A generic rounded rectangle. The default value.
+  rectangular,
+}
+
+/// A pulsing placeholder block used while real content is loading.
+///
+/// `RefractionSkeleton` is the Flutter version of the `RefractionSkeleton`
+/// component shipped with the React, Angular and Astro Refraction UI
+/// packages (a shadcn-equivalent pattern). Its color is sourced from
+/// [RefractionColors.muted] and its opacity oscillates while [animate] is
+/// `true`.
+///
+/// Pick a [shape] to match the content being replaced and supply [width]
+/// and/or [height] explicitly:
+///
+/// ```dart
+/// Row(children: [
+///   RefractionSkeleton(shape: SkeletonShape.circular, width: 40),
+///   const SizedBox(width: 12),
+///   Expanded(
+///     child: Column(
+///       crossAxisAlignment: CrossAxisAlignment.start,
+///       children: const [
+///         RefractionSkeleton(shape: SkeletonShape.text, width: 120),
+///         SizedBox(height: 6),
+///         RefractionSkeleton(shape: SkeletonShape.text, width: 200),
+///       ],
+///     ),
+///   ),
+/// ]);
+/// ```
+///
+/// See also:
+///
+///  * [RefractionSkeletonText], a convenience that builds a paragraph of
+///    text-shaped skeletons.
 class RefractionSkeleton extends StatefulWidget {
+  /// The visual primitive to render. Defaults to [SkeletonShape.rectangular].
   final SkeletonShape shape;
+
+  /// Optional fixed width. When omitted the skeleton expands to fill its
+  /// parent constraints.
   final double? width;
+
+  /// Optional fixed height. When omitted the skeleton expands to fill its
+  /// parent constraints, except for [SkeletonShape.text] which defaults to
+  /// `16`.
   final double? height;
+
+  /// When `true`, the opacity pulses to communicate loading. Set to `false`
+  /// for static placeholders (for example, in golden tests).
   final bool animate;
 
+  /// Creates a skeleton placeholder.
   const RefractionSkeleton({
     super.key,
     this.shape = SkeletonShape.rectangular,
@@ -95,10 +153,22 @@ class _RefractionSkeletonState extends State<RefractionSkeleton>
   }
 }
 
+/// A column of [RefractionSkeleton]s sized like a paragraph of text.
+///
+/// Each line uses an organic, varied width so the placeholder block does
+/// not look unnaturally rectangular while loading.
+///
+/// ```dart
+/// const RefractionSkeletonText(lines: 4);
+/// ```
 class RefractionSkeletonText extends StatelessWidget {
+  /// The number of skeleton lines to render. Defaults to `3`.
   final int lines;
+
+  /// When `true`, each line pulses; see [RefractionSkeleton.animate].
   final bool animate;
 
+  /// Creates a paragraph of text-shaped skeletons.
   const RefractionSkeletonText({
     super.key,
     this.lines = 3,

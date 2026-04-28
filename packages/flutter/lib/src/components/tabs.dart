@@ -1,11 +1,52 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 
+/// A pill-style tab bar with a swappable content panel.
+///
+/// `RefractionTabs` is the Flutter version of the `RefractionTabs` compound
+/// component from the React, Angular and Astro Refraction UI packages
+/// (a shadcn-equivalent pattern that bundles `Tabs`, `TabsList`,
+/// `TabsTrigger` and `TabsContent`). Rather than expose those as separate
+/// widgets, this Flutter API takes two parallel lists — [tabs] (the
+/// trigger labels) and [children] (the content panels) — and shows the
+/// child whose index matches the active tab.
+///
+/// The two lists must have the same length; this is enforced by an
+/// `assert` in the constructor.
+///
+/// ```dart
+/// RefractionTabs(
+///   initialIndex: 0,
+///   tabs: const ['Account', 'Password', 'Sessions'],
+///   children: [
+///     // Wired in the same order as `tabs`:
+///     AccountForm(),
+///     PasswordForm(),
+///     SessionList(),
+///   ],
+/// );
+/// ```
+///
+/// The active tab pill uses [RefractionColors.background] over a
+/// [RefractionColors.muted] track, with the inactive labels rendered in
+/// [RefractionColors.mutedForeground].
 class RefractionTabs extends StatefulWidget {
+  /// The trigger labels rendered in the tab bar.
+  ///
+  /// Must have the same length as [children].
   final List<String> tabs;
+
+  /// The content panels, one per entry of [tabs].
+  ///
+  /// Must have the same length as [tabs]. Only the panel for the active
+  /// tab is built.
   final List<Widget> children;
+
+  /// The index of the tab to show when first mounted. Defaults to `0`.
   final int initialIndex;
 
+  /// Creates a tabs widget pairing each entry of [tabs] with the
+  /// matching entry of [children].
   const RefractionTabs({
     super.key,
     required this.tabs,
