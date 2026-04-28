@@ -1,5 +1,12 @@
 # @refraction-ui/react-slide-viewer
 
+## 0.1.6
+
+### Patch Changes
+
+- Updated dependencies [a41fd2f]
+  - @refraction-ui/slide-viewer@0.1.6
+
 ## 0.1.5
 
 ### Patch Changes
