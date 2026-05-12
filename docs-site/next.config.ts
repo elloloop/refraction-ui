@@ -54,6 +54,8 @@ const nextConfig: NextConfig = {
     '@refraction-ui/react-tooltip',
     '@refraction-ui/react-version-selector',
     '@refraction-ui/react-video-player',
+    '@refraction-ui/react-voice-pill',
+    '@refraction-ui/react-waveform',
     '@refraction-ui/tailwind-config',
     '@refraction-ui/shared',
     '@refraction-ui/avatar',
@@ -74,6 +76,8 @@ const nextConfig: NextConfig = {
     '@refraction-ui/steps',
     '@refraction-ui/command-input',
     '@refraction-ui/table-of-contents',
+    '@refraction-ui/voice-pill',
+    '@refraction-ui/waveform',
   ],
 }
 

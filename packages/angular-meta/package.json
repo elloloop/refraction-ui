@@ -1,6 +1,6 @@
 {
   "name": "@refraction-ui/angular",
-  "version": "0.3.8",
+  "version": "0.4.0",
   "description": "All Refraction UI Angular components in one package",
   "type": "module",
   "exports": {
@@ -43,7 +43,9 @@
     "@refraction-ui/angular-link-card": "workspace:*",
     "@refraction-ui/angular-card-grid": "workspace:*",
     "@refraction-ui/angular-payment": "workspace:*",
-    "@refraction-ui/angular-command-input": "workspace:*"
+    "@refraction-ui/angular-command-input": "workspace:*",
+    "@refraction-ui/angular-voice-pill": "workspace:*",
+    "@refraction-ui/angular-waveform": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

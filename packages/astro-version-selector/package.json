@@ -1,6 +1,6 @@
 {
   "name": "@refraction-ui/astro-version-selector",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"

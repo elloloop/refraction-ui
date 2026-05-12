@@ -1,7 +1,7 @@
 {
   "name": "@refraction-ui/react-app-shell",
   "private": true,
-  "version": "0.1.6",
+  "version": "0.1.7",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

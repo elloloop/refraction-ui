@@ -1,20 +1,21 @@
 'use client'
 
 import { useState } from 'react'
-import { useFramework } from './framework-context'
+import { Framework, useFramework } from './framework-context'
 
 interface InstallCommandProps {
   packageName?: string
   basePackage?: string
+  frameworkPackages?: Partial<Record<Framework, string>>
 }
 
-export function InstallCommand({ packageName, basePackage }: InstallCommandProps) {
+export function InstallCommand({ packageName, basePackage, frameworkPackages }: InstallCommandProps) {
   const [copied, setCopied] = useState(false)
   const { framework } = useFramework()
   
-  const finalPackageName = basePackage 
+  const finalPackageName = frameworkPackages?.[framework] ?? (basePackage
     ? `@refraction-ui/${framework}-${basePackage}`
-    : packageName
+    : packageName ?? '@refraction-ui/react')
 
   const command = `pnpm add ${finalPackageName}`
 

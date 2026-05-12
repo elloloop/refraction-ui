@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@refraction-ui/app-shell": "workspace:*",
+    "@refraction-ui/react": "workspace:*",
     "@refraction-ui/react-animated-text": "workspace:*",
     "@refraction-ui/react-app-shell": "workspace:*",
     "@refraction-ui/react-avatar": "workspace:*",

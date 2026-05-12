@@ -1,5 +1,12 @@
 # @refraction-ui/astro-status-indicator
 
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies [a41fd2f]
+  - @refraction-ui/status-indicator@0.1.6
+
 ## 0.2.4
 
 ### Patch Changes

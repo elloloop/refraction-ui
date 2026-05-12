@@ -43,3 +43,5 @@ export * from '@refraction-ui/angular-payment'
 
 
 export * from '@refraction-ui/angular-command-input'
+export * from '@refraction-ui/angular-voice-pill'
+export * from '@refraction-ui/angular-waveform'

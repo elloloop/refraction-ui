@@ -1,0 +1,273 @@
+---
+import {
+  createWaveform,
+  toCssDimension,
+  waveformCanvasVariants,
+  waveformVariants,
+  type WaveformSampleInput,
+  type WaveformVariant,
+} from '@refraction-ui/waveform'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends Omit<astroHTML.JSX.HTMLAttributes, 'color' | 'height' | 'width'> {
+  samples?: WaveformSampleInput
+  intensity?: number
+  variant?: WaveformVariant
+  height?: number | string
+  width?: number | string
+  barCount?: number
+  smoothing?: number
+  color?: string
+  paused?: boolean
+}
+
+const {
+  samples,
+  intensity,
+  variant,
+  height,
+  width,
+  barCount,
+  smoothing,
+  color,
+  paused,
+  class: className,
+  style,
+  ...props
+} = Astro.props
+
+const api = createWaveform({
+  samples,
+  intensity,
+  variant,
+  height,
+  width,
+  barCount,
+  smoothing,
+  color,
+  paused,
+})
+
+const styleObject = style && typeof style === 'object'
+  ? (style as Record<string, string | number | undefined>)
+  : {}
+
+const rootStyle = mergeStyles(style, {
+  width: toCssDimension(width) ?? styleObject.width ?? '100%',
+  height:
+    toCssDimension(height) ??
+    styleObject.height ??
+    `${api.config.height}px`,
+  '--waveform-color': api.config.color,
+})
+
+const waveformData = {
+  samples: Array.from(api.samples),
+  variant: api.config.variant,
+  intensity: api.config.intensity,
+  barCount: api.config.barCount,
+  color: api.config.color,
+}
+
+function mergeStyles(
+  base: unknown,
+  extra: Record<string, string | number | undefined>,
+): string {
+  const baseStyle = styleToString(base)
+  const extraStyle = Object.entries(extra)
+    .filter(([, value]) => value !== undefined)
+    .map(([key, value]) => `${toKebabCase(key)}:${value}`)
+    .join(';')
+
+  return [baseStyle, extraStyle].filter(Boolean).join(';')
+}
+
+function styleToString(styleValue: unknown): string {
+  if (typeof styleValue === 'string') return styleValue
+  if (!styleValue || typeof styleValue !== 'object') return ''
+
+  return Object.entries(styleValue as Record<string, string | number | undefined>)
+    .filter(([, value]) => value !== undefined)
+    .map(([key, value]) => `${toKebabCase(key)}:${value}`)
+    .join(';')
+}
+
+function toKebabCase(value: string): string {
+  return value.startsWith('--')
+    ? value
+    : value.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)
+}
+---
+
+<div
+  class={cn(waveformVariants({ variant: api.config.variant }), className)}
+  style={rootStyle}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...props}
+>
+  <canvas
+    class={waveformCanvasVariants()}
+    aria-hidden="true"
+    data-waveform-canvas=""
+    data-waveform={JSON.stringify(waveformData)}
+  ></canvas>
+</div>
+
+<script>
+  const normalizeSamples = (samples, count) => {
+    const values = Array.isArray(samples) ? samples : []
+    const targetCount = Math.max(1, Math.min(1024, Math.round(Number(count) || 48)))
+
+    if (values.length === 0) return Array.from({ length: targetCount }, () => 0)
+    if (values.length === targetCount) return values.map((value) => Number(value) || 0)
+
+    return Array.from({ length: targetCount }, (_, index) => {
+      const start = (index * values.length) / targetCount
+      const end = ((index + 1) * values.length) / targetCount
+      const firstIndex = Math.floor(start)
+      const lastIndex = Math.max(firstIndex + 1, Math.ceil(end))
+      let total = 0
+      let count = 0
+
+      for (let sampleIndex = firstIndex; sampleIndex < lastIndex && sampleIndex < values.length; sampleIndex += 1) {
+        total += Number(values[sampleIndex]) || 0
+        count += 1
+      }
+
+      return count > 0 ? total / count : Number(values[Math.min(firstIndex, values.length - 1)]) || 0
+    })
+  }
+
+  const scaleSamples = (samples, intensity) => {
+    const amount = Math.max(0, Math.min(1, Number(intensity) || 0))
+
+    return samples.map((sample) => Math.max(-1, Math.min(1, sample * amount)))
+  }
+
+  const resolveColor = (element, color) => {
+    const match = String(color).match(/^var\((--[^),\s]+)(?:,[^)]+)?\)$/)
+
+    if (!match || typeof window.getComputedStyle !== 'function') return color
+
+    return window.getComputedStyle(element).getPropertyValue(match[1]).trim() || color
+  }
+
+  const prepareCanvas = (canvas) => {
+    const root = canvas.parentElement
+    const rect = root?.getBoundingClientRect()
+    const width = Math.max(1, Math.round(rect?.width || root?.clientWidth || 300))
+    const height = Math.max(1, Math.round(rect?.height || root?.clientHeight || 80))
+    const ratio = window.devicePixelRatio || 1
+
+    canvas.width = Math.round(width * ratio)
+    canvas.height = Math.round(height * ratio)
+    const context = canvas.getContext('2d')
+
+    if (!context) return null
+
+    canvas.style.width = '100%'
+    canvas.style.height = '100%'
+    context.setTransform(ratio, 0, 0, ratio, 0, 0)
+    context.clearRect(0, 0, width, height)
+
+    return { context, width, height }
+  }
+
+  const drawBars = (context, samples, width, height, color) => {
+    const gap = samples.length > 96 ? 1 : 2
+    const barWidth = Math.max(1, (width - gap * Math.max(0, samples.length - 1)) / samples.length)
+    const centerY = height / 2
+
+    context.fillStyle = color
+
+    samples.forEach((sample, index) => {
+      const magnitude = Math.max(0.06, Math.abs(sample))
+      const barHeight = Math.max(1, magnitude * height)
+      const x = index * (barWidth + gap)
+      const y = centerY - barHeight / 2
+
+      context.fillRect(x, y, barWidth, barHeight)
+    })
+  }
+
+  const drawLine = (context, samples, width, height, color) => {
+    const centerY = height / 2
+
+    context.strokeStyle = color
+    context.lineWidth = 2
+    context.lineCap = 'round'
+    context.lineJoin = 'round'
+    context.beginPath()
+
+    samples.forEach((sample, index) => {
+      const x = samples.length <= 1 ? width / 2 : (index / (samples.length - 1)) * width
+      const y = centerY - sample * centerY * 0.9
+
+      if (index === 0) context.moveTo(x, y)
+      else context.lineTo(x, y)
+    })
+
+    context.stroke()
+  }
+
+  const drawRings = (context, samples, width, height, color) => {
+    const peak = samples.reduce((current, sample) => Math.max(current, Math.abs(sample)), 0)
+    const centerX = width / 2
+    const centerY = height / 2
+    const maxRadius = Math.max(1, Math.min(width, height) / 2 - 2)
+
+    context.strokeStyle = color
+    context.lineWidth = Math.max(2, maxRadius * 0.08)
+
+    ;[0.38, 0.64, 0.9].forEach((scale, index) => {
+      context.globalAlpha = 0.35 + peak * (0.2 + index * 0.12)
+      context.beginPath()
+      context.arc(centerX, centerY, Math.max(1, maxRadius * scale * (0.85 + peak * 0.15)), 0, Math.PI * 2)
+      context.stroke()
+    })
+
+    context.globalAlpha = 1
+  }
+
+  const drawWaveform = (canvas) => {
+    if (!(canvas instanceof HTMLCanvasElement)) return
+
+    let config
+
+    try {
+      config = JSON.parse(canvas.dataset.waveform || '{}')
+    } catch {
+      config = {}
+    }
+
+    const prepared = prepareCanvas(canvas)
+    if (!prepared) return
+
+    const { context, width, height } = prepared
+    const samples = scaleSamples(
+      normalizeSamples(config.samples, config.barCount),
+      config.intensity,
+    )
+    const color = resolveColor(canvas.parentElement || canvas, config.color || 'currentColor')
+
+    if (config.variant === 'line') {
+      drawLine(context, samples, width, height, color)
+    } else if (config.variant === 'rings') {
+      drawRings(context, samples, width, height, color)
+    } else {
+      drawBars(context, samples, width, height, color)
+    }
+  }
+
+  const canvases = document.querySelectorAll('canvas[data-waveform-canvas][data-waveform]')
+
+  canvases.forEach((canvas) => {
+    drawWaveform(canvas)
+
+    if (typeof ResizeObserver === 'function' && canvas.parentElement) {
+      const observer = new ResizeObserver(() => drawWaveform(canvas))
+      observer.observe(canvas.parentElement)
+    }
+  })
+</script>
