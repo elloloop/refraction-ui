@@ -1,0 +1,27 @@
+{
+  "name": "@refraction-ui/astro-waveform",
+  "version": "0.2.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@refraction-ui/shared": "workspace:*",
+    "@refraction-ui/waveform": "workspace:*"
+  },
+  "peerDependencies": {
+    "astro": ">=4.0.0"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elloloop/refraction-ui.git",
+    "directory": "packages/astro-waveform"
+  },
+  "homepage": "https://elloloop.github.io/refraction-ui/",
+  "private": true
+}

@@ -56,6 +56,8 @@ export * from '@refraction-ui/react-textarea'
 export * from '@refraction-ui/react-toast'
 export * from '@refraction-ui/react-tooltip'
 export * from '@refraction-ui/react-video-player'
+export * from '@refraction-ui/react-voice-pill'
+export * from '@refraction-ui/react-waveform'
 
 // --- Packages with conflicting export names ---
 // react-progress-display and react-slide-viewer both export `progressBarVariants`.
@@ -161,7 +163,4 @@ export * from '@refraction-ui/react-card-grid'
 
 
 export * from '@refraction-ui/react-payment'
-
-
-
 

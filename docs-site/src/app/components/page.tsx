@@ -50,6 +50,9 @@ const components = [
   { name: 'Code Editor', href: '/components/code-editor', description: 'Code editor with syntax highlighting and editing support.', category: 'Media' },
   { name: 'Slide Viewer', href: '/components/slide-viewer', description: 'Slide presentation viewer with navigation and progress.', category: 'Media' },
   { name: 'Animated Text', href: '/components/animated-text', description: 'Word carousel and typewriter text animation components.', category: 'Media' },
+  // AI
+  { name: 'Voice Pill', href: '/components/voice-pill', description: 'Floating speaker indicator with intensity-driven pulse and mute control.', category: 'AI' },
+  { name: 'Waveform', href: '/components/waveform', description: 'Canvas audio visualization for live analysers, samples, or intensity streams.', category: 'AI' },
 
   // Workplace
   { name: 'Date Picker', href: '/components/date-picker', description: 'Date picker with calendar dropdown and time selection.', category: 'Workplace' },
@@ -68,7 +71,7 @@ const components = [
   { name: 'Device Frame', href: '/components/device-frame', description: 'iPhone, iPad, and device mockup frames for screenshots.', category: 'Other' },
 ]
 
-const categories = ['All', 'Core UI', 'Layout', 'Data', 'Forms', 'Media', 'Workplace', 'Other']
+const categories = ['All', 'Core UI', 'Layout', 'Data', 'Forms', 'Media', 'AI', 'Workplace', 'Other']
 
 const categoryColors: Record<string, string> = {
   'Core UI': 'bg-primary/10 text-primary ring-primary/20',
@@ -76,6 +79,7 @@ const categoryColors: Record<string, string> = {
   Data: 'bg-emerald-500/10 text-emerald-600 ring-emerald-500/20 dark:text-emerald-400',
   Forms: 'bg-amber-500/10 text-amber-600 ring-amber-500/20 dark:text-amber-400',
   Media: 'bg-pink-500/10 text-pink-600 ring-pink-500/20 dark:text-pink-400',
+  AI: 'bg-cyan-500/10 text-cyan-600 ring-cyan-500/20 dark:text-cyan-400',
   Workplace: 'bg-violet-500/10 text-violet-600 ring-violet-500/20 dark:text-violet-400',
   Other: 'bg-muted text-muted-foreground ring-border',
 }
@@ -109,7 +113,7 @@ export default function ComponentsPage() {
       <div>
         <h1 className="text-4xl font-bold tracking-tight text-foreground">Components</h1>
         <p className="mt-3 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-          49 production-ready components, each with live examples, copy-paste code, and a complete props reference.
+          51 production-ready components, each with live examples, copy-paste code, and a complete props reference.
         </p>
       </div>
 

@@ -1,6 +1,6 @@
 {
   "name": "@refraction-ui/astro",
-  "version": "0.4.13",
+  "version": "0.5.0",
   "description": "All Refraction UI Astro components in one package",
   "type": "module",
   "exports": {
@@ -77,6 +77,8 @@
     "@refraction-ui/astro-tooltip": "workspace:*",
     "@refraction-ui/astro-version-selector": "workspace:*",
     "@refraction-ui/astro-video-player": "workspace:*",
+    "@refraction-ui/astro-voice-pill": "workspace:*",
+    "@refraction-ui/astro-waveform": "workspace:*",
     "@refraction-ui/shared": "workspace:*",
     "@refraction-ui/astro-table-of-contents": "workspace:*",
     "@refraction-ui/astro-carousel": "workspace:*",

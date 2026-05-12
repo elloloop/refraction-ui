@@ -1,5 +1,11 @@
 # @refraction-ui/astro
 
+## 0.5.0
+
+### Minor Changes
+
+- Add VoicePill and Waveform primitives to the Astro and Angular framework packages.
+
 ## 0.4.7
 
 ### Patch Changes

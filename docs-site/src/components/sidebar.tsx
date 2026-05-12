@@ -69,6 +69,13 @@ const componentGroups = [
     ],
   },
   {
+    title: 'AI',
+    items: [
+      { name: 'Voice Pill', href: '/components/voice-pill' },
+      { name: 'Waveform', href: '/components/waveform' },
+    ],
+  },
+  {
     title: 'Workplace',
     items: [
       { name: 'Date Picker', href: '/components/date-picker' },
@@ -148,6 +155,7 @@ const navigation = [
 
 export function Sidebar() {
   const pathname = usePathname()
+  const currentPath = normalizePath(pathname)
   const { isOpen, setIsOpen } = useMobileNav()
 
   return (
@@ -184,9 +192,10 @@ export function Sidebar() {
         {/* Main navigation */}
         <div className="space-y-0.5">
           {navigation.map((item) => {
+            const itemPath = normalizePath(item.href)
             const isActive = item.href === '/'
-              ? pathname === '/'
-              : pathname.startsWith(item.href)
+              ? currentPath === '/'
+              : currentPath.startsWith(itemPath)
 
             const isExternal = item.href.startsWith('/flutter');
 
@@ -230,14 +239,14 @@ export function Sidebar() {
         </div>
 
         {/* Theme sub-navigation */}
-        {pathname.startsWith('/theme') && (
+        {currentPath.startsWith('/theme') && (
           <div className="mt-4">
             <h3 className="px-3 text-[11px] font-semibold uppercase tracking-widest text-sidebar-foreground/40 mb-2">
               Theme
             </h3>
             <div className="space-y-0.5">
               {themeSubItems.map((item) => {
-                const isActive = pathname === item.href
+                const isActive = currentPath === normalizePath(item.href)
 
                 return (
                   <Link
@@ -269,7 +278,7 @@ export function Sidebar() {
             </h3>
             <div className="space-y-0.5">
               {group.items.map((item) => {
-                const isActive = pathname === item.href
+                const isActive = currentPath === normalizePath(item.href)
 
                 return (
                   <Link
@@ -296,4 +305,10 @@ export function Sidebar() {
     </aside>
     </>
   )
+}
+
+function normalizePath(path: string): string {
+  if (path === '/') return path
+
+  return path.replace(/\/+$/, '')
 }

@@ -1,0 +1,159 @@
+---
+import {
+  createVoicePill,
+  voicePillAvatarStyles,
+  voicePillAvatarWrapStyles,
+  voicePillLabelStyles,
+  voicePillMuteButtonStyles,
+  voicePillPositionVariants,
+  voicePillPulseRingStyles,
+  voicePillRootStyles,
+  voicePillSpeakerStyles,
+  voicePillSubStyles,
+  voicePillTextStyles,
+  type VoicePillPosition,
+  type VoicePillSpeaker,
+} from '@refraction-ui/voice-pill'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  speaker?: VoicePillSpeaker
+  label: string
+  sub?: string
+  subtitle?: string
+  intensity?: number
+  muted?: boolean
+  position?: VoicePillPosition
+  showMuteButton?: boolean
+}
+
+const {
+  speaker,
+  label,
+  sub,
+  subtitle,
+  intensity,
+  muted,
+  position,
+  showMuteButton = false,
+  class: className,
+  style,
+  ...props
+} = Astro.props
+
+const api = createVoicePill({
+  speaker,
+  label,
+  sub: sub ?? subtitle,
+  intensity,
+  muted,
+  position,
+})
+
+const mergedStyle = mergeStyles(style, api.style)
+
+const pulseStyle = {
+  animationDuration: 'var(--rfr-voice-pill-pulse-duration)',
+  transform: 'scale(var(--rfr-voice-pill-ring-scale))',
+}
+
+const delayedPulseStyle = {
+  ...pulseStyle,
+  animationDelay: 'var(--rfr-voice-pill-pulse-delay)',
+}
+
+function mergeStyles(
+  base: unknown,
+  extra: Record<string, string | number | undefined>,
+): string {
+  const baseStyle = styleToString(base)
+  const extraStyle = Object.entries(extra)
+    .filter(([, value]) => value !== undefined)
+    .map(([key, value]) => `${toKebabCase(key)}:${value}`)
+    .join(';')
+
+  return [baseStyle, extraStyle].filter(Boolean).join(';')
+}
+
+function styleToString(styleValue: unknown): string {
+  if (typeof styleValue === 'string') return styleValue
+  if (!styleValue || typeof styleValue !== 'object') return ''
+
+  return Object.entries(styleValue as Record<string, string | number | undefined>)
+    .filter(([, value]) => value !== undefined)
+    .map(([key, value]) => `${toKebabCase(key)}:${value}`)
+    .join(';')
+}
+
+function toKebabCase(value: string): string {
+  return value.startsWith('--')
+    ? value
+    : value.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)
+}
+---
+
+<div
+  class={cn(
+    voicePillPositionVariants({ position: api.position }),
+    voicePillRootStyles,
+    voicePillSpeakerStyles,
+    className,
+  )}
+  style={mergedStyle}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...props}
+>
+  <span class={voicePillAvatarWrapStyles} aria-hidden="true">
+    {api.visualIntensity > 0 && <span class={voicePillPulseRingStyles} style={pulseStyle}></span>}
+    {
+      api.visualIntensity > 0 && (
+        <span class={voicePillPulseRingStyles} style={delayedPulseStyle}></span>
+      )
+    }
+    <span class={voicePillAvatarStyles}>
+      <slot name="avatar">{api.initials}</slot>
+    </span>
+  </span>
+
+  <span class={voicePillTextStyles}>
+    <span class={voicePillLabelStyles}>{api.label}</span>
+    {api.sub && <span class={voicePillSubStyles}>{api.sub}</span>}
+  </span>
+
+  {
+    showMuteButton && (
+      <button
+        type="button"
+        class={voicePillMuteButtonStyles}
+        {...api.toggleMuteAriaProps}
+      >
+        <svg
+          aria-hidden="true"
+          class="h-4 w-4"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path d="M4 9v6h4l5 4V5L8 9H4Z"></path>
+          {
+            api.muted ? (
+              <>
+                <path d="m19 9-4 4"></path>
+                <path d="m15 9 4 4"></path>
+              </>
+            ) : (
+              <>
+                <path d="M16 8.5a4 4 0 0 1 0 7"></path>
+                <path d="M18.5 6a7 7 0 0 1 0 12"></path>
+              </>
+            )
+          }
+        </svg>
+      </button>
+    )
+  }
+</div>
