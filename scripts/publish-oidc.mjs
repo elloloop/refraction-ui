@@ -2,8 +2,27 @@ import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
+function getPackageNpmToken(pkgName, githubOidcToken) {
+  const encodedPkg = pkgName.replace('@', '%40').replace('/', '%2f');
+  const npmResponse = execSync(`curl -sS -f -X POST "https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/${encodedPkg}" -H "Authorization: Bearer ${githubOidcToken}"`).toString();
+
+  return JSON.parse(npmResponse).token;
+}
+
+function withPackageNpmrc(npmToken, callback) {
+  const npmrcPath = path.join(process.cwd(), '.npmrc.tmp');
+  fs.writeFileSync(npmrcPath, `//registry.npmjs.org/:_authToken=${npmToken}\n`);
+
+  try {
+    callback(npmrcPath);
+  } finally {
+    fs.rmSync(npmrcPath, { force: true });
+  }
+}
+
 async function publish() {
   const isCanary = process.argv.includes('--canary');
+  const tag = isCanary ? 'canary' : 'latest';
   console.log(`📦 Starting OIDC publish (${isCanary ? 'Canary' : 'Latest'})...`);
 
   // 1. Find all public packages in the workspace
@@ -34,46 +53,68 @@ async function publish() {
     const pkgPath = pkg.path;
 
     console.log(`\n🔍 Checking ${pkgName}@${pkgVersion}...`);
+
+    if (isCanary && !pkgVersion.includes('canary')) {
+      console.log(`⏭️  ${pkgName}@${pkgVersion} is not a canary version. Skipping canary publish.`);
+      continue;
+    }
     
     // Check if version is already published
     let isPublished = false;
+    let distTags = {};
     try {
       const publishedVersionsStr = execSync(`npm info ${pkgName} versions --json`, { stdio: ['pipe', 'pipe', 'ignore'] }).toString();
       const publishedVersions = JSON.parse(publishedVersionsStr);
       if (publishedVersions.includes(pkgVersion)) {
         isPublished = true;
       }
+
+      const distTagsStr = execSync(`npm info ${pkgName} dist-tags --json`, { stdio: ['pipe', 'pipe', 'ignore'] }).toString();
+      distTags = JSON.parse(distTagsStr);
     } catch (err) {
       // 404 means the package has never been published before
       console.log(`ℹ️  ${pkgName} not found on npm. Publishing first version.`);
     }
 
     if (isPublished) {
-      console.log(`⏭️  ${pkgName}@${pkgVersion} is already published. Skipping.`);
+      if (distTags[tag] === pkgVersion) {
+        console.log(`⏭️  ${pkgName}@${pkgVersion} is already published with tag ${tag}. Skipping.`);
+        continue;
+      }
+
+      console.log(`🏷️  ${pkgName}@${pkgVersion} is already published. Moving ${tag} tag from ${distTags[tag] ?? 'unset'} to ${pkgVersion}.`);
+
+      try {
+        const npmToken = getPackageNpmToken(pkgName, githubOidcToken);
+
+        withPackageNpmrc(npmToken, npmrcPath => {
+          execSync(`npm dist-tag add ${pkgName}@${pkgVersion} ${tag} --userconfig ${npmrcPath}`, {
+            stdio: 'inherit'
+          });
+        });
+
+        console.log(`✅ Successfully tagged ${pkgName}@${pkgVersion} as ${tag}`);
+      } catch (err) {
+        console.error(`❌ Failed to tag ${pkgName}@${pkgVersion} as ${tag}:`, err.message);
+      }
       continue;
     }
 
     console.log(`🔐 Fetching npm token for ${pkgName}...`);
-    const encodedPkg = pkgName.replace('@', '%40').replace('/', '%2f');
     
     try {
-      const npmResponse = execSync(`curl -sS -f -X POST "https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/${encodedPkg}" -H "Authorization: Bearer ${githubOidcToken}"`).toString();
-      const npmToken = JSON.parse(npmResponse).token;
-
-      // Create a temporary .npmrc for this specific package publish
-      const npmrcPath = path.join(process.cwd(), '.npmrc.tmp');
-      fs.writeFileSync(npmrcPath, `//registry.npmjs.org/:_authToken=${npmToken}\n`);
+      const npmToken = getPackageNpmToken(pkgName, githubOidcToken);
 
       console.log(`🚀 Publishing ${pkgName}@${pkgVersion}...`);
       
-      const tag = isCanary ? 'canary' : 'latest';
-      execSync(`npm publish --userconfig ${npmrcPath} --tag ${tag} --access public --provenance`, {
-        cwd: pkgPath,
-        stdio: 'inherit'
+      withPackageNpmrc(npmToken, npmrcPath => {
+        execSync(`npm publish --userconfig ${npmrcPath} --tag ${tag} --access public --provenance`, {
+          cwd: pkgPath,
+          stdio: 'inherit'
+        });
       });
       
       console.log(`✅ Successfully published ${pkgName}`);
-      fs.unlinkSync(npmrcPath);
     } catch (err) {
       console.error(`❌ Failed to publish ${pkgName}:`, err.message);
       // We continue to other packages even if one fails
