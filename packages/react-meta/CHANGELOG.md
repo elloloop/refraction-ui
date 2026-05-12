@@ -1,5 +1,11 @@
 # @refraction-ui/react
 
+## 0.4.1
+
+### Patch Changes
+
+- Publish the React framework package to npm `latest` after `0.4.0` was already present under the `canary` dist-tag.
+
 ## 0.4.0
 
 ### Minor Changes
