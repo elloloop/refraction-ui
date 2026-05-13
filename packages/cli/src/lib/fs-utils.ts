@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, writeFileSync, readFileSync } from "node:fs";
+import * as fs from "node:fs";
 import { dirname } from "node:path";
 import { findConfig as findConfigFile } from "./config";
 
@@ -17,14 +17,14 @@ export async function safeWrite(
   options: WriteOptions = {}
 ): Promise<void> {
   log("-", `Writing ${filePath}`);
-  const exists = existsSync(filePath);
+  const exists = fs.existsSync(filePath);
   if (exists && !options.overwrite) {
     log("✖", `File ${filePath} already exists`);
     throw new Error(`File exists: ${filePath}`);
   }
   if (!options.dryRun) {
-    mkdirSync(dirname(filePath), { recursive: true });
-    writeFileSync(filePath, content);
+    fs.mkdirSync(dirname(filePath), { recursive: true });
+    fs.writeFileSync(filePath, content);
   }
   log("✔", `Wrote ${filePath}`);
 }
@@ -32,7 +32,7 @@ export async function safeWrite(
 export async function safeRead(filePath: string): Promise<string> {
   log("-", `Reading ${filePath}`);
   try {
-    const data = readFileSync(filePath, "utf8");
+    const data = fs.readFileSync(filePath, "utf8");
     log("✔", `Read ${filePath}`);
     return data;
   } catch (err) {

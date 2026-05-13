@@ -51,6 +51,7 @@ import {
 export class RefractionWaveformComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() samples?: WaveformSampleInput;
   @Input() intensity?: number;
+  @Input() amplitude?: number;
   @Input() variant?: WaveformVariant;
   @Input() height?: number | string;
   @Input() width?: number | string;
@@ -85,6 +86,7 @@ export class RefractionWaveformComponent implements AfterViewInit, OnChanges, On
     return createWaveform({
       samples: this.samples,
       intensity: this.intensity,
+      amplitude: this.amplitude,
       variant: this.variant,
       height: this.height,
       width: this.width,
@@ -134,6 +136,7 @@ export class RefractionWaveformComponent implements AfterViewInit, OnChanges, On
       variant: api.config.variant,
       color: this.resolveCanvasColor(api.config.color),
       intensity: api.config.intensity,
+      amplitude: api.config.amplitude,
       barCount: api.config.barCount,
     });
   }

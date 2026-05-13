@@ -11,7 +11,7 @@ const voicePillProps = [
   { name: 'intensity', type: 'number', default: '0', description: 'Voice intensity from 0 to 1 used to scale pulse rings.' },
   { name: 'muted', type: 'boolean', default: 'false', description: 'Sets the mute toggle state.' },
   { name: 'onToggleMute', type: '() => void', description: 'Renders an accessible mute button when provided.' },
-  { name: 'position', type: "'top-start' | 'top-center' | 'top-end' | 'bottom-start' | 'bottom-center' | 'bottom-end' | 'left-start' | 'left-center' | 'left-end' | 'right-start' | 'right-center' | 'right-end'", default: "'bottom-center'", description: 'Fixed viewport placement with safe-area inset support.' },
+  { name: 'position', type: "'inline' | 'top-start' | 'top-center' | 'top-end' | 'bottom-start' | 'bottom-center' | 'bottom-end' | 'left-start' | 'left-center' | 'left-end' | 'right-start' | 'right-center' | 'right-end'", default: "'bottom-center'", description: 'Viewport placement with safe-area inset support, or inline embedding.' },
   { name: 'avatar', type: 'ReactNode', description: 'Optional custom avatar content.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]

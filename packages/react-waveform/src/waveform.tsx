@@ -35,6 +35,7 @@ export const Waveform = React.forwardRef<HTMLDivElement, WaveformProps>(
       source,
       samples,
       intensity,
+      amplitude,
       variant,
       height,
       width,
@@ -60,6 +61,7 @@ export const Waveform = React.forwardRef<HTMLDivElement, WaveformProps>(
       source,
       samples,
       intensity,
+      amplitude,
       variant,
       height,
       width,
@@ -153,7 +155,7 @@ export const Waveform = React.forwardRef<HTMLDivElement, WaveformProps>(
         frame = null
       }
 
-      const readSamples = (): Float32Array => {
+      const readSamples = (phase = 0): Float32Array => {
         if (samples != null) {
           return normalizeWaveformSamples(samples, api.config.barCount)
         }
@@ -167,10 +169,10 @@ export const Waveform = React.forwardRef<HTMLDivElement, WaveformProps>(
           return readAnalyserSamples(analyser, api.config.barCount, floatBufferRef, byteBufferRef)
         }
 
-        return createIntensitySamples(api.config.intensity, api.config.barCount)
+        return createIntensitySamples(api.config.intensity, api.config.barCount, phase)
       }
 
-      const draw = () => {
+      const draw = (time = typeof performance === 'undefined' ? 0 : performance.now()) => {
         const context = prepareWaveformCanvas(canvas, {
           ...size,
           pixelRatio: window.devicePixelRatio || 1,
@@ -178,7 +180,7 @@ export const Waveform = React.forwardRef<HTMLDivElement, WaveformProps>(
 
         if (!context) return
 
-        const nextSamples = readSamples()
+        const nextSamples = readSamples(time / 1000)
         const renderedSamples = smoothWaveformSamples(
           previousSamplesRef.current ?? undefined,
           nextSamples,
@@ -191,6 +193,7 @@ export const Waveform = React.forwardRef<HTMLDivElement, WaveformProps>(
           variant: api.config.variant,
           color: resolveCanvasColor(root, api.config.color),
           intensity: api.config.intensity,
+          amplitude: api.config.amplitude,
           barCount: api.config.barCount,
         })
       }
@@ -201,12 +204,12 @@ export const Waveform = React.forwardRef<HTMLDivElement, WaveformProps>(
         if (typeof window.requestAnimationFrame === 'function') {
           frame = window.requestAnimationFrame(tick)
         } else {
-          frame = window.setTimeout(() => tick(), 16)
+          frame = window.setTimeout(() => tick(performance.now()), 16)
         }
       }
 
-      const tick = () => {
-        draw()
+      const tick = (time: number) => {
+        draw(time)
         schedule()
       }
 
@@ -233,6 +236,7 @@ export const Waveform = React.forwardRef<HTMLDivElement, WaveformProps>(
       api.config.color,
       api.config.height,
       api.config.intensity,
+      api.config.amplitude,
       api.config.paused,
       api.config.smoothing,
       api.config.variant,

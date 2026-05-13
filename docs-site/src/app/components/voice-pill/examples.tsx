@@ -52,17 +52,17 @@ export function VoicePillExamples({ section }: VoicePillExamplesProps) {
             </div>
           </div>
 
-          <VoicePill
-            speaker={speaker}
-            label={label}
-            sub={subtitle}
-            intensity={intensity}
-            muted={muted}
-            onToggleMute={() => setMuted((value) => !value)}
-            position="bottom-center"
-            className="!absolute !bottom-6"
-            style={{ position: 'absolute', bottom: '1.5rem' }}
-          />
+          <div className="absolute inset-x-0 bottom-6 flex justify-center px-4">
+            <VoicePill
+              speaker={speaker}
+              label={label}
+              sub={subtitle}
+              intensity={intensity}
+              muted={muted}
+              onToggleMute={() => setMuted((value) => !value)}
+              position="inline"
+            />
+          </div>
         </div>
 
         <div className="rounded-lg border border-border bg-background/90 p-4 shadow-sm">

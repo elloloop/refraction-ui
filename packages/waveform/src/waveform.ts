@@ -8,6 +8,7 @@ export interface WaveformProps {
   source?: WaveformSource
   samples?: WaveformSampleInput
   intensity?: number
+  amplitude?: number
   variant?: WaveformVariant
   height?: number | string
   width?: number | string
@@ -20,6 +21,7 @@ export interface WaveformProps {
 export interface NormalizedWaveformConfig {
   variant: WaveformVariant
   intensity: number
+  amplitude: number
   height: number | string
   width: number | string
   barCount: number
@@ -40,6 +42,7 @@ export const DEFAULT_WAVEFORM_BAR_COUNT = 48
 export const DEFAULT_WAVEFORM_COLOR = 'var(--accent-2)'
 export const DEFAULT_WAVEFORM_HEIGHT = 80
 export const DEFAULT_WAVEFORM_INTENSITY = 1
+export const DEFAULT_WAVEFORM_AMPLITUDE = 1
 export const DEFAULT_WAVEFORM_SMOOTHING = 0.8
 
 const MAX_BAR_COUNT = 1024
@@ -63,10 +66,17 @@ export function normalizeIntensity(value: number | undefined): number {
   return Math.min(MAX_INTENSITY, Math.max(0, value))
 }
 
+export function normalizeAmplitude(value: number | undefined): number {
+  if (value == null || !Number.isFinite(value)) return DEFAULT_WAVEFORM_AMPLITUDE
+
+  return Math.min(1, Math.max(0, value))
+}
+
 export function normalizeWaveformConfig(props: WaveformProps = {}): NormalizedWaveformConfig {
   return {
     variant: props.variant ?? 'bars',
     intensity: normalizeIntensity(props.intensity),
+    amplitude: normalizeAmplitude(props.amplitude),
     height: props.height ?? DEFAULT_WAVEFORM_HEIGHT,
     width: props.width ?? '100%',
     barCount: normalizeBarCount(props.barCount),
@@ -87,6 +97,7 @@ export function createSilentSamples(count = DEFAULT_WAVEFORM_BAR_COUNT): Float32
 export function createIntensitySamples(
   intensity = DEFAULT_WAVEFORM_INTENSITY,
   count = DEFAULT_WAVEFORM_BAR_COUNT,
+  phase = 0,
 ): Float32Array {
   const normalizedIntensity = normalizeIntensity(intensity)
   const normalizedCount = normalizeBarCount(count)
@@ -94,11 +105,13 @@ export function createIntensitySamples(
 
   if (normalizedIntensity === 0) return samples
 
+  const pulse = 0.72 + Math.sin(phase * 1.8) * 0.18
+
   for (let i = 0; i < normalizedCount; i += 1) {
     const progress = normalizedCount <= 1 ? 0.5 : i / (normalizedCount - 1)
     const envelope = 0.35 + Math.sin(progress * Math.PI) * 0.65
-    const carrier = Math.sin(progress * Math.PI * 6)
-    samples[i] = carrier * envelope * normalizedIntensity
+    const carrier = Math.sin(progress * Math.PI * 6 + phase * 2.8)
+    samples[i] = carrier * envelope * normalizedIntensity * pulse
   }
 
   return samples

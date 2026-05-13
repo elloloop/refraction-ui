@@ -6,6 +6,7 @@ import {
   createSilentSamples,
   createWaveform,
   getWaveformPeak,
+  normalizeAmplitude,
   normalizeBarCount,
   normalizeIntensity,
   normalizeSmoothing,
@@ -35,6 +36,8 @@ describe('waveform config', () => {
     expect(normalizeSmoothing(2)).toBe(0.99)
     expect(normalizeIntensity(-1)).toBe(0)
     expect(normalizeIntensity(10)).toBe(1)
+    expect(normalizeAmplitude(-1)).toBe(0)
+    expect(normalizeAmplitude(2)).toBe(1)
   })
 
   it('formats numeric css dimensions as pixels', () => {
@@ -99,6 +102,13 @@ describe('waveform samples', () => {
     expect(samples).toHaveLength(8)
     expect(getWaveformPeak(samples)).toBeGreaterThan(0)
     expect(getWaveformPeak(samples)).toBeLessThanOrEqual(0.5)
+  })
+
+  it('can phase-shift generated intensity samples for animation', () => {
+    const first = createIntensitySamples(0.5, 8, 0)
+    const next = createIntensitySamples(0.5, 8, 1)
+
+    expect(Array.from(next)).not.toEqual(Array.from(first))
   })
 })
 
