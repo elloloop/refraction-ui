@@ -1,5 +1,11 @@
 # @refraction-ui/react
 
+## 0.5.0
+
+### Minor Changes
+
+- 42ecaad: Keep React Hook Form-backed exports behind the `@refraction-ui/react/form` subpath, remove stale Monaco peer metadata, and embed internal declaration files in the consolidated React package so consumers do not need private workspace packages installed for TypeScript.
+
 ## 0.4.2
 
 ### Patch Changes
