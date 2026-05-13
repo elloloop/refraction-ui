@@ -3,6 +3,7 @@ import type { AccessibilityProps } from '@refraction-ui/shared'
 export type VoicePillSpeaker = 'ai' | 'user' | (string & {})
 
 export type VoicePillPosition =
+  | 'inline'
   | 'top-start'
   | 'top-center'
   | 'top-end'
@@ -29,7 +30,7 @@ export interface VoicePillProps {
   muted?: boolean
   /** Callback for the optional mute toggle */
   onToggleMute?: () => void
-  /** Fixed viewport position */
+  /** Viewport position, or inline for embedding inside another layout */
   position?: VoicePillPosition
 }
 
@@ -52,7 +53,7 @@ export interface VoicePillAPI {
   visualIntensity: number
   /** Muted state */
   muted: boolean
-  /** Fixed viewport position */
+  /** Viewport position, or inline for embedding inside another layout */
   position: VoicePillPosition
   /** Fallback initials for the speaker avatar */
   initials: string

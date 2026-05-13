@@ -12,6 +12,7 @@ import { cn } from '@refraction-ui/shared'
 interface Props extends Omit<astroHTML.JSX.HTMLAttributes, 'color' | 'height' | 'width'> {
   samples?: WaveformSampleInput
   intensity?: number
+  amplitude?: number
   variant?: WaveformVariant
   height?: number | string
   width?: number | string
@@ -24,6 +25,7 @@ interface Props extends Omit<astroHTML.JSX.HTMLAttributes, 'color' | 'height' | 
 const {
   samples,
   intensity,
+  amplitude,
   variant,
   height,
   width,
@@ -39,6 +41,7 @@ const {
 const api = createWaveform({
   samples,
   intensity,
+  amplitude,
   variant,
   height,
   width,
@@ -65,6 +68,7 @@ const waveformData = {
   samples: Array.from(api.samples),
   variant: api.config.variant,
   intensity: api.config.intensity,
+  amplitude: api.config.amplitude,
   barCount: api.config.barCount,
   color: api.config.color,
 }
@@ -139,10 +143,11 @@ function toKebabCase(value: string): string {
     })
   }
 
-  const scaleSamples = (samples, intensity) => {
+  const scaleSamples = (samples, intensity, amplitude) => {
     const amount = Math.max(0, Math.min(1, Number(intensity) || 0))
+    const visualHeight = Math.max(0, Math.min(1, Number(amplitude) || 0))
 
-    return samples.map((sample) => Math.max(-1, Math.min(1, sample * amount)))
+    return samples.map((sample) => Math.max(-1, Math.min(1, sample * amount * visualHeight)))
   }
 
   const resolveColor = (element, color) => {
@@ -248,6 +253,7 @@ function toKebabCase(value: string): string {
     const samples = scaleSamples(
       normalizeSamples(config.samples, config.barCount),
       config.intensity,
+      config.amplitude,
     )
     const color = resolveColor(canvas.parentElement || canvas, config.color || 'currentColor')
 

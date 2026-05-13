@@ -22,33 +22,34 @@ export const voicePillSpeakerStyles =
   '[--rfr-voice-pill-accent:hsl(var(--primary))] [--rfr-voice-pill-accent-foreground:hsl(var(--primary-foreground))] data-[speaker=user]:[--rfr-voice-pill-accent:hsl(var(--accent-foreground))] data-[speaker=user]:[--rfr-voice-pill-accent-foreground:hsl(var(--accent))] data-[muted=true]:[--rfr-voice-pill-accent:hsl(var(--muted-foreground))]'
 
 export const voicePillPositionVariants = cva({
-  base: 'fixed z-50',
+  base: 'z-50',
   variants: {
     position: {
+      inline: 'relative',
       'top-start':
-        'top-[calc(env(safe-area-inset-top)+1rem)] left-[calc(env(safe-area-inset-left)+1rem)]',
+        'fixed top-[calc(env(safe-area-inset-top)+1rem)] left-[calc(env(safe-area-inset-left)+1rem)]',
       'top-center':
-        'top-[calc(env(safe-area-inset-top)+1rem)] left-1/2 -translate-x-1/2',
+        'fixed top-[calc(env(safe-area-inset-top)+1rem)] left-1/2 -translate-x-1/2',
       'top-end':
-        'top-[calc(env(safe-area-inset-top)+1rem)] right-[calc(env(safe-area-inset-right)+1rem)]',
+        'fixed top-[calc(env(safe-area-inset-top)+1rem)] right-[calc(env(safe-area-inset-right)+1rem)]',
       'bottom-start':
-        'bottom-[calc(env(safe-area-inset-bottom)+1rem)] left-[calc(env(safe-area-inset-left)+1rem)]',
+        'fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] left-[calc(env(safe-area-inset-left)+1rem)]',
       'bottom-center':
-        'bottom-[calc(env(safe-area-inset-bottom)+1rem)] left-1/2 -translate-x-1/2',
+        'fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] left-1/2 -translate-x-1/2',
       'bottom-end':
-        'bottom-[calc(env(safe-area-inset-bottom)+1rem)] right-[calc(env(safe-area-inset-right)+1rem)]',
+        'fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] right-[calc(env(safe-area-inset-right)+1rem)]',
       'left-start':
-        'left-[calc(env(safe-area-inset-left)+1rem)] top-[calc(env(safe-area-inset-top)+1rem)]',
+        'fixed left-[calc(env(safe-area-inset-left)+1rem)] top-[calc(env(safe-area-inset-top)+1rem)]',
       'left-center':
-        'left-[calc(env(safe-area-inset-left)+1rem)] top-1/2 -translate-y-1/2',
+        'fixed left-[calc(env(safe-area-inset-left)+1rem)] top-1/2 -translate-y-1/2',
       'left-end':
-        'left-[calc(env(safe-area-inset-left)+1rem)] bottom-[calc(env(safe-area-inset-bottom)+1rem)]',
+        'fixed left-[calc(env(safe-area-inset-left)+1rem)] bottom-[calc(env(safe-area-inset-bottom)+1rem)]',
       'right-start':
-        'right-[calc(env(safe-area-inset-right)+1rem)] top-[calc(env(safe-area-inset-top)+1rem)]',
+        'fixed right-[calc(env(safe-area-inset-right)+1rem)] top-[calc(env(safe-area-inset-top)+1rem)]',
       'right-center':
-        'right-[calc(env(safe-area-inset-right)+1rem)] top-1/2 -translate-y-1/2',
+        'fixed right-[calc(env(safe-area-inset-right)+1rem)] top-1/2 -translate-y-1/2',
       'right-end':
-        'right-[calc(env(safe-area-inset-right)+1rem)] bottom-[calc(env(safe-area-inset-bottom)+1rem)]',
+        'fixed right-[calc(env(safe-area-inset-right)+1rem)] bottom-[calc(env(safe-area-inset-bottom)+1rem)]',
     },
   },
   defaultVariants: {

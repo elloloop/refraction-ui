@@ -1,7 +1,9 @@
 import {
   DEFAULT_WAVEFORM_COLOR,
+  DEFAULT_WAVEFORM_AMPLITUDE,
   DEFAULT_WAVEFORM_INTENSITY,
   getWaveformPeak,
+  normalizeAmplitude,
   normalizeBarCount,
   normalizeIntensity,
   resampleWaveformSamples,
@@ -20,6 +22,7 @@ export interface WaveformRenderOptions {
   variant?: WaveformVariant
   color?: string
   intensity?: number
+  amplitude?: number
   barCount?: number
 }
 
@@ -60,22 +63,23 @@ export function drawWaveform(
   const variant = options.variant ?? 'bars'
   const color = options.color ?? DEFAULT_WAVEFORM_COLOR
   const intensity = normalizeIntensity(options.intensity ?? DEFAULT_WAVEFORM_INTENSITY)
+  const amplitude = normalizeAmplitude(options.amplitude ?? DEFAULT_WAVEFORM_AMPLITUDE)
   const barCount = normalizeBarCount(options.barCount)
 
   context.clearRect(0, 0, width, height)
   applyCanvasColor(context, color)
 
   if (variant === 'line') {
-    drawLine(context, samples, width, height, intensity)
+    drawLine(context, samples, width, height, intensity, amplitude)
     return
   }
 
   if (variant === 'rings') {
-    drawRings(context, samples, width, height, intensity)
+    drawRings(context, samples, width, height, intensity, amplitude)
     return
   }
 
-  drawBars(context, samples, width, height, intensity, barCount)
+  drawBars(context, samples, width, height, intensity, amplitude, barCount)
 }
 
 function drawBars(
@@ -84,6 +88,7 @@ function drawBars(
   width: number,
   height: number,
   intensity: number,
+  amplitude: number,
   barCount: number,
 ) {
   const bars = scaleWaveformSamples(resampleWaveformSamples(samples, barCount), intensity)
@@ -93,7 +98,7 @@ function drawBars(
 
   for (let i = 0; i < bars.length; i += 1) {
     const value = Math.abs(bars[i])
-    const barHeight = Math.max(value * height, value > 0 ? 1 : 0)
+    const barHeight = Math.max(value * height * amplitude, value > 0 ? 1 : 0)
     const x = i * slotWidth + (slotWidth - barWidth) / 2
     const y = center - barHeight / 2
 
@@ -107,10 +112,11 @@ function drawLine(
   width: number,
   height: number,
   intensity: number,
+  amplitudeScale: number,
 ) {
   const lineSamples = scaleWaveformSamples(samples, intensity)
   const center = height / 2
-  const amplitude = height * 0.45
+  const amplitude = height * 0.45 * amplitudeScale
 
   context.beginPath()
 
@@ -137,8 +143,9 @@ function drawRings(
   width: number,
   height: number,
   intensity: number,
+  amplitude: number,
 ) {
-  const peak = getWaveformPeak(scaleWaveformSamples(samples, intensity))
+  const peak = getWaveformPeak(scaleWaveformSamples(samples, intensity)) * amplitude
   const minDimension = Math.min(width, height)
   const centerX = width / 2
   const centerY = height / 2

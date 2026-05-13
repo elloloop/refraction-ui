@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useEffect, useRef } from 'react'
 import { useMobileNav } from './mobile-nav-context'
 
 const componentGroups = [
@@ -157,6 +158,26 @@ export function Sidebar() {
   const pathname = usePathname()
   const currentPath = normalizePath(pathname)
   const { isOpen, setIsOpen } = useMobileNav()
+  const sidebarRef = useRef<HTMLElement | null>(null)
+  const activeComponentRef = useRef<HTMLAnchorElement | null>(null)
+
+  useEffect(() => {
+    const sidebar = sidebarRef.current
+    const activeComponent = activeComponentRef.current
+
+    if (!sidebar || !activeComponent) return
+
+    const sidebarBounds = sidebar.getBoundingClientRect()
+    const itemBounds = activeComponent.getBoundingClientRect()
+    const topPadding = 96
+    const bottomPadding = 32
+    const isAboveView = itemBounds.top < sidebarBounds.top + topPadding
+    const isBelowView = itemBounds.bottom > sidebarBounds.bottom - bottomPadding
+
+    if (isAboveView || isBelowView) {
+      activeComponent.scrollIntoView({ block: 'center' })
+    }
+  }, [currentPath])
 
   return (
     <>
@@ -169,7 +190,7 @@ export function Sidebar() {
         />
       )}
 
-      <aside className={`fixed left-0 top-0 z-40 h-screen w-64 border-r border-sidebar-border bg-sidebar-background text-sidebar-foreground overflow-y-auto transition-transform duration-300 ease-in-out md:translate-x-0 ${
+      <aside ref={sidebarRef} className={`fixed left-0 top-0 z-40 h-screen w-64 border-r border-sidebar-border bg-sidebar-background text-sidebar-foreground overflow-y-auto transition-transform duration-300 ease-in-out md:translate-x-0 ${
         isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
       }`}>
       {/* Logo */}
@@ -250,7 +271,9 @@ export function Sidebar() {
 
                 return (
                   <Link
-                onClick={() => setIsOpen(false)}
+                    ref={isActive ? activeComponentRef : undefined}
+                    aria-current={isActive ? 'page' : undefined}
+                    onClick={() => setIsOpen(false)}
                     key={item.href}
                     href={item.href}
                     className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${
@@ -282,7 +305,9 @@ export function Sidebar() {
 
                 return (
                   <Link
-                onClick={() => setIsOpen(false)}
+                    ref={isActive ? activeComponentRef : undefined}
+                    aria-current={isActive ? 'page' : undefined}
+                    onClick={() => setIsOpen(false)}
                     key={item.href}
                     href={item.href}
                     className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ${

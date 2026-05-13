@@ -96,5 +96,6 @@ describe('voice pill styles', () => {
     expect(voicePillRootStyles).toContain('rounded-full')
     expect(voicePillPulseRingStyles).toContain('motion-reduce:animate-none')
     expect(voicePillPositionVariants({ position: 'bottom-center' })).toContain('fixed')
+    expect(voicePillPositionVariants({ position: 'inline' })).toContain('relative')
   })
 })

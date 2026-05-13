@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Waveform } from '@refraction-ui/react'
 
 interface WaveformExamplesProps {
@@ -9,44 +9,12 @@ interface WaveformExamplesProps {
 
 export function WaveformExamples({ section }: WaveformExamplesProps) {
   const [intensity, setIntensity] = useState(0.55)
-  const [phase, setPhase] = useState(0)
   const [barCount, setBarCount] = useState(48)
   const [smoothing, setSmoothing] = useState(0.82)
-  const [height, setHeight] = useState(56)
+  const [waveHeight, setWaveHeight] = useState(0.7)
   const [color, setColor] = useState('var(--primary)')
   const [animate, setAnimate] = useState(true)
-
-  useEffect(() => {
-    if (!animate) return
-
-    let frame = 0
-    const startedAt = performance.now()
-
-    const tick = (time: number) => {
-      const elapsed = (time - startedAt) / 1000
-      setPhase(elapsed)
-      frame = window.requestAnimationFrame(tick)
-    }
-
-    frame = window.requestAnimationFrame(tick)
-
-    return () => window.cancelAnimationFrame(frame)
-  }, [animate])
-
-  const visualIntensity = animate
-    ? 0.56 + Math.sin(phase * 2.2) * 0.28
-    : intensity
-
-  const samples = useMemo(
-    () => Array.from({ length: 96 }, (_, index) => {
-      const progress = index / 95
-      const envelope = 0.45 + Math.sin(progress * Math.PI) * 0.55
-      const carrier = Math.sin(index / 4.8 + phase * 3.8)
-
-      return carrier * envelope * visualIntensity
-    }),
-    [phase, visualIntensity],
-  )
+  const canvasHeight = 72
 
   if (section !== 'basic') return null
 
@@ -57,12 +25,14 @@ export function WaveformExamples({ section }: WaveformExamplesProps) {
           <span className="shrink-0 text-xs font-medium text-muted-foreground">Bars</span>
           <div className="flex h-24 items-center">
             <Waveform
-              intensity={visualIntensity}
-              height={height}
+              intensity={intensity}
+              amplitude={waveHeight}
+              height={canvasHeight}
               variant="bars"
               barCount={barCount}
               smoothing={smoothing}
               color={color}
+              paused={!animate}
             />
           </div>
         </div>
@@ -70,13 +40,14 @@ export function WaveformExamples({ section }: WaveformExamplesProps) {
           <span className="shrink-0 text-xs font-medium text-muted-foreground">Line</span>
           <div className="flex h-24 items-center">
             <Waveform
-              samples={samples}
-              intensity={visualIntensity}
-              height={height}
+              intensity={intensity}
+              amplitude={waveHeight}
+              height={canvasHeight}
               variant="line"
               barCount={barCount}
               smoothing={smoothing}
               color={color}
+              paused={!animate}
             />
           </div>
         </div>
@@ -84,12 +55,14 @@ export function WaveformExamples({ section }: WaveformExamplesProps) {
           <span className="shrink-0 text-xs font-medium text-muted-foreground">Rings</span>
           <div className="flex h-24 items-center">
             <Waveform
-              intensity={visualIntensity}
-              height={height}
+              intensity={intensity}
+              amplitude={waveHeight}
+              height={canvasHeight}
               variant="rings"
               barCount={barCount}
               smoothing={smoothing}
               color={color}
+              paused={!animate}
             />
           </div>
         </div>
@@ -112,7 +85,7 @@ export function WaveformExamples({ section }: WaveformExamplesProps) {
         <div className="space-y-2">
           <label className="flex items-center justify-between text-sm font-medium text-foreground">
             Intensity
-            <span className="text-xs text-muted-foreground">{Math.round(visualIntensity * 100)}%</span>
+            <span className="text-xs text-muted-foreground">{Math.round(intensity * 100)}%</span>
           </label>
           <input
             type="range"
@@ -120,9 +93,8 @@ export function WaveformExamples({ section }: WaveformExamplesProps) {
             max="1"
             step="0.01"
             value={intensity}
-            disabled={animate}
             onChange={(event) => setIntensity(Number(event.target.value))}
-            className="w-full accent-primary disabled:opacity-50"
+            className="w-full accent-primary"
           />
         </div>
 
@@ -161,15 +133,15 @@ export function WaveformExamples({ section }: WaveformExamplesProps) {
         <div className="space-y-2">
           <label className="flex items-center justify-between text-sm font-medium text-foreground">
             Wave height
-            <span className="text-xs text-muted-foreground">{height}px</span>
+            <span className="text-xs text-muted-foreground">{Math.round(waveHeight * 100)}%</span>
           </label>
           <input
             type="range"
-            min="32"
-            max="96"
-            step="4"
-            value={height}
-            onChange={(event) => setHeight(Number(event.target.value))}
+            min="0.25"
+            max="1"
+            step="0.01"
+            value={waveHeight}
+            onChange={(event) => setWaveHeight(Number(event.target.value))}
             className="w-full accent-primary"
           />
         </div>

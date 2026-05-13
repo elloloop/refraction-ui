@@ -7,11 +7,12 @@ import { FrameworkTabs } from '@/components/framework-tabs'
 const waveformProps = [
   { name: 'source', type: 'AnalyserNode | MediaStream | Float32Array | number[]', description: 'Live analyser, media stream, or sample data source.' },
   { name: 'samples', type: 'Float32Array | number[]', description: 'Precomputed samples for static or replay visualizations.' },
-  { name: 'intensity', type: 'number', description: 'Cheap 0 to 1 input for animated bars or rings.' },
+  { name: 'intensity', type: 'number', default: '1', description: '0 to 1 energy level used for generated animation samples.' },
+  { name: 'amplitude', type: 'number', default: '1', description: '0 to 1 visual waveform height inside the canvas.' },
   { name: 'variant', type: "'bars' | 'line' | 'rings'", default: "'bars'", description: 'Visualization style.' },
-  { name: 'height', type: 'number | string', default: '48', description: 'Canvas height in px or CSS length.' },
+  { name: 'height', type: 'number | string', default: '80', description: 'Canvas box height in px or CSS length.' },
   { name: 'width', type: 'number | string', default: "'100%'", description: 'Canvas width in px or CSS length.' },
-  { name: 'barCount', type: 'number', default: '32', description: 'Number of bars rendered by the bars variant.' },
+  { name: 'barCount', type: 'number', default: '48', description: 'Number of samples rendered by the generated waveform.' },
   { name: 'smoothing', type: 'number', default: '0.8', description: 'Exponential smoothing factor from 0 to 1.' },
   { name: 'color', type: 'string', default: "'var(--accent-2)'", description: 'Canvas stroke or fill color.' },
   { name: 'paused', type: 'boolean', default: 'false', description: 'Freezes the animation loop.' },
@@ -31,6 +32,7 @@ export function Recorder({ analyserNode }) {
     <Waveform
       source={analyserNode}
       height={48}
+      amplitude={0.75}
       variant="bars"
       barCount={40}
     />
@@ -44,6 +46,7 @@ import { Waveform } from '@refraction-ui/astro'
 <Waveform
   intensity={0.85}
   height={48}
+  amplitude={0.75}
   variant="bars"
   barCount={40}
 />`
@@ -59,6 +62,7 @@ import { RefractionWaveformComponent } from '@refraction-ui/angular'
     <refraction-waveform
       [intensity]="intensity()"
       [height]="48"
+      [amplitude]="0.75"
       variant="bars"
       [barCount]="40"
     />
