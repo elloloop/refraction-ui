@@ -1,18 +1,14 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-  entry: ['src/index.ts', 'src/theme.ts'],
+  entry: ['src/index.ts', 'src/theme.ts', 'src/form.ts'],
   format: ['esm', 'cjs'],
   dts: true,
   sourcemap: true,
   clean: true,
   treeshake: true,
   // Bundle all @refraction-ui/* workspace packages into the output.
-  // Only external deps (react, monaco) remain as peer deps.
+  // Only external deps (React and RHF for the form subpath) remain as peer deps.
   noExternal: [/@refraction-ui\//],
-  external: ['react', 'react-dom', '@monaco-editor/react', 'react-hook-form'],
-  // tsup does not bundle CSS, so copy the default theme stylesheet to
-  // dist/styles.css after the JS build completes. Consumers import it via
-  // `import '@refraction-ui/react/styles.css'` (see package.json exports).
-  onSuccess: 'cp src/styles.css dist/styles.css',
+  external: ['react', 'react-dom', 'react-hook-form'],
 })

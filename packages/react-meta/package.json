@@ -17,13 +17,18 @@
       "import": "./dist/theme.js",
       "require": "./dist/theme.cjs"
     },
+    "./form": {
+      "types": "./dist/form.d.ts",
+      "import": "./dist/form.js",
+      "require": "./dist/form.cjs"
+    },
     "./styles.css": "./dist/styles.css"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && cp src/styles.css dist/styles.css && node ./scripts/embed-internal-types.mjs",
     "dev": "tsup --watch",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
@@ -33,15 +38,11 @@
     "clean": "rm -rf dist"
   },
   "peerDependencies": {
-    "@monaco-editor/react": ">=4",
     "react": ">=18",
     "react-dom": ">=18",
     "react-hook-form": ">=7.43.0"
   },
   "peerDependenciesMeta": {
-    "@monaco-editor/react": {
-      "optional": true
-    },
     "react-hook-form": {
       "optional": true
     }

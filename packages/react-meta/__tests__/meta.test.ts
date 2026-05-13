@@ -1,6 +1,31 @@
 import { describe, it, expect } from 'vitest'
+import { readdirSync, readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import * as MetaExports from '../src/index.js'
+import * as FormExports from '../src/form.js'
 import * as ThemeExports from '../src/theme.js'
+
+const testDir = dirname(fileURLToPath(import.meta.url))
+
+function listDeclarationFiles(dir: string): string[] {
+  const files: string[] = []
+
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const path = join(dir, entry.name)
+
+    if (entry.isDirectory()) {
+      files.push(...listDeclarationFiles(path))
+      continue
+    }
+
+    if (entry.name.endsWith('.d.ts') || entry.name.endsWith('.d.cts')) {
+      files.push(path)
+    }
+  }
+
+  return files
+}
 
 describe('@refraction-ui/react (meta package)', () => {
   it('exports Button from react-button', () => {
@@ -37,6 +62,17 @@ describe('@refraction-ui/react (meta package)', () => {
 
   it('does NOT export ThemeProvider from main entry (opt-in only)', () => {
     expect((MetaExports as Record<string, unknown>).ThemeProvider).toBeUndefined()
+  })
+
+  it('does NOT export RHF-backed Form from main entry (opt-in only)', () => {
+    expect((MetaExports as Record<string, unknown>).Form).toBeUndefined()
+    expect((MetaExports as Record<string, unknown>).useForm).toBeUndefined()
+  })
+
+  it('exposes RHF-backed Form via @refraction-ui/react/form subpath', () => {
+    expect(FormExports.Form).toBeDefined()
+    expect(FormExports.FormField).toBeDefined()
+    expect(FormExports.useForm).toBeDefined()
   })
 
   it('exports Sheet compound components from react-sheet', () => {
@@ -91,5 +127,41 @@ describe('@refraction-ui/react (meta package)', () => {
     const exportedKeys = Object.keys(MetaExports)
     // With 39 active packages, we should have many exports
     expect(exportedKeys.length).toBeGreaterThan(30)
+  })
+
+  it('does not leak react-hook-form or private re-export specifiers from the built root entry', () => {
+    const distDir = join(testDir, '..', 'dist')
+    const rootJs = readFileSync(join(distDir, 'index.js'), 'utf8')
+    const rootTypes = readFileSync(join(distDir, 'index.d.ts'), 'utf8')
+
+    expect(rootJs).not.toContain('react-hook-form')
+    expect(rootJs).not.toContain('@monaco-editor/react')
+    expect(rootTypes).not.toContain('react-hook-form')
+    expect(rootTypes).not.toMatch(/from ['"]@refraction-ui\//)
+  })
+
+  it('keeps react-hook-form isolated to the built form subpath', () => {
+    const distDir = join(testDir, '..', 'dist')
+    const formJs = readFileSync(join(distDir, 'form.js'), 'utf8')
+    const formTypes = readFileSync(join(distDir, 'form.d.ts'), 'utf8')
+    const internalFormTypes = readFileSync(
+      join(distDir, 'internal', 'react-form', 'index.d.ts'),
+      'utf8'
+    )
+
+    expect(formJs).toContain('react-hook-form')
+    expect(formTypes).not.toContain('react-hook-form')
+    expect(internalFormTypes).toContain('react-hook-form')
+    expect(formTypes).not.toMatch(/from ['"]@refraction-ui\//)
+  })
+
+  it('ships embedded declarations instead of public references to private packages', () => {
+    const distDir = join(testDir, '..', 'dist')
+    const declarationText = listDeclarationFiles(distDir)
+      .map((file) => readFileSync(file, 'utf8'))
+      .join('\n')
+
+    expect(declarationText).not.toMatch(/from ['"]@refraction-ui\//)
+    expect(declarationText).not.toMatch(/import\(['"]@refraction-ui\//)
   })
 })
