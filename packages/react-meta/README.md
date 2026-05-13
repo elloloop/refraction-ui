@@ -7,7 +7,15 @@ npm install @refraction-ui/react
 ```
 
 ```tsx
-import { Button, Card, Dialog, ThemeProvider } from '@refraction-ui/react'
+import { Button, Card, Dialog } from '@refraction-ui/react'
+import { ThemeProvider } from '@refraction-ui/react/theme'
+```
+
+React Hook Form-backed primitives are opt-in so the root package does not force
+every consumer to install `react-hook-form`:
+
+```tsx
+import { Form, FormField, useForm } from '@refraction-ui/react/form'
 ```
 
 ## Default theme stylesheet

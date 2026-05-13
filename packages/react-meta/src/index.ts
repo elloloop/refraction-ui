@@ -4,7 +4,7 @@
  * Meta package that re-exports all @refraction-ui/react-* component packages.
  * Allows consumers to install everything from a single package:
  *
- *   import { Button, Dialog, ThemeProvider } from '@refraction-ui/react'
+ *   import { Button, Dialog } from '@refraction-ui/react'
  *
  * Or install individual packages for smaller bundles:
  *
@@ -15,6 +15,10 @@
 // NOTE: Theme exports moved to opt-in subpath '@refraction-ui/react/theme'
 // to avoid name clashes with consumers' existing theme systems (e.g. next-themes).
 // Import via: `import { ThemeProvider } from '@refraction-ui/react/theme'`
+//
+// RHF-backed Form exports also live behind an opt-in subpath so the root
+// package does not force every consumer to resolve react-hook-form.
+// Import via: `import { Form, useForm } from '@refraction-ui/react/form'`
 
 // Components (alphabetical)
 export * from '@refraction-ui/react-accordion'
@@ -38,7 +42,6 @@ export * from '@refraction-ui/react-dialog'
 export * from '@refraction-ui/react-dropdown-menu'
 export * from '@refraction-ui/react-feedback-dialog'
 export * from '@refraction-ui/react-footer'
-export * from '@refraction-ui/react-form'
 export * from '@refraction-ui/react-inline-editor'
 export * from '@refraction-ui/react-input'
 export * from '@refraction-ui/react-input-group'
@@ -163,4 +166,3 @@ export * from '@refraction-ui/react-card-grid'
 
 
 export * from '@refraction-ui/react-payment'
-

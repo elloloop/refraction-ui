@@ -3275,9 +3275,6 @@ importers:
 
   packages/react-meta:
     dependencies:
-      '@monaco-editor/react':
-        specifier: '>=4'
-        version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-hook-form:
         specifier: '>=7.43.0'
         version: 7.54.2(react@19.0.0)
