@@ -1,5 +1,11 @@
 # @refraction-ui/tailwind-config
 
+## 0.1.7
+
+### Patch Changes
+
+- 01c7f71: Fix VoicePill and Waveform docs behavior, add inline VoicePill placement and Waveform amplitude control, smooth generated waveform animation, and patch audited dependency versions.
+
 ## 0.1.5
 
 ### Patch Changes
