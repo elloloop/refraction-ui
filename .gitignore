@@ -146,3 +146,8 @@ playwright-report/
 # Lost Pixel (current and diff — baselines are committed)
 .lostpixel/current/
 .lostpixel/difference/
+
+# Local-only / editor / tooling artifacts
+.DS_Store
+.claude/
+job_log_vrt.txt

@@ -208,4 +208,3 @@ switch (type) {
 }
 
 console.log(`✓ Created packages/${name} (${type})`)
-e})`)
