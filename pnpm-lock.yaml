@@ -2201,6 +2201,9 @@ importers:
 
   packages/media-engines:
     dependencies:
+      '@refraction-ui/logger':
+        specifier: workspace:*
+        version: link:../logger
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared

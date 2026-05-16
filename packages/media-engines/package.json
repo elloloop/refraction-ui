@@ -27,6 +27,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@refraction-ui/logger": "workspace:*",
     "@refraction-ui/shared": "workspace:*"
   },
   "devDependencies": {},
