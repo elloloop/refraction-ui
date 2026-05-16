@@ -1,0 +1,43 @@
+{
+  "name": "@refraction-ui/astro-logger",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage --passWithNoTests"
+  },
+  "dependencies": {
+    "@refraction-ui/logger": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "astro": ">=4.0.0",
+    "@grafana/faro-web-sdk": ">=1",
+    "@grafana/faro-web-tracing": ">=1"
+  },
+  "peerDependenciesMeta": {
+    "@grafana/faro-web-sdk": {
+      "optional": true
+    },
+    "@grafana/faro-web-tracing": {
+      "optional": true
+    }
+  },
+  "devDependencies": {},
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elloloop/refraction-ui.git",
+    "directory": "packages/astro-logger"
+  },
+  "homepage": "https://elloloop.github.io/refraction-ui/"
+}
