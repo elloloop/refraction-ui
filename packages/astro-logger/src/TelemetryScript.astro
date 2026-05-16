@@ -1,0 +1,108 @@
+---
+/**
+ * TelemetryScript — injects a <script> that initializes the telemetry client
+ * on the page. Exposes `window.__rfr_telemetry` for other scripts to call
+ * debug / info / warn / error / fatal / child / startSpan / flush.
+ *
+ * Props mirror TelemetryConfig from @refraction-ui/logger. Faro stays fully
+ * hidden — the only wiring a consumer supplies is the backend `endpoint`.
+ */
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Logical app/service name attached to every record. */
+  app: string
+  /** Environment preset selector. */
+  env: 'development' | 'production'
+  /** Remote collector endpoint. Omit for console-only (zero-config dev). */
+  endpoint?: string
+  /** Master kill switch. `false` -> tree-shakeable noop. Defaults to true. */
+  enabled?: boolean
+  /** Fraction of records kept, 0..1. Defaults to the preset value. */
+  sampleRate?: number
+  /** Context keys to strip (deep) before a record is emitted. */
+  redactKeys?: string[]
+}
+
+const {
+  app,
+  env,
+  endpoint,
+  enabled,
+  sampleRate,
+  redactKeys,
+  ...props
+} = Astro.props
+
+const configJSON = JSON.stringify({
+  app,
+  env,
+  endpoint,
+  enabled,
+  sampleRate,
+  redactKeys,
+})
+---
+
+<script
+  data-rfr-telemetry-config={configJSON}
+  {...props}
+  is:inline
+>
+  ;(function () {
+    // Only initialize once
+    if (window.__rfr_telemetry) return
+
+    // We cannot import ES modules from an inline script, so we stash the config
+    // and let the consumer call the init function from their own module script.
+    // This inline script sets up the namespace and a deferred init helper.
+    var configEl = document.querySelector('[data-rfr-telemetry-config]')
+    var config = {}
+    if (configEl) {
+      try { config = JSON.parse(configEl.getAttribute('data-rfr-telemetry-config') || '{}') } catch (_) { /* */ }
+    }
+
+    function notReady() {
+      throw new Error('Telemetry not initialized. Call window.__rfr_telemetry.init(createTelemetry) first.')
+    }
+
+    // Placeholder that will be replaced once createTelemetry is called
+    window.__rfr_telemetry = {
+      _config: config,
+      _api: null,
+      _ready: false,
+      init: function (createTelemetry, sinks) {
+        var api = createTelemetry(config)
+        if (sinks) {
+          sinks.forEach(function (sink) {
+            api.addSink(sink)
+          })
+        }
+        window.__rfr_telemetry._api = api
+        window.__rfr_telemetry._ready = true
+        window.__rfr_telemetry.debug = api.debug.bind(api)
+        window.__rfr_telemetry.info = api.info.bind(api)
+        window.__rfr_telemetry.warn = api.warn.bind(api)
+        window.__rfr_telemetry.error = api.error.bind(api)
+        window.__rfr_telemetry.fatal = api.fatal.bind(api)
+        window.__rfr_telemetry.child = api.child.bind(api)
+        window.__rfr_telemetry.startSpan = api.startSpan.bind(api)
+        window.__rfr_telemetry.flush = api.flush.bind(api)
+        window.__rfr_telemetry.addSink = api.addSink.bind(api)
+        window.__rfr_telemetry.removeSink = api.removeSink.bind(api)
+        window.__rfr_telemetry.sinks = api.sinks
+        return api
+      },
+      debug: notReady,
+      info: notReady,
+      warn: notReady,
+      error: notReady,
+      fatal: notReady,
+      child: notReady,
+      startSpan: notReady,
+      flush: function () { return Promise.resolve() },
+      addSink: notReady,
+      removeSink: notReady,
+      sinks: [],
+    }
+  })()
+</script>
