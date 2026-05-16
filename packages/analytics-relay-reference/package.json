@@ -1,0 +1,32 @@
+{
+  "name": "@refraction-ui/analytics-relay-reference",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Reference server-relay backend implementing the @refraction-ui/analytics Segment HTTP Tracking API wire contract. Internal — never published.",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage --passWithNoTests",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "build": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@refraction-ui/analytics": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "22.0.0"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elloloop/refraction-ui.git",
+    "directory": "packages/analytics-relay-reference"
+  }
+}

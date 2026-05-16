@@ -288,6 +288,16 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/analytics-relay-reference:
+    dependencies:
+      '@refraction-ui/analytics':
+        specifier: workspace:*
+        version: link:../analytics
+    devDependencies:
+      '@types/node':
+        specifier: 22.0.0
+        version: 22.0.0
+
   packages/analytics-sink-app-insights:
     dependencies:
       '@microsoft/applicationinsights-web':
