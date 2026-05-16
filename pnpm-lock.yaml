@@ -300,6 +300,15 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/analytics-sink-ga4:
+    dependencies:
+      '@refraction-ui/analytics':
+        specifier: workspace:*
+        version: link:../analytics
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/angular-accordion:
     dependencies:
       '@angular/core':
