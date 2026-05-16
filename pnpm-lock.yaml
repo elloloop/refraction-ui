@@ -465,6 +465,28 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/angular-logger:
+    dependencies:
+      '@refraction-ui/logger':
+        specifier: workspace:*
+        version: link:../logger
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/common':
+        specifier: 19.2.20
+        version: 19.2.20(@angular/core@19.2.20(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.15.1)
+      rxjs:
+        specifier: 7.8.2
+        version: 7.8.2
+      zone.js:
+        specifier: 0.15.1
+        version: 0.15.1
+
   packages/angular-meta:
     dependencies:
       '@angular/core':
