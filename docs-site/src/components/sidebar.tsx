@@ -91,6 +91,12 @@ const componentGroups = [
     ],
   },
   {
+    title: 'Telemetry',
+    items: [
+      { name: 'Logger', href: '/components/logger' },
+    ],
+  },
+  {
     title: 'Other',
     items: [
       { name: 'Install Prompt', href: '/components/install-prompt' },

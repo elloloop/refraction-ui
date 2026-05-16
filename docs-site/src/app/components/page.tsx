@@ -65,13 +65,16 @@ const components = [
   { name: 'Keyboard Shortcut', href: '/components/keyboard-shortcut', description: 'Keyboard shortcut badge display and key listener.', category: 'Workplace' },
   { name: 'Rich Editor', href: '/components/rich-editor', description: 'Rich text editor (coming soon).', category: 'Workplace' },
 
+  // Telemetry
+  { name: 'Logger', href: '/components/logger', description: 'Headless Faro-backed telemetry: createTelemetry, child loggers, async spans, React provider/hooks.', category: 'Telemetry' },
+
   // Other
   { name: 'Install Prompt', href: '/components/install-prompt', description: 'PWA install banner with install and dismiss actions.', category: 'Other' },
   { name: 'Content Protection', href: '/components/content-protection', description: 'Watermark overlay and copy/right-click protection.', category: 'Other' },
   { name: 'Device Frame', href: '/components/device-frame', description: 'iPhone, iPad, and device mockup frames for screenshots.', category: 'Other' },
 ]
 
-const categories = ['All', 'Core UI', 'Layout', 'Data', 'Forms', 'Media', 'AI', 'Workplace', 'Other']
+const categories = ['All', 'Core UI', 'Layout', 'Data', 'Forms', 'Media', 'AI', 'Workplace', 'Telemetry', 'Other']
 
 const categoryColors: Record<string, string> = {
   'Core UI': 'bg-primary/10 text-primary ring-primary/20',
