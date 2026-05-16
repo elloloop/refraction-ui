@@ -313,6 +313,22 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/angular-analytics:
+    dependencies:
+      '@refraction-ui/analytics':
+        specifier: workspace:*
+        version: link:../analytics
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@angular/core':
+        specifier: 19.2.20
+        version: 19.2.20(rxjs@7.8.2)(zone.js@0.15.1)
+      rxjs:
+        specifier: 7.8.2
+        version: 7.8.2
+
   packages/angular-avatar:
     dependencies:
       '@angular/common':
