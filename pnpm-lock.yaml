@@ -282,6 +282,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/analytics:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/angular-accordion:
     dependencies:
       '@angular/core':
