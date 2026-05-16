@@ -1,0 +1,53 @@
+{
+  "name": "@refraction-ui/logger",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage --passWithNoTests",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "@grafana/faro-web-sdk": ">=1",
+    "@grafana/faro-web-tracing": ">=1"
+  },
+  "peerDependenciesMeta": {
+    "@grafana/faro-web-sdk": {
+      "optional": true
+    },
+    "@grafana/faro-web-tracing": {
+      "optional": true
+    }
+  },
+  "devDependencies": {},
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elloloop/refraction-ui.git",
+    "directory": "packages/logger"
+  },
+  "homepage": "https://elloloop.github.io/refraction-ui/"
+}
