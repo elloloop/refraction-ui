@@ -1,0 +1,130 @@
+---
+/**
+ * AnalyticsScript — injects a <script> that initializes the analytics
+ * router on the page. Exposes `window.__rfr_analytics` so other scripts
+ * can call track / identify / page / screen / group / alias.
+ *
+ * Props mirror the consumer-facing slice of `AnalyticsConfig` from
+ * `@refraction-ui/analytics`. The app instruments once and never names a
+ * vendor — `endpoint` points at your server relay (recommended prod
+ * topology: client → your endpoint → server-side fan-out), so the browser
+ * ships only our neutral router and stays ad-blocker-proof.
+ *
+ * Because inline scripts cannot import ES modules, this island stashes the
+ * config and a deferred `init(createAnalytics, sinks)` helper. The consumer
+ * calls it from their own module script with the real core:
+ *
+ * ```astro
+ * ---
+ * import { AnalyticsScript } from '@refraction-ui/astro-analytics'
+ * ---
+ * <AnalyticsScript app="my-app" env="production" endpoint="/relay" />
+ * <script>
+ *   import { createAnalytics } from '@refraction-ui/analytics'
+ *   window.__rfr_analytics.init(createAnalytics)
+ * </script>
+ * ```
+ */
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Product/app identifier (stamped into context.app). */
+  app: string
+  /** Environment, e.g. 'development' | 'production'. Drives presets. */
+  env: string
+  /** Server-relay endpoint; an HTTP sink auto-registers here. */
+  endpoint?: string
+  /** Write key for the auto-registered HTTP sink. */
+  writeKey?: string
+  /** Kill switch — when false, a tree-shakeable noop is returned. */
+  enabled?: boolean
+  /** 0..1 sampling rate applied per top-level call. */
+  sampleRate?: number
+  /** Extra property/trait keys to redact (in addition to PII deny-list). */
+  redactKeys?: string[]
+  /** Force a preset (defaults from env). */
+  preset?: 'dev' | 'prod'
+}
+
+const {
+  app,
+  env,
+  endpoint,
+  writeKey,
+  enabled,
+  sampleRate,
+  redactKeys,
+  preset,
+  ...props
+} = Astro.props
+
+const configJSON = JSON.stringify({
+  app,
+  env,
+  endpoint,
+  writeKey,
+  enabled,
+  sampleRate,
+  redactKeys,
+  preset,
+})
+---
+
+<script
+  data-rfr-analytics-config={configJSON}
+  {...props}
+  is:inline
+>
+  ;(function () {
+    // Only initialize once
+    if (window.__rfr_analytics) return
+
+    // We cannot import ES modules from an inline script, so we stash the
+    // config and let the consumer call init() from their own module script.
+    var configEl = document.querySelector('[data-rfr-analytics-config]')
+    var config = {}
+    if (configEl) {
+      try { config = JSON.parse(configEl.getAttribute('data-rfr-analytics-config') || '{}') } catch (_) { /* */ }
+    }
+
+    function notReady() {
+      throw new Error('Analytics not initialized. Call window.__rfr_analytics.init(createAnalytics, sinks) first.')
+    }
+
+    // Placeholder that will be replaced once createAnalytics is called
+    window.__rfr_analytics = {
+      _config: config,
+      _api: null,
+      _ready: false,
+      init: function (createAnalytics, sinks) {
+        var api = createAnalytics(
+          sinks && sinks.length
+            ? Object.assign({}, config, { sinks: sinks })
+            : config
+        )
+        window.__rfr_analytics._api = api
+        window.__rfr_analytics._ready = true
+        window.__rfr_analytics.track = api.track.bind(api)
+        window.__rfr_analytics.identify = api.identify.bind(api)
+        window.__rfr_analytics.page = api.page.bind(api)
+        window.__rfr_analytics.screen = api.screen.bind(api)
+        window.__rfr_analytics.group = api.group.bind(api)
+        window.__rfr_analytics.alias = api.alias.bind(api)
+        window.__rfr_analytics.flush = api.flush.bind(api)
+        window.__rfr_analytics.reset = api.reset.bind(api)
+        window.__rfr_analytics.session = api.session
+        window.__rfr_analytics.consent = api.consent
+        return api
+      },
+      track: notReady,
+      identify: notReady,
+      page: notReady,
+      screen: notReady,
+      group: notReady,
+      alias: notReady,
+      flush: notReady,
+      reset: notReady,
+      session: null,
+      consent: null,
+    }
+  })()
+</script>
