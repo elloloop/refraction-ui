@@ -67,3 +67,14 @@ export 'src/components/breadcrumbs.dart';
 export 'src/components/footer.dart';
 export 'src/components/skeleton.dart';
 export 'src/telemetry/telemetry.dart';
+
+// Analytics — headless Segment-spec collector/router (1:1 port of
+// @refraction-ui/analytics). Uniform API/structure across web/Android/iOS/
+// desktop; platform differences are internal behind conditional imports.
+//
+// `createConsoleSink` is hidden here because it collides with the telemetry
+// module's flat-barrel `createConsoleSink` (telemetry owns the flat barrel,
+// unchanged). The full analytics surface — including its `createConsoleSink`
+// — is available with no parity loss via the namespaced entrypoint
+// `package:refraction_ui/analytics.dart`.
+export 'src/analytics/analytics.dart' hide createConsoleSink;
