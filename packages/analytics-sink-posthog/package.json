@@ -1,6 +1,5 @@
 {
   "name": "@refraction-ui/analytics-sink-posthog",
-  "private": true,
   "version": "0.2.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -51,5 +50,8 @@
     "url": "https://github.com/elloloop/refraction-ui.git",
     "directory": "packages/analytics-sink-posthog"
   },
-  "homepage": "https://elloloop.github.io/refraction-ui/"
+  "homepage": "https://elloloop.github.io/refraction-ui/",
+  "publishConfig": {
+    "access": "public"
+  }
 }
