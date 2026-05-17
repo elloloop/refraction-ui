@@ -351,15 +351,6 @@ importers:
       '@refraction-ui/analytics':
         specifier: workspace:*
         version: link:../analytics
-      '@refraction-ui/analytics-sink-app-insights':
-        specifier: workspace:*
-        version: link:../analytics-sink-app-insights
-      '@refraction-ui/analytics-sink-ga4':
-        specifier: workspace:*
-        version: link:../analytics-sink-ga4
-      '@refraction-ui/analytics-sink-posthog':
-        specifier: workspace:*
-        version: link:../analytics-sink-posthog
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -888,15 +879,6 @@ importers:
       '@refraction-ui/analytics':
         specifier: workspace:*
         version: link:../analytics
-      '@refraction-ui/analytics-sink-app-insights':
-        specifier: workspace:*
-        version: link:../analytics-sink-app-insights
-      '@refraction-ui/analytics-sink-ga4':
-        specifier: workspace:*
-        version: link:../analytics-sink-ga4
-      '@refraction-ui/analytics-sink-posthog':
-        specifier: workspace:*
-        version: link:../analytics-sink-posthog
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -2455,15 +2437,6 @@ importers:
       '@refraction-ui/analytics':
         specifier: workspace:*
         version: link:../analytics
-      '@refraction-ui/analytics-sink-app-insights':
-        specifier: workspace:*
-        version: link:../analytics-sink-app-insights
-      '@refraction-ui/analytics-sink-ga4':
-        specifier: workspace:*
-        version: link:../analytics-sink-ga4
-      '@refraction-ui/analytics-sink-posthog':
-        specifier: workspace:*
-        version: link:../analytics-sink-posthog
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
