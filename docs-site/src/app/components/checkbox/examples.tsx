@@ -19,23 +19,23 @@ export function CheckboxExamples({ section }: CheckboxExamplesProps) {
         <div className="flex flex-wrap items-center gap-8">
           <div className="flex flex-col items-center gap-2.5">
             <Checkbox checked={checked1} onCheckedChange={setChecked1} />
-            <span className="text-xs text-muted-foreground font-medium">Unchecked</span>
+            <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">Unchecked</span>
           </div>
           <div className="flex flex-col items-center gap-2.5">
             <Checkbox checked={checked2} onCheckedChange={setChecked2} />
-            <span className="text-xs text-muted-foreground font-medium">Checked</span>
+            <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">Checked</span>
           </div>
           <div className="flex flex-col items-center gap-2.5">
             <Checkbox checked={checked3} onCheckedChange={setChecked3} />
-            <span className="text-xs text-muted-foreground font-medium">Indeterminate</span>
+            <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">Indeterminate</span>
           </div>
           <div className="flex flex-col items-center gap-2.5">
             <Checkbox disabled checked={false} />
-            <span className="text-xs text-muted-foreground font-medium">Disabled</span>
+            <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">Disabled</span>
           </div>
           <div className="flex flex-col items-center gap-2.5">
             <Checkbox disabled checked={true} />
-            <span className="text-xs text-muted-foreground font-medium">Disabled Checked</span>
+            <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">Disabled Checked</span>
           </div>
         </div>
       </div>
@@ -48,15 +48,15 @@ export function CheckboxExamples({ section }: CheckboxExamplesProps) {
         <div className="flex flex-wrap items-center gap-8">
           <div className="flex flex-col items-center gap-2.5">
             <Checkbox size="sm" checked={true} onCheckedChange={() => {}} />
-            <span className="text-xs text-muted-foreground font-medium">Small</span>
+            <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">Small</span>
           </div>
           <div className="flex flex-col items-center gap-2.5">
             <Checkbox size="default" checked={true} onCheckedChange={() => {}} />
-            <span className="text-xs text-muted-foreground font-medium">Default</span>
+            <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">Default</span>
           </div>
           <div className="flex flex-col items-center gap-2.5">
             <Checkbox size="lg" checked={true} onCheckedChange={() => {}} />
-            <span className="text-xs text-muted-foreground font-medium">Large</span>
+            <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">Large</span>
           </div>
         </div>
       </div>
