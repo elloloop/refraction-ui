@@ -1,5 +1,11 @@
 # @refraction-ui/angular-checkbox
 
+## 0.1.6
+
+### Patch Changes
+
+- @refraction-ui/checkbox@0.1.6
+
 ## 0.1.5
 
 ### Patch Changes

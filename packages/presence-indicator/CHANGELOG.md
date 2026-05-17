@@ -1,5 +1,13 @@
 # @refraction-ui/presence-indicator
 
+## 0.1.6
+
+### Patch Changes
+
+- Updated dependencies [cf1d82e]
+- Updated dependencies [bfeeb83]
+  - @refraction-ui/shared@0.2.0
+
 ## 0.1.5
 
 ### Patch Changes

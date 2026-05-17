@@ -1,5 +1,11 @@
 # @refraction-ui/angular-input
 
+## 0.1.5
+
+### Patch Changes
+
+- @refraction-ui/input@0.1.5
+
 ## 0.1.4
 
 ### Patch Changes

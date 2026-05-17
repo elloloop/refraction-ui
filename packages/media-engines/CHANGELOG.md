@@ -1,5 +1,16 @@
 # @refraction-ui/media-engines
 
+## 0.1.6
+
+### Patch Changes
+
+- 6507505: Dogfood `@refraction-ui/logger`: `media-engines` now backs its logger with the shared telemetry core (categories → scoped child loggers, `measurePerformance` → spans). Public types and behavior (`createLogger`, `createScopedLogger`, `LogLevel`, `LogCategory`, `LogEntry`, `getEntries`, `clear`) are unchanged.
+- Updated dependencies [cf1d82e]
+- Updated dependencies [bfeeb83]
+- Updated dependencies [bad2ac7]
+  - @refraction-ui/shared@0.2.0
+  - @refraction-ui/logger@0.2.0
+
 ## 0.1.5
 
 ### Patch Changes

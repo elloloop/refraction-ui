@@ -1,7 +1,7 @@
 {
   "name": "@refraction-ui/astro-payment",
   "private": true,
-  "version": "0.1.4",
+  "version": "0.1.5",
   "dependencies": {
     "@refraction-ui/payment": "workspace:*",
     "@refraction-ui/shared": "workspace:*"

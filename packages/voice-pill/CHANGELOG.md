@@ -1,5 +1,13 @@
 # @refraction-ui/voice-pill
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [cf1d82e]
+- Updated dependencies [bfeeb83]
+  - @refraction-ui/shared@0.2.0
+
 ## 0.2.1
 
 ### Patch Changes
