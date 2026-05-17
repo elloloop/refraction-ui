@@ -2,23 +2,21 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import { resetDevFeedback } from '@refraction-ui/shared'
-import { useTelemetry } from '../src/telemetry-provider.js'
+import { useTelemetry, useLogger } from '../src/telemetry-provider.js'
+import { useSpan } from '../src/use-span.js'
 
-// react-logger is a footgun (provider-context-throw): useTelemetry/useSpan
-// throw outside <TelemetryProvider>. Per docs/instrumentation/policy.md the
-// throw is KEPT and a dev-only warn-once devWarn is added immediately before
-// it. devWarn comes from @refraction-ui/shared, which has zero dependency on
-// the telemetry library (no hard-dep / no cycle).
+// react-logger hooks degrade gracefully: when called outside a
+// <TelemetryProvider> they DO NOT throw — they return a shared no-op
+// telemetry so instrumented components/hooks render fine without a provider
+// (tests, standalone usage). A dev-only warn-once devWarn (from
+// @refraction-ui/shared, zero dependency on the telemetry lib) is emitted for
+// discoverability and is stripped in production.
 
-function renderHook(hook: () => unknown): void {
-  function Probe() {
-    hook()
-    return null
-  }
-  renderToString(React.createElement(Probe))
+function render(el: React.ReactElement): void {
+  renderToString(el)
 }
 
-describe('react-logger devWarn footgun (useTelemetry outside provider)', () => {
+describe('react-logger hooks outside <TelemetryProvider> (no-op, no throw)', () => {
   const originalEnv = process.env.NODE_ENV
   let warnSpy: ReturnType<typeof vi.spyOn>
 
@@ -33,22 +31,47 @@ describe('react-logger devWarn footgun (useTelemetry outside provider)', () => {
     resetDevFeedback()
   })
 
-  it('warns once in dev AND still throws', () => {
+  it('useTelemetry: no throw in dev, warns once, returns a usable no-op', () => {
     process.env.NODE_ENV = 'development'
-    expect(() => renderHook(useTelemetry)).toThrow(
-      'useTelemetry must be used within a <TelemetryProvider>',
-    )
+    let t: ReturnType<typeof useTelemetry> | undefined
+    function Probe() {
+      t = useTelemetry()
+      return null
+    }
+    expect(() => render(React.createElement(Probe))).not.toThrow()
     expect(warnSpy).toHaveBeenCalledTimes(1)
     expect(warnSpy.mock.calls[0]?.[0]).toContain(
       'react-logger/use-telemetry-outside-provider',
     )
+    // The returned telemetry is a working no-op (no throw on use).
+    expect(t).toBeTruthy()
+    expect(() => {
+      t!.info('noop')
+      const child = t!.child({ k: 'v' })
+      child.warn('noop')
+      const span = t!.startSpan('s')
+      span.end()
+    }).not.toThrow()
   })
 
-  it('does NOT warn in production but still throws', () => {
+  it('useTelemetry: no warn in production, still no-op (no throw)', () => {
     process.env.NODE_ENV = 'production'
-    expect(() => renderHook(useTelemetry)).toThrow(
-      'useTelemetry must be used within a <TelemetryProvider>',
-    )
+    function Probe() {
+      useTelemetry()
+      return null
+    }
+    expect(() => render(React.createElement(Probe))).not.toThrow()
     expect(warnSpy).not.toHaveBeenCalled()
+  })
+
+  it('useLogger and useSpan also no-op outside provider (no throw)', () => {
+    process.env.NODE_ENV = 'production'
+    function Probe() {
+      const log = useLogger({ a: 1 })
+      useSpan()
+      log.info('noop')
+      return null
+    }
+    expect(() => render(React.createElement(Probe))).not.toThrow()
   })
 })

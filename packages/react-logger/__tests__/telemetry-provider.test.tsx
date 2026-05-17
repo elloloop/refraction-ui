@@ -104,10 +104,10 @@ describe('useTelemetry (SSR)', () => {
     expect(html).toContain('console')
   })
 
-  it('throws when used outside TelemetryProvider', () => {
+  it('no-ops (no throw) when used outside TelemetryProvider', () => {
     expect(() => {
       renderToString(React.createElement(TestConsumer))
-    }).toThrow(/useTelemetry.*TelemetryProvider/i)
+    }).not.toThrow()
   })
 })
 
@@ -153,9 +153,9 @@ describe('useLogger (SSR)', () => {
     expect(html).toContain('data-is-root="false"')
   })
 
-  it('throws when used outside TelemetryProvider', () => {
+  it('no-ops (no throw) when used outside TelemetryProvider', () => {
     expect(() => {
       renderToString(React.createElement(ScopedConsumer))
-    }).toThrow(/useTelemetry.*TelemetryProvider/i)
+    }).not.toThrow()
   })
 })

@@ -229,7 +229,7 @@
       "framework": "react",
       "tier": "footgun",
       "footgunKind": "silent-default-context",
-      "rationale": "Sub-charts read ChartContext default (zero dimensions) when used outside <Chart> \u2014 silent misuse, no throw",
+      "rationale": "Sub-charts read ChartContext default (zero dimensions) when used outside <Chart> — silent misuse, no throw",
       "loc": 568,
       "files": [
         "gradient.tsx",
@@ -579,8 +579,8 @@
       "package": "react-logger",
       "framework": "react",
       "tier": "footgun",
-      "footgunKind": "provider-context-throw",
-      "rationale": "useTelemetry/useSpan throw outside <TelemetryProvider> (instrumentation infra itself)",
+      "footgunKind": "provider-context-noop",
+      "rationale": "useTelemetry/useLogger/useSpan no-op (createNoopTelemetry) outside <TelemetryProvider> — instrumentation must not crash the host; devWarn only",
       "loc": 256,
       "files": [
         "error-boundary.tsx",
@@ -764,7 +764,7 @@
       "framework": "react",
       "tier": "footgun",
       "footgunKind": "silent-default-context",
-      "rationale": "Select parts read SelectContext default when used outside <Select> \u2014 silent misuse, no throw",
+      "rationale": "Select parts read SelectContext default when used outside <Select> — silent misuse, no throw",
       "loc": 311,
       "files": [
         "index.ts",
@@ -983,7 +983,7 @@
       "framework": "react",
       "tier": "async-heavy",
       "asyncKind": "voice",
-      "rationale": "Voice/speaker activity pill \u2014 voice-session surface; intensity/mute lifecycle",
+      "rationale": "Voice/speaker activity pill — voice-session surface; intensity/mute lifecycle",
       "loc": 189,
       "files": [
         "index.ts",
