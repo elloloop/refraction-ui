@@ -57,6 +57,7 @@ export type {
   LibraryFramework,
   LibraryOriginErrorInput,
   LibraryOriginEnvelope,
+  LibraryOriginIdentity,
 } from './library-origin-error.js'
 
 // Functions
@@ -79,4 +80,6 @@ export {
   libraryOriginError,
   libraryOriginEnvelope,
   stackFingerprint,
+  isLibraryOriginError,
+  captureLibraryOriginError,
 } from './library-origin-error.js'
