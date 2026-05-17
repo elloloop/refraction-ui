@@ -6,7 +6,7 @@ import {
   dialogContentVariants,
   type DialogProps as CoreDialogProps,
 } from '@refraction-ui/dialog'
-import { cn, createKeyboardHandler } from '@refraction-ui/shared'
+import { cn, createKeyboardHandler, devWarn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context
@@ -26,6 +26,10 @@ const DialogContext = React.createContext<DialogContextValue | null>(null)
 function useDialogContext(): DialogContextValue {
   const ctx = React.useContext(DialogContext)
   if (!ctx) {
+    devWarn(
+      'react-dialog/context-outside-provider',
+      'Dialog compound components (DialogTrigger/DialogContent/DialogTitle/etc.) must be rendered inside a <Dialog>. The missing DialogContext makes this throw.',
+    )
     throw new Error('Dialog compound components must be used within <Dialog>')
   }
   return ctx

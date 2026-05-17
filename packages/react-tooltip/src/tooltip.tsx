@@ -6,7 +6,7 @@ import {
   type TooltipAPI,
 } from '@refraction-ui/tooltip'
 import type { Side } from '@refraction-ui/shared'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 /* ------------------------------------------------------------------ */
 /*  Context                                                            */
@@ -25,6 +25,10 @@ const TooltipContext = React.createContext<TooltipContextValue | null>(null)
 function useTooltipContext(): TooltipContextValue {
   const ctx = React.useContext(TooltipContext)
   if (!ctx) {
+    devWarn(
+      'react-tooltip/context-outside-provider',
+      'Tooltip compound components (TooltipTrigger/TooltipContent/etc.) must be rendered inside a <Tooltip>. The missing TooltipContext makes this throw.',
+    )
     throw new Error('Tooltip compound components must be used within <Tooltip>')
   }
   return ctx

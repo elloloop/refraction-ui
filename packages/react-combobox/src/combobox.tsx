@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { createPortal } from 'react-dom'
-import { cn, cva, generateId } from '@refraction-ui/shared'
+import { cn, cva, generateId, devWarn } from '@refraction-ui/shared'
 
 /* ─── Types ────────────────────────────────────────────────────── */
 
@@ -108,6 +108,10 @@ const ComboboxContext = React.createContext<ComboboxContextValue | null>(null)
 function useComboboxContext(): ComboboxContextValue {
   const ctx = React.useContext(ComboboxContext)
   if (!ctx) {
+    devWarn(
+      'react-combobox/context-outside-provider',
+      'Combobox compound components (ComboboxInput/ComboboxContent/ComboboxItem/etc.) must be rendered inside a <Combobox>. The missing ComboboxContext makes this throw.',
+    )
     throw new Error('Combobox compound components must be used within <Combobox>')
   }
   return ctx

@@ -4,7 +4,7 @@ import {
   collapsibleContentVariants,
   type CollapsibleProps as CoreCollapsibleProps,
 } from '@refraction-ui/collapsible'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context
@@ -22,6 +22,10 @@ const CollapsibleContext = React.createContext<CollapsibleContextValue | null>(n
 function useCollapsibleContext(): CollapsibleContextValue {
   const ctx = React.useContext(CollapsibleContext)
   if (!ctx) {
+    devWarn(
+      'react-collapsible/context-outside-provider',
+      'Collapsible compound components (CollapsibleTrigger/CollapsibleContent) must be rendered inside a <Collapsible>. The missing CollapsibleContext makes this throw.',
+    )
     throw new Error(
       'Collapsible compound components must be used within <Collapsible>',
     )
