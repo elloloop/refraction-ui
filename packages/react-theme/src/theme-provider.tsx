@@ -9,6 +9,7 @@ import {
   type ThemeConfig,
   type ThemeAPI,
 } from '@refraction-ui/theme'
+import { devWarn } from '@refraction-ui/shared'
 
 export interface ThemeContextValue {
   mode: ThemeMode
@@ -74,6 +75,10 @@ export function ThemeProvider({
 export function useTheme(): ThemeContextValue {
   const context = React.useContext(ThemeContext)
   if (!context) {
+    devWarn(
+      'react-theme/use-theme-outside-provider',
+      'useTheme() was called outside a <ThemeProvider>. Wrap your app (or the consuming subtree) in <ThemeProvider> so the theme context is available.',
+    )
     throw new Error('useTheme must be used within a <ThemeProvider>')
   }
   return context

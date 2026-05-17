@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { devWarn } from '@refraction-ui/shared'
 import {
   createAI,
   type AIConfig,
@@ -80,6 +81,10 @@ export function AIProvider({ children, providers: providerMap, ...config }: AIPr
 export function useAI(): AIContextValue {
   const ctx = React.useContext(AIContext)
   if (!ctx) {
+    devWarn(
+      'react-ai/use-ai-outside-provider',
+      'useAI() was called outside an <AIProvider>. Wrap your app (or the consuming subtree) in <AIProvider> so the AI context is available.',
+    )
     throw new Error('useAI must be used within an <AIProvider>')
   }
   return ctx

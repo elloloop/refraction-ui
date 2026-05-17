@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { devWarn } from '@refraction-ui/shared'
 import {
   createTTS,
   type TTSConfig,
@@ -78,6 +79,10 @@ export function TTSProvider({ children, providers: providerMap, ...config }: TTS
 export function useTTS(): TTSContextValue {
   const ctx = React.useContext(TTSContext)
   if (!ctx) {
+    devWarn(
+      'react-ai/use-tts-outside-provider',
+      'useTTS() was called outside a <TTSProvider>. Wrap your app (or the consuming subtree) in <TTSProvider> so the TTS context is available.',
+    )
     throw new Error('useTTS must be used within a <TTSProvider>')
   }
   return ctx

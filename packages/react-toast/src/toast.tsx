@@ -7,7 +7,7 @@ import {
   type ToastEntry,
   type ToastManagerAPI,
 } from '@refraction-ui/toast'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context
@@ -22,6 +22,10 @@ const ToastContext = React.createContext<ToastContextValue | null>(null)
 function useToastContext(): ToastContextValue {
   const ctx = React.useContext(ToastContext)
   if (!ctx) {
+    devWarn(
+      'react-toast/use-toast-outside-provider',
+      'useToast() was called outside a <ToastProvider>. Wrap your app (or the consuming subtree) in <ToastProvider> so the toast context is available.',
+    )
     throw new Error('useToast must be used within a <ToastProvider>')
   }
   return ctx

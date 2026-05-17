@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { devWarn } from '@refraction-ui/shared'
 import type {
   Analytics,
   AnalyticsContext as AnalyticsEventContext,
@@ -54,6 +55,10 @@ export interface UseAnalyticsOptions {
 export function useAnalytics(options?: UseAnalyticsOptions): Analytics {
   const ctx = React.useContext(AnalyticsContext)
   if (!ctx) {
+    devWarn(
+      'react-analytics/use-analytics-outside-provider',
+      'useAnalytics() was called outside an <AnalyticsProvider>. Wrap your app (or the consuming subtree) in <AnalyticsProvider> so the analytics context is available.',
+    )
     throw new Error('useAnalytics must be used within an <AnalyticsProvider>')
   }
   const scope = options?.scope

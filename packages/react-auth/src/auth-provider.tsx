@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { devWarn } from '@refraction-ui/shared'
 import {
   createAuth,
   type AuthState,
@@ -44,6 +45,10 @@ export function AuthProvider({ children, ...config }: AuthProviderProps) {
 
   if (!authRef.current) {
     if (!config.adapter && !config.testMode) {
+      devWarn(
+        'react-auth/missing-adapter',
+        '<AuthProvider> was rendered without a required `adapter` prop (and not in `testMode`). Pass an auth adapter so the provider can create an auth instance.',
+      )
       throw new Error('[refraction-ui/react-auth] You must provide an `adapter` to AuthProvider.')
     }
     authRef.current = createAuth(config.adapter, config)
@@ -84,6 +89,10 @@ export function AuthProvider({ children, ...config }: AuthProviderProps) {
 export function useAuth(): AuthContextValue {
   const ctx = React.useContext(AuthContext)
   if (!ctx) {
+    devWarn(
+      'react-auth/use-auth-outside-provider',
+      'useAuth() was called outside an <AuthProvider>. Wrap your app (or the consuming subtree) in <AuthProvider> so the auth context is available.',
+    )
     throw new Error('useAuth must be used within an <AuthProvider>')
   }
   return ctx

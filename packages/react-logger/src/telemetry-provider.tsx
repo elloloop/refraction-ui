@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { devWarn } from '@refraction-ui/shared'
 import {
   createTelemetry,
   type TelemetryConfig,
@@ -49,6 +50,10 @@ export function TelemetryProvider({ children, ...config }: TelemetryProviderProp
 export function useTelemetry(): Telemetry {
   const ctx = React.useContext(TelemetryContext)
   if (!ctx) {
+    devWarn(
+      'react-logger/use-telemetry-outside-provider',
+      'useTelemetry() (or useSpan(), which depends on it) was called outside a <TelemetryProvider>. Wrap your app (or the consuming subtree) in <TelemetryProvider> so the telemetry context is available.',
+    )
     throw new Error('useTelemetry must be used within a <TelemetryProvider>')
   }
   return ctx.telemetry
