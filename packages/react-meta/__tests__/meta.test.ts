@@ -164,4 +164,32 @@ describe('@refraction-ui/react (meta package)', () => {
     expect(declarationText).not.toMatch(/from ['"]@refraction-ui\//)
     expect(declarationText).not.toMatch(/import\(['"]@refraction-ui\//)
   })
+
+  // RSC regression guard. Every published JS entry re-exports React
+  // providers/hooks (createContext, useContext, …); without a leading
+  // `"use client"` directive, importing `@refraction-ui/react` from a
+  // Next.js App Router Server Component (e.g. a Provider in app/layout.tsx)
+  // fails `next build`. tsup strips both a source directive and an esbuild
+  // banner here (esbuild drops it when bundling; `treeshake` removes a
+  // banner expression) — scripts/ensure-use-client.mjs restores it
+  // post-build. This locks that in.
+  it.each([
+    'index.js',
+    'index.cjs',
+    'theme.js',
+    'theme.cjs',
+    'form.js',
+    'form.cjs',
+  ])('built entry %s starts with the RSC "use client" directive', (entry) => {
+    const code = readFileSync(join(testDir, '..', 'dist', entry), 'utf8')
+    // Must be the module's directive prologue: the very first statement,
+    // before any import/expression. Allow either quote style + optional ;.
+    expect(code).toMatch(/^﻿?\s*(['"])use client\1\s*;?/)
+    // Not double-prepended (post-build step must be idempotent). Checked at
+    // the prologue only — a "use client" string literal may legitimately
+    // appear elsewhere inside the ~1.5 MB bundled code.
+    expect(code).not.toMatch(
+      /^﻿?\s*(['"])use client\1\s*;?\s*(['"])use client\2\s*;?/,
+    )
+  })
 })

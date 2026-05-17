@@ -28,7 +28,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup && cp src/styles.css dist/styles.css && node ./scripts/embed-internal-types.mjs",
+    "build": "tsup && cp src/styles.css dist/styles.css && node ./scripts/embed-internal-types.mjs && node ./scripts/ensure-use-client.mjs",
     "dev": "tsup --watch",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
