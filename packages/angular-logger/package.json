@@ -47,7 +47,5 @@
     "directory": "packages/angular-logger"
   },
   "homepage": "https://elloloop.github.io/refraction-ui/",
-  "publishConfig": {
-    "access": "public"
-  }
+  "private": true
 }

@@ -37,7 +37,5 @@
     "directory": "packages/analytics"
   },
   "homepage": "https://elloloop.github.io/refraction-ui/",
-  "publishConfig": {
-    "access": "public"
-  }
+  "private": true
 }
