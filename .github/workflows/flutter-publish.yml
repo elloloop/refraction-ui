@@ -24,6 +24,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Dart pub.dev credentials
+        uses: dart-lang/setup-dart@v1
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2.16.0
         with:
@@ -61,4 +64,5 @@ jobs:
 
       - name: Publish to pub.dev
         working-directory: packages/flutter
+        timeout-minutes: 10
         run: dart pub publish --force
