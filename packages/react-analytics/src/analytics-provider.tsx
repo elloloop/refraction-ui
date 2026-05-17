@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { devWarn } from '@refraction-ui/shared'
+import { createNoopAnalytics } from '@refraction-ui/analytics'
 import type {
   Analytics,
   AnalyticsContext as AnalyticsEventContext,
@@ -8,6 +9,18 @@ import type {
 } from '@refraction-ui/analytics'
 
 const AnalyticsContext = React.createContext<Analytics | null>(null)
+
+/**
+ * Shared no-op Analytics used when a hook is called outside an
+ * <AnalyticsProvider>. Lazily created once and reused so the reference stays
+ * stable. The hooks degrade gracefully (silent no-op) instead of throwing —
+ * components instrumented with useAnalytics/useTrackEvent render fine without
+ * a provider (tests, standalone); analytics activates when one is mounted.
+ */
+let noopAnalytics: Analytics | null = null
+function getNoopAnalytics(): Analytics {
+  return (noopAnalytics ??= createNoopAnalytics())
+}
 
 export interface AnalyticsProviderProps {
   children: React.ReactNode
@@ -50,21 +63,25 @@ export interface UseAnalyticsOptions {
  * useAnalytics — access the `Analytics` instance from context.
  *
  * Pass `{ scope }` to receive a `with(...)` child whose context is merged
- * into every event. Must be used within an `<AnalyticsProvider>`.
+ * into every event. If called outside an `<AnalyticsProvider>` it does NOT
+ * throw: it returns a shared no-op `Analytics` (a dev-only warn-once hint is
+ * emitted). Instrumenting a component with analytics must never crash the
+ * host (incl. in tests).
  */
 export function useAnalytics(options?: UseAnalyticsOptions): Analytics {
   const ctx = React.useContext(AnalyticsContext)
-  if (!ctx) {
+  let base = ctx
+  if (!base) {
     devWarn(
       'react-analytics/use-analytics-outside-provider',
-      'useAnalytics() was called outside an <AnalyticsProvider>. Wrap your app (or the consuming subtree) in <AnalyticsProvider> so the analytics context is available.',
+      'useAnalytics() (or useTrackEvent()) was called outside an <AnalyticsProvider>. Analytics is a no-op here; wrap your app (or the consuming subtree) in <AnalyticsProvider> to enable it.',
     )
-    throw new Error('useAnalytics must be used within an <AnalyticsProvider>')
+    base = getNoopAnalytics()
   }
   const scope = options?.scope
   return React.useMemo<Analytics>(
-    () => (scope ? ctx.with(scope) : ctx),
-    [ctx, scope],
+    () => (scope ? base.with(scope) : base),
+    [base, scope],
   )
 }
 

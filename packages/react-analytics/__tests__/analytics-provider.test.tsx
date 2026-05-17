@@ -98,14 +98,14 @@ describe('useAnalytics (SSR)', () => {
     expect(typeof (scoped as { track: unknown }).track).toBe('function')
   })
 
-  it('throws when used outside AnalyticsProvider', () => {
+  it('no-ops (no throw) when used outside AnalyticsProvider', () => {
     function TestConsumer() {
       useAnalytics()
-      return React.createElement('span', null, 'never')
+      return React.createElement('span', null, 'ok')
     }
     expect(() => {
       renderToString(React.createElement(TestConsumer))
-    }).toThrow(/useAnalytics.*AnalyticsProvider/i)
+    }).not.toThrow()
   })
 })
 

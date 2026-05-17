@@ -66,12 +66,14 @@ Treatment:
 - **Keep the existing `throw`.** `devWarn` augments, never replaces, the
   thrown error. For silent-default contexts, `devWarn` is the *only* signal —
   do not introduce a throw (would be a breaking change).
-- **Exception — `@refraction-ui/react-logger` (telemetry instrumentation
-  itself):** its hooks (`useTelemetry`/`useLogger`/`useSpan`) **must NOT
-  throw** outside `<TelemetryProvider>` — they return a shared
-  `createNoopTelemetry()` and emit only the `devWarn`. Rationale: adding
-  logging to a component must never crash the host (incl. in tests) — that
-  would defeat the purpose of instrumentation. Do not re-introduce the throw.
+- **Exception — instrumentation packages (`@refraction-ui/react-logger` and
+  `@refraction-ui/react-analytics`):** their hooks (`useTelemetry`/
+  `useLogger`/`useSpan`; `useAnalytics`/`useTrackEvent`) **must NOT throw**
+  outside their provider — they return a shared `createNoopTelemetry()` /
+  `createNoopAnalytics()` and emit only the `devWarn`. Rationale: adding
+  logging or analytics to a component must never crash the host (incl. in
+  tests) — that would defeat the purpose of instrumentation. Do not
+  re-introduce the throw for these.
 - `devWarn` is warn-once per message, env-guarded (`process.env.NODE_ENV !==
   'production'` / `import.meta.env.DEV`), and **must not import the telemetry
   library**. If a consumer wired the diagnostics sink (#247 W1), the error
