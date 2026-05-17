@@ -1,5 +1,11 @@
 # @refraction-ui/react
 
+## 0.6.0
+
+### Minor Changes
+
+- f31e058: feat: surface telemetry (logger) and analytics adapters through the per-framework meta packages
+
 ## 0.5.0
 
 ### Minor Changes
