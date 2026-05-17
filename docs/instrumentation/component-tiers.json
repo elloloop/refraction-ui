@@ -1,0 +1,1006 @@
+{
+  "$schema": "https://refraction-ui.dev/schemas/component-tiers-v1.json",
+  "version": 1,
+  "generatedFor": {
+    "epic": 254,
+    "wave0Issue": 255,
+    "primitiveEpic": 247
+  },
+  "policy": "docs/instrumentation/policy.md",
+  "lintSpec": "docs/instrumentation/eslint-rule-spec.md",
+  "tiers": {
+    "footgun": "Requires provider/context, has mutually-exclusive props, deprecations, or throwing/silent misuse paths. -> dev-only devWarn (warn-once, env-guarded) on the misuse seam. Existing throws are KEPT.",
+    "async-heavy": "AI / meeting / media / voice / video / realtime. -> optional telemetry spans + error-seam routing (only when a consumer wires a sink). No-op otherwise.",
+    "skip": "Pure presentational (thin wrapper over headless core). No instrumentation. Blanket logging is explicitly forbidden."
+  },
+  "rolloutScope": "React-first: react-* packages prioritized for Waves 1-3. Angular/Astro/Flutter mirror later under the same policy.",
+  "summary": {
+    "reactPackagesTotal": 84,
+    "footgun": 27,
+    "asyncHeavy": 4,
+    "skip": 53,
+    "dualTier": [
+      "react-ai"
+    ]
+  },
+  "components": [
+    {
+      "package": "react-accordion",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "AccordionItem throws if used outside <Accordion>",
+      "loc": 148,
+      "files": [
+        "accordion.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-ai",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "provider-context-throw",
+      "rationale": "useAI/useTTS throw outside <AIProvider>/<TTSProvider>",
+      "loc": 189,
+      "files": [
+        "tts-provider.tsx",
+        "ai-provider.tsx",
+        "index.ts"
+      ],
+      "secondaryTier": "async-heavy",
+      "asyncKind": "ai",
+      "secondaryRationale": "AIProvider.generateText/generateJSON + TTS are async LLM/network calls (dual-tier: devWarn for provider misuse + telemetry on async paths)"
+    },
+    {
+      "package": "react-analytics",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "provider-context-throw",
+      "rationale": "useAnalytics throws outside <AnalyticsProvider>",
+      "loc": 108,
+      "files": [
+        "analytics-provider.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-animated-text",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 158,
+      "files": [
+        "index.ts",
+        "animated-text.tsx"
+      ]
+    },
+    {
+      "package": "react-app-shell",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "AppShell/PageShell/AuthShell compound parts throw outside their root",
+      "loc": 676,
+      "files": [
+        "page-shell.tsx",
+        "auth-shell.tsx",
+        "index.ts",
+        "app-shell.tsx"
+      ]
+    },
+    {
+      "package": "react-auth",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "required-prop-throw + provider-context-throw",
+      "rationale": "AuthProvider throws without `adapter`; useAuth throws outside <AuthProvider>",
+      "loc": 163,
+      "files": [
+        "auth-guard.tsx",
+        "auth-provider.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-avatar",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 133,
+      "files": [
+        "avatar.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-avatar-group",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 76,
+      "files": [
+        "avatar-group.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-badge",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 50,
+      "files": [
+        "badge.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-bottom-nav",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 61,
+      "files": [
+        "bottom-nav.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-breadcrumbs",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 94,
+      "files": [
+        "breadcrumbs.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-button",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 121,
+      "files": [
+        "index.ts",
+        "button.tsx"
+      ]
+    },
+    {
+      "package": "react-calendar",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 225,
+      "files": [
+        "calendar.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-callout",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 93,
+      "files": [
+        "index.ts",
+        "callout.tsx"
+      ]
+    },
+    {
+      "package": "react-card",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 148,
+      "files": [
+        "card.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-card-grid",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 21,
+      "files": [
+        "card-grid.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-carousel",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "CarouselItem throws outside <Carousel>",
+      "loc": 148,
+      "files": [
+        "index.ts",
+        "carousel.tsx"
+      ]
+    },
+    {
+      "package": "react-charts",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "silent-default-context",
+      "rationale": "Sub-charts read ChartContext default (zero dimensions) when used outside <Chart> \u2014 silent misuse, no throw",
+      "loc": 568,
+      "files": [
+        "gradient.tsx",
+        "pie-chart.tsx",
+        "chart.tsx",
+        "circles.tsx",
+        "histogram.tsx",
+        "chart-context.ts",
+        "bars.tsx",
+        "index.ts",
+        "line.tsx",
+        "scatter-plot.tsx",
+        "y-axis.tsx",
+        "x-axis.tsx"
+      ]
+    },
+    {
+      "package": "react-checkbox",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 110,
+      "files": [
+        "index.ts",
+        "checkbox.tsx"
+      ]
+    },
+    {
+      "package": "react-code-block",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 58,
+      "files": [
+        "code-block.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-code-editor",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 97,
+      "files": [
+        "index.ts",
+        "CodeEditor.tsx"
+      ]
+    },
+    {
+      "package": "react-collapsible",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "Collapsible compound parts throw outside <Collapsible>",
+      "loc": 192,
+      "files": [
+        "index.ts",
+        "collapsible.tsx"
+      ]
+    },
+    {
+      "package": "react-combobox",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "Combobox compound parts throw outside <Combobox>",
+      "loc": 821,
+      "files": [
+        "combobox.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-command",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "Command compound parts throw outside <Command>",
+      "loc": 361,
+      "files": [
+        "command.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-command-input",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 106,
+      "files": [
+        "command-input.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-content-protection",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 118,
+      "files": [
+        "index.ts",
+        "content-protection.tsx"
+      ]
+    },
+    {
+      "package": "react-data-table",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 204,
+      "files": [
+        "DataTable.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-date-picker",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 258,
+      "files": [
+        "date-picker.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-device-frame",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 85,
+      "files": [
+        "device-frame.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-dialog",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "Dialog compound parts throw outside <Dialog>",
+      "loc": 484,
+      "files": [
+        "radix-adapter.tsx",
+        "dialog.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-diff-viewer",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 301,
+      "files": [
+        "DiffViewer.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-dropdown-menu",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "DropdownMenu compound parts throw outside <DropdownMenu>",
+      "loc": 277,
+      "files": [
+        "index.ts",
+        "dropdown-menu.tsx"
+      ]
+    },
+    {
+      "package": "react-emoji-picker",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 177,
+      "files": [
+        "index.ts",
+        "emoji-picker.tsx"
+      ]
+    },
+    {
+      "package": "react-feedback-dialog",
+      "framework": "react",
+      "tier": "async-heavy",
+      "asyncKind": "media",
+      "rationale": "Async onSubmit with network + try/catch failure path",
+      "loc": 200,
+      "files": [
+        "FeedbackDialog.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-file-tree",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Stub/re-export only (no component logic). Nothing to instrument.",
+      "loc": 5,
+      "files": [
+        "react-file-tree.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-file-upload",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 234,
+      "files": [
+        "file-upload.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-footer",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 95,
+      "files": [
+        "footer.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-form",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "useFormField throws outside <FormField>/<FormItem>",
+      "loc": 414,
+      "files": [
+        "slot.tsx",
+        "index.ts",
+        "form.tsx"
+      ]
+    },
+    {
+      "package": "react-icon-system",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Stub/re-export only (no component logic). Nothing to instrument.",
+      "loc": 5,
+      "files": [
+        "react-icon-system.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-inline-editor",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 159,
+      "files": [
+        "index.ts",
+        "InlineEditor.tsx"
+      ]
+    },
+    {
+      "package": "react-input",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 71,
+      "files": [
+        "index.ts",
+        "input.tsx"
+      ]
+    },
+    {
+      "package": "react-input-group",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 131,
+      "files": [
+        "input-group.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-install-prompt",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 135,
+      "files": [
+        "index.ts",
+        "install-prompt.tsx"
+      ]
+    },
+    {
+      "package": "react-keyboard-shortcut",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 227,
+      "files": [
+        "index.ts",
+        "keyboard-shortcut.tsx"
+      ]
+    },
+    {
+      "package": "react-language-selector",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "LanguageSelector compound parts throw outside root",
+      "loc": 268,
+      "files": [
+        "language-selector.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-link-card",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 19,
+      "files": [
+        "link-card.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-location-selector",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 92,
+      "files": [
+        "location-selector.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-logger",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "provider-context-throw",
+      "rationale": "useTelemetry/useSpan throw outside <TelemetryProvider> (instrumentation infra itself)",
+      "loc": 256,
+      "files": [
+        "error-boundary.tsx",
+        "telemetry-provider.tsx",
+        "use-span.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-markdown-renderer",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 76,
+      "files": [
+        "MarkdownRenderer.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-meta",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 194,
+      "files": [
+        "form.ts",
+        "index.ts",
+        "theme.ts"
+      ]
+    },
+    {
+      "package": "react-mobile-nav",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "MobileNav compound parts throw outside <MobileNav>",
+      "loc": 224,
+      "files": [
+        "index.ts",
+        "mobile-nav.tsx"
+      ]
+    },
+    {
+      "package": "react-navbar",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 86,
+      "files": [
+        "navbar.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-otp-input",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 186,
+      "files": [
+        "otp-input.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-pagination",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 14,
+      "files": [
+        "pagination.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-payment",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 91,
+      "files": [
+        "payment.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-popover",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "Popover compound parts throw outside <Popover>",
+      "loc": 190,
+      "files": [
+        "popover.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-presence-indicator",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 53,
+      "files": [
+        "presence-indicator.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-progress-display",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 148,
+      "files": [
+        "progress-display.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-radio",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "RadioItem throws outside <RadioGroup>",
+      "loc": 113,
+      "files": [
+        "radio.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-reaction-bar",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 77,
+      "files": [
+        "reaction-bar.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-resizable-layout",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "Resizable compound parts throw outside <ResizableLayout>",
+      "loc": 261,
+      "files": [
+        "resizable-layout.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-rich-editor",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Stub/re-export only (no component logic). Nothing to instrument.",
+      "loc": 2,
+      "files": [
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-search-bar",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "SearchBar compound parts throw outside <SearchBar>",
+      "loc": 249,
+      "files": [
+        "search-bar.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-select",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "silent-default-context",
+      "rationale": "Select parts read SelectContext default when used outside <Select> \u2014 silent misuse, no throw",
+      "loc": 311,
+      "files": [
+        "index.ts",
+        "select.tsx"
+      ]
+    },
+    {
+      "package": "react-sheet",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "Sheet compound parts throw outside <Sheet>",
+      "loc": 474,
+      "files": [
+        "sheet.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-sidebar",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 94,
+      "files": [
+        "sidebar.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-skeleton",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 102,
+      "files": [
+        "index.ts",
+        "skeleton.tsx"
+      ]
+    },
+    {
+      "package": "react-skip-to-content",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 32,
+      "files": [
+        "skip-to-content.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-slide-viewer",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 174,
+      "files": [
+        "index.ts",
+        "SlideViewer.tsx"
+      ]
+    },
+    {
+      "package": "react-slider",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Stub/re-export only (no component logic). Nothing to instrument.",
+      "loc": 5,
+      "files": [
+        "slider.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-status-indicator",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 57,
+      "files": [
+        "status-indicator.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-steps",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 118,
+      "files": [
+        "steps.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-switch",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 71,
+      "files": [
+        "switch.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-table-of-contents",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 67,
+      "files": [
+        "index.ts",
+        "table-of-contents.tsx"
+      ]
+    },
+    {
+      "package": "react-tabs",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "Tabs compound parts throw outside <Tabs>",
+      "loc": 220,
+      "files": [
+        "tabs.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-textarea",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 56,
+      "files": [
+        "index.ts",
+        "textarea.tsx"
+      ]
+    },
+    {
+      "package": "react-theme",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "provider-context-throw",
+      "rationale": "useTheme throws outside <ThemeProvider>",
+      "loc": 221,
+      "files": [
+        "theme-provider.tsx",
+        "theme-script-component.tsx",
+        "index.ts",
+        "theme-toggle.tsx"
+      ]
+    },
+    {
+      "package": "react-thread-view",
+      "framework": "react",
+      "tier": "skip",
+      "rationale": "Pure presentational thin wrapper over headless core; no provider/context throw, no mutually-exclusive props, no async/media. devWarn would be noise.",
+      "loc": 171,
+      "files": [
+        "thread-view.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-toast",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "provider-context-throw",
+      "rationale": "useToast throws outside <ToastProvider>",
+      "loc": 197,
+      "files": [
+        "index.ts",
+        "toast.tsx"
+      ]
+    },
+    {
+      "package": "react-tooltip",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "Tooltip compound parts throw outside <Tooltip>",
+      "loc": 211,
+      "files": [
+        "tooltip.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-version-selector",
+      "framework": "react",
+      "tier": "footgun",
+      "footgunKind": "compound-context-throw",
+      "rationale": "VersionSelector compound parts throw outside root",
+      "loc": 207,
+      "files": [
+        "version-selector.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-video-player",
+      "framework": "react",
+      "tier": "async-heavy",
+      "asyncKind": "video",
+      "rationale": "Video playback lifecycle: play/pause/seek/buffering via headless engine",
+      "loc": 139,
+      "files": [
+        "video-player.tsx",
+        "index.ts"
+      ]
+    },
+    {
+      "package": "react-voice-pill",
+      "framework": "react",
+      "tier": "async-heavy",
+      "asyncKind": "voice",
+      "rationale": "Voice/speaker activity pill \u2014 voice-session surface; intensity/mute lifecycle",
+      "loc": 189,
+      "files": [
+        "index.ts",
+        "voice-pill.tsx"
+      ]
+    },
+    {
+      "package": "react-waveform",
+      "framework": "react",
+      "tier": "async-heavy",
+      "asyncKind": "media",
+      "rationale": "Live AudioContext + MediaStream analysis + rAF render loop",
+      "loc": 400,
+      "files": [
+        "waveform.tsx",
+        "index.ts"
+      ]
+    }
+  ]
+}
