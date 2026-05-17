@@ -6,7 +6,7 @@ import {
   selectItemVariants,
   type SelectOption,
 } from '@refraction-ui/select'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 /* ─── Context ──────────────────────────────────────────────────── */
 interface SelectContextValue {
@@ -19,9 +19,19 @@ interface SelectContextValue {
   placeholder: string
   triggerId: string
   contentId: string
+  /**
+   * Internal marker: `true` only on the context *default* (i.e. no `<Select>`
+   * provider above this part). `<Select>` always supplies a value without
+   * this flag. Used purely to detect the silent-default footgun — never read
+   * for rendering.
+   *
+   * @internal
+   */
+  __isDefault?: boolean
 }
 
 const SelectContext = React.createContext<SelectContextValue>({
+  __isDefault: true,
   value: undefined,
   onValueChange: () => {},
   open: false,
@@ -32,6 +42,32 @@ const SelectContext = React.createContext<SelectContextValue>({
   triggerId: '',
   contentId: '',
 })
+
+/**
+ * Read the select context for a compound part (`SelectTrigger`,
+ * `SelectContent`, `SelectItem`).
+ *
+ * Footgun seam (epic #254 / #256, policy: `silent-default-context`): when a
+ * part is rendered without a `<Select>` ancestor it silently reads inert
+ * context defaults (no-op handlers, empty ids, never-open) and renders a dead
+ * control with no error. There is no throw today and adding one would be a
+ * breaking change, so per `docs/instrumentation/policy.md` a dev-only
+ * `devWarn` is the *only* signal. Stripped in production, warn-once.
+ *
+ * Behaviour is unchanged: the default context value is still returned.
+ */
+function useSelectContext(part: string): SelectContextValue {
+  const ctx = React.useContext(SelectContext)
+  if (ctx.__isDefault) {
+    devWarn(
+      'react-select/no-select-provider',
+      `<${part}> was rendered without a <Select> ancestor. It is silently ` +
+        'reading inert context defaults (clicks/keyboard do nothing, it never ' +
+        'opens). Wrap it in <Select>…</Select>.',
+    )
+  }
+  return ctx
+}
 
 /* ─── Select (root) ────────────────────────────────────────────── */
 export interface SelectProps {
@@ -85,7 +121,7 @@ export interface SelectTriggerProps extends React.ButtonHTMLAttributes<HTMLButto
 
 export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
   ({ className, children, size = 'default', ...props }, ref) => {
-    const { open, setOpen, disabled, triggerId, contentId } = React.useContext(SelectContext)
+    const { open, setOpen, disabled, triggerId, contentId } = useSelectContext('SelectTrigger')
 
     const api = createSelect({ disabled, open })
 
@@ -148,7 +184,7 @@ export interface SelectContentProps extends React.HTMLAttributes<HTMLDivElement>
 
 export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
   ({ className, children, ...props }, forwardedRef) => {
-    const { open, contentId, triggerId, setOpen } = React.useContext(SelectContext)
+    const { open, contentId, triggerId, setOpen } = useSelectContext('SelectContent')
     const containerRef = React.useRef<HTMLDivElement>(null)
 
     // Merge refs
@@ -228,7 +264,7 @@ export interface SelectItemProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
   ({ className, children, value: itemValue, disabled: itemDisabled = false, ...props }, ref) => {
-    const { value, onValueChange, setOpen, triggerId } = React.useContext(SelectContext)
+    const { value, onValueChange, setOpen, triggerId } = useSelectContext('SelectItem')
     const isSelected = value === itemValue
 
     const handleClick = () => {

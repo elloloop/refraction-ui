@@ -1,7 +1,6 @@
 import * as React from 'react'
-import { useContext } from 'react'
 import { createBandScale, createLinearScale, computeExtent } from '@refraction-ui/charts'
-import { ChartContext } from './chart-context.js'
+import { useChartContext } from './chart-context.js'
 
 export interface BarsProps<T = unknown> {
   data: T[]
@@ -11,7 +10,7 @@ export interface BarsProps<T = unknown> {
 }
 
 export function Bars<T>({ data, x, y, fill = 'currentColor' }: BarsProps<T>) {
-  const { dimensions } = useContext(ChartContext)
+  const { dimensions } = useChartContext()
   const { boundedWidth, boundedHeight } = dimensions
 
   const labels = data.map(x)
