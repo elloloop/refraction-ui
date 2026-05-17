@@ -14,7 +14,7 @@ A **headless, fully accessible, token-driven Flutter UI library**. The Flutter c
 
 ```yaml
 dependencies:
-  refraction_ui: ^0.1.0
+  refraction_ui: ^0.2.0
 ```
 
 ---
