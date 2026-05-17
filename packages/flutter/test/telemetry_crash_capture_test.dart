@@ -98,10 +98,7 @@ void main() {
       expect(mock.logs, hasLength(1));
       expect(mock.logs.single.level, LogLevel.fatal);
       expect(mock.logs.single.message, contains('died last launch'));
-      expect(
-        mock.logs.single.context['error.source'],
-        'crash-on-next-launch',
-      );
+      expect(mock.logs.single.context['error.source'], 'crash-on-next-launch');
       // Cleared so it is not re-sent on the run after.
       expect(store.read('telemetry.crash'), isNull);
 

@@ -11,7 +11,7 @@ class MyPrototypeApp extends StatelessWidget {
 
     // Edit this file to prototype your new responsive UI!
     // This is hot-reloaded automatically.
-    
+
     return Scaffold(
       backgroundColor: colors.background,
       appBar: RefractionNavbar(
@@ -58,12 +58,18 @@ class MyPrototypeApp extends StatelessWidget {
                         children: [
                           Text(
                             "You have full access to:",
-                            style: theme.textStyle.copyWith(fontWeight: FontWeight.w600),
+                            style: theme.textStyle.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                           const SizedBox(height: 12),
                           const Row(
                             children: [
-                              Icon(Icons.check_circle, size: 16, color: Colors.green),
+                              Icon(
+                                Icons.check_circle,
+                                size: 16,
+                                color: Colors.green,
+                              ),
                               SizedBox(width: 8),
                               Text("Colors (theme.colors.primary)"),
                             ],
@@ -71,7 +77,11 @@ class MyPrototypeApp extends StatelessWidget {
                           const SizedBox(height: 8),
                           const Row(
                             children: [
-                              Icon(Icons.check_circle, size: 16, color: Colors.green),
+                              Icon(
+                                Icons.check_circle,
+                                size: 16,
+                                color: Colors.green,
+                              ),
                               SizedBox(width: 8),
                               Text("Typography (theme.textStyle)"),
                             ],
@@ -79,7 +89,11 @@ class MyPrototypeApp extends StatelessWidget {
                           const SizedBox(height: 8),
                           const Row(
                             children: [
-                              Icon(Icons.check_circle, size: 16, color: Colors.green),
+                              Icon(
+                                Icons.check_circle,
+                                size: 16,
+                                color: Colors.green,
+                              ),
                               SizedBox(width: 8),
                               Text("Shadows & Gradients"),
                             ],

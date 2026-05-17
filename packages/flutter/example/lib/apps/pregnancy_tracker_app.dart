@@ -7,14 +7,20 @@ class _NavNotifier extends Notifier<int> {
   int build() => 0;
   void update(int val) => state = val;
 }
-final pregnancyTrackerNavProvider = NotifierProvider<_NavNotifier, int>(_NavNotifier.new);
+
+final pregnancyTrackerNavProvider = NotifierProvider<_NavNotifier, int>(
+  _NavNotifier.new,
+);
 
 class _PushNotifier extends Notifier<bool> {
   @override
   bool build() => true;
   void update(bool val) => state = val;
 }
-final pushNotificationsProvider = NotifierProvider<_PushNotifier, bool>(_PushNotifier.new);
+
+final pushNotificationsProvider = NotifierProvider<_PushNotifier, bool>(
+  _PushNotifier.new,
+);
 
 class PregnancyTrackerApp extends ConsumerWidget {
   const PregnancyTrackerApp({super.key});
@@ -132,7 +138,9 @@ class PregnancyTrackerApp extends ConsumerWidget {
             child: Column(
               children: [
                 const RefractionCardHeader(
-                  child: RefractionCardTitle("Baby is the size of a Cantaloupe!"),
+                  child: RefractionCardTitle(
+                    "Baby is the size of a Cantaloupe!",
+                  ),
                 ),
                 RefractionCardContent(
                   child: Column(
@@ -144,12 +152,14 @@ class PregnancyTrackerApp extends ConsumerWidget {
                           gradient: LinearGradient(
                             colors: [
                               colors.primary.withValues(alpha: 0.7),
-                              colors.primary
+                              colors.primary,
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
-                          borderRadius: BorderRadius.circular(theme.borderRadius),
+                          borderRadius: BorderRadius.circular(
+                            theme.borderRadius,
+                          ),
                           boxShadow: theme.heavyShadow,
                         ),
                         child: Icon(
@@ -200,8 +210,11 @@ class PregnancyTrackerApp extends ConsumerWidget {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          Icon(Icons.monitor_weight_outlined,
-                              size: 16, color: colors.primary),
+                          Icon(
+                            Icons.monitor_weight_outlined,
+                            size: 16,
+                            color: colors.primary,
+                          ),
                         ],
                       ),
                       const SizedBox(height: 12),
@@ -241,8 +254,11 @@ class PregnancyTrackerApp extends ConsumerWidget {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          const Icon(Icons.water_drop_outlined,
-                              size: 16, color: Colors.blue),
+                          const Icon(
+                            Icons.water_drop_outlined,
+                            size: 16,
+                            color: Colors.blue,
+                          ),
                         ],
                       ),
                       const SizedBox(height: 12),
@@ -272,7 +288,10 @@ class PregnancyTrackerApp extends ConsumerWidget {
     );
   }
 
-  Widget _buildTimelinePage(RefractionThemeData theme, RefractionColors colors) {
+  Widget _buildTimelinePage(
+    RefractionThemeData theme,
+    RefractionColors colors,
+  ) {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: 4,
@@ -343,7 +362,12 @@ class PregnancyTrackerApp extends ConsumerWidget {
     );
   }
 
-  Widget _buildProfilePage(BuildContext context, WidgetRef ref, RefractionThemeData theme, RefractionColors colors) {
+  Widget _buildProfilePage(
+    BuildContext context,
+    WidgetRef ref,
+    RefractionThemeData theme,
+    RefractionColors colors,
+  ) {
     final pushNotificationsEnabled = ref.watch(pushNotificationsProvider);
 
     return SingleChildScrollView(
@@ -378,12 +402,18 @@ class PregnancyTrackerApp extends ConsumerWidget {
                   theme,
                   "Push Notifications",
                   pushNotificationsEnabled,
-                  (val) => ref.read(pushNotificationsProvider.notifier).update(val),
+                  (val) =>
+                      ref.read(pushNotificationsProvider.notifier).update(val),
                 ),
                 const Divider(height: 1),
                 _buildSettingsRow(theme, "Weekly Emails", false, (val) {}),
                 const Divider(height: 1),
-                _buildSettingsRow(theme, "Share Data Anonymous Mode", true, (val) {}),
+                _buildSettingsRow(
+                  theme,
+                  "Share Data Anonymous Mode",
+                  true,
+                  (val) {},
+                ),
               ],
             ),
           ),
@@ -398,7 +428,12 @@ class PregnancyTrackerApp extends ConsumerWidget {
     );
   }
 
-  Widget _buildSettingsRow(RefractionThemeData theme, String title, bool value, ValueChanged<bool> onChanged) {
+  Widget _buildSettingsRow(
+    RefractionThemeData theme,
+    String title,
+    bool value,
+    ValueChanged<bool> onChanged,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Row(
@@ -411,11 +446,19 @@ class PregnancyTrackerApp extends ConsumerWidget {
     );
   }
 
-  Widget _buildNavItem(WidgetRef ref, RefractionThemeData theme, IconData icon, String label, int index) {
+  Widget _buildNavItem(
+    WidgetRef ref,
+    RefractionThemeData theme,
+    IconData icon,
+    String label,
+    int index,
+  ) {
     final currentIndex = ref.watch(pregnancyTrackerNavProvider);
     final isSelected = currentIndex == index;
-    final color = isSelected ? theme.colors.primary : theme.colors.mutedForeground;
-    
+    final color = isSelected
+        ? theme.colors.primary
+        : theme.colors.mutedForeground;
+
     return InkWell(
       onTap: () => ref.read(pregnancyTrackerNavProvider.notifier).update(index),
       child: Column(

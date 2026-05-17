@@ -7,14 +7,14 @@ void main() {
     return MaterialApp(
       home: RefractionTheme(
         data: RefractionThemeData.minimalLight(),
-        child: Scaffold(
-          body: child,
-        ),
+        child: Scaffold(body: child),
       ),
     );
   }
 
-  testWidgets('RefractionRadioGroup renders correctly and handles selection', (WidgetTester tester) async {
+  testWidgets('RefractionRadioGroup renders correctly and handles selection', (
+    WidgetTester tester,
+  ) async {
     String? selectedValue = 'item1';
 
     await tester.pumpWidget(
@@ -30,10 +30,14 @@ void main() {
               },
               items: const [
                 RefractionRadioItem(value: 'item1', label: 'Item 1'),
-                RefractionRadioItem(value: 'item2', label: 'Item 2', description: 'Desc 2'),
+                RefractionRadioItem(
+                  value: 'item2',
+                  label: 'Item 2',
+                  description: 'Desc 2',
+                ),
               ],
             );
-          }
+          },
         ),
       ),
     );

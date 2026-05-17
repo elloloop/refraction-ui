@@ -9,7 +9,8 @@ class AvatarPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PreviewCanvas(
       title: "Avatar",
-      description: "An image element with a fallback for representing the user.",
+      description:
+          "An image element with a fallback for representing the user.",
       child: Center(
         child: Wrap(
           spacing: 32,
@@ -30,9 +31,7 @@ class AvatarPage extends StatelessWidget {
               children: [
                 Text("Fallback"),
                 SizedBox(height: 16),
-                RefractionAvatar(
-                  fallbackText: 'JD',
-                ),
+                RefractionAvatar(fallbackText: 'JD'),
               ],
             ),
             const Column(
@@ -51,11 +50,26 @@ class AvatarPage extends StatelessWidget {
                 const SizedBox(height: 16),
                 RefractionAvatarGroup(
                   avatars: const [
-                    RefractionAvatar(imageUrl: 'https://i.pravatar.cc/150?img=2', fallbackText: 'A'),
-                    RefractionAvatar(imageUrl: 'https://i.pravatar.cc/150?img=3', fallbackText: 'B'),
-                    RefractionAvatar(imageUrl: 'https://i.pravatar.cc/150?img=4', fallbackText: 'C'),
-                    RefractionAvatar(imageUrl: 'https://i.pravatar.cc/150?img=5', fallbackText: 'D'),
-                    RefractionAvatar(imageUrl: 'https://i.pravatar.cc/150?img=6', fallbackText: 'E'),
+                    RefractionAvatar(
+                      imageUrl: 'https://i.pravatar.cc/150?img=2',
+                      fallbackText: 'A',
+                    ),
+                    RefractionAvatar(
+                      imageUrl: 'https://i.pravatar.cc/150?img=3',
+                      fallbackText: 'B',
+                    ),
+                    RefractionAvatar(
+                      imageUrl: 'https://i.pravatar.cc/150?img=4',
+                      fallbackText: 'C',
+                    ),
+                    RefractionAvatar(
+                      imageUrl: 'https://i.pravatar.cc/150?img=5',
+                      fallbackText: 'D',
+                    ),
+                    RefractionAvatar(
+                      imageUrl: 'https://i.pravatar.cc/150?img=6',
+                      fallbackText: 'E',
+                    ),
                   ],
                 ),
               ],

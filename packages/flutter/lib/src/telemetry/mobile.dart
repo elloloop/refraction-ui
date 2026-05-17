@@ -70,8 +70,7 @@ MobileTelemetry installMobileTelemetry(
     if (native.isNotEmpty) 'device': native.values,
     ...gate.trackingContext(),
   };
-  final enriched =
-      boundCtx.isEmpty ? base : base.child(boundCtx);
+  final enriched = boundCtx.isEmpty ? base : base.child(boundCtx);
 
   final guard = installCrashCapture(
     enriched,
@@ -80,9 +79,5 @@ MobileTelemetry installMobileTelemetry(
     now: now,
   );
 
-  return MobileTelemetry(
-    telemetry: enriched,
-    crashGuard: guard,
-    consent: gate,
-  );
+  return MobileTelemetry(telemetry: enriched, crashGuard: guard, consent: gate);
 }

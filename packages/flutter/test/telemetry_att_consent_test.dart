@@ -38,13 +38,15 @@ void main() {
       expect(c.trackingContext(), isEmpty);
     });
 
-    test('notApplicable (Android/web/desktop): still no id without authorize',
-        () {
-      final c = TelemetryConsent(initial: TrackingState.notApplicable);
-      expect(c.allowsTracking, isFalse);
-      expect(c.attachTrackingId('gaid'), isFalse);
-      expect(c.trackingContext(), isEmpty);
-    });
+    test(
+      'notApplicable (Android/web/desktop): still no id without authorize',
+      () {
+        final c = TelemetryConsent(initial: TrackingState.notApplicable);
+        expect(c.allowsTracking, isFalse);
+        expect(c.attachTrackingId('gaid'), isFalse);
+        expect(c.trackingContext(), isEmpty);
+      },
+    );
 
     test('installMobileTelemetry never emits a tracking id pre-consent', () {
       final base = createTelemetry(

@@ -7,42 +7,41 @@ void main() {
     return MaterialApp(
       home: RefractionTheme(
         data: RefractionThemeData.minimalLight(),
-        child: Scaffold(
-          body: child,
-        ),
+        child: Scaffold(body: child),
       ),
     );
   }
 
-  testWidgets('RefractionAvatar displays fallback text when imageUrl is null', (WidgetTester tester) async {
+  testWidgets('RefractionAvatar displays fallback text when imageUrl is null', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
-      buildTestApp(
-        const RefractionAvatar(
-          fallbackText: 'JD',
-        ),
-      ),
+      buildTestApp(const RefractionAvatar(fallbackText: 'JD')),
     );
 
     expect(find.text('JD'), findsOneWidget);
   });
 
-  testWidgets('RefractionAvatarGroup displays max avatars and remaining count', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      buildTestApp(
-        const RefractionAvatarGroup(
-          max: 2,
-          avatars: [
-            RefractionAvatar(fallbackText: 'A'),
-            RefractionAvatar(fallbackText: 'B'),
-            RefractionAvatar(fallbackText: 'C'),
-          ],
+  testWidgets(
+    'RefractionAvatarGroup displays max avatars and remaining count',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        buildTestApp(
+          const RefractionAvatarGroup(
+            max: 2,
+            avatars: [
+              RefractionAvatar(fallbackText: 'A'),
+              RefractionAvatar(fallbackText: 'B'),
+              RefractionAvatar(fallbackText: 'C'),
+            ],
+          ),
         ),
-      ),
-    );
+      );
 
-    expect(find.text('A'), findsOneWidget);
-    expect(find.text('B'), findsOneWidget);
-    expect(find.text('C'), findsNothing);
-    expect(find.text('+1'), findsOneWidget);
-  });
+      expect(find.text('A'), findsOneWidget);
+      expect(find.text('B'), findsOneWidget);
+      expect(find.text('C'), findsNothing);
+      expect(find.text('+1'), findsOneWidget);
+    },
+  );
 }

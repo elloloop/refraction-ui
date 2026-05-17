@@ -25,15 +25,15 @@ void main() {
       // — it is NOT wired into lib/analytics.dart or the package barrel).
       expect(mobile.AppLifecyclePhase.resumed, isA<AppLifecyclePhase>());
       expect(
-        mobile.createFirebaseAnalyticsSink(
-          client: mobile.RecordingFirebaseClient(),
-        ).name,
+        mobile
+            .createFirebaseAnalyticsSink(
+              client: mobile.RecordingFirebaseClient(),
+            )
+            .name,
         'firebase',
       );
       expect(
-        mobile.createPostHogSink(
-          client: mobile.RecordingPostHogClient(),
-        ).name,
+        mobile.createPostHogSink(client: mobile.RecordingPostHogClient()).name,
         'posthog',
       );
       expect(mobile.kAnalyticsConsentCategory, 'analytics');

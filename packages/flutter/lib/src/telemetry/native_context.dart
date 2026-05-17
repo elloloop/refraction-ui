@@ -71,14 +71,24 @@ class NativeContext {
       base = <String, Object?>{};
     }
     if (overrides != null) {
-      if (overrides.appVersion != null) base['appVersion'] = overrides.appVersion;
-      if (overrides.appBuild != null) base['appBuild'] = overrides.appBuild;
+      if (overrides.appVersion != null) {
+        base['appVersion'] = overrides.appVersion;
+      }
+      if (overrides.appBuild != null) {
+        base['appBuild'] = overrides.appBuild;
+      }
       if (overrides.deviceModel != null) {
         base['deviceModel'] = overrides.deviceModel;
       }
-      if (overrides.osName != null) base['osName'] = overrides.osName;
-      if (overrides.osVersion != null) base['osVersion'] = overrides.osVersion;
-      if (overrides.locale != null) base['locale'] = overrides.locale;
+      if (overrides.osName != null) {
+        base['osName'] = overrides.osName;
+      }
+      if (overrides.osVersion != null) {
+        base['osVersion'] = overrides.osVersion;
+      }
+      if (overrides.locale != null) {
+        base['locale'] = overrides.locale;
+      }
     }
     base.removeWhere((_, v) => v == null);
     return NativeContext._(base);

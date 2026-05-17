@@ -7,14 +7,14 @@ void main() {
     return MaterialApp(
       home: RefractionTheme(
         data: RefractionThemeData.minimalLight(),
-        child: Scaffold(
-          body: child,
-        ),
+        child: Scaffold(body: child),
       ),
     );
   }
 
-  testWidgets('RefractionCommandMenu renders correctly', (WidgetTester tester) async {
+  testWidgets('RefractionCommandMenu renders correctly', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
       buildTestApp(
         RefractionCommandMenu(
@@ -38,7 +38,9 @@ void main() {
     expect(find.text('Settings Option'), findsOneWidget);
   });
 
-  testWidgets('RefractionCommandMenu filters items', (WidgetTester tester) async {
+  testWidgets('RefractionCommandMenu filters items', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
       buildTestApp(
         RefractionCommandMenu(
@@ -46,8 +48,16 @@ void main() {
             RefractionCommandGroup(
               heading: 'General',
               items: [
-                RefractionCommandItem(icon: const Icon(Icons.build), label: 'Build', onSelected: () {}),
-                RefractionCommandItem(icon: const Icon(Icons.run_circle), label: 'Run', onSelected: () {}),
+                RefractionCommandItem(
+                  icon: const Icon(Icons.build),
+                  label: 'Build',
+                  onSelected: () {},
+                ),
+                RefractionCommandItem(
+                  icon: const Icon(Icons.run_circle),
+                  label: 'Run',
+                  onSelected: () {},
+                ),
               ],
             ),
           ],

@@ -5,36 +5,39 @@ import 'package:refraction_ui/refraction_ui.dart';
 
 void main() {
   group('TelemetryIsolateHost — background-isolate logs are not lost', () {
-    test('worker logger -> host -> real telemetry pipeline (in-process port)',
-        () async {
-      final telemetry = createTelemetry(
-        const TelemetryConfig(app: 'svc', env: TelemetryEnv.development),
-      );
-      final mock = createMockSink();
-      telemetry.addSink(mock);
+    test(
+      'worker logger -> host -> real telemetry pipeline (in-process port)',
+      () async {
+        final telemetry = createTelemetry(
+          const TelemetryConfig(app: 'svc', env: TelemetryEnv.development),
+        );
+        final mock = createMockSink();
+        telemetry.addSink(mock);
 
-      final host = TelemetryIsolateHost.attach(telemetry);
-      // The SendPort is what would be passed into Isolate.spawn.
-      final workerLogger = createIsolateLogger(host.sendPort);
+        final host = TelemetryIsolateHost.attach(telemetry);
+        // The SendPort is what would be passed into Isolate.spawn.
+        final workerLogger = createIsolateLogger(host.sendPort);
 
-      workerLogger.info('from-worker', <String, Object?>{'wid': 7});
-      workerLogger
-          .child(<String, Object?>{'job': 'resize'}).error('worker-fail');
+        workerLogger.info('from-worker', <String, Object?>{'wid': 7});
+        workerLogger
+            .child(<String, Object?>{'job': 'resize'})
+            .error('worker-fail');
 
-      // Port delivery is async (microtask/event loop) — let it drain.
-      await Future<void>.delayed(const Duration(milliseconds: 20));
+        // Port delivery is async (microtask/event loop) — let it drain.
+        await Future<void>.delayed(const Duration(milliseconds: 20));
 
-      expect(mock.logs, hasLength(2));
-      final first = mock.logs.firstWhere((r) => r.message == 'from-worker');
-      expect(first.level, LogLevel.info);
-      expect(first.context['wid'], 7);
+        expect(mock.logs, hasLength(2));
+        final first = mock.logs.firstWhere((r) => r.message == 'from-worker');
+        expect(first.level, LogLevel.info);
+        expect(first.context['wid'], 7);
 
-      final second = mock.logs.firstWhere((r) => r.message == 'worker-fail');
-      expect(second.level, LogLevel.error);
-      expect(second.context['job'], 'resize');
+        final second = mock.logs.firstWhere((r) => r.message == 'worker-fail');
+        expect(second.level, LogLevel.error);
+        expect(second.context['job'], 'resize');
 
-      host.close();
-    });
+        host.close();
+      },
+    );
 
     test('worker span crosses the boundary as a completed span', () async {
       final telemetry = createTelemetry(
@@ -68,30 +71,31 @@ void main() {
       expect(mock.logs, isEmpty);
     });
 
-    test('end-to-end across a real spawned isolate (SendPort handoff)',
-        () async {
-      final telemetry = createTelemetry(
-        const TelemetryConfig(app: 'svc', env: TelemetryEnv.development),
-      );
-      final mock = createMockSink();
-      telemetry.addSink(mock);
-      final host = TelemetryIsolateHost.attach(telemetry);
+    test(
+      'end-to-end across a real spawned isolate (SendPort handoff)',
+      () async {
+        final telemetry = createTelemetry(
+          const TelemetryConfig(app: 'svc', env: TelemetryEnv.development),
+        );
+        final mock = createMockSink();
+        telemetry.addSink(mock);
+        final host = TelemetryIsolateHost.attach(telemetry);
 
-      final done = ReceivePort();
-      await Isolate.spawn(_worker, [host.sendPort, done.sendPort]);
-      await done.first; // worker signals completion
-      await Future<void>.delayed(const Duration(milliseconds: 30));
+        final done = ReceivePort();
+        await Isolate.spawn(_worker, [host.sendPort, done.sendPort]);
+        await done.first; // worker signals completion
+        await Future<void>.delayed(const Duration(milliseconds: 30));
 
-      expect(
-        mock.logs.map((r) => r.message),
-        containsAll(<String>['bg-isolate-1', 'bg-isolate-2']),
-      );
-      final tagged =
-          mock.logs.firstWhere((r) => r.message == 'bg-isolate-2');
-      expect(tagged.context['isolate'], 'worker');
-      host.close();
-      done.close();
-    });
+        expect(
+          mock.logs.map((r) => r.message),
+          containsAll(<String>['bg-isolate-1', 'bg-isolate-2']),
+        );
+        final tagged = mock.logs.firstWhere((r) => r.message == 'bg-isolate-2');
+        expect(tagged.context['isolate'], 'worker');
+        host.close();
+        done.close();
+      },
+    );
   });
 }
 

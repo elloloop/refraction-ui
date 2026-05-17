@@ -9,7 +9,8 @@ class AlertPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PreviewCanvas(
       title: "Alert & Callout",
-      description: "Static callout banners used to draw attention to important information.",
+      description:
+          "Static callout banners used to draw attention to important information.",
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 600),
@@ -27,7 +28,8 @@ class AlertPage extends StatelessWidget {
               const RefractionAlert(
                 icon: Icon(Icons.terminal),
                 title: "Heads up!",
-                description: "You can add components to your app using the cli.",
+                description:
+                    "You can add components to your app using the cli.",
               ),
               const SizedBox(height: 16),
               const RefractionAlert(

@@ -23,8 +23,7 @@ void main() {
       }
     });
 
-    test('overrides supply app version/build and win over auto-detection',
-        () {
+    test('overrides supply app version/build and win over auto-detection', () {
       final ctx = NativeContext.resolve(
         const NativeContextOverrides(
           appVersion: '1.4.0',

@@ -7,14 +7,14 @@ void main() {
     return MaterialApp(
       home: RefractionTheme(
         data: RefractionThemeData.minimalLight(),
-        child: Scaffold(
-          body: child,
-        ),
+        child: Scaffold(body: child),
       ),
     );
   }
 
-  testWidgets('RefractionDropdownMenu renders and opens', (WidgetTester tester) async {
+  testWidgets('RefractionDropdownMenu renders and opens', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
       buildTestApp(
         RefractionDropdownMenu(

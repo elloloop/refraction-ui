@@ -7,9 +7,7 @@ void main() {
     return MaterialApp(
       home: RefractionTheme(
         data: RefractionThemeData.minimalLight(),
-        child: Scaffold(
-          body: child,
-        ),
+        child: Scaffold(body: child),
       ),
     );
   }
@@ -28,13 +26,11 @@ void main() {
     expect(find.text('You can add components.'), findsOneWidget);
   });
 
-  testWidgets('RefractionCallout renders correctly', (WidgetTester tester) async {
+  testWidgets('RefractionCallout renders correctly', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
-      buildTestApp(
-        const RefractionCallout(
-          title: 'Documentation Update',
-        ),
-      ),
+      buildTestApp(const RefractionCallout(title: 'Documentation Update')),
     );
 
     expect(find.text('Documentation Update'), findsOneWidget);

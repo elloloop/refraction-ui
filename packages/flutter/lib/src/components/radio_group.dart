@@ -147,7 +147,9 @@ class _RadioItemView<T> extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: isSelected ? theme.colors.primary : Colors.transparent,
                   border: Border.all(
-                    color: isSelected ? theme.colors.primary : theme.colors.border,
+                    color: isSelected
+                        ? theme.colors.primary
+                        : theme.colors.border,
                     width: 1.5,
                   ),
                 ),

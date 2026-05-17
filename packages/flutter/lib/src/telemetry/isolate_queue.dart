@@ -46,7 +46,8 @@ class TelemetryIsolateHost {
     if (_closed || message is! Map) return;
     final env = message.cast<String, Object?>();
     final kind = env['kind'];
-    final ctx = (env['context'] as Map?)?.cast<String, Object?>() ??
+    final ctx =
+        (env['context'] as Map?)?.cast<String, Object?>() ??
         const <String, Object?>{};
     if (kind == 'log') {
       final level = env['level'] as String? ?? 'info';

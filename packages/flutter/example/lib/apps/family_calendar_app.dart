@@ -7,7 +7,10 @@ class _NavNotifier extends Notifier<String> {
   String build() => "/calendar";
   void update(String val) => state = val;
 }
-final familyCalendarNavProvider = NotifierProvider<_NavNotifier, String>(_NavNotifier.new);
+
+final familyCalendarNavProvider = NotifierProvider<_NavNotifier, String>(
+  _NavNotifier.new,
+);
 
 class FamilyCalendarApp extends ConsumerWidget {
   const FamilyCalendarApp({super.key});
@@ -55,21 +58,35 @@ class FamilyCalendarApp extends ConsumerWidget {
           NavLink(label: "Meals", href: "/meals"),
         ],
         currentPath: currentPath,
-        onNavigate: (path) => ref.read(familyCalendarNavProvider.notifier).update(path),
+        onNavigate: (path) =>
+            ref.read(familyCalendarNavProvider.notifier).update(path),
       ),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           RefractionSidebar(
             currentPath: currentPath,
-            onNavigate: (path) => ref.read(familyCalendarNavProvider.notifier).update(path),
+            onNavigate: (path) =>
+                ref.read(familyCalendarNavProvider.notifier).update(path),
             sections: const [
               SidebarSection(
                 title: "Family Profiles",
                 items: [
-                  SidebarItem(label: "Mom", href: "/mom", icon: Icon(Icons.person)),
-                  SidebarItem(label: "Dad", href: "/dad", icon: Icon(Icons.person)),
-                  SidebarItem(label: "Kids", href: "/kids", icon: Icon(Icons.child_care)),
+                  SidebarItem(
+                    label: "Mom",
+                    href: "/mom",
+                    icon: Icon(Icons.person),
+                  ),
+                  SidebarItem(
+                    label: "Dad",
+                    href: "/dad",
+                    icon: Icon(Icons.person),
+                  ),
+                  SidebarItem(
+                    label: "Kids",
+                    href: "/kids",
+                    icon: Icon(Icons.child_care),
+                  ),
                 ],
               ),
             ],
@@ -80,7 +97,10 @@ class FamilyCalendarApp extends ConsumerWidget {
     );
   }
 
-  Widget _buildCalendarBoard(RefractionThemeData theme, RefractionColors colors) {
+  Widget _buildCalendarBoard(
+    RefractionThemeData theme,
+    RefractionColors colors,
+  ) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -96,7 +116,10 @@ class FamilyCalendarApp extends ConsumerWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              RefractionButton(onPressed: () {}, child: const Text("Add Event")),
+              RefractionButton(
+                onPressed: () {},
+                child: const Text("Add Event"),
+              ),
             ],
           ),
           const SizedBox(height: 24),
@@ -160,11 +183,26 @@ class FamilyCalendarApp extends ConsumerWidget {
                           RefractionCardContent(
                             child: Column(
                               children: [
-                                _buildCheckboxRow(theme, colors, "Take out trash", true),
+                                _buildCheckboxRow(
+                                  theme,
+                                  colors,
+                                  "Take out trash",
+                                  true,
+                                ),
                                 const SizedBox(height: 12),
-                                _buildCheckboxRow(theme, colors, "Load dishwasher", false),
+                                _buildCheckboxRow(
+                                  theme,
+                                  colors,
+                                  "Load dishwasher",
+                                  false,
+                                ),
                                 const SizedBox(height: 12),
-                                _buildCheckboxRow(theme, colors, "Walk the dog", false),
+                                _buildCheckboxRow(
+                                  theme,
+                                  colors,
+                                  "Walk the dog",
+                                  false,
+                                ),
                               ],
                             ),
                           ),
@@ -176,7 +214,9 @@ class FamilyCalendarApp extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const RefractionCardHeader(child: RefractionCardTitle("Dinner")),
+                          const RefractionCardHeader(
+                            child: RefractionCardTitle("Dinner"),
+                          ),
                           RefractionCardContent(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,13 +273,25 @@ class FamilyCalendarApp extends ConsumerWidget {
                 child: RefractionCard(
                   child: Column(
                     children: [
-                      const RefractionCardHeader(child: RefractionCardTitle("To Do")),
+                      const RefractionCardHeader(
+                        child: RefractionCardTitle("To Do"),
+                      ),
                       RefractionCardContent(
                         child: Column(
                           children: [
-                            _buildChoreCard(theme, colors, "Vacuum Living Room", "Mom"),
+                            _buildChoreCard(
+                              theme,
+                              colors,
+                              "Vacuum Living Room",
+                              "Mom",
+                            ),
                             const SizedBox(height: 12),
-                            _buildChoreCard(theme, colors, "Clean Windows", "Dad"),
+                            _buildChoreCard(
+                              theme,
+                              colors,
+                              "Clean Windows",
+                              "Dad",
+                            ),
                           ],
                         ),
                       ),
@@ -252,7 +304,9 @@ class FamilyCalendarApp extends ConsumerWidget {
                 child: RefractionCard(
                   child: Column(
                     children: [
-                      const RefractionCardHeader(child: RefractionCardTitle("In Progress")),
+                      const RefractionCardHeader(
+                        child: RefractionCardTitle("In Progress"),
+                      ),
                       RefractionCardContent(
                         child: Column(
                           children: [
@@ -269,13 +323,20 @@ class FamilyCalendarApp extends ConsumerWidget {
                 child: RefractionCard(
                   child: Column(
                     children: [
-                      const RefractionCardHeader(child: RefractionCardTitle("Completed")),
+                      const RefractionCardHeader(
+                        child: RefractionCardTitle("Completed"),
+                      ),
                       RefractionCardContent(
                         child: Column(
                           children: [
                             _buildChoreCard(theme, colors, "Groceries", "Mom"),
                             const SizedBox(height: 12),
-                            _buildChoreCard(theme, colors, "Trash & Recycling", "Kids"),
+                            _buildChoreCard(
+                              theme,
+                              colors,
+                              "Trash & Recycling",
+                              "Kids",
+                            ),
                           ],
                         ),
                       ),
@@ -306,7 +367,11 @@ class FamilyCalendarApp extends ConsumerWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              RefractionButton(variant: RefractionButtonVariant.secondary, onPressed: () {}, child: const Text("Generate List")),
+              RefractionButton(
+                variant: RefractionButtonVariant.secondary,
+                onPressed: () {},
+                child: const Text("Generate List"),
+              ),
             ],
           ),
           const SizedBox(height: 24),
@@ -314,11 +379,46 @@ class FamilyCalendarApp extends ConsumerWidget {
             spacing: 24,
             runSpacing: 24,
             children: [
-              _buildMealDay(theme, colors, "Monday", "Chicken Salad", "300 kcal", true),
-              _buildMealDay(theme, colors, "Tuesday", "Beef Tacos", "600 kcal", false),
-              _buildMealDay(theme, colors, "Wednesday", "Salmon & Asparagus", "450 kcal", false),
-              _buildMealDay(theme, colors, "Thursday", "Pasta Primavera", "550 kcal", false),
-              _buildMealDay(theme, colors, "Friday", "Pizza Night", "800 kcal", false),
+              _buildMealDay(
+                theme,
+                colors,
+                "Monday",
+                "Chicken Salad",
+                "300 kcal",
+                true,
+              ),
+              _buildMealDay(
+                theme,
+                colors,
+                "Tuesday",
+                "Beef Tacos",
+                "600 kcal",
+                false,
+              ),
+              _buildMealDay(
+                theme,
+                colors,
+                "Wednesday",
+                "Salmon & Asparagus",
+                "450 kcal",
+                false,
+              ),
+              _buildMealDay(
+                theme,
+                colors,
+                "Thursday",
+                "Pasta Primavera",
+                "550 kcal",
+                false,
+              ),
+              _buildMealDay(
+                theme,
+                colors,
+                "Friday",
+                "Pizza Night",
+                "800 kcal",
+                false,
+              ),
             ],
           ),
         ],
@@ -326,12 +426,22 @@ class FamilyCalendarApp extends ConsumerWidget {
     );
   }
 
-  Widget _buildMealDay(RefractionThemeData theme, RefractionColors colors, String day, String meal, String cals, bool isToday) {
+  Widget _buildMealDay(
+    RefractionThemeData theme,
+    RefractionColors colors,
+    String day,
+    String meal,
+    String cals,
+    bool isToday,
+  ) {
     return Container(
       width: 250,
       decoration: BoxDecoration(
         color: isToday ? colors.primary.withValues(alpha: 0.05) : colors.card,
-        border: Border.all(color: isToday ? colors.primary : colors.border, width: isToday ? 2 : 1),
+        border: Border.all(
+          color: isToday ? colors.primary : colors.border,
+          width: isToday ? 2 : 1,
+        ),
         borderRadius: BorderRadius.circular(theme.borderRadius),
         boxShadow: isToday ? theme.heavyShadow : theme.softShadow,
       ),
@@ -349,16 +459,27 @@ class FamilyCalendarApp extends ConsumerWidget {
           const SizedBox(height: 16),
           Text(
             meal,
-            style: theme.textStyle.copyWith(fontSize: 18, fontWeight: FontWeight.w600),
+            style: theme.textStyle.copyWith(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
           ),
           const SizedBox(height: 8),
-          Text(cals, style: theme.textStyle.copyWith(color: colors.mutedForeground)),
+          Text(
+            cals,
+            style: theme.textStyle.copyWith(color: colors.mutedForeground),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildChoreCard(RefractionThemeData theme, RefractionColors colors, String title, String assignee) {
+  Widget _buildChoreCard(
+    RefractionThemeData theme,
+    RefractionColors colors,
+    String title,
+    String assignee,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -369,14 +490,25 @@ class FamilyCalendarApp extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, style: theme.textStyle.copyWith(fontWeight: FontWeight.w500)),
-          RefractionBadge(variant: RefractionBadgeVariant.outline, child: Text(assignee)),
+          Text(
+            title,
+            style: theme.textStyle.copyWith(fontWeight: FontWeight.w500),
+          ),
+          RefractionBadge(
+            variant: RefractionBadgeVariant.outline,
+            child: Text(assignee),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildCheckboxRow(RefractionThemeData theme, RefractionColors colors, String title, bool checked) {
+  Widget _buildCheckboxRow(
+    RefractionThemeData theme,
+    RefractionColors colors,
+    String title,
+    bool checked,
+  ) {
     return Row(
       children: [
         RefractionCheckbox(value: checked),

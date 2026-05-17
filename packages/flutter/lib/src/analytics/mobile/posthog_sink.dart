@@ -125,8 +125,7 @@ PostHogEvent toPostHogEvent(AnalyticsEvent ev) {
         uuid: ev.messageId,
       );
     case AnalyticsEventType.group:
-      final groupType =
-          (ev.properties?['groupType'] as String?) ?? 'company';
+      final groupType = (ev.properties?['groupType'] as String?) ?? 'company';
       return PostHogEvent(
         event: r'$groupidentify',
         distinctId: distinctId,
@@ -159,11 +158,7 @@ PostHogEvent toPostHogEvent(AnalyticsEvent ev) {
       return PostHogEvent(
         event: r'$screen',
         distinctId: distinctId,
-        properties: {
-          ...props,
-          r'$screen_name': ev.event,
-          ...?ev.properties,
-        },
+        properties: {...props, r'$screen_name': ev.event, ...?ev.properties},
         timestamp: ev.timestamp,
         uuid: ev.messageId,
       );
@@ -184,12 +179,10 @@ List<PostHogEvent> toPostHogBatch(List<AnalyticsEvent> batch) =>
 
 /// The PostHog [AnalyticsSink].
 class PostHogSink implements AnalyticsSink {
-  PostHogSink({
-    required PostHogClient client,
-    List<String>? consentCategories,
-  }) : _client = client,
-       _consentCategories =
-           consentCategories ?? const [kAnalyticsConsentCategory];
+  PostHogSink({required PostHogClient client, List<String>? consentCategories})
+    : _client = client,
+      _consentCategories =
+          consentCategories ?? const [kAnalyticsConsentCategory];
 
   final PostHogClient _client;
   final List<String> _consentCategories;

@@ -120,9 +120,7 @@ void main() {
     });
 
     test('group/alias carry their ids', () {
-      final g = firebaseParams(
-        _ev(AnalyticsEventType.group, groupId: 'org_1'),
-      );
+      final g = firebaseParams(_ev(AnalyticsEventType.group, groupId: 'org_1'));
       expect(g['group_id'], 'org_1');
       final a = firebaseParams(
         _ev(AnalyticsEventType.alias, userId: 'u2', previousId: 'u1'),
@@ -172,57 +170,63 @@ void main() {
       expect(byName['org_name'], 'Acme');
     });
 
-    test('shutdown clears the Firebase user-id binding (privacy reset)',
-        () async {
-      final fb = RecordingFirebaseClient();
-      final sink = createFirebaseAnalyticsSink(client: fb);
-      await sink.deliver([
-        _ev(AnalyticsEventType.track, event: 'A', userId: 'u1'),
-      ], const SinkDeliverContext(unload: false));
-      await sink.shutdown();
-      expect(fb.userIds, ['u1', null]);
-    });
+    test(
+      'shutdown clears the Firebase user-id binding (privacy reset)',
+      () async {
+        final fb = RecordingFirebaseClient();
+        final sink = createFirebaseAnalyticsSink(client: fb);
+        await sink.deliver([
+          _ev(AnalyticsEventType.track, event: 'A', userId: 'u1'),
+        ], const SinkDeliverContext(unload: false));
+        await sink.shutdown();
+        expect(fb.userIds, ['u1', null]);
+      },
+    );
 
-    test('integrates with createAnalytics behind the existing surface',
-        () async {
-      final fb = RecordingFirebaseClient();
-      final a = createAnalytics(
-        AnalyticsConfig(
-          app: 'app',
-          env: 'development',
-          sinks: [createFirebaseAnalyticsSink(client: fb)],
-          session: SessionConfig(storage: createMemoryStorage()),
-          identity: IdentityConfig(storage: createMemoryStorage()),
-          consent: const ConsentConfig(granted: ['analytics']),
-        ),
-      );
-      a.track('Signup Clicked', {'plan': 'pro'});
-      await Future<void>.delayed(Duration.zero);
-      expect(fb.events.single.name, 'signup_clicked');
-      expect(fb.events.single.params['plan'], 'pro');
-    });
+    test(
+      'integrates with createAnalytics behind the existing surface',
+      () async {
+        final fb = RecordingFirebaseClient();
+        final a = createAnalytics(
+          AnalyticsConfig(
+            app: 'app',
+            env: 'development',
+            sinks: [createFirebaseAnalyticsSink(client: fb)],
+            session: SessionConfig(storage: createMemoryStorage()),
+            identity: IdentityConfig(storage: createMemoryStorage()),
+            consent: const ConsentConfig(granted: ['analytics']),
+          ),
+        );
+        a.track('Signup Clicked', {'plan': 'pro'});
+        await Future<void>.delayed(Duration.zero);
+        expect(fb.events.single.name, 'signup_clicked');
+        expect(fb.events.single.params['plan'], 'pro');
+      },
+    );
 
-    test('consent gate blocks the sink until its category is granted',
-        () async {
-      final fb = RecordingFirebaseClient();
-      final a = createAnalytics(
-        AnalyticsConfig(
-          app: 'app',
-          env: 'development',
-          sinks: [createFirebaseAnalyticsSink(client: fb)],
-          session: SessionConfig(storage: createMemoryStorage()),
-          identity: IdentityConfig(storage: createMemoryStorage()),
-          consent: const ConsentConfig(granted: []),
-        ),
-      );
-      a.track('blocked');
-      await Future<void>.delayed(Duration.zero);
-      expect(fb.events, isEmpty);
+    test(
+      'consent gate blocks the sink until its category is granted',
+      () async {
+        final fb = RecordingFirebaseClient();
+        final a = createAnalytics(
+          AnalyticsConfig(
+            app: 'app',
+            env: 'development',
+            sinks: [createFirebaseAnalyticsSink(client: fb)],
+            session: SessionConfig(storage: createMemoryStorage()),
+            identity: IdentityConfig(storage: createMemoryStorage()),
+            consent: const ConsentConfig(granted: []),
+          ),
+        );
+        a.track('blocked');
+        await Future<void>.delayed(Duration.zero);
+        expect(fb.events, isEmpty);
 
-      a.consent.grant(['analytics']);
-      a.track('allowed');
-      await Future<void>.delayed(Duration.zero);
-      expect(fb.events.single.name, 'allowed');
-    });
+        a.consent.grant(['analytics']);
+        a.track('allowed');
+        await Future<void>.delayed(Duration.zero);
+        expect(fb.events.single.name, 'allowed');
+      },
+    );
   });
 }

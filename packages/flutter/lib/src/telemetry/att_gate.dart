@@ -46,7 +46,7 @@ class TelemetryConsent {
   /// Start in [TrackingState.notDetermined] (the safe default for iOS) unless
   /// the host knows ATT does not apply.
   TelemetryConsent({TrackingState initial = TrackingState.notDetermined})
-      : _state = initial;
+    : _state = initial;
 
   TrackingState _state;
   String? _trackingId;
