@@ -48,6 +48,17 @@ export type {
   SkipLinkProps,
 } from './skip-link.js'
 
+export type {
+  DevFeedbackRecord,
+  DevFeedbackSink,
+} from './dev-feedback.js'
+
+export type {
+  LibraryFramework,
+  LibraryOriginErrorInput,
+  LibraryOriginEnvelope,
+} from './library-origin-error.js'
+
 // Functions
 export { mergeAriaProps, generateId, resetIdCounter } from './aria.js'
 export { Keys, createKeyboardHandler } from './keyboard.js'
@@ -58,3 +69,14 @@ export { FOCUSABLE_SELECTOR, getFocusableElements, createFocusTrap } from './foc
 export { createLiveRegion } from './live-region.js'
 export { prefersReducedMotion, getAnimationDuration } from './motion.js'
 export { createSkipLink } from './skip-link.js'
+export {
+  devWarn,
+  devError,
+  setDevFeedbackSink,
+  resetDevFeedback,
+} from './dev-feedback.js'
+export {
+  libraryOriginError,
+  libraryOriginEnvelope,
+  stackFingerprint,
+} from './library-origin-error.js'
