@@ -61,28 +61,51 @@ class _PreviewCanvasState extends State<PreviewCanvas> {
             children: [
               // Top Control Bar
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   border: Border(bottom: BorderSide(color: colors.border)),
                   color: colors.background,
                 ),
                 child: Row(
                   children: [
-                    _buildDeviceButton(theme, Icons.phone_iphone, PreviewSize.mobile),
+                    _buildDeviceButton(
+                      theme,
+                      Icons.phone_iphone,
+                      PreviewSize.mobile,
+                    ),
                     const SizedBox(width: 8),
-                    _buildDeviceButton(theme, Icons.tablet_mac, PreviewSize.tablet),
+                    _buildDeviceButton(
+                      theme,
+                      Icons.tablet_mac,
+                      PreviewSize.tablet,
+                    ),
                     const SizedBox(width: 8),
-                    _buildDeviceButton(theme, Icons.desktop_mac, PreviewSize.desktop),
+                    _buildDeviceButton(
+                      theme,
+                      Icons.desktop_mac,
+                      PreviewSize.desktop,
+                    ),
                     const SizedBox(width: 8),
-                    _buildDeviceButton(theme, Icons.aspect_ratio, PreviewSize.fluid),
+                    _buildDeviceButton(
+                      theme,
+                      Icons.aspect_ratio,
+                      PreviewSize.fluid,
+                    ),
                   ],
                 ),
               ),
               // Canvas Area
               Container(
                 width: double.infinity,
-                padding: widget.fill ? EdgeInsets.zero : const EdgeInsets.all(32),
-                color: colors.secondary.withValues(alpha: 0.3), // Light subtle background
+                padding: widget.fill
+                    ? EdgeInsets.zero
+                    : const EdgeInsets.all(32),
+                color: colors.secondary.withValues(
+                  alpha: 0.3,
+                ), // Light subtle background
                 alignment: Alignment.center,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -93,8 +116,13 @@ class _PreviewCanvasState extends State<PreviewCanvas> {
                       color: colors.background,
                       border: Border.all(color: colors.border),
                       borderRadius: BorderRadius.circular(
-                          _currentSize == PreviewSize.fluid ? 0 : theme.borderRadius),
-                      boxShadow: _currentSize == PreviewSize.fluid ? null : theme.heavyShadow,
+                        _currentSize == PreviewSize.fluid
+                            ? 0
+                            : theme.borderRadius,
+                      ),
+                      boxShadow: _currentSize == PreviewSize.fluid
+                          ? null
+                          : theme.heavyShadow,
                     ),
                     clipBehavior: Clip.antiAlias,
                     child: widget.fill
@@ -126,7 +154,11 @@ class _PreviewCanvasState extends State<PreviewCanvas> {
     }
   }
 
-  Widget _buildDeviceButton(RefractionThemeData theme, IconData icon, PreviewSize targetSize) {
+  Widget _buildDeviceButton(
+    RefractionThemeData theme,
+    IconData icon,
+    PreviewSize targetSize,
+  ) {
     final colors = theme.colors;
     final isSelected = _currentSize == targetSize;
 
@@ -136,7 +168,9 @@ class _PreviewCanvasState extends State<PreviewCanvas> {
       child: Container(
         padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
-          color: isSelected ? colors.primary.withValues(alpha: 0.1) : Colors.transparent,
+          color: isSelected
+              ? colors.primary.withValues(alpha: 0.1)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(4),
         ),
         child: Icon(

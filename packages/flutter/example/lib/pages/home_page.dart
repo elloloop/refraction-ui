@@ -32,11 +32,16 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     color: colors.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(32),
-                    border: Border.all(color: colors.primary.withValues(alpha: 0.2)),
+                    border: Border.all(
+                      color: colors.primary.withValues(alpha: 0.2),
+                    ),
                   ),
                   child: Text(
                     "v1.0.0 Now Available",
@@ -104,7 +109,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          
+
           // Features Section (Mockups)
           Container(
             padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 24),
@@ -148,13 +153,18 @@ class HomePage extends StatelessWidget {
                 const SizedBox(height: 160),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildFeatureCard(RefractionThemeData theme, IconData icon, String title, String description) {
+  Widget _buildFeatureCard(
+    RefractionThemeData theme,
+    IconData icon,
+    String title,
+    String description,
+  ) {
     final colors = theme.colors;
     return Container(
       width: 320,

@@ -20,8 +20,10 @@ void main() {
       expect(c.hasPersistenceConsent(), isTrue);
       // Idempotent.
       c.grantBaseline();
-      expect(consent.granted().where((x) => x == kAnalyticsConsentCategory),
-          hasLength(1));
+      expect(
+        consent.granted().where((x) => x == kAnalyticsConsentCategory),
+        hasLength(1),
+      );
     });
 
     test('wires persistence predicate into the gated secure store', () {
@@ -40,8 +42,10 @@ void main() {
       // Post-consent: persistence flows.
       c.grantBaseline();
       final id = Identity(IdentityConfig(storage: store));
-      expect(backing.read('rfx.analytics:rfx:analytics:anon'),
-          id.anonymousId());
+      expect(
+        backing.read('rfx.analytics:rfx:analytics:anon'),
+        id.anonymousId(),
+      );
     });
   });
 
@@ -82,8 +86,7 @@ void main() {
       expect(consent.isGranted(kTrackingConsentCategory), isFalse);
     });
 
-    test('off-iOS (notApplicable) leaves tracking to the app opt-in',
-        () async {
+    test('off-iOS (notApplicable) leaves tracking to the app opt-in', () async {
       final consent = Consent(null);
       // Default att is NoAttAuthorization → notApplicable.
       final c = MobileConsentController(consent: consent);
@@ -97,91 +100,92 @@ void main() {
   });
 
   group('ATT/consent sequencing — full ordered flow', () {
-    test(
-      'no id pre-consent → baseline → ATT → tracking sink unlocked; '
-      'revokeAll purges',
-      () async {
-        final backing = InMemorySecureStore();
-        final consent = Consent(null);
-        final att = ScriptedTrackingAuthorization(
-          onRequest: AttStatus.authorized,
-        );
-        final store = ConsentGatedSecureStorage(
-          store: backing,
-          hasConsent: () => false, // replaced below via closure capture
-        );
-        // Re-create with controller-driven predicate.
-        final c0 = MobileConsentController(consent: consent, att: att);
-        final gated = ConsentGatedSecureStorage(
-          store: backing,
-          hasConsent: c0.hasPersistenceConsent,
-        );
-        final c = MobileConsentController(
-          consent: consent,
-          att: att,
-          onPurge: gated.purge,
-        );
-        // (store kept only to prove the standalone variant compiles)
-        expect(store.get('x'), isNull);
+    test('no id pre-consent → baseline → ATT → tracking sink unlocked; '
+        'revokeAll purges', () async {
+      final backing = InMemorySecureStore();
+      final consent = Consent(null);
+      final att = ScriptedTrackingAuthorization(
+        onRequest: AttStatus.authorized,
+      );
+      final store = ConsentGatedSecureStorage(
+        store: backing,
+        hasConsent: () => false, // replaced below via closure capture
+      );
+      // Re-create with controller-driven predicate.
+      final c0 = MobileConsentController(consent: consent, att: att);
+      final gated = ConsentGatedSecureStorage(
+        store: backing,
+        hasConsent: c0.hasPersistenceConsent,
+      );
+      final c = MobileConsentController(
+        consent: consent,
+        att: att,
+        onPurge: gated.purge,
+      );
+      // (store kept only to prove the standalone variant compiles)
+      expect(store.get('x'), isNull);
 
-        // 1. Pre-consent: ATT not prompted, no id persisted.
-        expect(consent.granted(), isEmpty);
-        Identity(IdentityConfig(storage: gated));
-        expect(backing.read('rfx.analytics:rfx:analytics:anon'), isNull);
+      // 1. Pre-consent: ATT not prompted, no id persisted.
+      expect(consent.granted(), isEmpty);
+      Identity(IdentityConfig(storage: gated));
+      expect(backing.read('rfx.analytics:rfx:analytics:anon'), isNull);
 
-        // 2. App consent UI accepted → baseline analytics.
-        c.grantBaseline();
-        c0.grantBaseline();
-        expect(consent.isGranted(kAnalyticsConsentCategory), isTrue);
-        final id = Identity(IdentityConfig(storage: gated));
-        expect(backing.read('rfx.analytics:rfx:analytics:anon'),
-            id.anonymousId());
+      // 2. App consent UI accepted → baseline analytics.
+      c.grantBaseline();
+      c0.grantBaseline();
+      expect(consent.isGranted(kAnalyticsConsentCategory), isTrue);
+      final id = Identity(IdentityConfig(storage: gated));
+      expect(
+        backing.read('rfx.analytics:rfx:analytics:anon'),
+        id.anonymousId(),
+      );
 
-        // 3. ATT prompt shown post-first-frame → tracking unlocked.
-        await c.requestTracking();
-        expect(consent.isGranted(kTrackingConsentCategory), isTrue);
+      // 3. ATT prompt shown post-first-frame → tracking unlocked.
+      await c.requestTracking();
+      expect(consent.isGranted(kTrackingConsentCategory), isTrue);
 
-        // A tracking-category sink is now allowed by the core gate.
-        final gate = Consent(
-          ConsentConfig(granted: consent.granted()),
-        );
-        expect(
-          gate.allows([kAnalyticsConsentCategory, kTrackingConsentCategory]),
-          isTrue,
-        );
+      // A tracking-category sink is now allowed by the core gate.
+      final gate = Consent(ConsentConfig(granted: consent.granted()));
+      expect(
+        gate.allows([kAnalyticsConsentCategory, kTrackingConsentCategory]),
+        isTrue,
+      );
 
-        // 4. Withdraw all consent → categories revoked + identity purged.
-        await c.revokeAll();
-        expect(consent.granted(), isEmpty);
-        expect(c.hasPersistenceConsent(), isFalse);
-        expect(backing.read('rfx.analytics:rfx:analytics:anon'), isNull);
-      },
-    );
+      // 4. Withdraw all consent → categories revoked + identity purged.
+      await c.revokeAll();
+      expect(consent.granted(), isEmpty);
+      expect(c.hasPersistenceConsent(), isFalse);
+      expect(backing.read('rfx.analytics:rfx:analytics:anon'), isNull);
+    });
   });
 
   group('per-sink consent categories via the core router', () {
-    test('Firebase/PostHog sinks gate independently on their categories',
-        () async {
-      final consent = Consent(null);
-      final c = MobileConsentController(consent: consent);
+    test(
+      'Firebase/PostHog sinks gate independently on their categories',
+      () async {
+        final consent = Consent(null);
+        final c = MobileConsentController(consent: consent);
 
-      final analyticsOnly = Consent(
-        ConsentConfig(granted: consent.granted()),
-      );
-      // Pre-consent: a sink requiring ['analytics'] is blocked.
-      expect(analyticsOnly.allows([kAnalyticsConsentCategory]), isFalse);
+        final analyticsOnly = Consent(
+          ConsentConfig(granted: consent.granted()),
+        );
+        // Pre-consent: a sink requiring ['analytics'] is blocked.
+        expect(analyticsOnly.allows([kAnalyticsConsentCategory]), isFalse);
 
-      c.grantBaseline();
-      final afterBaseline = Consent(
-        ConsentConfig(granted: consent.granted()),
-      );
-      // analytics sink now allowed; a tracking-gated sink still blocked.
-      expect(afterBaseline.allows([kAnalyticsConsentCategory]), isTrue);
-      expect(
-        afterBaseline.allows([kAnalyticsConsentCategory,
-            kTrackingConsentCategory]),
-        isFalse,
-      );
-    });
+        c.grantBaseline();
+        final afterBaseline = Consent(
+          ConsentConfig(granted: consent.granted()),
+        );
+        // analytics sink now allowed; a tracking-gated sink still blocked.
+        expect(afterBaseline.allows([kAnalyticsConsentCategory]), isTrue);
+        expect(
+          afterBaseline.allows([
+            kAnalyticsConsentCategory,
+            kTrackingConsentCategory,
+          ]),
+          isFalse,
+        );
+      },
+    );
   });
 }

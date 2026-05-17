@@ -136,7 +136,9 @@ class RefractionSlider extends StatelessWidget {
         activeTrackColor: activeColor ?? theme.colors.primary,
         inactiveTrackColor: inactiveColor ?? theme.colors.muted,
         thumbColor: theme.colors.background,
-        overlayColor: (activeColor ?? theme.colors.primary).withValues(alpha: 0.2),
+        overlayColor: (activeColor ?? theme.colors.primary).withValues(
+          alpha: 0.2,
+        ),
         trackHeight: 8.0,
         thumbShape: const RoundSliderThumbShape(
           enabledThumbRadius: 10.0,
@@ -146,12 +148,7 @@ class RefractionSlider extends StatelessWidget {
         overlayShape: const RoundSliderOverlayShape(overlayRadius: 20.0),
         trackShape: const RoundedRectSliderTrackShape(),
       ),
-      child: Slider(
-        value: value,
-        min: min,
-        max: max,
-        onChanged: onChanged,
-      ),
+      child: Slider(value: value, min: min, max: max, onChanged: onChanged),
     );
   }
 }

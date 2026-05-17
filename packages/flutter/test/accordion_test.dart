@@ -7,14 +7,14 @@ void main() {
     return MaterialApp(
       home: RefractionTheme(
         data: RefractionThemeData.minimalLight(),
-        child: Scaffold(
-          body: child,
-        ),
+        child: Scaffold(body: child),
       ),
     );
   }
 
-  testWidgets('RefractionAccordion renders correctly', (WidgetTester tester) async {
+  testWidgets('RefractionAccordion renders correctly', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
       buildTestApp(
         const RefractionAccordion(
@@ -31,7 +31,9 @@ void main() {
     expect(find.text('Item 1'), findsOneWidget);
   });
 
-  testWidgets('RefractionAccordion toggles content', (WidgetTester tester) async {
+  testWidgets('RefractionAccordion toggles content', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
       buildTestApp(
         const RefractionAccordion(
@@ -47,12 +49,14 @@ void main() {
 
     await tester.tap(find.text('Item 1'));
     await tester.pumpAndSettle();
-    
+
     await tester.tap(find.text('Item 1'));
     await tester.pumpAndSettle();
   });
 
-  testWidgets('RefractionAccordion allowMultiple works', (WidgetTester tester) async {
+  testWidgets('RefractionAccordion allowMultiple works', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
       buildTestApp(
         const RefractionAccordion(

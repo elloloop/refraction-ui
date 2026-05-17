@@ -14,7 +14,7 @@ class RefractionDeviceFrame extends StatefulWidget {
   });
 
   @override
-  _RefractionDeviceFrameState createState() => _RefractionDeviceFrameState();
+  State<RefractionDeviceFrame> createState() => _RefractionDeviceFrameState();
 }
 
 class _RefractionDeviceFrameState extends State<RefractionDeviceFrame> {
@@ -31,8 +31,6 @@ class _RefractionDeviceFrameState extends State<RefractionDeviceFrame> {
     FocusManager.instance.removeListener(_handleFocusChange);
     super.dispose();
   }
-
-  final String _debugFocus = "INIT";
 
   void _handleFocusChange() {
     final focus = FocusManager.instance.primaryFocus;
@@ -125,13 +123,13 @@ class _RefractionDeviceFrameState extends State<RefractionDeviceFrame> {
       height: height + 24, // hardware border
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: colors.foreground.withOpacity(
-          0.1,
+        color: colors.foreground.withValues(
+          alpha: 0.1,
         ), // Frame color (metal/plastic)
         borderRadius: BorderRadius.circular(borderRadius + 12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.15),
+            color: Colors.black.withValues(alpha: 0.15),
             blurRadius: 24,
             offset: const Offset(0, 12),
           ),
@@ -174,8 +172,8 @@ class _RefractionDeviceFrameState extends State<RefractionDeviceFrame> {
                   height: keyboardHeight,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: colors.muted.withOpacity(
-                        0.95,
+                      color: colors.muted.withValues(
+                        alpha: 0.95,
                       ), // Glassy keyboard background
                       border: Border(top: BorderSide(color: colors.border)),
                     ),
@@ -225,8 +223,8 @@ class _RefractionDeviceFrameState extends State<RefractionDeviceFrame> {
                               Text(
                                 "(Physical keys are captured normally via PC)",
                                 style: TextStyle(
-                                  color: colors.mutedForeground.withOpacity(
-                                    0.5,
+                                  color: colors.mutedForeground.withValues(
+                                    alpha: 0.5,
                                   ),
                                   fontSize: 12,
                                 ),

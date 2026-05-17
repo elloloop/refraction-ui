@@ -111,10 +111,10 @@ void main() {
     });
 
     test('namespacedKeys reports the durable key layout', () {
-      expect(
-        ConsentGatedSecureStorage.namespacedKeys(['a', 'b']),
-        ['rfx.analytics:a', 'rfx.analytics:b'],
-      );
+      expect(ConsentGatedSecureStorage.namespacedKeys(['a', 'b']), [
+        'rfx.analytics:a',
+        'rfx.analytics:b',
+      ]);
     });
   });
 

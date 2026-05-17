@@ -29,22 +29,30 @@ class _RouteNotifier extends Notifier<String> {
   String build() => '/';
   void update(String val) => state = val;
 }
-final appRouteProvider = NotifierProvider<_RouteNotifier, String>(_RouteNotifier.new);
+
+final appRouteProvider = NotifierProvider<_RouteNotifier, String>(
+  _RouteNotifier.new,
+);
 
 class _DarkModeNotifier extends Notifier<bool> {
   @override
   bool build() => true;
   void toggle() => state = !state;
 }
-final darkModeProvider = NotifierProvider<_DarkModeNotifier, bool>(_DarkModeNotifier.new);
+
+final darkModeProvider = NotifierProvider<_DarkModeNotifier, bool>(
+  _DarkModeNotifier.new,
+);
 
 class _PaletteNotifier extends Notifier<String> {
   @override
   String build() => 'Minimal';
   void update(String val) => state = val;
 }
-final paletteProvider = NotifierProvider<_PaletteNotifier, String>(_PaletteNotifier.new);
 
+final paletteProvider = NotifierProvider<_PaletteNotifier, String>(
+  _PaletteNotifier.new,
+);
 
 class RefractionDemoApp extends ConsumerWidget {
   const RefractionDemoApp({super.key});
@@ -72,25 +80,34 @@ class RefractionDemoApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isDarkMode = ref.watch(darkModeProvider);
     final palette = ref.watch(paletteProvider);
-    final route = ref.watch(appRouteProvider);
 
     RefractionThemeData themeData;
     switch (palette) {
       case 'Fintech':
-        themeData = isDarkMode ? RefractionThemeData.fintechDark() : RefractionThemeData.fintechLight();
+        themeData = isDarkMode
+            ? RefractionThemeData.fintechDark()
+            : RefractionThemeData.fintechLight();
         break;
       case 'Wellness':
-        themeData = isDarkMode ? RefractionThemeData.wellnessDark() : RefractionThemeData.wellnessLight();
+        themeData = isDarkMode
+            ? RefractionThemeData.wellnessDark()
+            : RefractionThemeData.wellnessLight();
         break;
       case 'Creative':
-        themeData = isDarkMode ? RefractionThemeData.creativeDark() : RefractionThemeData.creativeLight();
+        themeData = isDarkMode
+            ? RefractionThemeData.creativeDark()
+            : RefractionThemeData.creativeLight();
         break;
       case 'Productivity':
-        themeData = isDarkMode ? RefractionThemeData.productivityDark() : RefractionThemeData.productivityLight();
+        themeData = isDarkMode
+            ? RefractionThemeData.productivityDark()
+            : RefractionThemeData.productivityLight();
         break;
       case 'Minimal':
       default:
-        themeData = isDarkMode ? RefractionThemeData.minimalDark() : RefractionThemeData.minimalLight();
+        themeData = isDarkMode
+            ? RefractionThemeData.minimalDark()
+            : RefractionThemeData.minimalLight();
         break;
     }
 
@@ -124,7 +141,8 @@ class _AppShell extends ConsumerWidget {
     Widget body;
     if (currentRoute == '/') {
       body = HomePage(
-        onGetStarted: () => ref.read(appRouteProvider.notifier).update('/docs/buttons'),
+        onGetStarted: () =>
+            ref.read(appRouteProvider.notifier).update('/docs/buttons'),
       );
     } else if (currentRoute.startsWith('/docs')) {
       body = DocsLayout(
@@ -190,7 +208,7 @@ class _AppShell extends ConsumerWidget {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -219,7 +237,11 @@ class _AppShell extends ConsumerWidget {
     );
   }
 
-  Widget _buildThemePicker(BuildContext context, WidgetRef ref, RefractionThemeData theme) {
+  Widget _buildThemePicker(
+    BuildContext context,
+    WidgetRef ref,
+    RefractionThemeData theme,
+  ) {
     final palette = ref.watch(paletteProvider);
     final palettes = [
       {'name': 'Minimal', 'color': const Color(0xFF000000)},
@@ -250,13 +272,19 @@ class _AppShell extends ConsumerWidget {
               height: 12,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: palettes.firstWhere((p) => p['name'] == palette)['color'] as Color,
+                color:
+                    palettes.firstWhere((p) => p['name'] == palette)['color']
+                        as Color,
               ),
             ),
             const SizedBox(width: 8),
             Text(palette, style: theme.textStyle.copyWith(fontSize: 14)),
             const SizedBox(width: 4),
-            Icon(Icons.keyboard_arrow_down, size: 16, color: theme.colors.foreground),
+            Icon(
+              Icons.keyboard_arrow_down,
+              size: 16,
+              color: theme.colors.foreground,
+            ),
           ],
         ),
       ),
@@ -279,7 +307,9 @@ class _AppShell extends ConsumerWidget {
                 Text(
                   p['name'] as String,
                   style: theme.textStyle.copyWith(
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                    fontWeight: isSelected
+                        ? FontWeight.bold
+                        : FontWeight.normal,
                   ),
                 ),
               ],
@@ -310,14 +340,16 @@ class _AppShell extends ConsumerWidget {
       case '/docs/pregnancy-tracker':
         return const PreviewCanvas(
           title: "Pregnancy Tracker Layout",
-          description: "A full stateful demonstration of medical health/wellness tracking using the Refraction architecture.",
+          description:
+              "A full stateful demonstration of medical health/wellness tracking using the Refraction architecture.",
           fill: true,
           child: PregnancyTrackerApp(),
         );
       case '/docs/family-calendar':
         return const PreviewCanvas(
           title: "Family Calendar Layout",
-          description: "A rich data-dense grid structure for productivity displays.",
+          description:
+              "A rich data-dense grid structure for productivity displays.",
           fill: true,
           child: FamilyCalendarApp(),
         );
@@ -337,11 +369,30 @@ class _AppShell extends ConsumerWidget {
               spacing: 16,
               runSpacing: 16,
               children: [
-                RefractionButton(onPressed: () {}, child: const Text("Primary")),
-                RefractionButton(variant: RefractionButtonVariant.secondary, onPressed: () {}, child: const Text("Secondary")),
-                RefractionButton(variant: RefractionButtonVariant.outline, onPressed: () {}, child: const Text("Outline")),
-                RefractionButton(variant: RefractionButtonVariant.ghost, onPressed: () {}, child: const Text("Ghost")),
-                RefractionButton(variant: RefractionButtonVariant.destructive, onPressed: () {}, child: const Text("Destructive")),
+                RefractionButton(
+                  onPressed: () {},
+                  child: const Text("Primary"),
+                ),
+                RefractionButton(
+                  variant: RefractionButtonVariant.secondary,
+                  onPressed: () {},
+                  child: const Text("Secondary"),
+                ),
+                RefractionButton(
+                  variant: RefractionButtonVariant.outline,
+                  onPressed: () {},
+                  child: const Text("Outline"),
+                ),
+                RefractionButton(
+                  variant: RefractionButtonVariant.ghost,
+                  onPressed: () {},
+                  child: const Text("Ghost"),
+                ),
+                RefractionButton(
+                  variant: RefractionButtonVariant.destructive,
+                  onPressed: () {},
+                  child: const Text("Destructive"),
+                ),
               ],
             ),
           ),
@@ -355,9 +406,18 @@ class _AppShell extends ConsumerWidget {
               spacing: 16,
               children: const [
                 RefractionBadge(child: Text("Primary")),
-                RefractionBadge(variant: RefractionBadgeVariant.secondary, child: Text("Secondary")),
-                RefractionBadge(variant: RefractionBadgeVariant.outline, child: Text("Outline")),
-                RefractionBadge(variant: RefractionBadgeVariant.destructive, child: Text("Destructive")),
+                RefractionBadge(
+                  variant: RefractionBadgeVariant.secondary,
+                  child: Text("Secondary"),
+                ),
+                RefractionBadge(
+                  variant: RefractionBadgeVariant.outline,
+                  child: Text("Outline"),
+                ),
+                RefractionBadge(
+                  variant: RefractionBadgeVariant.destructive,
+                  child: Text("Destructive"),
+                ),
               ],
             ),
           ),
@@ -372,11 +432,20 @@ class _AppShell extends ConsumerWidget {
               children: [
                 const RefractionInput(placeholder: "Email address"),
                 const SizedBox(height: 16),
-                const RefractionInput(placeholder: "Password", obscureText: true),
+                const RefractionInput(
+                  placeholder: "Password",
+                  obscureText: true,
+                ),
                 const SizedBox(height: 16),
-                const RefractionInput(placeholder: "Disabled Input", disabled: true),
+                const RefractionInput(
+                  placeholder: "Disabled Input",
+                  disabled: true,
+                ),
                 const SizedBox(height: 16),
-                RefractionButton(onPressed: () {}, child: const Center(child: Text("Submit"))),
+                RefractionButton(
+                  onPressed: () {},
+                  child: const Center(child: Text("Submit")),
+                ),
               ],
             ),
           ),
@@ -413,9 +482,18 @@ class _AppShell extends ConsumerWidget {
               child: RefractionTabs(
                 tabs: const ['Account', 'Password', 'Settings'],
                 children: const [
-                  Padding(padding: EdgeInsets.all(16.0), child: Text("Make changes to your account here.")),
-                  Padding(padding: EdgeInsets.all(16.0), child: Text("Change your password here.")),
-                  Padding(padding: EdgeInsets.all(16.0), child: Text("Manage your settings here.")),
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text("Make changes to your account here."),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text("Change your password here."),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text("Manage your settings here."),
+                  ),
                 ],
               ),
             ),
@@ -439,19 +517,30 @@ class _AppShell extends ConsumerWidget {
                         children: [
                           RefractionCardTitle("Create project"),
                           SizedBox(height: 4),
-                          RefractionCardDescription("Deploy your new project in one-click."),
+                          RefractionCardDescription(
+                            "Deploy your new project in one-click.",
+                          ),
                         ],
                       ),
                     ),
                     const RefractionCardContent(
-                      child: RefractionInput(placeholder: "Name of your project"),
+                      child: RefractionInput(
+                        placeholder: "Name of your project",
+                      ),
                     ),
                     RefractionCardFooter(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          RefractionButton(variant: RefractionButtonVariant.outline, onPressed: () {}, child: const Text("Cancel")),
-                          RefractionButton(onPressed: () {}, child: const Text("Deploy")),
+                          RefractionButton(
+                            variant: RefractionButtonVariant.outline,
+                            onPressed: () {},
+                            child: const Text("Cancel"),
+                          ),
+                          RefractionButton(
+                            onPressed: () {},
+                            child: const Text("Deploy"),
+                          ),
                         ],
                       ),
                     ),
@@ -471,21 +560,28 @@ class _AppShell extends ConsumerWidget {
               children: [
                 RefractionTooltip(
                   message: const Text("Add to library"),
-                  child: RefractionButton(variant: RefractionButtonVariant.outline, onPressed: () {}, child: const Text("Hover me")),
+                  child: RefractionButton(
+                    variant: RefractionButtonVariant.outline,
+                    onPressed: () {},
+                    child: const Text("Hover me"),
+                  ),
                 ),
                 RefractionPopover(
                   content: const Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Text("Popover content goes here."),
                   ),
-                  trigger: RefractionButton(onPressed: () {}, child: const Text("Click for Popover")),
+                  trigger: RefractionButton(
+                    onPressed: () {},
+                    child: const Text("Click for Popover"),
+                  ),
                 ),
               ],
             ),
           ),
         );
       case '/docs/toasts':
-         return PreviewCanvas(
+        return PreviewCanvas(
           title: "Toasts",
           description: "A succinct message that is displayed temporarily.",
           child: Center(
@@ -528,7 +624,7 @@ class _AppShell extends ConsumerWidget {
           "Add the following to your pubspec.yaml:\n\n```yaml\ndependencies:\n  refraction_ui: ^1.0.0\n```\n\nRun `flutter pub get` and wrap your app in a `RefractionTheme` to inject the design tokens globally.",
         );
       case '/docs/theming':
-         return _buildArticlePage(
+        return _buildArticlePage(
           context,
           "Theming",
           "Refraction UI features 5 beautifully curated archetypes out of the box: Minimal, Fintech, Wellness, Creative, and Productivity. \n\nYou can easily construct these factories like so:\n`RefractionThemeData.minimalDark()` or `RefractionThemeData.fintechLight()` and supply them directly to the `RefractionTheme` container.",
@@ -546,7 +642,7 @@ class _AppShell extends ConsumerWidget {
 
   Widget _buildArticlePage(BuildContext context, String title, String body) {
     final theme = RefractionTheme.of(context).data;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

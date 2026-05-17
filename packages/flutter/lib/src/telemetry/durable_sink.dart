@@ -26,7 +26,10 @@ import 'types.dart';
 /// means "not delivered — keep it queued and back off".
 abstract class DurableSinkTransport {
   /// Deliver one envelope. Return `false` (or throw) to keep it queued.
-  FutureOr<bool> deliver({required String kind, required Map<String, Object?> record});
+  FutureOr<bool> deliver({
+    required String kind,
+    required Map<String, Object?> record,
+  });
 }
 
 /// Tuning for [createDurableSink].

@@ -64,11 +64,7 @@ void main() {
 
     test('identify → \$identify with \$set + \$anon_distinct_id stitch', () {
       final e = toPostHogEvent(
-        _ev(
-          AnalyticsEventType.identify,
-          userId: 'u9',
-          traits: {'plan': 'pro'},
-        ),
+        _ev(AnalyticsEventType.identify, userId: 'u9', traits: {'plan': 'pro'}),
       );
       expect(e.event, r'$identify');
       expect(e.distinctId, 'u9');
@@ -144,9 +140,16 @@ void main() {
       final j = toPostHogEvent(
         _ev(AnalyticsEventType.track, event: 'A'),
       ).toJson();
-      expect(j.keys,
-          containsAll(['event', 'distinct_id', 'properties', 'timestamp',
-              'uuid']));
+      expect(
+        j.keys,
+        containsAll([
+          'event',
+          'distinct_id',
+          'properties',
+          'timestamp',
+          'uuid',
+        ]),
+      );
     });
   });
 
@@ -158,8 +161,7 @@ void main() {
       expect(sink.consentCategories, ['analytics']);
     });
 
-    test('captures via the injected client; flush/shutdown delegate',
-        () async {
+    test('captures via the injected client; flush/shutdown delegate', () async {
       final ph = RecordingPostHogClient();
       final sink = createPostHogSink(client: ph);
       await sink.deliver([
@@ -174,8 +176,7 @@ void main() {
       expect(ph.resetCalls, 1); // privacy-safe reset
     });
 
-    test('integrates behind createAnalytics; consent-gated per sink',
-        () async {
+    test('integrates behind createAnalytics; consent-gated per sink', () async {
       final ph = RecordingPostHogClient();
       final a = createAnalytics(
         AnalyticsConfig(

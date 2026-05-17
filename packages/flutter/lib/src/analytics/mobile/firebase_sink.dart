@@ -72,10 +72,7 @@ String firebaseName(String name) {
       .trim()
       .replaceAll(RegExp('[\'"]'), '')
       .replaceAll(RegExp(r'[^a-zA-Z0-9]+'), '_')
-      .replaceAllMapped(
-        RegExp(r'([a-z0-9])([A-Z])'),
-        (m) => '${m[1]}_${m[2]}',
-      )
+      .replaceAllMapped(RegExp(r'([a-z0-9])([A-Z])'), (m) => '${m[1]}_${m[2]}')
       .replaceAll(RegExp(r'_+'), '_')
       .replaceAll(RegExp(r'^_+|_+$'), '')
       .toLowerCase();
@@ -212,9 +209,7 @@ class FirebaseAnalyticsSink implements AnalyticsSink {
       }
       final name = firebaseEventName(ev);
       if (name != null) {
-        await Future.sync(
-          () => _client.logEvent(name, firebaseParams(ev)),
-        );
+        await Future.sync(() => _client.logEvent(name, firebaseParams(ev)));
       }
     }
   }
@@ -235,7 +230,5 @@ class FirebaseAnalyticsSink implements AnalyticsSink {
 AnalyticsSink createFirebaseAnalyticsSink({
   required FirebaseAnalyticsClient client,
   List<String>? consentCategories,
-}) => FirebaseAnalyticsSink(
-  client: client,
-  consentCategories: consentCategories,
-);
+}) =>
+    FirebaseAnalyticsSink(client: client, consentCategories: consentCategories);

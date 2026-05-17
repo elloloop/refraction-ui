@@ -44,27 +44,39 @@ class DocsLayout extends StatelessWidget {
               const SidebarSection(
                 title: "Getting Started",
                 items: [
-                  SidebarItem(label: "Introduction", href: "/docs/introduction"),
-                  SidebarItem(label: "Installation", href: "/docs/installation"),
+                  SidebarItem(
+                    label: "Introduction",
+                    href: "/docs/introduction",
+                  ),
+                  SidebarItem(
+                    label: "Installation",
+                    href: "/docs/installation",
+                  ),
                   SidebarItem(label: "Theming", href: "/docs/theming"),
                 ],
               ),
-              SidebarSection(
-                title: "Components",
-                items: sidebarItems,
-              ),
+              SidebarSection(title: "Components", items: sidebarItems),
               const SidebarSection(
                 title: "Application Layouts",
                 items: [
-                  SidebarItem(label: "Pregnancy Tracker", href: "/docs/pregnancy-tracker"),
-                  SidebarItem(label: "Family Calendar", href: "/docs/family-calendar"),
-                  SidebarItem(label: "My Prototype", href: "/docs/my-prototype"),
+                  SidebarItem(
+                    label: "Pregnancy Tracker",
+                    href: "/docs/pregnancy-tracker",
+                  ),
+                  SidebarItem(
+                    label: "Family Calendar",
+                    href: "/docs/family-calendar",
+                  ),
+                  SidebarItem(
+                    label: "My Prototype",
+                    href: "/docs/my-prototype",
+                  ),
                 ],
               ),
             ],
           ),
         ),
-        
+
         // Main Content Area (Fluid)
         Expanded(
           child: SingleChildScrollView(

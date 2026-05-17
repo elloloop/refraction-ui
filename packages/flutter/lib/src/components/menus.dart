@@ -112,7 +112,7 @@ class _RefractionDropdownMenuState extends State<RefractionDropdownMenu> {
 
   OverlayEntry _createOverlayEntry() {
     final theme = RefractionTheme.of(context).data;
-    
+
     return OverlayEntry(
       builder: (context) {
         return Stack(
@@ -154,10 +154,18 @@ class _RefractionDropdownMenuState extends State<RefractionDropdownMenu> {
                           _closeMenu();
                           item.onSelected();
                         },
-                        borderRadius: BorderRadius.circular(theme.borderRadius - 2),
+                        borderRadius: BorderRadius.circular(
+                          theme.borderRadius - 2,
+                        ),
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-                          margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12.0,
+                            vertical: 10.0,
+                          ),
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 4.0,
+                            vertical: 2.0,
+                          ),
                           child: Row(
                             children: [
                               if (item.icon != null) ...[
@@ -208,10 +216,7 @@ class _RefractionDropdownMenuState extends State<RefractionDropdownMenu> {
   Widget build(BuildContext context) {
     return CompositedTransformTarget(
       link: _layerLink,
-      child: GestureDetector(
-        onTap: _toggleMenu,
-        child: widget.trigger,
-      ),
+      child: GestureDetector(onTap: _toggleMenu, child: widget.trigger),
     );
   }
 }

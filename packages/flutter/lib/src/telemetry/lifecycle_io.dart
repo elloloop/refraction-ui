@@ -36,7 +36,8 @@ class _LifecycleObserver with WidgetsBindingObserver {
     // Flush whenever we transition into a not-foreground state. Guard against
     // repeated identical callbacks (inactive↔paused churn) so we don't spam
     // flushes, while still flushing once per backgrounding.
-    final leavingForeground = state == AppLifecycleState.paused ||
+    final leavingForeground =
+        state == AppLifecycleState.paused ||
         state == AppLifecycleState.inactive ||
         state == AppLifecycleState.detached;
     if (leavingForeground && _last != state) {

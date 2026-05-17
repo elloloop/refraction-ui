@@ -70,7 +70,8 @@ class RefractionAvatar extends StatelessWidget {
               width: size,
               height: size,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => _buildFallback(theme),
+              errorBuilder: (context, error, stackTrace) =>
+                  _buildFallback(theme),
             )
           : _buildFallback(theme),
     );
@@ -79,7 +80,14 @@ class RefractionAvatar extends StatelessWidget {
   Widget _buildFallback(RefractionThemeData theme) {
     return Center(
       child: Text(
-        fallbackText.isNotEmpty ? fallbackText.substring(0, fallbackText.length > 2 ? 2 : fallbackText.length).toUpperCase() : '?',
+        fallbackText.isNotEmpty
+            ? fallbackText
+                  .substring(
+                    0,
+                    fallbackText.length > 2 ? 2 : fallbackText.length,
+                  )
+                  .toUpperCase()
+            : '?',
         style: theme.textStyle.copyWith(
           color: theme.colors.mutedForeground,
           fontWeight: FontWeight.w600,
@@ -130,7 +138,7 @@ class RefractionAvatarGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = RefractionTheme.of(context).data;
-    
+
     final displayAvatars = avatars.take(max).toList();
     final remainingCount = avatars.length - displayAvatars.length;
 
@@ -141,7 +149,9 @@ class RefractionAvatarGroup extends StatelessWidget {
         children: [
           for (int i = 0; i < displayAvatars.length; i++)
             Align(
-              widthFactor: i == displayAvatars.length - 1 && remainingCount == 0 ? 1.0 : (1.0 - overlapSpacing / displayAvatars[i].size),
+              widthFactor: i == displayAvatars.length - 1 && remainingCount == 0
+                  ? 1.0
+                  : (1.0 - overlapSpacing / displayAvatars[i].size),
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,

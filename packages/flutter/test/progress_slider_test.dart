@@ -7,28 +7,24 @@ void main() {
     return MaterialApp(
       home: RefractionTheme(
         data: RefractionThemeData.minimalLight(),
-        child: Scaffold(
-          body: child,
-        ),
+        child: Scaffold(body: child),
       ),
     );
   }
 
-  testWidgets('RefractionProgress renders correctly', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      buildTestApp(
-        const RefractionProgress(
-          value: 0.5,
-        ),
-      ),
-    );
+  testWidgets('RefractionProgress renders correctly', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(buildTestApp(const RefractionProgress(value: 0.5)));
 
     expect(find.byType(RefractionProgress), findsOneWidget);
   });
 
-  testWidgets('RefractionSlider renders and triggers onChanged', (WidgetTester tester) async {
+  testWidgets('RefractionSlider renders and triggers onChanged', (
+    WidgetTester tester,
+  ) async {
     double value = 0.0;
-    
+
     await tester.pumpWidget(
       buildTestApp(
         StatefulBuilder(
@@ -41,7 +37,7 @@ void main() {
                 });
               },
             );
-          }
+          },
         ),
       ),
     );

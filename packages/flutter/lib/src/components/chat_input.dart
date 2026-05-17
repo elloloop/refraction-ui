@@ -68,7 +68,8 @@ class RefractionRichChatInput extends StatefulWidget {
   });
 
   @override
-  State<RefractionRichChatInput> createState() => _RefractionRichChatInputState();
+  State<RefractionRichChatInput> createState() =>
+      _RefractionRichChatInputState();
 }
 
 class _RefractionRichChatInputState extends State<RefractionRichChatInput> {
@@ -107,7 +108,9 @@ class _RefractionRichChatInputState extends State<RefractionRichChatInput> {
     if (widget.onChanged != null) {
       widget.onChanged!(_controller.text);
     }
-    setState(() {}); // Rebuild for suffix icon state (e.g., enable/disable submit button based on text)
+    setState(
+      () {},
+    ); // Rebuild for suffix icon state (e.g., enable/disable submit button based on text)
   }
 
   void _submit() {
@@ -124,7 +127,8 @@ class _RefractionRichChatInputState extends State<RefractionRichChatInput> {
 
     return Focus(
       onKeyEvent: (node, event) {
-        if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.enter) {
+        if (event is KeyDownEvent &&
+            event.logicalKey == LogicalKeyboardKey.enter) {
           if (!HardwareKeyboard.instance.isShiftPressed) {
             _submit();
             return KeyEventResult.handled;
@@ -144,7 +148,7 @@ class _RefractionRichChatInputState extends State<RefractionRichChatInput> {
               color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 4,
               offset: const Offset(0, 2),
-            )
+            ),
           ],
         ),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -167,7 +171,9 @@ class _RefractionRichChatInputState extends State<RefractionRichChatInput> {
                 textInputAction: TextInputAction.newline,
                 style: theme.textStyle.copyWith(
                   fontSize: 15,
-                  color: widget.disabled ? colors.mutedForeground : colors.foreground,
+                  color: widget.disabled
+                      ? colors.mutedForeground
+                      : colors.foreground,
                 ),
                 decoration: InputDecoration(
                   hintText: widget.placeholder,

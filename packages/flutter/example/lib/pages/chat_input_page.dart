@@ -23,7 +23,8 @@ class _ChatInputPageState extends State<ChatInputPage> {
     final colors = RefractionTheme.of(context).colors;
     return PreviewCanvas(
       title: "Chat Input",
-      description: "A highly capable, auto-expanding textbox identical in UX to AI chat interfaces.",
+      description:
+          "A highly capable, auto-expanding textbox identical in UX to AI chat interfaces.",
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 800),
@@ -32,7 +33,11 @@ class _ChatInputPageState extends State<ChatInputPage> {
             placeholder: "Message ChatGPT...",
             prefixIcon: IconButton(
               onPressed: () {},
-              icon: Icon(Icons.add_circle_outline, color: colors.mutedForeground, size: 24),
+              icon: Icon(
+                Icons.add_circle_outline,
+                color: colors.mutedForeground,
+                size: 24,
+              ),
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
               splashRadius: 20,

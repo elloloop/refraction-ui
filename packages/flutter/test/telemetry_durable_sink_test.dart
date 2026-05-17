@@ -47,33 +47,35 @@ void main() {
       },
     );
 
-    test('backoff: a failed flush is not retried until backoff elapses',
-        () async {
-      final store = MemoryDurableStore();
-      final transport = RecordingDurableTransport(failWhileOffline: true);
-      final sink = createDurableSink(
-        transport,
-        store: store,
-        options: const DurableSinkOptions(
-          baseBackoff: Duration(milliseconds: 80),
-        ),
-      );
+    test(
+      'backoff: a failed flush is not retried until backoff elapses',
+      () async {
+        final store = MemoryDurableStore();
+        final transport = RecordingDurableTransport(failWhileOffline: true);
+        final sink = createDurableSink(
+          transport,
+          store: store,
+          options: const DurableSinkOptions(
+            baseBackoff: Duration(milliseconds: 80),
+          ),
+        );
 
-      sink.log(_log('x'));
-      await sink.flush(); // fails, backoff armed (~80ms)
-      expect(sink.pending, 1);
+        sink.log(_log('x'));
+        await sink.flush(); // fails, backoff armed (~80ms)
+        expect(sink.pending, 1);
 
-      // Immediately reconnect; flush should be SKIPPED (still backing off).
-      transport.failWhileOffline = false;
-      await sink.flush();
-      expect(transport.delivered, isEmpty, reason: 'still within backoff');
-      expect(sink.pending, 1);
+        // Immediately reconnect; flush should be SKIPPED (still backing off).
+        transport.failWhileOffline = false;
+        await sink.flush();
+        expect(transport.delivered, isEmpty, reason: 'still within backoff');
+        expect(sink.pending, 1);
 
-      await Future<void>.delayed(const Duration(milliseconds: 120));
-      await sink.flush(); // backoff elapsed -> delivers
-      expect(transport.delivered, hasLength(1));
-      expect(sink.pending, 0);
-    });
+        await Future<void>.delayed(const Duration(milliseconds: 120));
+        await sink.flush(); // backoff elapsed -> delivers
+        expect(transport.delivered, hasLength(1));
+        expect(sink.pending, 0);
+      },
+    );
 
     test('ordering preserved when a mid-batch delivery fails', () async {
       final store = MemoryDurableStore();
@@ -99,10 +101,11 @@ void main() {
       // Wait out the post-failure backoff before retrying.
       await Future<void>.delayed(const Duration(milliseconds: 50));
       await sink.flush();
-      expect(
-        t.delivered.map((e) => (e['record'] as Map)['message']),
-        ['1', '2', '3'],
-      );
+      expect(t.delivered.map((e) => (e['record'] as Map)['message']), [
+        '1',
+        '2',
+        '3',
+      ]);
     });
 
     test('queue is bounded (oldest dropped past maxQueue)', () {
@@ -121,40 +124,37 @@ void main() {
     test('corrupt persisted queue is dropped, not crash-looped', () {
       final store = MemoryDurableStore()
         ..write('telemetry.queue', '{not json\nstill not json');
-      final sink = createDurableSink(
-        RecordingDurableTransport(),
-        store: store,
-      );
+      final sink = createDurableSink(RecordingDurableTransport(), store: store);
       expect(sink.pending, 0);
       expect(store.read('telemetry.queue'), isNull);
     });
 
-    test('wires behind the uniform TelemetrySink surface via addSink',
-        () async {
-      final t = RecordingDurableTransport();
-      final telemetry = createTelemetry(
-        const TelemetryConfig(app: 'svc', env: TelemetryEnv.development),
-      );
-      telemetry.addSink(
-        createDurableSink(t, store: MemoryDurableStore()),
-      );
-      expect(telemetry.sinks, contains('durable'));
-      telemetry.error('boom');
-      await telemetry.flush();
-      expect(t.delivered, hasLength(1));
-      expect((t.delivered.single['record'] as Map)['message'], 'boom');
-    });
+    test(
+      'wires behind the uniform TelemetrySink surface via addSink',
+      () async {
+        final t = RecordingDurableTransport();
+        final telemetry = createTelemetry(
+          const TelemetryConfig(app: 'svc', env: TelemetryEnv.development),
+        );
+        telemetry.addSink(createDurableSink(t, store: MemoryDurableStore()));
+        expect(telemetry.sinks, contains('durable'));
+        telemetry.error('boom');
+        await telemetry.flush();
+        expect(t.delivered, hasLength(1));
+        expect((t.delivered.single['record'] as Map)['message'], 'boom');
+      },
+    );
   });
 }
 
 LogRecord _log(String message) => LogRecord(
-      level: LogLevel.error,
-      message: message,
-      timestamp: 0,
-      app: 'svc',
-      env: TelemetryEnv.production,
-      context: const <String, Object?>{},
-    );
+  level: LogLevel.error,
+  message: message,
+  timestamp: 0,
+  app: 'svc',
+  env: TelemetryEnv.production,
+  context: const <String, Object?>{},
+);
 
 class _FlakyTransport implements DurableSinkTransport {
   _FlakyTransport({required this.failIndex});

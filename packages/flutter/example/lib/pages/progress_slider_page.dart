@@ -16,7 +16,8 @@ class _ProgressSliderPageState extends State<ProgressSliderPage> {
   Widget build(BuildContext context) {
     return PreviewCanvas(
       title: "Progress & Slider",
-      description: "Continuous and discrete progress indicators and value selectors.",
+      description:
+          "Continuous and discrete progress indicators and value selectors.",
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 400),

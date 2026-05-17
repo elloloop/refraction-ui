@@ -38,10 +38,7 @@ class RefractionCommandGroup {
   final List<RefractionCommandItem> items;
 
   /// Creates a [RefractionCommandGroup].
-  const RefractionCommandGroup({
-    required this.heading,
-    required this.items,
-  });
+  const RefractionCommandGroup({required this.heading, required this.items});
 }
 
 /// A searchable command palette — the equivalent of macOS Spotlight or
@@ -97,7 +94,7 @@ class _RefractionCommandMenuState extends State<RefractionCommandMenu> {
   final FocusNode _focusNode = FocusNode();
   String _searchQuery = '';
   int _selectedIndex = 0;
-  
+
   List<RefractionCommandItem> _flatItems = [];
 
   @override
@@ -146,11 +143,16 @@ class _RefractionCommandMenuState extends State<RefractionCommandMenu> {
   @override
   Widget build(BuildContext context) {
     final theme = RefractionTheme.of(context).data;
-    
-    final filteredGroups = widget.groups.map((group) {
-      final items = group.items.where((item) => item.label.toLowerCase().contains(_searchQuery)).toList();
-      return RefractionCommandGroup(heading: group.heading, items: items);
-    }).where((group) => group.items.isNotEmpty).toList();
+
+    final filteredGroups = widget.groups
+        .map((group) {
+          final items = group.items
+              .where((item) => item.label.toLowerCase().contains(_searchQuery))
+              .toList();
+          return RefractionCommandGroup(heading: group.heading, items: items);
+        })
+        .where((group) => group.items.isNotEmpty)
+        .toList();
 
     _flatItems = filteredGroups.expand((g) => g.items).toList();
 
@@ -178,10 +180,17 @@ class _RefractionCommandMenuState extends State<RefractionCommandMenu> {
             focusNode: _focusNode,
             onKeyEvent: _handleKeyEvent,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 12.0,
+              ),
               child: Row(
                 children: [
-                  Icon(Icons.search, color: theme.colors.mutedForeground, size: 20),
+                  Icon(
+                    Icons.search,
+                    color: theme.colors.mutedForeground,
+                    size: 20,
+                  ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: TextField(
@@ -220,7 +229,10 @@ class _RefractionCommandMenuState extends State<RefractionCommandMenu> {
                   )
                 : ListView.builder(
                     shrinkWrap: true,
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 8.0,
+                    ),
                     itemCount: filteredGroups.length,
                     itemBuilder: (context, groupIndex) {
                       final group = filteredGroups[groupIndex];
@@ -228,7 +240,10 @@ class _RefractionCommandMenuState extends State<RefractionCommandMenu> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                              vertical: 6.0,
+                            ),
                             child: Text(
                               group.heading.toUpperCase(),
                               style: theme.textStyle.copyWith(
@@ -242,7 +257,7 @@ class _RefractionCommandMenuState extends State<RefractionCommandMenu> {
                             final isSelected = globalIndex == _selectedIndex;
                             final currentIndex = globalIndex;
                             globalIndex++;
-                            
+
                             return GestureDetector(
                               onTap: item.onSelected,
                               behavior: HitTestBehavior.opaque,
@@ -253,17 +268,28 @@ class _RefractionCommandMenuState extends State<RefractionCommandMenu> {
                                   });
                                 },
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-                                  margin: const EdgeInsets.symmetric(vertical: 2.0),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0,
+                                    vertical: 10.0,
+                                  ),
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 2.0,
+                                  ),
                                   decoration: BoxDecoration(
-                                    color: isSelected ? theme.colors.accent : Colors.transparent,
-                                    borderRadius: BorderRadius.circular(theme.borderRadius - 2),
+                                    color: isSelected
+                                        ? theme.colors.accent
+                                        : Colors.transparent,
+                                    borderRadius: BorderRadius.circular(
+                                      theme.borderRadius - 2,
+                                    ),
                                   ),
                                   child: Row(
                                     children: [
                                       IconTheme(
                                         data: IconThemeData(
-                                          color: isSelected ? theme.colors.accentForeground : theme.colors.foreground,
+                                          color: isSelected
+                                              ? theme.colors.accentForeground
+                                              : theme.colors.foreground,
                                           size: 16,
                                         ),
                                         child: item.icon,
@@ -273,7 +299,9 @@ class _RefractionCommandMenuState extends State<RefractionCommandMenu> {
                                         child: Text(
                                           item.label,
                                           style: theme.textStyle.copyWith(
-                                            color: isSelected ? theme.colors.accentForeground : theme.colors.foreground,
+                                            color: isSelected
+                                                ? theme.colors.accentForeground
+                                                : theme.colors.foreground,
                                             fontSize: 14,
                                           ),
                                         ),
@@ -281,16 +309,26 @@ class _RefractionCommandMenuState extends State<RefractionCommandMenu> {
                                       if (item.shortcut != null) ...[
                                         const SizedBox(width: 12),
                                         Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 6.0,
+                                            vertical: 2.0,
+                                          ),
                                           decoration: BoxDecoration(
-                                            color: isSelected ? theme.colors.background : theme.colors.muted,
-                                            borderRadius: BorderRadius.circular(4.0),
-                                            border: Border.all(color: theme.colors.border),
+                                            color: isSelected
+                                                ? theme.colors.background
+                                                : theme.colors.muted,
+                                            borderRadius: BorderRadius.circular(
+                                              4.0,
+                                            ),
+                                            border: Border.all(
+                                              color: theme.colors.border,
+                                            ),
                                           ),
                                           child: Text(
                                             item.shortcut!,
                                             style: theme.textStyle.copyWith(
-                                              color: theme.colors.mutedForeground,
+                                              color:
+                                                  theme.colors.mutedForeground,
                                               fontSize: 10,
                                               fontWeight: FontWeight.w600,
                                             ),

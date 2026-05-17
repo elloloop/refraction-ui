@@ -75,7 +75,7 @@ class _RefractionAccordionState extends State<RefractionAccordion> {
       children: List.generate(widget.children.length, (index) {
         final item = widget.children[index];
         final isOpen = _openIndexes.contains(index);
-        
+
         return _AccordionItemView(
           item: item,
           isOpen: isOpen,
@@ -99,10 +99,7 @@ class RefractionAccordionItem {
   final Widget content;
 
   /// Creates a [RefractionAccordionItem] with the supplied [title] and [content].
-  const RefractionAccordionItem({
-    required this.title,
-    required this.content,
-  });
+  const RefractionAccordionItem({required this.title, required this.content});
 }
 
 class _AccordionItemView extends StatelessWidget {
@@ -121,10 +118,12 @@ class _AccordionItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = RefractionTheme.of(context).data;
-    
+
     return Container(
       decoration: BoxDecoration(
-        border: isLast ? null : Border(bottom: BorderSide(color: theme.colors.border)),
+        border: isLast
+            ? null
+            : Border(bottom: BorderSide(color: theme.colors.border)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -169,7 +168,9 @@ class _AccordionItemView extends StatelessWidget {
                 child: item.content,
               ),
             ),
-            crossFadeState: isOpen ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+            crossFadeState: isOpen
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
             duration: const Duration(milliseconds: 200),
             sizeCurve: Curves.easeInOut,
           ),

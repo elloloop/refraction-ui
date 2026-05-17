@@ -130,12 +130,7 @@ TelemetryCrashGuard installCrashCapture(
   //    would otherwise crash the app).
   final prevPlatformOnError = PlatformDispatcher.instance.onError;
   PlatformDispatcher.instance.onError = (Object error, StackTrace stack) {
-    emit(
-      error,
-      stack,
-      fatal: true,
-      source: 'PlatformDispatcher.onError',
-    );
+    emit(error, stack, fatal: true, source: 'PlatformDispatcher.onError');
     // Return the previous handler's decision when present; otherwise `true`
     // = "handled" (we logged it). The consumer can still wrap us.
     if (prevPlatformOnError != null) {

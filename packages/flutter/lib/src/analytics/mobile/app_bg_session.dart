@@ -34,11 +34,9 @@ enum AppLifecyclePhase {
 /// is shared with the core inactivity timeout so foreground-idle and
 /// background-idle behave identically.
 class AppBackgroundSessionPolicy {
-  AppBackgroundSessionPolicy({
-    int? backgroundTimeoutMs,
-    int Function()? now,
-  }) : backgroundTimeoutMs = backgroundTimeoutMs ?? defaultSessionTimeoutMs,
-       _now = now ?? (() => DateTime.now().millisecondsSinceEpoch);
+  AppBackgroundSessionPolicy({int? backgroundTimeoutMs, int Function()? now})
+    : backgroundTimeoutMs = backgroundTimeoutMs ?? defaultSessionTimeoutMs,
+      _now = now ?? (() => DateTime.now().millisecondsSinceEpoch);
 
   /// Background duration (ms) that ends the session. Default 30 min.
   final int backgroundTimeoutMs;

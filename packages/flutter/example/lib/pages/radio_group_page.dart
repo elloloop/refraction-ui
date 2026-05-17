@@ -39,18 +39,12 @@ class _RadioGroupPageState extends State<RadioGroupPage> {
                   });
                 },
                 items: const [
-                  RefractionRadioItem(
-                    value: 'all',
-                    label: 'All new messages',
-                  ),
+                  RefractionRadioItem(value: 'all', label: 'All new messages'),
                   RefractionRadioItem(
                     value: 'direct',
                     label: 'Direct messages and mentions',
                   ),
-                  RefractionRadioItem(
-                    value: 'nothing',
-                    label: 'Nothing',
-                  ),
+                  RefractionRadioItem(value: 'nothing', label: 'Nothing'),
                   RefractionRadioItem(
                     value: 'disabled',
                     label: 'Disabled option',
