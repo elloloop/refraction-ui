@@ -2,11 +2,24 @@ import * as React from 'react'
 import { devWarn } from '@refraction-ui/shared'
 import {
   createTelemetry,
+  createNoopTelemetry,
   type TelemetryConfig,
   type Telemetry,
   type Logger,
   type LogContext,
 } from '@refraction-ui/logger'
+
+/**
+ * Shared no-op telemetry used when a hook is called outside a
+ * <TelemetryProvider>. Lazily created once and reused so the reference is
+ * stable across renders. The hooks degrade gracefully (no-op) instead of
+ * throwing, so components instrumented with useLogger/useSpan/useTelemetry
+ * render fine without a provider (e.g. in tests, or standalone usage).
+ */
+let noopTelemetry: Telemetry | null = null
+function getNoopTelemetry(): Telemetry {
+  return (noopTelemetry ??= createNoopTelemetry())
+}
 
 export interface TelemetryContextValue {
   /** The root telemetry instance (a logger bound to the empty root context). */
@@ -45,16 +58,20 @@ export function TelemetryProvider({ children, ...config }: TelemetryProviderProp
 
 /**
  * useTelemetry — access the root telemetry instance.
- * Must be used within <TelemetryProvider>.
+ *
+ * If called outside a <TelemetryProvider> it does NOT throw: it returns a
+ * shared no-op telemetry (a dev-only warn-once hint is emitted so the missing
+ * provider is discoverable). This lets components instrumented with
+ * useLogger/useSpan/useTelemetry render safely without a provider.
  */
 export function useTelemetry(): Telemetry {
   const ctx = React.useContext(TelemetryContext)
   if (!ctx) {
     devWarn(
       'react-logger/use-telemetry-outside-provider',
-      'useTelemetry() (or useSpan(), which depends on it) was called outside a <TelemetryProvider>. Wrap your app (or the consuming subtree) in <TelemetryProvider> so the telemetry context is available.',
+      'useTelemetry() (or useLogger()/useSpan(), which depend on it) was called outside a <TelemetryProvider>. Telemetry is a no-op here; wrap your app (or the consuming subtree) in <TelemetryProvider> to enable it.',
     )
-    throw new Error('useTelemetry must be used within a <TelemetryProvider>')
+    return getNoopTelemetry()
   }
   return ctx.telemetry
 }
