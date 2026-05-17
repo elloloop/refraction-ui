@@ -1,7 +1,6 @@
 import * as React from 'react'
-import { useContext } from 'react'
 import { createLinearScale, computeExtent } from '@refraction-ui/charts'
-import { ChartContext } from './chart-context.js'
+import { useChartContext } from './chart-context.js'
 
 export interface CirclesProps<T = unknown> {
   data: T[]
@@ -18,7 +17,7 @@ export function Circles<T>({
   r = 4,
   fill = 'currentColor',
 }: CirclesProps<T>) {
-  const { dimensions } = useContext(ChartContext)
+  const { dimensions } = useChartContext()
   const { boundedWidth, boundedHeight } = dimensions
 
   const xValues = data.map(cx)

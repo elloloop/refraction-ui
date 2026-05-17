@@ -1,7 +1,6 @@
 import * as React from 'react'
-import { useContext } from 'react'
 import { createLinearScale, computeExtent, linePath } from '@refraction-ui/charts'
-import { ChartContext } from './chart-context.js'
+import { useChartContext } from './chart-context.js'
 
 export interface LineProps<T = unknown> {
   data: T[]
@@ -20,7 +19,7 @@ export function Line<T>({
   strokeWidth = 2,
   fill = 'none',
 }: LineProps<T>) {
-  const { dimensions } = useContext(ChartContext)
+  const { dimensions } = useChartContext()
   const { boundedWidth, boundedHeight } = dimensions
 
   const xValues = data.map(x)
