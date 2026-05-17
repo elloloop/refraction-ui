@@ -66,3 +66,4 @@ export 'src/components/bottom_nav.dart';
 export 'src/components/breadcrumbs.dart';
 export 'src/components/footer.dart';
 export 'src/components/skeleton.dart';
+export 'src/telemetry/telemetry.dart';
