@@ -10,8 +10,12 @@
     "dist"
   ],
   "scripts": {
-    "build": "node build.mjs"
+    "build": "node build.mjs",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage --passWithNoTests"
   },
+  "dependencies": {},
   "peerDependencies": {
     "astro": ">=4.0.0"
   },

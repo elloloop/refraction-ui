@@ -7,7 +7,12 @@ const repoRoot = resolve(packageDir, '..', '..')
 const distDir = resolve(packageDir, 'dist')
 const internalDir = resolve(distDir, 'internal')
 const selfPackageName = '@refraction-ui/react'
-const packageSpecifierPattern = /(['"])@refraction-ui\/([a-z0-9-]+)\1/g
+// Captures `@refraction-ui/<pkg>` and any optional subpath
+// (e.g. `@refraction-ui/analytics-sink-posthog/replay`). The subpath is
+// rewritten to the matching emitted declaration entry inside `internal/`
+// (`replay.d.ts`) rather than the package's `index` barrel.
+const packageSpecifierPattern =
+  /(['"])@refraction-ui\/([a-z0-9-]+)((?:\/[a-z0-9-]+)*)\1/g
 const entryDeclarationProxies = [
   ['form.d.ts', '@refraction-ui/react-form'],
   ['form.d.cts', '@refraction-ui/react-form'],
@@ -46,9 +51,12 @@ async function listDeclarationFiles(dir) {
   return files
 }
 
-function toSpecifier(fromFile, packageName) {
+function toSpecifier(fromFile, packageName, subpath = '') {
   const extension = fromFile.endsWith('.d.cts') ? '.cjs' : '.js'
-  const target = resolve(internalDir, packageName, `index${extension}`)
+  // Bare specifier -> the package's `index` barrel; a subpath specifier
+  // (e.g. `.../replay`) -> the same-named emitted entry (`replay.js`).
+  const entry = subpath ? subpath.replace(/^\//, '') : 'index'
+  const target = resolve(internalDir, packageName, `${entry}${extension}`)
   let specifier = relative(dirname(fromFile), target).replaceAll('\\', '/')
 
   if (!specifier.startsWith('.')) {
@@ -72,10 +80,10 @@ async function rewriteDeclarationFile(path) {
   const original = await readFile(path, 'utf8')
   const rewritten = original.replace(
     packageSpecifierPattern,
-    (match, quote, localName) => {
+    (match, quote, localName, subpath) => {
       const packageName = `@refraction-ui/${localName}`
       queuePackage(packageName)
-      return `${quote}${toSpecifier(path, localName)}${quote}`
+      return `${quote}${toSpecifier(path, localName, subpath)}${quote}`
     }
   )
 

@@ -27,6 +27,9 @@
   },
   "dependencies": {
     "@refraction-ui/analytics": "workspace:*",
+    "@refraction-ui/analytics-sink-app-insights": "workspace:*",
+    "@refraction-ui/analytics-sink-ga4": "workspace:*",
+    "@refraction-ui/analytics-sink-posthog": "workspace:*",
     "@refraction-ui/shared": "workspace:*"
   },
   "peerDependencies": {
