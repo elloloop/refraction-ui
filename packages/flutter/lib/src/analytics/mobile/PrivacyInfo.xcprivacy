@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  iOS Privacy Manifest FRAGMENT for the refraction_ui analytics mobile layer.
+
+  This is a copy-paste fragment, NOT a drop-in app manifest. `refraction_ui`
+  is a dependency-free Dart UI library: it ships NO native iOS code, has NO
+  bundled Firebase/PostHog SDK, and therefore does not (and cannot) carry its
+  own `PrivacyInfo.xcprivacy` resource bundle. The consuming app owns the
+  single app-level `ios/Runner/PrivacyInfo.xcprivacy`; merge the keys below
+  into it (and the keys from the firebase_analytics / posthog_flutter /
+  flutter_secure_storage plugins YOU add — each of those plugins ships its
+  own manifest).
+
+  Scope of THIS library's contribution:
+  ───────────────────────────────────────────────────────────────────────────
+  • NSPrivacyTracking = false for refraction_ui itself: the library never
+    reads the IDFA and performs no cross-app tracking. (If you register a
+    tracking-category sink AND the app enables IDFA-based features, set the
+    app-level NSPrivacyTracking per YOUR configuration — gated by ATT, which
+    this library sequences via MobileConsentController.)
+  • Required-reason API: the offline identity/session persistence
+    (ConsentGatedSecureStorage → your flutter_secure_storage /
+    shared_preferences) is "User Defaults"-class access → declare
+    NSPrivacyAccessedAPICategoryUserDefaults with reason **CA92.1**
+    ("Access info from same app, per documentation"): the only data stored is
+    this app's own resettable, non-PII anonymousId + session, never read by
+    or shared with any other app.
+  • Collected data types: see STORE_COMPLIANCE.md. The library collects only
+    a coarse, non-identifying "Product Interaction" / "Other Diagnostic Data"
+    set sent to the CONSUMER'S endpoint or to the Firebase/PostHog SDK the
+    consumer configures — never to refraction-ui's servers.
+-->
+<plist version="1.0">
+<dict>
+  <key>NSPrivacyTracking</key>
+  <false/>
+
+  <key>NSPrivacyTrackingDomains</key>
+  <array/>
+
+  <key>NSPrivacyCollectedDataTypes</key>
+  <array>
+    <!--
+      Product interaction (screen/track events). Linked to the resettable,
+      non-PII anonymousId only; NOT linked to a real identity; NOT used for
+      tracking. Replace/extend per the events YOUR app instruments.
+    -->
+    <dict>
+      <key>NSPrivacyCollectedDataType</key>
+      <string>NSPrivacyCollectedDataTypeProductInteraction</string>
+      <key>NSPrivacyCollectedDataTypeLinked</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypeTracking</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypePurposes</key>
+      <array>
+        <string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
+      </array>
+    </dict>
+  </array>
+
+  <key>NSPrivacyAccessedAPITypes</key>
+  <array>
+    <!--
+      Offline persistence of the analytics anonymousId + session via the
+      consumer-injected secure store (User Defaults / Keychain class).
+    -->
+    <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>CA92.1</string>
+      </array>
+    </dict>
+  </array>
+</dict>
+</plist>
