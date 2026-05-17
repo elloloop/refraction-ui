@@ -133,7 +133,9 @@
     "@refraction-ui/react-card-grid": "workspace:*",
     "@refraction-ui/react-payment": "workspace:*",
     "@refraction-ui/react-command-input": "workspace:*",
-    "@refraction-ui/react-sheet": "workspace:*"
+    "@refraction-ui/react-sheet": "workspace:*",
+    "@refraction-ui/react-logger": "workspace:*",
+    "@refraction-ui/react-analytics": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

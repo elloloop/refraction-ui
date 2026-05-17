@@ -38,7 +38,5 @@
     "directory": "packages/analytics-sink-ga4"
   },
   "homepage": "https://elloloop.github.io/refraction-ui/",
-  "publishConfig": {
-    "access": "public"
-  }
+  "private": true
 }

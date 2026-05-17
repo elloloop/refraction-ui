@@ -45,7 +45,9 @@
     "@refraction-ui/angular-payment": "workspace:*",
     "@refraction-ui/angular-command-input": "workspace:*",
     "@refraction-ui/angular-voice-pill": "workspace:*",
-    "@refraction-ui/angular-waveform": "workspace:*"
+    "@refraction-ui/angular-waveform": "workspace:*",
+    "@refraction-ui/angular-logger": "workspace:*",
+    "@refraction-ui/angular-analytics": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
