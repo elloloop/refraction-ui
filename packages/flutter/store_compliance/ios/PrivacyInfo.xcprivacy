@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  refraction_ui telemetry — iOS Privacy Manifest FRAGMENT.
+
+  This is a release-blocking, MANDATORY store-compliance artifact (epic #225
+  DESIGN CLARIFICATION §3). It covers ONLY the code paths added by the Flutter
+  telemetry/analytics layer:
+
+    - Durable offline queue        (durable_store_io.dart — writes/reads a
+                                    namespaced JSON/NDJSON file under the OS
+                                    temp dir; reads file timestamps via the
+                                    standard File API)
+    - Crash-on-next-launch         (crash_capture.dart — persists a single
+                                    crash blob to the same file store)
+    - Native context auto-attach   (native_context_io.dart — reads OS
+                                    name/version, coarse model, locale ONLY)
+
+  refraction_ui is a pure-Dart package with NO native plugin, so it cannot
+  ship a binary-embedded manifest itself. The CONSUMING app must MERGE the
+  arrays below into its own `ios/Runner/PrivacyInfo.xcprivacy`
+  (`NSPrivacyAccessedAPITypes` + `NSPrivacyCollectedDataTypes`). Apple
+  requires the privacy manifest to live in the app/SDK bundle.
+
+  WHAT IS NOT DONE HERE (so consumers can attest accurately):
+    - NO IDFA / IDFV / advertising identifier is read or collected.
+    - NO device name, serial, MAC, IMEI, or any persistent HW identifier.
+    - NO ATTrackingManager / AdSupport usage (ATT is the consumer's; this
+      package only SEQUENCES it — see ../ATT_CONSENT.md).
+    - NO tracking. `NSPrivacyTracking` is false for this layer.
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>NSPrivacyTracking</key>
+  <false/>
+
+  <key>NSPrivacyTrackingDomains</key>
+  <array/>
+
+  <!--
+    Required-reason API declarations for the offline-persistence /
+    device-context code. Reason codes are from Apple's "Describing use of
+    required reason API" list.
+  -->
+  <key>NSPrivacyAccessedAPITypes</key>
+  <array>
+    <dict>
+      <!--
+        File timestamp APIs: the durable queue / crash store create and
+        re-open files; reading their timestamps is implicit in File I/O and
+        in deciding queue freshness. C617.1 = "...timestamp of files inside
+        the app container, app group container, or the app's CloudKit
+        container." We never read timestamps of files outside our own
+        namespaced container directory.
+      -->
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>C617.1</string>
+      </array>
+    </dict>
+    <dict>
+      <!--
+        UserDefaults: declared defensively for the Flutter-web localStorage
+        equivalent / any plugin a consumer adds for app version. The Dart
+        durable store on iOS uses the file system (above), NOT UserDefaults,
+        so consumers who do not add such a plugin may drop this entry.
+        CA92.1 = "access info from same app, no tracking, not sent off
+        device in a way that identifies the user/device."
+      -->
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>CA92.1</string>
+      </array>
+    </dict>
+  </array>
+
+  <!--
+    Collected data types. "Crash data", "Performance data", and "Other
+    diagnostic data" are sent to the CONSUMER's own collector endpoint
+    (never refraction-ui's). Not linked to identity, not used for tracking.
+    Add/adjust to match what the consuming app actually puts in log context.
+  -->
+  <key>NSPrivacyCollectedDataTypes</key>
+  <array>
+    <dict>
+      <key>NSPrivacyCollectedDataType</key>
+      <string>NSPrivacyCollectedDataTypeCrashData</string>
+      <key>NSPrivacyCollectedDataTypeLinked</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypeTracking</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypePurposes</key>
+      <array>
+        <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+      </array>
+    </dict>
+    <dict>
+      <key>NSPrivacyCollectedDataType</key>
+      <string>NSPrivacyCollectedDataTypePerformanceData</string>
+      <key>NSPrivacyCollectedDataTypeLinked</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypeTracking</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypePurposes</key>
+      <array>
+        <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+      </array>
+    </dict>
+    <dict>
+      <key>NSPrivacyCollectedDataType</key>
+      <string>NSPrivacyCollectedDataTypeOtherDiagnosticData</string>
+      <key>NSPrivacyCollectedDataTypeLinked</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypeTracking</key>
+      <false/>
+      <key>NSPrivacyCollectedDataTypePurposes</key>
+      <array>
+        <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+      </array>
+    </dict>
+  </array>
+</dict>
+</plist>

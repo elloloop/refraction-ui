@@ -91,5 +91,43 @@ export 'redact.dart' show redact;
 // Mock sink (for testing).
 export 'mock_sink.dart' show createMockSink, MockSinkExtended;
 
-// App-exit flush hook (uniform surface; platform wiring is internal).
+// App-exit / app-background flush hook (uniform surface; platform wiring —
+// web pagehide / mobile AppLifecycleState.paused·inactive·detached / desktop
+// SIGTERM — is an internal conditional-import detail).
 export 'lifecycle.dart' show LifecycleHook, LifecycleSubscription;
+
+// ---- Wave-1 mobile/desktop layer (all internal behind the surface) -------
+// The public API/structure is unchanged and identical across every target;
+// these are additive helpers — platform differences stay behind conditional
+// imports.
+
+// Durable offline queue + retry/backoff sink (wraps any transport sink).
+export 'durable_sink.dart'
+    show
+        createDurableSink,
+        DurableSink,
+        DurableSinkOptions,
+        DurableSinkTransport,
+        RecordingDurableTransport,
+        durableSinkPending;
+
+// Pluggable durable store (platform-selected; injectable for tests).
+export 'durable_store.dart'
+    show DurableStore, MemoryDurableStore, resolveDurableStore;
+
+// Native device/app context auto-attach.
+export 'native_context.dart' show NativeContext, NativeContextOverrides;
+
+// Crash capture + crash-on-next-launch.
+export 'crash_capture.dart'
+    show installCrashCapture, TelemetryCrashGuard, debugWritePersistedCrash;
+
+// Isolate-aware ingestion (background-isolate logs aren't lost).
+export 'isolate_queue.dart' show TelemetryIsolateHost, createIsolateLogger;
+
+// ATT/IDFA gating + consent sequencing (no IDs before consent).
+export 'att_gate.dart' show TelemetryConsent, TrackingState;
+
+// One-call mobile/desktop integration (additive; same usage as
+// createTelemetry — context auto-attach + crash + consent).
+export 'mobile.dart' show installMobileTelemetry, MobileTelemetry;
