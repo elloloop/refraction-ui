@@ -80,26 +80,33 @@ function rewriteImports(dir) {
       // Calculate relative depth to the base dist directory
       const relativeToDist = path.relative(path.dirname(fullPath), distDir);
       
+      // Resolve a `@refraction-ui/<pkg>[/<subpath>]` specifier to the copied
+      // source. A bare specifier maps to the package's `index.ts`; a subpath
+      // (e.g. `@refraction-ui/analytics-sink-posthog/replay`) maps to the
+      // same-named source file (`replay.ts`) so optional entry points stay
+      // embedded instead of leaking a private package reference.
+      const resolveSpecifier = (spec) => {
+        const slash = spec.indexOf('/');
+        const folder = slash === -1 ? spec : spec.slice(0, slash);
+        if (!copiedPackages.includes(folder)) return null;
+        const subpath = slash === -1 ? 'index' : spec.slice(slash + 1);
+        const rel =
+          relativeToDist === ''
+            ? `./${folder}/${subpath}.ts`
+            : `${relativeToDist}/${folder}/${subpath}.ts`;
+        return rel;
+      };
+
       // Rewrite static imports
       content = content.replace(/from\s+['"]@refraction-ui\/([^'"]+)['"]/g, (match, pkgName) => {
-        if (copiedPackages.includes(pkgName)) {
-          const relativeImportPath = relativeToDist === '' 
-            ? `./${pkgName}/index.ts` 
-            : `${relativeToDist}/${pkgName}/index.ts`;
-          return `from '${relativeImportPath}'`;
-        }
-        return match;
+        const rel = resolveSpecifier(pkgName);
+        return rel ? `from '${rel}'` : match;
       });
 
       // Rewrite dynamic imports
       content = content.replace(/import\s*\(\s*['"]@refraction-ui\/([^'"]+)['"]\s*\)/g, (match, pkgName) => {
-        if (copiedPackages.includes(pkgName)) {
-          const relativeImportPath = relativeToDist === '' 
-            ? `./${pkgName}/index.ts` 
-            : `${relativeToDist}/${pkgName}/index.ts`;
-          return `import('${relativeImportPath}')`;
-        }
-        return match;
+        const rel = resolveSpecifier(pkgName);
+        return rel ? `import('${rel}')` : match;
       });
 
       // Add missing extensions to self-referential relative exports

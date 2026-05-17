@@ -13,6 +13,12 @@ export type { UseSpanAPI } from './use-span.js'
 export { TelemetryErrorBoundary } from './error-boundary.js'
 export type { TelemetryErrorBoundaryProps } from './error-boundary.js'
 
+export {
+  createTelemetry,
+  createConsoleSink,
+  createFaroSink,
+} from '@refraction-ui/logger'
+
 // Re-export core types for convenience
 export type {
   Telemetry,
