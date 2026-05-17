@@ -8,7 +8,7 @@ import {
   type FieldPath,
   type FieldValues,
 } from 'react-hook-form'
-import { cn, cva } from '@refraction-ui/shared'
+import { cn, cva, devWarn } from '@refraction-ui/shared'
 import { Slot } from './slot.js'
 
 /**
@@ -77,9 +77,17 @@ function useFormField() {
   })
 
   if (!fieldContext) {
+    devWarn(
+      'react-form/use-form-field-outside-form-field',
+      'useFormField (via FormLabel/FormControl/FormDescription/FormMessage) must be used inside a <FormField>. The missing FormFieldContext makes this throw.',
+    )
     throw new Error('useFormField must be used within a <FormField>')
   }
   if (!itemContext) {
+    devWarn(
+      'react-form/use-form-field-outside-form-item',
+      'useFormField (via FormLabel/FormControl/FormDescription/FormMessage) must be used inside a <FormItem>. The missing FormItemContext makes this throw.',
+    )
     throw new Error('useFormField must be used within a <FormItem>')
   }
 

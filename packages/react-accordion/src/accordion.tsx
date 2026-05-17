@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 const AccordionContext = React.createContext<{
   type: 'single' | 'multiple'
@@ -59,7 +59,13 @@ export interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement>
 export const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(
   ({ className, value, ...props }, ref) => {
     const context = React.useContext(AccordionContext)
-    if (!context) throw new Error('AccordionItem must be within Accordion')
+    if (!context) {
+      devWarn(
+        'react-accordion/item-outside-accordion',
+        '<AccordionItem> must be rendered inside an <Accordion>. The missing AccordionContext makes this throw.',
+      )
+      throw new Error('AccordionItem must be within Accordion')
+    }
 
     const isOpen = context.type === 'single'
       ? context.value === value
@@ -81,7 +87,13 @@ export const AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTri
     const accordionContext = React.useContext(AccordionContext)
     const itemContext = React.useContext(AccordionItemContext)
     
-    if (!accordionContext || !itemContext) throw new Error('AccordionTrigger missing context')
+    if (!accordionContext || !itemContext) {
+      devWarn(
+        'react-accordion/trigger-missing-context',
+        '<AccordionTrigger> must be rendered inside an <AccordionItem> within an <Accordion>. The missing AccordionContext/AccordionItemContext makes this throw.',
+      )
+      throw new Error('AccordionTrigger missing context')
+    }
 
     return (
       <h3 className="flex m-0 p-0">
@@ -124,7 +136,13 @@ export interface AccordionContentProps extends React.HTMLAttributes<HTMLDivEleme
 export const AccordionContent = React.forwardRef<HTMLDivElement, AccordionContentProps>(
   ({ className, children, ...props }, ref) => {
     const itemContext = React.useContext(AccordionItemContext)
-    if (!itemContext) throw new Error('AccordionContent missing context')
+    if (!itemContext) {
+      devWarn(
+        'react-accordion/content-missing-context',
+        '<AccordionContent> must be rendered inside an <AccordionItem>. The missing AccordionItemContext makes this throw.',
+      )
+      throw new Error('AccordionContent missing context')
+    }
 
     return (
       <div

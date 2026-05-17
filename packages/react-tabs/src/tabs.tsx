@@ -5,7 +5,7 @@ import {
   tabsTriggerVariants,
   type TabsProps as CoreTabsProps,
 } from '@refraction-ui/tabs'
-import { cn, createKeyboardHandler, Keys } from '@refraction-ui/shared'
+import { cn, createKeyboardHandler, Keys, devWarn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context
@@ -23,6 +23,10 @@ const TabsContext = React.createContext<TabsContextValue | null>(null)
 function useTabsContext(): TabsContextValue {
   const ctx = React.useContext(TabsContext)
   if (!ctx) {
+    devWarn(
+      'react-tabs/context-outside-provider',
+      'Tabs compound components (TabsList/TabsTrigger/TabsContent) must be rendered inside a <Tabs>. The missing TabsContext makes this throw.',
+    )
     throw new Error('Tabs compound components must be used within <Tabs>')
   }
   return ctx

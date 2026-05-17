@@ -6,7 +6,7 @@ import {
   type PopoverAPI,
 } from '@refraction-ui/popover'
 import type { Side } from '@refraction-ui/shared'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 /* ------------------------------------------------------------------ */
 /*  Context                                                            */
@@ -23,6 +23,10 @@ const PopoverContext = React.createContext<PopoverContextValue | null>(null)
 function usePopoverContext(): PopoverContextValue {
   const ctx = React.useContext(PopoverContext)
   if (!ctx) {
+    devWarn(
+      'react-popover/context-outside-provider',
+      'Popover compound components (PopoverTrigger/PopoverContent/etc.) must be rendered inside a <Popover>. The missing PopoverContext makes this throw.',
+    )
     throw new Error('Popover compound components must be used within <Popover>')
   }
   return ctx

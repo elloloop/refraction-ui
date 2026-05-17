@@ -8,7 +8,7 @@ import {
   type CommandProps as CoreCommandProps,
   type CommandItemData,
 } from '@refraction-ui/command'
-import { cn, createKeyboardHandler, Keys } from '@refraction-ui/shared'
+import { cn, createKeyboardHandler, Keys, devWarn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context
@@ -32,6 +32,10 @@ const CommandContext = React.createContext<CommandContextValue | null>(null)
 function useCommandContext(): CommandContextValue {
   const ctx = React.useContext(CommandContext)
   if (!ctx) {
+    devWarn(
+      'react-command/context-outside-provider',
+      'Command compound components (CommandInput/CommandList/CommandItem/CommandGroup/etc.) must be rendered inside a <Command>. The missing CommandContext makes this throw.',
+    )
     throw new Error('Command compound components must be used within <Command>')
   }
   return ctx

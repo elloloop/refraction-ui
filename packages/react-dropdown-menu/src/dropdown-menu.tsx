@@ -7,7 +7,7 @@ import {
   type DropdownMenuProps as CoreDropdownMenuProps,
   type MenuItemProps as CoreMenuItemProps,
 } from '@refraction-ui/dropdown-menu'
-import { cn, createKeyboardHandler } from '@refraction-ui/shared'
+import { cn, createKeyboardHandler, devWarn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context
@@ -24,6 +24,10 @@ const DropdownMenuContext = React.createContext<DropdownMenuContextValue | null>
 function useDropdownMenuContext(): DropdownMenuContextValue {
   const ctx = React.useContext(DropdownMenuContext)
   if (!ctx) {
+    devWarn(
+      'react-dropdown-menu/context-outside-provider',
+      'DropdownMenu compound components (DropdownMenuTrigger/DropdownMenuContent/DropdownMenuItem/etc.) must be rendered inside a <DropdownMenu>. The missing DropdownMenuContext makes this throw.',
+    )
     throw new Error('DropdownMenu compound components must be used within <DropdownMenu>')
   }
   return ctx
