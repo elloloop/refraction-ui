@@ -1,6 +1,5 @@
 {
   "name": "@refraction-ui/astro-analytics",
-  "private": true,
   "version": "0.2.0",
   "type": "module",
   "exports": {
@@ -32,5 +31,8 @@
     "url": "https://github.com/elloloop/refraction-ui.git",
     "directory": "packages/astro-analytics"
   },
-  "homepage": "https://elloloop.github.io/refraction-ui/"
+  "homepage": "https://elloloop.github.io/refraction-ui/",
+  "publishConfig": {
+    "access": "public"
+  }
 }
