@@ -4,7 +4,7 @@ import {
   type AuthShellConfig,
   type AuthShellAPI,
 } from '@refraction-ui/app-shell'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context
@@ -19,6 +19,10 @@ const AuthShellContext = React.createContext<AuthShellContextValue | null>(null)
 function useAuthShell(): AuthShellContextValue {
   const ctx = React.useContext(AuthShellContext)
   if (!ctx) {
+    devWarn(
+      'react-app-shell/auth-shell-compound-outside-provider',
+      'An AuthShell compound component was rendered outside of <AuthShell>. Wrap it in <AuthShell>.',
+    )
     throw new Error('AuthShell compound components must be used within <AuthShell>')
   }
   return ctx

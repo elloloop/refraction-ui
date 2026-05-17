@@ -7,7 +7,7 @@ import {
   type ResizableLayoutProps as CoreProps,
   type ResizableLayoutAPI,
 } from '@refraction-ui/resizable-layout'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 import type { Orientation } from '@refraction-ui/shared'
 
 /* ------------------------------------------------------------------ */
@@ -26,6 +26,10 @@ const ResizableLayoutContext = React.createContext<ResizableLayoutContextValue |
 function useResizableLayoutContext(): ResizableLayoutContextValue {
   const ctx = React.useContext(ResizableLayoutContext)
   if (!ctx) {
+    devWarn(
+      'react-resizable-layout/compound-outside-provider',
+      'A Resizable compound component was rendered outside of <ResizableLayout>. Wrap it in <ResizableLayout>.',
+    )
     throw new Error('Resizable compound components must be used within <ResizableLayout>')
   }
   return ctx

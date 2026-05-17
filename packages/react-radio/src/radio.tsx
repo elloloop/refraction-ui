@@ -6,7 +6,7 @@ import {
   radioCircleVariants,
   type RadioGroupProps as CoreRadioGroupProps,
 } from '@refraction-ui/radio'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 interface RadioContextValue {
   value: string | undefined
@@ -71,7 +71,13 @@ export interface RadioItemProps {
 
 export function RadioItem({ value, children, disabled = false, className }: RadioItemProps) {
   const ctx = React.useContext(RadioContext)
-  if (!ctx) throw new Error('RadioItem must be used within RadioGroup')
+  if (!ctx) {
+    devWarn(
+      'react-radio/radio-item-outside-group',
+      'RadioItem was rendered outside of <RadioGroup>. Wrap it in <RadioGroup>.',
+    )
+    throw new Error('RadioItem must be used within RadioGroup')
+  }
 
   const isChecked = ctx.value === value
   const isDisabled = ctx.disabled || disabled

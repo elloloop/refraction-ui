@@ -7,7 +7,7 @@ import {
   type VersionSelectorAPI,
   type VersionOption,
 } from '@refraction-ui/version-selector'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 /* ------------------------------------------------------------------ */
 /*  Context                                                            */
@@ -26,6 +26,10 @@ const VersionSelectorContext = React.createContext<VersionSelectorContextValue |
 function useVersionSelectorContext(): VersionSelectorContextValue {
   const ctx = React.useContext(VersionSelectorContext)
   if (!ctx) {
+    devWarn(
+      'react-version-selector/compound-outside-provider',
+      'A VersionSelector compound component was rendered outside of <VersionSelector>. Wrap it in <VersionSelector>.',
+    )
     throw new Error('VersionSelector compound components must be used within <VersionSelector>')
   }
   return ctx

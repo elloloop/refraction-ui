@@ -6,7 +6,7 @@ import {
   type LanguageSelectorAPI,
   type LanguageOption,
 } from '@refraction-ui/language-selector'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 /* ------------------------------------------------------------------ */
 /*  Context                                                            */
@@ -26,6 +26,10 @@ const LanguageSelectorContext = React.createContext<LanguageSelectorContextValue
 function useLanguageSelectorContext(): LanguageSelectorContextValue {
   const ctx = React.useContext(LanguageSelectorContext)
   if (!ctx) {
+    devWarn(
+      'react-language-selector/compound-outside-provider',
+      'A LanguageSelector compound component was rendered outside of <LanguageSelector>. Wrap it in <LanguageSelector>.',
+    )
     throw new Error('LanguageSelector compound components must be used within <LanguageSelector>')
   }
   return ctx
