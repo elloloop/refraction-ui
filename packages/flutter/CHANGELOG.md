@@ -1,3 +1,21 @@
+## 0.2.0
+
+Adds the Flutter telemetry and analytics surfaces that were missing from the
+initial pub.dev release.
+
+- Add the telemetry core with presets, redaction, console/mock/Faro sinks,
+  durable delivery, crash capture, lifecycle flush, native context, ATT consent,
+  and isolate queue support.
+- Add the analytics core with Segment-style envelopes, identity/session
+  handling, consent, redaction, HTTP/console/mock sinks, and a namespaced
+  `package:refraction_ui/analytics.dart` entrypoint.
+- Add mobile analytics adapters for Firebase and PostHog, app background
+  session tracking, secure storage abstractions, and iOS privacy/store
+  compliance metadata.
+- Export telemetry from the main package barrel and analytics from both the
+  main barrel and the analytics-specific barrel while preserving the web
+  contracts and uniform cross-platform structure.
+
 ## 0.1.0
 
 Initial release of `refraction_ui` for Flutter — a headless, highly customizable, fully accessible UI library mirroring the Refraction UI design system.

@@ -184,7 +184,7 @@ class _AppShell extends ConsumerWidget {
                     const SizedBox(width: 8),
                     RefractionBadge(
                       variant: RefractionBadgeVariant.secondary,
-                      child: const Text("Flutter v1.0.0"),
+                      child: const Text("Flutter v0.2.0"),
                     ),
                   ],
                 ),
@@ -621,7 +621,7 @@ class _AppShell extends ConsumerWidget {
         return _buildArticlePage(
           context,
           "Installation",
-          "Add the following to your pubspec.yaml:\n\n```yaml\ndependencies:\n  refraction_ui: ^1.0.0\n```\n\nRun `flutter pub get` and wrap your app in a `RefractionTheme` to inject the design tokens globally.",
+          "Add the following to your pubspec.yaml:\n\n```yaml\ndependencies:\n  refraction_ui: ^0.2.0\n```\n\nRun `flutter pub get` and wrap your app in a `RefractionTheme` to inject the design tokens globally.",
         );
       case '/docs/theming':
         return _buildArticlePage(
