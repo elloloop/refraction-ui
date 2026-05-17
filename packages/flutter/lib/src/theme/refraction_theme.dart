@@ -9,10 +9,10 @@ import 'refraction_theme_data.dart';
 /// UI component below it can resolve colors, radii, shadows, and typography
 /// through the [RefractionThemeExtension] getters on [BuildContext].
 ///
-/// This is the Flutter sibling of the React `<RefractionThemeProvider>` and
-/// the Angular `RefractionThemeService` — same semantic tokens, same
-/// palettes, just plumbed through Flutter's [InheritedTheme] mechanism so it
-/// also works correctly across `Navigator` route boundaries.
+/// This is the Flutter sibling of the React `<RefractionThemeProvider>` —
+/// same semantic tokens, same palettes, just plumbed through Flutter's
+/// [InheritedTheme] mechanism so it also works correctly across `Navigator`
+/// route boundaries.
 ///
 /// ```dart
 /// RefractionTheme(

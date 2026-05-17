@@ -20,7 +20,7 @@ enum SkeletonShape {
 /// A pulsing placeholder block used while real content is loading.
 ///
 /// `RefractionSkeleton` is the Flutter version of the `RefractionSkeleton`
-/// component shipped with the React, Angular and Astro Refraction UI
+/// component shipped with the React and Astro Refraction UI
 /// packages (a shadcn-equivalent pattern). Its color is sourced from
 /// [RefractionColors.muted] and its opacity oscillates while [animate] is
 /// `true`.

@@ -1,6 +1,6 @@
 /**
  * Framework-agnostic base prop types for all refraction-ui components.
- * These are headless core types — no React, Angular, or Astro imports.
+ * These are headless core types — no React or Astro imports.
  * Framework wrappers extend these with framework-specific types.
  */
 

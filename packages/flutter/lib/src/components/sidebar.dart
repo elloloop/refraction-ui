@@ -43,7 +43,7 @@ class SidebarSection {
 /// A vertical navigation rail for app shells, themed with [RefractionTheme].
 ///
 /// `RefractionSidebar` is the Flutter counterpart of the `RefractionSidebar`
-/// component from the React, Angular and Astro Refraction UI packages
+/// component from the React and Astro Refraction UI packages
 /// (a shadcn-equivalent pattern). It renders a list of [SidebarSection]s
 /// and animates between [width] and [collapsedWidth] when [collapsed] flips.
 ///

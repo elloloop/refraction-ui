@@ -109,16 +109,16 @@ obligation.
 ## 3. React-first prioritization
 
 Rollout is **React-first**: the `react-*` packages are instrumented in
-Waves 1–3 before any Angular / Astro / Flutter mirror. Rationale:
+Waves 1–3 before any Astro / Flutter mirror. Rationale:
 
 - React is the reference framework (most consumers, the primitive landed in
   `@refraction-ui/react-logger` first).
-- Angular/Astro/Flutter wrappers re-expose the same headless cores; once the
+- Astro/Flutter wrappers re-expose the same headless cores; once the
   React policy is proven, the mirror is mechanical and lower-risk.
 - Per project guidance: headless core + React first; other frameworks when
   idle.
 
-The non-React framework packages (`angular-*`, `astro-*`, Flutter) are **out
+The non-React framework packages (`astro-*`, Flutter) are **out
 of scope for the prioritized rollout** but inherit this identical policy and
 tier mapping by component name when their wave is scheduled.
 

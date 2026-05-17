@@ -22,7 +22,6 @@ const waveformProps = [
 const frameworkPackages = {
   react: '@refraction-ui/react',
   astro: '@refraction-ui/astro',
-  angular: '@refraction-ui/angular',
 }
 
 const reactUsageCode = `import { Waveform } from '@refraction-ui/react'
@@ -51,27 +50,6 @@ import { Waveform } from '@refraction-ui/astro'
   barCount={40}
 />`
 
-const angularUsageCode = `import { Component, signal } from '@angular/core'
-import { RefractionWaveformComponent } from '@refraction-ui/angular'
-
-@Component({
-  selector: 'app-recorder',
-  standalone: true,
-  imports: [RefractionWaveformComponent],
-  template: \`
-    <refraction-waveform
-      [intensity]="intensity()"
-      [height]="48"
-      [amplitude]="0.75"
-      variant="bars"
-      [barCount]="40"
-    />
-  \`,
-})
-export class RecorderComponent {
-  intensity = signal(0.85)
-}`
-
 export default function WaveformPage() {
   return (
     <div className="space-y-12">
@@ -82,11 +60,11 @@ export default function WaveformPage() {
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Waveform</h1>
         <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
           Canvas audio visualization for live analyser nodes, sample arrays, media streams, and low-cost intensity values.
-          Exported from the single package for each framework: <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-sm">@refraction-ui/react</code>, <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-sm">@refraction-ui/astro</code>, and <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-sm">@refraction-ui/angular</code>.
+          Exported from the single package for each framework: <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-sm">@refraction-ui/react</code> and <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-sm">@refraction-ui/astro</code>.
         </p>
       </div>
 
-      <FrameworkTabs angularStatus={null} />
+      <FrameworkTabs />
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Examples</h2>
@@ -100,7 +78,7 @@ export default function WaveformPage() {
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
-        <CodeBlock frameworks={{ react: reactUsageCode, astro: astroUsageCode, angular: angularUsageCode }} />
+        <CodeBlock frameworks={{ react: reactUsageCode, astro: astroUsageCode }} />
       </section>
 
       <section className="space-y-4">

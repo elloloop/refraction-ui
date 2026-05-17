@@ -36,7 +36,7 @@ enum RefractionAlertVariant {
 /// and an optional trailing [action] widget. The [variant] selects the color
 /// palette; see [RefractionAlertVariant] for guidance.
 ///
-/// Mirrors the shadcn-ui `Alert` component shipped in the React, Angular, and
+/// Mirrors the shadcn-ui `Alert` component shipped in the React and
 /// Astro Refraction UI packages.
 ///
 /// ```dart

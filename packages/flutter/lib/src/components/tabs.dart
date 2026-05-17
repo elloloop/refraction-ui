@@ -4,7 +4,7 @@ import '../theme/refraction_theme.dart';
 /// A pill-style tab bar with a swappable content panel.
 ///
 /// `RefractionTabs` is the Flutter version of the `RefractionTabs` compound
-/// component from the React, Angular and Astro Refraction UI packages
+/// component from the React and Astro Refraction UI packages
 /// (a shadcn-equivalent pattern that bundles `Tabs`, `TabsList`,
 /// `TabsTrigger` and `TabsContent`). Rather than expose those as separate
 /// widgets, this Flutter API takes two parallel lists — [tabs] (the

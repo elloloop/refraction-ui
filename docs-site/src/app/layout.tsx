@@ -6,7 +6,7 @@ import { MainContent } from '@/components/conditional-layout'
 
 export const metadata: Metadata = {
   title: 'Refraction UI - Component Documentation',
-  description: 'Per-component headless UI library for React, Angular, and Astro',
+  description: 'Per-component headless UI library for React and Astro',
 }
 
 export default function RootLayout({

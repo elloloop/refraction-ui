@@ -8,7 +8,7 @@ import '../theme/refraction_theme.dart';
 /// [RefractionCardDescription], [RefractionCardContent], and
 /// [RefractionCardFooter] — to compose a fully-styled card.
 ///
-/// Mirrors the shadcn-ui `Card` family shipped in the React, Angular, and
+/// Mirrors the shadcn-ui `Card` family shipped in the React and
 /// Astro Refraction UI packages.
 ///
 /// ```dart

@@ -23,8 +23,8 @@ import 'refraction_colors.dart';
 /// )
 /// ```
 ///
-/// Mirrors the `RefractionThemeData` token contract used by the React,
-/// Angular, and Astro Refraction UI libraries so design decisions stay
+/// Mirrors the `RefractionThemeData` token contract used by the React
+/// and Astro Refraction UI libraries so design decisions stay
 /// portable across platforms.
 class RefractionThemeData {
   /// Semantic color tokens (`primary`, `background`, `border`, …) that all

@@ -4,7 +4,7 @@ import '../theme/refraction_theme.dart';
 /// A horizontal determinate progress bar themed by [RefractionTheme].
 ///
 /// `RefractionProgress` is the Flutter sibling of the `RefractionProgress`
-/// component from the React, Angular and Astro Refraction UI packages
+/// component from the React and Astro Refraction UI packages
 /// (a shadcn-equivalent pattern). It paints a pill-shaped track using
 /// [RefractionColors.muted] and a fill using [RefractionColors.primary]
 /// (or a custom [color]) animated to the supplied [value].
@@ -76,7 +76,7 @@ class RefractionProgress extends StatelessWidget {
 /// An interactive single-value slider styled with [RefractionTheme].
 ///
 /// `RefractionSlider` mirrors the `RefractionSlider` component from the
-/// React, Angular and Astro Refraction UI packages (a shadcn-equivalent
+/// React and Astro Refraction UI packages (a shadcn-equivalent
 /// pattern). It is a thin wrapper around the Material [Slider] that swaps
 /// in Refraction tokens for the track and thumb.
 ///

@@ -31,8 +31,8 @@ class RefractionMenuItem {
 /// The [trigger] widget is wrapped in a tap target. Tapping it pops the menu
 /// open below the trigger; tapping outside or selecting an item closes it.
 ///
-/// Mirrors the shadcn-ui `DropdownMenu` primitive shipped in the React,
-/// Angular, and Astro Refraction UI packages.
+/// Mirrors the shadcn-ui `DropdownMenu` primitive shipped in the React
+/// and Astro Refraction UI packages.
 ///
 /// ```dart
 /// RefractionDropdownMenu(

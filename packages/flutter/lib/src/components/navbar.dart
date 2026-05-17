@@ -31,7 +31,7 @@ class NavLink {
 /// A horizontal site-wide navigation bar styled with [RefractionTheme].
 ///
 /// `RefractionNavbar` mirrors the `RefractionNavbar` component shipped with
-/// the React, Angular and Astro flavours of Refraction UI (a shadcn-inspired
+/// the React and Astro flavours of Refraction UI (a shadcn-inspired
 /// pattern). It hosts an optional [logo], a list of [links] in the centre and
 /// trailing [actions] such as a sign-in button or theme toggle.
 ///

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
-export type Framework = 'react' | 'astro' | 'angular' 
+export type Framework = 'react' | 'astro'
 
 interface FrameworkContextType {
   framework: Framework

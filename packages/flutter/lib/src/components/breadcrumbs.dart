@@ -25,8 +25,8 @@ class BreadcrumbItem {
 /// final item represents the current page and is bolded. Earlier items with
 /// an [BreadcrumbItem.href] are tappable and emit through [onNavigate].
 ///
-/// Mirrors the shadcn-ui `Breadcrumb` primitive shipped in the React,
-/// Angular, and Astro Refraction UI packages.
+/// Mirrors the shadcn-ui `Breadcrumb` primitive shipped in the React
+/// and Astro Refraction UI packages.
 ///
 /// ```dart
 /// RefractionBreadcrumbs(

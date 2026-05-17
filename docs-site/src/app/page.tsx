@@ -17,7 +17,7 @@ export default function HomePage() {
             </span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-            A per-component headless UI library for React, Angular, and Astro.
+            A per-component headless UI library for React and Astro.
             Ship accessible, themeable interfaces with zero lock-in.
           </p>
         </div>

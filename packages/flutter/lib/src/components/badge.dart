@@ -25,7 +25,7 @@ enum RefractionBadgeVariant {
 ///
 /// Wraps an arbitrary [child] (typically a [Text]) in a rounded container
 /// styled by [variant]. Mirrors the shadcn-ui `Badge` primitive shipped in
-/// the React, Angular, and Astro Refraction UI packages.
+/// the React and Astro Refraction UI packages.
 ///
 /// ```dart
 /// RefractionBadge(

@@ -4,7 +4,7 @@ import '../theme/refraction_theme.dart';
 /// A short hover/long-press hint anchored to a child widget.
 ///
 /// `RefractionTooltip` is the Flutter sibling of the `RefractionTooltip`
-/// component from the React, Angular and Astro Refraction UI packages
+/// component from the React and Astro Refraction UI packages
 /// (a shadcn-equivalent pattern). It wraps Flutter's built-in [Tooltip]
 /// but swaps in [RefractionColors.popover], [RefractionColors.popoverForeground]
 /// and [RefractionColors.border] for the visual treatment so it matches
