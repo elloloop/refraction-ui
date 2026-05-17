@@ -6,7 +6,7 @@ import {
   type AppShellState,
   type AppShellAPI,
 } from '@refraction-ui/app-shell'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context
@@ -22,6 +22,10 @@ const AppShellContext = React.createContext<AppShellContextValue | null>(null)
 export function useAppShell(): AppShellContextValue {
   const ctx = React.useContext(AppShellContext)
   if (!ctx) {
+    devWarn(
+      'react-app-shell/use-app-shell-outside-provider',
+      'useAppShell() was called outside of <AppShell>. Wrap the consuming component tree in <AppShell>.',
+    )
     throw new Error('useAppShell must be used within <AppShell>')
   }
   return ctx

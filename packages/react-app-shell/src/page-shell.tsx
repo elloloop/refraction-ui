@@ -5,7 +5,7 @@ import {
   type SectionConfig,
   type PageShellAPI,
 } from '@refraction-ui/app-shell'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context
@@ -20,6 +20,10 @@ const PageShellContext = React.createContext<PageShellContextValue | null>(null)
 function usePageShell(): PageShellContextValue {
   const ctx = React.useContext(PageShellContext)
   if (!ctx) {
+    devWarn(
+      'react-app-shell/page-shell-compound-outside-provider',
+      'A PageShell compound component was rendered outside of <PageShell>. Wrap it in <PageShell>.',
+    )
     throw new Error('PageShell compound components must be used within <PageShell>')
   }
   return ctx

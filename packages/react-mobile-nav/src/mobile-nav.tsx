@@ -6,7 +6,7 @@ import {
   mobileNavTriggerVariants,
   mobileNavLinkVariants,
 } from '@refraction-ui/mobile-nav'
-import { cn, createKeyboardHandler } from '@refraction-ui/shared'
+import { cn, createKeyboardHandler, devWarn } from '@refraction-ui/shared'
 
 /* ------------------------------------------------------------------ */
 /*  Context                                                            */
@@ -23,6 +23,10 @@ const MobileNavContext = React.createContext<MobileNavContextValue | null>(null)
 function useMobileNavContext(): MobileNavContextValue {
   const ctx = React.useContext(MobileNavContext)
   if (!ctx) {
+    devWarn(
+      'react-mobile-nav/compound-outside-provider',
+      'A MobileNav compound component was rendered outside of <MobileNav>. Wrap it in <MobileNav>.',
+    )
     throw new Error('MobileNav compound components must be used within <MobileNav>')
   }
   return ctx

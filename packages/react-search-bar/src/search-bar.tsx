@@ -5,7 +5,7 @@ import {
   searchResultVariants,
   type SearchBarAPI,
 } from '@refraction-ui/search-bar'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 /* ------------------------------------------------------------------ */
 /*  Context                                                            */
@@ -24,6 +24,10 @@ const SearchBarContext = React.createContext<SearchBarContextValue | null>(null)
 function useSearchBarContext(): SearchBarContextValue {
   const ctx = React.useContext(SearchBarContext)
   if (!ctx) {
+    devWarn(
+      'react-search-bar/compound-outside-provider',
+      'A SearchBar compound component was rendered outside of <SearchBar>. Wrap it in <SearchBar>.',
+    )
     throw new Error('SearchBar compound components must be used within <SearchBar>')
   }
   return ctx

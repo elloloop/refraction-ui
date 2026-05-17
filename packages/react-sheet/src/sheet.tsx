@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { cn, cva, createKeyboardHandler, generateId } from '@refraction-ui/shared'
+import { cn, cva, createKeyboardHandler, generateId, devWarn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Side
@@ -52,6 +52,10 @@ const SheetContext = React.createContext<SheetContextValue | null>(null)
 function useSheetContext(): SheetContextValue {
   const ctx = React.useContext(SheetContext)
   if (!ctx) {
+    devWarn(
+      'react-sheet/sheet-compound-outside-provider',
+      'A Sheet compound component was rendered outside of <Sheet>. Wrap it in <Sheet>.',
+    )
     throw new Error('Sheet compound components must be used within <Sheet>')
   }
   return ctx

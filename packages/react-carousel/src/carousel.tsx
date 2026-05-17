@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { cn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 const CarouselContext = React.createContext<{
   type: 'single' | 'multiple'
@@ -59,7 +59,13 @@ export interface CarouselItemProps extends React.HTMLAttributes<HTMLDivElement> 
 export const CarouselItem = React.forwardRef<HTMLDivElement, CarouselItemProps>(
   ({ className, value, ...props }, ref) => {
     const context = React.useContext(CarouselContext)
-    if (!context) throw new Error('CarouselItem must be within Carousel')
+    if (!context) {
+      devWarn(
+        'react-carousel/carousel-item-outside-carousel',
+        'CarouselItem was rendered outside of <Carousel>. Wrap it in <Carousel>.',
+      )
+      throw new Error('CarouselItem must be within Carousel')
+    }
 
     const isOpen = context.type === 'single'
       ? context.value === value
@@ -81,7 +87,13 @@ export const CarouselTrigger = React.forwardRef<HTMLButtonElement, CarouselTrigg
     const carouselContext = React.useContext(CarouselContext)
     const itemContext = React.useContext(CarouselItemContext)
     
-    if (!carouselContext || !itemContext) throw new Error('CarouselTrigger missing context')
+    if (!carouselContext || !itemContext) {
+      devWarn(
+        'react-carousel/carousel-trigger-outside-item',
+        'CarouselTrigger was rendered outside of a <CarouselItem> within <Carousel>. Nest it inside <CarouselItem>.',
+      )
+      throw new Error('CarouselTrigger missing context')
+    }
 
     return (
       <h3 className="flex m-0 p-0">
@@ -124,7 +136,13 @@ export interface CarouselContentProps extends React.HTMLAttributes<HTMLDivElemen
 export const CarouselContent = React.forwardRef<HTMLDivElement, CarouselContentProps>(
   ({ className, children, ...props }, ref) => {
     const itemContext = React.useContext(CarouselItemContext)
-    if (!itemContext) throw new Error('CarouselContent missing context')
+    if (!itemContext) {
+      devWarn(
+        'react-carousel/carousel-content-outside-item',
+        'CarouselContent was rendered outside of a <CarouselItem> within <Carousel>. Nest it inside <CarouselItem>.',
+      )
+      throw new Error('CarouselContent missing context')
+    }
 
     return (
       <div
