@@ -31,7 +31,20 @@ jobs:
         run: pnpm e2e
 
       - name: Run Lost Pixel
-        run: pnpm visual
+        run: |
+          pnpm --filter refraction-ui-docs dev > /tmp/refraction-ui-docs.log 2>&1 &
+          DOCS_PID=$!
+          trap 'kill "$DOCS_PID"' EXIT
+
+          for _ in {1..60}; do
+            if curl -fsS http://localhost:3000 >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+
+          curl -fsS http://localhost:3000 >/dev/null
+          pnpm visual
 
       - uses: actions/upload-artifact@v4
         if: failure()
@@ -39,5 +52,6 @@ jobs:
           name: visual-diffs
           path: |
             e2e/results/
+            .lostpixel/current/
             .lostpixel/difference/
           retention-days: 7
