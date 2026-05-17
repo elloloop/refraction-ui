@@ -23,6 +23,11 @@ export { SCHEMA_VERSION } from './types.js'
 // Manager
 export { createAnalytics } from './analytics-manager.js'
 
+// Headless no-op (symmetry with @refraction-ui/logger's createNoopTelemetry):
+// a full Analytics whose every method is an empty fn. Used by adapters to
+// degrade gracefully (no-op, never throw) when no provider/context is present.
+export { createNoopAnalytics } from './noop.js'
+
 // Built-in sinks
 export { createHttpSink } from './http-sink.js'
 export { createConsoleSink } from './console-sink.js'

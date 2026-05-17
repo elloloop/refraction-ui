@@ -56,8 +56,8 @@
       "package": "react-analytics",
       "framework": "react",
       "tier": "footgun",
-      "footgunKind": "provider-context-throw",
-      "rationale": "useAnalytics throws outside <AnalyticsProvider>",
+      "footgunKind": "provider-context-noop",
+      "rationale": "useAnalytics/useTrackEvent no-op (createNoopAnalytics) outside <AnalyticsProvider> — instrumentation must not crash the host; devWarn only",
       "loc": 108,
       "files": [
         "analytics-provider.tsx",
