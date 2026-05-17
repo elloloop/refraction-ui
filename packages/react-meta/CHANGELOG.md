@@ -1,5 +1,16 @@
 # @refraction-ui/react
 
+## 0.9.0
+
+### Minor Changes
+
+- 956188b: react-logger: `useTelemetry`/`useLogger`/`useSpan` no longer throw when used
+  outside a `<TelemetryProvider>` — they return a shared `createNoopTelemetry()`
+  (a dev-only warn-once hint is still emitted). Components/hooks instrumented
+  with logging render safely without a provider (tests, standalone usage);
+  telemetry activates when a provider is mounted. Instrumentation must never
+  crash the host.
+
 ## 0.8.0
 
 ### Minor Changes
