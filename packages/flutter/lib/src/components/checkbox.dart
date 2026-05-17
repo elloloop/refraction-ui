@@ -8,7 +8,7 @@ import '../theme/refraction_theme.dart';
 /// Pass `null` for [onChanged] (or set [disabled] to true) to render the
 /// checkbox as non-interactive.
 ///
-/// Mirrors the shadcn-ui `Checkbox` primitive shipped in the React, Angular,
+/// Mirrors the shadcn-ui `Checkbox` primitive shipped in the React
 /// and Astro Refraction UI packages.
 ///
 /// ```dart

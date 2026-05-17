@@ -17,16 +17,17 @@ Earlier revisions of this file were **wrong** and caused repeated mistakes.
 They are corrected and the rules now live in `CLAUDE.md`. In short:
 
 - The **only** npm-published packages are the per-framework metas
-  (`@refraction-ui/react|astro|angular` from `packages/*-meta`),
-  `@refraction-ui/shared`, and `@refraction-ui/tailwind-config`.
-- **Every other `packages/*` is `private: true` and never published** — all
-  headless cores and all `react-*`/`astro-*`/`angular-*` adapters.
+  (`@refraction-ui/react|astro` from `packages/*-meta`) and
+  `@refraction-ui/tailwind-config` — exactly three.
+- **Every other `packages/*` is `private: true` and never published** —
+  `@refraction-ui/shared` (embedded into the metas), all headless cores and
+  all `react-*`/`astro-*` adapters. Angular support has been removed entirely.
 - A new feature reaches consumers by wiring its adapter into the meta
   (`devDependencies` `workspace:*` + `export * from` in `*-meta/src/index.ts`),
   **not** by publishing the package itself.
 - **Do NOT** `npm version`/`npm publish` individual packages, set feature
   packages public, or publish locally/with a token.
-- Releases are **Changesets-driven**: changeset bumping the public meta/shared
+- Releases are **Changesets-driven**: changeset bumping the public meta
   packages → `chore: release packages` Version PR → merge → CI
   `publish-oidc.mjs` publishes via GitHub OIDC (provenance).
 - Flutter (`packages/flutter`) publishes to **pub.dev** separately.

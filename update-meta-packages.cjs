@@ -17,7 +17,7 @@ const newComponents = [
   'payment',
   'command-input'
 ];
-const frameworks = ['react', 'astro', 'angular'];
+const frameworks = ['react', 'astro'];
 
 frameworks.forEach(fw => {
   const pkgJsonPath = `packages/${fw}-meta/package.json`;

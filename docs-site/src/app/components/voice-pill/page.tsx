@@ -19,7 +19,6 @@ const voicePillProps = [
 const frameworkPackages = {
   react: '@refraction-ui/react',
   astro: '@refraction-ui/astro',
-  angular: '@refraction-ui/angular',
 }
 
 const reactUsageCode = `import { VoicePill } from '@refraction-ui/react'
@@ -50,30 +49,6 @@ import { VoicePill } from '@refraction-ui/astro'
   position="bottom-center"
 />`
 
-const angularUsageCode = `import { Component, signal } from '@angular/core'
-import { RefractionVoicePillComponent } from '@refraction-ui/angular'
-
-@Component({
-  selector: 'app-interview-overlay',
-  standalone: true,
-  imports: [RefractionVoicePillComponent],
-  template: \`
-    <refraction-voice-pill
-      speaker="ai"
-      label="Alex"
-      sub="Listening..."
-      [intensity]="intensity()"
-      [muted]="muted()"
-      position="bottom-center"
-      (muteToggle)="muted.set(!muted())"
-    />
-  \`,
-})
-export class InterviewOverlayComponent {
-  intensity = signal(0.85)
-  muted = signal(false)
-}`
-
 export default function VoicePillPage() {
   return (
     <div className="space-y-12">
@@ -84,11 +59,11 @@ export default function VoicePillPage() {
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Voice Pill</h1>
         <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
           Floating speaker indicator for voice-driven interfaces with intensity-aware pulse rings and a mute action.
-          Exported from the single package for each framework: <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-sm">@refraction-ui/react</code>, <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-sm">@refraction-ui/astro</code>, and <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-sm">@refraction-ui/angular</code>.
+          Exported from the single package for each framework: <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-sm">@refraction-ui/react</code> and <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-sm">@refraction-ui/astro</code>.
         </p>
       </div>
 
-      <FrameworkTabs angularStatus={null} />
+      <FrameworkTabs />
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Examples</h2>
@@ -102,7 +77,7 @@ export default function VoicePillPage() {
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
-        <CodeBlock frameworks={{ react: reactUsageCode, astro: astroUsageCode, angular: angularUsageCode }} />
+        <CodeBlock frameworks={{ react: reactUsageCode, astro: astroUsageCode }} />
       </section>
 
       <section className="space-y-4">

@@ -7,7 +7,7 @@ import '../theme/refraction_theme.dart';
 /// or closed when its header is tapped. By default only one item can be open
 /// at a time; set [allowMultiple] to `true` to allow several open simultaneously.
 ///
-/// Mirrors the `Accordion` primitive from the React, Angular, and Astro
+/// Mirrors the `Accordion` primitive from the React and Astro
 /// Refraction UI packages (which wrap shadcn-ui's `Accordion`).
 ///
 /// ```dart

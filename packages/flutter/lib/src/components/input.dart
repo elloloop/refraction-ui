@@ -8,7 +8,7 @@ import '../theme/refraction_theme.dart';
 /// field and renders it read-only. Use [prefix] and [suffix] to embed icons
 /// or affordances on either side of the text.
 ///
-/// Mirrors the shadcn-ui `Input` primitive shipped in the React, Angular, and
+/// Mirrors the shadcn-ui `Input` primitive shipped in the React and
 /// Astro Refraction UI packages. For a multi-line text area with a sensible
 /// default height see [RefractionTextarea].
 ///

@@ -45,7 +45,7 @@ class RefractionRadioItem<T> {
 /// A vertically stacked group of radio buttons that share a single value.
 ///
 /// `RefractionRadioGroup` is the Flutter analogue of the
-/// `RefractionRadioGroup` component from the React, Angular and Astro
+/// `RefractionRadioGroup` component from the React and Astro
 /// Refraction UI packages (a shadcn-equivalent pattern). Selection is
 /// driven by [groupValue] — the item whose [RefractionRadioItem.value]
 /// equals this is rendered as selected.

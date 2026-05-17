@@ -4,7 +4,7 @@ import '../theme/refraction_theme.dart';
 /// A themed dropdown for choosing a single value out of a finite set.
 ///
 /// `RefractionSelect` is the Flutter sibling of the `RefractionSelect`
-/// component from the React, Angular and Astro Refraction UI packages
+/// component from the React and Astro Refraction UI packages
 /// (a shadcn-equivalent pattern). Internally it wraps Flutter's
 /// [DropdownButton] but paints the chrome with [RefractionColors.input],
 /// [RefractionColors.background] and [RefractionColors.popover] so it

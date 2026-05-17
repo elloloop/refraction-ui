@@ -52,7 +52,7 @@ class RefractionCommandGroup {
 /// insensitive) query. Use the up/down arrow keys to move the highlight and
 /// `Enter` to invoke the highlighted item's [RefractionCommandItem.onSelected].
 ///
-/// Mirrors the shadcn-ui `Command` primitive shipped in the React, Angular,
+/// Mirrors the shadcn-ui `Command` primitive shipped in the React
 /// and Astro Refraction UI packages.
 ///
 /// ```dart

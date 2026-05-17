@@ -4,7 +4,7 @@ import '../theme/refraction_theme.dart';
 /// A lightweight floating panel anchored to a [trigger] widget.
 ///
 /// `RefractionPopover` mirrors the `RefractionPopover` component from the
-/// React, Angular and Astro flavours of Refraction UI (a shadcn-equivalent
+/// React and Astro flavours of Refraction UI (a shadcn-equivalent
 /// pattern). Tapping the [trigger] opens an [Overlay] containing [content]
 /// positioned just below the trigger; tapping anywhere else dismisses it.
 ///

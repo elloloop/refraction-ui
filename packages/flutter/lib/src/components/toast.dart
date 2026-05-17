@@ -4,7 +4,7 @@ import '../theme/refraction_theme.dart';
 /// Imperative API for showing transient toast notifications.
 ///
 /// `RefractionToast` is the Flutter analogue of the `RefractionToast`
-/// component from the React, Angular and Astro Refraction UI packages
+/// component from the React and Astro Refraction UI packages
 /// (a shadcn-equivalent pattern). Unlike the declarative web variants,
 /// the Flutter version is invoked imperatively via the static [show]
 /// method which inserts an [OverlayEntry] above the current screen,

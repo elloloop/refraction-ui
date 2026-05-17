@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// Refraction UI never references raw colors inside components — it always
 /// reads through this token set so that one swap of [RefractionColors] (via
 /// [RefractionThemeData]) re-skins the entire app. The token names match
-/// the React/Angular/Astro Refraction libraries and the shadcn convention
+/// the React/Astro Refraction libraries and the shadcn convention
 /// (`primary` / `primaryForeground`, `card` / `cardForeground`, …) so
 /// designers can reuse the same Figma variables across platforms.
 ///

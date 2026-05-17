@@ -9,7 +9,7 @@ import 'button.dart';
 /// inherits the parent theme so children may continue to read tokens via
 /// [RefractionTheme.of].
 ///
-/// Mirrors the shadcn-ui `Dialog` primitive shipped in the React, Angular,
+/// Mirrors the shadcn-ui `Dialog` primitive shipped in the React
 /// and Astro Refraction UI packages.
 ///
 /// ```dart

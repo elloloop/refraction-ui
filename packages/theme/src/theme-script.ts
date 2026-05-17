@@ -1,7 +1,7 @@
 /**
  * Inline script for preventing theme flash on page load.
  * Inject this as a <script> tag in the <head> before any CSS.
- * Works with any framework (React, Angular, Astro, plain HTML).
+ * Works with any framework (React, Astro, plain HTML).
  */
 
 export function getThemeScript(

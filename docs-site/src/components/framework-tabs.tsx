@@ -5,22 +5,14 @@ import { useFramework, Framework } from './framework-context'
 const frameworks: { id: Framework; label: string; status?: string }[] = [
   { id: 'react', label: 'React' },
   { id: 'astro', label: 'Astro' },
-  { id: 'angular', label: 'Angular', status: 'WIP' },
 ]
 
-interface FrameworkTabsProps {
-  angularStatus?: string | null
-}
-
-export function FrameworkTabs({ angularStatus = 'WIP' }: FrameworkTabsProps = {}) {
+export function FrameworkTabs() {
   const { framework, setFramework } = useFramework()
-  const tabFrameworks = frameworks.map((fw) => (
-    fw.id === 'angular' ? { ...fw, status: angularStatus ?? undefined } : fw
-  ))
 
   return (
     <div className="flex flex-wrap items-center gap-2 mb-4 border-b border-border pb-4">
-      {tabFrameworks.map((fw) => (
+      {frameworks.map((fw) => (
         <button
           key={fw.id}
           onClick={() => setFramework(fw.id)}

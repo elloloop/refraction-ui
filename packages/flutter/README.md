@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/elloloop/refraction-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/elloloop/refraction-ui/actions/workflows/ci.yml)
 
-A **headless, fully accessible, token-driven Flutter UI library**. The Flutter chapter of [Refraction UI](https://github.com/elloloop/refraction-ui) — the same primitives you use on web (React / Angular / Astro) and on mobile, sharing a single design-token model so an app can match its brand exactly across every surface.
+A **headless, fully accessible, token-driven Flutter UI library**. The Flutter chapter of [Refraction UI](https://github.com/elloloop/refraction-ui) — the same primitives you use on web (React / Astro) and on mobile, sharing a single design-token model so an app can match its brand exactly across every surface.
 
 > **Try it live**: https://elloloop.github.io/refraction-ui/flutter/
 >
@@ -22,7 +22,7 @@ dependencies:
 ## Why refraction_ui
 
 - **Headless first.** Every widget exposes the right hooks for behavior + accessibility, but visual style is driven entirely by `RefractionThemeData`. Re-skin the entire library in one place — no per-widget overrides, no global `Theme` patching.
-- **One token model, every framework.** The same color/radius/typography scale powers `@refraction-ui/react`, `@refraction-ui/angular-*`, `@refraction-ui/astro-*`, and this Flutter package. Mobile and web stay in lockstep without duplicated theme definitions.
+- **One token model, every framework.** The same color/radius/typography scale powers `@refraction-ui/react`, `@refraction-ui/astro`, and this Flutter package. Mobile and web stay in lockstep without duplicated theme definitions.
 - **Accessible by default.** Components ship with proper `Semantics`, focus traversal, and keyboard handling. Buttons announce their pressed/disabled state, inputs are labeled, dialogs trap focus, etc.
 - **Pure Flutter.** No platform channels, no native plugins, no FFI. Just widgets — works everywhere Flutter does (iOS, Android, web, macOS, Windows, Linux).
 - **Zero deps beyond Flutter.** The package's only runtime dependency is the Flutter SDK.
@@ -201,7 +201,7 @@ class _AppState extends State<App> {
 
 ### Mirror your web brand exactly
 
-Because the React/Angular/Astro packages and this Flutter package consume the **same token names** (`primary`, `primaryForeground`, `destructive`, `border`, `radius-md`, …), you can keep mobile and web visually identical by exporting one source of truth (e.g. a JSON file) and feeding it into both:
+Because the React/Astro packages and this Flutter package consume the **same token names** (`primary`, `primaryForeground`, `destructive`, `border`, `radius-md`, …), you can keep mobile and web visually identical by exporting one source of truth (e.g. a JSON file) and feeding it into both:
 
 ```dart
 // Web team's tokens.json -> these RefractionColors values
@@ -322,8 +322,7 @@ Null-safety is on. No platform channels — runs everywhere Flutter runs.
 |---|---|---|
 | **`refraction_ui`** (this) | **Flutter** | [pub.dev/packages/refraction_ui](https://pub.dev/packages/refraction_ui) |
 | `@refraction-ui/react` | React | [npm](https://npmjs.com/package/@refraction-ui/react) |
-| `@refraction-ui/angular-*` | Angular | npm (per-component) |
-| `@refraction-ui/astro-*` | Astro | npm (per-component) |
+| `@refraction-ui/astro` | Astro | [npm](https://npmjs.com/package/@refraction-ui/astro) |
 
 Mix freely — the design tokens are shared, so a Next.js admin and a Flutter mobile app speak the same visual language.
 

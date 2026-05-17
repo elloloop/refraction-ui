@@ -12,15 +12,19 @@ or publishing.
 |---|---|---|
 | `@refraction-ui/react` | `packages/react-meta` | per-framework meta |
 | `@refraction-ui/astro` | `packages/astro-meta` | per-framework meta |
-| `@refraction-ui/angular` | `packages/angular-meta` | per-framework meta |
-| `@refraction-ui/shared` | `packages/shared` | headless shared utils |
 | `@refraction-ui/tailwind-config` | `packages/tailwind-config` | |
 
-**Every other package under `packages/*` is `private: true` and is NEVER
-published to npm.** This includes all headless cores (`ai`, `auth`, `http`,
-`i18n`, `media-engines`, `logger`, `analytics`, `analytics-sink-*`, …) and all
-framework adapters (`react-*`, `astro-*`, `angular-*`). `publish-oidc.mjs`
-filters `!pkg.private`, so private packages are skipped by design.
+That is the complete list — exactly **three** npm packages. **Every other
+package under `packages/*` is `private: true` and is NEVER published to npm.**
+This includes `@refraction-ui/shared` (`packages/shared`, headless shared
+utils — embedded into the metas, never published), all headless cores (`ai`,
+`auth`, `http`, `i18n`, `media-engines`, `logger`, `analytics`,
+`analytics-sink-*`, …) and all framework adapters (`react-*`, `astro-*`).
+`publish-oidc.mjs` filters `!pkg.private`, so private packages are skipped by
+design.
+
+Angular support has been **removed entirely** — there is no
+`@refraction-ui/angular`, no `packages/angular-*`. Do not re-add it.
 
 Flutter is a **single Dart package** `packages/flutter` (`refraction_ui`),
 published to **pub.dev** by the `flutter-publish` tag workflow — a separate
@@ -52,8 +56,8 @@ adapters (e.g. `@refraction-ui/ai` is private; `react-ai` depends on it;
 
 1. Headless core (if any): `packages/<feature>` — `private: true`. Consumed
    transitively by adapters; never published.
-2. Framework adapter(s): `packages/<fw>-<feature>` (`react-`/`astro-`/
-   `angular-`) — `private: true`. Mirror an existing adapter (`react-ai`).
+2. Framework adapter(s): `packages/<fw>-<feature>` (`react-`/`astro-`) —
+   `private: true`. Mirror an existing adapter (`react-ai`).
 3. **Wire each adapter into its meta** (this is the step that was missed 20×):
    - add `"@refraction-ui/<fw>-<feature>": "workspace:*"` to
      `packages/<fw>-meta/package.json` **`devDependencies`**
@@ -66,9 +70,10 @@ adapters (e.g. `@refraction-ui/ai` is private; `react-ai` depends on it;
 ## Releasing
 
 1. Add a `.changeset/*.md` bumping the affected **public** packages only — the
-   metas (`@refraction-ui/react|astro|angular`) and/or `@refraction-ui/shared`.
-   Never list private feature packages as the release driver (they may be
-   version-bumped by changesets but are not published).
+   metas (`@refraction-ui/react|astro`) and/or `@refraction-ui/tailwind-config`.
+   Never list private feature packages (incl. now-private
+   `@refraction-ui/shared`) as the release driver (they may be version-bumped
+   by changesets but are not published).
 2. Land it. The Changesets Action opens/updates a **`chore: release packages`
    Version PR** (it consumes changesets, bumps versions, writes CHANGELOGs).
 3. Merge that Version PR. The next `Release` run sees no changesets → runs

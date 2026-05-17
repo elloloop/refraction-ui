@@ -13,7 +13,7 @@
     "async-heavy": "AI / meeting / media / voice / video / realtime. -> optional telemetry spans + error-seam routing (only when a consumer wires a sink). No-op otherwise.",
     "skip": "Pure presentational (thin wrapper over headless core). No instrumentation. Blanket logging is explicitly forbidden."
   },
-  "rolloutScope": "React-first: react-* packages prioritized for Waves 1-3. Angular/Astro/Flutter mirror later under the same policy.",
+  "rolloutScope": "React-first: react-* packages prioritized for Waves 1-3. Astro/Flutter mirror later under the same policy.",
   "summary": {
     "reactPackagesTotal": 84,
     "footgun": 27,

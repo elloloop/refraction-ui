@@ -4,7 +4,7 @@ import '../theme/refraction_theme.dart';
 /// A compact two-state toggle, themed with [RefractionTheme].
 ///
 /// `RefractionSwitch` is the Flutter analogue of the `RefractionSwitch`
-/// component from the React, Angular and Astro Refraction UI packages
+/// component from the React and Astro Refraction UI packages
 /// (a shadcn-equivalent pattern). It paints the off state with
 /// [RefractionColors.input], the on state with [RefractionColors.primary]
 /// and surfaces a hover ring drawn from [RefractionColors.ring].

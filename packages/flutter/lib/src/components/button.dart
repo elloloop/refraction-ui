@@ -69,7 +69,7 @@ enum RefractionButtonSize {
 /// [onPressed] disables the button: the surface dims and the cursor turns
 /// into [SystemMouseCursors.forbidden].
 ///
-/// Mirrors the shadcn-ui `Button` primitive shipped in the React, Angular,
+/// Mirrors the shadcn-ui `Button` primitive shipped in the React
 /// and Astro Refraction UI packages.
 ///
 /// ```dart

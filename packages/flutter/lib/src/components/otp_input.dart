@@ -6,7 +6,7 @@ import '../theme/refraction_theme.dart';
 /// digit fields.
 ///
 /// `RefractionOtpInput` is the Flutter counterpart of the `RefractionOtpInput`
-/// component shipped with the React, Angular and Astro versions of Refraction
+/// component shipped with the React and Astro versions of Refraction
 /// UI (a shadcn-equivalent pattern). It exposes [length] independent boxes,
 /// only accepts digits, and automatically advances focus as the user types.
 /// Pressing backspace inside an empty box jumps focus to the previous box

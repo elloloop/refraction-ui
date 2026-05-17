@@ -1,7 +1,7 @@
 /// Refraction UI for Flutter — a headless, accessible, token-driven UI
 /// component library.
 ///
-/// Refraction UI ships the same primitive set across React, Angular, Astro,
+/// Refraction UI ships the same primitive set across React, Astro,
 /// and Flutter so a single design language travels with your product across
 /// every surface. Components are built on a small set of semantic color
 /// tokens (see [RefractionColors]) and a single [RefractionThemeData] so an

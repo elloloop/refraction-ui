@@ -22,7 +22,6 @@ const REFRACTION_FRAME = /@refraction-ui\//
 /** Frameworks a refraction-ui adapter can run under. */
 export type LibraryFramework =
   | 'react'
-  | 'angular'
   | 'astro'
   | 'vue'
   | 'svelte'
@@ -203,7 +202,7 @@ export type LibraryOriginIdentity = Pick<
 
 /**
  * The single capture primitive shared by every per-framework seam (React error
- * boundary, Angular `ErrorHandler`, Astro middleware). It performs the entire
+ * boundary, Astro middleware). It performs the entire
  * guarded flow in one place so the seams stay thin and identical in behavior:
  *
  *  1. **Library-origin filter** — if the error's stack has no

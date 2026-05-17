@@ -8,7 +8,7 @@ import '../theme/refraction_theme_data.dart';
 /// fails to load, the first one or two characters of [fallbackText] are
 /// displayed (uppercased) on a muted background.
 ///
-/// Mirrors the shadcn-ui `Avatar` primitive shipped in the React, Angular, and
+/// Mirrors the shadcn-ui `Avatar` primitive shipped in the React and
 /// Astro Refraction UI packages.
 ///
 /// ```dart
