@@ -14,7 +14,10 @@
  * stack frames.
  */
 
-import type { DevFeedbackRecord } from './dev-feedback.js'
+import type { DevFeedbackRecord, DevFeedbackSink } from './dev-feedback.js'
+
+/** Matches any stack frame that references a `@refraction-ui/*` package. */
+const REFRACTION_FRAME = /@refraction-ui\//
 
 /** Frameworks a refraction-ui adapter can run under. */
 export type LibraryFramework =
@@ -71,7 +74,7 @@ function normalizeStack(stack: string): string {
     .split('\n')
     .map((line) => line.trim())
     .filter((line) => line.startsWith('at ') || line.includes('@'))
-    .filter((line) => /@refraction-ui\//.test(line))
+    .filter((line) => REFRACTION_FRAME.test(line))
     .map((line) =>
       line
         // drop everything from the path/url onward, keep the symbol
@@ -170,4 +173,68 @@ export function libraryOriginError(
     timestamp: Date.now(),
     context: { ...envelope },
   }
+}
+
+/**
+ * Library-origin predicate — `true` iff the error's stack contains at least
+ * one frame that references a `@refraction-ui/*` package. This is the gate
+ * every per-framework capture seam uses: only library-origin errors are
+ * eligible; the app's own errors return `false` and pass through untouched.
+ *
+ * Mirrors exactly the frame-detection rule {@link stackFingerprint} normalizes
+ * by — no new contract, just the companion predicate the seams need. Never
+ * throws for a missing/odd error (returns `false`).
+ */
+export function isLibraryOriginError(error: unknown): boolean {
+  const stack = stackOf(error)
+  if (!stack) return false
+  return REFRACTION_FRAME.test(stack)
+}
+
+/**
+ * The fixed identity of the refraction-ui package/component a seam tags an
+ * error with. The seam supplies this; the stack itself supplies the
+ * fingerprint. Never carries app data.
+ */
+export type LibraryOriginIdentity = Pick<
+  LibraryOriginErrorInput,
+  'package' | 'componentName' | 'version' | 'framework'
+>
+
+/**
+ * The single capture primitive shared by every per-framework seam (React error
+ * boundary, Angular `ErrorHandler`, Astro middleware). It performs the entire
+ * guarded flow in one place so the seams stay thin and identical in behavior:
+ *
+ *  1. **Library-origin filter** — if the error's stack has no
+ *     `@refraction-ui/*` frame it is the app's own error: return `null` and do
+ *     NOT touch, capture, or forward it.
+ *  2. **Tag** — build the redacted {@link libraryOriginError} record
+ *     (package/componentName/version/framework + app-data-free fingerprint).
+ *  3. **Route to the optional sink** — forward the record to the
+ *     consumer-injected sink ONLY if one was wired; a broken sink can never
+ *     break the consumer app. With no sink this is a no-op beyond returning
+ *     the record (so a seam can still surface it locally).
+ *
+ * @returns the tagged record for a library-origin error, or `null` when the
+ *          error is app-origin (the "pass through untouched" signal).
+ */
+export function captureLibraryOriginError(
+  error: unknown,
+  identity: LibraryOriginIdentity,
+  sink: DevFeedbackSink | null | undefined,
+): DevFeedbackRecord | null {
+  if (!isLibraryOriginError(error)) return null
+
+  const record = libraryOriginError({ ...identity, error })
+
+  if (sink) {
+    try {
+      sink.log(record)
+    } catch {
+      // A broken sink must never break the consumer app.
+    }
+  }
+
+  return record
 }
