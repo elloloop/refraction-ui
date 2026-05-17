@@ -1,6 +1,20 @@
 /**
  * @refraction-ui/react
  *
+ * RSC client boundary: this meta re-exports React providers / hooks /
+ * interactive components (createContext, useRef, useContext, …), so the
+ * published bundle must carry a leading `'use client'` directive — otherwise
+ * importing `@refraction-ui/react` from a Next.js App Router Server
+ * Component (e.g. mounting a Provider in `app/layout.tsx`) fails
+ * `next build` with the "createContext only works in a Client Component"
+ * RSC error. Do NOT add a `'use client'` directive here: tsup/esbuild drop
+ * it when bundling and the `treeshake` (Rollup) pass only emits a
+ * "module level directives ... ignored" warning. The directive is injected
+ * deterministically post-build by scripts/ensure-use-client.mjs (guarded by
+ * a meta.test.ts regression test). The server-safe headless factories also
+ * re-exported here (createAnalytics/createTelemetry/createAI/cn/cva/…) are
+ * part of this client module — instantiate them inside the client boundary.
+ *
  * Meta package that re-exports all @refraction-ui/react-* component packages.
  * Allows consumers to install everything from a single package:
  *
