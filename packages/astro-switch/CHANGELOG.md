@@ -1,5 +1,14 @@
 # @refraction-ui/astro-switch
 
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies [cf1d82e]
+- Updated dependencies [bfeeb83]
+  - @refraction-ui/shared@0.2.0
+  - @refraction-ui/switch@0.1.6
+
 ## 0.2.4
 
 ### Patch Changes

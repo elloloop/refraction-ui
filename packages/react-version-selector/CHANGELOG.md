@@ -1,5 +1,25 @@
 # @refraction-ui/react-version-selector
 
+## 0.2.0
+
+### Minor Changes
+
+- a840321: feat: dev-only devWarn at compound/context guards (Wave 1 footgun rollout, Batch 1D)
+
+  Adds an env-guarded, warn-once `devWarn` from `@refraction-ui/shared`
+  immediately before each existing compound/context `throw` in the
+  `compound-context-throw` footgun packages. The throw is unchanged; the
+  `devWarn` adds an actionable dev-only diagnostic with a stable, greppable
+  `code` per guard. Compiled out / silent in production. No new dependencies;
+  no telemetry-library dependency (per epic #254 / #256 policy).
+
+### Patch Changes
+
+- Updated dependencies [cf1d82e]
+- Updated dependencies [bfeeb83]
+  - @refraction-ui/shared@0.2.0
+  - @refraction-ui/version-selector@0.1.7
+
 ## 0.1.6
 
 ### Patch Changes

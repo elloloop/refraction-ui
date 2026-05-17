@@ -1,5 +1,11 @@
 # @refraction-ui/angular-steps
 
+## 0.1.6
+
+### Patch Changes
+
+- @refraction-ui/steps@0.1.6
+
 ## 0.1.4
 
 ### Patch Changes

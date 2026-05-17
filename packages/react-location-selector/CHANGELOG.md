@@ -1,5 +1,14 @@
 # @refraction-ui/react-location-selector
 
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies [cf1d82e]
+- Updated dependencies [bfeeb83]
+  - @refraction-ui/shared@0.2.0
+  - @refraction-ui/location-selector@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes

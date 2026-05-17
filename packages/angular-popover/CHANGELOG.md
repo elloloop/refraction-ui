@@ -1,5 +1,14 @@
 # @refraction-ui/angular-popover
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [cf1d82e]
+- Updated dependencies [bfeeb83]
+  - @refraction-ui/shared@0.2.0
+  - @refraction-ui/popover@0.1.6
+
 ## 0.1.4
 
 ### Patch Changes

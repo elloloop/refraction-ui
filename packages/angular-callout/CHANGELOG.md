@@ -1,5 +1,11 @@
 # @refraction-ui/angular-callout
 
+## 0.1.6
+
+### Patch Changes
+
+- @refraction-ui/callout@0.1.6
+
 ## 0.1.4
 
 ### Patch Changes

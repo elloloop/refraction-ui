@@ -1,5 +1,14 @@
 # @refraction-ui/react-status-indicator
 
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [cf1d82e]
+- Updated dependencies [bfeeb83]
+  - @refraction-ui/shared@0.2.0
+  - @refraction-ui/status-indicator@0.1.7
+
 ## 0.1.6
 
 ### Patch Changes

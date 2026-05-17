@@ -1,5 +1,11 @@
 # @refraction-ui/angular-skip-to-content
 
+## 0.1.6
+
+### Patch Changes
+
+- @refraction-ui/skip-to-content@0.1.6
+
 ## 0.1.4
 
 ### Patch Changes
