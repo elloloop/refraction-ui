@@ -15,9 +15,9 @@
   },
   "rolloutScope": "React-first: react-* packages prioritized for Waves 1-3. Astro/Flutter mirror later under the same policy.",
   "summary": {
-    "reactPackagesTotal": 84,
+    "reactPackagesTotal": 85,
     "footgun": 27,
-    "asyncHeavy": 4,
+    "asyncHeavy": 5,
     "skip": 53,
     "dualTier": [
       "react-ai"
@@ -51,6 +51,19 @@
       "secondaryTier": "async-heavy",
       "asyncKind": "ai",
       "secondaryRationale": "AIProvider.generateText/generateJSON + TTS are async LLM/network calls (dual-tier: devWarn for provider misuse + telemetry on async paths)"
+    },
+    {
+      "package": "react-conversation",
+      "framework": "react",
+      "tier": "async-heavy",
+      "asyncKind": "realtime",
+      "rationale": "createConversation streams assistant replies through a consumer-supplied ChatTransport (network/SSE/WS). Optional telemetry spans + error-seam routing only when a sink is wired; no-op otherwise.",
+      "loc": 746,
+      "files": [
+        "chat.tsx",
+        "use-conversation.ts",
+        "index.ts"
+      ]
     },
     {
       "package": "react-analytics",

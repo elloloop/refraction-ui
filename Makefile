@@ -32,7 +32,8 @@ audit:
 	pnpm audit --audit-level high
 
 storybook:
-	pnpm turbo run storybook:test --continue
+	pnpm build-storybook
+	pnpm build-storybook:astro
 
 a11y:
 	pnpm turbo run a11y --continue

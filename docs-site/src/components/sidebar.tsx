@@ -72,6 +72,7 @@ const componentGroups = [
   {
     title: 'AI',
     items: [
+      { name: 'Chat', href: '/components/conversation' },
       { name: 'Voice Pill', href: '/components/voice-pill' },
       { name: 'Waveform', href: '/components/waveform' },
     ],

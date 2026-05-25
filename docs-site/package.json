@@ -8,6 +8,7 @@
   "dependencies": {
     "@refraction-ui/app-shell": "workspace:*",
     "@refraction-ui/react": "workspace:*",
+    "@refraction-ui/react-accordion": "workspace:*",
     "@refraction-ui/react-animated-text": "workspace:*",
     "@refraction-ui/react-app-shell": "workspace:*",
     "@refraction-ui/react-avatar": "workspace:*",
@@ -23,6 +24,7 @@
     "@refraction-ui/react-collapsible": "workspace:*",
     "@refraction-ui/react-command": "workspace:*",
     "@refraction-ui/react-content-protection": "workspace:*",
+    "@refraction-ui/react-conversation": "workspace:*",
     "@refraction-ui/react-data-table": "workspace:*",
     "@refraction-ui/react-date-picker": "workspace:*",
     "@refraction-ui/react-device-frame": "workspace:*",

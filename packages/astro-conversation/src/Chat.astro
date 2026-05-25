@@ -1,0 +1,208 @@
+---
+import {
+  createConversation,
+  selectMainTimeline,
+  getReplyCount,
+  findMessage,
+  type ConversationConfig,
+  type ChatMessage,
+} from '@refraction-ui/conversation'
+import { createMarkdownRenderer } from '@refraction-ui/markdown-renderer'
+import { formatTimestamp } from '@refraction-ui/thread-view'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Seed: conversations, messages, threadingMode, currentUser, … */
+  config?: ConversationConfig
+  showConversationList?: boolean
+  currentUserId?: string
+}
+
+const {
+  config = {},
+  showConversationList = true,
+  currentUserId,
+  class: className,
+  ...rest
+} = Astro.props
+
+const store = createConversation(config)
+const state = store.getState()
+const timeline = selectMainTimeline(state.messages, state.threadingMode)
+const activeConv = state.conversations.find((c) => c.id === state.activeConversationId)
+
+/** Render markdown to sanitized HTML (mirrors react-markdown-renderer). */
+function renderMarkdown(content: string): string {
+  const html = createMarkdownRenderer({ content }).html
+  return html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/\son\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '')
+    .replace(/(href|src)\s*=\s*["']?\s*javascript\s*:[^"'>]*/gi, '$1=""')
+}
+
+function isOwn(m: ChatMessage): boolean {
+  return currentUserId ? m.author.id === currentUserId : m.role === 'user'
+}
+---
+
+<div
+  class={cn('flex h-full min-h-0 overflow-hidden rounded-lg border border-border bg-background', className)}
+  data-rfr-chat
+  data-threading-mode={state.threadingMode}
+  {...rest}
+>
+  {showConversationList && (
+    <aside class="flex w-56 flex-col gap-1 overflow-y-auto border-r border-border p-2" aria-label="Conversations">
+      <button type="button" class="mb-1 w-full rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground" data-rfr-new-conversation>
+        + New chat
+      </button>
+      {state.conversations.map((conv) => (
+        <div
+          role="button"
+          aria-current={conv.id === state.activeConversationId}
+          data-rfr-conversation
+          data-conversation-id={conv.id}
+          class={cn(
+            'group flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent/50',
+            conv.id === state.activeConversationId && 'bg-accent font-medium',
+          )}
+        >
+          <span class="truncate">{conv.title}</span>
+          <button type="button" class="text-xs text-muted-foreground hover:text-destructive" aria-label={`Delete ${conv.title}`} data-rfr-delete-conversation data-conversation-id={conv.id}>✕</button>
+        </div>
+      ))}
+    </aside>
+  )}
+
+  <div class="flex min-w-0 flex-1 flex-col">
+    <div class="flex items-center justify-between border-b border-border px-3 py-2">
+      <span class="truncate text-sm font-semibold">{activeConv?.title ?? 'Chat'}</span>
+      <span class="text-xs text-muted-foreground">{state.threadingMode === 'panel' ? 'Threads' : 'Inline'}</span>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-2" role="log" aria-live="polite">
+      {timeline.length === 0 ? (
+        <div class="flex h-full items-center justify-center p-6 text-sm text-muted-foreground">
+          No messages yet. Say hello 👋
+        </div>
+      ) : (
+        timeline.map((message) => {
+          const parent = state.threadingMode === 'inline' && message.parentId
+            ? findMessage(state.messages, message.parentId)
+            : undefined
+          const replyCount = getReplyCount(state.messages, message.id)
+          return (
+            <div class="group flex gap-3 rounded-md px-3 py-2 hover:bg-accent/40" role="article" data-rfr-message data-message-id={message.id}>
+              <div class="h-8 w-8 flex-shrink-0 overflow-hidden rounded-full bg-muted flex items-center justify-center text-xs font-medium">
+                {message.author.avatarUrl
+                  ? <img src={message.author.avatarUrl} alt={message.author.name} class="h-full w-full object-cover" />
+                  : (message.author.name.charAt(0) || '?').toUpperCase()}
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-baseline gap-2">
+                  <span class="text-sm font-semibold">{message.author.name}</span>
+                  <span class="text-xs text-muted-foreground">{formatTimestamp(message.timestamp)}</span>
+                  {message.edited && <span class="text-xs text-muted-foreground">(edited)</span>}
+                </div>
+
+                {parent && (
+                  <button type="button" class="mb-1 flex w-full items-start gap-2 rounded-md border-l-2 border-primary/50 bg-muted/40 px-2 py-1 text-left text-xs text-muted-foreground hover:bg-muted" data-rfr-open-thread data-root-id={parent.id}>
+                    <span class="font-medium">{parent.author.name}</span>
+                    <span class="truncate">{parent.content.slice(0, 80)}</span>
+                  </button>
+                )}
+
+                <div class="prose-sm text-sm" set:html={renderMarkdown(message.content)} />
+
+                {message.attachments && message.attachments.map((a) => (
+                  a.type.startsWith('image/')
+                    ? <img src={a.url} alt={a.name} class="mt-2 max-h-60 rounded-md border border-border object-contain" />
+                    : <a href={a.url} class="mt-2 inline-flex items-center gap-2 rounded-md border border-border bg-muted/50 px-2 py-1 text-xs">📎 {a.name}</a>
+                ))}
+
+                {message.reactions && message.reactions.length > 0 && (
+                  <div class="mt-1 flex flex-wrap gap-1">
+                    {message.reactions.map((r) => (
+                      <button
+                        type="button"
+                        data-rfr-react
+                        data-message-id={message.id}
+                        data-emoji={r.emoji}
+                        class={cn(
+                          'inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-xs',
+                          r.userReacted ? 'border-primary bg-primary/10' : 'border-border',
+                        )}
+                      >{r.emoji} {r.count}</button>
+                    ))}
+                  </div>
+                )}
+
+                {state.threadingMode === 'panel' && replyCount > 0 && (
+                  <button type="button" class="mt-1 text-xs font-medium text-primary hover:underline" data-rfr-open-thread data-root-id={message.id}>
+                    💬 {replyCount} {replyCount === 1 ? 'reply' : 'replies'}
+                  </button>
+                )}
+
+                <div class="mt-1 flex items-center gap-3 text-xs text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
+                  <button type="button" class="hover:text-foreground" data-rfr-reply data-message-id={message.id}>Reply</button>
+                  {isOwn(message) && <button type="button" class="hover:text-destructive" data-rfr-delete-message data-message-id={message.id}>Delete</button>}
+                </div>
+              </div>
+            </div>
+          )
+        })
+      )}
+    </div>
+
+    <form class="flex items-end gap-2 border-t border-border p-3" data-rfr-composer>
+      <textarea
+        class="flex-1 resize-none rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+        rows="1"
+        name="message"
+        placeholder="Type a message…"
+        aria-label="Message"
+      ></textarea>
+      <button type="submit" class="rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground">Send</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Astro renders the initial view from the headless store; interactivity is
+  // surfaced as semantic CustomEvents the host app wires to its own backend.
+  document.querySelectorAll<HTMLElement>('[data-rfr-chat]').forEach((root) => {
+    const fire = (name: string, detail: Record<string, unknown>) =>
+      root.dispatchEvent(new CustomEvent(`rfr:${name}`, { detail, bubbles: true }))
+
+    root.addEventListener('click', (e) => {
+      const t = e.target as HTMLElement
+      const react = t.closest<HTMLElement>('[data-rfr-react]')
+      if (react) return fire('react', { messageId: react.dataset.messageId, emoji: react.dataset.emoji })
+      const openThread = t.closest<HTMLElement>('[data-rfr-open-thread]')
+      if (openThread) return fire('open-thread', { rootId: openThread.dataset.rootId })
+      const reply = t.closest<HTMLElement>('[data-rfr-reply]')
+      if (reply) return fire('reply', { messageId: reply.dataset.messageId })
+      const del = t.closest<HTMLElement>('[data-rfr-delete-message]')
+      if (del) return fire('delete-message', { messageId: del.dataset.messageId })
+      const newConv = t.closest<HTMLElement>('[data-rfr-new-conversation]')
+      if (newConv) return fire('new-conversation', {})
+      const delConv = t.closest<HTMLElement>('[data-rfr-delete-conversation]')
+      if (delConv) {
+        e.stopPropagation()
+        return fire('delete-conversation', { conversationId: delConv.dataset.conversationId })
+      }
+      const conv = t.closest<HTMLElement>('[data-rfr-conversation]')
+      if (conv) return fire('select-conversation', { conversationId: conv.dataset.conversationId })
+    })
+
+    const form = root.querySelector<HTMLFormElement>('[data-rfr-composer]')
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      const textarea = form.querySelector<HTMLTextAreaElement>('textarea')
+      const content = textarea?.value.trim()
+      if (!content) return
+      fire('send', { content })
+      if (textarea) textarea.value = ''
+    })
+  })
+</script>
