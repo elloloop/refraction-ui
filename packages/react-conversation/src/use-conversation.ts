@@ -23,6 +23,7 @@ export interface UseConversationResult {
   retryLast: ConversationAPI['retryLast']
   stop: ConversationAPI['stop']
   openThread: ConversationAPI['openThread']
+  replyTo: ConversationAPI['replyTo']
   closeThread: ConversationAPI['closeThread']
   setThreadingMode: ConversationAPI['setThreadingMode']
 }
@@ -60,6 +61,7 @@ export function useConversation(config?: ConversationConfig): UseConversationRes
     retryLast: api.retryLast,
     stop: api.stop,
     openThread: api.openThread,
+    replyTo: api.replyTo,
     closeThread: api.closeThread,
     setThreadingMode: api.setThreadingMode,
   }

@@ -166,7 +166,7 @@ function HoverActions({
   onToggleEmojis: () => void
   align: 'start' | 'end'
 }) {
-  const { state, openThread, deleteMessage } = conversation
+  const { replyTo, deleteMessage } = conversation
   return h(
     'div',
     {
@@ -175,7 +175,8 @@ function HoverActions({
         align === 'end' && 'justify-end',
       ),
     },
-    h('button', { type: 'button', className: 'hover:text-foreground', onClick: () => openThread(rootIdOf(state.messages, message.id)) }, 'Reply'),
+    // Reply targets this specific message but groups under the originating root.
+    h('button', { type: 'button', className: 'hover:text-foreground', onClick: () => replyTo(message.id) }, 'Reply'),
     h('button', { type: 'button', className: 'hover:text-foreground', onClick: onToggleEmojis }, 'React'),
     isOwn ? h('button', { type: 'button', className: 'hover:text-foreground', onClick: onEdit }, 'Edit') : null,
     isOwn ? h('button', { type: 'button', className: 'hover:text-destructive', onClick: () => deleteMessage(message.id) }, 'Delete') : null,
@@ -248,7 +249,7 @@ function MessageRow({
   const inner = h(
     React.Fragment,
     null,
-    quotedParent ? h(QuotedParent, { parent: quotedParent, onClick: () => openThread(quotedParent.id) }) : null,
+    quotedParent ? h(QuotedParent, { parent: quotedParent, onClick: () => openThread(rootIdOf(state.messages, quotedParent.id)) }) : null,
     editing
       ? h(EditField, { message, conversation, onDone: () => setEditing(false) })
       : isUser
@@ -362,13 +363,15 @@ function ThreadPanel({ conversation, currentUserId, composer }: { conversation: 
   const rootId = state.openThreadRootId
   if (!rootId) return null
   const messages = selectThreadMessages(state.messages, rootId)
+  // Hint when the next reply targets a specific mid-thread message rather than the root.
+  const target = state.replyTarget && state.replyTarget !== rootId ? findMessage(state.messages, state.replyTarget) : undefined
   return h(
     'aside',
     { className: 'flex w-80 flex-col border-l border-border', 'aria-label': 'Thread' },
     h(
       'div',
       { className: 'flex items-center justify-between border-b border-border px-3 py-2' },
-      h('span', { className: 'text-sm font-semibold' }, 'Thread'),
+      h('span', { className: 'text-sm font-semibold' }, `Thread · ${messages.length - 1} ${messages.length - 1 === 1 ? 'reply' : 'replies'}`),
       h('button', { type: 'button', className: 'text-muted-foreground hover:text-foreground', 'aria-label': 'Close thread', onClick: () => conversation.closeThread() }, '✕'),
     ),
     h(
@@ -376,6 +379,14 @@ function ThreadPanel({ conversation, currentUserId, composer }: { conversation: 
       { className: 'flex-1 overflow-y-auto p-1' },
       ...messages.map((m) => h(MessageRow, { key: m.id, message: m, conversation, currentUserId, showThreadAffordance: false })),
     ),
+    target
+      ? h(
+          'div',
+          { className: 'flex items-center justify-between gap-2 border-t border-border bg-muted/40 px-3 py-1 text-xs text-muted-foreground' },
+          h('span', { className: 'truncate' }, `↳ Replying to ${target.author.name}`),
+          h('button', { type: 'button', className: 'hover:text-foreground', onClick: () => conversation.openThread(rootId) }, 'Reply to thread instead'),
+        )
+      : null,
     composer,
   )
 }
@@ -445,7 +456,7 @@ export function Chat({
         onSlashCommand,
         toolbar: composerToolbar,
         onSubmit: (content: string, atts?: MessageAttachment[]) =>
-          void sendMessage(content, { replyTo: state.openThreadRootId!, attachments: atts }),
+          void sendMessage(content, { replyTo: state.replyTarget ?? state.openThreadRootId!, attachments: atts }),
         onStop: () => conversation.stop(),
       })
     : null
@@ -462,8 +473,10 @@ export function Chat({
               message: m,
               conversation,
               currentUserId,
-              showThreadAffordance: state.threadingMode === 'panel',
-              quotedParent: state.threadingMode === 'inline' && m.parentId ? findMessage(state.messages, m.parentId) : undefined,
+              // Show the "N replies" count on originating messages in BOTH modes.
+              showThreadAffordance: true,
+              // Inline: quote the specific message replied to (falls back to the root).
+              quotedParent: state.threadingMode === 'inline' && m.parentId ? findMessage(state.messages, m.replyToId ?? m.parentId) : undefined,
             }),
           ),
         )
