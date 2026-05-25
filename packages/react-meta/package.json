@@ -68,6 +68,7 @@
     "@refraction-ui/react-collapsible": "workspace:*",
     "@refraction-ui/react-combobox": "workspace:*",
     "@refraction-ui/react-command": "workspace:*",
+    "@refraction-ui/react-conversation": "workspace:*",
     "@refraction-ui/react-content-protection": "workspace:*",
     "@refraction-ui/react-data-table": "workspace:*",
     "@refraction-ui/react-date-picker": "workspace:*",

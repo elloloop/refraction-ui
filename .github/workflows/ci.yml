@@ -69,7 +69,7 @@ jobs:
         run: make install
       - name: Run CI
         run: make ci-coverage
-      - name: Storybook tests (axe + interactions)
+      - name: Build Storybooks — React + Astro (compile + render smoke)
         run: make storybook
       - name: Bundle size check
         run: make size-check

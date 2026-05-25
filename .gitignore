@@ -151,3 +151,7 @@ playwright-report/
 .DS_Store
 .claude/
 job_log_vrt.txt
+
+# Storybook
+storybook-static/
+storybook-static-astro/
