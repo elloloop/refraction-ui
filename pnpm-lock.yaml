@@ -177,6 +177,9 @@ importers:
       '@refraction-ui/react-conversation':
         specifier: workspace:*
         version: link:../packages/react-conversation
+      '@refraction-ui/react-cookie-consent':
+        specifier: workspace:*
+        version: link:../packages/react-cookie-consent
       '@refraction-ui/react-data-table':
         specifier: workspace:*
         version: link:../packages/react-data-table
@@ -718,6 +721,18 @@ importers:
         specifier: 6.3.1
         version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
 
+  packages/astro-cookie-consent:
+    dependencies:
+      '@refraction-ui/cookie-consent':
+        specifier: workspace:*
+        version: link:../cookie-consent
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
   packages/astro-data-table:
     dependencies:
       '@refraction-ui/data-table':
@@ -1052,6 +1067,9 @@ importers:
       '@refraction-ui/astro-conversation':
         specifier: workspace:*
         version: link:../astro-conversation
+      '@refraction-ui/astro-cookie-consent':
+        specifier: workspace:*
+        version: link:../astro-cookie-consent
       '@refraction-ui/astro-data-table':
         specifier: workspace:*
         version: link:../astro-data-table
@@ -1762,6 +1780,8 @@ importers:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
+
+  packages/cookie-consent: {}
 
   packages/data-table:
     dependencies:
@@ -2588,6 +2608,28 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-cookie-consent:
+    dependencies:
+      '@refraction-ui/cookie-consent':
+        specifier: workspace:*
+        version: link:../cookie-consent
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-data-table:
     dependencies:
       '@refraction-ui/data-table':
@@ -3176,6 +3218,9 @@ importers:
       '@refraction-ui/react-conversation':
         specifier: workspace:*
         version: link:../react-conversation
+      '@refraction-ui/react-cookie-consent':
+        specifier: workspace:*
+        version: link:../react-cookie-consent
       '@refraction-ui/react-data-table':
         specifier: workspace:*
         version: link:../react-data-table
