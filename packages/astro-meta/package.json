@@ -40,6 +40,7 @@
     "@refraction-ui/astro-command": "workspace:*",
     "@refraction-ui/astro-conversation": "workspace:*",
     "@refraction-ui/astro-content-protection": "workspace:*",
+    "@refraction-ui/astro-cookie-consent": "workspace:*",
     "@refraction-ui/astro-data-table": "workspace:*",
     "@refraction-ui/astro-date-picker": "workspace:*",
     "@refraction-ui/astro-device-frame": "workspace:*",

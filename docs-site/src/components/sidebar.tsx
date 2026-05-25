@@ -100,6 +100,7 @@ const componentGroups = [
   {
     title: 'Other',
     items: [
+      { name: 'Cookie Consent', href: '/components/cookie-consent' },
       { name: 'Install Prompt', href: '/components/install-prompt' },
       { name: 'Content Protection', href: '/components/content-protection' },
       { name: 'Device Frame', href: '/components/device-frame' },

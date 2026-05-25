@@ -70,6 +70,7 @@
     "@refraction-ui/react-command": "workspace:*",
     "@refraction-ui/react-conversation": "workspace:*",
     "@refraction-ui/react-content-protection": "workspace:*",
+    "@refraction-ui/react-cookie-consent": "workspace:*",
     "@refraction-ui/react-data-table": "workspace:*",
     "@refraction-ui/react-date-picker": "workspace:*",
     "@refraction-ui/react-device-frame": "workspace:*",
