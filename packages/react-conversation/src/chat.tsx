@@ -435,10 +435,14 @@ export function Chat({
   const timeline = selectMainTimeline(state.messages, state.threadingMode)
   const activeConv = state.conversations.find((c) => c.id === state.activeConversationId)
   const busy = state.status === 'sending' || state.status === 'streaming'
+  const error = state.status === 'error' ? state.error : null
+  const onRetry = () => void conversation.retryLast()
 
   const mainComposer = h(Composer, {
     placeholder,
     busy,
+    error,
+    onRetry,
     slashCommands,
     mentions,
     onSlashCommand,
@@ -451,6 +455,8 @@ export function Chat({
     ? h(Composer, {
         placeholder: 'Reply…',
         busy,
+        error,
+        onRetry,
         slashCommands,
         mentions,
         onSlashCommand,

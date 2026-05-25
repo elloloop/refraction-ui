@@ -34,6 +34,9 @@ export interface ComposerProps {
   emoji?: boolean
   /** Enable the attach button (default true) */
   attachments?: boolean
+  /** Error to surface above the input (with a Retry button) */
+  error?: string | null
+  onRetry?: () => void
   onSubmit: (content: string, attachments?: MessageAttachment[]) => void
   onStop?: () => void
   /** Called when a `/` command without `insertText` is chosen */
@@ -81,6 +84,8 @@ export function Composer({
   toolbar = true,
   emoji = true,
   attachments = true,
+  error,
+  onRetry,
   onSubmit,
   onStop,
   onSlashCommand,
@@ -240,6 +245,7 @@ export function Composer({
     }
   }
 
+  const iconBtn = 'flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-accent hover:text-foreground'
   const toolbarBtn = (label: string, title: string, kind: Parameters<typeof format>[0]) =>
     h(
       'button',
@@ -247,156 +253,163 @@ export function Composer({
         key: kind,
         type: 'button',
         title,
-        className: 'rounded px-1.5 py-0.5 text-xs text-muted-foreground hover:bg-accent hover:text-foreground',
+        className: cn(iconBtn, 'text-xs font-medium'),
         onMouseDown: (e: React.MouseEvent) => e.preventDefault(), // keep textarea selection
         onClick: () => format(kind),
       },
       label,
     )
 
+  const menu = menuOpen
+    ? h(
+        'div',
+        {
+          className:
+            'absolute bottom-full left-0 z-20 mb-2 w-72 overflow-hidden rounded-xl border border-border bg-popover shadow-lg',
+          role: 'listbox',
+        },
+        h(
+          'div',
+          { className: 'border-b border-border px-3 py-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground' },
+          trigger?.type === '/' ? 'Commands' : trigger?.type === '@' ? 'Mentions' : 'Emoji',
+        ),
+        ...items.map((it, i) =>
+          h(
+            'button',
+            {
+              key: it.key,
+              type: 'button',
+              role: 'option',
+              'aria-selected': i === active,
+              className: cn(
+                'flex w-full items-center gap-2 px-3 py-2 text-left text-sm',
+                i === active ? 'bg-accent' : 'hover:bg-accent/50',
+              ),
+              onMouseEnter: () => setActive(i),
+              onMouseDown: (e: React.MouseEvent) => e.preventDefault(),
+              onClick: () => selectItem(i),
+            },
+            it.icon ? h('span', { className: 'w-4 text-center text-muted-foreground' }, it.icon) : null,
+            h('span', { className: 'flex-1 truncate' }, it.primary),
+            it.secondary ? h('span', { className: 'truncate text-xs text-muted-foreground' }, it.secondary) : null,
+          ),
+        ),
+      )
+    : null
+
   return h(
     'div',
-    { className: 'border-t border-border' },
-    // attachment chips
-    pending.length > 0
-      ? h(
-          'div',
-          { className: 'flex flex-wrap gap-2 px-3 pt-2' },
-          ...pending.map((a) =>
-            h(
-              'span',
-              { key: a.id, className: 'inline-flex items-center gap-1 rounded bg-muted px-2 py-0.5 text-xs' },
-              a.name,
-              h(
-                'button',
-                {
-                  type: 'button',
-                  className: 'text-muted-foreground hover:text-destructive',
-                  onClick: () => setPending((p) => p.filter((x) => x.id !== a.id)),
-                },
-                '✕',
-              ),
-            ),
-          ),
-        )
-      : null,
-    // toolbar
-    toolbar
-      ? h(
-          'div',
-          { className: 'flex items-center gap-0.5 px-2 pt-2' },
-          toolbarBtn('B', 'Bold (⌘B)', 'bold'),
-          toolbarBtn('𝑖', 'Italic (⌘I)', 'italic'),
-          toolbarBtn('</>', 'Code (⌘E)', 'code'),
-          toolbarBtn('🔗', 'Link (⌘K)', 'link'),
-          toolbarBtn('❝', 'Quote', 'quote'),
-          toolbarBtn('•', 'Bulleted list', 'ul'),
-          toolbarBtn('1.', 'Numbered list', 'ol'),
-        )
-      : null,
-    // input row (relative for the popup menu)
+    { className: 'p-3' },
     h(
       'div',
-      { className: 'relative flex items-end gap-2 p-3' },
-      menuOpen
-        ? h(
-            'div',
-            {
-              className:
-                'absolute bottom-full left-3 z-20 mb-1 w-72 overflow-hidden rounded-lg border border-border bg-popover shadow-lg',
-              role: 'listbox',
-            },
-            h(
+      { className: 'relative' },
+      menu,
+      // unified input card
+      h(
+        'div',
+        {
+          className:
+            'overflow-hidden rounded-2xl border border-border bg-background transition focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/40',
+        },
+        // error banner
+        error
+          ? h(
               'div',
-              { className: 'border-b border-border px-2 py-1 text-[10px] uppercase tracking-wide text-muted-foreground' },
-              trigger?.type === '/' ? 'Commands' : trigger?.type === '@' ? 'Mentions' : 'Emoji',
-            ),
-            ...items.map((it, i) =>
-              h(
+              { className: 'flex items-center gap-2 border-b border-border bg-destructive/5 px-3 py-2 text-xs text-destructive', role: 'alert' },
+              h('span', { className: 'flex-1 truncate' }, error),
+              onRetry ? h('button', { type: 'button', className: 'font-medium underline', onClick: () => onRetry() }, 'Retry') : null,
+            )
+          : null,
+        // attachment chips
+        pending.length > 0
+          ? h(
+              'div',
+              { className: 'flex flex-wrap gap-2 px-3 pt-3' },
+              ...pending.map((a) =>
+                h(
+                  'span',
+                  { key: a.id, className: 'inline-flex items-center gap-1 rounded-md bg-muted px-2 py-0.5 text-xs' },
+                  a.name,
+                  h(
+                    'button',
+                    { type: 'button', className: 'text-muted-foreground hover:text-destructive', onClick: () => setPending((p) => p.filter((x) => x.id !== a.id)) },
+                    '✕',
+                  ),
+                ),
+              ),
+            )
+          : null,
+        // textarea (borderless)
+        h('textarea', {
+          ref,
+          className: 'block max-h-40 w-full resize-none bg-transparent px-3.5 py-3 text-sm placeholder:text-muted-foreground focus:outline-none',
+          rows: 1,
+          value,
+          placeholder,
+          autoFocus,
+          'aria-label': 'Message',
+          onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => syncFromTextarea(e.target),
+          onClick: (e: React.MouseEvent<HTMLTextAreaElement>) => syncFromTextarea(e.currentTarget),
+          onKeyUp: (e: React.KeyboardEvent<HTMLTextAreaElement>) => syncFromTextarea(e.currentTarget),
+          onKeyDown,
+          onBlur: () => setTimeout(() => setTrigger(null), 120),
+        }),
+        // bottom action bar
+        h(
+          'div',
+          { className: 'flex items-center gap-0.5 px-2 pb-2' },
+          attachments
+            ? h(
+                React.Fragment,
+                null,
+                h('input', {
+                  ref: fileRef,
+                  type: 'file',
+                  accept: 'image/*',
+                  multiple: true,
+                  className: 'hidden',
+                  onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                    onFiles(e.target.files)
+                    e.target.value = ''
+                  },
+                }),
+                h('button', { type: 'button', className: iconBtn, 'aria-label': 'Attach image or GIF', onClick: () => fileRef.current?.click() }, '📎'),
+              )
+            : null,
+          attachments && toolbar ? h('span', { className: 'mx-1 h-5 w-px bg-border' }) : null,
+          toolbar
+            ? h(
+                React.Fragment,
+                null,
+                toolbarBtn('B', 'Bold (⌘B)', 'bold'),
+                toolbarBtn('𝑖', 'Italic (⌘I)', 'italic'),
+                toolbarBtn('</>', 'Code (⌘E)', 'code'),
+                toolbarBtn('🔗', 'Link (⌘K)', 'link'),
+                toolbarBtn('❝', 'Quote', 'quote'),
+                toolbarBtn('•', 'Bulleted list', 'ul'),
+                toolbarBtn('1.', 'Numbered list', 'ol'),
+              )
+            : null,
+          h('div', { className: 'flex-1' }),
+          busy
+            ? h(
+                'button',
+                { type: 'button', 'aria-label': 'Stop', className: 'flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground', onClick: () => onStop?.() },
+                '■',
+              )
+            : h(
                 'button',
                 {
-                  key: it.key,
                   type: 'button',
-                  role: 'option',
-                  'aria-selected': i === active,
-                  className: cn(
-                    'flex w-full items-center gap-2 px-2 py-1.5 text-left text-sm',
-                    i === active ? 'bg-accent' : 'hover:bg-accent/50',
-                  ),
-                  onMouseEnter: () => setActive(i),
-                  onMouseDown: (e: React.MouseEvent) => e.preventDefault(),
-                  onClick: () => selectItem(i),
+                  'aria-label': 'Send',
+                  className: 'flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-base font-semibold text-primary-foreground transition disabled:opacity-40',
+                  disabled: !value.trim() && pending.length === 0,
+                  onClick: submit,
                 },
-                it.icon ? h('span', { className: 'w-4 text-center text-muted-foreground' }, it.icon) : null,
-                h('span', { className: 'flex-1 truncate' }, it.primary),
-                it.secondary ? h('span', { className: 'truncate text-xs text-muted-foreground' }, it.secondary) : null,
+                '↑',
               ),
-            ),
-          )
-        : null,
-      attachments
-        ? h(
-            React.Fragment,
-            null,
-            h('input', {
-              ref: fileRef,
-              type: 'file',
-              accept: 'image/*',
-              multiple: true,
-              className: 'hidden',
-              onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                onFiles(e.target.files)
-                e.target.value = ''
-              },
-            }),
-            h(
-              'button',
-              {
-                type: 'button',
-                className: 'rounded-md border border-border px-2 py-2 text-sm hover:bg-accent',
-                'aria-label': 'Attach image or GIF',
-                onClick: () => fileRef.current?.click(),
-              },
-              '📎',
-            ),
-          )
-        : null,
-      h('textarea', {
-        ref,
-        className:
-          'max-h-40 flex-1 resize-none rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary',
-        rows: 1,
-        value,
-        placeholder,
-        autoFocus,
-        'aria-label': 'Message',
-        onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => syncFromTextarea(e.target),
-        onClick: (e: React.MouseEvent<HTMLTextAreaElement>) => syncFromTextarea(e.currentTarget),
-        onKeyUp: (e: React.KeyboardEvent<HTMLTextAreaElement>) => syncFromTextarea(e.currentTarget),
-        onKeyDown,
-        onBlur: () => setTimeout(() => setTrigger(null), 120),
-      }),
-      busy
-        ? h(
-            'button',
-            {
-              type: 'button',
-              className: 'rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground',
-              onClick: () => onStop?.(),
-            },
-            'Stop',
-          )
-        : h(
-            'button',
-            {
-              type: 'button',
-              className:
-                'rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground disabled:opacity-50',
-              disabled: !value.trim() && pending.length === 0,
-              onClick: submit,
-            },
-            'Send',
-          ),
+        ),
+      ),
     ),
   )
 }
