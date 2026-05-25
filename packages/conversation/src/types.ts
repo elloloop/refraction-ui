@@ -68,9 +68,15 @@ export interface ChatMessage {
   error?: string
   /**
    * Root message id of the reply-thread this message belongs to. Absent on
-   * root/main-timeline messages. Threads are one level deep.
+   * root/main-timeline messages. Threads are one level deep — a reply to any
+   * message in a thread groups under the same originating root.
    */
   parentId?: string
+  /**
+   * The specific message this is "in reply to" (for the quote), which may be a
+   * mid-thread reply even though `parentId` is always the originating root.
+   */
+  replyToId?: string
   /** Emoji reactions */
   reactions?: MessageReaction[]
   /** Attachments (images/gifs/files) */
@@ -136,6 +142,8 @@ export interface ConversationState {
   messages: ChatMessage[]
   /** Root id of the thread shown in the side panel, or null when closed */
   openThreadRootId: string | null
+  /** The specific message a reply in the open thread will target (default: the root) */
+  replyTarget: string | null
   /** Current threading mode */
   threadingMode: ThreadingMode
   /** Coarse store status */
@@ -210,8 +218,10 @@ export interface ConversationAPI {
   stop(): void
 
   // — threads / view —
-  /** Open the side panel focused on a message's thread */
+  /** Open the side panel focused on a message's thread (reply target = root) */
   openThread(rootId: string): void
+  /** Open the originating thread and target a specific message for the next reply */
+  replyTo(messageId: string): void
   /** Close the thread side panel */
   closeThread(): void
   /** Switch threading mode */

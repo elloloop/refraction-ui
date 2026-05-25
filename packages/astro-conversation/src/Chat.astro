@@ -88,7 +88,7 @@ function isOwn(m: ChatMessage): boolean {
       ) : (
         timeline.map((message) => {
           const parent = state.threadingMode === 'inline' && message.parentId
-            ? findMessage(state.messages, message.parentId)
+            ? findMessage(state.messages, message.replyToId ?? message.parentId)
             : undefined
           const replyCount = getReplyCount(state.messages, message.id)
           return (
@@ -137,7 +137,7 @@ function isOwn(m: ChatMessage): boolean {
                   </div>
                 )}
 
-                {state.threadingMode === 'panel' && replyCount > 0 && (
+                {replyCount > 0 && (
                   <button type="button" class="mt-1 text-xs font-medium text-primary hover:underline" data-rfr-open-thread data-root-id={message.id}>
                     💬 {replyCount} {replyCount === 1 ? 'reply' : 'replies'}
                   </button>

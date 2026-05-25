@@ -209,6 +209,47 @@ describe('thread panel', () => {
     c.deleteMessage(rootId)
     expect(c.getState().openThreadRootId).toBeNull()
   })
+
+  it('openThread defaults the reply target to the root', async () => {
+    const c = createConversation()
+    await c.sendMessage('root')
+    const rootId = c.getState().messages[0]!.id
+    c.openThread(rootId)
+    expect(c.getState().replyTarget).toBe(rootId)
+  })
+})
+
+describe('reply-target strategy (reply to a mid-thread message)', () => {
+  it('replyTo opens the originating thread and targets the specific message', async () => {
+    const c = createConversation()
+    await c.sendMessage('root')
+    const rootId = c.getState().messages[0]!.id
+    await c.sendMessage('mid reply', { replyTo: rootId })
+    const mid = c.getState().messages.find((m) => m.content === 'mid reply')!
+
+    c.replyTo(mid.id)
+    // panel opens on the originating root, but the next reply targets `mid`
+    expect(c.getState().openThreadRootId).toBe(rootId)
+    expect(c.getState().replyTarget).toBe(mid.id)
+  })
+
+  it('replying to a mid-thread message groups under the root, records replyToId', async () => {
+    const c = createConversation()
+    await c.sendMessage('root')
+    const rootId = c.getState().messages[0]!.id
+    await c.sendMessage('first reply', { replyTo: rootId })
+    const mid = c.getState().messages.find((m) => m.content === 'first reply')!
+
+    // reply to the mid-thread reply, not the root
+    await c.sendMessage('reply to the reply', { replyTo: mid.id })
+    const nested = c.getState().messages.find((m) => m.content === 'reply to the reply')!
+
+    expect(nested.parentId).toBe(rootId) // grouped under the originating root
+    expect(nested.replyToId).toBe(mid.id) // but quotes the specific message
+    // thread still flat: root + 2 replies
+    const thread = c.getState().messages.filter((m) => m.parentId === rootId)
+    expect(thread).toHaveLength(2)
+  })
 })
 
 describe('error + retry + stop', () => {

@@ -40,6 +40,7 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
   const messagesByConv = new Map<string, ChatMessage[]>()
   let activeConversationId: string | null = config.activeConversationId ?? null
   let openThreadRootId: string | null = null
+  let replyTarget: string | null = null
   let status: ConversationState['status'] = 'idle'
   let error: string | null = null
   let abortController: AbortController | null = null
@@ -66,6 +67,7 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
       activeConversationId,
       messages: activeConversationId ? (messagesByConv.get(activeConversationId) ?? []) : [],
       openThreadRootId,
+      replyTarget,
       threadingMode,
       status,
       error,
@@ -187,6 +189,7 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
     newConversation(opts) {
       const conversation = createConversationInternal(opts ?? {})
       openThreadRootId = null
+      replyTarget = null
       emit()
       return conversation
     },
@@ -195,6 +198,7 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
       if (!conversations.has(conversationId) || activeConversationId === conversationId) return
       activeConversationId = conversationId
       openThreadRootId = null
+      replyTarget = null
       emit()
     },
 
@@ -205,6 +209,7 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
       if (activeConversationId === conversationId) {
         activeConversationId = orderedConversations()[0]?.id ?? null
         openThreadRootId = null
+        replyTarget = null
       }
       emit()
     },
@@ -245,6 +250,7 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
       const next = list.filter((m) => !removeIds.has(m.id))
       messagesByConv.set(activeConversationId, next)
       if (openThreadRootId && removeIds.has(openThreadRootId)) openThreadRootId = null
+      if (replyTarget && removeIds.has(replyTarget)) replyTarget = openThreadRootId
       emit()
     },
 
@@ -277,7 +283,9 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
 
       const conversationId = ensureActiveConversation(opts)
       const list = messagesByConv.get(conversationId)!
+      // Group under the originating root, but remember the specific message replied to.
       const parentId = opts?.replyTo ? rootIdOf(list, opts.replyTo) : undefined
+      const replyToId = opts?.replyTo
       const isFirstRoot = !parentId && selectRoots(list).length === 0
 
       const userMsg: ChatMessage = {
@@ -289,6 +297,7 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
         timestamp: new Date(),
         status: 'sent',
         parentId,
+        replyToId,
         attachments: opts?.attachments,
         metadata: opts?.metadata,
       }
@@ -355,12 +364,23 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
 
     openThread(rootId) {
       openThreadRootId = rootId
+      replyTarget = rootId // reply to the root by default
+      emit()
+    },
+
+    replyTo(messageId) {
+      if (!activeConversationId) return
+      const list = messagesByConv.get(activeConversationId)!
+      // Open the originating thread, but target the specific message replied to.
+      openThreadRootId = rootIdOf(list, messageId)
+      replyTarget = messageId
       emit()
     },
 
     closeThread() {
-      if (openThreadRootId === null) return
+      if (openThreadRootId === null && replyTarget === null) return
       openThreadRootId = null
+      replyTarget = null
       emit()
     },
 
