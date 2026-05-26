@@ -52,6 +52,8 @@ export 'src/components/checkbox.dart';
 export 'src/components/chat_input.dart';
 export 'src/components/dialog.dart';
 export 'src/components/input.dart';
+export 'src/components/input_group.dart';
+export 'src/components/search_bar.dart';
 export 'src/components/otp_input.dart';
 export 'src/components/popover.dart';
 export 'src/components/select.dart';
