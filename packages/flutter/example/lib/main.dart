@@ -9,10 +9,19 @@ import 'pages/chat_input_page.dart';
 import 'pages/accordion_page.dart';
 import 'pages/menus_page.dart';
 import 'pages/command_menu_page.dart';
+import 'pages/command_input_page.dart';
 import 'pages/radio_group_page.dart';
 import 'pages/progress_slider_page.dart';
 import 'pages/alert_page.dart';
 import 'pages/avatar_page.dart';
+import 'pages/date_picker_page.dart';
+import 'pages/file_upload_page.dart';
+import 'pages/emoji_picker_page.dart';
+import 'pages/code_editor_page.dart';
+import 'pages/inline_editor_page.dart';
+import 'pages/rich_editor_page.dart';
+import 'pages/location_selector_page.dart';
+import 'pages/language_selector_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -61,6 +70,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Accordion',
     'Menus',
     'Command Menu',
+    'Command Input',
     'Radio Group',
     'Progress Slider',
     'Alert',
@@ -72,6 +82,14 @@ class RefractionDemoApp extends ConsumerWidget {
     'Tabs',
     'Navbar & Navigation',
     'Cards & Layouts',
+    'Code Editor',
+    'Inline Editor',
+    'Rich Editor',
+    'Date Picker',
+    'Location Selector',
+    'Language Selector',
+    'Emoji Picker',
+    'File Upload',
     'Popovers & Tooltips',
     'Toasts',
   ];
@@ -329,6 +347,8 @@ class _AppShell extends ConsumerWidget {
         return const MenusPage();
       case '/docs/command-menu':
         return const CommandMenuPage();
+      case '/docs/command-input':
+        return const CommandInputPage();
       case '/docs/radio-group':
         return const RadioGroupPage();
       case '/docs/progress-slider':
@@ -337,6 +357,22 @@ class _AppShell extends ConsumerWidget {
         return const AlertPage();
       case '/docs/avatar':
         return const AvatarPage();
+      case '/docs/file-upload':
+        return const FileUploadPage();
+      case '/docs/emoji-picker':
+        return const EmojiPickerPage();
+      case '/docs/code-editor':
+        return const CodeEditorPage();
+      case '/docs/inline-editor':
+        return const InlineEditorPage();
+      case '/docs/rich-editor':
+        return const RichEditorPage();
+      case '/docs/date-picker':
+        return const DatePickerPage();
+      case '/docs/location-selector':
+        return const LocationSelectorPage();
+      case '/docs/language-selector':
+        return const LanguageSelectorPage();
       case '/docs/pregnancy-tracker':
         return const PreviewCanvas(
           title: "Pregnancy Tracker Layout",

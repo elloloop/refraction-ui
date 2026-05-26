@@ -39,10 +39,7 @@ class RefractionInputGroup extends StatelessWidget {
 class RefractionInputGroupAddon extends StatelessWidget {
   final Widget child;
 
-  const RefractionInputGroupAddon({
-    super.key,
-    required this.child,
-  });
+  const RefractionInputGroupAddon({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

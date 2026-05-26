@@ -59,7 +59,7 @@ class RefractionSelect<T> extends StatefulWidget {
   });
 
   @override
-  State<RefractionSelect> createState() => _RefractionSelectState();
+  State<RefractionSelect<T>> createState() => _RefractionSelectState<T>();
 }
 
 class _RefractionSelectState<T> extends State<RefractionSelect<T>> {

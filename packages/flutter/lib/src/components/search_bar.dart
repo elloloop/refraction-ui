@@ -38,9 +38,9 @@ class _RefractionSearchBarState extends State<RefractionSearchBar> {
 
   void _onChanged(String value) {
     widget.onChanged?.call(value);
-    
+
     if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
-    
+
     if (value.isNotEmpty) {
       _debounceTimer = Timer(widget.debounceDuration, () {
         widget.onSearch?.call(value);
@@ -55,13 +55,13 @@ class _RefractionSearchBarState extends State<RefractionSearchBar> {
       placeholder: widget.placeholder,
       onChanged: _onChanged,
       prefix: const Icon(Icons.search, size: 16),
-      suffix: widget.isLoading 
-        ? const SizedBox(
-            width: 16, 
-            height: 16, 
-            child: CircularProgressIndicator(strokeWidth: 2),
-          )
-        : null,
+      suffix: widget.isLoading
+          ? const SizedBox(
+              width: 16,
+              height: 16,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            )
+          : null,
     );
   }
 }

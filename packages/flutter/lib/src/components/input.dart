@@ -48,16 +48,24 @@ class RefractionInput extends StatefulWidget {
   /// field; higher values allow line wrapping.
   final int maxLines;
 
+  /// Optional externally-managed focus node.
+  final FocusNode? focusNode;
+
+  /// Called when the user indicates that they are done editing the text in the field.
+  final ValueChanged<String>? onSubmitted;
+
   /// Creates a [RefractionInput].
   const RefractionInput({
     super.key,
     this.controller,
+    this.focusNode,
     this.placeholder,
     this.obscureText = false,
     this.disabled = false,
     this.prefix,
     this.suffix,
     this.onChanged,
+    this.onSubmitted,
     this.maxLines = 1,
   });
 
@@ -66,22 +74,71 @@ class RefractionInput extends StatefulWidget {
 }
 
 class _RefractionInputState extends State<RefractionInput> {
-  final FocusNode _focusNode = FocusNode();
+  late FocusNode _focusNode;
+  late TextEditingController _controller;
   bool _isFocused = false;
+  bool _internalFocusNode = false;
+  bool _internalController = false;
 
   @override
   void initState() {
     super.initState();
-    _focusNode.addListener(() {
-      setState(() {
-        _isFocused = _focusNode.hasFocus;
-      });
+    _focusNode = widget.focusNode ?? FocusNode();
+    _internalFocusNode = widget.focusNode == null;
+    _focusNode.addListener(_handleFocusChange);
+
+    _controller = widget.controller ?? TextEditingController();
+    _internalController = widget.controller == null;
+    _controller.addListener(_handleTextChange);
+  }
+
+  void _handleFocusChange() {
+    setState(() {
+      _isFocused = _focusNode.hasFocus;
     });
+  }
+
+  void _handleTextChange() {
+    setState(() {});
+  }
+
+  @override
+  void didUpdateWidget(RefractionInput oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.focusNode != oldWidget.focusNode) {
+      if (oldWidget.focusNode == null) {
+        _focusNode.dispose();
+      } else {
+        oldWidget.focusNode!.removeListener(_handleFocusChange);
+      }
+      _focusNode = widget.focusNode ?? FocusNode();
+      _internalFocusNode = widget.focusNode == null;
+      _focusNode.addListener(_handleFocusChange);
+      _isFocused = _focusNode.hasFocus;
+    }
+
+    if (widget.controller != oldWidget.controller) {
+      if (oldWidget.controller == null) {
+        _controller.dispose();
+      } else {
+        oldWidget.controller!.removeListener(_handleTextChange);
+      }
+      _controller = widget.controller ?? TextEditingController();
+      _internalController = widget.controller == null;
+      _controller.addListener(_handleTextChange);
+    }
   }
 
   @override
   void dispose() {
-    _focusNode.dispose();
+    _focusNode.removeListener(_handleFocusChange);
+    if (_internalFocusNode) {
+      _focusNode.dispose();
+    }
+    _controller.removeListener(_handleTextChange);
+    if (_internalController) {
+      _controller.dispose();
+    }
     super.dispose();
   }
 
@@ -113,16 +170,32 @@ class _RefractionInputState extends State<RefractionInput> {
               const SizedBox(width: 8),
             ],
             Expanded(
-              child: EditableText(
-                controller: widget.controller ?? TextEditingController(),
-                focusNode: _focusNode,
-                style: TextStyle(color: colors.foreground, fontSize: 14),
-                cursorColor: colors.primary,
-                backgroundCursorColor: colors.muted,
-                obscureText: widget.obscureText,
-                readOnly: widget.disabled,
-                onChanged: widget.onChanged,
-                maxLines: widget.maxLines,
+              child: Stack(
+                alignment: widget.maxLines > 1
+                    ? Alignment.topLeft
+                    : Alignment.centerLeft,
+                children: [
+                  if (widget.placeholder != null && _controller.text.isEmpty)
+                    Text(
+                      widget.placeholder!,
+                      style: TextStyle(
+                        color: colors.mutedForeground,
+                        fontSize: 14,
+                      ),
+                    ),
+                  EditableText(
+                    controller: _controller,
+                    focusNode: _focusNode,
+                    style: TextStyle(color: colors.foreground, fontSize: 14),
+                    cursorColor: colors.primary,
+                    backgroundCursorColor: colors.muted,
+                    obscureText: widget.obscureText,
+                    readOnly: widget.disabled,
+                    onChanged: widget.onChanged,
+                    onSubmitted: widget.onSubmitted,
+                    maxLines: widget.maxLines,
+                  ),
+                ],
               ),
             ),
             if (widget.suffix != null) ...[

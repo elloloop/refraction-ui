@@ -1,3 +1,10 @@
+## 0.3.0
+
+Implements the "Wave 1" Flutter UI components, bringing 11 new headless, themeable components mapped directly from the Web specifications, closing a major portion of the Component Parity epic.
+
+- **Forms & Inputs**: Add `RefractionInputGroup`, `RefractionSearchBar`, `RefractionDatePicker`, `RefractionFileUpload`, `RefractionEmojiPicker`, `RefractionCodeEditor`, `RefractionCommandInput`, `RefractionInlineEditor`, `RefractionLanguageSelector`, `RefractionLocationSelector`, and `RefractionRichEditor`.
+- **Bug Fixes**: Fixed a critical generic inference bug within `RefractionSelect.createState` that caused infinite flex constraints during testing.
+
 ## 0.2.0
 
 Adds the Flutter telemetry and analytics surfaces that were missing from the

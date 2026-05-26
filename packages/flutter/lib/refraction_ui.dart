@@ -61,7 +61,9 @@ export 'src/components/switch.dart';
 export 'src/components/tabs.dart';
 export 'src/components/toast.dart';
 export 'src/components/tooltip.dart';
+export 'src/components/file_upload.dart';
 export 'src/components/card.dart';
+export 'src/components/date_picker.dart';
 export 'src/components/navbar.dart';
 export 'src/components/sidebar.dart';
 export 'src/components/bottom_nav.dart';
@@ -80,3 +82,10 @@ export 'src/telemetry/telemetry.dart';
 // — is available with no parity loss via the namespaced entrypoint
 // `package:refraction_ui/analytics.dart`.
 export 'src/analytics/analytics.dart' hide createConsoleSink;
+export 'src/components/emoji_picker.dart';
+export 'src/components/code_editor.dart';
+export 'src/components/command_input.dart';
+export 'src/components/inline_editor.dart';
+export 'src/components/rich_editor.dart';
+export 'src/components/language_selector.dart';
+export 'src/components/location_selector.dart';
