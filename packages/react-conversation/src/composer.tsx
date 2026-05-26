@@ -382,7 +382,9 @@ export function Composer({
         'div',
         {
           className:
-            'overflow-hidden rounded-2xl border border-border bg-background transition focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/40',
+            // Subtle focus: slight border darkening + a soft shadow lift — no
+            // bright colored ring (matches Claude/ChatGPT).
+            'overflow-hidden rounded-2xl border border-border bg-background shadow-sm transition-shadow focus-within:border-foreground/25 focus-within:shadow-md',
         },
         // error banner
         error
