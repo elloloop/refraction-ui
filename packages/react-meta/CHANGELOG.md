@@ -1,5 +1,11 @@
 # @refraction-ui/react
 
+## 0.12.2
+
+### Patch Changes
+
+- b6cf952: Composer focus: replace the loud bright-primary outline + ring with a subtle border darkening + soft shadow lift (Claude/ChatGPT-style). Same accessible focus signal, much quieter.
+
 ## 0.12.1
 
 ### Patch Changes
