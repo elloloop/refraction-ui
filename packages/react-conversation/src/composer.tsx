@@ -4,6 +4,77 @@ import type { MessageAttachment } from '@refraction-ui/conversation'
 
 const h = React.createElement
 
+// ── icons (inline Lucide-style SVGs, currentColor + stroke 2) ────────────────
+const svg = (children: React.ReactNode, size = 16) =>
+  h(
+    'svg',
+    {
+      xmlns: 'http://www.w3.org/2000/svg',
+      viewBox: '0 0 24 24',
+      width: size,
+      height: size,
+      fill: 'none',
+      stroke: 'currentColor',
+      strokeWidth: 2,
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round',
+      'aria-hidden': true,
+    },
+    children,
+  )
+const IconAttach = () =>
+  svg(h('path', { d: 'm21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 17.93 8.81l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48' }))
+const IconBold = () =>
+  svg([
+    h('path', { key: 'a', d: 'M6 4h8a4 4 0 0 1 0 8H6z' }),
+    h('path', { key: 'b', d: 'M6 12h9a4 4 0 0 1 0 8H6z' }),
+  ])
+const IconItalic = () =>
+  svg([
+    h('line', { key: 'a', x1: 19, y1: 4, x2: 10, y2: 4 }),
+    h('line', { key: 'b', x1: 14, y1: 20, x2: 5, y2: 20 }),
+    h('line', { key: 'c', x1: 15, y1: 4, x2: 9, y2: 20 }),
+  ])
+const IconCode = () =>
+  svg([
+    h('polyline', { key: 'a', points: '16 18 22 12 16 6' }),
+    h('polyline', { key: 'b', points: '8 6 2 12 8 18' }),
+  ])
+const IconLink = () =>
+  svg([
+    h('path', { key: 'a', d: 'M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71' }),
+    h('path', { key: 'b', d: 'M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71' }),
+  ])
+const IconQuote = () =>
+  svg([
+    h('path', { key: 'a', d: 'M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z' }),
+    h('path', { key: 'b', d: 'M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z' }),
+  ])
+const IconListUl = () =>
+  svg([
+    h('line', { key: 'a', x1: 8, y1: 6, x2: 21, y2: 6 }),
+    h('line', { key: 'b', x1: 8, y1: 12, x2: 21, y2: 12 }),
+    h('line', { key: 'c', x1: 8, y1: 18, x2: 21, y2: 18 }),
+    h('line', { key: 'd', x1: 3, y1: 6, x2: 3.01, y2: 6 }),
+    h('line', { key: 'e', x1: 3, y1: 12, x2: 3.01, y2: 12 }),
+    h('line', { key: 'f', x1: 3, y1: 18, x2: 3.01, y2: 18 }),
+  ])
+const IconListOl = () =>
+  svg([
+    h('line', { key: 'a', x1: 10, y1: 6, x2: 21, y2: 6 }),
+    h('line', { key: 'b', x1: 10, y1: 12, x2: 21, y2: 12 }),
+    h('line', { key: 'c', x1: 10, y1: 18, x2: 21, y2: 18 }),
+    h('path', { key: 'd', d: 'M4 6h1v4' }),
+    h('path', { key: 'e', d: 'M4 10h2' }),
+    h('path', { key: 'f', d: 'M6 18H4c0-1 2-2 2-3s-1-1.5-2-1' }),
+  ])
+const IconArrowUp = () =>
+  svg([
+    h('path', { key: 'a', d: 'M12 19V5' }),
+    h('path', { key: 'b', d: 'm5 12 7-7 7 7' }),
+  ])
+const IconStop = () => svg(h('rect', { x: 7, y: 7, width: 10, height: 10, rx: 1.5 }))
+
 /** A `/` command entry. */
 export interface SlashCommand {
   id: string
@@ -77,7 +148,7 @@ function detectTrigger(text: string, caret: number): TriggerState | null {
  * and `/` command, `@` mention, and `:` emoji autocomplete menus.
  */
 export function Composer({
-  placeholder = 'Type a message…  (/ commands, @ mentions, : emoji)',
+  placeholder = 'Send a message…',
   busy = false,
   slashCommands = [],
   mentions,
@@ -245,20 +316,22 @@ export function Composer({
     }
   }
 
-  const iconBtn = 'flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-accent hover:text-foreground'
-  const toolbarBtn = (label: string, title: string, kind: Parameters<typeof format>[0]) =>
+  const iconBtn = 'flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-accent hover:text-foreground'
+  const toolbarBtn = (icon: React.ReactNode, title: string, kind: Parameters<typeof format>[0]) =>
     h(
       'button',
       {
         key: kind,
         type: 'button',
         title,
-        className: cn(iconBtn, 'text-xs font-medium'),
+        'aria-label': title,
+        className: iconBtn,
         onMouseDown: (e: React.MouseEvent) => e.preventDefault(), // keep textarea selection
         onClick: () => format(kind),
       },
-      label,
+      icon,
     )
+  const divider = () => h('span', { className: 'mx-1 h-5 w-px bg-border', 'aria-hidden': true })
 
   const menu = menuOpen
     ? h(
@@ -373,40 +446,41 @@ export function Composer({
                     e.target.value = ''
                   },
                 }),
-                h('button', { type: 'button', className: iconBtn, 'aria-label': 'Attach image or GIF', onClick: () => fileRef.current?.click() }, '📎'),
+                h('button', { type: 'button', className: iconBtn, 'aria-label': 'Attach image or GIF', onClick: () => fileRef.current?.click() }, h(IconAttach)),
               )
             : null,
-          attachments && toolbar ? h('span', { className: 'mx-1 h-5 w-px bg-border' }) : null,
+          attachments && toolbar ? divider() : null,
           toolbar
             ? h(
                 React.Fragment,
                 null,
-                toolbarBtn('B', 'Bold (⌘B)', 'bold'),
-                toolbarBtn('𝑖', 'Italic (⌘I)', 'italic'),
-                toolbarBtn('</>', 'Code (⌘E)', 'code'),
-                toolbarBtn('🔗', 'Link (⌘K)', 'link'),
-                toolbarBtn('❝', 'Quote', 'quote'),
-                toolbarBtn('•', 'Bulleted list', 'ul'),
-                toolbarBtn('1.', 'Numbered list', 'ol'),
+                toolbarBtn(h(IconBold), 'Bold (⌘B)', 'bold'),
+                toolbarBtn(h(IconItalic), 'Italic (⌘I)', 'italic'),
+                toolbarBtn(h(IconCode), 'Code (⌘E)', 'code'),
+                toolbarBtn(h(IconLink), 'Link (⌘K)', 'link'),
+                divider(),
+                toolbarBtn(h(IconQuote), 'Quote', 'quote'),
+                toolbarBtn(h(IconListUl), 'Bulleted list', 'ul'),
+                toolbarBtn(h(IconListOl), 'Numbered list', 'ol'),
               )
             : null,
           h('div', { className: 'flex-1' }),
           busy
             ? h(
                 'button',
-                { type: 'button', 'aria-label': 'Stop', className: 'flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground', onClick: () => onStop?.() },
-                '■',
+                { type: 'button', 'aria-label': 'Stop', className: 'flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground transition hover:opacity-90', onClick: () => onStop?.() },
+                h(IconStop),
               )
             : h(
                 'button',
                 {
                   type: 'button',
                   'aria-label': 'Send',
-                  className: 'flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-base font-semibold text-primary-foreground transition disabled:opacity-40',
+                  className: 'flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground transition hover:opacity-90 disabled:bg-muted disabled:text-muted-foreground disabled:opacity-100',
                   disabled: !value.trim() && pending.length === 0,
                   onClick: submit,
                 },
-                '↑',
+                h(IconArrowUp),
               ),
         ),
       ),
