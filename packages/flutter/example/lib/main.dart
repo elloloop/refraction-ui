@@ -5,9 +5,10 @@ import 'package:refraction_ui/refraction_ui.dart';
 // Import our layouts and pages
 import 'pages/home_page.dart';
 import 'pages/docs_layout.dart';
-import 'pages/chat_input_page.dart';
-import 'pages/accordion_page.dart';
-import 'pages/menus_page.dart';
+import 'pages/bottom_nav_page.dart';
+import 'pages/breadcrumbs_page.dart';
+import 'pages/footer_page.dart';
+import 'pages/carousel_page.dart';
 import 'pages/command_menu_page.dart';
 import 'pages/command_input_page.dart';
 import 'pages/radio_group_page.dart';
@@ -539,6 +540,8 @@ class _AppShell extends ConsumerWidget {
             ),
           ),
         );
+      case '/docs/carousel':
+        return const CarouselPage();
       case '/docs/cards-&-layouts':
         return PreviewCanvas(
           title: "Cards",

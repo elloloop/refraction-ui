@@ -1,3 +1,7 @@
+## 0.5.0
+
+- **Layout Components**: Add `RefractionCarousel` built on top of `PageView` with >100 comprehensive gesture tests and full theme propagation.
+
 ## 0.4.0
 
 - **Data Components**: Add `RefractionDataTable` with sorting, filtering, row selection, and comprehensive gesture-based interaction tests.
