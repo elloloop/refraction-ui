@@ -22,6 +22,7 @@ import 'pages/inline_editor_page.dart';
 import 'pages/rich_editor_page.dart';
 import 'pages/location_selector_page.dart';
 import 'pages/language_selector_page.dart';
+import 'pages/data_table_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -92,6 +93,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'File Upload',
     'Popovers & Tooltips',
     'Toasts',
+    'Data Table',
   ];
 
   @override
@@ -373,6 +375,8 @@ class _AppShell extends ConsumerWidget {
         return const LocationSelectorPage();
       case '/docs/language-selector':
         return const LanguageSelectorPage();
+      case '/docs/data-table':
+        return const DataTablePage();
       case '/docs/pregnancy-tracker':
         return const PreviewCanvas(
           title: "Pregnancy Tracker Layout",

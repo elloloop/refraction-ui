@@ -58,6 +58,7 @@ export 'src/components/otp_input.dart';
 export 'src/components/popover.dart';
 export 'src/components/select.dart';
 export 'src/components/switch.dart';
+export 'src/components/data_table.dart';
 export 'src/components/tabs.dart';
 export 'src/components/toast.dart';
 export 'src/components/tooltip.dart';

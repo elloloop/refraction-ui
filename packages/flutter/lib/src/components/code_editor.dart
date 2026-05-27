@@ -202,20 +202,34 @@ class _RefractionCodeEditorState extends State<RefractionCodeEditor> {
             constraints: const BoxConstraints(minHeight: 200),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: EditableText(
-                controller: _internalController,
-                focusNode: _focusNode,
-                style: TextStyle(
-                  color: colors.foreground,
-                  fontSize: 14,
-                  fontFamily: 'monospace',
+              child: TextSelectionTheme(
+                data: TextSelectionThemeData(
+                  cursorColor: colors.primary,
+                  selectionColor: colors.primary.withValues(alpha: 0.2),
+                  selectionHandleColor: colors.primary,
                 ),
-                cursorColor: colors.primary,
-                backgroundCursorColor: colors.muted,
-                readOnly: widget.readOnly,
-                onChanged: widget.onChanged,
-                maxLines: null,
-                keyboardType: TextInputType.multiline,
+                child: TextField(
+                  controller: _internalController,
+                  focusNode: _focusNode,
+                  style: TextStyle(
+                    color: colors.foreground,
+                    fontSize: 14,
+                    fontFamily: 'monospace',
+                  ),
+                  cursorColor: colors.primary,
+                  readOnly: widget.readOnly,
+                  onChanged: widget.onChanged,
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
+                  decoration: InputDecoration.collapsed(
+                    hintText: widget.placeholder,
+                    hintStyle: TextStyle(
+                      color: colors.mutedForeground,
+                      fontSize: 14,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
+                ),
               ),
             ),
           ),

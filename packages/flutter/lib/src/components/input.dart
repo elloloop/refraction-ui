@@ -170,32 +170,30 @@ class _RefractionInputState extends State<RefractionInput> {
               const SizedBox(width: 8),
             ],
             Expanded(
-              child: Stack(
-                alignment: widget.maxLines > 1
-                    ? Alignment.topLeft
-                    : Alignment.centerLeft,
-                children: [
-                  if (widget.placeholder != null && _controller.text.isEmpty)
-                    Text(
-                      widget.placeholder!,
-                      style: TextStyle(
-                        color: colors.mutedForeground,
-                        fontSize: 14,
-                      ),
+              child: TextSelectionTheme(
+                data: TextSelectionThemeData(
+                  cursorColor: colors.primary,
+                  selectionColor: colors.primary.withValues(alpha: 0.2),
+                  selectionHandleColor: colors.primary,
+                ),
+                child: TextField(
+                  controller: _controller,
+                  focusNode: _focusNode,
+                  style: TextStyle(color: colors.foreground, fontSize: 14),
+                  cursorColor: colors.primary,
+                  obscureText: widget.obscureText,
+                  readOnly: widget.disabled,
+                  onChanged: widget.onChanged,
+                  onSubmitted: widget.onSubmitted,
+                  maxLines: widget.maxLines,
+                  decoration: InputDecoration.collapsed(
+                    hintText: widget.placeholder,
+                    hintStyle: TextStyle(
+                      color: colors.mutedForeground,
+                      fontSize: 14,
                     ),
-                  EditableText(
-                    controller: _controller,
-                    focusNode: _focusNode,
-                    style: TextStyle(color: colors.foreground, fontSize: 14),
-                    cursorColor: colors.primary,
-                    backgroundCursorColor: colors.muted,
-                    obscureText: widget.obscureText,
-                    readOnly: widget.disabled,
-                    onChanged: widget.onChanged,
-                    onSubmitted: widget.onSubmitted,
-                    maxLines: widget.maxLines,
                   ),
-                ],
+                ),
               ),
             ),
             if (widget.suffix != null) ...[
