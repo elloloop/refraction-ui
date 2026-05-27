@@ -46,6 +46,7 @@ export 'src/components/command_menu.dart';
 export 'src/components/radio_group.dart';
 export 'src/components/progress_slider.dart';
 export 'src/components/alert.dart';
+export 'src/components/callout.dart';
 export 'src/components/avatar.dart';
 export 'src/components/badge.dart';
 export 'src/components/button.dart';

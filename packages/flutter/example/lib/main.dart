@@ -16,6 +16,7 @@ import 'pages/command_input_page.dart';
 import 'pages/radio_group_page.dart';
 import 'pages/progress_slider_page.dart';
 import 'pages/alert_page.dart';
+import 'pages/callout_page.dart';
 import 'pages/avatar_page.dart';
 import 'pages/date_picker_page.dart';
 import 'pages/file_upload_page.dart';
@@ -99,6 +100,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Radio Group',
     'Progress Slider',
     'Alert',
+    'Callout',
     'Avatar',
     'Buttons',
     'Badges',
@@ -403,6 +405,8 @@ class _AppShell extends ConsumerWidget {
         return const SheetPage();
       case '/docs/alert':
         return const AlertPage();
+      case '/docs/callout':
+        return const CalloutPage();
       case '/docs/avatar':
         return const AvatarPage();
       case '/docs/file-upload':

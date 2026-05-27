@@ -1,3 +1,7 @@
+## 0.26.0
+
+- **Feedback Components**: Add `RefractionCallout`, providing prominent headless banners for hints, warnings, and error highlights with 5 distinct semantic variants.
+
 ## 0.25.0
 
 - **Layout Components**: Add `RefractionSheet`, providing a headless modal side-sheet with drag-to-dismiss gestures for all four edges.
