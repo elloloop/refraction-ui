@@ -1,3 +1,7 @@
+## 0.40.0
+
+- **Data Presentation**: Add `RefractionVersionSelector`, a dropdown-like widget tailored for displaying and switching between software documentation versions.
+
 ## 0.39.0
 
 - **Data Presentation**: Add `RefractionLogger`, a console/log output viewer widget with severity filtering and copy-to-clipboard functionality.
