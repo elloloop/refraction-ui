@@ -1,3 +1,7 @@
+## 0.41.0
+
+- **Accessibility**: Add `RefractionSkipToContent`, an accessibility-first widget that remains visually hidden until focused via keyboard navigation, allowing screen reader and keyboard users to bypass heavy navigation bars.
+
 ## 0.40.0
 
 - **Data Presentation**: Add `RefractionVersionSelector`, a dropdown-like widget tailored for displaying and switching between software documentation versions.

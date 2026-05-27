@@ -128,3 +128,4 @@ export 'src/components/status_indicator.dart';
 export 'src/components/keyboard_shortcut.dart';
 export 'src/components/logger.dart';
 export 'src/components/version_selector.dart';
+export 'src/components/skip_to_content.dart';
