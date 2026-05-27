@@ -87,6 +87,18 @@ describe('Button (React) - variant coverage', () => {
     const html = renderToString(React.createElement(Button, { variant: 'link' }, 'Btn'))
     expect(html).toContain('underline-offset-4')
   })
+
+  // Issue #201 — `primary` is an alias for `default` so muscle-memory works.
+  it('renders primary variant with the same classes as default (issue #201)', () => {
+    const primary = renderToString(React.createElement(Button, { variant: 'primary' }, 'Save'))
+    const def = renderToString(React.createElement(Button, { variant: 'default' }, 'Save'))
+    expect(primary).toContain('bg-primary')
+    expect(primary).toContain('text-primary-foreground')
+    // Same emphasis classes for both variants — no silent fall-through.
+    expect(primary).toContain('hover:bg-primary/90')
+    expect(def).toContain('bg-primary')
+    expect(def).toContain('hover:bg-primary/90')
+  })
 })
 
 describe('Button (React) - size coverage', () => {

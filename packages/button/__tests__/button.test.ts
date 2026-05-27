@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { createButton, getButtonType } from '../src/button.js'
+import {
+  createButton,
+  getButtonType,
+  resolveButtonVariant,
+  BUTTON_VARIANT_ALIASES,
+} from '../src/button.js'
 import { buttonVariants } from '../src/button.styles.js'
 
 describe('createButton', () => {
@@ -68,17 +73,48 @@ describe('buttonVariants', () => {
   })
 })
 
-describe('createButton - variant/size class coverage', () => {
-  const allVariants = ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'] as const
+// Issue #201 — variant='primary' is a muscle-memory alias for 'default'.
+// Both the alias map and the variant table must keep them in lockstep.
+describe('resolveButtonVariant + primary alias (issue #201)', () => {
+  it('maps "primary" to "default"', () => {
+    expect(resolveButtonVariant('primary')).toBe('default')
+  })
 
-  it.each(allVariants)('variant "%s" produces unique classes', (variant) => {
+  it('passes through every canonical variant unchanged', () => {
+    for (const v of ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'] as const) {
+      expect(resolveButtonVariant(v)).toBe(v)
+    }
+  })
+
+  it('returns undefined for undefined (so cva defaultVariants still kicks in)', () => {
+    expect(resolveButtonVariant(undefined)).toBeUndefined()
+  })
+
+  it('exposes "primary" in the alias table', () => {
+    expect(BUTTON_VARIANT_ALIASES.primary).toBe('default')
+  })
+
+  it('buttonVariants(primary) matches buttonVariants(default) byte-for-byte', () => {
+    const primary = buttonVariants({ variant: 'primary' })
+    const def = buttonVariants({ variant: 'default' })
+    expect(primary).toBe(def)
+  })
+})
+
+describe('createButton - variant/size class coverage', () => {
+  // `primary` is intentionally an alias of `default` so it's excluded from the
+  // uniqueness check; canonical variants must all be distinct.
+  const canonicalVariants = ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'] as const
+  const allVariants = [...canonicalVariants, 'primary'] as const
+
+  it.each(allVariants)('variant "%s" produces non-empty classes', (variant) => {
     const classes = buttonVariants({ variant })
     expect(typeof classes).toBe('string')
     expect(classes.length).toBeGreaterThan(0)
   })
 
-  it('all 6 variants produce different class strings', () => {
-    const classSet = new Set(allVariants.map((v) => buttonVariants({ variant: v })))
+  it('all 6 canonical variants produce different class strings', () => {
+    const classSet = new Set(canonicalVariants.map((v) => buttonVariants({ variant: v })))
     expect(classSet.size).toBe(6)
   })
 

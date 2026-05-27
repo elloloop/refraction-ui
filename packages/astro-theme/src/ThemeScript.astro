@@ -1,13 +1,26 @@
 ---
-import { getThemeScript } from '@refraction-ui/theme'
+import { getThemeScript, type ThemeMode } from '@refraction-ui/theme'
 
 interface Props {
   storageKey?: string
   attribute?: 'class' | 'data-theme'
+  /**
+   * Theme to apply when nothing is stored. Match this to the `<ThemeProvider>`
+   * client component's `defaultMode` so first-paint and hydration agree. Issue #317.
+   */
+  defaultMode?: ThemeMode
+  /** When `false`, never fall through to `prefers-color-scheme`. Default `true`. */
+  enableSystem?: boolean
 }
 
-const { storageKey = 'rfr-theme', attribute = 'class' } = Astro.props
-const scriptContent = getThemeScript(storageKey, attribute)
+const {
+  storageKey = 'rfr-theme',
+  attribute = 'class',
+  defaultMode = 'system',
+  enableSystem = true,
+} = Astro.props
+
+const scriptContent = getThemeScript({ storageKey, attribute, defaultMode, enableSystem })
 ---
 
 <script set:html={scriptContent} />
