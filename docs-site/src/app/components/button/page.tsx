@@ -6,9 +6,10 @@ import { InstallCommand } from '@/components/install-command'
 const buttonProps = [
   {
     name: 'variant',
-    type: "'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'",
+    type: "'default' | 'primary' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'",
     default: "'default'",
-    description: 'Visual style of the button.',
+    description:
+      "Visual style. `primary` is a typed alias of `default` so muscle-memory from MUI/Chakra/Mantine works (issue #201).",
   },
   {
     name: 'size',
@@ -74,9 +75,25 @@ export default function ButtonPage() {
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Variants</h2>
         <p className="text-sm text-muted-foreground">
-          Six built-in visual variants for different contexts.
+          Six built-in visual variants for different contexts.{' '}
+          <code className="text-xs bg-muted px-1 rounded">primary</code> is a typed alias of{' '}
+          <code className="text-xs bg-muted px-1 rounded">default</code> — see below.
         </p>
         <ButtonExamples section="variants" />
+      </section>
+
+      {/* Issue #201 — primary alias */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">
+          <code className="text-base">primary</code> aliases <code className="text-base">default</code>
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          <code className="text-xs bg-muted px-1 rounded">variant=&quot;primary&quot;</code> renders
+          identically to <code className="text-xs bg-muted px-1 rounded">variant=&quot;default&quot;</code>{' '}
+          so muscle-memory from MUI, Chakra, and shadcn doesn&apos;t fall through to an unstyled
+          base. Use whichever name reads better in your codebase.
+        </p>
+        <ButtonExamples section="primary-alias" />
       </section>
 
       {/* Install */}

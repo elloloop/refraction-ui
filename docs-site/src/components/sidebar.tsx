@@ -112,6 +112,7 @@ const themeSubItems = [
   { name: 'Theme Playground', href: '/theme' },
   { name: 'Config Editor', href: '/theme/editor' },
   { name: 'Generate Theme', href: '/theme/generate' },
+  { name: 'React API', href: '/theme/api' },
 ]
 
 const navigation = [
