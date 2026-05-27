@@ -1,3 +1,7 @@
+## 0.30.0
+
+- **Data Presentation**: Add `RefractionContentProtection`, a wrapper component for blurring, overlaying, and gating content (e.g., paywalls, age gates).
+
 ## 0.29.0
 
 - **Feedback Components**: Add `RefractionFeedbackDialog`, providing a pre-built modal logic for collecting structured user feedback with honeypot and email validation.
