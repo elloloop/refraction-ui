@@ -38,6 +38,7 @@ import 'pages/animated_text_page.dart';
 import 'pages/voice_pill_page.dart';
 import 'pages/markdown_renderer_page.dart';
 import 'pages/diff_viewer_page.dart';
+import 'pages/reaction_bar_page.dart';
 import 'pages/device_frame_page.dart';
 import 'pages/slide_viewer_page.dart';
 import 'pages/charts_page.dart';
@@ -128,6 +129,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Voice Pill',
     'Markdown Renderer',
     'Device Frame',
+    'Reaction Bar',
   ];
 
   @override
@@ -377,6 +379,8 @@ class _AppShell extends ConsumerWidget {
   // Very simple mocked content mapper
   Widget _buildDocsContent(String route, BuildContext context) {
     switch (route) {
+      case '/docs/reaction-bar':
+        return const ReactionBarPage();
       case '/docs/diff-viewer':
         return const DiffViewerPage();
       case '/docs/accordion':
@@ -731,6 +735,7 @@ class _AppShell extends ConsumerWidget {
         return const ChartsPage();
       case '/docs/markdown-renderer':
         return const MarkdownRendererPage();
+
       case '/docs/device-frame':
         return const DeviceFramePage();
       case '/docs/slide-viewer':

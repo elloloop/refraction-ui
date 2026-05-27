@@ -1,3 +1,7 @@
+## 0.23.0
+
+- **Data Components**: Add `RefractionReactionBar`, providing a headless emoji/icon reaction row with state tracking and tap callbacks.
+
 ## 0.22.0
 
 - **Data Components**: Add `RefractionAnimatedText`, providing headless text animations (`fade`, `typewriter`, `slideUp`) with robust typography token integration.
