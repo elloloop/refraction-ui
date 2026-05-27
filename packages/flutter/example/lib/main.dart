@@ -33,6 +33,7 @@ import 'pages/steps_page.dart';
 import 'pages/resizable_layout_page.dart';
 import 'pages/table_of_contents_page.dart';
 import 'pages/video_player_page.dart';
+import 'pages/waveform_page.dart';
 
 import 'dev_tools/preview_canvas.dart';
 
@@ -112,6 +113,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Pagination',
     'Resizable Layout',
     'Table of Contents',
+    'Waveform',
   ];
 
   @override
@@ -707,6 +709,8 @@ class _AppShell extends ConsumerWidget {
         return const TableOfContentsPage();
       case '/docs/video-player':
         return const VideoPlayerPage();
+      case '/docs/waveform':
+        return const WaveformPage();
 
       default:
         // Render a generic placeholder for other components

@@ -1,3 +1,7 @@
+## 0.15.0
+
+- **Media Components**: Add `RefractionWaveform`, which uses `CustomPainter` to dynamically render audio amplitudes as responsive, theme-aware bars.
+
 ## 0.14.0
 
 - **Media Components**: Add `RefractionVideoPlayer`, providing a headless UI shell (play/pause, progress slider, volume controls) overlaying standard video playback, fully synchronized with `RefractionTheme`.

@@ -101,3 +101,4 @@ export 'src/components/app_shell.dart';
 export 'src/components/table_of_contents.dart';
 export 'src/components/video_player.dart';
 
+export 'src/components/waveform.dart';
