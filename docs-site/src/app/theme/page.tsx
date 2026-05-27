@@ -69,6 +69,30 @@ export default function ThemePage() {
             Comprehensive documentation for all 95 CSS custom properties &mdash; what each controls, acceptable values, and visual examples.
           </p>
         </Link>
+
+        <Link
+          href="/theme/api"
+          className="group rounded-lg border border-border bg-card p-6 transition-colors hover:bg-accent/50"
+        >
+          <div className="flex items-center gap-3 mb-2">
+            <div className="h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center">
+              <svg className="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
+              </svg>
+            </div>
+            <h3 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+              React API
+            </h3>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            <code className="text-xs bg-muted px-1 rounded">ThemeProvider</code>,{' '}
+            <code className="text-xs bg-muted px-1 rounded">ThemeScript</code>, and{' '}
+            <code className="text-xs bg-muted px-1 rounded">useTheme</code> &mdash; SSR-safe setup
+            including the new <code className="text-xs bg-muted px-1 rounded">defaultMode</code> /{' '}
+            <code className="text-xs bg-muted px-1 rounded">enableSystem</code> flash-prevention
+            props (issue #317).
+          </p>
+        </Link>
       </div>
 
       <ThemePlayground />
