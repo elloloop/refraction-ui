@@ -1,3 +1,7 @@
+## 0.38.0
+
+- **Data Presentation**: Add `RefractionKeyboardShortcut`, a widget designed to cleanly format and style keyboard shortcut representations (like ⌘ K).
+
 ## 0.37.0
 
 - **Data Presentation**: Add `RefractionStatusIndicator`, a customizable status widget for displaying system states (Operational, Degraded, etc.) with support for pulsing animations.
