@@ -1,3 +1,7 @@
+## 0.12.0
+
+- **Layout Components**: Add `RefractionAppShell` which provides a foundational layout structure with responsive headers, footers, sidebars, and main content regions.
+
 ## 0.11.0
 
 - **Layout Components**: Add `RefractionCardGrid` leveraging responsive algorithms and `LayoutBuilder` constraints to auto-calculate cross-axis alignments.

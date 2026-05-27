@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'pages/app_shell_page.dart';
 import 'package:refraction_ui/refraction_ui.dart';
 
 // Import our layouts and pages
@@ -75,6 +76,7 @@ class RefractionDemoApp extends ConsumerWidget {
   const RefractionDemoApp({super.key});
 
   final List<String> components = const [
+    'App Shell',
     'Accordion',
     'Collapsible',
     'Menus',
@@ -561,6 +563,8 @@ class _AppShell extends ConsumerWidget {
             ),
           ),
         );
+      case '/docs/app-shell':
+        return const AppShellPage();
       case '/docs/carousel':
         return const CarouselPage();
       case '/docs/cards-&-layouts':

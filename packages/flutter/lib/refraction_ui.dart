@@ -97,3 +97,4 @@ export 'src/components/file_tree.dart';
 export 'src/components/pagination.dart';
 export 'src/components/steps.dart';
 export 'src/components/resizable_layout.dart';
+export 'src/components/app_shell.dart';
