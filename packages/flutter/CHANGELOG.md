@@ -1,3 +1,7 @@
+## 0.34.0
+
+- **Data Presentation**: Add `RefractionThreadView`, a wrapper component designed for rendering linear sequences of messages with robust nesting support.
+
 ## 0.33.0
 
 - **Data Entry**: Add `RefractionCalendar`, a highly customizable date selection widget supporting single, multiple, and range selection modes.
