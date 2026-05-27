@@ -1,3 +1,7 @@
+## 0.22.0
+
+- **Data Components**: Add `RefractionAnimatedText`, providing headless text animations (`fade`, `typewriter`, `slideUp`) with robust typography token integration.
+
 ## 0.21.0
 
 - **Data Components**: Add `RefractionCharts`, providing headless data visualization components (`RefractionLineChart`, `RefractionBarChart`, `RefractionPieChart`) with complete theming support.

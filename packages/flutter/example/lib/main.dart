@@ -34,6 +34,7 @@ import 'pages/resizable_layout_page.dart';
 import 'pages/table_of_contents_page.dart';
 import 'pages/video_player_page.dart';
 import 'pages/waveform_page.dart';
+import 'pages/animated_text_page.dart';
 import 'pages/voice_pill_page.dart';
 import 'pages/markdown_renderer_page.dart';
 import 'pages/diff_viewer_page.dart';
@@ -123,6 +124,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Video Player',
     'Slide Viewer',
     'Waveform',
+    'Animated Text',
     'Voice Pill',
     'Markdown Renderer',
     'Device Frame',
@@ -733,6 +735,8 @@ class _AppShell extends ConsumerWidget {
         return const DeviceFramePage();
       case '/docs/slide-viewer':
         return const SlideViewerPage();
+      case '/docs/animated-text':
+        return const AnimatedTextPage();
 
       default:
         // Render a generic placeholder for other components

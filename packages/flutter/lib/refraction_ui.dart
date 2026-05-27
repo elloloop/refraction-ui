@@ -103,8 +103,9 @@ export 'src/components/app_shell.dart';
 export 'src/components/table_of_contents.dart';
 export 'src/components/video_player.dart';
 export 'src/components/markdown_renderer.dart';
+export 'src/components/animated_text.dart';
+export 'src/components/slide_viewer.dart';
+export 'src/components/charts.dart';
 
 export 'src/components/waveform.dart';
 export 'src/components/voice_pill.dart';
-export 'src/components/slide_viewer.dart';
-export 'src/components/charts.dart';
