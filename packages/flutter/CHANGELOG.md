@@ -1,3 +1,7 @@
+## 0.39.0
+
+- **Data Presentation**: Add `RefractionLogger`, a console/log output viewer widget with severity filtering and copy-to-clipboard functionality.
+
 ## 0.38.0
 
 - **Data Presentation**: Add `RefractionKeyboardShortcut`, a widget designed to cleanly format and style keyboard shortcut representations (like ⌘ K).

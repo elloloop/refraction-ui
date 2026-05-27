@@ -58,6 +58,7 @@ import 'pages/conversation_page.dart';
 import 'pages/presence_indicator_page.dart';
 import 'pages/status_indicator_page.dart';
 import 'pages/keyboard_shortcut_page.dart';
+import 'pages/logger_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -158,6 +159,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Presence Indicator',
     'Status Indicator',
     'Keyboard Shortcut',
+    'Logger',
   ];
 
   @override
@@ -483,6 +485,8 @@ class _AppShell extends ConsumerWidget {
         return const StatusIndicatorPage();
       case '/docs/keyboard-shortcut':
         return const KeyboardShortcutPage();
+      case '/docs/logger':
+        return const LoggerPage();
       case '/docs/pregnancy-tracker':
         return const PreviewCanvas(
           title: "Pregnancy Tracker Layout",
