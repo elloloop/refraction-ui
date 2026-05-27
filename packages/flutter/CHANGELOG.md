@@ -1,3 +1,7 @@
+## 0.10.0
+
+- **Layout Components**: Add `RefractionResizableLayout` providing deeply customizable horizontal/vertical split panels with drag handles and boundary constraints.
+
 ## 0.9.0
 
 - **Navigation Components**: Add `RefractionSteps` supporting vertical/horizontal rendering, custom step states, and connector builders.

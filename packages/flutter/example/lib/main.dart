@@ -28,6 +28,7 @@ import 'pages/collapsible_page.dart';
 import 'pages/file_tree_page.dart';
 import 'pages/pagination_page.dart';
 import 'pages/steps_page.dart';
+import 'pages/resizable_layout_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -102,6 +103,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Data Table',
     'File Tree',
     'Pagination',
+    'Resizable Layout',
   ];
 
   @override
@@ -687,6 +689,8 @@ class _AppShell extends ConsumerWidget {
           "Theming",
           "Refraction UI features 5 beautifully curated archetypes out of the box: Minimal, Fintech, Wellness, Creative, and Productivity. \n\nYou can easily construct these factories like so:\n`RefractionThemeData.minimalDark()` or `RefractionThemeData.fintechLight()` and supply them directly to the `RefractionTheme` container.",
         );
+      case '/docs/resizable-layout':
+        return const ResizableLayoutPage();
       default:
         // Render a generic placeholder for other components
         final title = route.split('/').last.replaceAll('-', ' ').toUpperCase();
