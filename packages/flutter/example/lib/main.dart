@@ -32,6 +32,7 @@ import 'pages/pagination_page.dart';
 import 'pages/steps_page.dart';
 import 'pages/resizable_layout_page.dart';
 import 'pages/table_of_contents_page.dart';
+import 'pages/video_player_page.dart';
 
 import 'dev_tools/preview_canvas.dart';
 
@@ -704,6 +705,8 @@ class _AppShell extends ConsumerWidget {
         return const ResizableLayoutPage();
       case '/docs/table-of-contents':
         return const TableOfContentsPage();
+      case '/docs/video-player':
+        return const VideoPlayerPage();
 
       default:
         // Render a generic placeholder for other components

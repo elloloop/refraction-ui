@@ -1,3 +1,7 @@
+## 0.14.0
+
+- **Media Components**: Add `RefractionVideoPlayer`, providing a headless UI shell (play/pause, progress slider, volume controls) overlaying standard video playback, fully synchronized with `RefractionTheme`.
+
 ## 0.13.0
 
 - **Data Components**: Add `RefractionTableOfContents` with deep nesting support and semantic token mapping for foreground and muted elements.
