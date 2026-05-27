@@ -1,3 +1,7 @@
+## 0.42.0
+
+- **Navigation**: Add `RefractionMobileNav`, a mobile-first bottom/top navigation bar component with integrated icon and label states.
+
 ## 0.41.0
 
 - **Accessibility**: Add `RefractionSkipToContent`, an accessibility-first widget that remains visually hidden until focused via keyboard navigation, allowing screen reader and keyboard users to bypass heavy navigation bars.
