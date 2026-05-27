@@ -1,3 +1,7 @@
+## 0.32.0
+
+- **Commerce**: Add `RefractionPayment`, a wrapper component for rendering highly customizable payment summaries and order breakdowns.
+
 ## 0.31.0
 
 - **Data Entry**: Add `RefractionForm`, a comprehensive wrapper for managing form state, input validation, submission loading states, and error messaging.
