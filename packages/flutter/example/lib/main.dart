@@ -34,6 +34,7 @@ import 'pages/resizable_layout_page.dart';
 import 'pages/table_of_contents_page.dart';
 import 'pages/video_player_page.dart';
 import 'pages/waveform_page.dart';
+import 'pages/voice_pill_page.dart';
 
 import 'dev_tools/preview_canvas.dart';
 
@@ -114,6 +115,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Resizable Layout',
     'Table of Contents',
     'Waveform',
+    'Voice Pill',
   ];
 
   @override

@@ -1,3 +1,7 @@
+## 0.16.0
+
+- **Media Components**: Add `RefractionVoicePill`, providing an animated status pill for active recording states, powered by `RefractionTheme` styling tokens.
+
 ## 0.15.0
 
 - **Media Components**: Add `RefractionWaveform`, which uses `CustomPainter` to dynamically render audio amplitudes as responsive, theme-aware bars.
