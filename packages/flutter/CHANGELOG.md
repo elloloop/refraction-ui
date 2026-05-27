@@ -1,3 +1,7 @@
+## 0.36.0
+
+- **Data Presentation**: Add `RefractionPresenceIndicator`, a highly customizable status indicator widget often used in tandem with Avatars to denote online presence.
+
 ## 0.35.0
 
 - **Data Presentation**: Add `RefractionConversation`, a wrapper component for rendering highly customizable linear chat streams (like SMS or chatbots).
