@@ -1,3 +1,7 @@
+## 0.24.0
+
+- **Data Components**: Add `RefractionDropdownMenu`, providing deeply nested menus with groups, dividers, shortcuts, and disabled states.
+
 ## 0.23.0
 
 - **Data Components**: Add `RefractionReactionBar`, providing a headless emoji/icon reaction row with state tracking and tap callbacks.

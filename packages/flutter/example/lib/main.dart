@@ -38,11 +38,12 @@ import 'pages/animated_text_page.dart';
 import 'pages/voice_pill_page.dart';
 import 'pages/markdown_renderer_page.dart';
 import 'pages/diff_viewer_page.dart';
+import 'pages/dropdown_menu_page.dart';
 import 'pages/reaction_bar_page.dart';
+import 'pages/animated_text_page.dart';
 import 'pages/device_frame_page.dart';
 import 'pages/slide_viewer_page.dart';
 import 'pages/charts_page.dart';
-
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -387,8 +388,8 @@ class _AppShell extends ConsumerWidget {
         return const AccordionPage();
       case '/docs/collapsible':
         return const CollapsiblePage();
-      case '/docs/menus':
-        return const MenusPage();
+      case '/docs/dropdown-menu':
+        return const DropdownMenuPage();
       case '/docs/command-menu':
         return const CommandMenuPage();
       case '/docs/command-input':
@@ -735,13 +736,14 @@ class _AppShell extends ConsumerWidget {
         return const ChartsPage();
       case '/docs/markdown-renderer':
         return const MarkdownRendererPage();
-
       case '/docs/device-frame':
         return const DeviceFramePage();
       case '/docs/slide-viewer':
         return const SlideViewerPage();
       case '/docs/animated-text':
         return const AnimatedTextPage();
+      case '/docs/reaction-bar':
+        return const ReactionBarPage();
 
       default:
         // Render a generic placeholder for other components
