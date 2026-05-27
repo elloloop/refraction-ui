@@ -56,6 +56,7 @@ import 'pages/calendar_page.dart';
 import 'pages/thread_view_page.dart';
 import 'pages/conversation_page.dart';
 import 'pages/presence_indicator_page.dart';
+import 'pages/status_indicator_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -154,6 +155,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Thread View',
     'Conversation',
     'Presence Indicator',
+    'Status Indicator',
   ];
 
   @override
@@ -475,6 +477,8 @@ class _AppShell extends ConsumerWidget {
         return const ConversationPage();
       case '/docs/presence-indicator':
         return const PresenceIndicatorPage();
+      case '/docs/status-indicator':
+        return const StatusIndicatorPage();
       case '/docs/pregnancy-tracker':
         return const PreviewCanvas(
           title: "Pregnancy Tracker Layout",

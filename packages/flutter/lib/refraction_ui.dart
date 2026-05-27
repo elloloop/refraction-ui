@@ -124,3 +124,4 @@ export 'src/components/calendar.dart';
 export 'src/components/thread_view.dart';
 export 'src/components/conversation.dart';
 export 'src/components/presence_indicator.dart';
+export 'src/components/status_indicator.dart';

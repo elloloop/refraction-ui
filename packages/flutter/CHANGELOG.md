@@ -1,3 +1,7 @@
+## 0.37.0
+
+- **Data Presentation**: Add `RefractionStatusIndicator`, a customizable status widget for displaying system states (Operational, Degraded, etc.) with support for pulsing animations.
+
 ## 0.36.0
 
 - **Data Presentation**: Add `RefractionPresenceIndicator`, a highly customizable status indicator widget often used in tandem with Avatars to denote online presence.
