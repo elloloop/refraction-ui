@@ -1,3 +1,9 @@
+## 0.4.0
+
+- **Data Components**: Add `RefractionDataTable` with sorting, filtering, row selection, and comprehensive gesture-based interaction tests.
+- **Architecture**: Fix `RefractionCodeEditor` touch interactions by replacing `EditableText` with `TextField`.
+- **Theming**: Implement strict `TextSelectionTheme` boundaries across all text inputs (`input.dart`, `code_editor.dart`, `chat_input.dart`, `date_picker.dart`, etc.) to guarantee selection highlights and handles use `RefractionTheme` instead of falling back to the OS Material theme.
+
 ## 0.3.0
 
 Implements the "Wave 1" Flutter UI components, bringing 11 new headless, themeable components mapped directly from the Web specifications, closing a major portion of the Component Parity epic.
