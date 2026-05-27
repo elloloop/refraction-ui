@@ -36,6 +36,7 @@ import 'pages/video_player_page.dart';
 import 'pages/waveform_page.dart';
 import 'pages/voice_pill_page.dart';
 import 'pages/markdown_renderer_page.dart';
+import 'pages/diff_viewer_page.dart';
 
 import 'dev_tools/preview_canvas.dart';
 
@@ -368,6 +369,8 @@ class _AppShell extends ConsumerWidget {
   // Very simple mocked content mapper
   Widget _buildDocsContent(String route, BuildContext context) {
     switch (route) {
+      case '/docs/diff-viewer':
+        return const DiffViewerPage();
       case '/docs/accordion':
         return const AccordionPage();
       case '/docs/collapsible':

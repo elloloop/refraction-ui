@@ -40,6 +40,7 @@ export 'src/theme/refraction_colors.dart';
 export 'src/theme/refraction_theme.dart';
 export 'src/theme/refraction_theme_data.dart';
 export 'src/components/accordion.dart';
+export 'src/components/diff_viewer.dart';
 export 'src/components/menus.dart';
 export 'src/components/command_menu.dart';
 export 'src/components/radio_group.dart';

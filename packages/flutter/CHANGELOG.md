@@ -1,3 +1,7 @@
+## 0.18.0
+
+- **Data Components**: Add `RefractionDiffViewer`, providing a headless side-by-side or inline code diff visualization powered by `RefractionTheme` styling tokens.
+
 ## 0.17.0
 
 - **Data Components**: Add `RefractionMarkdownRenderer`, integrating `flutter_markdown` seamlessly with `RefractionTheme` to map standard markdown tags to Refraction typography tokens.
