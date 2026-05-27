@@ -1,3 +1,7 @@
+## 0.17.0
+
+- **Data Components**: Add `RefractionMarkdownRenderer`, integrating `flutter_markdown` seamlessly with `RefractionTheme` to map standard markdown tags to Refraction typography tokens.
+
 ## 0.16.0
 
 - **Media Components**: Add `RefractionVoicePill`, providing an animated status pill for active recording states, powered by `RefractionTheme` styling tokens.

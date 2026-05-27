@@ -99,7 +99,7 @@ class RefractionMarkdownRenderer extends StatelessWidget {
       ),
       codeblockPadding: const EdgeInsets.all(16),
       blockquoteDecoration: BoxDecoration(
-        color: colors.muted.withOpacity(0.5),
+        color: colors.muted.withValues(alpha: 0.5),
         border: Border(
           left: BorderSide(
             color: colors.border,

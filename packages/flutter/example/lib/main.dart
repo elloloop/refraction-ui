@@ -35,6 +35,7 @@ import 'pages/table_of_contents_page.dart';
 import 'pages/video_player_page.dart';
 import 'pages/waveform_page.dart';
 import 'pages/voice_pill_page.dart';
+import 'pages/markdown_renderer_page.dart';
 
 import 'dev_tools/preview_canvas.dart';
 
@@ -114,8 +115,10 @@ class RefractionDemoApp extends ConsumerWidget {
     'Pagination',
     'Resizable Layout',
     'Table of Contents',
+    'Video Player',
     'Waveform',
     'Voice Pill',
+    'Markdown Renderer',
   ];
 
   @override
@@ -713,6 +716,8 @@ class _AppShell extends ConsumerWidget {
         return const VideoPlayerPage();
       case '/docs/waveform':
         return const WaveformPage();
+      case '/docs/markdown-renderer':
+        return const MarkdownRendererPage();
 
       default:
         // Render a generic placeholder for other components
