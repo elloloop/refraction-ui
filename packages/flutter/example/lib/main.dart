@@ -27,6 +27,7 @@ import 'pages/data_table_page.dart';
 import 'pages/collapsible_page.dart';
 import 'pages/file_tree_page.dart';
 import 'pages/pagination_page.dart';
+import 'pages/steps_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -388,6 +389,8 @@ class _AppShell extends ConsumerWidget {
         return const DataTablePage();
       case '/docs/file-tree':
         return const FileTreePage();
+      case '/docs/steps':
+        return const StepsPage();
       case '/docs/pagination':
         return const PaginationPage();
       case '/docs/pregnancy-tracker':

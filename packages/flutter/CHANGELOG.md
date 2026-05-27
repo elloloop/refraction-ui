@@ -1,3 +1,7 @@
+## 0.9.0
+
+- **Navigation Components**: Add `RefractionSteps` supporting vertical/horizontal rendering, custom step states, and connector builders.
+
 ## 0.8.0
 
 - **Navigation Components**: Add `RefractionPagination` featuring exhaustive logical ellipses boundaries and exact algorithmic match for shadcn/MUI style arrays.
