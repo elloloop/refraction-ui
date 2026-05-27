@@ -31,6 +31,8 @@ import 'pages/file_tree_page.dart';
 import 'pages/pagination_page.dart';
 import 'pages/steps_page.dart';
 import 'pages/resizable_layout_page.dart';
+import 'pages/table_of_contents_page.dart';
+
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -108,6 +110,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'File Tree',
     'Pagination',
     'Resizable Layout',
+    'Table of Contents',
   ];
 
   @override
@@ -699,6 +702,9 @@ class _AppShell extends ConsumerWidget {
         );
       case '/docs/resizable-layout':
         return const ResizableLayoutPage();
+      case '/docs/table-of-contents':
+        return const TableOfContentsPage();
+
       default:
         // Render a generic placeholder for other components
         final title = route.split('/').last.replaceAll('-', ' ').toUpperCase();

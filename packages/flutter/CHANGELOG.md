@@ -1,3 +1,7 @@
+## 0.13.0
+
+- **Data Components**: Add `RefractionTableOfContents` with deep nesting support and semantic token mapping for foreground and muted elements.
+
 ## 0.12.0
 
 - **Layout Components**: Add `RefractionAppShell` which provides a foundational layout structure with responsive headers, footers, sidebars, and main content regions.

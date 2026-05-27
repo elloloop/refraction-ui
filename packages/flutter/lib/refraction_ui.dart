@@ -98,3 +98,5 @@ export 'src/components/pagination.dart';
 export 'src/components/steps.dart';
 export 'src/components/resizable_layout.dart';
 export 'src/components/app_shell.dart';
+export 'src/components/table_of_contents.dart';
+
