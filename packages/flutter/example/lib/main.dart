@@ -37,6 +37,7 @@ import 'pages/waveform_page.dart';
 import 'pages/voice_pill_page.dart';
 import 'pages/markdown_renderer_page.dart';
 import 'pages/diff_viewer_page.dart';
+import 'pages/device_frame_page.dart';
 
 import 'dev_tools/preview_canvas.dart';
 
@@ -120,6 +121,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Waveform',
     'Voice Pill',
     'Markdown Renderer',
+    'Device Frame',
   ];
 
   @override
@@ -721,6 +723,8 @@ class _AppShell extends ConsumerWidget {
         return const WaveformPage();
       case '/docs/markdown-renderer':
         return const MarkdownRendererPage();
+      case '/docs/device-frame':
+        return const DeviceFramePage();
 
       default:
         // Render a generic placeholder for other components

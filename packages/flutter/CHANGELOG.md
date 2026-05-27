@@ -1,3 +1,7 @@
+## 0.19.0
+
+- **Layout Components**: Add `RefractionDeviceFrame`, rendering standard device mockup outlines (iPhone, iPad, Android) powered by `RefractionTheme` styling tokens.
+
 ## 0.18.0
 
 - **Data Components**: Add `RefractionDiffViewer`, providing a headless side-by-side or inline code diff visualization powered by `RefractionTheme` styling tokens.

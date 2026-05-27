@@ -67,6 +67,7 @@ export 'src/components/file_upload.dart';
 export 'src/components/card.dart';
 export 'src/components/card_grid.dart';
 export 'src/components/date_picker.dart';
+export 'src/components/device_frame.dart';
 export 'src/components/navbar.dart';
 export 'src/components/sidebar.dart';
 export 'src/components/bottom_nav.dart';
