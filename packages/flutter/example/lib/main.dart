@@ -39,6 +39,7 @@ import 'pages/waveform_page.dart';
 import 'pages/animated_text_page.dart';
 import 'pages/voice_pill_page.dart';
 import 'pages/markdown_renderer_page.dart';
+import 'pages/install_prompt_page.dart';
 import 'pages/diff_viewer_page.dart';
 import 'pages/dropdown_menu_page.dart';
 import 'pages/reaction_bar_page.dart';
@@ -130,6 +131,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Slide Viewer',
     'Waveform',
     'Animated Text',
+    'Install Prompt',
     'Voice Pill',
     'Markdown Renderer',
     'Device Frame',
@@ -382,6 +384,8 @@ class _AppShell extends ConsumerWidget {
 
   // Very simple mocked content mapper
   Widget _buildDocsContent(String route, BuildContext context) {
+      case '/docs/install-prompt':
+        return const InstallPromptPage();
     switch (route) {
       case '/docs/reaction-bar':
         return const ReactionBarPage();

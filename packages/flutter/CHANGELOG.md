@@ -1,3 +1,7 @@
+## 0.27.0
+
+- **Feedback Components**: Add `RefractionInstallPrompt`, providing a customizable headless prompt for triggering app installation flows (PWA/Home Screen).
+
 ## 0.26.0
 
 - **Feedback Components**: Add `RefractionCallout`, providing prominent headless banners for hints, warnings, and error highlights with 5 distinct semantic variants.

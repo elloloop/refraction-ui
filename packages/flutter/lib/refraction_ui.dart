@@ -53,6 +53,7 @@ export 'src/components/button.dart';
 export 'src/components/checkbox.dart';
 export 'src/components/chat_input.dart';
 export 'src/components/dialog.dart';
+export 'src/components/install_prompt.dart';
 export 'src/components/input.dart';
 export 'src/components/input_group.dart';
 export 'src/components/search_bar.dart';
