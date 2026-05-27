@@ -50,6 +50,7 @@ import 'pages/slide_viewer_page.dart';
 import 'pages/charts_page.dart';
 import 'pages/feedback_dialog_page.dart';
 import 'pages/content_protection_page.dart';
+import 'pages/form_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -142,6 +143,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Cookie Consent',
     'Feedback Dialog',
     'Content Protection',
+    'Form',
   ];
 
   @override
@@ -451,6 +453,8 @@ class _AppShell extends ConsumerWidget {
         return const CookieConsentPage();
       case '/docs/content-protection':
         return const ContentProtectionPage();
+      case '/docs/form':
+        return const FormPage();
       case '/docs/pregnancy-tracker':
         return const PreviewCanvas(
           title: "Pregnancy Tracker Layout",

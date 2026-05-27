@@ -1,3 +1,7 @@
+## 0.31.0
+
+- **Data Entry**: Add `RefractionForm`, a comprehensive wrapper for managing form state, input validation, submission loading states, and error messaging.
+
 ## 0.30.0
 
 - **Data Presentation**: Add `RefractionContentProtection`, a wrapper component for blurring, overlaying, and gating content (e.g., paywalls, age gates).
