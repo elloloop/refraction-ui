@@ -40,7 +40,7 @@ class _PaginationPageState extends State<PaginationPage> {
                 onPageChanged: (page) => setState(() => _currentPage1 = page),
               ),
               const SizedBox(height: 48),
-              
+
               Text("Without Previous/Next Labels", style: textStyle),
               const SizedBox(height: 16),
               RefractionPagination(
@@ -51,7 +51,7 @@ class _PaginationPageState extends State<PaginationPage> {
                 onPageChanged: (page) => setState(() => _currentPage2 = page),
               ),
               const SizedBox(height: 48),
-              
+
               Text("Large Range", style: textStyle),
               const SizedBox(height: 16),
               RefractionPagination(

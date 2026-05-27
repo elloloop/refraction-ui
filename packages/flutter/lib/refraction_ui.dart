@@ -111,6 +111,7 @@ export 'src/components/charts.dart';
 
 
 export 'src/components/waveform.dart';
+export 'src/components/feedback_dialog.dart';
 export 'src/components/voice_pill.dart';
 export 'src/components/reaction_bar.dart';
 export 'src/components/sheet.dart';

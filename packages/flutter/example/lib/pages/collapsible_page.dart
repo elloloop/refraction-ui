@@ -49,9 +49,15 @@ class _CollapsiblePageState extends State<CollapsiblePage> {
                             children: [
                               Text(
                                 "@elloloop starred 3 repositories",
-                                style: theme.textStyle.copyWith(fontWeight: FontWeight.w500),
+                                style: theme.textStyle.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                              Icon(Icons.unfold_more, size: 20, color: theme.colors.mutedForeground),
+                              Icon(
+                                Icons.unfold_more,
+                                size: 20,
+                                color: theme.colors.mutedForeground,
+                              ),
                             ],
                           ),
                         ),
@@ -60,7 +66,9 @@ class _CollapsiblePageState extends State<CollapsiblePage> {
                         child: Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            border: Border(top: BorderSide(color: theme.colors.border)),
+                            border: Border(
+                              top: BorderSide(color: theme.colors.border),
+                            ),
                           ),
                           child: Text(
                             "refraction-ui/refraction-ui\nrefraction-ui/shadcn\nrefraction-ui/radix",
@@ -102,7 +110,9 @@ class _CollapsiblePageState extends State<CollapsiblePage> {
                             children: [
                               Text(
                                 "Toggle me via state",
-                                style: theme.textStyle.copyWith(fontWeight: FontWeight.w500),
+                                style: theme.textStyle.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                               Icon(
                                 _isOpen ? Icons.expand_less : Icons.expand_more,
@@ -117,7 +127,9 @@ class _CollapsiblePageState extends State<CollapsiblePage> {
                         child: Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            border: Border(top: BorderSide(color: theme.colors.border)),
+                            border: Border(
+                              top: BorderSide(color: theme.colors.border),
+                            ),
                           ),
                           child: Text(
                             "This panel's open state is managed by the parent widget's state.",

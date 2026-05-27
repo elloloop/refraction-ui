@@ -22,9 +22,7 @@ class _VoicePillPageState extends State<VoicePillPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Voice Pill'),
-      ),
+      appBar: AppBar(title: const Text('Voice Pill')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -87,10 +85,7 @@ class _VoicePillPageState extends State<VoicePillPage> {
             DropdownButton<RefractionVoicePillPosition>(
               value: _position,
               items: RefractionVoicePillPosition.values.map((p) {
-                return DropdownMenuItem(
-                  value: p,
-                  child: Text(p.name),
-                );
+                return DropdownMenuItem(value: p, child: Text(p.name));
               }).toList(),
               onChanged: (val) {
                 if (val != null) {

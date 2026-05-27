@@ -29,7 +29,10 @@ class _FileTreePageState extends State<FileTreePage> {
               isFolder: true,
               children: [
                 RefractionFileTreeNode(id: 'button.dart', label: 'button.dart'),
-                RefractionFileTreeNode(id: 'file_tree.dart', label: 'file_tree.dart'),
+                RefractionFileTreeNode(
+                  id: 'file_tree.dart',
+                  label: 'file_tree.dart',
+                ),
                 RefractionFileTreeNode(id: 'input.dart', label: 'input.dart'),
               ],
             ),
@@ -38,12 +41,18 @@ class _FileTreePageState extends State<FileTreePage> {
               label: 'theme',
               isFolder: true,
               children: [
-                RefractionFileTreeNode(id: 'refraction_theme.dart', label: 'refraction_theme.dart'),
+                RefractionFileTreeNode(
+                  id: 'refraction_theme.dart',
+                  label: 'refraction_theme.dart',
+                ),
               ],
             ),
           ],
         ),
-        RefractionFileTreeNode(id: 'refraction_ui.dart', label: 'refraction_ui.dart'),
+        RefractionFileTreeNode(
+          id: 'refraction_ui.dart',
+          label: 'refraction_ui.dart',
+        ),
       ],
     ),
     RefractionFileTreeNode(id: 'pubspec.yaml', label: 'pubspec.yaml'),
@@ -64,12 +73,16 @@ class _FileTreePageState extends State<FileTreePage> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            const Text('A deeply nestable file tree supporting keyboard navigation and selection.'),
+            const Text(
+              'A deeply nestable file tree supporting keyboard navigation and selection.',
+            ),
             const SizedBox(height: 24),
             Container(
               width: 300,
               decoration: BoxDecoration(
-                border: Border.all(color: RefractionTheme.of(context).colors.border),
+                border: Border.all(
+                  color: RefractionTheme.of(context).colors.border,
+                ),
                 borderRadius: BorderRadius.circular(8),
               ),
               padding: const EdgeInsets.all(12),

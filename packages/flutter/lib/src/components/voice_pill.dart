@@ -68,7 +68,9 @@ class _RefractionVoicePillState extends State<RefractionVoicePill>
   @override
   void didUpdateWidget(RefractionVoicePill oldWidget) {
     super.didUpdateWidget(oldWidget);
-    final oldVisualIntensity = oldWidget.muted ? 0.0 : oldWidget.intensity.clamp(0.0, 1.0);
+    final oldVisualIntensity = oldWidget.muted
+        ? 0.0
+        : oldWidget.intensity.clamp(0.0, 1.0);
     if (_visualIntensity != oldVisualIntensity) {
       _pulseController.duration = Duration(milliseconds: _pulseDurationMs);
       if (_visualIntensity > 0 && !_pulseController.isAnimating) {
@@ -122,9 +124,8 @@ class _RefractionVoicePillState extends State<RefractionVoicePill>
   double get _ringOpacity =>
       _visualIntensity == 0.0 ? 0.0 : 0.12 + _visualIntensity * 0.42;
   double get _ringScale => 1.0 + _visualIntensity * 0.35;
-  int get _pulseDurationMs => _visualIntensity == 0.0
-      ? 1800
-      : (1700 - _visualIntensity * 700).round();
+  int get _pulseDurationMs =>
+      _visualIntensity == 0.0 ? 1800 : (1700 - _visualIntensity * 700).round();
 
   Color _getAccentColor(RefractionThemeData theme) {
     if (widget.muted) return theme.colors.mutedForeground;
@@ -143,7 +144,7 @@ class _RefractionVoicePillState extends State<RefractionVoicePill>
       animation: _pulseController,
       builder: (context, child) {
         double phase = (_pulseController.value + phaseOffset) % 1.0;
-        
+
         double currentScale = _ringScale * (1.0 + phase);
         double currentOpacity = _ringOpacity * (1.0 - phase);
 
@@ -154,10 +155,7 @@ class _RefractionVoicePillState extends State<RefractionVoicePill>
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(
-                  color: accentColor,
-                  width: 1.0,
-                ),
+                border: Border.all(color: accentColor, width: 1.0),
               ),
             ),
           ),
@@ -170,13 +168,11 @@ class _RefractionVoicePillState extends State<RefractionVoicePill>
     return Container(
       width: 40,
       height: 40,
-      decoration: BoxDecoration(
-        color: accent,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
       alignment: Alignment.center,
       clipBehavior: Clip.antiAlias,
-      child: widget.avatar ??
+      child:
+          widget.avatar ??
           Text(
             _initials,
             style: TextStyle(
@@ -202,9 +198,7 @@ class _RefractionVoicePillState extends State<RefractionVoicePill>
         color: theme.colors.mutedForeground,
         hoverColor: theme.colors.accent,
         splashRadius: 16,
-        icon: Icon(
-          widget.muted ? Icons.volume_off : Icons.volume_up,
-        ),
+        icon: Icon(widget.muted ? Icons.volume_off : Icons.volume_up),
         onPressed: widget.onToggleMute,
       ),
     );
@@ -344,10 +338,7 @@ class _RefractionVoicePillState extends State<RefractionVoicePill>
     return SafeArea(
       child: Align(
         alignment: alignment,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: child,
-        ),
+        child: Padding(padding: const EdgeInsets.all(16.0), child: child),
       ),
     );
   }

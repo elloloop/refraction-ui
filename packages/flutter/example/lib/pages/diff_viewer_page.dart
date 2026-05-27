@@ -84,7 +84,9 @@ class RefractionApp extends StatelessWidget {
                 value: _viewMode == RefractionDiffViewMode.sideBySide,
                 onChanged: (val) {
                   setState(() {
-                    _viewMode = val ? RefractionDiffViewMode.sideBySide : RefractionDiffViewMode.inline;
+                    _viewMode = val
+                        ? RefractionDiffViewMode.sideBySide
+                        : RefractionDiffViewMode.inline;
                   });
                 },
               ),

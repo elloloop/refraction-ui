@@ -18,7 +18,9 @@ class VideoPlayerPage extends StatelessWidget {
               style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            const Text('A highly customizable video player component with standard UI controls.'),
+            const Text(
+              'A highly customizable video player component with standard UI controls.',
+            ),
             const SizedBox(height: 32),
             const Text(
               'Default Video Player',
@@ -26,8 +28,10 @@ class VideoPlayerPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const RefractionVideoPlayer(
-              src: 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-              poster: 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.jpg',
+              src:
+                  'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+              poster:
+                  'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.jpg',
             ),
             const SizedBox(height: 32),
             const Text(
@@ -36,7 +40,8 @@ class VideoPlayerPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const RefractionVideoPlayer(
-              src: 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+              src:
+                  'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
               autoPlay: true,
               muted: true,
             ),

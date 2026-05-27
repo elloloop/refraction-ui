@@ -10,11 +10,36 @@ class DataTablePage extends StatefulWidget {
 
 class _DataTablePageState extends State<DataTablePage> {
   final List<Map<String, String>> _data = [
-    {'id': 'm5gr84i9', 'amount': '\$316.00', 'status': 'Success', 'email': 'ken99@yahoo.com'},
-    {'id': '3u1reuv4', 'amount': '\$242.00', 'status': 'Success', 'email': 'Abe45@gmail.com'},
-    {'id': 'derv1ws0', 'amount': '\$837.00', 'status': 'Processing', 'email': 'Monserrat44@gmail.com'},
-    {'id': '5kma53ae', 'amount': '\$874.00', 'status': 'Success', 'email': 'Silas22@gmail.com'},
-    {'id': 'bhqecj4p', 'amount': '\$721.00', 'status': 'Failed', 'email': 'carmella@hotmail.com'},
+    {
+      'id': 'm5gr84i9',
+      'amount': '\$316.00',
+      'status': 'Success',
+      'email': 'ken99@yahoo.com',
+    },
+    {
+      'id': '3u1reuv4',
+      'amount': '\$242.00',
+      'status': 'Success',
+      'email': 'Abe45@gmail.com',
+    },
+    {
+      'id': 'derv1ws0',
+      'amount': '\$837.00',
+      'status': 'Processing',
+      'email': 'Monserrat44@gmail.com',
+    },
+    {
+      'id': '5kma53ae',
+      'amount': '\$874.00',
+      'status': 'Success',
+      'email': 'Silas22@gmail.com',
+    },
+    {
+      'id': 'bhqecj4p',
+      'amount': '\$721.00',
+      'status': 'Failed',
+      'email': 'carmella@hotmail.com',
+    },
   ];
 
   late List<DataTableColumn<Map<String, String>>> _columns;
@@ -49,9 +74,7 @@ class _DataTablePageState extends State<DataTablePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Data Table'),
-      ),
+      appBar: AppBar(title: const Text('Data Table')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(

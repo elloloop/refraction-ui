@@ -71,7 +71,12 @@ class RefractionSteps extends StatelessWidget {
   /// The [state] provided is the state of the step immediately *preceding*
   /// the connector. So if the user is on step 1 (0-indexed), the connector
   /// between step 0 and 1 will have state [RefractionStepState.completed].
-  final Widget Function(BuildContext context, int index, RefractionStepState state)? connectorBuilder;
+  final Widget Function(
+    BuildContext context,
+    int index,
+    RefractionStepState state,
+  )?
+  connectorBuilder;
 
   /// Whether the steps are laid out vertically or horizontally.
   final Axis orientation;
@@ -92,7 +97,10 @@ class RefractionSteps extends StatelessWidget {
     return RefractionStepState.upcoming;
   }
 
-  Color _getIndicatorBgColor(RefractionStepState state, RefractionColors colors) {
+  Color _getIndicatorBgColor(
+    RefractionStepState state,
+    RefractionColors colors,
+  ) {
     switch (state) {
       case RefractionStepState.completed:
         return colors.primary;
@@ -103,7 +111,10 @@ class RefractionSteps extends StatelessWidget {
     }
   }
 
-  Color _getIndicatorBorderColor(RefractionStepState state, RefractionColors colors) {
+  Color _getIndicatorBorderColor(
+    RefractionStepState state,
+    RefractionColors colors,
+  ) {
     switch (state) {
       case RefractionStepState.completed:
         return colors.primary;
@@ -114,7 +125,10 @@ class RefractionSteps extends StatelessWidget {
     }
   }
 
-  Color _getIndicatorTextColor(RefractionStepState state, RefractionColors colors) {
+  Color _getIndicatorTextColor(
+    RefractionStepState state,
+    RefractionColors colors,
+  ) {
     switch (state) {
       case RefractionStepState.completed:
         return colors.primaryForeground;
@@ -136,20 +150,20 @@ class RefractionSteps extends StatelessWidget {
     }
   }
 
-  Widget _buildDefaultConnector(BuildContext context, int index, RefractionStepState state) {
+  Widget _buildDefaultConnector(
+    BuildContext context,
+    int index,
+    RefractionStepState state,
+  ) {
     final colors = RefractionTheme.of(context).colors;
-    final color = state == RefractionStepState.completed ? colors.primary : colors.muted;
+    final color = state == RefractionStepState.completed
+        ? colors.primary
+        : colors.muted;
 
     if (orientation == Axis.horizontal) {
-      return Container(
-        height: 2,
-        color: color,
-      );
+      return Container(height: 2, color: color);
     } else {
-      return Container(
-        width: 2,
-        color: color,
-      );
+      return Container(width: 2, color: color);
     }
   }
 
@@ -181,7 +195,11 @@ class RefractionSteps extends StatelessWidget {
           final state = _getStepState(index);
           return Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(top: 15.0, left: 12.0, right: 12.0),
+              padding: const EdgeInsets.only(
+                top: 15.0,
+                left: 12.0,
+                right: 12.0,
+              ),
               child: connectorBuilder != null
                   ? connectorBuilder!(context, index, state)
                   : _buildDefaultConnector(context, index, state),
@@ -229,7 +247,11 @@ class RefractionSteps extends StatelessWidget {
     );
   }
 
-  Widget _buildStepContent(BuildContext context, int index, {bool isExpanded = true}) {
+  Widget _buildStepContent(
+    BuildContext context,
+    int index, {
+    bool isExpanded = true,
+  }) {
     final state = _getStepState(index);
 
     Widget content = Row(
@@ -248,7 +270,11 @@ class RefractionSteps extends StatelessWidget {
     return content;
   }
 
-  Widget _buildIndicator(BuildContext context, int index, RefractionStepState state) {
+  Widget _buildIndicator(
+    BuildContext context,
+    int index,
+    RefractionStepState state,
+  ) {
     final colors = RefractionTheme.of(context).colors;
     final step = steps[index];
 
@@ -264,14 +290,16 @@ class RefractionSteps extends StatelessWidget {
           width: 2,
         ),
       ),
-      child: step.indicator ?? Text(
-        '${index + 1}',
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-          color: _getIndicatorTextColor(state, colors),
-        ),
-      ),
+      child:
+          step.indicator ??
+          Text(
+            '${index + 1}',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: _getIndicatorTextColor(state, colors),
+            ),
+          ),
     );
 
     if (onStepTap != null) {
@@ -288,7 +316,11 @@ class RefractionSteps extends StatelessWidget {
     return indicatorBox;
   }
 
-  Widget _buildStepTextContent(BuildContext context, int index, RefractionStepState state) {
+  Widget _buildStepTextContent(
+    BuildContext context,
+    int index,
+    RefractionStepState state,
+  ) {
     final colors = RefractionTheme.of(context).colors;
     final step = steps[index];
 
@@ -309,10 +341,7 @@ class RefractionSteps extends StatelessWidget {
         if (step.description != null) ...[
           const SizedBox(height: 4),
           DefaultTextStyle(
-            style: TextStyle(
-              fontSize: 14,
-              color: colors.mutedForeground,
-            ),
+            style: TextStyle(fontSize: 14, color: colors.mutedForeground),
             child: step.description!,
           ),
         ],

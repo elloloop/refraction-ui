@@ -1,3 +1,7 @@
+## 0.29.0
+
+- **Feedback Components**: Add `RefractionFeedbackDialog`, providing a pre-built modal logic for collecting structured user feedback with honeypot and email validation.
+
 ## 0.28.0
 
 - **Feedback Components**: Add `RefractionCookieConsent`, providing a customizable headless prompt for managing cookie preferences and GDPR compliance.

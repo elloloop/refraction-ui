@@ -48,6 +48,7 @@ import 'pages/animated_text_page.dart';
 import 'pages/device_frame_page.dart';
 import 'pages/slide_viewer_page.dart';
 import 'pages/charts_page.dart';
+import 'pages/feedback_dialog_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -138,6 +139,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Device Frame',
     'Reaction Bar',
     'Cookie Consent',
+    'Feedback Dialog',
   ];
 
   @override
@@ -391,6 +393,8 @@ class _AppShell extends ConsumerWidget {
     switch (route) {
       case '/docs/reaction-bar':
         return const ReactionBarPage();
+      case '/docs/feedback-dialog':
+        return const FeedbackDialogPage();
       case '/docs/diff-viewer':
         return const DiffViewerPage();
       case '/docs/accordion':

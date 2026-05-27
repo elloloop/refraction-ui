@@ -100,37 +100,23 @@ class RefractionMarkdownRenderer extends StatelessWidget {
       codeblockPadding: const EdgeInsets.all(16),
       blockquoteDecoration: BoxDecoration(
         color: colors.muted.withValues(alpha: 0.5),
-        border: Border(
-          left: BorderSide(
-            color: colors.border,
-            width: 4,
-          ),
-        ),
+        border: Border(left: BorderSide(color: colors.border, width: 4)),
       ),
-      blockquotePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      blockquotePadding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 8,
+      ),
       blockquote: baseStyle.copyWith(
         color: colors.mutedForeground,
         fontStyle: FontStyle.italic,
       ),
       horizontalRuleDecoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: colors.border,
-            width: 1,
-          ),
-        ),
+        border: Border(top: BorderSide(color: colors.border, width: 1)),
       ),
-      listBullet: baseStyle.copyWith(
-        fontSize: 16,
-        color: colors.foreground,
-      ),
+      listBullet: baseStyle.copyWith(fontSize: 16, color: colors.foreground),
       listIndent: 24,
-      strong: baseStyle.copyWith(
-        fontWeight: FontWeight.bold,
-      ),
-      em: baseStyle.copyWith(
-        fontStyle: FontStyle.italic,
-      ),
+      strong: baseStyle.copyWith(fontWeight: FontWeight.bold),
+      em: baseStyle.copyWith(fontStyle: FontStyle.italic),
     );
 
     return Semantics(

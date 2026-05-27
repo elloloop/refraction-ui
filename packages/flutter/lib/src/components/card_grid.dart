@@ -49,11 +49,13 @@ class RefractionCardGrid extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final double width = constraints.maxWidth;
-        
+
         // Calculate max columns that can fit based on minCardWidth and spacing
         int crossAxisCount = 1;
         if (width.isFinite) {
-          crossAxisCount = ((width + crossAxisSpacing) / (minCardWidth + crossAxisSpacing)).floor();
+          crossAxisCount =
+              ((width + crossAxisSpacing) / (minCardWidth + crossAxisSpacing))
+                  .floor();
           if (crossAxisCount < 1) crossAxisCount = 1;
         }
 

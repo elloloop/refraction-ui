@@ -39,7 +39,8 @@ print(hello);
 
     return PreviewCanvas(
       title: "Markdown Renderer",
-      description: "A component that parses and renders Markdown using Refraction UI's typography system.",
+      description:
+          "A component that parses and renders Markdown using Refraction UI's typography system.",
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 700),

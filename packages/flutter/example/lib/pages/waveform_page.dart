@@ -44,7 +44,9 @@ class _WaveformPageState extends State<WaveformPage> {
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                border: Border.all(color: RefractionTheme.of(context).colors.border),
+                border: Border.all(
+                  color: RefractionTheme.of(context).colors.border,
+                ),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: RefractionWaveform(
@@ -74,9 +76,12 @@ class _WaveformPageState extends State<WaveformPage> {
                       RefractionSelect<WaveformVariant>(
                         value: _variant,
                         onChanged: (v) => setState(() => _variant = v!),
-                        items: WaveformVariant.values.map((v) => 
-                          RefractionSelectItem(value: v, label: v.name)
-                        ).toList(),
+                        items: WaveformVariant.values
+                            .map(
+                              (v) =>
+                                  RefractionSelectItem(value: v, label: v.name),
+                            )
+                            .toList(),
                       ),
                     ],
                   ),

@@ -63,7 +63,8 @@ class RefractionCollapsible extends StatefulWidget {
 
   /// Retrieves the [RefractionCollapsibleState] from the given [context].
   static RefractionCollapsibleState of(BuildContext context) {
-    final scope = context.dependOnInheritedWidgetOfExactType<_CollapsibleScope>();
+    final scope = context
+        .dependOnInheritedWidgetOfExactType<_CollapsibleScope>();
     assert(
       scope != null,
       'RefractionCollapsible parts must be wrapped in a RefractionCollapsible.',
@@ -115,9 +116,9 @@ class RefractionCollapsibleState extends State<RefractionCollapsible>
   /// Toggles the open state of the collapsible.
   void toggle() {
     if (widget.disabled) return;
-    
+
     final newValue = !isOpen;
-    
+
     if (widget.isOpen == null) {
       setState(() {
         _isOpen = newValue;
@@ -128,7 +129,7 @@ class RefractionCollapsibleState extends State<RefractionCollapsible>
         animationController.reverse();
       }
     }
-    
+
     widget.onOpenChange?.call(newValue);
   }
 
@@ -165,7 +166,7 @@ class _CollapsibleScope extends InheritedWidget {
 class RefractionCollapsibleTrigger extends StatelessWidget {
   /// The widget to display as the trigger button.
   final Widget child;
-  
+
   /// Optional callback to run alongside the default toggle behavior.
   final VoidCallback? onTap;
 
@@ -212,7 +213,7 @@ class RefractionCollapsibleContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = RefractionCollapsible.of(context);
-    
+
     return SizeTransition(
       sizeFactor: CurvedAnimation(
         parent: state.animationController,

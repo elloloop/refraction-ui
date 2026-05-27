@@ -6,20 +6,19 @@ void main() {
   Widget buildTestableWidget(Widget child) {
     return MaterialApp(
       home: Scaffold(
-        body: RefractionTheme(
-          data: RefractionThemeData.light(),
-          child: child,
-        ),
+        body: RefractionTheme(data: RefractionThemeData.light(), child: child),
       ),
     );
   }
 
-  testWidgets('RefractionRichEditor renders correctly with placeholder', (WidgetTester tester) async {
-    await tester.pumpWidget(buildTestableWidget(
-      const RefractionRichEditor(
-        placeholder: 'Enter your rich text here...',
+  testWidgets('RefractionRichEditor renders correctly with placeholder', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      buildTestableWidget(
+        const RefractionRichEditor(placeholder: 'Enter your rich text here...'),
       ),
-    ));
+    );
 
     expect(find.byType(TextField), findsOneWidget);
     expect(find.text('Enter your rich text here...'), findsOneWidget);
@@ -27,28 +26,29 @@ void main() {
     expect(find.byType(RefractionButton), findsNWidgets(8));
   });
 
-  testWidgets('RefractionRichEditor handles text input and updates controller', (WidgetTester tester) async {
-    final controller = TextEditingController();
-    await tester.pumpWidget(buildTestableWidget(
-      RefractionRichEditor(
-        controller: controller,
-      ),
-    ));
+  testWidgets(
+    'RefractionRichEditor handles text input and updates controller',
+    (WidgetTester tester) async {
+      final controller = TextEditingController();
+      await tester.pumpWidget(
+        buildTestableWidget(RefractionRichEditor(controller: controller)),
+      );
 
-    await tester.enterText(find.byType(TextField), 'Hello world');
-    expect(controller.text, 'Hello world');
-  });
+      await tester.enterText(find.byType(TextField), 'Hello world');
+      expect(controller.text, 'Hello world');
+    },
+  );
 
-  testWidgets('RefractionRichEditor inserts bold markdown via toolbar', (WidgetTester tester) async {
+  testWidgets('RefractionRichEditor inserts bold markdown via toolbar', (
+    WidgetTester tester,
+  ) async {
     final controller = TextEditingController();
-    await tester.pumpWidget(buildTestableWidget(
-      RefractionRichEditor(
-        controller: controller,
-      ),
-    ));
+    await tester.pumpWidget(
+      buildTestableWidget(RefractionRichEditor(controller: controller)),
+    );
 
     await tester.enterText(find.byType(TextField), 'Hello ');
-    
+
     // Tap Bold button
     final boldButton = find.byTooltip('Bold');
     expect(boldButton, findsOneWidget);
@@ -59,13 +59,15 @@ void main() {
     expect(controller.selection.baseOffset, 8); // After Hello **
   });
 
-  testWidgets('RefractionRichEditor inserts italic markdown via toolbar', (WidgetTester tester) async {
+  testWidgets('RefractionRichEditor inserts italic markdown via toolbar', (
+    WidgetTester tester,
+  ) async {
     String? changedText;
-    await tester.pumpWidget(buildTestableWidget(
-      RefractionRichEditor(
-        onChanged: (val) => changedText = val,
+    await tester.pumpWidget(
+      buildTestableWidget(
+        RefractionRichEditor(onChanged: (val) => changedText = val),
       ),
-    ));
+    );
 
     final italicButton = find.byTooltip('Italic');
     await tester.tap(italicButton);
@@ -74,13 +76,13 @@ void main() {
     expect(changedText, '__');
   });
 
-  testWidgets('RefractionRichEditor inserts list markdown and updates cursor', (WidgetTester tester) async {
+  testWidgets('RefractionRichEditor inserts list markdown and updates cursor', (
+    WidgetTester tester,
+  ) async {
     final controller = TextEditingController();
-    await tester.pumpWidget(buildTestableWidget(
-      RefractionRichEditor(
-        controller: controller,
-      ),
-    ));
+    await tester.pumpWidget(
+      buildTestableWidget(RefractionRichEditor(controller: controller)),
+    );
 
     final bulletButton = find.byTooltip('Bullet List');
     await tester.tap(bulletButton);
@@ -89,16 +91,19 @@ void main() {
     expect(controller.text, '- ');
     expect(controller.selection.baseOffset, 2);
   });
-  
-  testWidgets('RefractionRichEditor wraps selected text with markdown', (WidgetTester tester) async {
+
+  testWidgets('RefractionRichEditor wraps selected text with markdown', (
+    WidgetTester tester,
+  ) async {
     final controller = TextEditingController(text: 'Hello world');
-    controller.selection = const TextSelection(baseOffset: 6, extentOffset: 11); // selects 'world'
-    
-    await tester.pumpWidget(buildTestableWidget(
-      RefractionRichEditor(
-        controller: controller,
-      ),
-    ));
+    controller.selection = const TextSelection(
+      baseOffset: 6,
+      extentOffset: 11,
+    ); // selects 'world'
+
+    await tester.pumpWidget(
+      buildTestableWidget(RefractionRichEditor(controller: controller)),
+    );
 
     final boldButton = find.byTooltip('Bold');
     await tester.tap(boldButton);

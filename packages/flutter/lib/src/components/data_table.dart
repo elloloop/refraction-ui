@@ -64,8 +64,9 @@ class _RefractionDataTableState<T> extends State<RefractionDataTable<T>> {
     _filterControllers = {};
     for (var col in widget.columns) {
       if (col.filterable) {
-        _filterControllers[col.id] =
-            TextEditingController(text: _filters[col.id] ?? '');
+        _filterControllers[col.id] = TextEditingController(
+          text: _filters[col.id] ?? '',
+        );
       }
     }
   }
@@ -90,18 +91,21 @@ class _RefractionDataTableState<T> extends State<RefractionDataTable<T>> {
       }
     }
 
-    final newFilterableIds =
-        widget.columns.where((c) => c.filterable).map((c) => c.id).toSet();
-    final oldFilterableIds =
-        oldWidget.columns.where((c) => c.filterable).map((c) => c.id).toSet();
+    final newFilterableIds = widget.columns
+        .where((c) => c.filterable)
+        .map((c) => c.id)
+        .toSet();
+    final oldFilterableIds = oldWidget.columns
+        .where((c) => c.filterable)
+        .map((c) => c.id)
+        .toSet();
 
     for (var id in oldFilterableIds.difference(newFilterableIds)) {
       _filterControllers[id]?.dispose();
       _filterControllers.remove(id);
     }
     for (var id in newFilterableIds.difference(oldFilterableIds)) {
-      _filterControllers[id] =
-          TextEditingController(text: _filters[id] ?? '');
+      _filterControllers[id] = TextEditingController(text: _filters[id] ?? '');
     }
   }
 
@@ -301,10 +305,7 @@ class _RefractionDataTableState<T> extends State<RefractionDataTable<T>> {
     );
 
     if (col.sortable) {
-      cell = InkWell(
-        onTap: () => _handleSort(col.id),
-        child: cell,
-      );
+      cell = InkWell(onTap: () => _handleSort(col.id), child: cell);
     }
 
     return cell;
@@ -355,10 +356,7 @@ class _RefractionDataTableState<T> extends State<RefractionDataTable<T>> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       alignment: Alignment.centerLeft,
-      child: Text(
-        text,
-        style: theme.textStyle,
-      ),
+      child: Text(text, style: theme.textStyle),
     );
   }
 }

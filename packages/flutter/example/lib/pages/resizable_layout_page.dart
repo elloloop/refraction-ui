@@ -14,17 +14,16 @@ class ResizableLayoutPage extends StatelessWidget {
           children: [
             Text(
               'Resizable Layout',
-              style: RefractionTheme.of(context).textStyle.copyWith(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: RefractionTheme.of(
+                context,
+              ).textStyle.copyWith(fontSize: 32, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Text(
               'A split-view layout with draggable handles to resize the panels.',
-              style: RefractionTheme.of(context).textStyle.copyWith(
-                    fontSize: 16,
-                  ),
+              style: RefractionTheme.of(
+                context,
+              ).textStyle.copyWith(fontSize: 16),
             ),
             const SizedBox(height: 32),
             Expanded(
@@ -36,8 +35,12 @@ class ResizableLayoutPage extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       color: RefractionTheme.of(context).colors.surface,
-                      border: Border.all(color: RefractionTheme.of(context).colors.border),
-                      borderRadius: BorderRadius.circular(RefractionTheme.of(context).borderRadius),
+                      border: Border.all(
+                        color: RefractionTheme.of(context).colors.border,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        RefractionTheme.of(context).borderRadius,
+                      ),
                     ),
                     alignment: Alignment.center,
                     child: Text(
@@ -48,8 +51,12 @@ class ResizableLayoutPage extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       color: RefractionTheme.of(context).colors.surface,
-                      border: Border.all(color: RefractionTheme.of(context).colors.border),
-                      borderRadius: BorderRadius.circular(RefractionTheme.of(context).borderRadius),
+                      border: Border.all(
+                        color: RefractionTheme.of(context).colors.border,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        RefractionTheme.of(context).borderRadius,
+                      ),
                     ),
                     alignment: Alignment.center,
                     child: Text(
@@ -69,8 +76,12 @@ class ResizableLayoutPage extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       color: RefractionTheme.of(context).colors.surface,
-                      border: Border.all(color: RefractionTheme.of(context).colors.border),
-                      borderRadius: BorderRadius.circular(RefractionTheme.of(context).borderRadius),
+                      border: Border.all(
+                        color: RefractionTheme.of(context).colors.border,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        RefractionTheme.of(context).borderRadius,
+                      ),
                     ),
                     alignment: Alignment.center,
                     child: Text(
@@ -81,8 +92,12 @@ class ResizableLayoutPage extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       color: RefractionTheme.of(context).colors.surface,
-                      border: Border.all(color: RefractionTheme.of(context).colors.border),
-                      borderRadius: BorderRadius.circular(RefractionTheme.of(context).borderRadius),
+                      border: Border.all(
+                        color: RefractionTheme.of(context).colors.border,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        RefractionTheme.of(context).borderRadius,
+                      ),
                     ),
                     alignment: Alignment.center,
                     child: Text(

@@ -5,10 +5,13 @@ import '../theme/refraction_theme.dart';
 enum RefractionDiffFileStatus {
   /// The file was newly added.
   added,
+
   /// The file was modified.
   modified,
+
   /// The file was deleted.
   deleted,
+
   /// The file was renamed.
   renamed,
 }
@@ -17,16 +20,22 @@ enum RefractionDiffFileStatus {
 class RefractionDiffFile {
   /// File path.
   final String path;
+
   /// Change status.
   final RefractionDiffFileStatus status;
+
   /// Number of lines added.
   final int additions;
+
   /// Number of lines deleted.
   final int deletions;
+
   /// Old path for renamed files.
   final String? oldPath;
+
   /// The original content of the file.
   final String original;
+
   /// The modified content of the file.
   final String modified;
 
@@ -45,6 +54,7 @@ class RefractionDiffFile {
 enum RefractionDiffViewMode {
   /// Show original and modified texts side by side.
   sideBySide,
+
   /// Show changes inline.
   inline,
 }
@@ -278,24 +288,35 @@ class _RefractionDiffViewerState extends State<RefractionDiffViewer> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 children: [
-                  Text(_getFileStatusIcon(f.status), style: const TextStyle(fontSize: 10)),
+                  Text(
+                    _getFileStatusIcon(f.status),
+                    style: const TextStyle(fontSize: 10),
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       fname,
                       style: theme.textStyle.copyWith(
                         fontSize: 14,
-                        color: isActive ? colors.accentForeground : colors.foreground,
+                        color: isActive
+                            ? colors.accentForeground
+                            : colors.foreground,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   const SizedBox(width: 8),
                   if (f.additions > 0)
-                    Text('+${f.additions}', style: const TextStyle(color: Colors.green, fontSize: 10)),
+                    Text(
+                      '+${f.additions}',
+                      style: const TextStyle(color: Colors.green, fontSize: 10),
+                    ),
                   if (f.deletions > 0) ...[
                     const SizedBox(width: 4),
-                    Text('-${f.deletions}', style: const TextStyle(color: Colors.red, fontSize: 10)),
+                    Text(
+                      '-${f.deletions}',
+                      style: const TextStyle(color: Colors.red, fontSize: 10),
+                    ),
                   ],
                 ],
               ),
@@ -306,11 +327,22 @@ class _RefractionDiffViewerState extends State<RefractionDiffViewer> {
     );
   }
 
-  Widget _buildInlineDiff(BuildContext context, List<_RefractionLineDiff> diffs) {
+  Widget _buildInlineDiff(
+    BuildContext context,
+    List<_RefractionLineDiff> diffs,
+  ) {
     final colors = context.refractionColors;
     final theme = context.refractionTheme;
-    final textStyle = theme.textStyle.copyWith(fontFamily: 'monospace', color: colors.foreground, fontSize: 13);
-    final numStyle = theme.textStyle.copyWith(fontFamily: 'monospace', color: colors.mutedForeground, fontSize: 13);
+    final textStyle = theme.textStyle.copyWith(
+      fontFamily: 'monospace',
+      color: colors.foreground,
+      fontSize: 13,
+    );
+    final numStyle = theme.textStyle.copyWith(
+      fontFamily: 'monospace',
+      color: colors.mutedForeground,
+      fontSize: 13,
+    );
 
     return ListView.builder(
       itemCount: diffs.length,
@@ -353,7 +385,10 @@ class _RefractionDiffViewerState extends State<RefractionDiffViewer> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 2,
+                  ),
                   child: Text(d.text, style: textStyle),
                 ),
               ),
@@ -364,11 +399,22 @@ class _RefractionDiffViewerState extends State<RefractionDiffViewer> {
     );
   }
 
-  Widget _buildSideBySideDiff(BuildContext context, List<_RefractionLineDiff> diffs) {
+  Widget _buildSideBySideDiff(
+    BuildContext context,
+    List<_RefractionLineDiff> diffs,
+  ) {
     final colors = context.refractionColors;
     final theme = context.refractionTheme;
-    final textStyle = theme.textStyle.copyWith(fontFamily: 'monospace', color: colors.foreground, fontSize: 13);
-    final numStyle = theme.textStyle.copyWith(fontFamily: 'monospace', color: colors.mutedForeground, fontSize: 13);
+    final textStyle = theme.textStyle.copyWith(
+      fontFamily: 'monospace',
+      color: colors.foreground,
+      fontSize: 13,
+    );
+    final numStyle = theme.textStyle.copyWith(
+      fontFamily: 'monospace',
+      color: colors.mutedForeground,
+      fontSize: 13,
+    );
 
     // Group deletions and insertions side-by-side if they align
     final List<Widget> rows = [];
@@ -376,51 +422,60 @@ class _RefractionDiffViewerState extends State<RefractionDiffViewer> {
     while (i < diffs.length) {
       final d = diffs[i];
       if (d.type == _RefractionDiffType.equal) {
-        rows.add(_buildSideBySideRow(
-          context,
-          leftNum: d.oldLineNumber?.toString() ?? '',
-          leftText: d.text,
-          leftBg: null,
-          rightNum: d.newLineNumber?.toString() ?? '',
-          rightText: d.text,
-          rightBg: null,
-          textStyle: textStyle,
-          numStyle: numStyle,
-        ));
+        rows.add(
+          _buildSideBySideRow(
+            context,
+            leftNum: d.oldLineNumber?.toString() ?? '',
+            leftText: d.text,
+            leftBg: null,
+            rightNum: d.newLineNumber?.toString() ?? '',
+            rightText: d.text,
+            rightBg: null,
+            textStyle: textStyle,
+            numStyle: numStyle,
+          ),
+        );
         i++;
       } else if (d.type == _RefractionDiffType.deletion) {
         // Try to find a matching insertion immediately after
         _RefractionLineDiff? insertion;
-        if (i + 1 < diffs.length && diffs[i + 1].type == _RefractionDiffType.insertion) {
+        if (i + 1 < diffs.length &&
+            diffs[i + 1].type == _RefractionDiffType.insertion) {
           insertion = diffs[i + 1];
           i += 2;
         } else {
           i++;
         }
-        rows.add(_buildSideBySideRow(
-          context,
-          leftNum: d.oldLineNumber?.toString() ?? '',
-          leftText: d.text,
-          leftBg: Colors.red.withValues(alpha: 0.15),
-          rightNum: insertion?.newLineNumber?.toString() ?? '',
-          rightText: insertion?.text ?? '',
-          rightBg: insertion != null ? Colors.green.withValues(alpha: 0.15) : Colors.grey.withValues(alpha: 0.05),
-          textStyle: textStyle,
-          numStyle: numStyle,
-        ));
+        rows.add(
+          _buildSideBySideRow(
+            context,
+            leftNum: d.oldLineNumber?.toString() ?? '',
+            leftText: d.text,
+            leftBg: Colors.red.withValues(alpha: 0.15),
+            rightNum: insertion?.newLineNumber?.toString() ?? '',
+            rightText: insertion?.text ?? '',
+            rightBg: insertion != null
+                ? Colors.green.withValues(alpha: 0.15)
+                : Colors.grey.withValues(alpha: 0.05),
+            textStyle: textStyle,
+            numStyle: numStyle,
+          ),
+        );
       } else {
         // standalone insertion
-        rows.add(_buildSideBySideRow(
-          context,
-          leftNum: '',
-          leftText: '',
-          leftBg: Colors.grey.withValues(alpha: 0.05),
-          rightNum: d.newLineNumber?.toString() ?? '',
-          rightText: d.text,
-          rightBg: Colors.green.withValues(alpha: 0.15),
-          textStyle: textStyle,
-          numStyle: numStyle,
-        ));
+        rows.add(
+          _buildSideBySideRow(
+            context,
+            leftNum: '',
+            leftText: '',
+            leftBg: Colors.grey.withValues(alpha: 0.05),
+            rightNum: d.newLineNumber?.toString() ?? '',
+            rightText: d.text,
+            rightBg: Colors.green.withValues(alpha: 0.15),
+            textStyle: textStyle,
+            numStyle: numStyle,
+          ),
+        );
         i++;
       }
     }
@@ -444,7 +499,7 @@ class _RefractionDiffViewerState extends State<RefractionDiffViewer> {
     required TextStyle numStyle,
   }) {
     final colors = context.refractionColors;
-    
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -458,13 +513,24 @@ class _RefractionDiffViewerState extends State<RefractionDiffViewer> {
                 SizedBox(
                   width: 40,
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 8.0, top: 2, bottom: 2),
-                    child: Text(leftNum, style: numStyle, textAlign: TextAlign.right),
+                    padding: const EdgeInsets.only(
+                      right: 8.0,
+                      top: 2,
+                      bottom: 2,
+                    ),
+                    child: Text(
+                      leftNum,
+                      style: numStyle,
+                      textAlign: TextAlign.right,
+                    ),
                   ),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 2,
+                    ),
                     child: Text(leftText, style: textStyle),
                   ),
                 ),
@@ -483,13 +549,24 @@ class _RefractionDiffViewerState extends State<RefractionDiffViewer> {
                 SizedBox(
                   width: 40,
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 8.0, top: 2, bottom: 2),
-                    child: Text(rightNum, style: numStyle, textAlign: TextAlign.right),
+                    padding: const EdgeInsets.only(
+                      right: 8.0,
+                      top: 2,
+                      bottom: 2,
+                    ),
+                    child: Text(
+                      rightNum,
+                      style: numStyle,
+                      textAlign: TextAlign.right,
+                    ),
                   ),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 2,
+                    ),
                     child: Text(rightText, style: textStyle),
                   ),
                 ),
@@ -510,13 +587,16 @@ class _RefractionDiffViewerState extends State<RefractionDiffViewer> {
       decoration: BoxDecoration(
         color: colors.background,
         border: Border.all(color: colors.border),
-        borderRadius: BorderRadius.circular(context.refractionTheme.borderRadius),
+        borderRadius: BorderRadius.circular(
+          context.refractionTheme.borderRadius,
+        ),
       ),
       clipBehavior: Clip.antiAlias,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (widget.showSidebar && widget.files.isNotEmpty) _buildSidebar(context),
+          if (widget.showSidebar && widget.files.isNotEmpty)
+            _buildSidebar(context),
           Expanded(
             child: widget.viewMode == RefractionDiffViewMode.inline
                 ? _buildInlineDiff(context, diffs)

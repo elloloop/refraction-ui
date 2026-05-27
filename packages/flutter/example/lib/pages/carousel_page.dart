@@ -10,7 +10,8 @@ class CarouselPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return DocsLayout(
       title: 'Carousel',
-      description: 'A carousel with motion and swipe to navigate through images or items.',
+      description:
+          'A carousel with motion and swipe to navigate through images or items.',
       children: [
         const Text(
           'Default',
@@ -19,7 +20,9 @@ class CarouselPage extends StatelessWidget {
         const SizedBox(height: 16),
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: RefractionTheme.of(context).colors.border),
+            border: Border.all(
+              color: RefractionTheme.of(context).colors.border,
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           padding: const EdgeInsets.all(24),
@@ -27,15 +30,21 @@ class CarouselPage extends StatelessWidget {
             height: 200,
             children: [
               Container(
-                color: RefractionTheme.of(context).colors.primary.withValues(alpha: 0.1),
+                color: RefractionTheme.of(
+                  context,
+                ).colors.primary.withValues(alpha: 0.1),
                 child: const Center(child: Text('Slide 1')),
               ),
               Container(
-                color: RefractionTheme.of(context).colors.secondary.withValues(alpha: 0.1),
+                color: RefractionTheme.of(
+                  context,
+                ).colors.secondary.withValues(alpha: 0.1),
                 child: const Center(child: Text('Slide 2')),
               ),
               Container(
-                color: RefractionTheme.of(context).colors.destructive.withValues(alpha: 0.1),
+                color: RefractionTheme.of(
+                  context,
+                ).colors.destructive.withValues(alpha: 0.1),
                 child: const Center(child: Text('Slide 3')),
               ),
             ],

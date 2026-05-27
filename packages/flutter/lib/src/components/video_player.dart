@@ -25,7 +25,7 @@ class RefractionVideoPlayer extends StatefulWidget {
 
   /// Whether to show the UI controls.
   final bool showControls;
-  
+
   /// Callback when video state changes.
   final ValueChanged<RefractionVideoState>? onStateChanged;
 
@@ -43,7 +43,10 @@ class RefractionVideoPlayer extends StatefulWidget {
     this.showControls = true,
     this.onStateChanged,
     this.controller,
-  }) : assert(src != null || controller != null, 'Either src or controller must be provided.');
+  }) : assert(
+         src != null || controller != null,
+         'Either src or controller must be provided.',
+       );
 
   @override
   State<RefractionVideoPlayer> createState() => _RefractionVideoPlayerState();
@@ -51,7 +54,8 @@ class RefractionVideoPlayer extends StatefulWidget {
 
 class _RefractionVideoPlayerState extends State<RefractionVideoPlayer> {
   VideoPlayerController? _internalController;
-  VideoPlayerController get _controller => widget.controller ?? _internalController!;
+  VideoPlayerController get _controller =>
+      widget.controller ?? _internalController!;
 
   RefractionVideoState _state = RefractionVideoState.idle;
   bool _showControlsOverlay = true;
@@ -68,7 +72,9 @@ class _RefractionVideoPlayerState extends State<RefractionVideoPlayer> {
   void _initController() {
     if (widget.controller == null) {
       if (widget.src != null) {
-        _internalController = VideoPlayerController.networkUrl(Uri.parse(widget.src!));
+        _internalController = VideoPlayerController.networkUrl(
+          Uri.parse(widget.src!),
+        );
         _initializeInternalController();
       }
     } else {
@@ -84,11 +90,11 @@ class _RefractionVideoPlayerState extends State<RefractionVideoPlayer> {
       await _internalController!.initialize();
       _initialized = true;
       _internalController!.addListener(_videoListener);
-      
+
       if (widget.muted) {
         await _internalController!.setVolume(0.0);
       }
-      
+
       if (widget.autoPlay) {
         await _internalController!.play();
       } else {
@@ -126,20 +132,22 @@ class _RefractionVideoPlayerState extends State<RefractionVideoPlayer> {
   void _updateState() {
     final value = _controller.value;
     RefractionVideoState newState;
-    
+
     if (value.hasError) {
       newState = RefractionVideoState.idle;
     } else if (!value.isInitialized) {
       newState = RefractionVideoState.loading;
     } else if (value.isBuffering) {
       newState = RefractionVideoState.loading;
-    } else if (value.position >= value.duration && value.duration != Duration.zero) {
+    } else if (value.position >= value.duration &&
+        value.duration != Duration.zero) {
       newState = RefractionVideoState.ended;
     } else if (value.isPlaying) {
       newState = RefractionVideoState.playing;
     } else {
-      newState = _state == RefractionVideoState.idle && value.position == Duration.zero 
-          ? RefractionVideoState.idle 
+      newState =
+          _state == RefractionVideoState.idle && value.position == Duration.zero
+          ? RefractionVideoState.idle
           : RefractionVideoState.paused;
     }
 
@@ -152,7 +160,7 @@ class _RefractionVideoPlayerState extends State<RefractionVideoPlayer> {
         _state = newState;
       });
       widget.onStateChanged?.call(newState);
-      
+
       if (newState == RefractionVideoState.playing && !_isDragging) {
         _startHideControlsTimer();
       } else {
@@ -229,9 +237,9 @@ class _RefractionVideoPlayerState extends State<RefractionVideoPlayer> {
   Widget build(BuildContext context) {
     final theme = RefractionTheme.of(context);
     final isMuted = _initialized && _controller.value.volume == 0;
-    
+
     Widget content;
-    
+
     if (_initialized) {
       content = AspectRatio(
         aspectRatio: _controller.value.aspectRatio,
@@ -246,7 +254,9 @@ class _RefractionVideoPlayerState extends State<RefractionVideoPlayer> {
       );
     }
 
-    if (widget.poster != null && (_state == RefractionVideoState.idle || _state == RefractionVideoState.loading)) {
+    if (widget.poster != null &&
+        (_state == RefractionVideoState.idle ||
+            _state == RefractionVideoState.loading)) {
       content = Stack(
         fit: StackFit.expand,
         children: [
@@ -284,17 +294,24 @@ class _RefractionVideoPlayerState extends State<RefractionVideoPlayer> {
                             onTap: _togglePlay,
                             child: Center(
                               child: _state == RefractionVideoState.loading
-                                  ? const CircularProgressIndicator(color: Colors.white)
+                                  ? const CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
                                   : Container(
                                       decoration: BoxDecoration(
-                                        color: Colors.black.withValues(alpha: 0.5),
+                                        color: Colors.black.withValues(
+                                          alpha: 0.5,
+                                        ),
                                         shape: BoxShape.circle,
                                       ),
                                       padding: const EdgeInsets.all(16),
                                       child: Icon(
                                         _state == RefractionVideoState.playing
                                             ? Icons.pause
-                                            : (_state == RefractionVideoState.ended ? Icons.replay : Icons.play_arrow),
+                                            : (_state ==
+                                                      RefractionVideoState.ended
+                                                  ? Icons.replay
+                                                  : Icons.play_arrow),
                                         color: Colors.white,
                                         size: 48,
                                       ),
@@ -304,7 +321,10 @@ class _RefractionVideoPlayerState extends State<RefractionVideoPlayer> {
                         ),
                         // Bottom Controls
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.bottomCenter,
@@ -319,7 +339,9 @@ class _RefractionVideoPlayerState extends State<RefractionVideoPlayer> {
                             children: [
                               IconButton(
                                 icon: Icon(
-                                  _state == RefractionVideoState.playing ? Icons.pause : Icons.play_arrow,
+                                  _state == RefractionVideoState.playing
+                                      ? Icons.pause
+                                      : Icons.play_arrow,
                                   color: Colors.white,
                                 ),
                                 onPressed: _togglePlay,
@@ -331,13 +353,14 @@ class _RefractionVideoPlayerState extends State<RefractionVideoPlayer> {
                                 ),
                                 onPressed: _toggleMute,
                               ),
-                              Expanded(
-                                child: _buildProgressBar(theme),
-                              ),
+                              Expanded(child: _buildProgressBar(theme)),
                               const SizedBox(width: 8),
                               Text(
                                 '${_formatDuration(_controller.value.position)} / ${_formatDuration(_controller.value.duration)}',
-                                style: const TextStyle(color: Colors.white, fontSize: 12),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                ),
                               ),
                             ],
                           ),

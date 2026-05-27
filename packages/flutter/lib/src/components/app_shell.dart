@@ -5,7 +5,7 @@ import '../theme/refraction_theme.dart';
 ///
 /// `RefractionAppShell` implements a standard application frame comprising a
 /// [header], [footer], [leftSidebar], [rightSidebar], and main [content].
-/// 
+///
 /// On viewports wider than [mobileBreakpoint], the sidebars are displayed
 /// persistently alongside the content. On narrower viewports, they collapse
 /// into off-canvas drawers that slide in when toggled.
@@ -130,7 +130,7 @@ class RefractionAppShellState extends State<RefractionAppShell> {
     } else {
       setState(() => _internalLeftOpen = false);
     }
-    
+
     if (widget.onRightSidebarOpenChanged != null && _internalRightOpen) {
       widget.onRightSidebarOpenChanged!(false);
     } else {
@@ -166,9 +166,7 @@ class RefractionAppShellState extends State<RefractionAppShell> {
                             width: widget.leftSidebarWidth,
                             child: widget.leftSidebar!,
                           ),
-                        Expanded(
-                          child: widget.content,
-                        ),
+                        Expanded(child: widget.content),
                         if (!isMobile && widget.rightSidebar != null)
                           SizedBox(
                             width: widget.rightSidebarWidth,
@@ -180,7 +178,7 @@ class RefractionAppShellState extends State<RefractionAppShell> {
                   if (widget.footer != null) widget.footer!,
                 ],
               ),
-              
+
               // Mobile Overlay
               if (isMobile)
                 Positioned.fill(
@@ -198,7 +196,7 @@ class RefractionAppShellState extends State<RefractionAppShell> {
                     ),
                   ),
                 ),
-                
+
               // Mobile Left Sidebar Drawer
               if (isMobile && widget.leftSidebar != null)
                 AnimatedPositioned(
@@ -214,7 +212,7 @@ class RefractionAppShellState extends State<RefractionAppShell> {
                     child: widget.leftSidebar!,
                   ),
                 ),
-                
+
               // Mobile Right Sidebar Drawer
               if (isMobile && widget.rightSidebar != null)
                 AnimatedPositioned(

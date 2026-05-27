@@ -87,23 +87,31 @@ class _RefractionRichEditorState extends State<RefractionRichEditor> {
     if (!selection.isValid || selection.start < 0 || selection.end < 0) {
       // Just append at end
       _controller.text = text + prefix + suffix;
-      _controller.selection = TextSelection.collapsed(offset: _controller.text.length);
+      _controller.selection = TextSelection.collapsed(
+        offset: _controller.text.length,
+      );
       if (widget.onChanged != null) widget.onChanged!(_controller.text);
       return;
     }
 
     final start = selection.start;
     final end = selection.end;
-    
+
     final selectedText = text.substring(start, end);
-    final newText = text.replaceRange(start, end, '$prefix$selectedText$suffix');
+    final newText = text.replaceRange(
+      start,
+      end,
+      '$prefix$selectedText$suffix',
+    );
 
     _controller.text = newText;
-    
+
     // Position cursor appropriately.
     if (selectedText.isEmpty) {
       // Empty selection: put cursor between prefix and suffix
-      _controller.selection = TextSelection.collapsed(offset: start + prefix.length);
+      _controller.selection = TextSelection.collapsed(
+        offset: start + prefix.length,
+      );
     } else {
       // Selected text: keep text selected along with markdown,
       // or collapse to end. We'll collapse to end here for simplicity.
@@ -111,13 +119,18 @@ class _RefractionRichEditorState extends State<RefractionRichEditor> {
         offset: start + prefix.length + selectedText.length + suffix.length,
       );
     }
-    
+
     if (widget.onChanged != null) {
       widget.onChanged!(_controller.text);
     }
   }
 
-  Widget _buildToolbarButton(IconData icon, String tooltip, VoidCallback onPressed, Color iconColor) {
+  Widget _buildToolbarButton(
+    IconData icon,
+    String tooltip,
+    VoidCallback onPressed,
+    Color iconColor,
+  ) {
     return Tooltip(
       message: tooltip,
       child: RefractionButton(
@@ -160,22 +173,64 @@ class _RefractionRichEditorState extends State<RefractionRichEditor> {
             decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: colors.border)),
               color: colors.muted.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(theme.borderRadius)),
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(theme.borderRadius),
+              ),
             ),
             child: Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               spacing: 2,
               children: [
-                _buildToolbarButton(Icons.format_bold, 'Bold', () => _insertMarkdown('**', '**'), colors.foreground),
-                _buildToolbarButton(Icons.format_italic, 'Italic', () => _insertMarkdown('_', '_'), colors.foreground),
-                _buildToolbarButton(Icons.strikethrough_s, 'Strikethrough', () => _insertMarkdown('~~', '~~'), colors.foreground),
+                _buildToolbarButton(
+                  Icons.format_bold,
+                  'Bold',
+                  () => _insertMarkdown('**', '**'),
+                  colors.foreground,
+                ),
+                _buildToolbarButton(
+                  Icons.format_italic,
+                  'Italic',
+                  () => _insertMarkdown('_', '_'),
+                  colors.foreground,
+                ),
+                _buildToolbarButton(
+                  Icons.strikethrough_s,
+                  'Strikethrough',
+                  () => _insertMarkdown('~~', '~~'),
+                  colors.foreground,
+                ),
                 _buildDivider(colors.border),
-                _buildToolbarButton(Icons.code, 'Code', () => _insertMarkdown('`', '`'), colors.foreground),
-                _buildToolbarButton(Icons.link, 'Link', () => _insertMarkdown('[', '](url)'), colors.foreground),
+                _buildToolbarButton(
+                  Icons.code,
+                  'Code',
+                  () => _insertMarkdown('`', '`'),
+                  colors.foreground,
+                ),
+                _buildToolbarButton(
+                  Icons.link,
+                  'Link',
+                  () => _insertMarkdown('[', '](url)'),
+                  colors.foreground,
+                ),
                 _buildDivider(colors.border),
-                _buildToolbarButton(Icons.format_list_bulleted, 'Bullet List', () => _insertMarkdown('- '), colors.foreground),
-                _buildToolbarButton(Icons.format_list_numbered, 'Numbered List', () => _insertMarkdown('1. '), colors.foreground),
-                _buildToolbarButton(Icons.format_quote, 'Quote', () => _insertMarkdown('> '), colors.foreground),
+                _buildToolbarButton(
+                  Icons.format_list_bulleted,
+                  'Bullet List',
+                  () => _insertMarkdown('- '),
+                  colors.foreground,
+                ),
+                _buildToolbarButton(
+                  Icons.format_list_numbered,
+                  'Numbered List',
+                  () => _insertMarkdown('1. '),
+                  colors.foreground,
+                ),
+                _buildToolbarButton(
+                  Icons.format_quote,
+                  'Quote',
+                  () => _insertMarkdown('> '),
+                  colors.foreground,
+                ),
               ],
             ),
           ),
@@ -190,7 +245,9 @@ class _RefractionRichEditorState extends State<RefractionRichEditor> {
               style: theme.textStyle,
               decoration: InputDecoration(
                 hintText: widget.placeholder,
-                hintStyle: theme.textStyle.copyWith(color: colors.mutedForeground),
+                hintStyle: theme.textStyle.copyWith(
+                  color: colors.mutedForeground,
+                ),
                 border: InputBorder.none,
                 isDense: true,
                 contentPadding: EdgeInsets.zero,

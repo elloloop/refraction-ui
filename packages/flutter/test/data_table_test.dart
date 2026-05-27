@@ -20,7 +20,8 @@ void main() {
           body: RefractionTheme(
             data: RefractionThemeData.light(),
             child: RefractionDataTable<Map<String, String>>(
-              columns: columns ??
+              columns:
+                  columns ??
                   [
                     DataTableColumn(
                       id: 'id',
@@ -42,7 +43,8 @@ void main() {
                       filterable: true,
                     ),
                   ],
-              data: data ??
+              data:
+                  data ??
                   [
                     {'id': '1', 'name': 'Alice', 'role': 'Admin'},
                     {'id': '2', 'name': 'Bob', 'role': 'User'},
@@ -76,29 +78,37 @@ void main() {
     });
 
     testWidgets('renders empty message when no data', (tester) async {
-      await tester.pumpWidget(buildTable(data: [], emptyMessage: 'Nothing here'));
+      await tester.pumpWidget(
+        buildTable(data: [], emptyMessage: 'Nothing here'),
+      );
 
       expect(find.text('Nothing here'), findsOneWidget);
       expect(find.text('Alice'), findsNothing);
     });
 
-    testWidgets('renders filter fields if any column is filterable', (tester) async {
+    testWidgets('renders filter fields if any column is filterable', (
+      tester,
+    ) async {
       await tester.pumpWidget(buildTable());
 
       final textFields = find.byType(TextField);
       expect(textFields, findsNWidgets(2)); // Name and Role are filterable
     });
 
-    testWidgets('does not render filter row if no columns are filterable', (tester) async {
-      await tester.pumpWidget(buildTable(
-        columns: [
-          DataTableColumn(
-            id: 'id',
-            header: 'ID',
-            accessor: (row) => row['id']!,
-          ),
-        ],
-      ));
+    testWidgets('does not render filter row if no columns are filterable', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        buildTable(
+          columns: [
+            DataTableColumn(
+              id: 'id',
+              header: 'ID',
+              accessor: (row) => row['id']!,
+            ),
+          ],
+        ),
+      );
 
       final textFields = find.byType(TextField);
       expect(textFields, findsNothing);
@@ -126,15 +136,14 @@ void main() {
       await tester.pumpWidget(buildTable());
 
       // By default order is Alice, Bob, Charlie (1, 2, 3)
-      final idHeader = find.ancestor(
-        of: find.text('ID'),
-        matching: find.byType(InkWell),
-      ).first;
+      final idHeader = find
+          .ancestor(of: find.text('ID'), matching: find.byType(InkWell))
+          .first;
 
       // Tap to sort by ID asc
       await tester.tap(idHeader);
       await tester.pumpAndSettle();
-      
+
       // Tap again to sort by ID desc
       await tester.tap(idHeader);
       await tester.pumpAndSettle();
@@ -147,17 +156,18 @@ void main() {
       String? sortedCol;
       SortDirection? sortDirection;
 
-      await tester.pumpWidget(buildTable(
-        onSort: (col, dir) {
-          sortedCol = col;
-          sortDirection = dir;
-        },
-      ));
+      await tester.pumpWidget(
+        buildTable(
+          onSort: (col, dir) {
+            sortedCol = col;
+            sortDirection = dir;
+          },
+        ),
+      );
 
-      final nameHeader = find.ancestor(
-        of: find.text('Name'),
-        matching: find.byType(InkWell),
-      ).first;
+      final nameHeader = find
+          .ancestor(of: find.text('Name'), matching: find.byType(InkWell))
+          .first;
 
       await tester.tap(nameHeader);
       await tester.pumpAndSettle();
@@ -187,7 +197,9 @@ void main() {
     });
 
     testWidgets('controlled sort updates from parent', (tester) async {
-      await tester.pumpWidget(buildTable(sortBy: 'name', sortDir: SortDirection.desc));
+      await tester.pumpWidget(
+        buildTable(sortBy: 'name', sortDir: SortDirection.desc),
+      );
       // In this state, Charlie (C) should be first, Bob (B) second, Alice (A) third
       // To verify order, we can find all texts and check their coordinates
       final charliePos = tester.getCenter(find.text('Charlie'));
@@ -196,7 +208,9 @@ void main() {
       // Charlie should be higher up than Alice
       expect(charliePos.dy < alicePos.dy, isTrue);
 
-      await tester.pumpWidget(buildTable(sortBy: 'name', sortDir: SortDirection.asc));
+      await tester.pumpWidget(
+        buildTable(sortBy: 'name', sortDir: SortDirection.asc),
+      );
       await tester.pumpAndSettle();
 
       final charliePos2 = tester.getCenter(find.text('Charlie'));
@@ -208,10 +222,9 @@ void main() {
     testWidgets('hovering over a row changes its color', (tester) async {
       await tester.pumpWidget(buildTable());
 
-      final aliceRowMouseRegion = find.ancestor(
-        of: find.text('Alice'),
-        matching: find.byType(MouseRegion),
-      ).first;
+      final aliceRowMouseRegion = find
+          .ancestor(of: find.text('Alice'), matching: find.byType(MouseRegion))
+          .first;
 
       final gesture = await tester.createGesture(kind: PointerDeviceKind.mouse);
       await gesture.addPointer(location: Offset.zero);
@@ -227,7 +240,7 @@ void main() {
       final aliceRow = table.children[2];
       final boxDeco = aliceRow.decoration as BoxDecoration;
       expect(boxDeco.color, isNot(Colors.transparent));
-      
+
       // Move away
       await gesture.moveTo(const Offset(0, 0));
       await tester.pumpAndSettle();
@@ -248,22 +261,24 @@ void main() {
       );
       expect(roleHeader, findsNothing);
     });
-    
+
     testWidgets('firing onFilter callback', (tester) async {
       String? filteredCol;
       String? filterVal;
-      
-      await tester.pumpWidget(buildTable(
-        onFilter: (col, val) {
-          filteredCol = col;
-          filterVal = val;
-        }
-      ));
-      
+
+      await tester.pumpWidget(
+        buildTable(
+          onFilter: (col, val) {
+            filteredCol = col;
+            filterVal = val;
+          },
+        ),
+      );
+
       final roleField = find.byType(TextField).last;
       await tester.enterText(roleField, 'adm');
       await tester.pumpAndSettle();
-      
+
       expect(filteredCol, 'role');
       expect(filterVal, 'adm');
     });
@@ -274,16 +289,18 @@ void main() {
       // Initially 2 filterable columns
       expect(find.byType(TextField), findsNWidgets(2));
 
-      await tester.pumpWidget(buildTable(
-        columns: [
-          DataTableColumn(
-            id: 'id',
-            header: 'ID',
-            accessor: (row) => row['id']!,
-            filterable: true, // Now only 1 filterable
-          ),
-        ]
-      ));
+      await tester.pumpWidget(
+        buildTable(
+          columns: [
+            DataTableColumn(
+              id: 'id',
+              header: 'ID',
+              accessor: (row) => row['id']!,
+              filterable: true, // Now only 1 filterable
+            ),
+          ],
+        ),
+      );
 
       expect(find.byType(TextField), findsNWidgets(1));
     });

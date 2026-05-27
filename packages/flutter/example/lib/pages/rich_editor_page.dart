@@ -20,7 +20,7 @@ class _RichEditorPageState extends State<RichEditorPage> {
   @override
   Widget build(BuildContext context) {
     final theme = RefractionTheme.of(context).data;
-    
+
     return Scaffold(
       backgroundColor: theme.colors.background,
       appBar: AppBar(
@@ -30,10 +30,7 @@ class _RichEditorPageState extends State<RichEditorPage> {
         elevation: 0,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
-          child: Container(
-            color: theme.colors.border,
-            height: 1,
-          ),
+          child: Container(color: theme.colors.border, height: 1),
         ),
       ),
       body: SingleChildScrollView(
@@ -96,7 +93,9 @@ class _RichEditorPageState extends State<RichEditorPage> {
                   return Text(
                     value.text.isEmpty ? 'No content yet...' : value.text,
                     style: theme.textStyle.copyWith(
-                      color: value.text.isEmpty ? theme.colors.mutedForeground : theme.colors.foreground,
+                      color: value.text.isEmpty
+                          ? theme.colors.mutedForeground
+                          : theme.colors.foreground,
                     ),
                   );
                 },

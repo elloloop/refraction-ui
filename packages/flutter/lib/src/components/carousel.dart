@@ -79,9 +79,11 @@ class _RefractionCarouselState extends State<RefractionCarousel> {
   void didUpdateWidget(RefractionCarousel oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.controller != oldWidget.controller) {
-      _controller = widget.controller ?? PageController(initialPage: _currentPage);
+      _controller =
+          widget.controller ?? PageController(initialPage: _currentPage);
     }
-    if (widget.autoPlay != oldWidget.autoPlay || widget.autoPlayInterval != oldWidget.autoPlayInterval) {
+    if (widget.autoPlay != oldWidget.autoPlay ||
+        widget.autoPlayInterval != oldWidget.autoPlayInterval) {
       _stopTimer();
       if (widget.autoPlay) {
         _startTimer();
@@ -93,11 +95,18 @@ class _RefractionCarouselState extends State<RefractionCarousel> {
     _timer = Timer.periodic(widget.autoPlayInterval, (timer) {
       if (!mounted) return;
       if (widget.children.isEmpty) return;
-      
+
       if (_currentPage < widget.children.length - 1) {
-        _controller.nextPage(duration: widget.animationDuration, curve: widget.animationCurve);
+        _controller.nextPage(
+          duration: widget.animationDuration,
+          curve: widget.animationCurve,
+        );
       } else {
-        _controller.animateToPage(0, duration: widget.animationDuration, curve: widget.animationCurve);
+        _controller.animateToPage(
+          0,
+          duration: widget.animationDuration,
+          curve: widget.animationCurve,
+        );
       }
     });
   }
@@ -160,14 +169,18 @@ class _RefractionCarouselState extends State<RefractionCarousel> {
               children: [
                 _buildArrow(
                   icon: Icons.chevron_left,
-                  onPressed: _currentPage > 0 ? () => _goToPage(_currentPage - 1) : null,
+                  onPressed: _currentPage > 0
+                      ? () => _goToPage(_currentPage - 1)
+                      : null,
                   backgroundColor: colors.background,
                   foregroundColor: colors.foreground,
                   mutedForegroundColor: colors.mutedForeground,
                 ),
                 _buildArrow(
                   icon: Icons.chevron_right,
-                  onPressed: _currentPage < widget.children.length - 1 ? () => _goToPage(_currentPage + 1) : null,
+                  onPressed: _currentPage < widget.children.length - 1
+                      ? () => _goToPage(_currentPage + 1)
+                      : null,
                   backgroundColor: colors.background,
                   foregroundColor: colors.foreground,
                   mutedForegroundColor: colors.mutedForeground,
@@ -177,7 +190,9 @@ class _RefractionCarouselState extends State<RefractionCarousel> {
           ),
         if (widget.showIndicators)
           Positioned(
-            bottom: widget.indicatorAlignment == Alignment.bottomCenter ? 16.0 : null,
+            bottom: widget.indicatorAlignment == Alignment.bottomCenter
+                ? 16.0
+                : null,
             top: widget.indicatorAlignment == Alignment.topCenter ? 16.0 : null,
             left: 0,
             right: 0,
@@ -195,7 +210,9 @@ class _RefractionCarouselState extends State<RefractionCarousel> {
                       width: isActive ? 24.0 : 8.0,
                       height: 8.0,
                       decoration: BoxDecoration(
-                        color: isActive ? colors.primary : colors.mutedForeground.withValues(alpha: 0.5),
+                        color: isActive
+                            ? colors.primary
+                            : colors.mutedForeground.withValues(alpha: 0.5),
                         borderRadius: BorderRadius.circular(4.0),
                       ),
                     ),
@@ -220,7 +237,9 @@ class _RefractionCarouselState extends State<RefractionCarousel> {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Material(
         type: MaterialType.circle,
-        color: isDisabled ? backgroundColor.withValues(alpha: 0.4) : backgroundColor.withValues(alpha: 0.8),
+        color: isDisabled
+            ? backgroundColor.withValues(alpha: 0.4)
+            : backgroundColor.withValues(alpha: 0.8),
         clipBehavior: Clip.antiAlias,
         child: IconButton(
           icon: Icon(icon),

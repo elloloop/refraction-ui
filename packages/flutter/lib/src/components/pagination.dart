@@ -16,7 +16,7 @@ class RefractionPagination extends StatelessWidget {
 
   /// The number of page numbers to show on either side of the [currentPage].
   final int siblingCount;
-  
+
   /// The number of always-visible pages at the beginning and end.
   final int boundaryCount;
 
@@ -54,13 +54,13 @@ class RefractionPagination extends StatelessWidget {
     this.previousLabel = 'Previous',
     this.nextLabel = 'Next',
     this.ellipsisIcon,
-  })  : assert(currentPage > 0 || totalPages == 0),
-        assert(totalPages >= 0),
-        assert(totalPages == 0 || currentPage <= totalPages);
+  }) : assert(currentPage > 0 || totalPages == 0),
+       assert(totalPages >= 0),
+       assert(totalPages == 0 || currentPage <= totalPages);
 
   List<dynamic> _generatePagination() {
     if (totalPages == 0) return [];
-    
+
     final List<dynamic> items = [];
     final totalPageNumbersVisible = boundaryCount * 2 + 3 + siblingCount * 2;
 
@@ -173,7 +173,7 @@ class _PaginationButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hasLabel = label != null && label!.isNotEmpty;
-    
+
     if (hasLabel) {
       return RefractionButton(
         variant: RefractionButtonVariant.ghost,
@@ -253,12 +253,9 @@ class _PaginationEllipsis extends StatelessWidget {
         width: 36.0,
         height: 36.0,
         alignment: Alignment.center,
-        child: icon ??
-            Icon(
-              Icons.more_horiz,
-              size: 16,
-              color: theme.colors.foreground,
-            ),
+        child:
+            icon ??
+            Icon(Icons.more_horiz, size: 16, color: theme.colors.foreground),
       ),
     );
   }

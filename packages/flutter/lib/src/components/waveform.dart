@@ -35,12 +35,15 @@ double _normalizeAmplitude(double? value) {
   return value.clamp(0.0, 1.0);
 }
 
-
 List<double> _createSilentSamples(int count) {
   return List<double>.filled(count, 0.0);
 }
 
-List<double> _createIntensitySamples(double intensity, int count, double phase) {
+List<double> _createIntensitySamples(
+  double intensity,
+  int count,
+  double phase,
+) {
   final normalizedIntensity = _normalizeIntensity(intensity);
   final normalizedCount = _normalizeBarCount(count);
   final samples = List<double>.filled(normalizedCount, 0.0);
@@ -122,7 +125,10 @@ List<double> _normalizeWaveformSamples(List<double>? input, int targetCount) {
 }
 
 List<double> _smoothWaveformSamples(
-    List<double>? previous, List<double> next, double smoothing) {
+  List<double>? previous,
+  List<double> next,
+  double smoothing,
+) {
   if (previous == null || previous.isEmpty) {
     return List<double>.from(next);
   }
@@ -196,15 +202,19 @@ class _WaveformPainter extends CustomPainter {
 
   void _drawBars(Canvas canvas, Size size, Paint paint) {
     final bars = _scaleWaveformSamples(
-        _resampleWaveformSamples(samples, barCount), intensity);
+      _resampleWaveformSamples(samples, barCount),
+      intensity,
+    );
     final slotWidth = size.width / bars.length;
     final barWidth = math.max(1.0, slotWidth * 0.64);
     final center = size.height / 2;
 
     for (int i = 0; i < bars.length; i++) {
       final value = bars[i].abs();
-      final barHeight =
-          math.max(value * size.height * amplitude, value > 0 ? 1.0 : 0.0);
+      final barHeight = math.max(
+        value * size.height * amplitude,
+        value > 0 ? 1.0 : 0.0,
+      );
       final x = i * slotWidth + (slotWidth - barWidth) / 2;
       final y = center - barHeight / 2;
 
@@ -218,7 +228,10 @@ class _WaveformPainter extends CustomPainter {
     final amp = size.height * 0.45 * amplitude;
 
     paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = math.max(1.5, math.min(size.width, size.height) * 0.025);
+    paint.strokeWidth = math.max(
+      1.5,
+      math.min(size.width, size.height) * 0.025,
+    );
     paint.strokeCap = StrokeCap.round;
     paint.strokeJoin = StrokeJoin.round;
 
@@ -241,8 +254,8 @@ class _WaveformPainter extends CustomPainter {
   }
 
   void _drawRings(Canvas canvas, Size size, Paint paint) {
-    final peak = _getWaveformPeak(_scaleWaveformSamples(samples, intensity)) *
-        amplitude;
+    final peak =
+        _getWaveformPeak(_scaleWaveformSamples(samples, intensity)) * amplitude;
     final minDimension = math.min(size.width, size.height);
     final centerX = size.width / 2;
     final centerY = size.height / 2;
@@ -342,7 +355,9 @@ class _RefractionWaveformState extends State<RefractionWaveform>
   @override
   void initState() {
     super.initState();
-    _renderedSamples = _createSilentSamples(_normalizeBarCount(widget.barCount));
+    _renderedSamples = _createSilentSamples(
+      _normalizeBarCount(widget.barCount),
+    );
     _ticker = createTicker((elapsed) {
       if (!mounted) return;
       setState(() {
@@ -388,8 +403,11 @@ class _RefractionWaveformState extends State<RefractionWaveform>
     if (widget.samples != null) {
       nextSamples = _normalizeWaveformSamples(widget.samples, barCount);
     } else {
-      nextSamples =
-          _createIntensitySamples(widget.intensity, barCount, _elapsedSeconds);
+      nextSamples = _createIntensitySamples(
+        widget.intensity,
+        barCount,
+        _elapsedSeconds,
+      );
     }
 
     _renderedSamples = _smoothWaveformSamples(

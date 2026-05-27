@@ -7,11 +7,7 @@ void main() {
     testWidgets('renders successfully with zero children', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: RefractionCardGrid(
-              children: const [],
-            ),
-          ),
+          home: Scaffold(body: RefractionCardGrid(children: const [])),
         ),
       );
       expect(find.byType(RefractionCardGrid), findsOneWidget);
@@ -22,9 +18,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: RefractionCardGrid(
-              children: const [Text('Child 1')],
-            ),
+            body: RefractionCardGrid(children: const [Text('Child 1')]),
           ),
         ),
       );
@@ -72,12 +66,17 @@ void main() {
                         minCardWidth: minCardWidth,
                         crossAxisSpacing: spacing,
                         children: [
-                          Builder(builder: (context) {
-                            final grid = context.findAncestorWidgetOfExactType<GridView>()!;
-                            final delegate = grid.gridDelegate as SliverGridDelegateWithFixedCrossAxisCount;
-                            capturedCrossAxisCount = delegate.crossAxisCount;
-                            return const SizedBox();
-                          }),
+                          Builder(
+                            builder: (context) {
+                              final grid = context
+                                  .findAncestorWidgetOfExactType<GridView>()!;
+                              final delegate =
+                                  grid.gridDelegate
+                                      as SliverGridDelegateWithFixedCrossAxisCount;
+                              capturedCrossAxisCount = delegate.crossAxisCount;
+                              return const SizedBox();
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -92,23 +91,68 @@ void main() {
       }
 
       // Default spacing is 16. Default minCardWidth is 250.
-      testCrossAxisCount(width: 400, minCardWidth: 250, spacing: 16, expectedCount: 1);
-      testCrossAxisCount(width: 600, minCardWidth: 250, spacing: 16, expectedCount: 2);
-      testCrossAxisCount(width: 800, minCardWidth: 250, spacing: 16, expectedCount: 3);
-      testCrossAxisCount(width: 1200, minCardWidth: 250, spacing: 16, expectedCount: 4);
+      testCrossAxisCount(
+        width: 400,
+        minCardWidth: 250,
+        spacing: 16,
+        expectedCount: 1,
+      );
+      testCrossAxisCount(
+        width: 600,
+        minCardWidth: 250,
+        spacing: 16,
+        expectedCount: 2,
+      );
+      testCrossAxisCount(
+        width: 800,
+        minCardWidth: 250,
+        spacing: 16,
+        expectedCount: 3,
+      );
+      testCrossAxisCount(
+        width: 1200,
+        minCardWidth: 250,
+        spacing: 16,
+        expectedCount: 4,
+      );
 
       // Testing with different minCardWidth
-      testCrossAxisCount(width: 600, minCardWidth: 100, spacing: 10, expectedCount: 5);
-      testCrossAxisCount(width: 600, minCardWidth: 100, spacing: 0, expectedCount: 6);
-      testCrossAxisCount(width: 600, minCardWidth: 600, spacing: 10, expectedCount: 1);
-      testCrossAxisCount(width: 600, minCardWidth: 800, spacing: 10, expectedCount: 1);
-      
+      testCrossAxisCount(
+        width: 600,
+        minCardWidth: 100,
+        spacing: 10,
+        expectedCount: 5,
+      );
+      testCrossAxisCount(
+        width: 600,
+        minCardWidth: 100,
+        spacing: 0,
+        expectedCount: 6,
+      );
+      testCrossAxisCount(
+        width: 600,
+        minCardWidth: 600,
+        spacing: 10,
+        expectedCount: 1,
+      );
+      testCrossAxisCount(
+        width: 600,
+        minCardWidth: 800,
+        spacing: 10,
+        expectedCount: 1,
+      );
+
       // More tests for rigorous calculation
       for (int i = 1; i <= 20; i++) {
         double w = i * 150.0;
         int expected = ((w + 16.0) / (250.0 + 16.0)).floor();
         if (expected < 1) expected = 1;
-        testCrossAxisCount(width: w, minCardWidth: 250, spacing: 16, expectedCount: expected);
+        testCrossAxisCount(
+          width: w,
+          minCardWidth: 250,
+          spacing: 16,
+          expectedCount: expected,
+        );
       }
     });
 
@@ -120,36 +164,44 @@ void main() {
         bool? shrinkWrap,
         ScrollPhysics? physics,
       }) {
-        testWidgets('passes properties correctly $mainAxisSpacing $crossAxisSpacing $childAspectRatio $shrinkWrap $physics', (tester) async {
-          await tester.pumpWidget(
-            MaterialApp(
-              home: Scaffold(
-                body: RefractionCardGrid(
-                  mainAxisSpacing: mainAxisSpacing ?? 16.0,
-                  crossAxisSpacing: crossAxisSpacing ?? 16.0,
-                  childAspectRatio: childAspectRatio ?? 1.0,
-                  shrinkWrap: shrinkWrap ?? true,
-                  physics: physics ?? const NeverScrollableScrollPhysics(),
-                  children: const [Text('Child')],
+        testWidgets(
+          'passes properties correctly $mainAxisSpacing $crossAxisSpacing $childAspectRatio $shrinkWrap $physics',
+          (tester) async {
+            await tester.pumpWidget(
+              MaterialApp(
+                home: Scaffold(
+                  body: RefractionCardGrid(
+                    mainAxisSpacing: mainAxisSpacing ?? 16.0,
+                    crossAxisSpacing: crossAxisSpacing ?? 16.0,
+                    childAspectRatio: childAspectRatio ?? 1.0,
+                    shrinkWrap: shrinkWrap ?? true,
+                    physics: physics ?? const NeverScrollableScrollPhysics(),
+                    children: const [Text('Child')],
+                  ),
                 ),
               ),
-            ),
-          );
+            );
 
-          final gridView = tester.widget<GridView>(find.byType(GridView));
-          expect(gridView.shrinkWrap, shrinkWrap ?? true);
-          expect(gridView.physics, physics ?? const NeverScrollableScrollPhysics());
+            final gridView = tester.widget<GridView>(find.byType(GridView));
+            expect(gridView.shrinkWrap, shrinkWrap ?? true);
+            expect(
+              gridView.physics,
+              physics ?? const NeverScrollableScrollPhysics(),
+            );
 
-          final delegate = gridView.gridDelegate as SliverGridDelegateWithFixedCrossAxisCount;
-          expect(delegate.mainAxisSpacing, mainAxisSpacing ?? 16.0);
-          expect(delegate.crossAxisSpacing, crossAxisSpacing ?? 16.0);
-          expect(delegate.childAspectRatio, childAspectRatio ?? 1.0);
-        });
+            final delegate =
+                gridView.gridDelegate
+                    as SliverGridDelegateWithFixedCrossAxisCount;
+            expect(delegate.mainAxisSpacing, mainAxisSpacing ?? 16.0);
+            expect(delegate.crossAxisSpacing, crossAxisSpacing ?? 16.0);
+            expect(delegate.childAspectRatio, childAspectRatio ?? 1.0);
+          },
+        );
       }
 
       // Test default values
       testDelegation();
-      
+
       // Test different values (rigorous)
       for (double spacing = 5.0; spacing <= 40.0; spacing += 5.0) {
         testDelegation(mainAxisSpacing: spacing, crossAxisSpacing: spacing);

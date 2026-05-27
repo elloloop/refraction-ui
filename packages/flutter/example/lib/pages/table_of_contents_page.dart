@@ -37,12 +37,14 @@ class _TableOfContentsPageState extends State<TableOfContentsPage> {
             style: TextStyle(fontSize: 16, color: Colors.grey),
           ),
           const SizedBox(height: 48),
-          
+
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               border: Border.all(color: context.refractionColors.border),
-              borderRadius: BorderRadius.circular(context.refractionTheme.borderRadius),
+              borderRadius: BorderRadius.circular(
+                context.refractionTheme.borderRadius,
+              ),
               color: context.refractionColors.card,
             ),
             child: RefractionTableOfContents(

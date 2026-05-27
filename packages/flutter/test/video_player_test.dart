@@ -6,14 +6,15 @@ import 'package:video_player_platform_interface/video_player_platform_interface.
 import 'package:refraction_ui/refraction_ui.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-class FakeVideoPlayerPlatform extends VideoPlayerPlatform with MockPlatformInterfaceMixin {
+class FakeVideoPlayerPlatform extends VideoPlayerPlatform
+    with MockPlatformInterfaceMixin {
   final Map<int, StreamController<VideoEvent>> _streams = {};
   int _textureIdCounter = 0;
-  
+
   bool isPlaying = false;
   double volume = 1.0;
   Duration currentPosition = Duration.zero;
-  
+
   @override
   Future<void> init() async {}
 
@@ -23,16 +24,20 @@ class FakeVideoPlayerPlatform extends VideoPlayerPlatform with MockPlatformInter
   @override
   Future<int?> create(DataSource dataSource) async {
     final id = _textureIdCounter++;
-    final controller = StreamController<VideoEvent>.broadcast(onListen: () {
-      // Defer event so it's not emitted synchronously during listen
-      scheduleMicrotask(() {
-        _streams[id]?.add(VideoEvent(
-          eventType: VideoEventType.initialized,
-          duration: const Duration(seconds: 100),
-          size: const Size(800, 600),
-        ));
-      });
-    });
+    final controller = StreamController<VideoEvent>.broadcast(
+      onListen: () {
+        // Defer event so it's not emitted synchronously during listen
+        scheduleMicrotask(() {
+          _streams[id]?.add(
+            VideoEvent(
+              eventType: VideoEventType.initialized,
+              duration: const Duration(seconds: 100),
+              size: const Size(800, 600),
+            ),
+          );
+        });
+      },
+    );
     _streams[id] = controller;
     return id;
   }
@@ -43,13 +48,23 @@ class FakeVideoPlayerPlatform extends VideoPlayerPlatform with MockPlatformInter
   @override
   Future<void> play(int textureId) async {
     isPlaying = true;
-    _streams[textureId]?.add(VideoEvent(eventType: VideoEventType.isPlayingStateUpdate, isPlaying: true));
+    _streams[textureId]?.add(
+      VideoEvent(
+        eventType: VideoEventType.isPlayingStateUpdate,
+        isPlaying: true,
+      ),
+    );
   }
 
   @override
   Future<void> pause(int textureId) async {
     isPlaying = false;
-    _streams[textureId]?.add(VideoEvent(eventType: VideoEventType.isPlayingStateUpdate, isPlaying: false));
+    _streams[textureId]?.add(
+      VideoEvent(
+        eventType: VideoEventType.isPlayingStateUpdate,
+        isPlaying: false,
+      ),
+    );
   }
 
   @override
@@ -77,7 +92,11 @@ class FakeVideoPlayerPlatform extends VideoPlayerPlatform with MockPlatformInter
 
   @override
   Widget buildView(int textureId) {
-    return const SizedBox(width: 800, height: 600, child: Text('Fake Video Render'));
+    return const SizedBox(
+      width: 800,
+      height: 600,
+      child: Text('Fake Video Render'),
+    );
   }
 }
 
@@ -102,17 +121,23 @@ void main() {
     });
 
     testWidgets('renders loading state initially', (tester) async {
-      await tester.pumpWidget(wrap(const RefractionVideoPlayer(src: 'https://test.com/video.mp4')));
+      await tester.pumpWidget(
+        wrap(const RefractionVideoPlayer(src: 'https://test.com/video.mp4')),
+      );
       expect(find.byType(CircularProgressIndicator), findsWidgets);
       await tester.pumpAndSettle(); // flush microtask and UI timer
     });
 
     testWidgets('play and pause toggle', (tester) async {
-      final controller = VideoPlayerController.networkUrl(Uri.parse('https://test.com/video.mp4'));
+      final controller = VideoPlayerController.networkUrl(
+        Uri.parse('https://test.com/video.mp4'),
+      );
       await controller.initialize();
-      await tester.pumpWidget(wrap(RefractionVideoPlayer(controller: controller)));
+      await tester.pumpWidget(
+        wrap(RefractionVideoPlayer(controller: controller)),
+      );
       await tester.pumpAndSettle();
-      
+
       // Tap play
       final playIcon = find.byIcon(Icons.play_arrow).first;
       await tester.tap(playIcon);
@@ -127,13 +152,19 @@ void main() {
     });
 
     for (int i = 0; i < 50; i++) {
-      testWidgets('auto generated test #$i ensures stable rendering loop', (tester) async {
-        await tester.pumpWidget(wrap(RefractionVideoPlayer(
-          src: 'https://test.com/video_$i.mp4',
-          autoPlay: i % 2 == 0,
-          muted: i % 3 == 0,
-          showControls: i % 4 != 0,
-        )));
+      testWidgets('auto generated test #$i ensures stable rendering loop', (
+        tester,
+      ) async {
+        await tester.pumpWidget(
+          wrap(
+            RefractionVideoPlayer(
+              src: 'https://test.com/video_$i.mp4',
+              autoPlay: i % 2 == 0,
+              muted: i % 3 == 0,
+              showControls: i % 4 != 0,
+            ),
+          ),
+        );
         await tester.pumpAndSettle();
         expect(find.byType(RefractionVideoPlayer), findsOneWidget);
         // pump out the remaining hide controls timer

@@ -30,10 +30,14 @@ class RefractionResizableLayout extends StatefulWidget {
     this.minSizes,
     this.maxSizes,
     this.onResize,
-  })  : assert(children.length >= 2, 'RefractionResizableLayout requires at least 2 children.');
+  }) : assert(
+         children.length >= 2,
+         'RefractionResizableLayout requires at least 2 children.',
+       );
 
   @override
-  State<RefractionResizableLayout> createState() => _RefractionResizableLayoutState();
+  State<RefractionResizableLayout> createState() =>
+      _RefractionResizableLayoutState();
 }
 
 class _RefractionResizableLayoutState extends State<RefractionResizableLayout> {
@@ -50,7 +54,8 @@ class _RefractionResizableLayoutState extends State<RefractionResizableLayout> {
   @override
   void didUpdateWidget(covariant RefractionResizableLayout oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.defaultSizes != oldWidget.defaultSizes || widget.children.length != oldWidget.children.length) {
+    if (widget.defaultSizes != oldWidget.defaultSizes ||
+        widget.children.length != oldWidget.children.length) {
       if (widget.children.length != _sizes.length) {
         _initSizes();
       }
@@ -96,7 +101,9 @@ class _RefractionResizableLayoutState extends State<RefractionResizableLayout> {
   void _onPanUpdate(DragUpdateDetails details, int index, double totalSize) {
     if (_resizingIndex == null || totalSize <= 0) return;
 
-    double delta = widget.direction == Axis.horizontal ? details.delta.dx : details.delta.dy;
+    double delta = widget.direction == Axis.horizontal
+        ? details.delta.dx
+        : details.delta.dy;
     double deltaPercent = (delta / totalSize) * 100.0;
 
     int i = index;
@@ -153,7 +160,9 @@ class _RefractionResizableLayoutState extends State<RefractionResizableLayout> {
           child: Container(
             width: widget.direction == Axis.horizontal ? 2.0 : double.infinity,
             height: widget.direction == Axis.vertical ? 2.0 : double.infinity,
-            color: (isHovered || isDragging) ? theme.colors.primary : theme.colors.border,
+            color: (isHovered || isDragging)
+                ? theme.colors.primary
+                : theme.colors.border,
           ),
         ),
       ),
@@ -167,19 +176,27 @@ class _RefractionResizableLayoutState extends State<RefractionResizableLayout> {
         final double maxConstraint = widget.direction == Axis.horizontal
             ? constraints.maxWidth
             : constraints.maxHeight;
-        
+
         final double dividerSize = 8.0;
         final int numDividers = widget.children.length - 1;
-        final double totalSizeForChildren = maxConstraint - (numDividers * dividerSize);
+        final double totalSizeForChildren =
+            maxConstraint - (numDividers * dividerSize);
 
         List<Widget> flexChildren = [];
         for (int i = 0; i < widget.children.length; i++) {
           flexChildren.add(
             Flexible(
-              flex: (_sizes[i] * 1000).toInt().clamp(1, double.maxFinite.toInt()),
+              flex: (_sizes[i] * 1000).toInt().clamp(
+                1,
+                double.maxFinite.toInt(),
+              ),
               child: SizedBox(
-                width: widget.direction == Axis.horizontal ? double.infinity : null,
-                height: widget.direction == Axis.vertical ? double.infinity : null,
+                width: widget.direction == Axis.horizontal
+                    ? double.infinity
+                    : null,
+                height: widget.direction == Axis.vertical
+                    ? double.infinity
+                    : null,
                 child: widget.children[i],
               ),
             ),

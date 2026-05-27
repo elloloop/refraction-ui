@@ -68,7 +68,9 @@ void main() {
       expect(find.text('Footer Widget'), findsOneWidget);
     });
 
-    testWidgets('desktop mode: renders leftSidebar when provided', (WidgetTester tester) async {
+    testWidgets('desktop mode: renders leftSidebar when provided', (
+      WidgetTester tester,
+    ) async {
       tester.view.physicalSize = const Size(1000, 800);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
@@ -84,7 +86,9 @@ void main() {
       expect(find.text('Left Sidebar'), findsOneWidget);
     });
 
-    testWidgets('desktop mode: renders rightSidebar when provided', (WidgetTester tester) async {
+    testWidgets('desktop mode: renders rightSidebar when provided', (
+      WidgetTester tester,
+    ) async {
       tester.view.physicalSize = const Size(1000, 800);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
@@ -100,7 +104,9 @@ void main() {
       expect(find.text('Right Sidebar'), findsOneWidget);
     });
 
-    testWidgets('desktop mode: renders all sidebars and regions', (WidgetTester tester) async {
+    testWidgets('desktop mode: renders all sidebars and regions', (
+      WidgetTester tester,
+    ) async {
       tester.view.physicalSize = const Size(1200, 800);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
@@ -123,7 +129,9 @@ void main() {
       expect(find.text('Content'), findsOneWidget);
     });
 
-    testWidgets('mobile mode: leftSidebar hidden when closed', (WidgetTester tester) async {
+    testWidgets('mobile mode: leftSidebar hidden when closed', (
+      WidgetTester tester,
+    ) async {
       tester.view.physicalSize = const Size(400, 800);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
@@ -146,7 +154,9 @@ void main() {
       expect(offset.dx < 0, true); // It should be off-screen to the left
     });
 
-    testWidgets('mobile mode: leftSidebar visible when opened', (WidgetTester tester) async {
+    testWidgets('mobile mode: leftSidebar visible when opened', (
+      WidgetTester tester,
+    ) async {
       tester.view.physicalSize = const Size(400, 800);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
@@ -171,7 +181,9 @@ void main() {
       expect(offset.dx, 0.0); // It should be on-screen
     });
 
-    testWidgets('mobile mode: rightSidebar visible when opened', (WidgetTester tester) async {
+    testWidgets('mobile mode: rightSidebar visible when opened', (
+      WidgetTester tester,
+    ) async {
       tester.view.physicalSize = const Size(400, 800);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
@@ -195,7 +207,9 @@ void main() {
       expect(offset.dx > 0, true); // It should be on the right side
     });
 
-    testWidgets('mobile mode: tapping overlay closes sidebars with callbacks', (WidgetTester tester) async {
+    testWidgets('mobile mode: tapping overlay closes sidebars with callbacks', (
+      WidgetTester tester,
+    ) async {
       tester.view.physicalSize = const Size(400, 800);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
@@ -222,7 +236,9 @@ void main() {
       expect(leftClosed, isTrue);
     });
 
-    testWidgets('mobile mode: tapping overlay closes sidebars internally', (WidgetTester tester) async {
+    testWidgets('mobile mode: tapping overlay closes sidebars internally', (
+      WidgetTester tester,
+    ) async {
       tester.view.physicalSize = const Size(400, 800);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
@@ -243,14 +259,18 @@ void main() {
       expect(renderBoxBefore.localToGlobal(Offset.zero).dx, 0.0);
 
       // Tap the overlay to close
-      await tester.tapAt(const Offset(350, 100)); // Tap outside the 280px left sidebar
+      await tester.tapAt(
+        const Offset(350, 100),
+      ); // Tap outside the 280px left sidebar
       await tester.pumpAndSettle();
 
       final renderBoxAfter = tester.renderObject<RenderBox>(sidebarFinder);
       expect(renderBoxAfter.localToGlobal(Offset.zero).dx < 0, true);
     });
 
-    testWidgets('AppShell state can be toggled via of(context)', (WidgetTester tester) async {
+    testWidgets('AppShell state can be toggled via of(context)', (
+      WidgetTester tester,
+    ) async {
       tester.view.physicalSize = const Size(400, 800);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
@@ -289,7 +309,9 @@ void main() {
       expect(renderBoxAfter.localToGlobal(Offset.zero).dx, 0.0);
     });
 
-    testWidgets('AppShell state can toggle right sidebar via of(context)', (WidgetTester tester) async {
+    testWidgets('AppShell state can toggle right sidebar via of(context)', (
+      WidgetTester tester,
+    ) async {
       tester.view.physicalSize = const Size(400, 800);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
@@ -325,10 +347,15 @@ void main() {
       await tester.pumpAndSettle();
 
       final renderBoxAfter = tester.renderObject<RenderBox>(sidebarFinder);
-      expect(renderBoxAfter.localToGlobal(Offset.zero).dx < 400, true); // It should move in
+      expect(
+        renderBoxAfter.localToGlobal(Offset.zero).dx < 400,
+        true,
+      ); // It should move in
     });
 
-    testWidgets('didUpdateWidget updates internal state', (WidgetTester tester) async {
+    testWidgets('didUpdateWidget updates internal state', (
+      WidgetTester tester,
+    ) async {
       tester.view.physicalSize = const Size(400, 800);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
@@ -352,13 +379,26 @@ void main() {
       await tester.pumpAndSettle();
 
       final sidebarFinder = find.text('Left Sidebar');
-      expect(tester.renderObject<RenderBox>(sidebarFinder).localToGlobal(Offset.zero).dx < 0, true);
+      expect(
+        tester
+                .renderObject<RenderBox>(sidebarFinder)
+                .localToGlobal(Offset.zero)
+                .dx <
+            0,
+        true,
+      );
 
       // Update state
       stateValue.value = true;
       await tester.pumpAndSettle();
 
-      expect(tester.renderObject<RenderBox>(sidebarFinder).localToGlobal(Offset.zero).dx, 0.0);
+      expect(
+        tester
+            .renderObject<RenderBox>(sidebarFinder)
+            .localToGlobal(Offset.zero)
+            .dx,
+        0.0,
+      );
     });
 
     testWidgets('overlay is absent on desktop', (WidgetTester tester) async {
@@ -371,14 +411,17 @@ void main() {
         buildAppShell(
           leftSidebar: const Text('Left Sidebar'),
           content: const Text('Content'),
-          isLeftSidebarOpen: true, // Setting this should not cause an overlay on desktop
+          isLeftSidebarOpen:
+              true, // Setting this should not cause an overlay on desktop
         ),
       );
 
       await tester.pumpAndSettle();
 
       // Check for IgnorePointer covering the screen, overlay only exists on mobile
-      final overlayFinder = find.byWidgetPredicate((widget) => widget is IgnorePointer && widget.ignoring == false);
+      final overlayFinder = find.byWidgetPredicate(
+        (widget) => widget is IgnorePointer && widget.ignoring == false,
+      );
       expect(overlayFinder, findsNothing);
     });
   });
@@ -401,10 +444,19 @@ void main() {
         );
         await tester.pumpAndSettle();
         // Tapping overlay should close it, meaning overlay is active
-        await tester.tapAt(const Offset(290, 100)); // Tap outside the 280px sidebar
+        await tester.tapAt(
+          const Offset(290, 100),
+        ); // Tap outside the 280px sidebar
         await tester.pumpAndSettle();
         final sidebarFinder = find.text('Left');
-        expect(tester.renderObject<RenderBox>(sidebarFinder).localToGlobal(Offset.zero).dx < 0, true);
+        expect(
+          tester
+                  .renderObject<RenderBox>(sidebarFinder)
+                  .localToGlobal(Offset.zero)
+                  .dx <
+              0,
+          true,
+        );
       });
     }
 
@@ -424,7 +476,13 @@ void main() {
         );
         await tester.pumpAndSettle();
         final sidebarFinder = find.text('Left');
-        expect(tester.renderObject<RenderBox>(sidebarFinder).localToGlobal(Offset.zero).dx, 0.0);
+        expect(
+          tester
+              .renderObject<RenderBox>(sidebarFinder)
+              .localToGlobal(Offset.zero)
+              .dx,
+          0.0,
+        );
       });
     }
   });

@@ -74,7 +74,7 @@ class RefractionFileTree extends StatefulWidget {
 
 class _RefractionFileTreeState extends State<RefractionFileTree> {
   late Set<String> _internalExpandedIds;
-  
+
   // Track the currently focused node ID for keyboard navigation.
   String? _focusedId;
 
@@ -128,7 +128,9 @@ class _RefractionFileTreeState extends State<RefractionFileTree> {
     }
   }
 
-  List<RefractionFileTreeNode> _flattenTree(List<RefractionFileTreeNode> nodes) {
+  List<RefractionFileTreeNode> _flattenTree(
+    List<RefractionFileTreeNode> nodes,
+  ) {
     final List<RefractionFileTreeNode> flat = [];
     void traverse(List<RefractionFileTreeNode> currentNodes) {
       for (final node in currentNodes) {
@@ -138,6 +140,7 @@ class _RefractionFileTreeState extends State<RefractionFileTree> {
         }
       }
     }
+
     traverse(nodes);
     return flat;
   }
@@ -152,7 +155,10 @@ class _RefractionFileTreeState extends State<RefractionFileTree> {
 
     if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
       if (currentIndex < flatNodes.length - 1) {
-        setState(() => _focusedId = flatNodes[currentIndex >= 0 ? currentIndex + 1 : 0].id);
+        setState(
+          () => _focusedId =
+              flatNodes[currentIndex >= 0 ? currentIndex + 1 : 0].id,
+        );
       } else if (currentIndex == -1) {
         setState(() => _focusedId = flatNodes[0].id);
       }
@@ -162,7 +168,8 @@ class _RefractionFileTreeState extends State<RefractionFileTree> {
       } else if (currentIndex == -1) {
         setState(() => _focusedId = flatNodes.last.id);
       }
-    } else if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.space) {
+    } else if (event.logicalKey == LogicalKeyboardKey.enter ||
+        event.logicalKey == LogicalKeyboardKey.space) {
       if (currentIndex >= 0) {
         final node = flatNodes[currentIndex];
         if (node.isFolder) {
@@ -176,7 +183,9 @@ class _RefractionFileTreeState extends State<RefractionFileTree> {
         final node = flatNodes[currentIndex];
         if (node.isFolder && !_isExpanded(node.id)) {
           _toggleNode(node.id);
-        } else if (node.isFolder && _isExpanded(node.id) && currentIndex < flatNodes.length - 1) {
+        } else if (node.isFolder &&
+            _isExpanded(node.id) &&
+            currentIndex < flatNodes.length - 1) {
           setState(() => _focusedId = flatNodes[currentIndex + 1].id);
         }
       }
@@ -245,8 +254,8 @@ class _RefractionFileTreeState extends State<RefractionFileTree> {
             color: isSelected
                 ? colors.accent
                 : isFocused
-                    ? colors.muted.withValues(alpha: 0.5)
-                    : Colors.transparent,
+                ? colors.muted.withValues(alpha: 0.5)
+                : Colors.transparent,
             border: isFocused && !isSelected
                 ? Border.all(color: colors.border)
                 : Border.all(color: Colors.transparent),
@@ -256,7 +265,9 @@ class _RefractionFileTreeState extends State<RefractionFileTree> {
             children: [
               if (node.isFolder)
                 Icon(
-                  isExpanded ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_right,
+                  isExpanded
+                      ? Icons.keyboard_arrow_down
+                      : Icons.keyboard_arrow_right,
                   size: 16,
                   color: colors.mutedForeground,
                 )
@@ -267,7 +278,9 @@ class _RefractionFileTreeState extends State<RefractionFileTree> {
                 IconTheme(
                   data: IconThemeData(
                     size: 16,
-                    color: isSelected ? colors.foreground : colors.mutedForeground,
+                    color: isSelected
+                        ? colors.foreground
+                        : colors.mutedForeground,
                   ),
                   child: node.icon!,
                 ),
@@ -278,7 +291,9 @@ class _RefractionFileTreeState extends State<RefractionFileTree> {
                       ? (isExpanded ? Icons.folder_open : Icons.folder)
                       : Icons.insert_drive_file_outlined,
                   size: 16,
-                  color: isSelected ? colors.foreground : colors.mutedForeground,
+                  color: isSelected
+                      ? colors.foreground
+                      : colors.mutedForeground,
                 ),
                 const SizedBox(width: 8),
               ],
@@ -287,7 +302,9 @@ class _RefractionFileTreeState extends State<RefractionFileTree> {
                   node.label,
                   style: TextStyle(
                     fontSize: 14,
-                    color: isSelected ? colors.foreground : colors.mutedForeground,
+                    color: isSelected
+                        ? colors.foreground
+                        : colors.mutedForeground,
                     fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
                   ),
                 ),
