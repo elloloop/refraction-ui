@@ -40,6 +40,7 @@ import 'pages/animated_text_page.dart';
 import 'pages/voice_pill_page.dart';
 import 'pages/markdown_renderer_page.dart';
 import 'pages/install_prompt_page.dart';
+import 'pages/cookie_consent_page.dart';
 import 'pages/diff_viewer_page.dart';
 import 'pages/dropdown_menu_page.dart';
 import 'pages/reaction_bar_page.dart';
@@ -136,6 +137,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Markdown Renderer',
     'Device Frame',
     'Reaction Bar',
+    'Cookie Consent',
   ];
 
   @override
@@ -439,6 +441,8 @@ class _AppShell extends ConsumerWidget {
         return const StepsPage();
       case '/docs/pagination':
         return const PaginationPage();
+      case '/docs/cookie-consent':
+        return const CookieConsentPage();
       case '/docs/pregnancy-tracker':
         return const PreviewCanvas(
           title: "Pregnancy Tracker Layout",

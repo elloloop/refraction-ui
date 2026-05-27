@@ -1,3 +1,7 @@
+## 0.28.0
+
+- **Feedback Components**: Add `RefractionCookieConsent`, providing a customizable headless prompt for managing cookie preferences and GDPR compliance.
+
 ## 0.27.0
 
 - **Feedback Components**: Add `RefractionInstallPrompt`, providing a customizable headless prompt for triggering app installation flows (PWA/Home Screen).

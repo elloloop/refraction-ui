@@ -114,3 +114,4 @@ export 'src/components/waveform.dart';
 export 'src/components/voice_pill.dart';
 export 'src/components/reaction_bar.dart';
 export 'src/components/sheet.dart';
+export 'src/components/cookie_consent.dart';
