@@ -3,6 +3,7 @@ import {
   createButton,
   buttonVariants,
   getButtonType,
+  resolveButtonVariant,
   type ButtonVariant,
   type ButtonSize,
 } from '@refraction-ui/button'
@@ -26,8 +27,12 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant, size, loading, asChild, className, disabled, children, shortcut, action, ...props }, ref) => {
-    const api = createButton({ variant, size, disabled, loading, asChild, type: props.type })
-    const classes = cn(buttonVariants({ variant, size }), className)
+    // `primary` is an ecosystem-muscle-memory alias for `default` — resolve it
+    // here so styling, aria, and data attributes all see the canonical variant.
+    // See issue #201.
+    const resolvedVariant = resolveButtonVariant(variant)
+    const api = createButton({ variant: resolvedVariant, size, disabled, loading, asChild, type: props.type })
+    const classes = cn(buttonVariants({ variant: resolvedVariant, size }), className)
     
     const internalRef = React.useRef<HTMLButtonElement>(null)
     const mergedRef = React.useCallback(

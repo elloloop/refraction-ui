@@ -96,3 +96,8 @@ export * from '@refraction-ui/astro-payment'
 export * from '@refraction-ui/astro-command-input'
 export * from '@refraction-ui/astro-logger'
 export * from '@refraction-ui/astro-analytics'
+
+// Voice primitives — siblings of @refraction-ui/react-voice-pill / -waveform.
+// Issues #191, #192.
+export * from '@refraction-ui/astro-voice-pill'
+export * from '@refraction-ui/astro-waveform'

@@ -1,7 +1,30 @@
 import type { AccessibilityProps, KeyboardHandlerMap } from '@refraction-ui/shared'
 import { Keys } from '@refraction-ui/shared'
 
-export type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'
+/**
+ * `primary` is an alias of `default` — included so the universal React-ecosystem
+ * muscle-memory (`<Button variant="primary">`) renders as the most-emphasized
+ * button instead of falling through to the unstyled base. See issue #201.
+ */
+export type ButtonVariant =
+  | 'default'
+  | 'primary'
+  | 'destructive'
+  | 'outline'
+  | 'secondary'
+  | 'ghost'
+  | 'link'
+
+/** Variants that map to the same visual style as `default`. */
+export const BUTTON_VARIANT_ALIASES: Partial<Record<ButtonVariant, ButtonVariant>> = {
+  primary: 'default',
+}
+
+/** Resolve an alias to its canonical variant. Pass-through for unknown/undefined. */
+export function resolveButtonVariant(variant: ButtonVariant | undefined): ButtonVariant | undefined {
+  if (!variant) return variant
+  return BUTTON_VARIANT_ALIASES[variant] ?? variant
+}
 export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'icon'
 
 export interface ButtonProps {
