@@ -122,3 +122,4 @@ export 'src/components/form.dart';
 export 'src/components/payment.dart';
 export 'src/components/calendar.dart';
 export 'src/components/thread_view.dart';
+export 'src/components/conversation.dart';

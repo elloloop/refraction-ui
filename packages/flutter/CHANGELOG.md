@@ -1,3 +1,7 @@
+## 0.35.0
+
+- **Data Presentation**: Add `RefractionConversation`, a wrapper component for rendering highly customizable linear chat streams (like SMS or chatbots).
+
 ## 0.34.0
 
 - **Data Presentation**: Add `RefractionThreadView`, a wrapper component designed for rendering linear sequences of messages with robust nesting support.
