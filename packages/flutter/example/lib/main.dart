@@ -38,6 +38,7 @@ import 'pages/voice_pill_page.dart';
 import 'pages/markdown_renderer_page.dart';
 import 'pages/diff_viewer_page.dart';
 import 'pages/device_frame_page.dart';
+import 'pages/slide_viewer_page.dart';
 
 import 'dev_tools/preview_canvas.dart';
 
@@ -118,6 +119,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Resizable Layout',
     'Table of Contents',
     'Video Player',
+    'Slide Viewer',
     'Waveform',
     'Voice Pill',
     'Markdown Renderer',
@@ -725,6 +727,8 @@ class _AppShell extends ConsumerWidget {
         return const MarkdownRendererPage();
       case '/docs/device-frame':
         return const DeviceFramePage();
+      case '/docs/slide-viewer':
+        return const SlideViewerPage();
 
       default:
         // Render a generic placeholder for other components

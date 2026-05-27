@@ -106,3 +106,4 @@ export 'src/components/markdown_renderer.dart';
 
 export 'src/components/waveform.dart';
 export 'src/components/voice_pill.dart';
+export 'src/components/slide_viewer.dart';

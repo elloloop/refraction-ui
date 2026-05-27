@@ -1,3 +1,7 @@
+## 0.20.0
+
+- **Data Components**: Add `RefractionSlideViewer`, providing a headless swipeable slide presentation component with standard web parity.
+
 ## 0.19.0
 
 - **Layout Components**: Add `RefractionDeviceFrame`, rendering standard device mockup outlines (iPhone, iPad, Android) powered by `RefractionTheme` styling tokens.
