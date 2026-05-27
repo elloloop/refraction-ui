@@ -1,3 +1,7 @@
+## 0.6.0
+
+- **Layout Components**: Add `RefractionCollapsible` leveraging `SizeTransition` for fluid expand/collapse animations and comprehensive state tests.
+
 ## 0.5.0
 
 - **Layout Components**: Add `RefractionCarousel` built on top of `PageView` with >100 comprehensive gesture tests and full theme propagation.

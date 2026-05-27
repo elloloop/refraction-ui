@@ -72,6 +72,7 @@ export 'src/components/breadcrumbs.dart';
 export 'src/components/footer.dart';
 export 'src/components/skeleton.dart';
 export 'src/components/carousel.dart';
+export 'src/components/collapsible.dart';
 export 'src/telemetry/telemetry.dart';
 
 // Analytics — headless Segment-spec collector/router (1:1 port of

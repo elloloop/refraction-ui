@@ -24,6 +24,7 @@ import 'pages/rich_editor_page.dart';
 import 'pages/location_selector_page.dart';
 import 'pages/language_selector_page.dart';
 import 'pages/data_table_page.dart';
+import 'pages/collapsible_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -70,6 +71,7 @@ class RefractionDemoApp extends ConsumerWidget {
 
   final List<String> components = const [
     'Accordion',
+    'Collapsible',
     'Menus',
     'Command Menu',
     'Command Input',
@@ -346,6 +348,8 @@ class _AppShell extends ConsumerWidget {
     switch (route) {
       case '/docs/accordion':
         return const AccordionPage();
+      case '/docs/collapsible':
+        return const CollapsiblePage();
       case '/docs/menus':
         return const MenusPage();
       case '/docs/command-menu':
