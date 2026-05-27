@@ -26,6 +26,7 @@ import 'pages/language_selector_page.dart';
 import 'pages/data_table_page.dart';
 import 'pages/collapsible_page.dart';
 import 'pages/file_tree_page.dart';
+import 'pages/pagination_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -99,6 +100,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Toasts',
     'Data Table',
     'File Tree',
+    'Pagination',
   ];
 
   @override
@@ -386,6 +388,8 @@ class _AppShell extends ConsumerWidget {
         return const DataTablePage();
       case '/docs/file-tree':
         return const FileTreePage();
+      case '/docs/pagination':
+        return const PaginationPage();
       case '/docs/pregnancy-tracker':
         return const PreviewCanvas(
           title: "Pregnancy Tracker Layout",

@@ -1,3 +1,7 @@
+## 0.8.0
+
+- **Navigation Components**: Add `RefractionPagination` featuring exhaustive logical ellipses boundaries and exact algorithmic match for shadcn/MUI style arrays.
+
 ## 0.7.0
 
 - **Data Components**: Add `RefractionFileTree` featuring recursively rendered and deeply nested files/folders with comprehensive keyboard navigation and interaction scaling tests.
