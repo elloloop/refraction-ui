@@ -1,3 +1,7 @@
+## 0.25.0
+
+- **Layout Components**: Add `RefractionSheet`, providing a headless modal side-sheet with drag-to-dismiss gestures for all four edges.
+
 ## 0.24.0
 
 - **Data Components**: Add `RefractionDropdownMenu`, providing deeply nested menus with groups, dividers, shortcuts, and disabled states.

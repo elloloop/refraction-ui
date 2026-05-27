@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'pages/app_shell_page.dart';
+import 'pages/sheet_page.dart';
 import 'package:refraction_ui/refraction_ui.dart';
 
 // Import our layouts and pages
@@ -398,6 +399,8 @@ class _AppShell extends ConsumerWidget {
         return const RadioGroupPage();
       case '/docs/progress-slider':
         return const ProgressSliderPage();
+      case '/docs/sheet':
+        return const SheetPage();
       case '/docs/alert':
         return const AlertPage();
       case '/docs/avatar':
