@@ -1,3 +1,7 @@
+## 0.11.0
+
+- **Layout Components**: Add `RefractionCardGrid` leveraging responsive algorithms and `LayoutBuilder` constraints to auto-calculate cross-axis alignments.
+
 ## 0.10.0
 
 - **Layout Components**: Add `RefractionResizableLayout` providing deeply customizable horizontal/vertical split panels with drag handles and boundary constraints.

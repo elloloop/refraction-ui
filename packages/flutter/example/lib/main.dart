@@ -21,6 +21,7 @@ import 'pages/emoji_picker_page.dart';
 import 'pages/code_editor_page.dart';
 import 'pages/inline_editor_page.dart';
 import 'pages/rich_editor_page.dart';
+import 'pages/card_grid_page.dart';
 import 'pages/location_selector_page.dart';
 import 'pages/language_selector_page.dart';
 import 'pages/data_table_page.dart';
@@ -90,6 +91,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Tabs',
     'Navbar & Navigation',
     'Cards & Layouts',
+    'Card Grid',
     'Code Editor',
     'Inline Editor',
     'Rich Editor',
@@ -379,6 +381,8 @@ class _AppShell extends ConsumerWidget {
         return const CodeEditorPage();
       case '/docs/inline-editor':
         return const InlineEditorPage();
+      case '/docs/card-grid':
+        return const CardGridPage();
       case '/docs/rich-editor':
         return const RichEditorPage();
       case '/docs/date-picker':

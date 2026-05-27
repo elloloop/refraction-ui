@@ -64,6 +64,7 @@ export 'src/components/toast.dart';
 export 'src/components/tooltip.dart';
 export 'src/components/file_upload.dart';
 export 'src/components/card.dart';
+export 'src/components/card_grid.dart';
 export 'src/components/date_picker.dart';
 export 'src/components/navbar.dart';
 export 'src/components/sidebar.dart';
