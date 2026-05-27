@@ -39,6 +39,7 @@ import 'pages/markdown_renderer_page.dart';
 import 'pages/diff_viewer_page.dart';
 import 'pages/device_frame_page.dart';
 import 'pages/slide_viewer_page.dart';
+import 'pages/charts_page.dart';
 
 import 'dev_tools/preview_canvas.dart';
 
@@ -103,6 +104,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Navbar & Navigation',
     'Cards & Layouts',
     'Card Grid',
+    'Charts',
     'Code Editor',
     'Inline Editor',
     'Rich Editor',
@@ -723,6 +725,8 @@ class _AppShell extends ConsumerWidget {
         return const VideoPlayerPage();
       case '/docs/waveform':
         return const WaveformPage();
+      case '/docs/charts':
+        return const ChartsPage();
       case '/docs/markdown-renderer':
         return const MarkdownRendererPage();
       case '/docs/device-frame':

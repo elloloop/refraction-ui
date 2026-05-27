@@ -1,3 +1,7 @@
+## 0.21.0
+
+- **Data Components**: Add `RefractionCharts`, providing headless data visualization components (`RefractionLineChart`, `RefractionBarChart`, `RefractionPieChart`) with complete theming support.
+
 ## 0.20.0
 
 - **Data Components**: Add `RefractionSlideViewer`, providing a headless swipeable slide presentation component with standard web parity.
