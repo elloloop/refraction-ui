@@ -120,3 +120,4 @@ export 'src/components/feedback_dialog.dart';
 export 'src/components/content_protection.dart';
 export 'src/components/form.dart';
 export 'src/components/payment.dart';
+export 'src/components/calendar.dart';

@@ -52,6 +52,7 @@ import 'pages/feedback_dialog_page.dart';
 import 'pages/content_protection_page.dart';
 import 'pages/form_page.dart';
 import 'pages/payment_page.dart';
+import 'pages/calendar_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -146,6 +147,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Content Protection',
     'Form',
     'Payment',
+    'Calendar',
   ];
 
   @override
@@ -459,6 +461,8 @@ class _AppShell extends ConsumerWidget {
         return const FormPage();
       case '/docs/payment':
         return const PaymentPage();
+      case '/docs/calendar':
+        return const CalendarPage();
       case '/docs/pregnancy-tracker':
         return const PreviewCanvas(
           title: "Pregnancy Tracker Layout",

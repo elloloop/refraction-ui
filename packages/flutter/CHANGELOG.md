@@ -1,3 +1,7 @@
+## 0.33.0
+
+- **Data Entry**: Add `RefractionCalendar`, a highly customizable date selection widget supporting single, multiple, and range selection modes.
+
 ## 0.32.0
 
 - **Commerce**: Add `RefractionPayment`, a wrapper component for rendering highly customizable payment summaries and order breakdowns.
