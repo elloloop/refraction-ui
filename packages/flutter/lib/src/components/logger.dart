@@ -270,10 +270,14 @@ class _FilterChip extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          color: isActive ? activeColor.withValues(alpha: 0.1) : Colors.transparent,
+          color: isActive
+              ? activeColor.withValues(alpha: 0.1)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(theme.borderRadius / 2),
           border: Border.all(
-            color: isActive ? activeColor.withValues(alpha: 0.5) : colors.border,
+            color: isActive
+                ? activeColor.withValues(alpha: 0.5)
+                : colors.border,
           ),
         ),
         child: Text(
@@ -281,7 +285,9 @@ class _FilterChip extends StatelessWidget {
           style: theme.data.textStyle.copyWith(
             fontSize: 12,
             fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
-            color: isActive ? activeColor : colors.foreground.withValues(alpha: 0.7),
+            color: isActive
+                ? activeColor
+                : colors.foreground.withValues(alpha: 0.7),
           ),
         ),
       ),

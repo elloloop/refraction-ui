@@ -35,14 +35,18 @@ void main() {
     );
   }
 
-  testWidgets('renders zero size initially and no overlay child', (WidgetTester tester) async {
+  testWidgets('renders zero size initially and no overlay child', (
+    WidgetTester tester,
+  ) async {
     final targetNode = FocusNode();
     await tester.pumpWidget(buildTestWidget(targetNode: targetNode));
 
-    final sizedBoxFinder = find.descendant(
-      of: find.byType(RefractionSkipToContent),
-      matching: find.byType(SizedBox),
-    ).first;
+    final sizedBoxFinder = find
+        .descendant(
+          of: find.byType(RefractionSkipToContent),
+          matching: find.byType(SizedBox),
+        )
+        .first;
 
     final sizedBox = tester.widget<SizedBox>(sizedBoxFinder);
     expect(sizedBox.width, 0);
@@ -63,7 +67,7 @@ void main() {
       matching: find.byType(Focus),
     );
     final FocusNode skipNode = tester.widget<Focus>(focusFinder).focusNode!;
-    
+
     skipNode.requestFocus();
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 200));
@@ -71,46 +75,55 @@ void main() {
     expect(find.text('Skip to main content'), findsOneWidget);
   });
 
-  testWidgets('calls onSkip and focuses targetNode when activated via keyboard', (WidgetTester tester) async {
+  testWidgets(
+    'calls onSkip and focuses targetNode when activated via keyboard',
+    (WidgetTester tester) async {
+      final targetNode = FocusNode();
+      bool onSkipCalled = false;
+
+      await tester.pumpWidget(
+        buildTestWidget(
+          targetNode: targetNode,
+          onSkip: () {
+            onSkipCalled = true;
+          },
+        ),
+      );
+
+      final focusFinder = find.descendant(
+        of: find.byType(RefractionSkipToContent),
+        matching: find.byType(Focus),
+      );
+      final FocusNode skipNode = tester.widget<Focus>(focusFinder).focusNode!;
+
+      skipNode.requestFocus();
+      await tester.pumpAndSettle();
+
+      expect(skipNode.hasFocus, isTrue);
+      expect(targetNode.hasFocus, isFalse);
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+      await tester.pumpAndSettle();
+
+      expect(onSkipCalled, isTrue);
+      expect(targetNode.hasFocus, isTrue);
+    },
+  );
+
+  testWidgets('calls onSkip and focuses targetNode when tapped', (
+    WidgetTester tester,
+  ) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
 
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      onSkip: () {
-        onSkipCalled = true;
-      },
-    ));
-
-    final focusFinder = find.descendant(
-      of: find.byType(RefractionSkipToContent),
-      matching: find.byType(Focus),
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        onSkip: () {
+          onSkipCalled = true;
+        },
+      ),
     );
-    final FocusNode skipNode = tester.widget<Focus>(focusFinder).focusNode!;
-    
-    skipNode.requestFocus();
-    await tester.pumpAndSettle();
-
-    expect(skipNode.hasFocus, isTrue);
-    expect(targetNode.hasFocus, isFalse);
-
-    await tester.sendKeyEvent(LogicalKeyboardKey.enter);
-    await tester.pumpAndSettle();
-
-    expect(onSkipCalled, isTrue);
-    expect(targetNode.hasFocus, isTrue);
-  });
-
-  testWidgets('calls onSkip and focuses targetNode when tapped', (WidgetTester tester) async {
-    final targetNode = FocusNode();
-    bool onSkipCalled = false;
-
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      onSkip: () {
-        onSkipCalled = true;
-      },
-    ));
 
     final focusFinder = find.descendant(
       of: find.byType(RefractionSkipToContent),
@@ -129,10 +142,9 @@ void main() {
 
   testWidgets('uses custom label', (WidgetTester tester) async {
     final targetNode = FocusNode();
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Jump to main',
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(targetNode: targetNode, label: 'Jump to main'),
+    );
 
     final focusFinder = find.descendant(
       of: find.byType(RefractionSkipToContent),
@@ -149,10 +161,9 @@ void main() {
   testWidgets('applies theming correctly', (WidgetTester tester) async {
     final targetNode = FocusNode();
     final themeData = RefractionThemeData.light();
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      themeData: themeData,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(targetNode: targetNode, themeData: themeData),
+    );
 
     final focusFinder = find.descendant(
       of: find.byType(RefractionSkipToContent),
@@ -163,18 +174,23 @@ void main() {
     await tester.pumpAndSettle();
 
     final container = tester.widget<Container>(
-      find.ancestor(
-        of: find.text('Skip to main content'),
-        matching: find.byType(Container),
-      ).first,
+      find
+          .ancestor(
+            of: find.text('Skip to main content'),
+            matching: find.byType(Container),
+          )
+          .first,
     );
 
     final decoration = container.decoration as BoxDecoration;
     expect(decoration.color, themeData.colors.background);
-    
+
     final border = decoration.border as Border;
     expect(border.top.color, themeData.colors.border);
-    expect(decoration.borderRadius, BorderRadius.circular(themeData.borderRadius));
+    expect(
+      decoration.borderRadius,
+      BorderRadius.circular(themeData.borderRadius),
+    );
   });
 
   testWidgets('has correct semantics', (WidgetTester tester) async {
@@ -189,10 +205,12 @@ void main() {
     skipNode.requestFocus();
     await tester.pumpAndSettle();
 
-    final semanticsFinder = find.ancestor(
-      of: find.text('Skip to main content'),
-      matching: find.byType(Semantics),
-    ).first;
+    final semanticsFinder = find
+        .ancestor(
+          of: find.text('Skip to main content'),
+          matching: find.byType(Semantics),
+        )
+        .first;
 
     final semantics = tester.widget<Semantics>(semanticsFinder);
     expect(semantics.properties.button, isTrue);
@@ -209,7 +227,7 @@ void main() {
       matching: find.byType(Focus),
     );
     final FocusNode skipNode = tester.widget<Focus>(focusFinder).focusNode!;
-    
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
     expect(find.text('Skip to main content'), findsOneWidget);
@@ -221,1134 +239,1302 @@ void main() {
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });
   testWidgets('stress test iteration 1', (WidgetTester tester) async {
     final targetNode = FocusNode();
     bool onSkipCalled = false;
-    await tester.pumpWidget(buildTestWidget(
-      targetNode: targetNode,
-      label: 'Skip iteration 1',
-      onSkip: () => onSkipCalled = true,
-    ));
+    await tester.pumpWidget(
+      buildTestWidget(
+        targetNode: targetNode,
+        label: 'Skip iteration 1',
+        onSkip: () => onSkipCalled = true,
+      ),
+    );
 
-    final skipNode = tester.widget<Focus>(
-      find.descendant(
-        of: find.byType(RefractionSkipToContent),
-        matching: find.byType(Focus),
-      )
-    ).focusNode!;
-    
+    final skipNode = tester
+        .widget<Focus>(
+          find.descendant(
+            of: find.byType(RefractionSkipToContent),
+            matching: find.byType(Focus),
+          ),
+        )
+        .focusNode!;
+
     skipNode.requestFocus();
     await tester.pumpAndSettle();
-    
+
     expect(find.text('Skip iteration 1'), findsOneWidget);
-    
+
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    
+
     expect(onSkipCalled, isTrue);
     expect(targetNode.hasFocus, isTrue);
   });

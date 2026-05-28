@@ -67,7 +67,7 @@ class _RefractionAnimatedTextState extends State<RefractionAnimatedText>
       _controller.forward(from: 0.0);
     } else if (widget.type != oldWidget.type) {
       if (!_controller.isAnimating && !_controller.isCompleted) {
-         _controller.forward();
+        _controller.forward();
       }
     }
   }

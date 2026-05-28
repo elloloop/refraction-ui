@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import '../theme/refraction_theme.dart';
 
 enum SlideType { lesson, quiz, exercise, intro, summary }
+
 enum BookmarkType { important, difficult, toRevise }
 
 class SlideData {
@@ -22,9 +23,10 @@ class RefractionSlideViewer extends StatefulWidget {
   final int initialSlide;
   final ValueChanged<int>? onSlideChange;
   final VoidCallback? onComplete;
-  
+
   /// Custom renderer for slide content.
-  final Widget Function(BuildContext context, SlideData slide, int index)? renderSlide;
+  final Widget Function(BuildContext context, SlideData slide, int index)?
+  renderSlide;
 
   const RefractionSlideViewer({
     super.key,
@@ -71,7 +73,7 @@ class _RefractionSlideViewerState extends State<RefractionSlideViewer> {
       _currentSlide = 0;
       return;
     }
-    if (oldWidget.initialSlide != widget.initialSlide && 
+    if (oldWidget.initialSlide != widget.initialSlide &&
         widget.initialSlide != _currentSlide) {
       _currentSlide = widget.initialSlide.clamp(0, widget.slides.length - 1);
       _controller.jumpToPage(_currentSlide);
@@ -125,7 +127,7 @@ class _RefractionSlideViewerState extends State<RefractionSlideViewer> {
   Widget _buildTypeBadge(SlideType type, RefractionTheme theme) {
     Color bgColor;
     Color textColor;
-    
+
     switch (type) {
       case SlideType.lesson:
         bgColor = Colors.blue.shade100;
@@ -204,121 +206,139 @@ class _RefractionSlideViewerState extends State<RefractionSlideViewer> {
           ),
           clipBehavior: Clip.antiAlias,
           child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Progress Bar
-            LayoutBuilder(
-              builder: (context, constraints) {
-                return Container(
-                  height: 4,
-                  color: theme.colors.muted,
-                  alignment: Alignment.centerLeft,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    width: constraints.maxWidth * _progress,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Progress Bar
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  return Container(
                     height: 4,
-                    color: theme.colors.primary,
-                  ),
-                );
-              },
-            ),
-            
-            // Header
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: theme.colors.border)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      _buildTypeBadge(currentSlideData.type, theme),
-                      const SizedBox(width: 8),
-                      Text(
-                        '${_currentSlide + 1} / ${widget.slides.length}',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: theme.colors.mutedForeground,
-                        ),
-                      ),
-                    ],
-                  ),
-                  InkWell(
-                    onTap: () => _toggleBookmark(BookmarkType.important),
-                    borderRadius: BorderRadius.circular(4),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: isBookmarked ? Colors.amber.shade100 : Colors.transparent,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        isBookmarked ? 'Bookmarked' : 'Bookmark',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: isBookmarked ? Colors.amber.shade900 : theme.colors.mutedForeground,
-                        ),
-                      ),
+                    color: theme.colors.muted,
+                    alignment: Alignment.centerLeft,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      width: constraints.maxWidth * _progress,
+                      height: 4,
+                      color: theme.colors.primary,
                     ),
-                  ),
-                ],
-              ),
-            ),
-            
-            // Content
-            Expanded(
-              child: PageView.builder(
-                controller: _controller,
-                onPageChanged: _onPageChanged,
-                itemCount: widget.slides.length,
-                itemBuilder: (context, index) {
-                  final slide = widget.slides[index];
-                  if (widget.renderSlide != null) {
-                    return widget.renderSlide!(context, slide, index);
-                  }
-                  return Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Text(slide.content),
                   );
                 },
               ),
-            ),
-            
-            // Footer Navigation
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                border: Border(top: BorderSide(color: theme.colors.border)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                    onPressed: _currentSlide == 0 ? null : _prev,
-                    style: TextButton.styleFrom(
-                      foregroundColor: theme.colors.foreground,
-                      disabledForegroundColor: theme.colors.mutedForeground,
-                    ),
-                    child: const Text('Previous'),
+
+              // Header
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: theme.colors.border),
                   ),
-                  ElevatedButton(
-                    onPressed: _next,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: theme.colors.primary,
-                      foregroundColor: theme.colors.primaryForeground,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        _buildTypeBadge(currentSlideData.type, theme),
+                        const SizedBox(width: 8),
+                        Text(
+                          '${_currentSlide + 1} / ${widget.slides.length}',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: theme.colors.mutedForeground,
+                          ),
+                        ),
+                      ],
                     ),
-                    child: Text(
-                      _currentSlide == widget.slides.length - 1 ? 'Complete' : 'Next',
+                    InkWell(
+                      onTap: () => _toggleBookmark(BookmarkType.important),
+                      borderRadius: BorderRadius.circular(4),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: isBookmarked
+                              ? Colors.amber.shade100
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          isBookmarked ? 'Bookmarked' : 'Bookmark',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: isBookmarked
+                                ? Colors.amber.shade900
+                                : theme.colors.mutedForeground,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+
+              // Content
+              Expanded(
+                child: PageView.builder(
+                  controller: _controller,
+                  onPageChanged: _onPageChanged,
+                  itemCount: widget.slides.length,
+                  itemBuilder: (context, index) {
+                    final slide = widget.slides[index];
+                    if (widget.renderSlide != null) {
+                      return widget.renderSlide!(context, slide, index);
+                    }
+                    return Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Text(slide.content),
+                    );
+                  },
+                ),
+              ),
+
+              // Footer Navigation
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                decoration: BoxDecoration(
+                  border: Border(top: BorderSide(color: theme.colors.border)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      onPressed: _currentSlide == 0 ? null : _prev,
+                      style: TextButton.styleFrom(
+                        foregroundColor: theme.colors.foreground,
+                        disabledForegroundColor: theme.colors.mutedForeground,
+                      ),
+                      child: const Text('Previous'),
+                    ),
+                    ElevatedButton(
+                      onPressed: _next,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.colors.primary,
+                        foregroundColor: theme.colors.primaryForeground,
+                      ),
+                      child: Text(
+                        _currentSlide == widget.slides.length - 1
+                            ? 'Complete'
+                            : 'Next',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }

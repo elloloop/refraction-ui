@@ -7,21 +7,16 @@
 /// tokens (see [RefractionColors]) and a single [RefractionThemeData] so an
 /// app-wide visual change is one line. See [RefractionThemeExtension] for
 /// the convenience [BuildContext] getters used throughout the docs.
-///
 /// Live demo of the Flutter primitives:
 /// <https://elloloop.github.io/refraction-ui/flutter/>
-///
 /// ## Getting started
-///
 /// Wrap your app in a [RefractionTheme] near the root and pass a
 /// [RefractionThemeData] — every Refraction widget below it picks up the
 /// active palette via the [RefractionThemeExtension] getters on
 /// [BuildContext].
-///
 /// ```dart
 /// import 'package:flutter/material.dart';
 /// import 'package:refraction_ui/refraction_ui.dart';
-///
 /// void main() {
 ///   runApp(
 ///     RefractionTheme(
@@ -31,7 +26,6 @@
 ///   );
 /// }
 /// ```
-///
 /// Switch palettes by swapping the factory — for example
 /// `RefractionThemeData.fintechDark()` or `RefractionThemeData.wellnessLight()`.
 library;
@@ -42,11 +36,9 @@ export 'src/theme/refraction_theme_data.dart';
 export 'src/components/accordion.dart';
 export 'src/components/diff_viewer.dart';
 export 'src/components/dropdown_menu.dart';
-export 'src/components/command_menu.dart';
+export 'src/components/command_menu.dart'
+    hide RefractionCommandItem, RefractionCommandGroup;
 export 'src/components/radio_group.dart';
-export 'src/components/progress_slider.dart';
-export 'src/components/alert.dart';
-export 'src/components/callout.dart';
 export 'src/components/avatar.dart';
 export 'src/components/badge.dart';
 export 'src/components/button.dart';
@@ -55,6 +47,8 @@ export 'src/components/chat_input.dart';
 export 'src/components/dialog.dart';
 export 'src/components/install_prompt.dart';
 export 'src/components/input.dart';
+export 'src/components/textarea.dart';
+
 export 'src/components/input_group.dart';
 export 'src/components/search_bar.dart';
 export 'src/components/otp_input.dart';
@@ -79,7 +73,6 @@ export 'src/components/skeleton.dart';
 export 'src/components/carousel.dart';
 export 'src/components/collapsible.dart';
 export 'src/telemetry/telemetry.dart';
-
 // Analytics — headless Segment-spec collector/router (1:1 port of
 // @refraction-ui/analytics). Uniform API/structure across web/Android/iOS/
 // desktop; platform differences are internal behind conditional imports.
@@ -108,15 +101,11 @@ export 'src/components/markdown_renderer.dart';
 export 'src/components/animated_text.dart';
 export 'src/components/slide_viewer.dart';
 export 'src/components/charts.dart';
-
-
 export 'src/components/waveform.dart';
-export 'src/components/feedback_dialog.dart';
 export 'src/components/voice_pill.dart';
 export 'src/components/reaction_bar.dart';
 export 'src/components/sheet.dart';
 export 'src/components/cookie_consent.dart';
-export 'src/components/feedback_dialog.dart';
 export 'src/components/content_protection.dart';
 export 'src/components/form.dart';
 export 'src/components/payment.dart';
@@ -129,3 +118,12 @@ export 'src/components/keyboard_shortcut.dart';
 export 'src/components/logger.dart';
 export 'src/components/version_selector.dart';
 export 'src/components/skip_to_content.dart';
+
+export 'src/components/command.dart';
+export 'src/components/code_block.dart';
+export 'src/components/avatar_group.dart';
+export 'src/components/combobox.dart';
+export 'src/components/link_card.dart';
+export 'src/components/progress_display.dart';
+export 'src/components/radio.dart';
+export 'src/components/slider.dart';

@@ -13,7 +13,9 @@ void main() {
   }
 
   group('RefractionAnimatedText Widget Tests', () {
-    testWidgets('Renders with fade animation by default', (WidgetTester tester) async {
+    testWidgets('Renders with fade animation by default', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         buildApp(const RefractionAnimatedText(text: 'Hello Fade')),
       );
@@ -21,7 +23,10 @@ void main() {
       final textFinder = find.text('Hello Fade');
       expect(textFinder, findsOneWidget);
 
-      final opacityFinder = find.ancestor(of: textFinder, matching: find.byType(Opacity));
+      final opacityFinder = find.ancestor(
+        of: textFinder,
+        matching: find.byType(Opacity),
+      );
       expect(opacityFinder, findsOneWidget);
 
       await tester.pumpAndSettle();
@@ -29,7 +34,9 @@ void main() {
       expect(opacityWidget.opacity, 1.0);
     });
 
-    testWidgets('Fade animation interpolates opacity', (WidgetTester tester) async {
+    testWidgets('Fade animation interpolates opacity', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         buildApp(
           const RefractionAnimatedText(
@@ -54,7 +61,9 @@ void main() {
       expect(opacityWidget.opacity, 1.0);
     });
 
-    testWidgets('Typewriter animation types out text', (WidgetTester tester) async {
+    testWidgets('Typewriter animation types out text', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         buildApp(
           const RefractionAnimatedText(
@@ -77,7 +86,9 @@ void main() {
       expect(find.text('Typewriter Test'), findsOneWidget);
     });
 
-    testWidgets('Slide up animation interpolates translation and opacity', (WidgetTester tester) async {
+    testWidgets('Slide up animation interpolates translation and opacity', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         buildApp(
           const RefractionAnimatedText(
@@ -89,27 +100,39 @@ void main() {
       );
 
       final animatedTextFinder = find.byType(RefractionAnimatedText);
-      final fractionalTranslationFinder = find.descendant(of: animatedTextFinder, matching: find.byType(FractionalTranslation));
-      var translationWidget = tester.widget<FractionalTranslation>(fractionalTranslationFinder.first);
+      final fractionalTranslationFinder = find.descendant(
+        of: animatedTextFinder,
+        matching: find.byType(FractionalTranslation),
+      );
+      var translationWidget = tester.widget<FractionalTranslation>(
+        fractionalTranslationFinder.first,
+      );
       expect(translationWidget.translation.dy, 0.5);
 
-      final opacityFinder = find.descendant(of: animatedTextFinder, matching: find.byType(Opacity));
+      final opacityFinder = find.descendant(
+        of: animatedTextFinder,
+        matching: find.byType(Opacity),
+      );
       var opacityWidget = tester.widget<Opacity>(opacityFinder.first);
       expect(opacityWidget.opacity, 0.0);
 
       await tester.pump(const Duration(milliseconds: 50));
-      translationWidget = tester.widget<FractionalTranslation>(fractionalTranslationFinder.first);
+      translationWidget = tester.widget<FractionalTranslation>(
+        fractionalTranslationFinder.first,
+      );
       opacityWidget = tester.widget<Opacity>(opacityFinder.first);
-      
+
       expect(translationWidget.translation.dy, lessThan(0.5));
       expect(translationWidget.translation.dy, greaterThan(0.0));
       expect(opacityWidget.opacity, greaterThan(0.0));
       expect(opacityWidget.opacity, lessThan(1.0));
 
       await tester.pumpAndSettle();
-      translationWidget = tester.widget<FractionalTranslation>(fractionalTranslationFinder.first);
+      translationWidget = tester.widget<FractionalTranslation>(
+        fractionalTranslationFinder.first,
+      );
       opacityWidget = tester.widget<Opacity>(opacityFinder.first);
-      
+
       expect(translationWidget.translation.dy, 0.0);
       expect(opacityWidget.opacity, 1.0);
     });
@@ -137,10 +160,7 @@ void main() {
       const customStyle = TextStyle(fontSize: 42, color: Colors.red);
       await tester.pumpWidget(
         buildApp(
-          const RefractionAnimatedText(
-            text: 'Style Test',
-            style: customStyle,
-          ),
+          const RefractionAnimatedText(text: 'Style Test', style: customStyle),
         ),
       );
 
@@ -149,25 +169,27 @@ void main() {
       expect(textWidget.style, customStyle);
     });
 
-    testWidgets('Uses theme default text style if none provided', (WidgetTester tester) async {
+    testWidgets('Uses theme default text style if none provided', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
-        buildApp(
-          const RefractionAnimatedText(
-            text: 'Theme Style Test',
-          ),
-        ),
+        buildApp(const RefractionAnimatedText(text: 'Theme Style Test')),
       );
 
       await tester.pumpAndSettle();
       final textWidget = tester.widget<Text>(find.text('Theme Style Test'));
-      
-      final BuildContext context = tester.element(find.text('Theme Style Test'));
+
+      final BuildContext context = tester.element(
+        find.text('Theme Style Test'),
+      );
       final theme = RefractionTheme.of(context).data;
 
       expect(textWidget.style, theme.textStyle);
     });
 
-    testWidgets('Updates animation duration if changed in didUpdateWidget', (WidgetTester tester) async {
+    testWidgets('Updates animation duration if changed in didUpdateWidget', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         buildApp(
           const RefractionAnimatedText(
@@ -191,7 +213,9 @@ void main() {
       expect(find.text('Update Duration'), findsOneWidget);
     });
 
-    testWidgets('Restarts animation if text changes in didUpdateWidget', (WidgetTester tester) async {
+    testWidgets('Restarts animation if text changes in didUpdateWidget', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         buildApp(
           const RefractionAnimatedText(
@@ -220,7 +244,9 @@ void main() {
       expect(opacityWidget.opacity, 1.0);
     });
 
-    testWidgets('Restarts animation if type changes in didUpdateWidget', (WidgetTester tester) async {
+    testWidgets('Restarts animation if type changes in didUpdateWidget', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         buildApp(
           const RefractionAnimatedText(
@@ -244,7 +270,7 @@ void main() {
 
       // Verify it transitions to typing out
       await tester.pump(const Duration(milliseconds: 10));
-      
+
       await tester.pumpAndSettle();
       expect(find.text('Change Type'), findsOneWidget);
     });
@@ -272,16 +298,18 @@ void main() {
         expect(finished, false);
         await tester.pumpAndSettle();
         expect(finished, true);
-        
+
         // Assert text widget exists
         if (type == RefractionTextAnimationType.typewriter) {
-           expect(find.text(textSample), findsOneWidget);
+          expect(find.text(textSample), findsOneWidget);
         } else {
-           expect(find.text(textSample), findsOneWidget);
+          expect(find.text(textSample), findsOneWidget);
         }
       });
 
-      testWidgets('Type ${type.name} unmount mid-animation safely', (WidgetTester tester) async {
+      testWidgets('Type ${type.name} unmount mid-animation safely', (
+        WidgetTester tester,
+      ) async {
         await tester.pumpWidget(
           buildApp(
             RefractionAnimatedText(
@@ -298,7 +326,9 @@ void main() {
       });
     }
 
-    testWidgets('Typewriter edge cases: empty text', (WidgetTester tester) async {
+    testWidgets('Typewriter edge cases: empty text', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         buildApp(
           const RefractionAnimatedText(
@@ -311,7 +341,9 @@ void main() {
       expect(find.text(''), findsOneWidget);
     });
 
-    testWidgets('Typewriter edge cases: single char', (WidgetTester tester) async {
+    testWidgets('Typewriter edge cases: single char', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         buildApp(
           const RefractionAnimatedText(
@@ -323,8 +355,10 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('A'), findsOneWidget);
     });
-    
-    testWidgets('Typewriter length increment verification', (WidgetTester tester) async {
+
+    testWidgets('Typewriter length increment verification', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         buildApp(
           const RefractionAnimatedText(
@@ -334,14 +368,14 @@ void main() {
           ),
         ),
       );
-      
+
       expect(find.text(''), findsOneWidget);
       await tester.pump(const Duration(milliseconds: 60));
       // Curve is easeOut, so it might not be exactly half
       final textWidget = tester.widget<Text>(find.byType(Text).last);
       expect(textWidget.data!.length, greaterThan(0));
       expect(textWidget.data!.length, lessThan(12));
-      
+
       await tester.pumpAndSettle();
       expect(find.text('Hello World!'), findsOneWidget);
     });
@@ -349,7 +383,9 @@ void main() {
 
   // Additional attribute tests
   group('RefractionAnimatedText Component Props Check', () {
-    testWidgets('Zero duration works without error', (WidgetTester tester) async {
+    testWidgets('Zero duration works without error', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         buildApp(
           const RefractionAnimatedText(
@@ -363,7 +399,9 @@ void main() {
       expect(text.data, 'Zero Duration');
     });
 
-    testWidgets('Very long text works without layout errors', (WidgetTester tester) async {
+    testWidgets('Very long text works without layout errors', (
+      WidgetTester tester,
+    ) async {
       final longText = 'A' * 1000;
       await tester.pumpWidget(
         buildApp(
@@ -376,8 +414,10 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text(longText), findsOneWidget);
     });
-    
-    testWidgets('Widget keys preserve state on identical swaps', (WidgetTester tester) async {
+
+    testWidgets('Widget keys preserve state on identical swaps', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         buildApp(
           const RefractionAnimatedText(
@@ -388,7 +428,7 @@ void main() {
         ),
       );
       await tester.pump(const Duration(milliseconds: 50));
-      
+
       await tester.pumpWidget(
         buildApp(
           const RefractionAnimatedText(
@@ -402,11 +442,13 @@ void main() {
       var opacityWidget = tester.widget<Opacity>(opacityFinder.first);
       expect(opacityWidget.opacity, greaterThan(0.0));
       expect(opacityWidget.opacity, lessThan(1.0));
-      
+
       await tester.pumpAndSettle();
     });
 
-    testWidgets('didUpdateWidget coverage: text update correctly resets', (WidgetTester tester) async {
+    testWidgets('didUpdateWidget coverage: text update correctly resets', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         buildApp(
           const RefractionAnimatedText(
@@ -416,7 +458,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      
+
       await tester.pumpWidget(
         buildApp(
           const RefractionAnimatedText(
@@ -428,35 +470,45 @@ void main() {
       final opacityFinder = find.byType(Opacity);
       var opacityWidget = tester.widget<Opacity>(opacityFinder.first);
       expect(opacityWidget.opacity, 0.0);
-      
+
       await tester.pumpAndSettle();
     });
   });
 
   group('RefractionAnimatedText Matrix Tests', () {
     // Generate an exhaustive matrix of tests for rigorous testing (>50 test cases)
-    final styles = [null, const TextStyle(fontSize: 10), const TextStyle(color: Colors.blue)];
-    final durations = [const Duration(milliseconds: 10), const Duration(milliseconds: 50)];
+    final styles = [
+      null,
+      const TextStyle(fontSize: 10),
+      const TextStyle(color: Colors.blue),
+    ];
+    final durations = [
+      const Duration(milliseconds: 10),
+      const Duration(milliseconds: 50),
+    ];
     final textSamples = ['A', 'Longer Text Sample'];
 
     for (var type in RefractionTextAnimationType.values) {
       for (var style in styles) {
         for (var duration in durations) {
           for (var text in textSamples) {
-            testWidgets('Matrix: $type - style:${style?.fontSize} - dur:${duration.inMilliseconds}ms - text:$text', (WidgetTester tester) async {
-              await tester.pumpWidget(
-                buildApp(
-                  RefractionAnimatedText(
-                    text: text,
-                    type: type,
-                    duration: duration,
-                    style: style,
+            testWidgets(
+              'Matrix: $type - style:${style?.fontSize} - dur:${duration.inMilliseconds}ms - text:$text',
+              (WidgetTester tester) async {
+                await tester.pumpWidget(
+                  buildApp(
+                    RefractionAnimatedText(
+                      text: text,
+                      type: type,
+                      duration: duration,
+                      style: style,
+                    ),
                   ),
-                ),
-              );
-              await tester.pumpAndSettle();
-              expect(find.text(text), findsOneWidget);
-            });
+                );
+                await tester.pumpAndSettle();
+                expect(find.text(text), findsOneWidget);
+              },
+            );
           }
         }
       }

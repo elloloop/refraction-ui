@@ -78,12 +78,15 @@ class CookieConsentController extends ValueNotifier<CookieConsentState> {
     Map<String, bool>? initialPreferences,
     bool initialConsented = false,
     bool initialOpen = true,
-  }) : super(CookieConsentState(
-          consented: initialConsented,
-          open: initialConsented ? false : initialOpen,
-          preferences: initialPreferences ?? _baseline(categories ?? defaultCategories),
-          categories: categories ?? defaultCategories,
-        ));
+  }) : super(
+         CookieConsentState(
+           consented: initialConsented,
+           open: initialConsented ? false : initialOpen,
+           preferences:
+               initialPreferences ?? _baseline(categories ?? defaultCategories),
+           categories: categories ?? defaultCategories,
+         ),
+       );
 
   static Map<String, bool> _baseline(List<CookieCategory> categories) {
     final prefs = <String, bool>{};
@@ -106,21 +109,21 @@ class CookieConsentController extends ValueNotifier<CookieConsentState> {
   }
 
   void savePreferences(Map<String, bool> prefs) {
-    final merged = Map<String, bool>.from(_baseline(value.categories))..addAll(prefs);
+    final merged = Map<String, bool>.from(_baseline(value.categories))
+      ..addAll(prefs);
     for (final cat in value.categories) {
       if (cat.required) {
         merged[cat.id] = true;
       }
     }
-    value = value.copyWith(
-      preferences: merged,
-      consented: true,
-      open: false,
-    );
+    value = value.copyWith(preferences: merged, consented: true, open: false);
   }
 
   void setPreference(String id, bool val) {
-    final cat = value.categories.firstWhere((c) => c.id == id, orElse: () => const CookieCategory(id: '', label: ''));
+    final cat = value.categories.firstWhere(
+      (c) => c.id == id,
+      orElse: () => const CookieCategory(id: '', label: ''),
+    );
     if (cat.id.isEmpty || cat.required) return;
 
     final newPrefs = Map<String, bool>.from(value.preferences);
@@ -151,7 +154,7 @@ class CookieConsentController extends ValueNotifier<CookieConsentState> {
 enum RefractionCookieConsentPosition { bottom, top }
 
 /// A battery-included cookie consent banner/dialog.
-/// 
+///
 /// Renders a responsive prompt to collect cookie consent preferences.
 /// Powered by [CookieConsentController]. Can be placed in a `Stack`,
 /// or will naturally size itself within a flex container.
@@ -169,14 +172,16 @@ class RefractionCookieConsent extends StatefulWidget {
     required this.controller,
     this.position = RefractionCookieConsentPosition.bottom,
     this.title = 'We use cookies',
-    this.description = 'We use cookies to run the site, remember your preferences, and measure traffic. Choose which to allow.',
+    this.description =
+        'We use cookies to run the site, remember your preferences, and measure traffic. Choose which to allow.',
     this.policyUrl,
     this.policyLabel = 'Cookie policy',
     this.onPolicyTap,
   });
 
   @override
-  State<RefractionCookieConsent> createState() => _RefractionCookieConsentState();
+  State<RefractionCookieConsent> createState() =>
+      _RefractionCookieConsentState();
 }
 
 class _RefractionCookieConsentState extends State<RefractionCookieConsent> {
@@ -190,7 +195,7 @@ class _RefractionCookieConsentState extends State<RefractionCookieConsent> {
         if (!state.open) return const SizedBox.shrink();
 
         final theme = RefractionTheme.of(context);
-        
+
         final view = _settingsOpen
             ? _buildSettingsView(context, state, theme)
             : _buildResponsivePrompt(context, state, theme);
@@ -220,9 +225,7 @@ class _RefractionCookieConsentState extends State<RefractionCookieConsent> {
                       ],
                     ),
                     clipBehavior: Clip.antiAlias,
-                    child: SingleChildScrollView(
-                      child: view,
-                    ),
+                    child: SingleChildScrollView(child: view),
                   ),
                 ),
               ),
@@ -241,9 +244,7 @@ class _RefractionCookieConsentState extends State<RefractionCookieConsent> {
         color: theme.colors.accent,
         shape: BoxShape.circle,
       ),
-      child: const Center(
-        child: Text('🍪', style: TextStyle(fontSize: 20)),
-      ),
+      child: const Center(child: Text('🍪', style: TextStyle(fontSize: 20))),
     );
   }
 
@@ -327,7 +328,11 @@ class _RefractionCookieConsentState extends State<RefractionCookieConsent> {
     );
   }
 
-  Widget _buildResponsivePrompt(BuildContext context, CookieConsentState state, RefractionTheme theme) {
+  Widget _buildResponsivePrompt(
+    BuildContext context,
+    CookieConsentState state,
+    RefractionTheme theme,
+  ) {
     final policy = widget.policyUrl != null || widget.onPolicyTap != null
         ? GestureDetector(
             onTap: widget.onPolicyTap,
@@ -343,51 +348,57 @@ class _RefractionCookieConsentState extends State<RefractionCookieConsent> {
           )
         : null;
 
-    return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth > 600) {
-        // Desktop Row layout
-        return Padding(
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _buildIcon(theme),
-              const SizedBox(width: 16),
-              Expanded(child: _buildText(theme, policy)),
-              const SizedBox(width: 16),
-              _buildPromptButtons(theme, isMobile: false),
-            ],
-          ),
-        );
-      } else {
-        // Mobile Column layout
-        return Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildIcon(theme),
-                  const SizedBox(width: 16),
-                  Expanded(child: _buildText(theme, policy)),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Align(
-                alignment: Alignment.centerRight,
-                child: _buildPromptButtons(theme, isMobile: true),
-              ),
-            ],
-          ),
-        );
-      }
-    });
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth > 600) {
+          // Desktop Row layout
+          return Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _buildIcon(theme),
+                const SizedBox(width: 16),
+                Expanded(child: _buildText(theme, policy)),
+                const SizedBox(width: 16),
+                _buildPromptButtons(theme, isMobile: false),
+              ],
+            ),
+          );
+        } else {
+          // Mobile Column layout
+          return Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildIcon(theme),
+                    const SizedBox(width: 16),
+                    Expanded(child: _buildText(theme, policy)),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: _buildPromptButtons(theme, isMobile: true),
+                ),
+              ],
+            ),
+          );
+        }
+      },
+    );
   }
 
-  Widget _buildSettingsView(BuildContext context, CookieConsentState state, RefractionTheme theme) {
+  Widget _buildSettingsView(
+    BuildContext context,
+    CookieConsentState state,
+    RefractionTheme theme,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -463,7 +474,10 @@ class _RefractionCookieConsentState extends State<RefractionCookieConsent> {
                     const SizedBox(width: 16),
                     cat.required
                         ? Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               color: theme.colors.muted,
                               borderRadius: BorderRadius.circular(999),
@@ -479,7 +493,8 @@ class _RefractionCookieConsentState extends State<RefractionCookieConsent> {
                           )
                         : RefractionSwitch(
                             value: isChecked,
-                            onChanged: (val) => widget.controller.setPreference(cat.id, val),
+                            onChanged: (val) =>
+                                widget.controller.setPreference(cat.id, val),
                           ),
                   ],
                 ),
@@ -504,7 +519,8 @@ class _RefractionCookieConsentState extends State<RefractionCookieConsent> {
                 const SizedBox(width: 8),
                 RefractionButton(
                   variant: RefractionButtonVariant.primary,
-                  onPressed: () => widget.controller.savePreferences(state.preferences),
+                  onPressed: () =>
+                      widget.controller.savePreferences(state.preferences),
                   child: const Text('Save preferences'),
                 ),
               ];
@@ -527,7 +543,9 @@ class _RefractionCookieConsentState extends State<RefractionCookieConsent> {
                         Expanded(
                           child: RefractionButton(
                             variant: RefractionButtonVariant.primary,
-                            onPressed: () => widget.controller.savePreferences(state.preferences),
+                            onPressed: () => widget.controller.savePreferences(
+                              state.preferences,
+                            ),
                             child: const Text('Save preferences'),
                           ),
                         ),

@@ -16,27 +16,27 @@ void main() {
 
   group('RefractionDropdownMenu Rendering & Basic Interactions', () {
     testWidgets('Renders trigger widget', (WidgetTester tester) async {
-      await tester.pumpWidget(buildApp(
-        RefractionDropdownMenu(
-          trigger: const Text('Open Menu'),
-          items: [
-            RefractionDropdownItem(label: 'Item 1', onSelected: () {}),
-          ],
+      await tester.pumpWidget(
+        buildApp(
+          RefractionDropdownMenu(
+            trigger: const Text('Open Menu'),
+            items: [RefractionDropdownItem(label: 'Item 1', onSelected: () {})],
+          ),
         ),
-      ));
+      );
 
       expect(find.text('Open Menu'), findsOneWidget);
     });
 
     testWidgets('Tapping trigger opens menu', (WidgetTester tester) async {
-      await tester.pumpWidget(buildApp(
-        RefractionDropdownMenu(
-          trigger: const Text('Open Menu'),
-          items: [
-            RefractionDropdownItem(label: 'Item 1', onSelected: () {}),
-          ],
+      await tester.pumpWidget(
+        buildApp(
+          RefractionDropdownMenu(
+            trigger: const Text('Open Menu'),
+            items: [RefractionDropdownItem(label: 'Item 1', onSelected: () {})],
+          ),
         ),
-      ));
+      );
 
       expect(find.text('Item 1'), findsNothing);
 
@@ -47,27 +47,25 @@ void main() {
     });
 
     testWidgets('Tapping outside closes menu', (WidgetTester tester) async {
-      await tester.pumpWidget(buildApp(
-        Stack(
-          children: [
-            Positioned(
-              top: 0,
-              left: 0,
-              child: RefractionDropdownMenu(
-                trigger: const Text('Open Menu'),
-                items: [
-                  RefractionDropdownItem(label: 'Item 1', onSelected: () {}),
-                ],
+      await tester.pumpWidget(
+        buildApp(
+          Stack(
+            children: [
+              Positioned(
+                top: 0,
+                left: 0,
+                child: RefractionDropdownMenu(
+                  trigger: const Text('Open Menu'),
+                  items: [
+                    RefractionDropdownItem(label: 'Item 1', onSelected: () {}),
+                  ],
+                ),
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: const Text('Outside'),
-            ),
-          ],
+              Positioned(bottom: 0, right: 0, child: const Text('Outside')),
+            ],
+          ),
         ),
-      ));
+      );
 
       await tester.tap(find.text('Open Menu'));
       await tester.pumpAndSettle();
@@ -79,20 +77,24 @@ void main() {
       expect(find.text('Item 1'), findsNothing);
     });
 
-    testWidgets('Tapping an item triggers callback and closes menu', (WidgetTester tester) async {
+    testWidgets('Tapping an item triggers callback and closes menu', (
+      WidgetTester tester,
+    ) async {
       bool tapped = false;
 
-      await tester.pumpWidget(buildApp(
-        RefractionDropdownMenu(
-          trigger: const Text('Open Menu'),
-          items: [
-            RefractionDropdownItem(
-              label: 'Item 1',
-              onSelected: () => tapped = true,
-            ),
-          ],
+      await tester.pumpWidget(
+        buildApp(
+          RefractionDropdownMenu(
+            trigger: const Text('Open Menu'),
+            items: [
+              RefractionDropdownItem(
+                label: 'Item 1',
+                onSelected: () => tapped = true,
+              ),
+            ],
+          ),
         ),
-      ));
+      );
 
       await tester.tap(find.text('Open Menu'));
       await tester.pumpAndSettle();
@@ -104,21 +106,25 @@ void main() {
       expect(find.text('Item 1'), findsNothing);
     });
 
-    testWidgets('Tapping a disabled item does not trigger callback or close', (WidgetTester tester) async {
+    testWidgets('Tapping a disabled item does not trigger callback or close', (
+      WidgetTester tester,
+    ) async {
       bool tapped = false;
 
-      await tester.pumpWidget(buildApp(
-        RefractionDropdownMenu(
-          trigger: const Text('Open Menu'),
-          items: [
-            RefractionDropdownItem(
-              label: 'Disabled Item',
-              disabled: true,
-              onSelected: () => tapped = true,
-            ),
-          ],
+      await tester.pumpWidget(
+        buildApp(
+          RefractionDropdownMenu(
+            trigger: const Text('Open Menu'),
+            items: [
+              RefractionDropdownItem(
+                label: 'Disabled Item',
+                disabled: true,
+                onSelected: () => tapped = true,
+              ),
+            ],
+          ),
         ),
-      ));
+      );
 
       await tester.tap(find.text('Open Menu'));
       await tester.pumpAndSettle();
@@ -132,18 +138,17 @@ void main() {
   });
 
   group('RefractionDropdownMenu Components (Groups, Dividers, Submenus)', () {
-    testWidgets('Renders shortcut text if provided', (WidgetTester tester) async {
-      await tester.pumpWidget(buildApp(
-        RefractionDropdownMenu(
-          trigger: const Text('Open Menu'),
-          items: [
-            RefractionDropdownItem(
-              label: 'Save',
-              shortcut: 'Cmd+S',
-            ),
-          ],
+    testWidgets('Renders shortcut text if provided', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        buildApp(
+          RefractionDropdownMenu(
+            trigger: const Text('Open Menu'),
+            items: [RefractionDropdownItem(label: 'Save', shortcut: 'Cmd+S')],
+          ),
         ),
-      ));
+      );
 
       await tester.tap(find.text('Open Menu'));
       await tester.pumpAndSettle();
@@ -152,17 +157,19 @@ void main() {
     });
 
     testWidgets('Renders icon if provided', (WidgetTester tester) async {
-      await tester.pumpWidget(buildApp(
-        RefractionDropdownMenu(
-          trigger: const Text('Open Menu'),
-          items: [
-            RefractionDropdownItem(
-              icon: const Icon(Icons.save),
-              label: 'Save',
-            ),
-          ],
+      await tester.pumpWidget(
+        buildApp(
+          RefractionDropdownMenu(
+            trigger: const Text('Open Menu'),
+            items: [
+              RefractionDropdownItem(
+                icon: const Icon(Icons.save),
+                label: 'Save',
+              ),
+            ],
+          ),
         ),
-      ));
+      );
 
       await tester.tap(find.text('Open Menu'));
       await tester.pumpAndSettle();
@@ -171,16 +178,18 @@ void main() {
     });
 
     testWidgets('Renders divider', (WidgetTester tester) async {
-      await tester.pumpWidget(buildApp(
-        RefractionDropdownMenu(
-          trigger: const Text('Open Menu'),
-          items: [
-            RefractionDropdownItem(label: 'Item 1'),
-            const RefractionDropdownDivider(),
-            RefractionDropdownItem(label: 'Item 2'),
-          ],
+      await tester.pumpWidget(
+        buildApp(
+          RefractionDropdownMenu(
+            trigger: const Text('Open Menu'),
+            items: [
+              RefractionDropdownItem(label: 'Item 1'),
+              const RefractionDropdownDivider(),
+              RefractionDropdownItem(label: 'Item 2'),
+            ],
+          ),
         ),
-      ));
+      );
 
       await tester.tap(find.text('Open Menu'));
       await tester.pumpAndSettle();
@@ -189,19 +198,19 @@ void main() {
     });
 
     testWidgets('Renders group with label', (WidgetTester tester) async {
-      await tester.pumpWidget(buildApp(
-        RefractionDropdownMenu(
-          trigger: const Text('Open Menu'),
-          items: [
-            RefractionDropdownGroup(
-              label: 'My Group',
-              children: [
-                RefractionDropdownItem(label: 'Group Item'),
-              ],
-            ),
-          ],
+      await tester.pumpWidget(
+        buildApp(
+          RefractionDropdownMenu(
+            trigger: const Text('Open Menu'),
+            items: [
+              RefractionDropdownGroup(
+                label: 'My Group',
+                children: [RefractionDropdownItem(label: 'Group Item')],
+              ),
+            ],
+          ),
         ),
-      ));
+      );
 
       await tester.tap(find.text('Open Menu'));
       await tester.pumpAndSettle();
@@ -210,20 +219,22 @@ void main() {
       expect(find.text('Group Item'), findsOneWidget);
     });
 
-    testWidgets('Submenu can be opened and closed', (WidgetTester tester) async {
-      await tester.pumpWidget(buildApp(
-        RefractionDropdownMenu(
-          trigger: const Text('Open Menu'),
-          items: [
-            RefractionDropdownSubmenu(
-              label: 'More options',
-              children: [
-                RefractionDropdownItem(label: 'Nested Item'),
-              ],
-            ),
-          ],
+    testWidgets('Submenu can be opened and closed', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        buildApp(
+          RefractionDropdownMenu(
+            trigger: const Text('Open Menu'),
+            items: [
+              RefractionDropdownSubmenu(
+                label: 'More options',
+                children: [RefractionDropdownItem(label: 'Nested Item')],
+              ),
+            ],
+          ),
         ),
-      ));
+      );
 
       await tester.tap(find.text('Open Menu'));
       await tester.pumpAndSettle();
@@ -235,26 +246,28 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Nested Item'), findsOneWidget);
-      
+
       // Close the submenu by clicking elsewhere or back
       // Since it's a SubmenuButton on desktop it opens on hover, on tap otherwise.
     });
 
-    testWidgets('Disabled submenu cannot be opened', (WidgetTester tester) async {
-      await tester.pumpWidget(buildApp(
-        RefractionDropdownMenu(
-          trigger: const Text('Open Menu'),
-          items: [
-            RefractionDropdownSubmenu(
-              label: 'Disabled submenu',
-              disabled: true,
-              children: [
-                RefractionDropdownItem(label: 'Nested Item'),
-              ],
-            ),
-          ],
+    testWidgets('Disabled submenu cannot be opened', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        buildApp(
+          RefractionDropdownMenu(
+            trigger: const Text('Open Menu'),
+            items: [
+              RefractionDropdownSubmenu(
+                label: 'Disabled submenu',
+                disabled: true,
+                children: [RefractionDropdownItem(label: 'Nested Item')],
+              ),
+            ],
+          ),
         ),
-      ));
+      );
 
       await tester.tap(find.text('Open Menu'));
       await tester.pumpAndSettle();
@@ -269,34 +282,34 @@ void main() {
   group('Multiple configurations', () {
     // Generate 50 test cases
     for (int i = 0; i < 40; i++) {
-      testWidgets('Configuration #$i parses correctly', (WidgetTester tester) async {
-        await tester.pumpWidget(buildApp(
-          RefractionDropdownMenu(
-            trigger: Text('Open Menu $i'),
-            items: [
-              RefractionDropdownItem(label: 'Item A $i'),
-              const RefractionDropdownDivider(),
-              RefractionDropdownGroup(
-                label: 'Group $i',
-                children: [
-                  RefractionDropdownItem(label: 'Group Item $i'),
-                ],
-              ),
-              RefractionDropdownSubmenu(
-                label: 'Submenu $i',
-                children: [
-                  RefractionDropdownItem(label: 'Sub Item $i'),
-                ],
-              ),
-            ],
+      testWidgets('Configuration #$i parses correctly', (
+        WidgetTester tester,
+      ) async {
+        await tester.pumpWidget(
+          buildApp(
+            RefractionDropdownMenu(
+              trigger: Text('Open Menu $i'),
+              items: [
+                RefractionDropdownItem(label: 'Item A $i'),
+                const RefractionDropdownDivider(),
+                RefractionDropdownGroup(
+                  label: 'Group $i',
+                  children: [RefractionDropdownItem(label: 'Group Item $i')],
+                ),
+                RefractionDropdownSubmenu(
+                  label: 'Submenu $i',
+                  children: [RefractionDropdownItem(label: 'Sub Item $i')],
+                ),
+              ],
+            ),
           ),
-        ));
+        );
 
         expect(find.text('Open Menu $i'), findsOneWidget);
-        
+
         await tester.tap(find.text('Open Menu $i'));
         await tester.pumpAndSettle();
-        
+
         expect(find.text('Item A $i'), findsOneWidget);
         expect(find.text('Group $i'), findsOneWidget);
         expect(find.text('Submenu $i'), findsOneWidget);

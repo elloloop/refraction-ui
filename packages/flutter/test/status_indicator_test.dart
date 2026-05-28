@@ -159,7 +159,13 @@ void main() {
       expect(find.text('Pending'), findsOneWidget);
 
       // Should find a FadeTransition indicating pulse
-      expect(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(FadeTransition)), findsOneWidget);
+      expect(
+        find.descendant(
+          of: find.byType(RefractionStatusIndicator),
+          matching: find.byType(FadeTransition),
+        ),
+        findsOneWidget,
+      );
 
       final container = tester.widget<Container>(
         find
@@ -188,7 +194,13 @@ void main() {
         ),
       );
 
-      expect(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(FadeTransition)), findsNothing);
+      expect(
+        find.descendant(
+          of: find.byType(RefractionStatusIndicator),
+          matching: find.byType(FadeTransition),
+        ),
+        findsNothing,
+      );
     });
 
     testWidgets('can enable pulse on non-pending', (WidgetTester tester) async {
@@ -206,7 +218,13 @@ void main() {
         ),
       );
 
-      expect(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(FadeTransition)), findsOneWidget);
+      expect(
+        find.descendant(
+          of: find.byType(RefractionStatusIndicator),
+          matching: find.byType(FadeTransition),
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('custom label text string', (WidgetTester tester) async {
@@ -227,7 +245,14 @@ void main() {
       expect(find.text('System Operational'), findsOneWidget);
       expect(find.text('Success'), findsNothing);
 
-      final semantics = tester.widget<Semantics>(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(Semantics)).first);
+      final semantics = tester.widget<Semantics>(
+        find
+            .descendant(
+              of: find.byType(RefractionStatusIndicator),
+              matching: find.byType(Semantics),
+            )
+            .first,
+      );
       expect(semantics.properties.label, 'System Operational');
     });
 
@@ -301,7 +326,14 @@ void main() {
       expect(find.text('Warning'), findsNothing);
 
       // The semantics label should still be there for screen readers
-      final semantics = tester.widget<Semantics>(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(Semantics)).first);
+      final semantics = tester.widget<Semantics>(
+        find
+            .descendant(
+              of: find.byType(RefractionStatusIndicator),
+              matching: find.byType(Semantics),
+            )
+            .first,
+      );
       expect(semantics.properties.label, 'Hidden Warning');
     });
 
@@ -322,7 +354,14 @@ void main() {
         ),
       );
 
-      final semantics = tester.widget<Semantics>(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(Semantics)).first);
+      final semantics = tester.widget<Semantics>(
+        find
+            .descendant(
+              of: find.byType(RefractionStatusIndicator),
+              matching: find.byType(Semantics),
+            )
+            .first,
+      );
       expect(semantics.properties.label, 'Custom Text Child');
     });
 
@@ -346,7 +385,9 @@ void main() {
       expect(textWidget.style?.fontWeight, FontWeight.bold);
     });
 
-    testWidgets('empty label string shows nothing but keeps gap', (WidgetTester tester) async {
+    testWidgets('empty label string shows nothing but keeps gap', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
@@ -360,11 +401,13 @@ void main() {
           ),
         ),
       );
-      
+
       expect(find.text(''), findsOneWidget);
     });
 
-    testWidgets('empty child shows default label because label is null', (WidgetTester tester) async {
+    testWidgets('empty child shows default label because label is null', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
@@ -378,32 +421,48 @@ void main() {
           ),
         ),
       );
-      
+
       expect(find.byType(SizedBox), findsWidgets);
       // because child is provided but it's not text, the semantics label falls back to default label
-      final semantics = tester.widget<Semantics>(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(Semantics)).first);
+      final semantics = tester.widget<Semantics>(
+        find
+            .descendant(
+              of: find.byType(RefractionStatusIndicator),
+              matching: find.byType(Semantics),
+            )
+            .first,
+      );
       expect(semantics.properties.label, 'Warning');
     });
 
-    testWidgets('status container respects mainAxisSize min', (WidgetTester tester) async {
+    testWidgets('status container respects mainAxisSize min', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
             data: RefractionThemeData.light(),
             child: const Scaffold(
-              body: RefractionStatusIndicator(
-                type: RefractionStatusType.error,
-              ),
+              body: RefractionStatusIndicator(type: RefractionStatusType.error),
             ),
           ),
         ),
       );
-      
-      final row = tester.widget<Row>(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(Row)).first);
+
+      final row = tester.widget<Row>(
+        find
+            .descendant(
+              of: find.byType(RefractionStatusIndicator),
+              matching: find.byType(Row),
+            )
+            .first,
+      );
       expect(row.mainAxisSize, MainAxisSize.min);
     });
 
-    testWidgets('status container cross axis is center', (WidgetTester tester) async {
+    testWidgets('status container cross axis is center', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
@@ -416,12 +475,21 @@ void main() {
           ),
         ),
       );
-      
-      final row = tester.widget<Row>(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(Row)).first);
+
+      final row = tester.widget<Row>(
+        find
+            .descendant(
+              of: find.byType(RefractionStatusIndicator),
+              matching: find.byType(Row),
+            )
+            .first,
+      );
       expect(row.crossAxisAlignment, CrossAxisAlignment.center);
     });
 
-    testWidgets('status pulse animator repeats reverse', (WidgetTester tester) async {
+    testWidgets('status pulse animator repeats reverse', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
@@ -434,12 +502,21 @@ void main() {
           ),
         ),
       );
-      
-      final fade = tester.widget<FadeTransition>(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(FadeTransition)).first);
+
+      final fade = tester.widget<FadeTransition>(
+        find
+            .descendant(
+              of: find.byType(RefractionStatusIndicator),
+              matching: find.byType(FadeTransition),
+            )
+            .first,
+      );
       expect(fade.opacity, isNotNull);
     });
 
-    testWidgets('dot has shape circle and correct size', (WidgetTester tester) async {
+    testWidgets('dot has shape circle and correct size', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
@@ -452,15 +529,24 @@ void main() {
           ),
         ),
       );
-      
-      final container = tester.widget<Container>(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(Container)).first);
+
+      final container = tester.widget<Container>(
+        find
+            .descendant(
+              of: find.byType(RefractionStatusIndicator),
+              matching: find.byType(Container),
+            )
+            .first,
+      );
       expect(container.constraints?.maxWidth, 8.0);
       expect(container.constraints?.maxHeight, 8.0);
       final decoration = container.decoration as BoxDecoration;
       expect(decoration.shape, BoxShape.circle);
     });
 
-    testWidgets('gap between dot and label is 6.0', (WidgetTester tester) async {
+    testWidgets('gap between dot and label is 6.0', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: RefractionTheme(
@@ -473,8 +559,15 @@ void main() {
           ),
         ),
       );
-      
-      final sizedBox = tester.widget<SizedBox>(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(SizedBox)).first);
+
+      final sizedBox = tester.widget<SizedBox>(
+        find
+            .descendant(
+              of: find.byType(RefractionStatusIndicator),
+              matching: find.byType(SizedBox),
+            )
+            .first,
+      );
       expect(sizedBox.width, 6.0);
     });
   });
@@ -497,9 +590,21 @@ void main() {
         );
         expect(find.byType(RefractionStatusIndicator), findsOneWidget);
         if (type == RefractionStatusType.pending) {
-          expect(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(FadeTransition)), findsOneWidget);
+          expect(
+            find.descendant(
+              of: find.byType(RefractionStatusIndicator),
+              matching: find.byType(FadeTransition),
+            ),
+            findsOneWidget,
+          );
         } else {
-          expect(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(FadeTransition)), findsNothing);
+          expect(
+            find.descendant(
+              of: find.byType(RefractionStatusIndicator),
+              matching: find.byType(FadeTransition),
+            ),
+            findsNothing,
+          );
         }
       });
 
@@ -516,7 +621,13 @@ void main() {
             ),
           ),
         );
-        expect(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(FadeTransition)), findsOneWidget);
+        expect(
+          find.descendant(
+            of: find.byType(RefractionStatusIndicator),
+            matching: find.byType(FadeTransition),
+          ),
+          findsOneWidget,
+        );
       });
 
       testWidgets('Type index $i hidden label renders correctly', (
@@ -532,9 +643,20 @@ void main() {
             ),
           ),
         );
-        expect(find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(Text)), findsNothing);
+        expect(
+          find.descendant(
+            of: find.byType(RefractionStatusIndicator),
+            matching: find.byType(Text),
+          ),
+          findsNothing,
+        );
         final semantics = tester.widget<Semantics>(
-          find.descendant(of: find.byType(RefractionStatusIndicator), matching: find.byType(Semantics)).first,
+          find
+              .descendant(
+                of: find.byType(RefractionStatusIndicator),
+                matching: find.byType(Semantics),
+              )
+              .first,
         );
         expect(semantics.properties.label, isNotNull);
         expect(semantics.properties.label!.isNotEmpty, isTrue);

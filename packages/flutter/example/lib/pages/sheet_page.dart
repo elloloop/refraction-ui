@@ -43,7 +43,9 @@ class SheetPage extends StatelessWidget {
                           content: const Text(
                             "This is the content of the sheet. You can place any widget here, like forms, lists, or custom layouts.",
                           ),
-                          showDragHandle: side == RefractionSheetSide.bottom || side == RefractionSheetSide.top,
+                          showDragHandle:
+                              side == RefractionSheetSide.bottom ||
+                              side == RefractionSheetSide.top,
                           actions: [
                             RefractionButton(
                               onPressed: () => Navigator.of(context).pop(),

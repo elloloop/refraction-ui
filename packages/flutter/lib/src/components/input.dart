@@ -219,36 +219,3 @@ class _RefractionInputState extends State<RefractionInput> {
 ///   onChanged: (value) => description = value,
 /// )
 /// ```
-class RefractionTextarea extends StatelessWidget {
-  /// Optional externally-managed controller.
-  final TextEditingController? controller;
-
-  /// Hint text shown when empty.
-  final String? placeholder;
-
-  /// When true, the field is read-only and rendered with the muted palette.
-  final bool disabled;
-
-  /// Called on every keystroke with the current text.
-  final ValueChanged<String>? onChanged;
-
-  /// Creates a [RefractionTextarea].
-  const RefractionTextarea({
-    super.key,
-    this.controller,
-    this.placeholder,
-    this.disabled = false,
-    this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return RefractionInput(
-      controller: controller,
-      placeholder: placeholder,
-      disabled: disabled,
-      onChanged: onChanged,
-      maxLines: 4,
-    );
-  }
-}

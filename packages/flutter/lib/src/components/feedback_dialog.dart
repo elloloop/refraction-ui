@@ -330,7 +330,8 @@ class _RefractionFeedbackDialogState extends State<RefractionFeedbackDialog> {
             const SizedBox(height: 20),
 
             // Comment
-            RefractionTextarea(
+            RefractionInput(
+              maxLines: 4,
               key: const Key('feedback-comment-input'),
               controller: _commentController,
               placeholder: widget.commentPlaceholder,

@@ -137,6 +137,90 @@ class RefractionThemeData {
     heavyShadow: _darkHeavyShadow,
   );
 
+  static RefractionThemeData refractionLight() => RefractionThemeData(
+    colors: RefractionColors.refractionLight,
+    borderRadius: 6.0,
+    softShadow: _lightSoftShadow,
+    heavyShadow: _lightHeavyShadow,
+  );
+
+  static RefractionThemeData refractionDark() => RefractionThemeData(
+    colors: RefractionColors.refractionDark,
+    borderRadius: 6.0,
+    softShadow: _darkSoftShadow,
+    heavyShadow: _darkHeavyShadow,
+  );
+
+  static RefractionThemeData luxeLight() => RefractionThemeData(
+    colors: RefractionColors.luxeLight,
+    borderRadius: 12.0,
+    softShadow: _lightSoftShadow,
+    heavyShadow: _lightHeavyShadow,
+  );
+
+  static RefractionThemeData luxeDark() => RefractionThemeData(
+    colors: RefractionColors.luxeDark,
+    borderRadius: 12.0,
+    softShadow: _darkSoftShadow,
+    heavyShadow: _darkHeavyShadow,
+  );
+
+  static RefractionThemeData warmLight() => RefractionThemeData(
+    colors: RefractionColors.warmLight,
+    borderRadius: 12.0,
+    softShadow: _lightSoftShadow,
+    heavyShadow: _lightHeavyShadow,
+  );
+
+  static RefractionThemeData warmDark() => RefractionThemeData(
+    colors: RefractionColors.warmDark,
+    borderRadius: 12.0,
+    softShadow: _darkSoftShadow,
+    heavyShadow: _darkHeavyShadow,
+  );
+
+  static RefractionThemeData signalLight() => RefractionThemeData(
+    colors: RefractionColors.signalLight,
+    borderRadius: 6.0,
+    softShadow: _lightSoftShadow,
+    heavyShadow: _lightHeavyShadow,
+  );
+
+  static RefractionThemeData signalDark() => RefractionThemeData(
+    colors: RefractionColors.signalDark,
+    borderRadius: 6.0,
+    softShadow: _darkSoftShadow,
+    heavyShadow: _darkHeavyShadow,
+  );
+
+  static RefractionThemeData pulseLight() => RefractionThemeData(
+    colors: RefractionColors.pulseLight,
+    borderRadius: 16.0,
+    softShadow: _lightSoftShadow,
+    heavyShadow: _lightHeavyShadow,
+  );
+
+  static RefractionThemeData pulseDark() => RefractionThemeData(
+    colors: RefractionColors.pulseDark,
+    borderRadius: 16.0,
+    softShadow: _darkSoftShadow,
+    heavyShadow: _darkHeavyShadow,
+  );
+
+  static RefractionThemeData monoLight() => RefractionThemeData(
+    colors: RefractionColors.monoLight,
+    borderRadius: 4.0,
+    softShadow: _lightSoftShadow,
+    heavyShadow: _lightHeavyShadow,
+  );
+
+  static RefractionThemeData monoDark() => RefractionThemeData(
+    colors: RefractionColors.monoDark,
+    borderRadius: 4.0,
+    softShadow: _darkSoftShadow,
+    heavyShadow: _darkHeavyShadow,
+  );
+
   /// Default light theme. Currently aliases [RefractionThemeData.minimalLight].
   factory RefractionThemeData.light() => RefractionThemeData.minimalLight();
 

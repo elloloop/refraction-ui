@@ -35,7 +35,7 @@ class _InstallPromptPageState extends State<InstallPromptPage> {
             child: const Text('Show Install Prompt'),
           ),
           const SizedBox(height: 32),
-          
+
           // In a real app, this would be positioned at the bottom of the screen.
           // For demo purposes, we show it embedded here but it spans full width.
           ClipRRect(
@@ -44,8 +44,12 @@ class _InstallPromptPageState extends State<InstallPromptPage> {
               height: 200,
               width: double.infinity,
               decoration: BoxDecoration(
-                border: Border.all(color: RefractionTheme.of(context).data.colors.border),
-                color: RefractionTheme.of(context).data.colors.muted.withValues(alpha: 0.5),
+                border: Border.all(
+                  color: RefractionTheme.of(context).data.colors.border,
+                ),
+                color: RefractionTheme.of(
+                  context,
+                ).data.colors.muted.withValues(alpha: 0.5),
               ),
               child: Stack(
                 children: [
@@ -66,7 +70,9 @@ class _InstallPromptPageState extends State<InstallPromptPage> {
                           _dismissed = true;
                         });
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Installation triggered!')),
+                          const SnackBar(
+                            content: Text('Installation triggered!'),
+                          ),
                         );
                       },
                     ),

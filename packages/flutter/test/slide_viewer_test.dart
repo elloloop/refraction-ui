@@ -9,7 +9,8 @@ void main() {
     int initialSlide = 0,
     ValueChanged<int>? onSlideChange,
     VoidCallback? onComplete,
-    Widget Function(BuildContext context, SlideData slide, int index)? renderSlide,
+    Widget Function(BuildContext context, SlideData slide, int index)?
+    renderSlide,
   }) {
     return MaterialApp(
       home: Scaffold(
@@ -29,7 +30,11 @@ void main() {
 
   final testSlides = [
     const SlideData(id: '1', type: SlideType.intro, content: 'Slide 1 Content'),
-    const SlideData(id: '2', type: SlideType.lesson, content: 'Slide 2 Content'),
+    const SlideData(
+      id: '2',
+      type: SlideType.lesson,
+      content: 'Slide 2 Content',
+    ),
     const SlideData(id: '3', type: SlideType.quiz, content: 'Slide 3 Content'),
   ];
 
@@ -49,20 +54,30 @@ void main() {
     });
 
     testWidgets('respects initialSlide parameter', (tester) async {
-      await tester.pumpWidget(buildTestApp(slides: testSlides, initialSlide: 1));
+      await tester.pumpWidget(
+        buildTestApp(slides: testSlides, initialSlide: 1),
+      );
       expect(find.text('Slide 2 Content'), findsOneWidget);
       expect(find.text('2 / 3'), findsOneWidget);
       expect(find.text('lesson'), findsOneWidget);
     });
 
-    testWidgets('clamps initialSlide if out of bounds (negative)', (tester) async {
-      await tester.pumpWidget(buildTestApp(slides: testSlides, initialSlide: -5));
+    testWidgets('clamps initialSlide if out of bounds (negative)', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        buildTestApp(slides: testSlides, initialSlide: -5),
+      );
       expect(find.text('Slide 1 Content'), findsOneWidget);
       expect(find.text('1 / 3'), findsOneWidget);
     });
 
-    testWidgets('clamps initialSlide if out of bounds (too large)', (tester) async {
-      await tester.pumpWidget(buildTestApp(slides: testSlides, initialSlide: 10));
+    testWidgets('clamps initialSlide if out of bounds (too large)', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        buildTestApp(slides: testSlides, initialSlide: 10),
+      );
       expect(find.text('Slide 3 Content'), findsOneWidget);
       expect(find.text('3 / 3'), findsOneWidget);
     });
@@ -92,7 +107,9 @@ void main() {
       expect(prevButton.onPressed, isNull);
     });
 
-    testWidgets('prev button enabled on second slide, goes back', (tester) async {
+    testWidgets('prev button enabled on second slide, goes back', (
+      tester,
+    ) async {
       int? slideChangedTo;
       await tester.pumpWidget(
         buildTestApp(
@@ -110,7 +127,9 @@ void main() {
     });
 
     testWidgets('next button says Complete on last slide', (tester) async {
-      await tester.pumpWidget(buildTestApp(slides: testSlides, initialSlide: 2));
+      await tester.pumpWidget(
+        buildTestApp(slides: testSlides, initialSlide: 2),
+      );
       expect(find.text('Complete'), findsOneWidget);
       expect(find.text('Next'), findsNothing);
     });
@@ -133,7 +152,7 @@ void main() {
 
     testWidgets('toggling bookmark', (tester) async {
       await tester.pumpWidget(buildTestApp(slides: testSlides));
-      
+
       expect(find.text('Bookmark'), findsOneWidget);
       expect(find.text('Bookmarked'), findsNothing);
 
@@ -202,7 +221,9 @@ void main() {
       expect(slideChangedTo, 0);
     });
 
-    testWidgets('updates current slide when initialSlide property changes', (tester) async {
+    testWidgets('updates current slide when initialSlide property changes', (
+      tester,
+    ) async {
       int slideIndex = 0;
       await tester.pumpWidget(
         MaterialApp(
@@ -277,7 +298,7 @@ void main() {
       expect(find.text('Slide 2 Content'), findsOneWidget);
       expect(slideChangedTo, 1);
     });
-    
+
     testWidgets('left arrow goes to prev slide', (tester) async {
       int? slideChangedTo;
       await tester.pumpWidget(
@@ -304,7 +325,9 @@ void main() {
   group('Slide Viewer Types', () {
     final types = SlideType.values;
     for (int i = 0; i < types.length; i++) {
-      testWidgets('Type ${types[i].name} renders correct badge', (tester) async {
+      testWidgets('Type ${types[i].name} renders correct badge', (
+        tester,
+      ) async {
         final slide = SlideData(id: 't_$i', type: types[i], content: 'Content');
         await tester.pumpWidget(buildTestApp(slides: [slide]));
         expect(find.text(types[i].name), findsOneWidget);

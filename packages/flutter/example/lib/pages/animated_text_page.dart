@@ -45,7 +45,10 @@ class _AnimatedTextPageState extends State<AnimatedTextPage> {
                   text: "Hello Refraction!",
                   type: RefractionTextAnimationType.fade,
                   duration: const Duration(seconds: 1),
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               _buildDemo(
@@ -55,7 +58,10 @@ class _AnimatedTextPageState extends State<AnimatedTextPage> {
                   text: "Typing out a sentence...",
                   type: RefractionTextAnimationType.typewriter,
                   duration: const Duration(seconds: 2),
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               _buildDemo(
@@ -65,7 +71,10 @@ class _AnimatedTextPageState extends State<AnimatedTextPage> {
                   text: "Sliding into view",
                   type: RefractionTextAnimationType.slideUp,
                   duration: const Duration(milliseconds: 800),
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],

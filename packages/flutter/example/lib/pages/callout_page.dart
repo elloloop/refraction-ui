@@ -11,15 +11,22 @@ class CalloutPage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(24.0),
         children: const [
-          Text('Standard Callout', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Standard Callout',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8),
           RefractionCallout(
             title: 'Did you know?',
-            description: 'You can use Callouts to draw attention to important information.',
+            description:
+                'You can use Callouts to draw attention to important information.',
           ),
           SizedBox(height: 24),
-          
-          Text('Success Callout', style: TextStyle(fontWeight: FontWeight.bold)),
+
+          Text(
+            'Success Callout',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8),
           RefractionCallout(
             variant: RefractionCalloutVariant.success,
@@ -28,7 +35,10 @@ class CalloutPage extends StatelessWidget {
           ),
           SizedBox(height: 24),
 
-          Text('Warning Callout', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Warning Callout',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8),
           RefractionCallout(
             variant: RefractionCalloutVariant.warning,
@@ -42,7 +52,8 @@ class CalloutPage extends StatelessWidget {
           RefractionCallout(
             variant: RefractionCalloutVariant.error,
             title: 'Payment Failed',
-            description: 'We were unable to process your transaction. Please check your billing details.',
+            description:
+                'We were unable to process your transaction. Please check your billing details.',
           ),
           SizedBox(height: 24),
 
@@ -51,19 +62,27 @@ class CalloutPage extends StatelessWidget {
           RefractionCallout(
             variant: RefractionCalloutVariant.info,
             title: 'New Update Available',
-            description: 'Version 2.0 brings a host of new features and performance improvements.',
+            description:
+                'Version 2.0 brings a host of new features and performance improvements.',
           ),
           SizedBox(height: 24),
 
-          Text('Callout without Title', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            'Callout without Title',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8),
           RefractionCallout(
             variant: RefractionCalloutVariant.standard,
-            description: 'This is a simple callout that only has a description.',
+            description:
+                'This is a simple callout that only has a description.',
           ),
           SizedBox(height: 24),
-          
-          Text('Callout with Custom Icon', style: TextStyle(fontWeight: FontWeight.bold)),
+
+          Text(
+            'Callout with Custom Icon',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 8),
           RefractionCallout(
             variant: RefractionCalloutVariant.info,

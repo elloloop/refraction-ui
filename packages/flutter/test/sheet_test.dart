@@ -7,9 +7,7 @@ void main() {
     return RefractionTheme(
       data: RefractionThemeData.light(),
       child: MaterialApp(
-        home: Scaffold(
-          body: Builder(builder: (context) => child),
-        ),
+        home: Scaffold(body: Builder(builder: (context) => child)),
       ),
     );
   }
@@ -17,20 +15,24 @@ void main() {
   for (final side in RefractionSheetSide.values) {
     group('RefractionSheet - $side', () {
       testWidgets('Opens successfully', (tester) async {
-        await tester.pumpWidget(buildApp(
-          Builder(builder: (context) {
-            return ElevatedButton(
-              onPressed: () {
-                RefractionSheet.show(
-                  context: context,
-                  side: side,
-                  content: const Text('Sheet Content'),
+        await tester.pumpWidget(
+          buildApp(
+            Builder(
+              builder: (context) {
+                return ElevatedButton(
+                  onPressed: () {
+                    RefractionSheet.show(
+                      context: context,
+                      side: side,
+                      content: const Text('Sheet Content'),
+                    );
+                  },
+                  child: const Text('Open'),
                 );
               },
-              child: const Text('Open'),
-            );
-          }),
-        ));
+            ),
+          ),
+        );
 
         await tester.tap(find.text('Open'));
         await tester.pumpAndSettle();
@@ -39,22 +41,26 @@ void main() {
       });
 
       testWidgets('Renders title and description', (tester) async {
-        await tester.pumpWidget(buildApp(
-          Builder(builder: (context) {
-            return ElevatedButton(
-              onPressed: () {
-                RefractionSheet.show(
-                  context: context,
-                  side: side,
-                  title: const Text('Sheet Title'),
-                  description: const Text('Sheet Description'),
-                  content: const Text('Sheet Content'),
+        await tester.pumpWidget(
+          buildApp(
+            Builder(
+              builder: (context) {
+                return ElevatedButton(
+                  onPressed: () {
+                    RefractionSheet.show(
+                      context: context,
+                      side: side,
+                      title: const Text('Sheet Title'),
+                      description: const Text('Sheet Description'),
+                      content: const Text('Sheet Content'),
+                    );
+                  },
+                  child: const Text('Open'),
                 );
               },
-              child: const Text('Open'),
-            );
-          }),
-        ));
+            ),
+          ),
+        );
 
         await tester.tap(find.text('Open'));
         await tester.pumpAndSettle();
@@ -64,21 +70,25 @@ void main() {
       });
 
       testWidgets('Renders actions', (tester) async {
-        await tester.pumpWidget(buildApp(
-          Builder(builder: (context) {
-            return ElevatedButton(
-              onPressed: () {
-                RefractionSheet.show(
-                  context: context,
-                  side: side,
-                  content: const Text('Sheet Content'),
-                  actions: [const Text('Action 1'), const Text('Action 2')],
+        await tester.pumpWidget(
+          buildApp(
+            Builder(
+              builder: (context) {
+                return ElevatedButton(
+                  onPressed: () {
+                    RefractionSheet.show(
+                      context: context,
+                      side: side,
+                      content: const Text('Sheet Content'),
+                      actions: [const Text('Action 1'), const Text('Action 2')],
+                    );
+                  },
+                  child: const Text('Open'),
                 );
               },
-              child: const Text('Open'),
-            );
-          }),
-        ));
+            ),
+          ),
+        );
 
         await tester.tap(find.text('Open'));
         await tester.pumpAndSettle();
@@ -87,136 +97,175 @@ void main() {
         expect(find.text('Action 2'), findsOneWidget);
       });
 
-      testWidgets('Renders drag handle if showDragHandle is true', (tester) async {
-        await tester.pumpWidget(buildApp(
-          Builder(builder: (context) {
-            return ElevatedButton(
-              onPressed: () {
-                RefractionSheet.show(
-                  context: context,
-                  side: side,
-                  content: const Text('Sheet Content'),
-                  showDragHandle: true,
+      testWidgets('Renders drag handle if showDragHandle is true', (
+        tester,
+      ) async {
+        await tester.pumpWidget(
+          buildApp(
+            Builder(
+              builder: (context) {
+                return ElevatedButton(
+                  onPressed: () {
+                    RefractionSheet.show(
+                      context: context,
+                      side: side,
+                      content: const Text('Sheet Content'),
+                      showDragHandle: true,
+                    );
+                  },
+                  child: const Text('Open'),
                 );
               },
-              child: const Text('Open'),
-            );
-          }),
-        ));
+            ),
+          ),
+        );
 
         await tester.tap(find.text('Open'));
         await tester.pumpAndSettle();
 
         // Drag handle is a Container with width 32
-        final handleContainer = find.byWidgetPredicate((w) => w is Container && w.constraints?.maxWidth == 32);
+        final handleContainer = find.byWidgetPredicate(
+          (w) => w is Container && w.constraints?.maxWidth == 32,
+        );
         expect(handleContainer, findsOneWidget);
       });
 
-      testWidgets('Dismisses on barrier tap if barrierDismissible is true', (tester) async {
-        await tester.pumpWidget(buildApp(
-          Builder(builder: (context) {
-            return ElevatedButton(
-              onPressed: () {
-                RefractionSheet.show(
-                  context: context,
-                  side: side,
-                  content: const Text('Sheet Content'),
-                  barrierDismissible: true,
+      testWidgets('Dismisses on barrier tap if barrierDismissible is true', (
+        tester,
+      ) async {
+        await tester.pumpWidget(
+          buildApp(
+            Builder(
+              builder: (context) {
+                return ElevatedButton(
+                  onPressed: () {
+                    RefractionSheet.show(
+                      context: context,
+                      side: side,
+                      content: const Text('Sheet Content'),
+                      barrierDismissible: true,
+                    );
+                  },
+                  child: const Text('Open'),
                 );
               },
-              child: const Text('Open'),
-            );
-          }),
-        ));
+            ),
+          ),
+        );
 
         await tester.tap(find.text('Open'));
         await tester.pumpAndSettle();
         expect(find.text('Sheet Content'), findsOneWidget);
 
         // Tap outside the sheet content (barrier)
-        Offset tapOffset = (side == RefractionSheetSide.left || side == RefractionSheetSide.top) ? const Offset(700, 500) : const Offset(10, 10);
+        Offset tapOffset =
+            (side == RefractionSheetSide.left ||
+                side == RefractionSheetSide.top)
+            ? const Offset(700, 500)
+            : const Offset(10, 10);
         await tester.tapAt(tapOffset);
         await tester.pumpAndSettle();
 
         expect(find.text('Sheet Content'), findsNothing);
       });
 
-      testWidgets('Does not dismiss on barrier tap if barrierDismissible is false', (tester) async {
-        await tester.pumpWidget(buildApp(
-          Builder(builder: (context) {
-            return ElevatedButton(
-              onPressed: () {
-                RefractionSheet.show(
-                  context: context,
-                  side: side,
-                  content: const Text('Sheet Content'),
-                  barrierDismissible: false,
-                );
-              },
-              child: const Text('Open'),
-            );
-          }),
-        ));
+      testWidgets(
+        'Does not dismiss on barrier tap if barrierDismissible is false',
+        (tester) async {
+          await tester.pumpWidget(
+            buildApp(
+              Builder(
+                builder: (context) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      RefractionSheet.show(
+                        context: context,
+                        side: side,
+                        content: const Text('Sheet Content'),
+                        barrierDismissible: false,
+                      );
+                    },
+                    child: const Text('Open'),
+                  );
+                },
+              ),
+            ),
+          );
 
-        await tester.tap(find.text('Open'));
-        await tester.pumpAndSettle();
-        expect(find.text('Sheet Content'), findsOneWidget);
+          await tester.tap(find.text('Open'));
+          await tester.pumpAndSettle();
+          expect(find.text('Sheet Content'), findsOneWidget);
 
-        // Tap outside the sheet content (barrier)
-        Offset tapOffset = (side == RefractionSheetSide.left || side == RefractionSheetSide.top) ? const Offset(700, 500) : const Offset(10, 10);
-        await tester.tapAt(tapOffset);
-        await tester.pumpAndSettle();
+          // Tap outside the sheet content (barrier)
+          Offset tapOffset =
+              (side == RefractionSheetSide.left ||
+                  side == RefractionSheetSide.top)
+              ? const Offset(700, 500)
+              : const Offset(10, 10);
+          await tester.tapAt(tapOffset);
+          await tester.pumpAndSettle();
 
-        expect(find.text('Sheet Content'), findsOneWidget);
-      });
+          expect(find.text('Sheet Content'), findsOneWidget);
+        },
+      );
 
       testWidgets('Applies custom width and height', (tester) async {
-        await tester.pumpWidget(buildApp(
-          Builder(builder: (context) {
-            return ElevatedButton(
-              onPressed: () {
-                RefractionSheet.show(
-                  context: context,
-                  side: side,
-                  content: const Text('Sheet Content'),
-                  width: 250,
-                  height: 350,
+        await tester.pumpWidget(
+          buildApp(
+            Builder(
+              builder: (context) {
+                return ElevatedButton(
+                  onPressed: () {
+                    RefractionSheet.show(
+                      context: context,
+                      side: side,
+                      content: const Text('Sheet Content'),
+                      width: 250,
+                      height: 350,
+                    );
+                  },
+                  child: const Text('Open'),
                 );
               },
-              child: const Text('Open'),
-            );
-          }),
-        ));
+            ),
+          ),
+        );
 
         await tester.tap(find.text('Open'));
         await tester.pumpAndSettle();
 
-        final container = tester.widget<Container>(find.descendant(
-          of: find.byType(Material),
-          matching: find.byType(Container).first,
-        ));
+        final container = tester.widget<Container>(
+          find.descendant(
+            of: find.byType(Material),
+            matching: find.byType(Container).first,
+          ),
+        );
 
         expect(container.constraints?.maxWidth, 250);
         expect(container.constraints?.maxHeight, 350);
       });
 
       testWidgets('Dismisses on sufficient drag', (tester) async {
-        await tester.pumpWidget(buildApp(
-          Builder(builder: (context) {
-            return ElevatedButton(
-              onPressed: () {
-                RefractionSheet.show(
-                  context: context,
-                  side: side,
-                  content: const Text('Sheet Content'),
-                  width: 400,
-                  height: 400,
+        await tester.pumpWidget(
+          buildApp(
+            Builder(
+              builder: (context) {
+                return ElevatedButton(
+                  onPressed: () {
+                    RefractionSheet.show(
+                      context: context,
+                      side: side,
+                      content: const Text('Sheet Content'),
+                      width: 400,
+                      height: 400,
+                    );
+                  },
+                  child: const Text('Open'),
                 );
               },
-              child: const Text('Open'),
-            );
-          }),
-        ));
+            ),
+          ),
+        );
 
         await tester.tap(find.text('Open'));
         await tester.pumpAndSettle();
@@ -245,22 +294,26 @@ void main() {
       });
 
       testWidgets('Snaps back on insufficient drag', (tester) async {
-        await tester.pumpWidget(buildApp(
-          Builder(builder: (context) {
-            return ElevatedButton(
-              onPressed: () {
-                RefractionSheet.show(
-                  context: context,
-                  side: side,
-                  content: const Text('Sheet Content'),
-                  width: 400,
-                  height: 400,
+        await tester.pumpWidget(
+          buildApp(
+            Builder(
+              builder: (context) {
+                return ElevatedButton(
+                  onPressed: () {
+                    RefractionSheet.show(
+                      context: context,
+                      side: side,
+                      content: const Text('Sheet Content'),
+                      width: 400,
+                      height: 400,
+                    );
+                  },
+                  child: const Text('Open'),
                 );
               },
-              child: const Text('Open'),
-            );
-          }),
-        ));
+            ),
+          ),
+        );
 
         await tester.tap(find.text('Open'));
         await tester.pumpAndSettle();
@@ -289,22 +342,26 @@ void main() {
       });
 
       testWidgets('Dismisses on fast fling', (tester) async {
-        await tester.pumpWidget(buildApp(
-          Builder(builder: (context) {
-            return ElevatedButton(
-              onPressed: () {
-                RefractionSheet.show(
-                  context: context,
-                  side: side,
-                  content: const Text('Sheet Content'),
-                  width: 400,
-                  height: 400,
+        await tester.pumpWidget(
+          buildApp(
+            Builder(
+              builder: (context) {
+                return ElevatedButton(
+                  onPressed: () {
+                    RefractionSheet.show(
+                      context: context,
+                      side: side,
+                      content: const Text('Sheet Content'),
+                      width: 400,
+                      height: 400,
+                    );
+                  },
+                  child: const Text('Open'),
                 );
               },
-              child: const Text('Open'),
-            );
-          }),
-        ));
+            ),
+          ),
+        );
 
         await tester.tap(find.text('Open'));
         await tester.pumpAndSettle();
@@ -331,22 +388,26 @@ void main() {
 
         expect(find.text('Sheet Content'), findsNothing);
       });
-      
+
       testWidgets('Respects background color from theme', (tester) async {
-        await tester.pumpWidget(buildApp(
-          Builder(builder: (context) {
-            return ElevatedButton(
-              onPressed: () {
-                RefractionSheet.show(
-                  context: context,
-                  side: side,
-                  content: const Text('Sheet Content'),
+        await tester.pumpWidget(
+          buildApp(
+            Builder(
+              builder: (context) {
+                return ElevatedButton(
+                  onPressed: () {
+                    RefractionSheet.show(
+                      context: context,
+                      side: side,
+                      content: const Text('Sheet Content'),
+                    );
+                  },
+                  child: const Text('Open'),
                 );
               },
-              child: const Text('Open'),
-            );
-          }),
-        ));
+            ),
+          ),
+        );
 
         await tester.tap(find.text('Open'));
         await tester.pumpAndSettle();
@@ -354,51 +415,63 @@ void main() {
         final material = tester.widget<Material>(find.byType(Material).last);
         expect(material.color, RefractionThemeData.light().colors.background);
       });
-      
-      testWidgets('Inner container matches background color and border', (tester) async {
-        await tester.pumpWidget(buildApp(
-          Builder(builder: (context) {
-            return ElevatedButton(
-              onPressed: () {
-                RefractionSheet.show(
-                  context: context,
-                  side: side,
-                  content: const Text('Sheet Content'),
+
+      testWidgets('Inner container matches background color and border', (
+        tester,
+      ) async {
+        await tester.pumpWidget(
+          buildApp(
+            Builder(
+              builder: (context) {
+                return ElevatedButton(
+                  onPressed: () {
+                    RefractionSheet.show(
+                      context: context,
+                      side: side,
+                      content: const Text('Sheet Content'),
+                    );
+                  },
+                  child: const Text('Open'),
                 );
               },
-              child: const Text('Open'),
-            );
-          }),
-        ));
+            ),
+          ),
+        );
 
         await tester.tap(find.text('Open'));
         await tester.pumpAndSettle();
-        
-        final container = tester.widget<Container>(find.descendant(
-          of: find.byType(Material),
-          matching: find.byType(Container).first,
-        ));
-        
+
+        final container = tester.widget<Container>(
+          find.descendant(
+            of: find.byType(Material),
+            matching: find.byType(Container).first,
+          ),
+        );
+
         final decoration = container.decoration as BoxDecoration;
         expect(decoration.color, RefractionThemeData.light().colors.background);
         expect(decoration.border, isNotNull);
       });
-      
+
       testWidgets('Content scroll view is present', (tester) async {
-        await tester.pumpWidget(buildApp(
-          Builder(builder: (context) {
-            return ElevatedButton(
-              onPressed: () {
-                RefractionSheet.show(
-                  context: context,
-                  side: side,
-                  content: const Text('Sheet Content'),
+        await tester.pumpWidget(
+          buildApp(
+            Builder(
+              builder: (context) {
+                return ElevatedButton(
+                  onPressed: () {
+                    RefractionSheet.show(
+                      context: context,
+                      side: side,
+                      content: const Text('Sheet Content'),
+                    );
+                  },
+                  child: const Text('Open'),
                 );
               },
-              child: const Text('Open'),
-            );
-          }),
-        ));
+            ),
+          ),
+        );
 
         await tester.tap(find.text('Open'));
         await tester.pumpAndSettle();

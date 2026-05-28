@@ -116,10 +116,14 @@ class _RefractionCalendarState extends State<RefractionCalendar> {
     super.didUpdateWidget(oldWidget);
     if (widget.initialMonth != null &&
         widget.initialMonth != oldWidget.initialMonth) {
-      _currentMonth =
-          DateTime(widget.initialMonth!.year, widget.initialMonth!.month, 1);
+      _currentMonth = DateTime(
+        widget.initialMonth!.year,
+        widget.initialMonth!.month,
+        1,
+      );
     }
-    if (widget.selectedRange != oldWidget.selectedRange && widget.selectedRange == null) {
+    if (widget.selectedRange != oldWidget.selectedRange &&
+        widget.selectedRange == null) {
       _rangeStart = null;
       _rangeEnd = null;
     }
@@ -186,8 +190,9 @@ class _RefractionCalendarState extends State<RefractionCalendar> {
           setState(() {
             _rangeEnd = date;
           });
-          widget.onRangeSelected
-              ?.call(DateTimeRange(start: _rangeStart!, end: date));
+          widget.onRangeSelected?.call(
+            DateTimeRange(start: _rangeStart!, end: date),
+          );
         }
       }
     }
@@ -261,7 +266,9 @@ class _RefractionCalendarState extends State<RefractionCalendar> {
       }
     } else if (widget.selectionMode == RefractionCalendarSelectionMode.range) {
       final start = _rangeStart ?? widget.selectedRange?.start;
-      final end = (_rangeStart != null) ? _rangeEnd : (widget.selectedRange?.end);
+      final end = (_rangeStart != null)
+          ? _rangeEnd
+          : (widget.selectedRange?.end);
 
       if (start != null && _isSameDay(start, date)) {
         isRangeStart = true;

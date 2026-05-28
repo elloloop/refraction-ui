@@ -117,7 +117,8 @@ class RefractionDeviceFrame extends StatelessWidget {
     final frameHeight = isLandscape ? spec.width : spec.height;
 
     return Semantics(
-      label: '${_deviceLabels[device]} device frame in ${orientation.name} orientation',
+      label:
+          '${_deviceLabels[device]} device frame in ${orientation.name} orientation',
       image: true,
       child: Container(
         width: frameWidth,
@@ -152,10 +153,7 @@ class RefractionDeviceFrame extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               // Screen area
-              Container(
-                color: theme.colors.background,
-                child: child,
-              ),
+              Container(color: theme.colors.background, child: child),
               // Notch decoration
               if (spec.notch)
                 Positioned(
