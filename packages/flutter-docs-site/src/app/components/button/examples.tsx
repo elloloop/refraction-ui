@@ -1,0 +1,140 @@
+'use client'
+
+import { Button } from '@refraction-ui/react-button'
+import { useFramework } from '@/components/framework-context'
+import { FlutterPreview } from '@/components/flutter-preview'
+
+interface ButtonExamplesProps {
+  section: 'variants' | 'sizes' | 'states' | 'primary-alias'
+}
+
+export function ButtonExamples({ section }: ButtonExamplesProps) {
+  const { framework } = useFramework()
+
+  if (framework === 'flutter') {
+    // Note: The path depends on how it is named in widgetbook.directories.g.dart
+    // Usually it is components/button/variants etc.
+    // If we only have use-cases, we can map the sections. For Button, let's assume `components/button/use-cases` or similar.
+    return <FlutterPreview path={`components/button/use-cases`} height={300} />
+  }
+  if (section === 'variants') {
+    return (
+      <div className="rounded-xl border border-border bg-card p-8">
+        <div className="flex flex-wrap items-start gap-6">
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="default" action="save" onClick={() => alert('Saved!')}>Default</Button>
+            <span className="text-xs text-muted-foreground font-medium">Default</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="primary">Primary</Button>
+            <span className="text-xs text-muted-foreground font-medium">
+              Primary <span className="text-muted-foreground/60">(alias)</span>
+            </span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="destructive" shortcut="Ctrl+D" onClick={() => alert('Deleted!')}>Destructive</Button>
+            <span className="text-xs text-muted-foreground font-medium">Destructive</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="outline">Outline</Button>
+            <span className="text-xs text-muted-foreground font-medium">Outline</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="secondary">Secondary</Button>
+            <span className="text-xs text-muted-foreground font-medium">Secondary</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="ghost">Ghost</Button>
+            <span className="text-xs text-muted-foreground font-medium">Ghost</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="link">Link</Button>
+            <span className="text-xs text-muted-foreground font-medium">Link</span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (section === 'sizes') {
+    return (
+      <div className="rounded-xl border border-border bg-card p-8">
+        <div className="flex flex-wrap items-end gap-6">
+          <div className="flex flex-col items-center gap-2.5">
+            <Button size="xs">Extra Small</Button>
+            <span className="text-xs text-muted-foreground font-medium">xs</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button size="sm">Small</Button>
+            <span className="text-xs text-muted-foreground font-medium">sm</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button size="default">Default</Button>
+            <span className="text-xs text-muted-foreground font-medium">default</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button size="lg">Large</Button>
+            <span className="text-xs text-muted-foreground font-medium">lg</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button size="icon" aria-label="Star">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            </Button>
+            <span className="text-xs text-muted-foreground font-medium">icon</span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (section === 'states') {
+    return (
+      <div className="rounded-xl border border-border bg-card p-8">
+        <div className="flex flex-wrap items-start gap-6">
+          <div className="flex flex-col items-center gap-2.5">
+            <Button loading>Loading...</Button>
+            <span className="text-xs text-muted-foreground font-medium">Loading</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button disabled>Disabled</Button>
+            <span className="text-xs text-muted-foreground font-medium">Disabled</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="destructive" loading>Deleting...</Button>
+            <span className="text-xs text-muted-foreground font-medium">Destructive + Loading</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="outline" disabled>Disabled Outline</Button>
+            <span className="text-xs text-muted-foreground font-medium">Outline + Disabled</span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Issue #201 — `primary` aliases `default` so muscle-memory from MUI/Chakra
+  // /Mantine no longer falls through to unstyled text. The two render identically.
+  if (section === 'primary-alias') {
+    return (
+      <div className="rounded-xl border border-border bg-card p-8">
+        <div className="flex flex-wrap items-start gap-6">
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="default">Save</Button>
+            <code className="text-xs text-muted-foreground font-mono">variant=&quot;default&quot;</code>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="primary">Save</Button>
+            <code className="text-xs text-muted-foreground font-mono">variant=&quot;primary&quot;</code>
+          </div>
+          <div className="flex items-center text-xs text-muted-foreground max-w-xs">
+            Both render with the same emphasis classes. <code className="px-1 bg-muted rounded">primary</code> is a typed alias of <code className="px-1 bg-muted rounded">default</code>.
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return null
+}

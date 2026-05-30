@@ -18,28 +18,32 @@ class SlideViewerPage extends StatelessWidget {
                 SlideData(
                   id: 's1',
                   type: SlideType.intro,
-                  content: 'Welcome to the RefractionUI Slide Viewer component. This component supports keyboard navigation and gestures.',
+                  content:
+                      'Welcome to the RefractionUI Slide Viewer component. This component supports keyboard navigation and gestures.',
                 ),
                 SlideData(
                   id: 's2',
                   type: SlideType.lesson,
-                  content: 'Here you can present formatted content, images, or interactive elements. The viewer keeps track of the current progress automatically.',
+                  content:
+                      'Here you can present formatted content, images, or interactive elements. The viewer keeps track of the current progress automatically.',
                 ),
                 SlideData(
                   id: 's3',
                   type: SlideType.quiz,
-                  content: 'Question 1: What is the answer to the ultimate question of life, the universe, and everything?',
+                  content:
+                      'Question 1: What is the answer to the ultimate question of life, the universe, and everything?',
                 ),
                 SlideData(
                   id: 's4',
                   type: SlideType.summary,
-                  content: 'You reached the end! Great job learning about the RefractionSlideViewer.',
+                  content:
+                      'You reached the end! Great job learning about the RefractionSlideViewer.',
                 ),
               ],
               onComplete: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Completed!')),
-                );
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text('Completed!')));
               },
             ),
           ),

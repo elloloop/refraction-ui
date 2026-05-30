@@ -3,7 +3,7 @@ import '../theme/refraction_theme.dart';
 
 abstract class RefractionDropdownEntry {
   const RefractionDropdownEntry();
-  
+
   List<Widget> build(BuildContext context);
 }
 
@@ -25,20 +25,22 @@ class RefractionDropdownItem extends RefractionDropdownEntry {
   @override
   List<Widget> build(BuildContext context) {
     final theme = RefractionTheme.of(context).data;
-    
+
     return [
       MenuItemButton(
         onPressed: disabled ? null : onSelected,
-        leadingIcon: icon != null 
+        leadingIcon: icon != null
             ? IconTheme(
                 data: IconThemeData(
-                  color: disabled ? theme.colors.mutedForeground : theme.colors.foreground,
+                  color: disabled
+                      ? theme.colors.mutedForeground
+                      : theme.colors.foreground,
                   size: 16,
                 ),
                 child: icon!,
               )
             : null,
-        trailingIcon: shortcut != null 
+        trailingIcon: shortcut != null
             ? Text(
                 shortcut!,
                 style: theme.textStyle.copyWith(
@@ -47,25 +49,26 @@ class RefractionDropdownItem extends RefractionDropdownEntry {
                 ),
               )
             : null,
-        style: MenuItemButton.styleFrom(
-          foregroundColor: disabled ? theme.colors.mutedForeground : theme.colors.foreground,
-          textStyle: theme.textStyle.copyWith(
-            fontSize: 14,
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-        ).copyWith(
-          backgroundColor: WidgetStateProperty.resolveWith((states) {
-            if (states.contains(WidgetState.hovered) && !disabled) {
-              return theme.colors.accent;
-            }
-            if (states.contains(WidgetState.focused) && !disabled) {
-              return theme.colors.accent;
-            }
-            return Colors.transparent;
-          }),
-        ),
+        style:
+            MenuItemButton.styleFrom(
+              foregroundColor: disabled
+                  ? theme.colors.mutedForeground
+                  : theme.colors.foreground,
+              textStyle: theme.textStyle.copyWith(fontSize: 14),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            ).copyWith(
+              backgroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.hovered) && !disabled) {
+                  return theme.colors.accent;
+                }
+                if (states.contains(WidgetState.focused) && !disabled) {
+                  return theme.colors.accent;
+                }
+                return Colors.transparent;
+              }),
+            ),
         child: Text(label),
-      )
+      ),
     ];
   }
 }
@@ -79,12 +82,8 @@ class RefractionDropdownDivider extends RefractionDropdownEntry {
     return [
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Divider(
-          height: 1,
-          thickness: 1,
-          color: theme.colors.border,
-        ),
-      )
+        child: Divider(height: 1, thickness: 1, color: theme.colors.border),
+      ),
     ];
   }
 }
@@ -93,10 +92,7 @@ class RefractionDropdownGroup extends RefractionDropdownEntry {
   final String label;
   final List<RefractionDropdownEntry> children;
 
-  const RefractionDropdownGroup({
-    required this.label,
-    required this.children,
-  });
+  const RefractionDropdownGroup({required this.label, required this.children});
 
   @override
   List<Widget> build(BuildContext context) {
@@ -134,38 +130,43 @@ class RefractionDropdownSubmenu extends RefractionDropdownEntry {
   @override
   List<Widget> build(BuildContext context) {
     final theme = RefractionTheme.of(context).data;
-    
+
     return [
       SubmenuButton(
-        menuChildren: disabled ? [] : children.expand((e) => e.build(context)).toList(),
-        leadingIcon: icon != null 
+        menuChildren: disabled
+            ? []
+            : children.expand((e) => e.build(context)).toList(),
+        leadingIcon: icon != null
             ? IconTheme(
                 data: IconThemeData(
-                  color: disabled ? theme.colors.mutedForeground : theme.colors.foreground,
+                  color: disabled
+                      ? theme.colors.mutedForeground
+                      : theme.colors.foreground,
                   size: 16,
                 ),
                 child: icon!,
               )
             : null,
-        style: SubmenuButton.styleFrom(
-          foregroundColor: disabled ? theme.colors.mutedForeground : theme.colors.foreground,
-          textStyle: theme.textStyle.copyWith(
-            fontSize: 14,
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-        ).copyWith(
-          backgroundColor: WidgetStateProperty.resolveWith((states) {
-            if (states.contains(WidgetState.hovered) && !disabled) {
-              return theme.colors.accent;
-            }
-            if (states.contains(WidgetState.focused) && !disabled) {
-              return theme.colors.accent;
-            }
-            return Colors.transparent;
-          }),
-        ),
+        style:
+            SubmenuButton.styleFrom(
+              foregroundColor: disabled
+                  ? theme.colors.mutedForeground
+                  : theme.colors.foreground,
+              textStyle: theme.textStyle.copyWith(fontSize: 14),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            ).copyWith(
+              backgroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.hovered) && !disabled) {
+                  return theme.colors.accent;
+                }
+                if (states.contains(WidgetState.focused) && !disabled) {
+                  return theme.colors.accent;
+                }
+                return Colors.transparent;
+              }),
+            ),
         child: Text(label),
-      )
+      ),
     ];
   }
 }
@@ -202,7 +203,9 @@ class RefractionDropdownMenu extends StatelessWidget {
                 side: BorderSide(color: theme.colors.border),
               ),
             ),
-            padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(vertical: 4)),
+            padding: const WidgetStatePropertyAll(
+              EdgeInsets.symmetric(vertical: 4),
+            ),
             minimumSize: WidgetStatePropertyAll(Size(width, 0)),
           ),
         ),

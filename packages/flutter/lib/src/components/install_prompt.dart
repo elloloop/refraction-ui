@@ -8,7 +8,7 @@ import 'button.dart';
 ///
 /// Simulates a PWA install prompt. It waits for a specified [delay],
 /// and then shows itself. Users can click the install or dismiss buttons.
-/// 
+///
 /// Mirrors the headless `@refraction-ui/install-prompt` and React/Astro adapters.
 /// Note: Real PWA installation via `beforeinstallprompt` is a web-only API.
 /// This component provides the UI and state management for handling such prompts
@@ -49,7 +49,8 @@ class RefractionInstallPrompt extends StatefulWidget {
   });
 
   @override
-  State<RefractionInstallPrompt> createState() => RefractionInstallPromptState();
+  State<RefractionInstallPrompt> createState() =>
+      RefractionInstallPromptState();
 }
 
 class RefractionInstallPromptState extends State<RefractionInstallPrompt> {
@@ -77,7 +78,9 @@ class RefractionInstallPromptState extends State<RefractionInstallPrompt> {
       } else if (!_isVisible) {
         _startTimer();
       }
-    } else if (widget.delay != oldWidget.delay && !_isVisible && !_isDismissed) {
+    } else if (widget.delay != oldWidget.delay &&
+        !_isVisible &&
+        !_isDismissed) {
       _startTimer();
     }
   }
@@ -145,9 +148,7 @@ class RefractionInstallPromptState extends State<RefractionInstallPrompt> {
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
         decoration: BoxDecoration(
           color: theme.colors.background,
-          border: Border(
-            top: BorderSide(color: theme.colors.border),
-          ),
+          border: Border(top: BorderSide(color: theme.colors.border)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.1),

@@ -25,7 +25,11 @@ class _ThreadViewPageState extends State<ThreadViewPage> {
         content: 'Has anyone seen the latest designs for the dashboard?',
         timestamp: DateTime.now().subtract(const Duration(hours: 2)),
         reactions: const [
-          RefractionThreadMessageReaction(emoji: '👀', count: 3, userReacted: true),
+          RefractionThreadMessageReaction(
+            emoji: '👀',
+            count: 3,
+            userReacted: true,
+          ),
         ],
         replies: [
           RefractionThreadMessageData(
@@ -35,9 +39,15 @@ class _ThreadViewPageState extends State<ThreadViewPage> {
               name: 'John Smith',
             ),
             content: 'I think they are in the shared folder.',
-            timestamp: DateTime.now().subtract(const Duration(hours: 1, minutes: 45)),
+            timestamp: DateTime.now().subtract(
+              const Duration(hours: 1, minutes: 45),
+            ),
             reactions: const [
-              RefractionThreadMessageReaction(emoji: '👍', count: 1, userReacted: false),
+              RefractionThreadMessageReaction(
+                emoji: '👍',
+                count: 1,
+                userReacted: false,
+              ),
             ],
             replies: [
               RefractionThreadMessageData(
@@ -48,7 +58,9 @@ class _ThreadViewPageState extends State<ThreadViewPage> {
                   avatarUrl: 'https://i.pravatar.cc/150?u=sarah',
                 ),
                 content: 'Found them, thanks!',
-                timestamp: DateTime.now().subtract(const Duration(hours: 1, minutes: 30)),
+                timestamp: DateTime.now().subtract(
+                  const Duration(hours: 1, minutes: 30),
+                ),
               ),
             ],
           ),
@@ -77,9 +89,9 @@ class _ThreadViewPageState extends State<ThreadViewPage> {
   }
 
   void _handleReply(String messageId) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Replying to message: $messageId')),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('Replying to message: $messageId')));
   }
 
   void _handleReact(String messageId, String emoji) {
@@ -91,9 +103,7 @@ class _ThreadViewPageState extends State<ThreadViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Thread View'),
-      ),
+      appBar: AppBar(title: const Text('Thread View')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(

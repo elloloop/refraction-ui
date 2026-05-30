@@ -143,8 +143,10 @@ class _LineChartPainter extends CustomPainter {
     final points = <Offset>[];
 
     for (var point in data) {
-      double x = (point.x - actualMinX) / (actualMaxX - actualMinX) * size.width;
-      double y = size.height -
+      double x =
+          (point.x - actualMinX) / (actualMaxX - actualMinX) * size.width;
+      double y =
+          size.height -
           ((point.y - actualMinY) / (actualMaxY - actualMinY) * size.height);
       points.add(Offset(x, y));
 
@@ -372,10 +374,7 @@ class RefractionPieChart extends StatelessWidget {
       padding: padding,
       child: CustomPaint(
         size: Size.infinite,
-        painter: _PieChartPainter(
-          data: data,
-          holeRadius: holeRadius,
-        ),
+        painter: _PieChartPainter(data: data, holeRadius: holeRadius),
       ),
     );
   }
@@ -385,10 +384,7 @@ class _PieChartPainter extends CustomPainter {
   final List<RefractionPieChartDataPoint> data;
   final double holeRadius;
 
-  _PieChartPainter({
-    required this.data,
-    required this.holeRadius,
-  });
+  _PieChartPainter({required this.data, required this.holeRadius});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -400,7 +396,7 @@ class _PieChartPainter extends CustomPainter {
 
     final center = Offset(size.width / 2, size.height / 2);
     final maxRadius = math.min(size.width / 2, size.height / 2);
-    
+
     if (holeRadius >= maxRadius) return;
 
     double currentAngle = -math.pi / 2;
@@ -409,7 +405,7 @@ class _PieChartPainter extends CustomPainter {
       // Draw donut chart using strokes
       final strokeWidth = maxRadius - holeRadius;
       final radius = holeRadius + strokeWidth / 2;
-      
+
       for (final point in data) {
         final sweepAngle = (point.value / totalValue) * 2 * math.pi;
 

@@ -57,7 +57,10 @@ void main() {
     test('setPreference ignores required categories', () {
       final controller = CookieConsentController();
       controller.setPreference('necessary', false);
-      expect(controller.value.preferences['necessary'], isTrue); // Should remain true
+      expect(
+        controller.value.preferences['necessary'],
+        isTrue,
+      ); // Should remain true
     });
 
     test('setPreference ignores unknown categories', () {
@@ -104,11 +107,7 @@ void main() {
       home: RefractionTheme(
         data: RefractionThemeData.light(),
         child: Scaffold(
-          body: Stack(
-            children: [
-              Positioned.fill(child: child),
-            ],
-          ),
+          body: Stack(children: [Positioned.fill(child: child)]),
         ),
       ),
     );
@@ -117,11 +116,15 @@ void main() {
   group('RefractionCookieConsent UI Tests', () {
     testWidgets('renders prompt view by default', (tester) async {
       final controller = CookieConsentController();
-      await tester.pumpWidget(wrap(RefractionCookieConsent(
-        controller: controller,
-        title: 'Custom Title',
-        description: 'Custom Description',
-      )));
+      await tester.pumpWidget(
+        wrap(
+          RefractionCookieConsent(
+            controller: controller,
+            title: 'Custom Title',
+            description: 'Custom Description',
+          ),
+        ),
+      );
 
       expect(find.text('Custom Title'), findsOneWidget);
       expect(find.text('Custom Description'), findsOneWidget);
@@ -133,7 +136,9 @@ void main() {
 
     testWidgets('does not render if closed', (tester) async {
       final controller = CookieConsentController(initialOpen: false);
-      await tester.pumpWidget(wrap(RefractionCookieConsent(controller: controller)));
+      await tester.pumpWidget(
+        wrap(RefractionCookieConsent(controller: controller)),
+      );
       expect(find.text('We use cookies'), findsNothing);
     });
 
@@ -141,7 +146,9 @@ void main() {
       tester.view.physicalSize = const Size(1000, 2000);
       tester.view.devicePixelRatio = 1.0;
       final controller = CookieConsentController();
-      await tester.pumpWidget(wrap(RefractionCookieConsent(controller: controller)));
+      await tester.pumpWidget(
+        wrap(RefractionCookieConsent(controller: controller)),
+      );
 
       await tester.tap(find.widgetWithText(RefractionButton, 'Accept all'));
       await tester.pumpAndSettle();
@@ -156,7 +163,9 @@ void main() {
       tester.view.physicalSize = const Size(1000, 2000);
       tester.view.devicePixelRatio = 1.0;
       final controller = CookieConsentController();
-      await tester.pumpWidget(wrap(RefractionCookieConsent(controller: controller)));
+      await tester.pumpWidget(
+        wrap(RefractionCookieConsent(controller: controller)),
+      );
 
       await tester.tap(find.widgetWithText(RefractionButton, 'Reject all'));
       await tester.pumpAndSettle();
@@ -172,13 +181,18 @@ void main() {
       tester.view.physicalSize = const Size(1000, 2000);
       tester.view.devicePixelRatio = 1.0;
       final controller = CookieConsentController();
-      await tester.pumpWidget(wrap(RefractionCookieConsent(controller: controller)));
+      await tester.pumpWidget(
+        wrap(RefractionCookieConsent(controller: controller)),
+      );
 
       await tester.tap(find.widgetWithText(RefractionButton, 'Customize'));
       await tester.pumpAndSettle();
 
       expect(find.text('Cookie preferences'), findsOneWidget);
-      expect(find.text('Toggle the categories you want to allow.'), findsOneWidget);
+      expect(
+        find.text('Toggle the categories you want to allow.'),
+        findsOneWidget,
+      );
       expect(find.text('Strictly necessary'), findsOneWidget);
       expect(find.text('Analytics'), findsOneWidget);
       expect(find.text('Always on'), findsOneWidget);
@@ -186,11 +200,15 @@ void main() {
       addTearDown(tester.view.resetDevicePixelRatio);
     });
 
-    testWidgets('Back button in settings view returns to prompt', (tester) async {
+    testWidgets('Back button in settings view returns to prompt', (
+      tester,
+    ) async {
       tester.view.physicalSize = const Size(1000, 2000);
       tester.view.devicePixelRatio = 1.0;
       final controller = CookieConsentController();
-      await tester.pumpWidget(wrap(RefractionCookieConsent(controller: controller)));
+      await tester.pumpWidget(
+        wrap(RefractionCookieConsent(controller: controller)),
+      );
 
       await tester.tap(find.text('Customize'));
       await tester.pumpAndSettle();
@@ -204,22 +222,28 @@ void main() {
       addTearDown(tester.view.resetDevicePixelRatio);
     });
 
-    testWidgets('Save preferences in settings applies selected preferences', (tester) async {
+    testWidgets('Save preferences in settings applies selected preferences', (
+      tester,
+    ) async {
       tester.view.physicalSize = const Size(1000, 2000);
       tester.view.devicePixelRatio = 1.0;
       final controller = CookieConsentController();
-      await tester.pumpWidget(wrap(RefractionCookieConsent(controller: controller)));
+      await tester.pumpWidget(
+        wrap(RefractionCookieConsent(controller: controller)),
+      );
 
       await tester.tap(find.text('Customize'));
       await tester.pumpAndSettle();
 
       final switches = find.byType(RefractionSwitch);
       expect(switches, findsWidgets);
-      
+
       await tester.tap(switches.first);
       await tester.pumpAndSettle();
 
-      await tester.tap(find.widgetWithText(RefractionButton, 'Save preferences'));
+      await tester.tap(
+        find.widgetWithText(RefractionButton, 'Save preferences'),
+      );
       await tester.pumpAndSettle();
 
       expect(controller.value.consented, isTrue);
@@ -234,7 +258,9 @@ void main() {
       tester.view.physicalSize = const Size(1000, 2000);
       tester.view.devicePixelRatio = 1.0;
       final controller = CookieConsentController();
-      await tester.pumpWidget(wrap(RefractionCookieConsent(controller: controller)));
+      await tester.pumpWidget(
+        wrap(RefractionCookieConsent(controller: controller)),
+      );
 
       await tester.tap(find.text('Customize'));
       await tester.pumpAndSettle();
@@ -255,11 +281,15 @@ void main() {
       final controller = CookieConsentController();
       bool policyTapped = false;
 
-      await tester.pumpWidget(wrap(RefractionCookieConsent(
-        controller: controller,
-        policyLabel: 'My Policy',
-        onPolicyTap: () => policyTapped = true,
-      )));
+      await tester.pumpWidget(
+        wrap(
+          RefractionCookieConsent(
+            controller: controller,
+            policyLabel: 'My Policy',
+            onPolicyTap: () => policyTapped = true,
+          ),
+        ),
+      );
 
       await tester.tap(find.text('My Policy'));
       expect(policyTapped, isTrue);
@@ -269,29 +299,39 @@ void main() {
 
     testWidgets('Position top', (tester) async {
       final controller = CookieConsentController();
-      await tester.pumpWidget(wrap(RefractionCookieConsent(
-        controller: controller,
-        position: RefractionCookieConsentPosition.top,
-      )));
+      await tester.pumpWidget(
+        wrap(
+          RefractionCookieConsent(
+            controller: controller,
+            position: RefractionCookieConsentPosition.top,
+          ),
+        ),
+      );
 
-      final align = tester.widget<Align>(find.descendant(
-        of: find.byType(SafeArea),
-        matching: find.byType(Align),
-      ).first);
+      final align = tester.widget<Align>(
+        find
+            .descendant(of: find.byType(SafeArea), matching: find.byType(Align))
+            .first,
+      );
       expect(align.alignment, Alignment.topCenter);
     });
 
     testWidgets('Position bottom', (tester) async {
       final controller = CookieConsentController();
-      await tester.pumpWidget(wrap(RefractionCookieConsent(
-        controller: controller,
-        position: RefractionCookieConsentPosition.bottom,
-      )));
+      await tester.pumpWidget(
+        wrap(
+          RefractionCookieConsent(
+            controller: controller,
+            position: RefractionCookieConsentPosition.bottom,
+          ),
+        ),
+      );
 
-      final align = tester.widget<Align>(find.descendant(
-        of: find.byType(SafeArea),
-        matching: find.byType(Align),
-      ).first);
+      final align = tester.widget<Align>(
+        find
+            .descendant(of: find.byType(SafeArea), matching: find.byType(Align))
+            .first,
+      );
       expect(align.alignment, Alignment.bottomCenter);
     });
   });
@@ -356,8 +396,10 @@ void main() {
       tester.view.physicalSize = const Size(1000, 2000);
       tester.view.devicePixelRatio = 1.0;
       final controller = CookieConsentController();
-      await tester.pumpWidget(wrap(RefractionCookieConsent(controller: controller)));
-      
+      await tester.pumpWidget(
+        wrap(RefractionCookieConsent(controller: controller)),
+      );
+
       expect(find.text('We use cookies'), findsOneWidget);
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
@@ -367,7 +409,9 @@ void main() {
       tester.view.physicalSize = const Size(300, 2000);
       tester.view.devicePixelRatio = 1.0;
       final controller = CookieConsentController();
-      await tester.pumpWidget(wrap(RefractionCookieConsent(controller: controller)));
+      await tester.pumpWidget(
+        wrap(RefractionCookieConsent(controller: controller)),
+      );
 
       await tester.tap(find.text('Customize'));
       await tester.pumpAndSettle();
@@ -382,7 +426,9 @@ void main() {
         tester.view.physicalSize = Size(300.0 + i * 50.0, 2000);
         tester.view.devicePixelRatio = 1.0;
         final controller = CookieConsentController();
-        await tester.pumpWidget(wrap(RefractionCookieConsent(controller: controller)));
+        await tester.pumpWidget(
+          wrap(RefractionCookieConsent(controller: controller)),
+        );
         await tester.pumpAndSettle();
         expect(find.byType(RefractionCookieConsent), findsOneWidget);
         addTearDown(tester.view.resetPhysicalSize);

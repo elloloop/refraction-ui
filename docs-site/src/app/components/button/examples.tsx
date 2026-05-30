@@ -3,7 +3,7 @@
 import { Button } from '@refraction-ui/react-button'
 
 interface ButtonExamplesProps {
-  section: 'variants' | 'sizes' | 'states'
+  section: 'variants' | 'sizes' | 'states' | 'primary-alias'
 }
 
 export function ButtonExamples({ section }: ButtonExamplesProps) {
@@ -14,6 +14,12 @@ export function ButtonExamples({ section }: ButtonExamplesProps) {
           <div className="flex flex-col items-center gap-2.5">
             <Button variant="default" action="save" onClick={() => alert('Saved!')}>Default</Button>
             <span className="text-xs text-muted-foreground font-medium">Default</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="primary">Primary</Button>
+            <span className="text-xs text-muted-foreground font-medium">
+              Primary <span className="text-muted-foreground/60">(alias)</span>
+            </span>
           </div>
           <div className="flex flex-col items-center gap-2.5">
             <Button variant="destructive" shortcut="Ctrl+D" onClick={() => alert('Deleted!')}>Destructive</Button>
@@ -92,6 +98,28 @@ export function ButtonExamples({ section }: ButtonExamplesProps) {
           <div className="flex flex-col items-center gap-2.5">
             <Button variant="outline" disabled>Disabled Outline</Button>
             <span className="text-xs text-muted-foreground font-medium">Outline + Disabled</span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Issue #201 — `primary` aliases `default` so muscle-memory from MUI/Chakra
+  // /Mantine no longer falls through to unstyled text. The two render identically.
+  if (section === 'primary-alias') {
+    return (
+      <div className="rounded-xl border border-border bg-card p-8">
+        <div className="flex flex-wrap items-start gap-6">
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="default">Save</Button>
+            <code className="text-xs text-muted-foreground font-mono">variant=&quot;default&quot;</code>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="primary">Save</Button>
+            <code className="text-xs text-muted-foreground font-mono">variant=&quot;primary&quot;</code>
+          </div>
+          <div className="flex items-center text-xs text-muted-foreground max-w-xs">
+            Both render with the same emphasis classes. <code className="px-1 bg-muted rounded">primary</code> is a typed alias of <code className="px-1 bg-muted rounded">default</code>.
           </div>
         </div>
       </div>

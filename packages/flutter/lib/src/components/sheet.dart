@@ -20,8 +20,14 @@ class RefractionSheet {
     final theme = themeProvider.data;
     final colors = theme.colors;
 
-    final defaultWidth = (side == RefractionSheetSide.left || side == RefractionSheetSide.right) ? 384.0 : double.infinity;
-    final defaultHeight = (side == RefractionSheetSide.top || side == RefractionSheetSide.bottom) ? MediaQuery.of(context).size.height * 0.4 : double.infinity;
+    final defaultWidth =
+        (side == RefractionSheetSide.left || side == RefractionSheetSide.right)
+        ? 384.0
+        : double.infinity;
+    final defaultHeight =
+        (side == RefractionSheetSide.top || side == RefractionSheetSide.bottom)
+        ? MediaQuery.of(context).size.height * 0.4
+        : double.infinity;
 
     return showGeneralDialog<T>(
       context: context,
@@ -85,12 +91,17 @@ class RefractionSheet {
                         if (showDragHandle)
                           Center(
                             child: Padding(
-                              padding: const EdgeInsets.only(top: 12.0, bottom: 8.0),
+                              padding: const EdgeInsets.only(
+                                top: 12.0,
+                                bottom: 8.0,
+                              ),
                               child: Container(
                                 width: 32,
                                 height: 4,
                                 decoration: BoxDecoration(
-                                  color: colors.mutedForeground.withValues(alpha: 0.3),
+                                  color: colors.mutedForeground.withValues(
+                                    alpha: 0.3,
+                                  ),
                                   borderRadius: BorderRadius.circular(2),
                                 ),
                               ),
@@ -127,7 +138,10 @@ class RefractionSheet {
                           ),
                         Expanded(
                           child: SingleChildScrollView(
-                            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24.0,
+                              vertical: 8.0,
+                            ),
                             child: DefaultTextStyle(
                               style: theme.textStyle.copyWith(
                                 color: colors.foreground,
@@ -142,10 +156,14 @@ class RefractionSheet {
                             padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
-                              children: actions.map((a) => Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: a,
-                              )).toList(),
+                              children: actions
+                                  .map(
+                                    (a) => Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: a,
+                                    ),
+                                  )
+                                  .toList(),
                             ),
                           ),
                       ],
@@ -158,7 +176,10 @@ class RefractionSheet {
         );
 
         return SlideTransition(
-          position: Tween<Offset>(begin: begin, end: Offset.zero).animate(curve),
+          position: Tween<Offset>(
+            begin: begin,
+            end: Offset.zero,
+          ).animate(curve),
           child: sheet,
         );
       },
@@ -167,10 +188,14 @@ class RefractionSheet {
 
   static Alignment _getAlignment(RefractionSheetSide side) {
     switch (side) {
-      case RefractionSheetSide.left: return Alignment.centerLeft;
-      case RefractionSheetSide.right: return Alignment.centerRight;
-      case RefractionSheetSide.top: return Alignment.topCenter;
-      case RefractionSheetSide.bottom: return Alignment.bottomCenter;
+      case RefractionSheetSide.left:
+        return Alignment.centerLeft;
+      case RefractionSheetSide.right:
+        return Alignment.centerRight;
+      case RefractionSheetSide.top:
+        return Alignment.topCenter;
+      case RefractionSheetSide.bottom:
+        return Alignment.bottomCenter;
     }
   }
 
@@ -181,10 +206,14 @@ class RefractionSheet {
   static Border _getBorder(RefractionSheetSide side, Color color) {
     final borderSide = BorderSide(color: color);
     switch (side) {
-      case RefractionSheetSide.left: return Border(right: borderSide);
-      case RefractionSheetSide.right: return Border(left: borderSide);
-      case RefractionSheetSide.top: return Border(bottom: borderSide);
-      case RefractionSheetSide.bottom: return Border(top: borderSide);
+      case RefractionSheetSide.left:
+        return Border(right: borderSide);
+      case RefractionSheetSide.right:
+        return Border(left: borderSide);
+      case RefractionSheetSide.top:
+        return Border(bottom: borderSide);
+      case RefractionSheetSide.bottom:
+        return Border(top: borderSide);
     }
   }
 }
@@ -204,7 +233,8 @@ class _DraggableSheet extends StatefulWidget {
   State<_DraggableSheet> createState() => _DraggableSheetState();
 }
 
-class _DraggableSheetState extends State<_DraggableSheet> with SingleTickerProviderStateMixin {
+class _DraggableSheetState extends State<_DraggableSheet>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   double _dragOffset = 0.0;
 
@@ -258,16 +288,20 @@ class _DraggableSheetState extends State<_DraggableSheet> with SingleTickerProvi
 
     switch (widget.side) {
       case RefractionSheetSide.left:
-        shouldDismiss = _dragOffset < -threshold || details.primaryVelocity! < -500;
+        shouldDismiss =
+            _dragOffset < -threshold || details.primaryVelocity! < -500;
         break;
       case RefractionSheetSide.right:
-        shouldDismiss = _dragOffset > threshold || details.primaryVelocity! > 500;
+        shouldDismiss =
+            _dragOffset > threshold || details.primaryVelocity! > 500;
         break;
       case RefractionSheetSide.top:
-        shouldDismiss = _dragOffset < -threshold || details.primaryVelocity! < -500;
+        shouldDismiss =
+            _dragOffset < -threshold || details.primaryVelocity! < -500;
         break;
       case RefractionSheetSide.bottom:
-        shouldDismiss = _dragOffset > threshold || details.primaryVelocity! > 500;
+        shouldDismiss =
+            _dragOffset > threshold || details.primaryVelocity! > 500;
         break;
     }
 
@@ -283,16 +317,30 @@ class _DraggableSheetState extends State<_DraggableSheet> with SingleTickerProvi
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isHorizontal = widget.side == RefractionSheetSide.left || widget.side == RefractionSheetSide.right;
-        final dimension = isHorizontal ? constraints.maxWidth : constraints.maxHeight;
+        final isHorizontal =
+            widget.side == RefractionSheetSide.left ||
+            widget.side == RefractionSheetSide.right;
+        final dimension = isHorizontal
+            ? constraints.maxWidth
+            : constraints.maxHeight;
 
         return GestureDetector(
-          onHorizontalDragUpdate: isHorizontal ? (d) => _handleDragUpdate(d, dimension) : null,
-          onHorizontalDragEnd: isHorizontal ? (d) => _handleDragEnd(d, dimension) : null,
-          onVerticalDragUpdate: !isHorizontal ? (d) => _handleDragUpdate(d, dimension) : null,
-          onVerticalDragEnd: !isHorizontal ? (d) => _handleDragEnd(d, dimension) : null,
+          onHorizontalDragUpdate: isHorizontal
+              ? (d) => _handleDragUpdate(d, dimension)
+              : null,
+          onHorizontalDragEnd: isHorizontal
+              ? (d) => _handleDragEnd(d, dimension)
+              : null,
+          onVerticalDragUpdate: !isHorizontal
+              ? (d) => _handleDragUpdate(d, dimension)
+              : null,
+          onVerticalDragEnd: !isHorizontal
+              ? (d) => _handleDragEnd(d, dimension)
+              : null,
           child: Transform.translate(
-            offset: isHorizontal ? Offset(_dragOffset, 0) : Offset(0, _dragOffset),
+            offset: isHorizontal
+                ? Offset(_dragOffset, 0)
+                : Offset(0, _dragOffset),
             child: widget.child,
           ),
         );

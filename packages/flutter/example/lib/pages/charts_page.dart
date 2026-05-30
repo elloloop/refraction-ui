@@ -26,14 +26,19 @@ class ChartsPage extends StatelessWidget {
 
     final pieData = [
       RefractionPieChartDataPoint(value: 35, color: Colors.blue, label: 'A'),
-      RefractionPieChartDataPoint(value: 25, color: Colors.lightBlue, label: 'B'),
+      RefractionPieChartDataPoint(
+        value: 25,
+        color: Colors.lightBlue,
+        label: 'B',
+      ),
       RefractionPieChartDataPoint(value: 20, color: Colors.cyan, label: 'C'),
       RefractionPieChartDataPoint(value: 20, color: Colors.teal, label: 'D'),
     ];
 
     return PreviewCanvas(
       title: "Charts",
-      description: "Headless rendering components for line, bar, and pie charts.",
+      description:
+          "Headless rendering components for line, bar, and pie charts.",
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 800),
@@ -69,10 +74,7 @@ class ChartsPage extends StatelessWidget {
                 const SizedBox(height: 16),
                 SizedBox(
                   height: 300,
-                  child: RefractionBarChart(
-                    data: barData,
-                    barSpacing: 16.0,
-                  ),
+                  child: RefractionBarChart(data: barData, barSpacing: 16.0),
                 ),
                 const SizedBox(height: 48),
                 Text(
@@ -88,9 +90,7 @@ class ChartsPage extends StatelessWidget {
                     Expanded(
                       child: SizedBox(
                         height: 250,
-                        child: RefractionPieChart(
-                          data: pieData,
-                        ),
+                        child: RefractionPieChart(data: pieData),
                       ),
                     ),
                     Expanded(

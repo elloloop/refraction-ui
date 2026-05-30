@@ -412,9 +412,9 @@ class _AppShell extends ConsumerWidget {
 
   // Very simple mocked content mapper
   Widget _buildDocsContent(String route, BuildContext context) {
+    switch (route) {
       case '/docs/install-prompt':
         return const InstallPromptPage();
-    switch (route) {
       case '/docs/reaction-bar':
         return const ReactionBarPage();
       case '/docs/feedback-dialog':

@@ -110,11 +110,11 @@ class _ReactionButtonState extends State<_ReactionButton> {
     final colors = widget.theme.colors;
     final isActive = widget.reaction.isActive;
 
-    final bgColor = isActive 
-        ? colors.primary.withOpacity(0.1) 
+    final bgColor = isActive
+        ? colors.primary.withOpacity(0.1)
         : (_isHovered ? colors.accent : colors.background);
-    final borderColor = isActive 
-        ? colors.primary.withOpacity(0.3) 
+    final borderColor = isActive
+        ? colors.primary.withOpacity(0.3)
         : (_isHovered ? colors.border : colors.border.withOpacity(0.5));
     final contentColor = isActive ? colors.primary : colors.mutedForeground;
 
@@ -122,15 +122,9 @@ class _ReactionButtonState extends State<_ReactionButton> {
       mainAxisSize: MainAxisSize.min,
       children: [
         IconTheme(
-          data: IconThemeData(
-            color: contentColor,
-            size: 16,
-          ),
+          data: IconThemeData(color: contentColor, size: 16),
           child: DefaultTextStyle(
-            style: TextStyle(
-              color: contentColor,
-              fontSize: 14,
-            ),
+            style: TextStyle(color: contentColor, fontSize: 14),
             child: widget.reaction.icon,
           ),
         ),
@@ -144,7 +138,7 @@ class _ReactionButtonState extends State<_ReactionButton> {
               fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
             ),
           ),
-        ]
+        ],
       ],
     );
 
@@ -161,10 +155,7 @@ class _ReactionButtonState extends State<_ReactionButton> {
           decoration: BoxDecoration(
             color: bgColor,
             borderRadius: BorderRadius.circular(widget.theme.borderRadius),
-            border: Border.all(
-              color: borderColor,
-              width: 1,
-            ),
+            border: Border.all(color: borderColor, width: 1),
           ),
           child: content,
         ),

@@ -89,3 +89,57 @@ reason new feature packages must stay private and ride the metas.
 
 Run `make ci` before pushing to `main`; never push failing code. Use `stax`
 for git/dev workflow, not raw `git`/`gh` (issue/PR skills excepted).
+
+---
+
+## How I expect you to write code
+
+**No shortcuts. "Simple" never means "sloppy."** A small diff that hardcodes,
+duplicates, or skips a test isn't simpler — it's deferred cost.
+
+1. **Fix causes, not symptoms.** Find the root cause before fixing. If you're
+   applying a workaround, say so explicitly and explain why. Never swallow an
+   exception or silence an error to make a problem disappear.
+
+2. **Think about consequences.** Before changing shared or widely-used code,
+   trace its callers and the invariants they rely on. A fix that's locally
+   correct but breaks something elsewhere — now or later — is not a fix.
+
+3. **SOLID, sensibly.** One responsibility per class/widget/function. Separate
+   pure logic from I/O so it can be tested. Inject dependencies that cross a
+   boundary so they're mockable. Don't add abstractions for things that don't
+   cross a boundary.
+
+4. **DRY about knowledge, not appearance.** Don't duplicate a rule or decision.
+   Code that merely looks similar but changes for different reasons stays
+   separate. When unsure, prefer duplication over a premature/wrong abstraction.
+
+5. **No hardcoded values.** No magic numbers or strings inline — give them
+   names. Environment/tenant/feature-specific values go in typed config in
+   application code, never scattered literals, never the database.
+
+6. **Readable & maintainable.** Clear names, short flat functions, early
+   returns over deep nesting. Comments explain *why*, not *what*. Match the
+   existing style of the file you're editing.
+
+7. **Testable, and prove it.** Ship a test for behavior you add or change. If
+   something is hard to test, that's a design smell — restructure until it
+   isn't. "Works but can't be tested" means it isn't done.
+
+A change is done only when: the cause (not a symptom) is fixed, no new hardcoded
+values, a test covers it, and the analyzer/formatter are clean.
+
+## Project facts
+
+> Keep these current as the repo evolves; only write what you've confirmed.
+
+- **Setup command:** `make install` (`pnpm install --frozen-lockfile`; pnpm@10.13.1, Node 20)
+- **Analyze/lint command:** `make lint` (`pnpm turbo run lint` → `eslint src --ext .ts,.tsx`); also `make typecheck` (`tsc --noEmit`)
+- **Test command (all):** `make test` (`pnpm turbo run test` → `vitest run --passWithNoTests` per package)
+- **Test command (single file/test):** `pnpm --filter <pkg> exec vitest run <file>` or scope by name with `vitest run -t "<name>"`
+- **Format command:** No Prettier; formatting is `.editorconfig` (2-space, LF, final newline) enforced via ESLint — run `make lint`
+- **Run an app:** `pnpm storybook` (React, port 6006) / `pnpm storybook:astro` (Astro, port 6008); docs in `docs-site`; Flutter package has its own `packages/flutter/Makefile`
+- **Repo layout:** pnpm + Turborepo monorepo. `packages/*` (~298 dirs: headless cores, `react-*`/`astro-*`/`angular-*` adapters, `*-meta` aggregators, `tailwind-config`, Dart `flutter`); `docs-site` (docs); `e2e` + `playwright.config.ts` (Playwright); `.storybook`/`.storybook-astro`; `scripts/` (codegen/publish helpers)
+- **State management / data layer conventions:** Headless cores (`private: true`) hold logic; framework adapters (`react-*`/`astro-*`, also `private: true`) wrap them; only the per-framework `*-meta` packages plus `tailwind-config` are published, re-exporting adapters via `export *`. Consumers install only a meta or `@refraction-ui/shared`
+- **Generated files NOT to hand-edit:** Built `dist/**` and `coverage/**` (Turbo outputs); meta `package.json` deps / `src/index.ts` exports are managed by `update-meta-packages.cjs`; packages and stories scaffolded by `scripts/generate-package.mjs`, `scripts/generate-astro-packages.mjs`, `scripts/generate-stories.mjs`, `scripts/generate-astro-stories.mjs`, `scripts/generate-docs-stories.mjs`; docs by `update-docs.cjs`; `pnpm-lock.yaml`
+- **Other gotchas:** Only 3 npm packages publish (`@refraction-ui/react`, `@refraction-ui/astro`, `@refraction-ui/tailwind-config`) — everything else is `private: true` (see "Hard rules"); Flutter publishes to pub.dev via the `flutter-publish` tag workflow, not npm; releases are Changesets + OIDC trusted publishing only (never local/token publish); run `make ci` before push and use `stax` over raw `git`/`gh`
