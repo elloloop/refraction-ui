@@ -15,8 +15,8 @@ permissions:
   id-token: write
 
 jobs:
-  release:
-    name: Release
+  build-react:
+    name: Build React Packages
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
@@ -25,38 +25,77 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.event.workflow_run.head_branch }}
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
-
       - name: Setup Turborepo Caching
         uses: dtinth/setup-github-actions-caching-for-turbo@v1
-
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      - name: Build React Packages
+        run: pnpm turbo run build --filter="!*astro*" --continue
 
-      - name: Build Packages
+  build-astro:
+    name: Build Astro Packages
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.workflow_run.head_branch }}
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - name: Setup Turborepo Caching
+        uses: dtinth/setup-github-actions-caching-for-turbo@v1
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build Astro Packages
+        run: pnpm turbo run build --filter="*astro*" --continue
+
+  release:
+    name: Release
+    needs: [build-react, build-astro]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.workflow_run.head_branch }}
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - name: Setup Turborepo Caching
+        uses: dtinth/setup-github-actions-caching-for-turbo@v1
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build Packages (from cache)
         run: pnpm build
-
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
         with:
-          # Use our custom OIDC-aware publish script
           publish: node scripts/publish-oidc.mjs
           version: pnpm exec changeset version
           commit: "chore: release packages"
           title: "chore: release packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # Custom logic for Canary releases on main branch
       - name: Canary Release
         if: github.event.workflow_run.head_branch == 'main' && steps.changesets.outputs.published != 'true'
         run: |

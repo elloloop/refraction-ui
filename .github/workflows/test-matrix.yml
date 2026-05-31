@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 jobs:
-  test-matrix:
+  test-matrix-react:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -30,12 +30,59 @@ jobs:
         uses: dtinth/setup-github-actions-caching-for-turbo@v1
       - name: Install dependencies
         run: make install
-      - name: Run CI
-        run: make ci
+      - name: Run CI for React
+        run: pnpm turbo run lint typecheck test build --filter="!*astro*" --continue
+
+  test-matrix-astro:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
+        pnpm-version: [10.13.1]
+        include:
+          - node-version: 20
+            pnpm-version: 10.13.1
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: ${{ matrix.pnpm-version }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: pnpm
+      - name: Setup Turborepo Caching
+        uses: dtinth/setup-github-actions-caching-for-turbo@v1
+      - name: Install dependencies
+        run: make install
+      - name: Run CI for Astro
+        run: pnpm turbo run lint typecheck test build --filter="*astro*" --continue
+
+  test-matrix-flutter:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.16.0
+        with:
+          channel: stable
+      - name: Install Dependencies
+        working-directory: packages/flutter
+        run: flutter pub get
+      - name: Static Analysis
+        working-directory: packages/flutter
+        run: dart analyze lib
+      - name: Run Tests
+        working-directory: packages/flutter
+        run: flutter test
 
   browser-tests:
     runs-on: ubuntu-latest
-    needs: test-matrix
+    needs: [test-matrix-react, test-matrix-astro, test-matrix-flutter]
     permissions:
       contents: read
     steps:
@@ -60,8 +107,8 @@ jobs:
 
   performance-regression:
     runs-on: ubuntu-latest
-    needs: test-matrix
-    if: github.event-name == 'pull_request'
+    needs: [test-matrix-react, test-matrix-astro, test-matrix-flutter]
+    if: github.event_name == 'pull_request'
     permissions:
       contents: read
     steps:
