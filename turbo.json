@@ -10,14 +10,12 @@
       "dependsOn": ["^lint"]
     },
     "typecheck": {
-      "dependsOn": ["^typecheck", "^build"]
+      "dependsOn": ["^typecheck"]
     },
     "test": {
-      "dependsOn": ["build"],
       "outputs": ["coverage/**"]
     },
     "test:coverage": {
-      "dependsOn": ["build", "^test:coverage"],
       "outputs": ["coverage/**"]
     },
     "storybook:test": {
