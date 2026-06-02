@@ -46,10 +46,17 @@ jobs:
         working-directory: packages/flutter
         run: make build-web
         
-      - name: Merge Flutter Web into Docs
+      - name: Build Flutter Docs Site
+        run: GITHUB_PAGES=true pnpm --filter @refraction-ui/flutter-docs-site build
+
+      - name: Merge Flutter Docs into Main Docs
         run: |
           mkdir -p docs-site/out/flutter
-          cp -r packages/flutter/example/build/web/* docs-site/out/flutter/
+          # Copy the flutter docs site Next.js export into the flutter subpath
+          cp -r packages/flutter-docs-site/out/* docs-site/out/flutter/
+          # Also merge the flutter web prototype into the flutter docs site if needed for iframes
+          mkdir -p docs-site/out/flutter/prototype
+          cp -r packages/flutter/example/build/web/* docs-site/out/flutter/prototype/ || true
 
       - uses: actions/upload-pages-artifact@v3
         with:

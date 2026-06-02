@@ -7,112 +7,350 @@ import { useMobileNav } from './mobile-nav-context'
 
 const componentGroups = [
   {
-    title: 'Core UI',
+    title: "All Components",
     items: [
-      { name: 'Accordion', href: '/components/accordion' },
-      { name: 'Button', href: '/components/button' },
-      { name: 'Input', href: '/components/input' },
-      { name: 'Textarea', href: '/components/textarea' },
-      { name: 'Select', href: '/components/select' },
-      { name: 'Checkbox', href: '/components/checkbox' },
-      { name: 'Switch', href: '/components/switch' },
-      { name: 'OTP Input', href: '/components/otp-input' },
-      { name: 'Badge', href: '/components/badge' },
-      { name: 'Skeleton', href: '/components/skeleton' },
-      { name: 'Avatar', href: '/components/avatar' },
-      { name: 'Calendar', href: '/components/calendar' },
-      { name: 'Tooltip', href: '/components/tooltip' },
-      { name: 'Popover', href: '/components/popover' },
-      { name: 'Collapsible', href: '/components/collapsible' },
-      { name: 'Dialog', href: '/components/dialog' },
-      { name: 'Dropdown Menu', href: '/components/dropdown-menu' },
-      { name: 'Command', href: '/components/command' },
-      { name: 'Toast', href: '/components/toast' },
-      { name: 'Tabs', href: '/components/tabs' },
-    ],
-  },
-  {
-    title: 'Layout',
-    items: [
-      { name: 'Card', href: '/components/card' },
-      { name: 'Navbar', href: '/components/navbar' },
-      { name: 'Sidebar', href: '/components/sidebar-component' },
-      { name: 'Breadcrumbs', href: '/components/breadcrumbs' },
-      { name: 'Footer', href: '/components/footer' },
-      { name: 'Bottom Nav', href: '/components/bottom-nav' },
-    ],
-  },
-  {
-    title: 'Data',
-    items: [
-      { name: 'Data Table', href: '/components/data-table' },
-      { name: 'Progress Display', href: '/components/progress-display' },
-    ],
-  },
-  {
-    title: 'Forms',
-    items: [
-      { name: 'Search Bar', href: '/components/search-bar' },
-      { name: 'Language Selector', href: '/components/language-selector' },
-      { name: 'Version Selector', href: '/components/version-selector' },
-      { name: 'Feedback Dialog', href: '/components/feedback-dialog' },
-      { name: 'Inline Editor', href: '/components/inline-editor' },
-    ],
-  },
-  {
-    title: 'Media',
-    items: [
-      { name: 'Video Player', href: '/components/video-player' },
-      { name: 'Markdown Renderer', href: '/components/markdown-renderer' },
-      { name: 'Code Editor', href: '/components/code-editor' },
-      { name: 'Slide Viewer', href: '/components/slide-viewer' },
-      { name: 'Animated Text', href: '/components/animated-text' },
-    ],
-  },
-  {
-    title: 'AI',
-    items: [
-      { name: 'Chat', href: '/components/conversation' },
-      { name: 'Voice Pill', href: '/components/voice-pill' },
-      { name: 'Waveform', href: '/components/waveform' },
-    ],
-  },
-  {
-    title: 'Workplace',
-    items: [
-      { name: 'Date Picker', href: '/components/date-picker' },
-      { name: 'Emoji Picker', href: '/components/emoji-picker' },
-      { name: 'File Upload', href: '/components/file-upload' },
-      { name: 'Avatar Group', href: '/components/avatar-group' },
-      { name: 'Presence Indicator', href: '/components/presence-indicator' },
-      { name: 'Reaction Bar', href: '/components/reaction-bar' },
-      { name: 'Status Indicator', href: '/components/status-indicator' },
-      { name: 'Keyboard Shortcut', href: '/components/keyboard-shortcut' },
-      { name: 'Rich Editor', href: '/components/rich-editor' },
-    ],
-  },
-  {
-    title: 'Telemetry',
-    items: [
-      { name: 'Logger', href: '/components/logger' },
-    ],
-  },
-  {
-    title: 'Other',
-    items: [
-      { name: 'Cookie Consent', href: '/components/cookie-consent' },
-      { name: 'Install Prompt', href: '/components/install-prompt' },
-      { name: 'Content Protection', href: '/components/content-protection' },
-      { name: 'Device Frame', href: '/components/device-frame' },
-    ],
-  },
+      {
+        name: "Accordion",
+        href: "/components/accordion"
+      },
+      {
+        name: "Alert",
+        href: "/components/alert"
+      },
+      {
+        name: "Animated Text",
+        href: "/components/animated-text"
+      },
+      {
+        name: "App Shell",
+        href: "/components/app-shell"
+      },
+      {
+        name: "Avatar",
+        href: "/components/avatar"
+      },
+      {
+        name: "Avatar Group",
+        href: "/components/avatar-group"
+      },
+      {
+        name: "Badge",
+        href: "/components/badge"
+      },
+      {
+        name: "Bottom Nav",
+        href: "/components/bottom-nav"
+      },
+      {
+        name: "Breadcrumbs",
+        href: "/components/breadcrumbs"
+      },
+      {
+        name: "Button",
+        href: "/components/button"
+      },
+      {
+        name: "Calendar",
+        href: "/components/calendar"
+      },
+      {
+        name: "Callout",
+        href: "/components/callout"
+      },
+      {
+        name: "Card",
+        href: "/components/card"
+      },
+      {
+        name: "Card Grid",
+        href: "/components/card-grid"
+      },
+      {
+        name: "Carousel",
+        href: "/components/carousel"
+      },
+      {
+        name: "Charts",
+        href: "/components/charts"
+      },
+      {
+        name: "Chat Input",
+        href: "/components/chat-input"
+      },
+      {
+        name: "Checkbox",
+        href: "/components/checkbox"
+      },
+      {
+        name: "Code Block",
+        href: "/components/code-block"
+      },
+      {
+        name: "Code Editor",
+        href: "/components/code-editor"
+      },
+      {
+        name: "Collapsible",
+        href: "/components/collapsible"
+      },
+      {
+        name: "Combobox",
+        href: "/components/combobox"
+      },
+      {
+        name: "Command",
+        href: "/components/command"
+      },
+      {
+        name: "Command Input",
+        href: "/components/command-input"
+      },
+      {
+        name: "Command Menu",
+        href: "/components/command-menu"
+      },
+      {
+        name: "Content Protection",
+        href: "/components/content-protection"
+      },
+      {
+        name: "Conversation",
+        href: "/components/conversation"
+      },
+      {
+        name: "Cookie Consent",
+        href: "/components/cookie-consent"
+      },
+      {
+        name: "Data Table",
+        href: "/components/data-table"
+      },
+      {
+        name: "Date Picker",
+        href: "/components/date-picker"
+      },
+      {
+        name: "Device Frame",
+        href: "/components/device-frame"
+      },
+      {
+        name: "Dialog",
+        href: "/components/dialog"
+      },
+      {
+        name: "Diff Viewer",
+        href: "/components/diff-viewer"
+      },
+      {
+        name: "Dropdown Menu",
+        href: "/components/dropdown-menu"
+      },
+      {
+        name: "Emoji Picker",
+        href: "/components/emoji-picker"
+      },
+      {
+        name: "Feedback Dialog",
+        href: "/components/feedback-dialog"
+      },
+      {
+        name: "File Tree",
+        href: "/components/file-tree"
+      },
+      {
+        name: "File Upload",
+        href: "/components/file-upload"
+      },
+      {
+        name: "Footer",
+        href: "/components/footer"
+      },
+      {
+        name: "Form",
+        href: "/components/form"
+      },
+      {
+        name: "Inline Editor",
+        href: "/components/inline-editor"
+      },
+      {
+        name: "Input",
+        href: "/components/input"
+      },
+      {
+        name: "Input Group",
+        href: "/components/input-group"
+      },
+      {
+        name: "Install Prompt",
+        href: "/components/install-prompt"
+      },
+      {
+        name: "Keyboard Shortcut",
+        href: "/components/keyboard-shortcut"
+      },
+      {
+        name: "Language Selector",
+        href: "/components/language-selector"
+      },
+      {
+        name: "Link Card",
+        href: "/components/link-card"
+      },
+      {
+        name: "Location Selector",
+        href: "/components/location-selector"
+      },
+      {
+        name: "Logger",
+        href: "/components/logger"
+      },
+      {
+        name: "Markdown Renderer",
+        href: "/components/markdown-renderer"
+      },
+      {
+        name: "Mobile Nav",
+        href: "/components/mobile-nav"
+      },
+      {
+        name: "Navbar",
+        href: "/components/navbar"
+      },
+      {
+        name: "Otp Input",
+        href: "/components/otp-input"
+      },
+      {
+        name: "Pagination",
+        href: "/components/pagination"
+      },
+      {
+        name: "Payment",
+        href: "/components/payment"
+      },
+      {
+        name: "Popover",
+        href: "/components/popover"
+      },
+      {
+        name: "Presence Indicator",
+        href: "/components/presence-indicator"
+      },
+      {
+        name: "Progress Display",
+        href: "/components/progress-display"
+      },
+      {
+        name: "Radio",
+        href: "/components/radio"
+      },
+      {
+        name: "Radio Group",
+        href: "/components/radio-group"
+      },
+      {
+        name: "Reaction Bar",
+        href: "/components/reaction-bar"
+      },
+      {
+        name: "Resizable Layout",
+        href: "/components/resizable-layout"
+      },
+      {
+        name: "Rich Editor",
+        href: "/components/rich-editor"
+      },
+      {
+        name: "Search Bar",
+        href: "/components/search-bar"
+      },
+      {
+        name: "Select",
+        href: "/components/select"
+      },
+      {
+        name: "Sheet",
+        href: "/components/sheet"
+      },
+      {
+        name: "Sidebar",
+        href: "/components/sidebar"
+      },
+      {
+        name: "Skeleton",
+        href: "/components/skeleton"
+      },
+      {
+        name: "Skip To Content",
+        href: "/components/skip-to-content"
+      },
+      {
+        name: "Slide Viewer",
+        href: "/components/slide-viewer"
+      },
+      {
+        name: "Slider",
+        href: "/components/slider"
+      },
+      {
+        name: "Status Indicator",
+        href: "/components/status-indicator"
+      },
+      {
+        name: "Steps",
+        href: "/components/steps"
+      },
+      {
+        name: "Switch",
+        href: "/components/switch"
+      },
+      {
+        name: "Table Of Contents",
+        href: "/components/table-of-contents"
+      },
+      {
+        name: "Tabs",
+        href: "/components/tabs"
+      },
+      {
+        name: "Textarea",
+        href: "/components/textarea"
+      },
+      {
+        name: "Thread View",
+        href: "/components/thread-view"
+      },
+      {
+        name: "Toast",
+        href: "/components/toast"
+      },
+      {
+        name: "Tooltip",
+        href: "/components/tooltip"
+      },
+      {
+        name: "Version Selector",
+        href: "/components/version-selector"
+      },
+      {
+        name: "Video Player",
+        href: "/components/video-player"
+      },
+      {
+        name: "Voice Pill",
+        href: "/components/voice-pill"
+      },
+      {
+        name: "Waveform",
+        href: "/components/waveform"
+      }
+    ]
+  }
 ]
 
 const themeSubItems = [
-  { name: 'Theme Playground', href: '/theme' },
-  { name: 'Config Editor', href: '/theme/editor' },
-  { name: 'Generate Theme', href: '/theme/generate' },
-  { name: 'React API', href: '/theme/api' },
+  { name: 'Theme Generator', href: '/theme-generator' },
 ]
 
 const navigation = [
@@ -145,7 +383,7 @@ const navigation = [
   },
   {
     name: 'Theme',
-    href: '/theme',
+    href: '/theme-generator',
     icon: (
       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402M6.75 21A3.75 3.75 0 0 1 3 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z" />

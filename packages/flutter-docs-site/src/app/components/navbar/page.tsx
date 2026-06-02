@@ -1,32 +1,5 @@
-import { NavbarExamples } from './examples'
 import { PropsTable } from '@/components/props-table'
 import { CodeBlock } from '@/components/code-block'
-import { InstallCommand } from '@/components/install-command'
-
-const navbarProps = [
-  { name: 'links', type: 'NavLink[]', description: 'Array of { label, href } navigation links.' },
-  { name: 'currentPath', type: 'string', description: 'Current pathname for active link highlighting.' },
-  { name: 'variant', type: 'NavbarVariant', description: 'Visual variant of the navbar.' },
-  { name: 'logo', type: 'ReactNode', description: 'Logo or brand element (left side).' },
-  { name: 'actions', type: 'ReactNode', description: 'Action buttons (right side).' },
-  { name: 'className', type: 'string', description: 'Additional CSS classes.' },
-]
-
-const usageCode = `import { Navbar } from '@refraction-ui/react-navbar'
-
-export function MyComponent() {
-  return (
-    <Navbar
-      links={[
-        { label: 'Home', href: '/' },
-        { label: 'Docs', href: '/docs' },
-      ]}
-      currentPath="/"
-      logo={<span>MyApp</span>}
-      actions={<button>Sign In</button>}
-    />
-  )
-}`
 
 export default function NavbarPage() {
   return (
@@ -37,31 +10,24 @@ export default function NavbarPage() {
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Navbar</h1>
         <p className="mt-3 text-lg text-muted-foreground leading-relaxed">
-          A sticky header with navigation links, logo, and action slots. Responsive with links hidden on mobile.
-          Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/navbar</code> core.
+          Flutter implementation of the Navbar component.
         </p>
       </div>
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground">Examples</h2>
-        <p className="text-sm text-muted-foreground">Navbar with links, active state, logo, and action button.</p>
-        <NavbarExamples section="basic" />
-      </section>
-      {/* Install */}
-      <section className="space-y-3">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-navbar" />
-      </section>
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
-        <CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} />
-      </section>
+        <CodeBlock 
+          language="dart"
+          code={`import 'package:refraction_ui/refraction_ui.dart';
 
-      <div className="h-px bg-border" />
-
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground">Props</h2>
-        <PropsTable props={navbarProps} />
+class MyNavbarExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Navbar(
+      // Add props here
+    );
+  }
+}`} />
       </section>
     </div>
   )

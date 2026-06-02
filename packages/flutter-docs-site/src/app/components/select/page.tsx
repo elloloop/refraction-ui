@@ -1,31 +1,5 @@
-import { SelectExamples } from './examples'
 import { PropsTable } from '@/components/props-table'
 import { CodeBlock } from '@/components/code-block'
-import { InstallCommand } from '@/components/install-command'
-
-const selectProps = [
-  { name: 'value', type: 'string', description: 'Controlled selected value.' },
-  { name: 'onValueChange', type: '(value: string) => void', description: 'Callback when selection changes.' },
-  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the select.' },
-  { name: 'placeholder', type: 'string', default: "'Select an option'", description: 'Placeholder text.' },
-  { name: 'children', type: 'ReactNode', description: 'SelectTrigger + SelectContent.' },
-]
-
-const usageCode = `import { Select, SelectTrigger, SelectContent, SelectItem } from '@refraction-ui/react-select'
-
-export function MyComponent() {
-  const [value, setValue] = useState<string>()
-  return (
-    <Select value={value} onValueChange={setValue} placeholder="Pick a fruit...">
-      <SelectTrigger>{value || 'Pick a fruit...'}</SelectTrigger>
-      <SelectContent>
-        <SelectItem value="apple">Apple</SelectItem>
-        <SelectItem value="banana">Banana</SelectItem>
-        <SelectItem value="cherry">Cherry</SelectItem>
-      </SelectContent>
-    </Select>
-  )
-}`
 
 export default function SelectPage() {
   return (
@@ -36,45 +10,24 @@ export default function SelectPage() {
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Select</h1>
         <p className="mt-3 text-lg text-muted-foreground leading-relaxed">
-          A dropdown select with accessible keyboard and ARIA support. Compound component pattern with trigger, content, and items.
-          Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/select</code> core.
+          Flutter implementation of the Select component.
         </p>
       </div>
 
-      {/* Live Example — first */}
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground">Basic</h2>
-        <p className="text-sm text-muted-foreground">Select with placeholder and pre-selected value.</p>
-        <SelectExamples section="basic" />
-      </section>
-
-      {/* Install */}
-      <section className="space-y-3">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-select" />
-      </section>
-
-      {/* Code */}
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
-        <CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} />
-      </section>
+        <CodeBlock 
+          language="dart"
+          code={`import 'package:refraction_ui/refraction_ui.dart';
 
-      <div className="h-px bg-border" />
-
-      {/* States */}
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground">States</h2>
-        <p className="text-sm text-muted-foreground">Disabled state prevents interaction.</p>
-        <SelectExamples section="states" />
-      </section>
-
-      <div className="h-px bg-border" />
-
-      {/* Props */}
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground">Props</h2>
-        <PropsTable props={selectProps} />
+class MySelectExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Select(
+      // Add props here
+    );
+  }
+}`} />
       </section>
     </div>
   )
