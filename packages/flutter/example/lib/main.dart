@@ -7,10 +7,9 @@ import 'package:refraction_ui/refraction_ui.dart';
 // Import our layouts and pages
 import 'pages/home_page.dart';
 import 'pages/docs_layout.dart';
-import 'pages/bottom_nav_page.dart';
-import 'pages/breadcrumbs_page.dart';
-import 'pages/footer_page.dart';
 import 'pages/carousel_page.dart';
+import 'pages/accordion_page.dart';
+import 'pages/chat_input_page.dart';
 import 'pages/command_menu_page.dart';
 import 'pages/command_input_page.dart';
 import 'pages/radio_group_page.dart';
@@ -422,7 +421,7 @@ class _AppShell extends ConsumerWidget {
       case '/docs/diff-viewer':
         return const DiffViewerPage();
       case '/docs/accordion':
-        return const AccordionPage();
+        return AccordionPage();
       case '/docs/collapsible':
         return const CollapsiblePage();
       case '/docs/dropdown-menu':
@@ -609,7 +608,7 @@ class _AppShell extends ConsumerWidget {
           ),
         );
       case '/docs/chat-input':
-        return const ChatInputPage();
+        return ChatInputPage();
       case '/docs/select-&-dropdowns':
         return PreviewCanvas(
           title: "Select & Dropdowns",

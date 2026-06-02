@@ -14,16 +14,12 @@ class ResizableLayoutPage extends StatelessWidget {
           children: [
             Text(
               'Resizable Layout',
-              style: RefractionTheme.of(
-                context,
-              ).textStyle.copyWith(fontSize: 32, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: RefractionTheme.of(context).colors.foreground),
             ),
             const SizedBox(height: 16),
             Text(
               'A split-view layout with draggable handles to resize the panels.',
-              style: RefractionTheme.of(
-                context,
-              ).textStyle.copyWith(fontSize: 16),
+              style: TextStyle(fontSize: 16, color: RefractionTheme.of(context).colors.foreground),
             ),
             const SizedBox(height: 32),
             Expanded(
@@ -34,7 +30,7 @@ class ResizableLayoutPage extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: RefractionTheme.of(context).colors.surface,
+                      color: RefractionTheme.of(context).colors.card,
                       border: Border.all(
                         color: RefractionTheme.of(context).colors.border,
                       ),
@@ -45,12 +41,12 @@ class ResizableLayoutPage extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Text(
                       'Sidebar',
-                      style: RefractionTheme.of(context).textStyle,
+                      style: TextStyle(color: RefractionTheme.of(context).colors.foreground),
                     ),
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: RefractionTheme.of(context).colors.surface,
+                      color: RefractionTheme.of(context).colors.card,
                       border: Border.all(
                         color: RefractionTheme.of(context).colors.border,
                       ),
@@ -61,7 +57,7 @@ class ResizableLayoutPage extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Text(
                       'Main Content',
-                      style: RefractionTheme.of(context).textStyle,
+                      style: TextStyle(color: RefractionTheme.of(context).colors.foreground),
                     ),
                   ),
                 ],
@@ -75,7 +71,7 @@ class ResizableLayoutPage extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: RefractionTheme.of(context).colors.surface,
+                      color: RefractionTheme.of(context).colors.card,
                       border: Border.all(
                         color: RefractionTheme.of(context).colors.border,
                       ),
@@ -86,12 +82,12 @@ class ResizableLayoutPage extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Text(
                       'Top Panel',
-                      style: RefractionTheme.of(context).textStyle,
+                      style: TextStyle(color: RefractionTheme.of(context).colors.foreground),
                     ),
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: RefractionTheme.of(context).colors.surface,
+                      color: RefractionTheme.of(context).colors.card,
                       border: Border.all(
                         color: RefractionTheme.of(context).colors.border,
                       ),
@@ -102,7 +98,7 @@ class ResizableLayoutPage extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Text(
                       'Bottom Panel',
-                      style: RefractionTheme.of(context).textStyle,
+                      style: TextStyle(color: RefractionTheme.of(context).colors.foreground),
                     ),
                   ),
                 ],

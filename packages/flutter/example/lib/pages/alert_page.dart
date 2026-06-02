@@ -25,28 +25,28 @@ class AlertPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              const RefractionAlert(
+              RefractionAlert(
                 icon: Icon(Icons.terminal),
                 title: "Heads up!",
                 description:
                     "You can add components to your app using the cli.",
               ),
               const SizedBox(height: 16),
-              const RefractionAlert(
+              RefractionAlert(
                 icon: Icon(Icons.warning),
                 title: "Warning",
                 description: "Your session is about to expire.",
                 variant: RefractionAlertVariant.warning,
               ),
               const SizedBox(height: 16),
-              const RefractionAlert(
+              RefractionAlert(
                 icon: Icon(Icons.error),
                 title: "Error",
                 description: "Your session has expired. Please log in again.",
                 variant: RefractionAlertVariant.destructive,
               ),
               const SizedBox(height: 16),
-              const RefractionAlert(
+              RefractionAlert(
                 icon: Icon(Icons.check_circle),
                 title: "Success",
                 description: "Your changes have been saved.",
@@ -61,7 +61,7 @@ class AlertPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              const RefractionCallout(
+              RefractionCallout(
                 title: "Documentation Update",
                 description: "We have updated our terms of service.",
               ),

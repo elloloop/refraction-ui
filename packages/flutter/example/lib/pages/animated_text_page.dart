@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:refraction_ui/refraction_ui.dart';
 
-import '../components/preview_canvas.dart';
+import '../dev_tools/preview_canvas.dart';
 
 class AnimatedTextPage extends StatefulWidget {
   const AnimatedTextPage({super.key});

@@ -1,46 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/refraction_theme.dart';
-
-/// A single selectable entry inside a [RefractionCommandMenu].
-class RefractionCommandItem {
-  /// Leading icon displayed beside [label].
-  final Widget icon;
-
-  /// Human-readable label, also used for substring filtering against the
-  /// search query.
-  final String label;
-
-  /// Optional keyboard shortcut hint, displayed at the trailing edge —
-  /// for example `'⌘K'`. Purely informational; the menu does not bind it.
-  final String? shortcut;
-
-  /// Invoked when the user taps the item or presses `Enter` while it is
-  /// highlighted.
-  final VoidCallback onSelected;
-
-  /// Creates a [RefractionCommandItem].
-  const RefractionCommandItem({
-    required this.icon,
-    required this.label,
-    this.shortcut,
-    required this.onSelected,
-  });
-}
-
-/// A named cluster of [RefractionCommandItem]s rendered under a single
-/// heading inside a [RefractionCommandMenu].
-class RefractionCommandGroup {
-  /// Section heading rendered in uppercase muted text.
-  final String heading;
-
-  /// Items belonging to this group, in display order.
-  final List<RefractionCommandItem> items;
-
-  /// Creates a [RefractionCommandGroup].
-  const RefractionCommandGroup({required this.heading, required this.items});
-}
-
+import 'command.dart';
 /// A searchable command palette — the equivalent of macOS Spotlight or
 /// VS Code's command palette.
 ///

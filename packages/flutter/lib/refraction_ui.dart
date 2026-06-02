@@ -118,6 +118,9 @@ export 'src/components/keyboard_shortcut.dart';
 export 'src/components/logger.dart';
 export 'src/components/version_selector.dart';
 export 'src/components/skip_to_content.dart';
+export 'src/components/feedback_dialog.dart';
+export 'src/components/alert.dart' hide RefractionCallout;
+export 'src/components/callout.dart';
 
 export 'src/components/command.dart';
 export 'src/components/code_block.dart';

@@ -49,17 +49,27 @@ class _ContentProtectionPageState extends State<ContentProtectionPage> {
             // Controls
             Row(
               children: [
-                RefractionCheckbox(
-                  value: _isLocked,
-                  onChanged: (val) => setState(() => _isLocked = val == true),
-                  label: 'Locked',
+                Row(
+                  children: [
+                    RefractionCheckbox(
+                      value: _isLocked,
+                      onChanged: (val) => setState(() => _isLocked = val == true),
+                    ),
+                    const SizedBox(width: 8),
+                    Text('Locked', style: TextStyle(color: theme.colors.foreground)),
+                  ],
                 ),
                 const SizedBox(width: 24),
-                RefractionCheckbox(
-                  value: _showWatermark,
-                  onChanged: (val) =>
-                      setState(() => _showWatermark = val == true),
-                  label: 'Watermark',
+                Row(
+                  children: [
+                    RefractionCheckbox(
+                      value: _showWatermark,
+                      onChanged: (val) =>
+                          setState(() => _showWatermark = val == true),
+                    ),
+                    const SizedBox(width: 8),
+                    Text('Watermark', style: TextStyle(color: theme.colors.foreground)),
+                  ],
                 ),
               ],
             ),

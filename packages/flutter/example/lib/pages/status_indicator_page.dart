@@ -7,7 +7,7 @@ class StatusIndicatorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const RefractionNavbar(title: 'Status Indicator'),
+      appBar: const RefractionNavbar(logo: Text('Status Indicator')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(

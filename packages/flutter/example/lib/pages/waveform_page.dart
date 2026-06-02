@@ -78,8 +78,7 @@ class _WaveformPageState extends State<WaveformPage> {
                         onChanged: (v) => setState(() => _variant = v!),
                         items: WaveformVariant.values
                             .map(
-                              (v) =>
-                                  RefractionSelectItem(value: v, label: v.name),
+                              (v) => DropdownMenuItem(value: v, child: Text(v.name)),
                             )
                             .toList(),
                       ),
@@ -91,7 +90,7 @@ class _WaveformPageState extends State<WaveformPage> {
                   child: Row(
                     children: [
                       RefractionCheckbox(
-                        checked: _paused,
+                        value: _paused,
                         onChanged: (v) => setState(() => _paused = v ?? false),
                       ),
                       const SizedBox(width: 8),
@@ -104,7 +103,7 @@ class _WaveformPageState extends State<WaveformPage> {
                   child: Row(
                     children: [
                       RefractionCheckbox(
-                        checked: _useCustomSamples,
+                        value: _useCustomSamples,
                         onChanged: (v) {
                           setState(() => _useCustomSamples = v ?? false);
                           if (_useCustomSamples) _generateSamples();
@@ -127,19 +126,19 @@ class _WaveformPageState extends State<WaveformPage> {
               ),
             const SizedBox(height: 24),
             Text('Intensity: ${_intensity.toStringAsFixed(2)}'),
-            RefractionProgressSlider(
+            RefractionSlider(
               value: _intensity,
               onChanged: (v) => setState(() => _intensity = v),
             ),
             const SizedBox(height: 16),
             Text('Amplitude: ${_amplitude.toStringAsFixed(2)}'),
-            RefractionProgressSlider(
+            RefractionSlider(
               value: _amplitude,
               onChanged: (v) => setState(() => _amplitude = v),
             ),
             const SizedBox(height: 16),
             Text('Smoothing: ${_smoothing.toStringAsFixed(2)}'),
-            RefractionProgressSlider(
+            RefractionSlider(
               value: _smoothing,
               onChanged: (v) => setState(() => _smoothing = v),
             ),

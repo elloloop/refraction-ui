@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:refraction_ui/refraction_ui.dart';
 
-import '../layout/page_layout.dart';
+import '../dev_tools/preview_canvas.dart';
 
 class InstallPromptPage extends StatefulWidget {
   const InstallPromptPage({super.key});
@@ -16,7 +16,7 @@ class _InstallPromptPageState extends State<InstallPromptPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PageLayout(
+    return PreviewCanvas(
       title: 'Install Prompt',
       description:
           'A banner prompting the user to install the application as a PWA.',

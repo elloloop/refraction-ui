@@ -64,7 +64,7 @@ class _PaymentPageState extends State<PaymentPage> {
                   border: Border.all(
                     color: RefractionTheme.of(context).colors.border,
                   ),
-                  boxShadow: RefractionTheme.of(context).shadowSm,
+                  boxShadow: RefractionTheme.of(context).data.heavyShadow,
                 ),
                 padding: const EdgeInsets.all(24),
                 child: RefractionPayment(

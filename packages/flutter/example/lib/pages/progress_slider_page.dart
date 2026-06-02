@@ -32,9 +32,9 @@ class _ProgressSliderPageState extends State<ProgressSliderPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              const RefractionProgress(value: 0.3),
+              const RefractionProgressDisplay(value: 0.3),
               const SizedBox(height: 16),
-              const RefractionProgress(value: 0.8, color: Colors.green),
+              const RefractionProgressDisplay(value: 0.8, color: Colors.green),
               const SizedBox(height: 48),
               Text(
                 "Slider",
@@ -53,7 +53,7 @@ class _ProgressSliderPageState extends State<ProgressSliderPage> {
                 },
               ),
               const SizedBox(height: 16),
-              RefractionProgress(value: _sliderValue), // Linked progress
+              RefractionProgressDisplay(value: _sliderValue), // Linked progress
             ],
           ),
         ),
