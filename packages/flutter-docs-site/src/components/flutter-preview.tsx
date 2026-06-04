@@ -43,8 +43,28 @@ export function FlutterPreview({ path, height = 400 }: FlutterPreviewProps) {
     }
   }, [mode, resolved])
 
+  // Map singular React/Next.js docs paths to plural/custom Flutter prototype paths
+  const routeMap: Record<string, string> = {
+    '/docs/button': '/docs/buttons',
+    '/docs/badge': '/docs/badges',
+    '/docs/tab': '/docs/tabs',
+    '/docs/step': '/docs/steps',
+    '/docs/input': '/docs/inputs-&-forms',
+    '/docs/form': '/docs/inputs-&-forms',
+    '/docs/textarea': '/docs/inputs-&-forms',
+    '/docs/checkbox': '/docs/inputs-&-forms',
+    '/docs/radio': '/docs/inputs-&-forms',
+    '/docs/card': '/docs/cards-&-layouts',
+    '/docs/popover': '/docs/popovers-&-tooltips',
+    '/docs/tooltip': '/docs/popovers-&-tooltips',
+    '/docs/toast': '/docs/toasts',
+    '/docs/select': '/docs/select-&-dropdowns',
+  }
+
+  const mappedPath = routeMap[path] || path
+
   // In local development or production, /refraction-ui/flutter/prototype/ will serve the app.
-  const src = `/refraction-ui/flutter/prototype/#${path}`
+  const src = `/refraction-ui/flutter/prototype/#${mappedPath}`
 
   return (
     <div 
