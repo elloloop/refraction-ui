@@ -73,7 +73,14 @@ void main() {
 
 class _RouteNotifier extends Notifier<String> {
   @override
-  String build() => '/';
+  String build() {
+    // Read the initial route from the browser URL fragment
+    final initial = WidgetsBinding.instance.platformDispatcher.defaultRouteName;
+    if (initial.isNotEmpty && initial != '/') {
+      return initial;
+    }
+    return '/';
+  }
   void update(String val) => state = val;
 }
 
