@@ -35,7 +35,6 @@ export function FlutterPreview({ path, height = 400 }: FlutterPreviewProps) {
       setThemeParam(getThemeString(mode, resolved))
     }
     window.addEventListener('storage', handleStorage)
-    // Custom event we might dispatch from mode-toggle or theme-config-panel
     window.addEventListener('rfr-theme-preset-changed', handleStorage)
     
     return () => {
@@ -44,12 +43,8 @@ export function FlutterPreview({ path, height = 400 }: FlutterPreviewProps) {
     }
   }, [mode, resolved])
 
-  // In local development or production, /flutter/ will serve the Widgetbook Web build.
-  // We append &preview=true to hide the Widgetbook sidebar and only show the component.
-  // Note: Widgetbook uses URL parameters to set the state of Addons like ThemeAddon.
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
-  const themeGroup = `{name:${encodeURIComponent(themeParam)}}`
-  const src = `${basePath}/flutter/index.html#/?path=${path}&theme=${encodeURIComponent(themeGroup)}&preview=true`
+  // In local development or production, /refraction-ui/flutter/prototype/ will serve the app.
+  const src = `/refraction-ui/flutter/prototype/#${path}`
 
   return (
     <div 

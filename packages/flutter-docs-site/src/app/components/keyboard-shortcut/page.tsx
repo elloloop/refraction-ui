@@ -1,3 +1,4 @@
+import { FlutterPreview } from '@/components/flutter-preview'
 import { PropsTable } from '@/components/props-table'
 import { CodeBlock } from '@/components/code-block'
 
@@ -16,6 +17,8 @@ export default function KeyboardShortcutPage() {
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
+        <FlutterPreview path="/docs/keyboard-shortcut" />
+        <div className="h-4"></div>
         <CodeBlock 
           language="dart"
           code={`import 'package:refraction_ui/refraction_ui.dart';

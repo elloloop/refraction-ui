@@ -1,3 +1,4 @@
+import { FlutterPreview } from '@/components/flutter-preview'
 import { SidebarExamples } from './examples'
 import { PropsTable } from '@/components/props-table'
 import { CodeBlock } from '@/components/code-block'
@@ -56,6 +57,8 @@ export default function SidebarPage() {
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
+        <FlutterPreview path="/docs/sidebar-component" />
+        <div className="h-4"></div>
         <CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} />
       </section>
 
