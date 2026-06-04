@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'pages/app_shell_page.dart';
 import 'pages/sheet_page.dart';
 import 'package:refraction_ui/refraction_ui.dart';
@@ -74,10 +75,17 @@ void main() {
 class _RouteNotifier extends Notifier<String> {
   @override
   String build() {
-    // Read the initial route from the browser URL fragment
-    final initial = WidgetsBinding.instance.platformDispatcher.defaultRouteName;
+    // Read the initial route from the browser URL fragment on web
+    String initial = '/';
+    if (kIsWeb) {
+      initial = Uri.base.fragment;
+    } else {
+      initial = WidgetsBinding.instance.platformDispatcher.defaultRouteName;
+    }
+    
     if (initial.isNotEmpty && initial != '/') {
-      return initial;
+      // Ensure leading slash
+      return initial.startsWith('/') ? initial : '/$initial';
     }
     return '/';
   }
