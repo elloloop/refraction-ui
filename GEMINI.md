@@ -11,6 +11,12 @@ Before pushing any commits to the remote repository, you **MUST** run the local 
 2. If `make ci` fails, fix the errors, commit, and re-run until it passes.
 3. **NEVER** push failing code to the remote repository.
 
+## Mandatory Visual Verification Workflow
+Whenever you are tasked with creating, modifying, or deploying a UI component, website, or frontend feature, you **MUST** verify it visually before concluding the task.
+1. Use the Chrome DevTools MCP (or equivalent browser tools) to navigate to the page.
+2. Take a screenshot or snapshot of the rendered output to confirm that it actually looks correct and is functionally present on the screen.
+3. **DO NOT** rely solely on checking HTML/DOM text or `curl` responses for frontend rendering issues. Always "open it yourself" and verify visually.
+
 ## Packaging & Release — see CLAUDE.md
 
 Earlier revisions of this file were **wrong** and caused repeated mistakes.
