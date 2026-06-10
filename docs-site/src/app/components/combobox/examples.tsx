@@ -32,13 +32,12 @@ export function ComboboxExamples({ section }: ComboboxExamplesProps) {
     return (
       <div className="rounded-xl border border-border bg-card p-8">
         <div className="max-w-xs space-y-3">
+          {/* With the `options` prop and no ComboboxContent children, the
+              content auto-renders the input, the mapped items, and the
+              empty state — passing explicit children would override that. */}
           <Combobox options={frameworks} value={value} onValueChange={setValue}>
             <ComboboxTrigger placeholder="Select a framework..." />
-            <ComboboxContent>
-              <ComboboxInput placeholder="Search frameworks..." />
-              <ComboboxList />
-              <ComboboxEmpty>No framework found.</ComboboxEmpty>
-            </ComboboxContent>
+            <ComboboxContent />
           </Combobox>
           <p className="text-xs text-muted-foreground">
             Selected: <code className="bg-muted px-1 rounded">{value ?? 'none'}</code>

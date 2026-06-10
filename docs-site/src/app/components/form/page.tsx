@@ -58,7 +58,7 @@ const usageCode = `import {
   FormControl,
   FormMessage,
   useForm,
-} from '@refraction-ui/react'
+} from '@refraction-ui/react/form'
 
 export function SignUpForm() {
   const form = useForm({ defaultValues: { email: '' } })
