@@ -106,6 +106,46 @@ const componentGroups = [
       { name: 'Device Frame', href: '/components/device-frame' },
     ],
   },
+  {
+    title: 'Layout & Nav',
+    items: [
+      { name: 'App Shell', href: '/components/app-shell' },
+      { name: 'Card Grid', href: '/components/card-grid' },
+      { name: 'Resizable Layout', href: '/components/resizable-layout' },
+      { name: 'Sheet', href: '/components/sheet' },
+      { name: 'Mobile Nav', href: '/components/mobile-nav' },
+      { name: 'Pagination', href: '/components/pagination' },
+      { name: 'Skip to Content', href: '/components/skip-to-content' },
+      { name: 'Steps', href: '/components/steps' },
+      { name: 'Table of Contents', href: '/components/table-of-contents' },
+    ],
+  },
+  {
+    title: 'Forms & Data',
+    items: [
+      { name: 'Radio', href: '/components/radio' },
+      { name: 'Slider', href: '/components/slider' },
+      { name: 'Combobox', href: '/components/combobox' },
+      { name: 'Command Input', href: '/components/command-input' },
+      { name: 'Input Group', href: '/components/input-group' },
+      { name: 'Location Selector', href: '/components/location-selector' },
+      { name: 'Form', href: '/components/form' },
+      { name: 'Charts', href: '/components/charts' },
+    ],
+  },
+  {
+    title: 'Content & Media',
+    items: [
+      { name: 'Code Block', href: '/components/code-block' },
+      { name: 'Diff Viewer', href: '/components/diff-viewer' },
+      { name: 'File Tree', href: '/components/file-tree' },
+      { name: 'Callout', href: '/components/callout' },
+      { name: 'Carousel', href: '/components/carousel' },
+      { name: 'Link Card', href: '/components/link-card' },
+      { name: 'Payment', href: '/components/payment' },
+      { name: 'Thread View', href: '/components/thread-view' },
+    ],
+  },
 ]
 
 const themeSubItems = [
