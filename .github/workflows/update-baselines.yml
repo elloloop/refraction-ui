@@ -1,0 +1,71 @@
+name: Update Visual Baselines
+
+# Regenerates Playwright visual-regression baselines in the real CI environment
+# (ubuntu-latest), so the committed PNGs match what the `visual` job renders.
+# Trigger from the Actions tab or: gh workflow run update-baselines.yml --ref <branch> -f grep="button|status-indicator"
+on:
+  workflow_dispatch:
+    inputs:
+      grep:
+        description: 'Optional Playwright --grep filter (blank = all specs)'
+        required: false
+        default: ''
+  # Also runnable on a PR by adding the "regen-baselines" label (lets us
+  # regenerate on a feature branch before the workflow exists on the default
+  # branch, which workflow_dispatch requires).
+  pull_request:
+    types: [labeled]
+
+permissions:
+  contents: write
+
+jobs:
+  update-baselines:
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'regen-baselines'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.13.1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: make install
+
+      - name: Build packages
+        run: make build-packages
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps
+
+      - name: Update snapshots
+        env:
+          # workflow_dispatch passes a grep input; the PR-label path defaults to
+          # the components that drift (button/status-indicator).
+          GREP: ${{ github.event_name == 'workflow_dispatch' && inputs.grep || 'button|status-indicator' }}
+        run: |
+          if [ -n "$GREP" ]; then
+            pnpm exec playwright test --update-snapshots --grep "$GREP"
+          else
+            pnpm exec playwright test --update-snapshots
+          fi
+
+      - name: Commit refreshed baselines
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- e2e/snapshots; then
+            echo "No baseline changes — nothing to commit."
+          else
+            git add e2e/snapshots
+            git commit -m "chore(visual): refresh Playwright baselines [skip ci]"
+            git push origin HEAD:${{ github.head_ref || github.ref_name }}
+          fi
