@@ -225,7 +225,7 @@ class _RefractionDataTableState<T> extends State<RefractionDataTable<T>> {
                       return TableRow(
                         decoration: BoxDecoration(
                           color: isHovered
-                              ? theme.colors.muted.withOpacity(0.5)
+                              ? theme.colors.muted.withValues(alpha: 0.5)
                               : Colors.transparent,
                         ),
                         children: widget.columns.map((col) {

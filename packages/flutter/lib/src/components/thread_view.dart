@@ -158,7 +158,7 @@ class _ThreadMessageNodeState extends State<_ThreadMessageNode> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
                 color: _hovered
-                    ? theme.colors.accent.withOpacity(0.5)
+                    ? theme.colors.accent.withValues(alpha: 0.5)
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(theme.borderRadius),
               ),
@@ -256,7 +256,7 @@ class _ThreadMessageNodeState extends State<_ThreadMessageNode> {
                                     ),
                                     decoration: BoxDecoration(
                                       color: reaction.userReacted
-                                          ? theme.colors.primary.withOpacity(
+                                          ? theme.colors.primary.withValues(alpha: 
                                               0.1,
                                             )
                                           : Colors.transparent,
@@ -294,7 +294,7 @@ class _ThreadMessageNodeState extends State<_ThreadMessageNode> {
                                 vertical: 8,
                               ),
                               decoration: BoxDecoration(
-                                color: theme.colors.muted.withOpacity(0.5),
+                                color: theme.colors.muted.withValues(alpha: 0.5),
                                 borderRadius: BorderRadius.circular(
                                   theme.borderRadius / 2,
                                 ),

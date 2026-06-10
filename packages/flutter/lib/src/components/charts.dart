@@ -165,7 +165,7 @@ class _LineChartPainter extends CustomPainter {
       fillPath.close();
 
       final fillPaint = Paint()
-        ..color = lineColor.withOpacity(0.2)
+        ..color = lineColor.withValues(alpha: 0.2)
         ..style = PaintingStyle.fill;
       canvas.drawPath(fillPath, fillPaint);
     }

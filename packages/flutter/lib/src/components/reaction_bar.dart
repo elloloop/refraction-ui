@@ -111,11 +111,11 @@ class _ReactionButtonState extends State<_ReactionButton> {
     final isActive = widget.reaction.isActive;
 
     final bgColor = isActive
-        ? colors.primary.withOpacity(0.1)
+        ? colors.primary.withValues(alpha: 0.1)
         : (_isHovered ? colors.accent : colors.background);
     final borderColor = isActive
-        ? colors.primary.withOpacity(0.3)
-        : (_isHovered ? colors.border : colors.border.withOpacity(0.5));
+        ? colors.primary.withValues(alpha: 0.3)
+        : (_isHovered ? colors.border : colors.border.withValues(alpha: 0.5));
     final contentColor = isActive ? colors.primary : colors.mutedForeground;
 
     Widget content = Row(
