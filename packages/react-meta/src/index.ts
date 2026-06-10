@@ -184,3 +184,10 @@ export * from '@refraction-ui/react-card-grid'
 export * from '@refraction-ui/react-payment'
 export * from '@refraction-ui/react-logger'
 export * from '@refraction-ui/react-analytics'
+
+// Issues #330-#334 — auth surface components
+export * from '@refraction-ui/react-segmented-control'
+export * from '@refraction-ui/react-password-input'
+export * from '@refraction-ui/react-social-auth-button'
+export * from '@refraction-ui/react-separator'
+export * from '@refraction-ui/react-empty-state'

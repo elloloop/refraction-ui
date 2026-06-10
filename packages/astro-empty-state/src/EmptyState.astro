@@ -1,0 +1,57 @@
+---
+import { cn } from '@refraction-ui/shared'
+import {
+  createEmptyState,
+  emptyStateVariants,
+  emptyStateIconChipVariants,
+  emptyStateTitleClass,
+  emptyStateDescriptionClass,
+  emptyStateActionsClass,
+  type EmptyStateTone,
+} from '@refraction-ui/empty-state'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Tone that tints the icon chip. Defaults to `neutral`. */
+  tone?: EmptyStateTone
+  /** Wrap the content in a bordered card surface. */
+  bordered?: boolean
+}
+
+const {
+  tone = 'neutral',
+  bordered = false,
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createEmptyState({ tone })
+const classes = cn(
+  emptyStateVariants({ bordered: bordered ? 'true' : 'false' }),
+  className,
+)
+---
+
+<div class={classes} {...api.dataAttributes} {...props}>
+  {
+    Astro.slots.has('icon') && (
+      <div aria-hidden="true" class={emptyStateIconChipVariants({ tone })}>
+        <slot name="icon" />
+      </div>
+    )
+  }
+  <h3 class={emptyStateTitleClass}><slot name="title" /></h3>
+  {
+    Astro.slots.has('description') && (
+      <p class={emptyStateDescriptionClass}>
+        <slot name="description" />
+      </p>
+    )
+  }
+  {
+    Astro.slots.has('actions') && (
+      <div class={emptyStateActionsClass}>
+        <slot name="actions" />
+      </div>
+    )
+  }
+</div>

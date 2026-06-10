@@ -1,0 +1,13 @@
+---
+import { socialAuthRowVariants } from '@refraction-ui/social-auth-button'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+const classes = cn(socialAuthRowVariants(), className)
+---
+
+<div class={classes} {...props}>
+  <slot />
+</div>

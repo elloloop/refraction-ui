@@ -2,6 +2,9 @@ import type { AccessibilityProps } from '@refraction-ui/shared'
 
 export type InputType = 'text' | 'password' | 'email' | 'number' | 'tel' | 'url' | 'search'
 
+/** High-level validation affordance for an input. */
+export type InputValidationState = 'valid' | 'invalid'
+
 export interface InputProps {
   type?: InputType
   disabled?: boolean
@@ -9,6 +12,14 @@ export interface InputProps {
   required?: boolean
   placeholder?: string
   'aria-invalid'?: boolean
+  /**
+   * Validation affordance. The core derives `aria-invalid` from this:
+   * - `'valid'` → `aria-invalid={false}`
+   * - `'invalid'` → `aria-invalid={true}`
+   *
+   * An explicit `aria-invalid` prop always takes precedence.
+   */
+  validationState?: InputValidationState
 }
 
 export interface InputAPI {
@@ -18,13 +29,38 @@ export interface InputAPI {
   dataAttributes: Record<string, string>
 }
 
+/**
+ * Resolve the effective `aria-invalid` value from an explicit `aria-invalid`
+ * prop and a high-level `validationState`. The explicit prop always wins;
+ * otherwise `validationState` maps `'invalid' → true`, `'valid' → false`, and
+ * an absent state leaves `aria-invalid` undefined (legacy behavior).
+ */
+export function resolveAriaInvalid(
+  ariaInvalid: boolean | undefined,
+  validationState: InputValidationState | undefined,
+): boolean | undefined {
+  if (ariaInvalid !== undefined) {
+    return ariaInvalid
+  }
+  if (validationState === 'invalid') {
+    return true
+  }
+  if (validationState === 'valid') {
+    return false
+  }
+  return undefined
+}
+
 export function createInput(props: InputProps = {}): InputAPI {
   const {
     disabled = false,
     readOnly = false,
     required = false,
     'aria-invalid': ariaInvalid,
+    validationState,
   } = props
+
+  const resolvedInvalid = resolveAriaInvalid(ariaInvalid, validationState)
 
   const ariaProps: InputAPI['ariaProps'] = {}
 
@@ -32,8 +68,8 @@ export function createInput(props: InputProps = {}): InputAPI {
     ariaProps['aria-disabled'] = true
   }
 
-  if (ariaInvalid) {
-    ariaProps['aria-invalid'] = true
+  if (resolvedInvalid !== undefined) {
+    ariaProps['aria-invalid'] = resolvedInvalid
   }
 
   if (required) {
@@ -50,7 +86,7 @@ export function createInput(props: InputProps = {}): InputAPI {
     dataAttributes['data-readonly'] = ''
   }
 
-  if (ariaInvalid) {
+  if (resolvedInvalid === true) {
     dataAttributes['data-invalid'] = ''
   }
 
