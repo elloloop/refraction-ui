@@ -35,7 +35,7 @@ const commandInputProps = [
   },
 ]
 
-const usageCode = `import { CommandInput } from '@refraction-ui/react'
+const usageCode = `import { CommandInput } from '@refraction-ui/react-command-input'
 import { useState } from 'react'
 
 export function MentionField() {

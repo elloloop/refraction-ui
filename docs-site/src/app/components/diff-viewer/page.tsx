@@ -80,7 +80,7 @@ const diffViewerProps = [
   },
 ]
 
-const usageCode = `import { DiffViewer, type DiffFile } from '@refraction-ui/react'
+const usageCode = `import { DiffViewer, type DiffFile } from '@refraction-ui/react-diff-viewer'
 
 const files: DiffFile[] = [
   { path: 'src/greet.ts', status: 'modified', additions: 2, deletions: 2 },

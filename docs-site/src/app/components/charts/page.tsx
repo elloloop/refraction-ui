@@ -52,7 +52,7 @@ const seriesProps = [
   },
 ]
 
-const usageCode = `import { Chart, Bars } from '@refraction-ui/react'
+const usageCode = `import { Chart, Bars } from '@refraction-ui/react-charts'
 
 const data = [
   { month: 'Jan', value: 32 },

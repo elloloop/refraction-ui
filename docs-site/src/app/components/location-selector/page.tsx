@@ -33,7 +33,7 @@ const locationSelectorProps = [
   },
 ]
 
-const usageCode = `import { LocationSelector } from '@refraction-ui/react'
+const usageCode = `import { LocationSelector } from '@refraction-ui/react-location-selector'
 
 export function MyComponent() {
   return (
