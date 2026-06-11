@@ -101,3 +101,10 @@ export * from '@refraction-ui/astro-analytics'
 // Issues #191, #192.
 export * from '@refraction-ui/astro-voice-pill'
 export * from '@refraction-ui/astro-waveform'
+
+// Issues #330-#334 — auth surface components
+export * from '@refraction-ui/astro-segmented-control'
+export * from '@refraction-ui/astro-password-input'
+export * from '@refraction-ui/astro-social-auth-button'
+export * from '@refraction-ui/astro-separator'
+export * from '@refraction-ui/astro-empty-state'

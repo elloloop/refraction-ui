@@ -1,0 +1,106 @@
+---
+import { segmentedControlVariants, createSegmentedControl } from '@refraction-ui/segmented-control'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  value?: string
+  size?: 'sm' | 'md'
+  name?: string
+}
+
+const { value, size = 'md', name, class: className, ...props } = Astro.props
+
+const api = createSegmentedControl({ value, size })
+---
+
+<div
+  class={cn(segmentedControlVariants({ size }), className)}
+  data-rfr-segmented-group
+  data-rfr-segmented-size={size}
+  data-rfr-segmented-value={value || ''}
+  {...api.ariaProps}
+  {...props}
+>
+  <slot />
+  {name && <input type="hidden" name={name} value={value || ''} data-rfr-segmented-input />}
+</div>
+
+<script>
+  function getNextSegmentIndex(current: number, key: string, count: number): number {
+    if (count <= 0) return current
+    switch (key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+        return (current + 1) % count
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        return (current - 1 + count) % count
+      case 'Home':
+        return 0
+      case 'End':
+        return count - 1
+      default:
+        return current
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-rfr-segmented-group]').forEach((group) => {
+    const items = () => group.querySelectorAll<HTMLButtonElement>('[data-rfr-segmented-item]')
+
+    function selectItem(item: HTMLButtonElement) {
+      if (item.disabled) return
+      const value = item.getAttribute('data-rfr-segmented-item-value') || ''
+
+      items().forEach((btn) => {
+        const btnValue = btn.getAttribute('data-rfr-segmented-item-value') || ''
+        const isSelected = btnValue === value
+        btn.setAttribute('aria-checked', String(isSelected))
+        btn.setAttribute('tabindex', isSelected ? '0' : '-1')
+        btn.setAttribute('data-state', isSelected ? 'checked' : 'unchecked')
+
+        if (isSelected) {
+          btn.classList.add('bg-background', 'text-foreground', 'shadow-sm')
+          btn.classList.remove('text-muted-foreground', 'hover:text-foreground')
+        } else {
+          btn.classList.remove('bg-background', 'text-foreground', 'shadow-sm')
+          btn.classList.add('text-muted-foreground', 'hover:text-foreground')
+        }
+      })
+
+      group.setAttribute('data-rfr-segmented-value', value)
+
+      const input = group.querySelector('[data-rfr-segmented-input]') as HTMLInputElement | null
+      if (input) input.value = value
+
+      group.dispatchEvent(new CustomEvent('change', { detail: { value } }))
+    }
+
+    group.addEventListener('click', (e) => {
+      const item = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-rfr-segmented-item]')
+      if (item) selectItem(item)
+    })
+
+    group.addEventListener('keydown', (e) => {
+      const target = e.target as HTMLElement
+      if (!target.hasAttribute('data-rfr-segmented-item')) return
+
+      const allItems = Array.from(items()).filter((i) => !i.disabled)
+      const currentIndex = allItems.indexOf(target as HTMLButtonElement)
+      if (currentIndex === -1) return
+
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault()
+        selectItem(target as HTMLButtonElement)
+        return
+      }
+
+      const nextIndex = getNextSegmentIndex(currentIndex, e.key, allItems.length)
+      if (nextIndex !== currentIndex) {
+        e.preventDefault()
+        const nextItem = allItems[nextIndex]
+        nextItem.focus()
+        selectItem(nextItem)
+      }
+    })
+  })
+</script>

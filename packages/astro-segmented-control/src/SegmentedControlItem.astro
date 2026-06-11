@@ -1,0 +1,32 @@
+---
+import { segmentedControlItemVariants } from '@refraction-ui/segmented-control'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  value: string
+  size?: 'sm' | 'md'
+  checked?: boolean
+  disabled?: boolean
+}
+
+const { value, size = 'md', checked = false, disabled = false, class: className, ...props } = Astro.props
+---
+
+<button
+  type="button"
+  role="radio"
+  aria-checked={checked}
+  aria-disabled={disabled || undefined}
+  tabindex={checked ? 0 : -1}
+  disabled={disabled || undefined}
+  data-state={checked ? 'checked' : 'unchecked'}
+  data-rfr-segmented-item
+  data-rfr-segmented-item-value={value}
+  class={cn(
+    segmentedControlItemVariants({ size, state: checked ? 'checked' : 'unchecked' }),
+    className,
+  )}
+  {...props}
+>
+  <slot />
+</button>

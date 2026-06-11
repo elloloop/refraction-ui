@@ -224,6 +224,9 @@ importers:
       '@refraction-ui/react-emoji-picker':
         specifier: workspace:*
         version: link:../packages/react-emoji-picker
+      '@refraction-ui/react-empty-state':
+        specifier: workspace:*
+        version: link:../packages/react-empty-state
       '@refraction-ui/react-feedback-dialog':
         specifier: workspace:*
         version: link:../packages/react-feedback-dialog
@@ -278,6 +281,9 @@ importers:
       '@refraction-ui/react-pagination':
         specifier: workspace:*
         version: link:../packages/react-pagination
+      '@refraction-ui/react-password-input':
+        specifier: workspace:*
+        version: link:../packages/react-password-input
       '@refraction-ui/react-payment':
         specifier: workspace:*
         version: link:../packages/react-payment
@@ -302,9 +308,15 @@ importers:
       '@refraction-ui/react-search-bar':
         specifier: workspace:*
         version: link:../packages/react-search-bar
+      '@refraction-ui/react-segmented-control':
+        specifier: workspace:*
+        version: link:../packages/react-segmented-control
       '@refraction-ui/react-select':
         specifier: workspace:*
         version: link:../packages/react-select
+      '@refraction-ui/react-separator':
+        specifier: workspace:*
+        version: link:../packages/react-separator
       '@refraction-ui/react-sheet':
         specifier: workspace:*
         version: link:../packages/react-sheet
@@ -323,6 +335,9 @@ importers:
       '@refraction-ui/react-slider':
         specifier: workspace:*
         version: link:../packages/react-slider
+      '@refraction-ui/react-social-auth-button':
+        specifier: workspace:*
+        version: link:../packages/react-social-auth-button
       '@refraction-ui/react-status-indicator':
         specifier: workspace:*
         version: link:../packages/react-status-indicator
@@ -891,6 +906,18 @@ importers:
         specifier: 6.3.1
         version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
 
+  packages/astro-empty-state:
+    dependencies:
+      '@refraction-ui/empty-state':
+        specifier: workspace:*
+        version: link:../empty-state
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
   packages/astro-feedback-dialog:
     dependencies:
       '@refraction-ui/feedback-dialog':
@@ -1165,6 +1192,9 @@ importers:
       '@refraction-ui/astro-emoji-picker':
         specifier: workspace:*
         version: link:../astro-emoji-picker
+      '@refraction-ui/astro-empty-state':
+        specifier: workspace:*
+        version: link:../astro-empty-state
       '@refraction-ui/astro-feedback-dialog':
         specifier: workspace:*
         version: link:../astro-feedback-dialog
@@ -1219,6 +1249,9 @@ importers:
       '@refraction-ui/astro-pagination':
         specifier: workspace:*
         version: link:../astro-pagination
+      '@refraction-ui/astro-password-input':
+        specifier: workspace:*
+        version: link:../astro-password-input
       '@refraction-ui/astro-payment':
         specifier: workspace:*
         version: link:../astro-payment
@@ -1246,9 +1279,15 @@ importers:
       '@refraction-ui/astro-search-bar':
         specifier: workspace:*
         version: link:../astro-search-bar
+      '@refraction-ui/astro-segmented-control':
+        specifier: workspace:*
+        version: link:../astro-segmented-control
       '@refraction-ui/astro-select':
         specifier: workspace:*
         version: link:../astro-select
+      '@refraction-ui/astro-separator':
+        specifier: workspace:*
+        version: link:../astro-separator
       '@refraction-ui/astro-sidebar':
         specifier: workspace:*
         version: link:../astro-sidebar
@@ -1264,6 +1303,9 @@ importers:
       '@refraction-ui/astro-slider':
         specifier: workspace:*
         version: link:../astro-slider
+      '@refraction-ui/astro-social-auth-button':
+        specifier: workspace:*
+        version: link:../astro-social-auth-button
       '@refraction-ui/astro-status-indicator':
         specifier: workspace:*
         version: link:../astro-status-indicator
@@ -1351,6 +1393,21 @@ importers:
       '@refraction-ui/pagination':
         specifier: workspace:*
         version: link:../pagination
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
+  packages/astro-password-input:
+    dependencies:
+      '@refraction-ui/astro-input':
+        specifier: workspace:*
+        version: link:../astro-input
+      '@refraction-ui/password-input':
+        specifier: workspace:*
+        version: link:../password-input
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -1466,11 +1523,35 @@ importers:
         specifier: 6.3.1
         version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
 
+  packages/astro-segmented-control:
+    dependencies:
+      '@refraction-ui/segmented-control':
+        specifier: workspace:*
+        version: link:../segmented-control
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
   packages/astro-select:
     dependencies:
       '@refraction-ui/select':
         specifier: workspace:*
         version: link:../select
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
+  packages/astro-separator:
+    dependencies:
+      '@refraction-ui/separator':
+        specifier: workspace:*
+        version: link:../separator
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -1534,6 +1615,18 @@ importers:
       '@refraction-ui/slider':
         specifier: workspace:*
         version: link:../slider
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
+  packages/astro-social-auth-button:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/social-auth-button':
+        specifier: workspace:*
+        version: link:../social-auth-button
       astro:
         specifier: 6.3.1
         version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
@@ -1899,6 +1992,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/empty-state:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/feedback-dialog:
     dependencies:
       '@refraction-ui/dialog':
@@ -2237,6 +2336,12 @@ importers:
         version: link:../shared
 
   packages/pagination:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/password-input:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -3069,6 +3174,28 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-empty-state:
+    dependencies:
+      '@refraction-ui/empty-state':
+        specifier: workspace:*
+        version: link:../empty-state
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-feedback-dialog:
     dependencies:
       '@refraction-ui/feedback-dialog':
@@ -3524,6 +3651,9 @@ importers:
       '@refraction-ui/react-emoji-picker':
         specifier: workspace:*
         version: link:../react-emoji-picker
+      '@refraction-ui/react-empty-state':
+        specifier: workspace:*
+        version: link:../react-empty-state
       '@refraction-ui/react-feedback-dialog':
         specifier: workspace:*
         version: link:../react-feedback-dialog
@@ -3581,6 +3711,9 @@ importers:
       '@refraction-ui/react-pagination':
         specifier: workspace:*
         version: link:../react-pagination
+      '@refraction-ui/react-password-input':
+        specifier: workspace:*
+        version: link:../react-password-input
       '@refraction-ui/react-payment':
         specifier: workspace:*
         version: link:../react-payment
@@ -3608,9 +3741,15 @@ importers:
       '@refraction-ui/react-search-bar':
         specifier: workspace:*
         version: link:../react-search-bar
+      '@refraction-ui/react-segmented-control':
+        specifier: workspace:*
+        version: link:../react-segmented-control
       '@refraction-ui/react-select':
         specifier: workspace:*
         version: link:../react-select
+      '@refraction-ui/react-separator':
+        specifier: workspace:*
+        version: link:../react-separator
       '@refraction-ui/react-sheet':
         specifier: workspace:*
         version: link:../react-sheet
@@ -3629,6 +3768,9 @@ importers:
       '@refraction-ui/react-slider':
         specifier: workspace:*
         version: link:../react-slider
+      '@refraction-ui/react-social-auth-button':
+        specifier: workspace:*
+        version: link:../react-social-auth-button
       '@refraction-ui/react-status-indicator':
         specifier: workspace:*
         version: link:../react-status-indicator
@@ -3758,6 +3900,31 @@ importers:
       '@refraction-ui/pagination':
         specifier: workspace:*
         version: link:../pagination
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-password-input:
+    dependencies:
+      '@refraction-ui/password-input':
+        specifier: workspace:*
+        version: link:../password-input
+      '@refraction-ui/react-input':
+        specifier: workspace:*
+        version: link:../react-input
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -3973,11 +4140,55 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-segmented-control:
+    dependencies:
+      '@refraction-ui/segmented-control':
+        specifier: workspace:*
+        version: link:../segmented-control
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-select:
     dependencies:
       '@refraction-ui/select':
         specifier: workspace:*
         version: link:../select
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-separator:
+    dependencies:
+      '@refraction-ui/separator':
+        specifier: workspace:*
+        version: link:../separator
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -4110,6 +4321,31 @@ importers:
       '@refraction-ui/slider':
         specifier: workspace:*
         version: link:../slider
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-social-auth-button:
+    dependencies:
+      '@refraction-ui/react-button':
+        specifier: workspace:*
+        version: link:../react-button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/social-auth-button':
+        specifier: workspace:*
+        version: link:../social-auth-button
     devDependencies:
       '@types/react':
         specifier: 19.0.0
@@ -4462,7 +4698,19 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/segmented-control:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/select:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/separator:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -4495,6 +4743,12 @@ importers:
         version: link:../shared
 
   packages/slider:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/social-auth-button:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*

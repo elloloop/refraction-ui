@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { createInput, getInputAriaProps } from '../src/input.js'
+import { createInput, getInputAriaProps, resolveAriaInvalid } from '../src/input.js'
 import { inputVariants } from '../src/input.styles.js'
 
 describe('createInput', () => {
@@ -82,6 +82,70 @@ describe('inputVariants', () => {
   it('appends custom className', () => {
     const classes = inputVariants({ className: 'my-custom' })
     expect(classes).toContain('my-custom')
+  })
+})
+
+describe('resolveAriaInvalid', () => {
+  it('returns undefined when neither aria-invalid nor validationState set', () => {
+    expect(resolveAriaInvalid(undefined, undefined)).toBeUndefined()
+  })
+
+  it('maps validationState invalid → true', () => {
+    expect(resolveAriaInvalid(undefined, 'invalid')).toBe(true)
+  })
+
+  it('maps validationState valid → false', () => {
+    expect(resolveAriaInvalid(undefined, 'valid')).toBe(false)
+  })
+
+  it('explicit aria-invalid takes precedence over validationState', () => {
+    expect(resolveAriaInvalid(true, 'valid')).toBe(true)
+    expect(resolveAriaInvalid(false, 'invalid')).toBe(false)
+  })
+})
+
+describe('createInput - validationState', () => {
+  it('validationState invalid sets aria-invalid true and data-invalid', () => {
+    const api = createInput({ validationState: 'invalid' })
+    expect(api.ariaProps['aria-invalid']).toBe(true)
+    expect(api.dataAttributes['data-invalid']).toBe('')
+  })
+
+  it('validationState valid sets aria-invalid false and no data-invalid', () => {
+    const api = createInput({ validationState: 'valid' })
+    expect(api.ariaProps['aria-invalid']).toBe(false)
+    expect(api.dataAttributes['data-invalid']).toBeUndefined()
+  })
+
+  it('explicit aria-invalid overrides validationState valid', () => {
+    const api = createInput({ validationState: 'valid', 'aria-invalid': true })
+    expect(api.ariaProps['aria-invalid']).toBe(true)
+    expect(api.dataAttributes['data-invalid']).toBe('')
+  })
+
+  it('default (no validationState) emits no aria-invalid', () => {
+    const api = createInput()
+    expect(api.ariaProps['aria-invalid']).toBeUndefined()
+  })
+})
+
+describe('inputVariants - validationState', () => {
+  it('valid applies green border classes', () => {
+    const classes = inputVariants({ validationState: 'valid' })
+    expect(classes).toContain('border-green-500')
+    expect(classes).toContain('focus-visible:ring-green-500')
+  })
+
+  it('invalid applies destructive border classes', () => {
+    const classes = inputVariants({ validationState: 'invalid' })
+    expect(classes).toContain('border-destructive')
+    expect(classes).toContain('focus-visible:ring-destructive')
+  })
+
+  it('omitting validationState produces no validation border classes', () => {
+    const classes = inputVariants()
+    expect(classes).not.toContain('border-green-500')
+    expect(classes).not.toContain('border-destructive')
   })
 })
 

@@ -8,6 +8,10 @@ export const inputVariants = cva({
       default: 'h-9',
       lg: 'h-10 text-base',
     },
+    validationState: {
+      valid: 'border-green-500 focus-visible:ring-green-500',
+      invalid: 'border-destructive focus-visible:ring-destructive',
+    },
   },
   defaultVariants: {
     size: 'default',

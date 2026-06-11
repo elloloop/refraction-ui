@@ -107,6 +107,16 @@ const componentGroups = [
     ],
   },
   {
+    title: 'Auth',
+    items: [
+      { name: 'Segmented Control', href: '/components/segmented-control' },
+      { name: 'Password Input', href: '/components/password-input' },
+      { name: 'Social Auth Button', href: '/components/social-auth-button' },
+      { name: 'Separator', href: '/components/separator' },
+      { name: 'Empty State', href: '/components/empty-state' },
+    ],
+  },
+  {
     title: 'Layout & Nav',
     items: [
       { name: 'App Shell', href: '/components/app-shell' },

@@ -1,0 +1,49 @@
+---
+import {
+  createSeparator,
+  separatorVariants,
+  separatorLineClass,
+  separatorLabelClass,
+  type SeparatorOrientation,
+} from '@refraction-ui/separator'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  orientation?: SeparatorOrientation
+  /**
+   * Optional centered label (horizontal only). Renders a flanking line on
+   * each side — the "labeled divider" variant. May also be supplied via the
+   * default slot.
+   */
+  label?: string
+  decorative?: boolean
+}
+
+const {
+  orientation = 'horizontal',
+  label,
+  decorative = true,
+  class: className,
+  ...props
+} = Astro.props
+
+const hasLabel = orientation === 'horizontal' && (label != null || Astro.slots.has('default'))
+const { ariaProps, dataAttributes } = createSeparator({ orientation, decorative })
+---
+
+{
+  hasLabel ? (
+    <div role="none" class={cn(separatorVariants({ labeled: 'true' }), className)} {...props}>
+      <span class={separatorLineClass} />
+      <span class={separatorLabelClass}>{label}<slot /></span>
+      <span class={separatorLineClass} />
+    </div>
+  ) : (
+    <div
+      class={cn(separatorVariants({ orientation }), className)}
+      {...ariaProps}
+      {...dataAttributes}
+      {...props}
+    />
+  )
+}

@@ -128,6 +128,61 @@ describe('Input (React) - custom className', () => {
   })
 })
 
+describe('Input (React) - validationState', () => {
+  it('valid → green border and aria-invalid="false"', () => {
+    const html = renderToString(React.createElement(Input, { validationState: 'valid' }))
+    expect(html).toContain('border-green-500')
+    expect(html).toContain('aria-invalid="false"')
+  })
+
+  it('valid renders a trailing check icon inside a wrapper', () => {
+    const html = renderToString(React.createElement(Input, { validationState: 'valid' }))
+    expect(html).toContain('<svg')
+    expect(html).toContain('text-green-500')
+  })
+
+  it('invalid → destructive border and aria-invalid="true"', () => {
+    const html = renderToString(React.createElement(Input, { validationState: 'invalid' }))
+    expect(html).toContain('border-destructive')
+    expect(html).toContain('aria-invalid="true"')
+  })
+
+  it('explicit aria-invalid takes precedence over validationState', () => {
+    const html = renderToString(
+      React.createElement(Input, { validationState: 'valid', 'aria-invalid': true }),
+    )
+    expect(html).toContain('aria-invalid="true"')
+  })
+})
+
+describe('Input (React) - leadingIcon', () => {
+  it('renders the leading icon and applies pl-9', () => {
+    const icon = React.createElement('svg', { 'data-testid': 'lead-icon' })
+    const html = renderToString(React.createElement(Input, { leadingIcon: icon }))
+    expect(html).toContain('data-testid="lead-icon"')
+    expect(html).toContain('pl-9')
+  })
+
+  it('wraps the input in a relative div when leadingIcon is set', () => {
+    const icon = React.createElement('svg')
+    const html = renderToString(React.createElement(Input, { leadingIcon: icon }))
+    expect(html).toContain('class="relative"')
+  })
+})
+
+describe('Input (React) - default path unchanged', () => {
+  it('renders a bare input with no wrapper when no extra props', () => {
+    const html = renderToString(React.createElement(Input))
+    expect(html.trim().startsWith('<input')).toBe(true)
+    expect(html).not.toContain('class="relative"')
+  })
+
+  it('does not emit aria-invalid by default', () => {
+    const html = renderToString(React.createElement(Input))
+    expect(html).not.toContain('aria-invalid')
+  })
+})
+
 describe('Input (React) - size variant heights', () => {
   it('sm size renders h-8', () => {
     const html = renderToString(React.createElement(Input, { size: 'sm' }))

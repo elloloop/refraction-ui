@@ -3,6 +3,7 @@ import {
   createInput,
   inputVariants,
   type InputType,
+  type InputValidationState,
 } from '@refraction-ui/input'
 import { cn } from '@refraction-ui/shared'
 
@@ -13,6 +14,7 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   readonly?: boolean
   required?: boolean
   'aria-invalid'?: boolean
+  validationState?: InputValidationState
 }
 
 const {
@@ -23,6 +25,7 @@ const {
   readonly,
   required,
   'aria-invalid': ariaInvalid,
+  validationState,
   ...props
 } = Astro.props
 
@@ -32,9 +35,10 @@ const api = createInput({
   readOnly: readonly,
   required,
   'aria-invalid': ariaInvalid === true ? true : undefined,
+  validationState,
 })
 
-const classes = cn(inputVariants({ size }), className)
+const classes = cn(inputVariants({ size, validationState }), className)
 ---
 
 <input
