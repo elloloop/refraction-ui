@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 
+/// High-level validation affordance for a [RefractionInput].
+///
+/// Mirrors the React/Astro `Input` `validationState` prop:
+/// - [valid] tints the border green and appends a trailing check icon.
+/// - [invalid] tints the border with the destructive color.
+enum RefractionInputValidationState {
+  /// Green border plus a trailing check affordance.
+  valid,
+
+  /// Destructive (error) border.
+  invalid,
+}
+
 /// A single-line (or, with [maxLines] > 1, multi-line) text input field.
 ///
 /// The border animates between [RefractionColors.input] and
@@ -37,6 +50,14 @@ class RefractionInput extends StatefulWidget {
   /// Optional widget placed before the text — typically a small icon.
   final Widget? prefix;
 
+  /// Optional leading icon rendered before [prefix] and the text, tinted with
+  /// the muted foreground color. Mirrors the React/Astro `Input.leadingIcon`.
+  final Widget? leadingIcon;
+
+  /// Optional validation affordance that tints the border (and, when
+  /// [RefractionInputValidationState.valid], appends a trailing check icon).
+  final RefractionInputValidationState? validationState;
+
   /// Optional widget placed after the text — typically a clear button or
   /// status indicator.
   final Widget? suffix;
@@ -63,6 +84,8 @@ class RefractionInput extends StatefulWidget {
     this.obscureText = false,
     this.disabled = false,
     this.prefix,
+    this.leadingIcon,
+    this.validationState,
     this.suffix,
     this.onChanged,
     this.onSubmitted,
@@ -147,7 +170,22 @@ class _RefractionInputState extends State<RefractionInput> {
     final theme = RefractionTheme.of(context);
     final colors = theme.colors;
 
-    final borderColor = _isFocused ? colors.ring : colors.input;
+    // Validation tinting takes precedence over the resting/focus border so an
+    // invalid field always reads as an error, focused or not. `valid` borrows
+    // a fixed green that reads on both light and dark surfaces.
+    const validGreen = Color(0xFF22C55E);
+    Color borderColor;
+    switch (widget.validationState) {
+      case RefractionInputValidationState.invalid:
+        borderColor = colors.destructive;
+        break;
+      case RefractionInputValidationState.valid:
+        borderColor = validGreen;
+        break;
+      case null:
+        borderColor = _isFocused ? colors.ring : colors.input;
+        break;
+    }
     final backgroundColor = widget.disabled ? colors.muted : colors.background;
 
     return Opacity(
@@ -165,6 +203,13 @@ class _RefractionInputState extends State<RefractionInput> {
               ? CrossAxisAlignment.start
               : CrossAxisAlignment.center,
           children: [
+            if (widget.leadingIcon != null) ...[
+              IconTheme.merge(
+                data: IconThemeData(color: colors.mutedForeground, size: 16),
+                child: widget.leadingIcon!,
+              ),
+              const SizedBox(width: 8),
+            ],
             if (widget.prefix != null) ...[
               widget.prefix!,
               const SizedBox(width: 8),
@@ -196,6 +241,11 @@ class _RefractionInputState extends State<RefractionInput> {
                 ),
               ),
             ),
+            if (widget.validationState ==
+                RefractionInputValidationState.valid) ...[
+              const SizedBox(width: 8),
+              const Icon(Icons.check, size: 16, color: validGreen),
+            ],
             if (widget.suffix != null) ...[
               const SizedBox(width: 8),
               widget.suffix!,

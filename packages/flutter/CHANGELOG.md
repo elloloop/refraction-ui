@@ -1,3 +1,13 @@
+## 0.43.0
+
+- **Auth surface**: Add `RefractionSegmentedControl` — a pill-shaped, radio-semantics value picker with an animated active segment, `sm`/`md` sizes, controlled/uncontrolled usage, and roving arrow/Home/End keyboard navigation.
+- **Auth surface**: Add `RefractionPasswordField` — a password input with a built-in show/hide toggle — and extend `RefractionInput` with `validationState` (valid/invalid border + trailing check) and `leadingIcon`.
+- **Auth surface**: Add `RefractionSocialAuthButton` / `RefractionSocialAuthRow` — branded Google/GitHub/Microsoft/Apple sign-in buttons with `loading` and a "Last used" badge, plus a responsive one-/two-column row.
+- **Auth surface**: Add `RefractionSeparator` — horizontal/vertical rule with an optional centered label (labeled divider).
+- **Auth surface**: Add `RefractionEmptyState` / `RefractionConfirmationCard` — a centered icon-chip + title/body/actions column with tone tints and an optional bordered surface.
+
+  Brings the Flutter package to parity with the React/Astro auth-surface components (#330–#334, #339).
+
 ## 0.42.0
 
 - **Navigation**: Add `RefractionMobileNav`, a mobile-first bottom/top navigation bar component with integrated icon and label states.
