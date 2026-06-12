@@ -30,6 +30,11 @@ dev_dependencies:
   flutter_lints: 6.0.0
   golden_toolkit: ^0.15.0
   widgetbook_annotation: ^3.11.0
+  # Imported directly by video_player_test.dart (mock platform interface);
+  # declared explicitly so pub publish validation passes. Both are already
+  # transitive deps of video_player.
+  video_player_platform_interface: ^6.7.0
+  plugin_platform_interface: ^2.1.8
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
