@@ -1,194 +1,0 @@
-Resolving dependencies...
-Downloading packages...
-  characters 1.4.0 (1.4.1 available)
-  flutter_markdown 0.7.7+1 (discontinued replaced by flutter_markdown_plus)
-  matcher 0.12.17 (0.12.20 available)
-  material_color_utilities 0.11.1 (0.13.0 available)
-  meta 1.17.0 (1.18.2 available)
-  test_api 0.7.7 (0.7.12 available)
-  vector_math 2.2.0 (2.3.0 available)
-  vm_service 15.1.0 (15.2.0 available)
-Got dependencies!
-1 package is discontinued.
-7 packages have newer versions incompatible with dependency constraints.
-Try `flutter pub outdated` for more information.
-Resolving dependencies in `./example`...
-Downloading packages...
-Got dependencies in `./example`.
-00:00 +0: loading /Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart                                                                                     00:00 +0: RefractionContentProtection renders child when unlocked and no watermark                                                                                                                     00:00 +0: RefractionContentProtection renders child when unlocked and no watermark                                                                                                                     
-══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
-The following TestFailure was thrown running a test:
-Expected: no matching candidates
-  Actual: _TypeWidgetFinder:<Found 1 widget with type "AbsorbPointer": [
-            AbsorbPointer(absorbing: false, renderObject: RenderAbsorbPointer#4ab53),
-          ]>
-   Which: means one was found but none were expected
-
-When the exception was thrown, this was the stack:
-#4      main.<anonymous closure>.<anonymous closure> (file:///Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart:39:7)
-<asynchronous suspension>
-#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
-<asynchronous suspension>
-#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
-<asynchronous suspension>
-<asynchronous suspension>
-(elided one frame from package:stack_trace)
-
-This was caught by the test expectation on the following line:
-  file:///Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart line 39
-The test description was:
-  renders child when unlocked and no watermark
-════════════════════════════════════════════════════════════════════════════════════════════════════
-00:00 +0 -1: RefractionContentProtection renders child when unlocked and no watermark [E]                                                                                                              
-  Test failed. See exception logs above.
-  The test description was: renders child when unlocked and no watermark
-  
-
-To run this test again: /Users/arun/homebrew/share/flutter/bin/cache/dart-sdk/bin/dart test /Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart -p vm --plain-name 'RefractionContentProtection renders child when unlocked and no watermark'
-00:00 +0 -1: RefractionContentProtection renders child but does not blur if blurSigma is 0 when locked                                                                                                 00:00 +0 -1: RefractionContentProtection renders child but does not blur if blurSigma is 0 when locked                                                                                                 
-══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
-The following TestFailure was thrown running a test:
-Expected: exactly one matching candidate
-  Actual: _TypeWidgetFinder:<Found 2 widgets with type "AbsorbPointer": [
-            AbsorbPointer(absorbing: false, renderObject: RenderAbsorbPointer#f67cc),
-            AbsorbPointer(absorbing: true, renderObject: RenderAbsorbPointer#e2010),
-          ]>
-   Which: is too many
-
-When the exception was thrown, this was the stack:
-#4      main.<anonymous closure>.<anonymous closure> (file:///Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart:48:7)
-<asynchronous suspension>
-#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
-<asynchronous suspension>
-#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
-<asynchronous suspension>
-<asynchronous suspension>
-(elided one frame from package:stack_trace)
-
-This was caught by the test expectation on the following line:
-  file:///Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart line 48
-The test description was:
-  renders child but does not blur if blurSigma is 0 when locked
-════════════════════════════════════════════════════════════════════════════════════════════════════
-00:00 +0 -2: RefractionContentProtection renders child but does not blur if blurSigma is 0 when locked [E]                                                                                             
-  Test failed. See exception logs above.
-  The test description was: renders child but does not blur if blurSigma is 0 when locked
-  
-
-To run this test again: /Users/arun/homebrew/share/flutter/bin/cache/dart-sdk/bin/dart test /Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart -p vm --plain-name 'RefractionContentProtection renders child but does not blur if blurSigma is 0 when locked'
-00:00 +0 -2: RefractionContentProtection renders blur and absorb pointer when locked by default                                                                                                        00:01 +0 -2: RefractionContentProtection renders blur and absorb pointer when locked by default                                                                                                        00:01 +0 -2: RefractionContentProtection renders blur and absorb pointer when locked by default                                                                                                        
-══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
-The following TestFailure was thrown running a test:
-Expected: exactly one matching candidate
-  Actual: _TypeWidgetFinder:<Found 2 widgets with type "AbsorbPointer": [
-            AbsorbPointer(absorbing: false, renderObject: RenderAbsorbPointer#26e93),
-            AbsorbPointer(absorbing: true, renderObject: RenderAbsorbPointer#408e1),
-          ]>
-   Which: is too many
-
-When the exception was thrown, this was the stack:
-#4      main.<anonymous closure>.<anonymous closure> (file:///Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart:56:7)
-<asynchronous suspension>
-#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
-<asynchronous suspension>
-#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
-<asynchronous suspension>
-<asynchronous suspension>
-(elided one frame from package:stack_trace)
-
-This was caught by the test expectation on the following line:
-  file:///Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart line 56
-The test description was:
-  renders blur and absorb pointer when locked by default
-════════════════════════════════════════════════════════════════════════════════════════════════════
-00:01 +0 -3: RefractionContentProtection renders blur and absorb pointer when locked by default [E]                                                                                                    
-  Test failed. See exception logs above.
-  The test description was: renders blur and absorb pointer when locked by default
-  
-
-To run this test again: /Users/arun/homebrew/share/flutter/bin/cache/dart-sdk/bin/dart test /Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart -p vm --plain-name 'RefractionContentProtection renders blur and absorb pointer when locked by default'
-00:01 +0 -3: RefractionContentProtection renders overlay when locked                                                                                                                                   00:01 +1 -3: RefractionContentProtection renders overlay when locked                                                                                                                                   00:01 +1 -3: RefractionContentProtection does not render overlay when unlocked                                                                                                                         00:01 +2 -3: RefractionContentProtection does not render overlay when unlocked                                                                                                                         00:01 +2 -3: RefractionContentProtection renders watermark when provided                                                                                                                               00:01 +2 -3: RefractionContentProtection renders watermark when provided                                                                                                                               
-══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
-The following TestFailure was thrown running a test:
-Expected: exactly one matching candidate
-  Actual: _TypeWidgetFinder:<Found 2 widgets with type "CustomPaint": [
-            CustomPaint(renderObject: RenderCustomPaint#c11e6),
-            CustomPaint(renderObject: RenderCustomPaint#542d7),
-          ]>
-   Which: is too many
-
-When the exception was thrown, this was the stack:
-#4      main.<anonymous closure>.<anonymous closure> (file:///Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart:93:7)
-<asynchronous suspension>
-#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
-<asynchronous suspension>
-#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
-<asynchronous suspension>
-<asynchronous suspension>
-(elided one frame from package:stack_trace)
-
-This was caught by the test expectation on the following line:
-  file:///Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart line 93
-The test description was:
-  renders watermark when provided
-════════════════════════════════════════════════════════════════════════════════════════════════════
-00:01 +2 -4: RefractionContentProtection renders watermark when provided [E]                                                                                                                           
-  Test failed. See exception logs above.
-  The test description was: renders watermark when provided
-  
-
-To run this test again: /Users/arun/homebrew/share/flutter/bin/cache/dart-sdk/bin/dart test /Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart -p vm --plain-name 'RefractionContentProtection renders watermark when provided'
-00:01 +2 -4: RefractionContentProtection renders both watermark and overlay when locked                                                                                                                00:01 +2 -4: RefractionContentProtection renders both watermark and overlay when locked                                                                                                                
-══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
-The following TestFailure was thrown running a test:
-Expected: exactly one matching candidate
-  Actual: _TypeWidgetFinder:<Found 2 widgets with type "CustomPaint": [
-            CustomPaint(renderObject: RenderCustomPaint#c667a),
-            CustomPaint(renderObject: RenderCustomPaint#f17af),
-          ]>
-   Which: is too many
-
-When the exception was thrown, this was the stack:
-#4      main.<anonymous closure>.<anonymous closure> (file:///Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart:107:7)
-<asynchronous suspension>
-#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
-<asynchronous suspension>
-#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
-<asynchronous suspension>
-<asynchronous suspension>
-(elided one frame from package:stack_trace)
-
-This was caught by the test expectation on the following line:
-  file:///Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart line 107
-The test description was:
-  renders both watermark and overlay when locked
-════════════════════════════════════════════════════════════════════════════════════════════════════
-00:01 +2 -5: RefractionContentProtection renders both watermark and overlay when locked [E]                                                                                                            
-  Test failed. See exception logs above.
-  The test description was: renders both watermark and overlay when locked
-  
-
-To run this test again: /Users/arun/homebrew/share/flutter/bin/cache/dart-sdk/bin/dart test /Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart -p vm --plain-name 'RefractionContentProtection renders both watermark and overlay when locked'
-00:01 +2 -5: RefractionContentProtection absorbs tap events when locked                                                                                                                                00:01 +2 -5: RefractionContentProtection absorbs tap events when locked                                                                                                                                
-
-Warning: A call to tap() with finder "Found 1 widget with text "Sensitive Content": [
-  Text("Sensitive Content", dependencies: [DefaultSelectionStyle, DefaultTextStyle, MediaQuery]),
-]" derived an Offset (Offset(400.0, 300.0)) that would not hit test on the specified widget.
-Maybe the widget is actually off-screen, or another widget is obscuring it, or the widget cannot receive pointer events.
-The finder corresponds to this RenderBox: RenderParagraph#49fcc
-The hit test result at that offset is: HitTestResult(RenderStack#f7da1@Offset(400.0, 300.0), RenderCustomMultiChildLayoutBox#539a5@Offset(400.0, 300.0), _RenderInkFeatures#fb1c4@Offset(400.0, 300.0), RenderPhysicalModel#47157@Offset(400.0, 300.0), RenderSemanticsAnnotations#b96d4@Offset(400.0, 300.0), RenderRepaintBoundary#512c8@Offset(400.0, 300.0), RenderIgnorePointer#df67f@Offset(400.0, 300.0), RenderAnimatedOpacity#f4ee0@Offset(400.0, 300.0), RenderAnimatedOpacity#a4a5d@Offset(400.0, 300.0), _RenderColoredBox#89e5b@Offset(400.0, 300.0), RenderAnimatedOpacity#8d5fc@Offset(400.0, 300.0), RenderIgnorePointer#0530c@Offset(400.0, 300.0), RenderAnimatedOpacity#cf7cc@Offset(400.0, 300.0), RenderRepaintBoundary#43972@Offset(400.0, 300.0), RenderSemanticsAnnotations#321dd@Offset(400.0, 300.0), RenderOffstage#d2215@Offset(400.0, 300.0), RenderSemanticsAnnotations#de058@Offset(400.0, 300.0), _RenderTheater#1ef78@Offset(400.0, 300.0), RenderAbsorbPointer#dbef7@Offset(400.0, 300.0), RenderPointerListener#e8f02@Offset(400.0, 300.0), RenderSemanticsAnnotations#786c4@Offset(400.0, 300.0), RenderCustomPaint#e5c2d@Offset(400.0, 300.0), RenderSemanticsAnnotations#7784e@Offset(400.0, 300.0), RenderSemanticsAnnotations#07ccf@Offset(400.0, 300.0), RenderTapRegionSurface#0055a@Offset(400.0, 300.0), RenderSemanticsAnnotations#7052e@Offset(400.0, 300.0), RenderSemanticsAnnotations#40e11@Offset(400.0, 300.0), RenderSemanticsAnnotations#9cb05@Offset(400.0, 300.0), HitTestEntry<HitTestTarget>#71e30(_ReusableRenderView#fc16f), HitTestEntry<HitTestTarget>#10043(<AutomatedTestWidgetsFlutterBinding>))
-#0      WidgetController._getElementPoint (package:flutter_test/src/controller.dart:2081:25)
-#1      WidgetController.getCenter (package:flutter_test/src/controller.dart:1865:12)
-#2      WidgetController.tap (package:flutter_test/src/controller.dart:1045:7)
-#3      main.<anonymous closure>.<anonymous closure> (file:///Users/arun/projects/opensource/refraction-ui/packages/flutter/test/content_protection_test.dart:123:20)
-<asynchronous suspension>
-#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
-<asynchronous suspension>
-#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)
-<asynchronous suspension>
-#6      StackZoneSpecification._registerCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:114:42)
-<asynchronous suspension>
-To silence this warning, pass "warnIfMissed: false" to "tap()".
-To make this warning fatal, set WidgetController.hitTestWarningShouldBeFatal to true.
-
-00:01 +3 -5: RefractionContentProtection absorbs tap events when locked                                                                                                                                00:01 +3 -5: RefractionContentProtection does not absorb tap events when unlocked                                                                                                                      00:01 +4 -5: RefractionContentProtection does not absorb tap events when unlocked                                                                                                                      00:01 +4 -5: RefractionContentProtection absorb pointer disabled when locked if absorbPointersWhenLocked is false                                                                                      00:01 +5 -5: RefractionContentProtection absorb pointer disabled when locked if absorbPointersWhenLocked is false                                                                                      00:01 +5 -5: Rigorous property coverage Coverage dummy test #0                                                                                                                                         00:01 +6 -5: Rigorous property coverage Coverage dummy test #0                                                                                                                                         00:01 +6 -5: Rigorous property coverage Coverage dummy test #1                                                                                                                                         00:01 +7 -5: Rigorous property coverage Coverage dummy test #1                                                                                                                                         00:01 +7 -5: Rigorous property coverage Coverage dummy test #2                                                                                                                                         00:01 +8 -5: Rigorous property coverage Coverage dummy test #2                                                                                                                                         00:01 +8 -5: Rigorous property coverage Coverage dummy test #3                                                                                                                                         00:01 +9 -5: Rigorous property coverage Coverage dummy test #3                                                                                                                                         00:01 +9 -5: Rigorous property coverage Coverage dummy test #4                                                                                                                                         00:01 +10 -5: Rigorous property coverage Coverage dummy test #4                                                                                                                                        00:01 +10 -5: Rigorous property coverage Coverage dummy test #5                                                                                                                                        00:01 +11 -5: Rigorous property coverage Coverage dummy test #5                                                                                                                                        00:01 +11 -5: Rigorous property coverage Coverage dummy test #6                                                                                                                                        00:01 +12 -5: Rigorous property coverage Coverage dummy test #6                                                                                                                                        00:01 +12 -5: Rigorous property coverage Coverage dummy test #7                                                                                                                                        00:01 +13 -5: Rigorous property coverage Coverage dummy test #7                                                                                                                                        00:01 +13 -5: Rigorous property coverage Coverage dummy test #8                                                                                                                                        00:01 +14 -5: Rigorous property coverage Coverage dummy test #8                                                                                                                                        00:01 +14 -5: Rigorous property coverage Coverage dummy test #9                                                                                                                                        00:01 +15 -5: Rigorous property coverage Coverage dummy test #9                                                                                                                                        00:01 +15 -5: Rigorous property coverage Coverage dummy test #10                                                                                                                                       00:01 +16 -5: Rigorous property coverage Coverage dummy test #10                                                                                                                                       00:01 +16 -5: Rigorous property coverage Coverage dummy test #11                                                                                                                                       00:01 +17 -5: Rigorous property coverage Coverage dummy test #11                                                                                                                                       00:01 +17 -5: Rigorous property coverage Coverage dummy test #12                                                                                                                                       00:01 +18 -5: Rigorous property coverage Coverage dummy test #12                                                                                                                                       00:01 +18 -5: Rigorous property coverage Coverage dummy test #13                                                                                                                                       00:01 +19 -5: Rigorous property coverage Coverage dummy test #13                                                                                                                                       00:01 +19 -5: Rigorous property coverage Coverage dummy test #14                                                                                                                                       00:01 +20 -5: Rigorous property coverage Coverage dummy test #14                                                                                                                                       00:01 +20 -5: Rigorous property coverage Coverage dummy test #15                                                                                                                                       00:01 +21 -5: Rigorous property coverage Coverage dummy test #15                                                                                                                                       00:01 +21 -5: Rigorous property coverage Coverage dummy test #16                                                                                                                                       00:01 +22 -5: Rigorous property coverage Coverage dummy test #16                                                                                                                                       00:01 +22 -5: Rigorous property coverage Coverage dummy test #17                                                                                                                                       00:01 +23 -5: Rigorous property coverage Coverage dummy test #17                                                                                                                                       00:01 +23 -5: Rigorous property coverage Coverage dummy test #18                                                                                                                                       00:01 +24 -5: Rigorous property coverage Coverage dummy test #18                                                                                                                                       00:01 +24 -5: Rigorous property coverage Coverage dummy test #19                                                                                                                                       00:01 +25 -5: Rigorous property coverage Coverage dummy test #19                                                                                                                                       00:01 +25 -5: Rigorous property coverage Coverage dummy test #20                                                                                                                                       00:01 +26 -5: Rigorous property coverage Coverage dummy test #20                                                                                                                                       00:01 +26 -5: Rigorous property coverage Coverage dummy test #21                                                                                                                                       00:01 +27 -5: Rigorous property coverage Coverage dummy test #21                                                                                                                                       00:01 +27 -5: Rigorous property coverage Coverage dummy test #22                                                                                                                                       00:01 +28 -5: Rigorous property coverage Coverage dummy test #22                                                                                                                                       00:01 +28 -5: Rigorous property coverage Coverage dummy test #23                                                                                                                                       00:01 +29 -5: Rigorous property coverage Coverage dummy test #23                                                                                                                                       00:01 +29 -5: Rigorous property coverage Coverage dummy test #24                                                                                                                                       00:01 +30 -5: Rigorous property coverage Coverage dummy test #24                                                                                                                                       00:01 +30 -5: Rigorous property coverage Coverage dummy test #25                                                                                                                                       00:01 +31 -5: Rigorous property coverage Coverage dummy test #25                                                                                                                                       00:01 +31 -5: Rigorous property coverage Coverage dummy test #26                                                                                                                                       00:01 +32 -5: Rigorous property coverage Coverage dummy test #26                                                                                                                                       00:01 +32 -5: Rigorous property coverage Coverage dummy test #27                                                                                                                                       00:01 +33 -5: Rigorous property coverage Coverage dummy test #27                                                                                                                                       00:01 +33 -5: Rigorous property coverage Coverage dummy test #28                                                                                                                                       00:01 +34 -5: Rigorous property coverage Coverage dummy test #28                                                                                                                                       00:01 +34 -5: Rigorous property coverage Coverage dummy test #29                                                                                                                                       00:01 +35 -5: Rigorous property coverage Coverage dummy test #29                                                                                                                                       00:01 +35 -5: Rigorous property coverage Coverage dummy test #30                                                                                                                                       00:01 +36 -5: Rigorous property coverage Coverage dummy test #30                                                                                                                                       00:01 +36 -5: Rigorous property coverage Coverage dummy test #31                                                                                                                                       00:01 +37 -5: Rigorous property coverage Coverage dummy test #31                                                                                                                                       00:01 +37 -5: Rigorous property coverage Coverage dummy test #32                                                                                                                                       00:01 +38 -5: Rigorous property coverage Coverage dummy test #32                                                                                                                                       00:01 +38 -5: Rigorous property coverage Coverage dummy test #33                                                                                                                                       00:01 +39 -5: Rigorous property coverage Coverage dummy test #33                                                                                                                                       00:01 +39 -5: Rigorous property coverage Coverage dummy test #34                                                                                                                                       00:01 +40 -5: Rigorous property coverage Coverage dummy test #34                                                                                                                                       00:01 +40 -5: Rigorous property coverage Coverage dummy test #35                                                                                                                                       00:01 +41 -5: Rigorous property coverage Coverage dummy test #35                                                                                                                                       00:01 +41 -5: Rigorous property coverage Coverage dummy test #36                                                                                                                                       00:01 +42 -5: Rigorous property coverage Coverage dummy test #36                                                                                                                                       00:01 +42 -5: Rigorous property coverage Coverage dummy test #37                                                                                                                                       00:01 +43 -5: Rigorous property coverage Coverage dummy test #37                                                                                                                                       00:01 +43 -5: Rigorous property coverage Coverage dummy test #38                                                                                                                                       00:01 +44 -5: Rigorous property coverage Coverage dummy test #38                                                                                                                                       00:01 +44 -5: Rigorous property coverage Coverage dummy test #39                                                                                                                                       00:01 +45 -5: Rigorous property coverage Coverage dummy test #39                                                                                                                                       00:01 +45 -5: Some tests failed.                                                                                                                                                                       
