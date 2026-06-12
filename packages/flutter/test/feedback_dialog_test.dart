@@ -39,7 +39,7 @@ void main() {
           ),
         ),
       );
-      final textarea = tester.widget<RefractionTextarea>(
+      final textarea = tester.widget<RefractionInput>(
         find.byKey(const Key('feedback-comment-input')),
       );
       expect(textarea.placeholder, 'Type comment here');
@@ -78,7 +78,7 @@ void main() {
     testWidgets('Test case 8', (WidgetTester tester) async {
       // Submit enabled when comment typed
       await tester.pumpWidget(buildApp(const RefractionFeedbackDialog()));
-      await tester.enterText(find.byType(RefractionTextarea), 'This is great');
+      await tester.enterText(find.byKey(const Key('feedback-comment-input')), 'This is great');
       await tester.pumpAndSettle();
       final submitBtn = tester.widget<RefractionButton>(
         find.byKey(const Key('feedback-submit-button')),
@@ -91,7 +91,7 @@ void main() {
       await tester.pumpWidget(
         buildApp(RefractionFeedbackDialog(onSubmit: (d) => submitted = true)),
       );
-      await tester.enterText(find.byType(RefractionTextarea), 'This is great');
+      await tester.enterText(find.byKey(const Key('feedback-comment-input')), 'This is great');
       await tester.enterText(
         find.byKey(const Key('feedback-honeypot-input')),
         'bot data',
@@ -107,7 +107,7 @@ void main() {
       await tester.pumpWidget(
         buildApp(RefractionFeedbackDialog(onSubmit: (d) => data = d)),
       );
-      await tester.enterText(find.byType(RefractionTextarea), 'Awesome tool');
+      await tester.enterText(find.byKey(const Key('feedback-comment-input')), 'Awesome tool');
       await tester.enterText(
         find.byKey(const Key('feedback-email-input')),
         'test@test.com',
@@ -132,7 +132,7 @@ void main() {
           ),
         ),
       );
-      await tester.enterText(find.byType(RefractionTextarea), 'Async test');
+      await tester.enterText(find.byKey(const Key('feedback-comment-input')), 'Async test');
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('feedback-submit-button')));
       await tester.pump();
@@ -151,7 +151,7 @@ void main() {
           ),
         ),
       );
-      await tester.enterText(find.byType(RefractionTextarea), 'Error test');
+      await tester.enterText(find.byKey(const Key('feedback-comment-input')), 'Error test');
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('feedback-submit-button')));
       await tester.pumpAndSettle();
