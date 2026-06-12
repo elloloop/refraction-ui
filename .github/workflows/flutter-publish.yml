@@ -56,7 +56,12 @@ jobs:
 
       - name: Run tests
         working-directory: packages/flutter
-        run: flutter test
+        # Exclude golden (visual-baseline) tests from the publish gate. Their
+        # PNG baselines are generated on macOS and do not render pixel-identical
+        # on the Linux CI runner, so they cannot pass here and are regenerated
+        # via the CI-only baseline workflow — they must not block a pub.dev
+        # publish. The logic/widget suite still gates the release.
+        run: flutter test --exclude-tags golden
 
       - name: Dry-run publish (sanity check)
         working-directory: packages/flutter
