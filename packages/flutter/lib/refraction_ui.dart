@@ -129,3 +129,8 @@ export 'src/components/link_card.dart';
 export 'src/components/progress_display.dart';
 export 'src/components/radio.dart';
 export 'src/components/slider.dart';
+export 'src/components/segmented_control.dart';
+export 'src/components/password_input.dart';
+export 'src/components/social_auth_button.dart';
+export 'src/components/separator.dart';
+export 'src/components/empty_state.dart';
