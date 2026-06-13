@@ -94,7 +94,6 @@ export const VideoTile = React.forwardRef<HTMLDivElement, VideoTileProps>(
           /* Avatar fallback */
           <div className={videoTileAvatarFallbackClass}>
             {avatarUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={avatarUrl}
                 alt={name}

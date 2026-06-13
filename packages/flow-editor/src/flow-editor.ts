@@ -54,7 +54,6 @@ export function nodeById(
 export function edgePath(source: FlowNode, target: FlowNode): string {
   const sw = source.width ?? DEFAULT_NODE_WIDTH
   const sh = source.height ?? DEFAULT_NODE_HEIGHT
-  const tw = target.width ?? DEFAULT_NODE_WIDTH
   const th = target.height ?? DEFAULT_NODE_HEIGHT
 
   const x1 = source.x + sw

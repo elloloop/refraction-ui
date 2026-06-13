@@ -137,7 +137,7 @@ export function gaugeStrokeDashoffset(fraction: number, circumference: number): 
 export function resolveZoneTone(
   value: number,
   zones: GaugeZone[],
-  max: number,
+  _max: number,
 ): GaugeTone {
   if (!zones || zones.length === 0) return 'default'
 
