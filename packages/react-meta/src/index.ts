@@ -192,3 +192,13 @@ export * from '@refraction-ui/react-password-input'
 export * from '@refraction-ui/react-social-auth-button'
 export * from '@refraction-ui/react-separator'
 export * from '@refraction-ui/react-empty-state'
+
+// easyloops design-parity wave 1 (Cluster C + D)
+export * from '@refraction-ui/react-wizard'
+export * from '@refraction-ui/react-radial-gauge'
+export * from '@refraction-ui/react-timeline'
+export * from '@refraction-ui/react-checklist'
+export * from '@refraction-ui/react-editor-tabs'
+export * from '@refraction-ui/react-terminal'
+export * from '@refraction-ui/react-test-results'
+export * from '@refraction-ui/react-editor-status-bar'

@@ -109,3 +109,13 @@ export * from '@refraction-ui/astro-password-input'
 export * from '@refraction-ui/astro-social-auth-button'
 export * from '@refraction-ui/astro-separator'
 export * from '@refraction-ui/astro-empty-state'
+
+// easyloops design-parity wave 1 (Cluster C + D)
+export * from '@refraction-ui/astro-wizard'
+export * from '@refraction-ui/astro-radial-gauge'
+export * from '@refraction-ui/astro-timeline'
+export * from '@refraction-ui/astro-checklist'
+export * from '@refraction-ui/astro-editor-tabs'
+export * from '@refraction-ui/astro-terminal'
+export * from '@refraction-ui/astro-test-results'
+export * from '@refraction-ui/astro-editor-status-bar'

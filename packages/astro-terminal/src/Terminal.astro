@@ -1,0 +1,67 @@
+---
+import {
+  createTerminal,
+  formatPrompt,
+  terminalVariants,
+  terminalLineVariants,
+  terminalPromptClass,
+  type TerminalLine,
+} from '@refraction-ui/terminal'
+import { cn } from '@refraction-ui/shared'
+
+type TerminalMaxHeight = 'sm' | 'md' | 'lg' | 'none'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Lines to render in order. Each line's `kind` determines its styling. */
+  lines: TerminalLine[]
+  /**
+   * Prompt symbol prepended to `command` lines.
+   * @default '$'
+   */
+  promptSymbol?: string
+  /**
+   * Maximum height of the scroll region before it becomes scrollable.
+   * @default 'md'
+   */
+  maxHeight?: TerminalMaxHeight
+  /** Accessible label for the live region. */
+  'aria-label'?: string
+}
+
+const {
+  lines,
+  promptSymbol = '$',
+  maxHeight = 'md',
+  'aria-label': ariaLabel,
+  class: className,
+  ...rest
+} = Astro.props
+
+const { ariaProps, dataAttributes } = createTerminal({ label: ariaLabel })
+---
+
+<div
+  class={cn(terminalVariants({ maxHeight }), className)}
+  {...ariaProps}
+  {...dataAttributes}
+  {...rest}
+>
+  {
+    lines.map((line, index) => {
+      const lineClass = terminalLineVariants({ kind: line.kind })
+      if (line.kind === 'command') {
+        return (
+          <span key={line.id ?? index} class={lineClass}>
+            <span class={terminalPromptClass}>{promptSymbol}</span>
+            {line.text}
+          </span>
+        )
+      }
+      return (
+        <span key={line.id ?? index} class={lineClass}>
+          {line.text}
+        </span>
+      )
+    })
+  }
+</div>

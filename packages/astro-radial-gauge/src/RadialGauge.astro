@@ -1,0 +1,144 @@
+---
+import {
+  clampValue,
+  valueToFraction,
+  gaugeStrokeDashoffset,
+  resolveZoneTone,
+  createRadialGauge,
+  radialGaugeRootVariants,
+  gaugeTrackClass,
+  gaugeArcClass,
+  gaugeArcToneVariants,
+  gaugeLabelClass,
+  gaugeSublabelClass,
+  GAUGE_SIZE_PX,
+  GAUGE_LABEL_FONT_SIZE,
+  GAUGE_SUBLABEL_FONT_SIZE,
+  type GaugeSize,
+  type GaugeZone,
+} from '@refraction-ui/radial-gauge'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.SVGAttributes {
+  /** Current value. */
+  value: number
+  /** Minimum value. Defaults to 0. */
+  min?: number
+  /** Maximum value. Defaults to 100. */
+  max?: number
+  /** Visual size of the gauge. Defaults to 'md'. */
+  size?: GaugeSize
+  /** Stroke thickness in px. Defaults to 8. */
+  thickness?: number
+  /** Primary center label. When omitted and `showValue` is true, the numeric value is shown. */
+  label?: string
+  /** Secondary label shown below the primary label. */
+  sublabel?: string
+  /**
+   * Threshold zones that colour the arc based on the current value.
+   * List in ascending `upTo` order for clarity (internally sorted).
+   */
+  zones?: GaugeZone[]
+  /** Show the numeric value in the center when no explicit label is given. Defaults to true. */
+  showValue?: boolean
+}
+
+const {
+  value,
+  min = 0,
+  max = 100,
+  size = 'md',
+  thickness = 8,
+  label,
+  sublabel,
+  zones,
+  showValue = true,
+  class: className,
+  ...rest
+} = Astro.props
+
+const diameter = GAUGE_SIZE_PX[size]
+const cx = diameter / 2
+const cy = diameter / 2
+const r = cx - thickness / 2
+
+const clamped = clampValue(value, min, max)
+const fraction = valueToFraction(clamped, min, max)
+
+const circumference = 2 * Math.PI * r
+const dashoffset = gaugeStrokeDashoffset(fraction, circumference)
+
+const tone = zones && zones.length > 0 ? resolveZoneTone(clamped, zones, max) : 'default'
+
+const { ariaProps, dataAttributes } = createRadialGauge({ value, min, max, size })
+
+const centerLabel = label ?? (showValue ? String(clamped) : null)
+const labelFontSize = GAUGE_LABEL_FONT_SIZE[size]
+const sublabelFontSize = GAUGE_SUBLABEL_FONT_SIZE[size]
+const labelDy = sublabel ? -sublabelFontSize * 0.8 : 0
+---
+
+<svg
+  width={diameter}
+  height={diameter}
+  viewBox={`0 0 ${diameter} ${diameter}`}
+  role="meter"
+  aria-valuenow={ariaProps['aria-valuenow']}
+  aria-valuemin={ariaProps['aria-valuemin']}
+  aria-valuemax={ariaProps['aria-valuemax']}
+  class={cn(radialGaugeRootVariants({ size }), className)}
+  {...dataAttributes}
+  {...rest}
+>
+  {/* Background track */}
+  <circle
+    cx={cx}
+    cy={cy}
+    r={r}
+    stroke-width={thickness}
+    class={gaugeTrackClass}
+  />
+
+  {/* Value arc */}
+  <circle
+    cx={cx}
+    cy={cy}
+    r={r}
+    stroke-width={thickness}
+    stroke-dasharray={`${circumference} ${circumference}`}
+    stroke-dashoffset={dashoffset}
+    stroke-linecap="round"
+    transform={`rotate(-90 ${cx} ${cy})`}
+    class={cn(gaugeArcClass, gaugeArcToneVariants({ tone }))}
+  />
+
+  {/* Center label */}
+  {centerLabel != null && (
+    <text
+      x={cx}
+      y={cy}
+      text-anchor="middle"
+      dominant-baseline="central"
+      font-size={labelFontSize}
+      dy={labelDy}
+      class={gaugeLabelClass}
+    >
+      {centerLabel}
+    </text>
+  )}
+
+  {/* Sub-label */}
+  {sublabel != null && (
+    <text
+      x={cx}
+      y={cy}
+      text-anchor="middle"
+      dominant-baseline="central"
+      font-size={sublabelFontSize}
+      dy={labelDy + labelFontSize * 1.1}
+      class={gaugeSublabelClass}
+    >
+      {sublabel}
+    </text>
+  )}
+</svg>

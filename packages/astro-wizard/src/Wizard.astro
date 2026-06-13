@@ -1,0 +1,137 @@
+---
+import {
+  createWizard,
+  getStepState,
+  wizardVariants,
+  wizardRailVariants,
+  wizardStepItemVariants,
+  wizardStepIndicatorVariants,
+  wizardStepLabelVariants,
+  wizardStepOptionalClass,
+  wizardConnectorVariants,
+  wizardContentClass,
+  wizardFooterClass,
+  wizardPrimaryButtonVariants,
+  wizardSecondaryButtonVariants,
+  type WizardStep,
+  type WizardOrientation,
+} from '@refraction-ui/wizard'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Step definitions for the rail. */
+  steps: WizardStep[]
+  /** Current step index (0-based). */
+  currentStep?: number
+  /** Orientation of the step rail. */
+  orientation?: WizardOrientation
+  /** Label for the Next button. */
+  nextLabel?: string
+  /** Label for the Back button. */
+  backLabel?: string
+  /** Label for the button on the final step. */
+  completeLabel?: string
+  /** Label for the Skip button (shown on optional steps only). */
+  skipLabel?: string
+}
+
+const {
+  steps,
+  currentStep = 0,
+  orientation = 'vertical',
+  nextLabel = 'Next',
+  backLabel = 'Back',
+  completeLabel = 'Complete',
+  skipLabel = 'Skip',
+  class: className,
+  ...rest
+} = Astro.props
+
+const stepStates = getStepState(steps, currentStep)
+const isLastStep = currentStep === steps.length - 1
+const isOptional = steps[currentStep]?.optional ?? false
+const { ariaProps, dataAttributes } = createWizard({
+  currentIndex: currentStep,
+  count: steps.length,
+  orientation,
+})
+---
+
+<div class={cn(wizardVariants({ orientation }), className)} {...ariaProps} {...dataAttributes} {...rest}>
+  <!-- Step Rail -->
+  <nav aria-label="Progress" class={wizardRailVariants({ orientation })}>
+    {
+      stepStates.map((state, i) => {
+        const isLast = i === stepStates.length - 1
+        return (
+          <>
+            <div class={wizardStepItemVariants({ orientation, status: state.status })}>
+              <span
+                aria-current={state.status === 'current' ? 'step' : undefined}
+                class={wizardStepIndicatorVariants({ status: state.status })}
+              >
+                {state.status === 'complete' ? (
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="size-4"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                ) : (
+                  <span>{state.index + 1}</span>
+                )}
+              </span>
+              <div class="flex flex-col">
+                <span class={wizardStepLabelVariants({ status: state.status })}>
+                  {state.step.label}
+                </span>
+                {state.step.optional && (
+                  <span class={wizardStepOptionalClass}>(Optional)</span>
+                )}
+              </div>
+            </div>
+            {!isLast && (
+              <div
+                aria-hidden="true"
+                class={wizardConnectorVariants({
+                  orientation,
+                  complete: state.status === 'complete' ? 'true' : 'false',
+                })}
+              />
+            )}
+          </>
+        )
+      })
+    }
+  </nav>
+
+  <!-- Content + Footer -->
+  <div class={wizardContentClass}>
+    <div class="flex-1">
+      <slot />
+    </div>
+
+    <div class={wizardFooterClass}>
+      <button type="button" disabled={currentStep === 0} class={wizardSecondaryButtonVariants()}>
+        {backLabel}
+      </button>
+
+      {isOptional && (
+        <button type="button" class={wizardSecondaryButtonVariants()}>
+          {skipLabel}
+        </button>
+      )}
+
+      <button type="button" class={wizardPrimaryButtonVariants()}>
+        {isLastStep ? completeLabel : nextLabel}
+      </button>
+    </div>
+  </div>
+</div>

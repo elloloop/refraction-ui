@@ -1,0 +1,59 @@
+---
+import {
+  createTimeline,
+  resolveTimelineItems,
+  timelineVariants,
+  timelineItemVariants,
+  timelineMarkerVariants,
+  timelineConnectorVariants,
+  timelineGutterClass,
+  timelineTimeClass,
+  timelineTitleClass,
+  timelineDescriptionClass,
+  timelineContentClass,
+  type TimelineOrientation,
+  type TimelineItemData,
+} from '@refraction-ui/timeline'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Ordered list of events to render. */
+  items: TimelineItemData[]
+  /** Layout direction. Defaults to `'vertical'`. */
+  orientation?: TimelineOrientation
+}
+
+const {
+  items,
+  orientation = 'vertical',
+  class: className,
+  ...rest
+} = Astro.props
+
+const resolved = resolveTimelineItems(items)
+const { ariaProps, dataAttributes } = createTimeline({ orientation })
+---
+
+<ul class={cn(timelineVariants({ orientation }), className)} {...ariaProps} {...dataAttributes} {...rest}>
+  {
+    resolved.map((item, index) => {
+      const isLast = index === resolved.length - 1
+      return (
+        <li role="listitem" class={timelineItemVariants({ orientation })} data-status={item.status}>
+          {/* Gutter: marker + connector */}
+          <div class={timelineGutterClass}>
+            <div class={timelineMarkerVariants({ status: item.status })} />
+            {!isLast && <div class={timelineConnectorVariants({ orientation })} />}
+          </div>
+
+          {/* Content */}
+          <div class={timelineContentClass}>
+            {item.time && <span class={timelineTimeClass}>{item.time}</span>}
+            <span class={timelineTitleClass}>{item.title}</span>
+            {item.description && <p class={timelineDescriptionClass}>{item.description}</p>}
+          </div>
+        </li>
+      )
+    })
+  }
+</ul>

@@ -176,6 +176,9 @@ importers:
       '@refraction-ui/react-checkbox':
         specifier: workspace:*
         version: link:../packages/react-checkbox
+      '@refraction-ui/react-checklist':
+        specifier: workspace:*
+        version: link:../packages/react-checklist
       '@refraction-ui/react-code-block':
         specifier: workspace:*
         version: link:../packages/react-code-block
@@ -221,6 +224,12 @@ importers:
       '@refraction-ui/react-dropdown-menu':
         specifier: workspace:*
         version: link:../packages/react-dropdown-menu
+      '@refraction-ui/react-editor-status-bar':
+        specifier: workspace:*
+        version: link:../packages/react-editor-status-bar
+      '@refraction-ui/react-editor-tabs':
+        specifier: workspace:*
+        version: link:../packages/react-editor-tabs
       '@refraction-ui/react-emoji-picker':
         specifier: workspace:*
         version: link:../packages/react-emoji-picker
@@ -296,9 +305,15 @@ importers:
       '@refraction-ui/react-progress-display':
         specifier: workspace:*
         version: link:../packages/react-progress-display
+      '@refraction-ui/react-radial-gauge':
+        specifier: workspace:*
+        version: link:../packages/react-radial-gauge
       '@refraction-ui/react-radio':
         specifier: workspace:*
         version: link:../packages/react-radio
+      '@refraction-ui/react-rating-scale':
+        specifier: workspace:*
+        version: link:../packages/react-rating-scale
       '@refraction-ui/react-reaction-bar':
         specifier: workspace:*
         version: link:../packages/react-reaction-bar
@@ -353,6 +368,12 @@ importers:
       '@refraction-ui/react-tabs':
         specifier: workspace:*
         version: link:../packages/react-tabs
+      '@refraction-ui/react-terminal':
+        specifier: workspace:*
+        version: link:../packages/react-terminal
+      '@refraction-ui/react-test-results':
+        specifier: workspace:*
+        version: link:../packages/react-test-results
       '@refraction-ui/react-textarea':
         specifier: workspace:*
         version: link:../packages/react-textarea
@@ -362,6 +383,9 @@ importers:
       '@refraction-ui/react-thread-view':
         specifier: workspace:*
         version: link:../packages/react-thread-view
+      '@refraction-ui/react-timeline':
+        specifier: workspace:*
+        version: link:../packages/react-timeline
       '@refraction-ui/react-toast':
         specifier: workspace:*
         version: link:../packages/react-toast
@@ -374,6 +398,9 @@ importers:
       '@refraction-ui/react-video-player':
         specifier: workspace:*
         version: link:../packages/react-video-player
+      '@refraction-ui/react-wizard':
+        specifier: workspace:*
+        version: link:../packages/react-wizard
       '@refraction-ui/tailwind-config':
         specifier: workspace:*
         version: link:../packages/tailwind-config
@@ -726,6 +753,18 @@ importers:
         specifier: 6.3.1
         version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
 
+  packages/astro-checklist:
+    dependencies:
+      '@refraction-ui/checklist':
+        specifier: workspace:*
+        version: link:../checklist
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
   packages/astro-code-block:
     dependencies:
       '@refraction-ui/code-block':
@@ -887,6 +926,30 @@ importers:
       '@refraction-ui/dropdown-menu':
         specifier: workspace:*
         version: link:../dropdown-menu
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
+  packages/astro-editor-status-bar:
+    dependencies:
+      '@refraction-ui/editor-status-bar':
+        specifier: workspace:*
+        version: link:../editor-status-bar
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
+  packages/astro-editor-tabs:
+    dependencies:
+      '@refraction-ui/editor-tabs':
+        specifier: workspace:*
+        version: link:../editor-tabs
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -1147,6 +1210,9 @@ importers:
       '@refraction-ui/astro-checkbox':
         specifier: workspace:*
         version: link:../astro-checkbox
+      '@refraction-ui/astro-checklist':
+        specifier: workspace:*
+        version: link:../astro-checklist
       '@refraction-ui/astro-code-block':
         specifier: workspace:*
         version: link:../astro-code-block
@@ -1189,6 +1255,12 @@ importers:
       '@refraction-ui/astro-dropdown-menu':
         specifier: workspace:*
         version: link:../astro-dropdown-menu
+      '@refraction-ui/astro-editor-status-bar':
+        specifier: workspace:*
+        version: link:../astro-editor-status-bar
+      '@refraction-ui/astro-editor-tabs':
+        specifier: workspace:*
+        version: link:../astro-editor-tabs
       '@refraction-ui/astro-emoji-picker':
         specifier: workspace:*
         version: link:../astro-emoji-picker
@@ -1264,6 +1336,9 @@ importers:
       '@refraction-ui/astro-progress-display':
         specifier: workspace:*
         version: link:../astro-progress-display
+      '@refraction-ui/astro-radial-gauge':
+        specifier: workspace:*
+        version: link:../astro-radial-gauge
       '@refraction-ui/astro-radio':
         specifier: workspace:*
         version: link:../astro-radio
@@ -1324,6 +1399,12 @@ importers:
       '@refraction-ui/astro-tabs':
         specifier: workspace:*
         version: link:../astro-tabs
+      '@refraction-ui/astro-terminal':
+        specifier: workspace:*
+        version: link:../astro-terminal
+      '@refraction-ui/astro-test-results':
+        specifier: workspace:*
+        version: link:../astro-test-results
       '@refraction-ui/astro-textarea':
         specifier: workspace:*
         version: link:../astro-textarea
@@ -1333,6 +1414,9 @@ importers:
       '@refraction-ui/astro-thread-view':
         specifier: workspace:*
         version: link:../astro-thread-view
+      '@refraction-ui/astro-timeline':
+        specifier: workspace:*
+        version: link:../astro-timeline
       '@refraction-ui/astro-toast':
         specifier: workspace:*
         version: link:../astro-toast
@@ -1351,6 +1435,9 @@ importers:
       '@refraction-ui/astro-waveform':
         specifier: workspace:*
         version: link:../astro-waveform
+      '@refraction-ui/astro-wizard':
+        specifier: workspace:*
+        version: link:../astro-wizard
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -1459,6 +1546,18 @@ importers:
       '@refraction-ui/progress-display':
         specifier: workspace:*
         version: link:../progress-display
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
+  packages/astro-radial-gauge:
+    dependencies:
+      '@refraction-ui/radial-gauge':
+        specifier: workspace:*
+        version: link:../radial-gauge
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -1706,6 +1805,30 @@ importers:
         specifier: 6.3.1
         version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
 
+  packages/astro-terminal:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/terminal':
+        specifier: workspace:*
+        version: link:../terminal
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
+  packages/astro-test-results:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/test-results':
+        specifier: workspace:*
+        version: link:../test-results
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
   packages/astro-textarea:
     dependencies:
       '@refraction-ui/shared':
@@ -1738,6 +1861,18 @@ importers:
       '@refraction-ui/thread-view':
         specifier: workspace:*
         version: link:../thread-view
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
+  packages/astro-timeline:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/timeline':
+        specifier: workspace:*
+        version: link:../timeline
       astro:
         specifier: 6.3.1
         version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
@@ -1810,6 +1945,18 @@ importers:
       '@refraction-ui/waveform':
         specifier: workspace:*
         version: link:../waveform
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
+  packages/astro-wizard:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/wizard':
+        specifier: workspace:*
+        version: link:../wizard
       astro:
         specifier: 6.3.1
         version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
@@ -1897,6 +2044,12 @@ importers:
         version: link:../shared
 
   packages/checkbox:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/checklist:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -1996,6 +2149,18 @@ importers:
         version: link:../shared
 
   packages/dropdown-menu:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/editor-status-bar:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/editor-tabs:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -2381,6 +2546,12 @@ importers:
         version: link:../shared
 
   packages/progress-display:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/radial-gauge:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -2828,6 +2999,28 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-checklist:
+    dependencies:
+      '@refraction-ui/checklist':
+        specifier: workspace:*
+        version: link:../checklist
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-code-block:
     dependencies:
       '@refraction-ui/code-block':
@@ -3171,6 +3364,50 @@ importers:
         version: 19.0.0
       react-dom:
         specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-editor-status-bar:
+    dependencies:
+      '@refraction-ui/editor-status-bar':
+        specifier: workspace:*
+        version: link:../editor-status-bar
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-editor-tabs:
+    dependencies:
+      '@refraction-ui/editor-tabs':
+        specifier: workspace:*
+        version: link:../editor-tabs
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
   packages/react-emoji-picker:
@@ -3624,6 +3861,9 @@ importers:
       '@refraction-ui/react-checkbox':
         specifier: workspace:*
         version: link:../react-checkbox
+      '@refraction-ui/react-checklist':
+        specifier: workspace:*
+        version: link:../react-checklist
       '@refraction-ui/react-code-block':
         specifier: workspace:*
         version: link:../react-code-block
@@ -3669,6 +3909,12 @@ importers:
       '@refraction-ui/react-dropdown-menu':
         specifier: workspace:*
         version: link:../react-dropdown-menu
+      '@refraction-ui/react-editor-status-bar':
+        specifier: workspace:*
+        version: link:../react-editor-status-bar
+      '@refraction-ui/react-editor-tabs':
+        specifier: workspace:*
+        version: link:../react-editor-tabs
       '@refraction-ui/react-emoji-picker':
         specifier: workspace:*
         version: link:../react-emoji-picker
@@ -3747,6 +3993,9 @@ importers:
       '@refraction-ui/react-progress-display':
         specifier: workspace:*
         version: link:../react-progress-display
+      '@refraction-ui/react-radial-gauge':
+        specifier: workspace:*
+        version: link:../react-radial-gauge
       '@refraction-ui/react-radio':
         specifier: workspace:*
         version: link:../react-radio
@@ -3810,6 +4059,12 @@ importers:
       '@refraction-ui/react-tabs':
         specifier: workspace:*
         version: link:../react-tabs
+      '@refraction-ui/react-terminal':
+        specifier: workspace:*
+        version: link:../react-terminal
+      '@refraction-ui/react-test-results':
+        specifier: workspace:*
+        version: link:../react-test-results
       '@refraction-ui/react-textarea':
         specifier: workspace:*
         version: link:../react-textarea
@@ -3819,6 +4074,9 @@ importers:
       '@refraction-ui/react-thread-view':
         specifier: workspace:*
         version: link:../react-thread-view
+      '@refraction-ui/react-timeline':
+        specifier: workspace:*
+        version: link:../react-timeline
       '@refraction-ui/react-toast':
         specifier: workspace:*
         version: link:../react-toast
@@ -3837,6 +4095,9 @@ importers:
       '@refraction-ui/react-waveform':
         specifier: workspace:*
         version: link:../react-waveform
+      '@refraction-ui/react-wizard':
+        specifier: workspace:*
+        version: link:../react-wizard
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -4052,6 +4313,28 @@ importers:
         version: 19.0.0
       react-dom:
         specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-radial-gauge:
+    dependencies:
+      '@refraction-ui/radial-gauge':
+        specifier: workspace:*
+        version: link:../radial-gauge
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
   packages/react-radio:
@@ -4519,6 +4802,50 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-terminal:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/terminal':
+        specifier: workspace:*
+        version: link:../terminal
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-test-results:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/test-results':
+        specifier: workspace:*
+        version: link:../test-results
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-textarea:
     dependencies:
       '@refraction-ui/shared':
@@ -4586,6 +4913,28 @@ importers:
         version: 19.0.0
       react-dom:
         specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-timeline:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/timeline':
+        specifier: workspace:*
+        version: link:../timeline
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
   packages/react-toast:
@@ -4720,6 +5069,28 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-wizard:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/wizard':
+        specifier: workspace:*
+        version: link:../wizard
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/reaction-bar:
     dependencies:
       '@refraction-ui/shared':
@@ -4840,6 +5211,18 @@ importers:
         specifier: 3.4.0
         version: 3.4.0(ts-node@10.9.2(@types/node@24.1.0)(typescript@5.8.3))
 
+  packages/terminal:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/test-results:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/textarea:
     dependencies:
       '@refraction-ui/shared':
@@ -4853,6 +5236,12 @@ importers:
         version: link:../shared
 
   packages/thread-view:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/timeline:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -4891,6 +5280,12 @@ importers:
         version: link:../shared
 
   packages/waveform:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/wizard:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*

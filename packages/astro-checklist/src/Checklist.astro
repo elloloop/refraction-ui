@@ -1,0 +1,76 @@
+---
+import {
+  createChecklist,
+  checklistProgress,
+  checklistContainerClass,
+  checklistListClass,
+  checklistItemVariants,
+  checklistBoxVariants,
+  checklistLabelWrapClass,
+  checklistLabelVariants,
+  checklistDescriptionClass,
+  checklistProgressClass,
+  type ChecklistItemData,
+} from '@refraction-ui/checklist'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** List of checklist items. */
+  items: ChecklistItemData[]
+  /** Show a "{completed}/{total}" progress summary below the list. */
+  showProgress?: boolean
+}
+
+const { items, showProgress = false, class: className, ...rest } = Astro.props
+
+const { ariaProps, dataAttributes } = createChecklist()
+const progress = showProgress ? checklistProgress(items) : null
+---
+
+<div class={cn(checklistContainerClass, className)} {...dataAttributes} {...rest}>
+  <ul class={checklistListClass} {...ariaProps}>
+    {
+      items.map((item) => {
+        const checked = Boolean(item.checked)
+        return (
+          <li role="presentation">
+            <button
+              type="button"
+              role="checkbox"
+              aria-checked={checked}
+              data-state={checked ? 'checked' : 'unchecked'}
+              class={checklistItemVariants({ checked: checked ? 'true' : 'false' })}
+            >
+              <span aria-hidden="true" class={checklistBoxVariants({ checked: checked ? 'true' : 'false' })}>
+                {checked && (
+                  <svg viewBox="0 0 12 12" fill="none" class="h-3 w-3" aria-hidden="true">
+                    <path
+                      d="M2 6l3 3 5-5"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                )}
+              </span>
+              <span class={checklistLabelWrapClass}>
+                <span class={checklistLabelVariants({ checked: checked ? 'true' : 'false' })}>{item.label}</span>
+                {item.description && (
+                  <span class={checklistDescriptionClass}>{item.description}</span>
+                )}
+              </span>
+            </button>
+          </li>
+        )
+      })
+    }
+  </ul>
+  {
+    progress !== null && (
+      <p class={checklistProgressClass}>
+        {progress.completed}/{progress.total} completed
+      </p>
+    )
+  }
+</div>

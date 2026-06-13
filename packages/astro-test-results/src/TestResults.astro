@@ -1,0 +1,76 @@
+---
+import {
+  summarizeTests,
+  createTestResults,
+  testResultsContainerVariants,
+  testResultsSummaryVariants,
+  testRowVariants,
+  testStatusBadgeVariants,
+  testNameClass,
+  testDurationClass,
+  testDiffBlockVariants,
+  testMessageClass,
+  type TestResultData,
+} from '@refraction-ui/test-results'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Array of test case results to display. */
+  results: TestResultData[]
+  /** When true, renders a summary bar showing "{passed}/{total} passed". */
+  showSummary?: boolean
+}
+
+const { results, showSummary = true, class: className, ...rest } = Astro.props
+
+const summary = summarizeTests(results)
+const { ariaProps, dataAttributes } = createTestResults()
+const summaryOutcome = summary.failed > 0 ? 'fail' : summary.skipped > 0 ? 'skip' : 'pass'
+---
+
+<div class={cn(testResultsContainerVariants(), className)} {...dataAttributes} {...rest}>
+  {showSummary && results.length > 0 && (
+    <div class={testResultsSummaryVariants({ outcome: summaryOutcome })} aria-live="polite">
+      <span>{summary.passed}/{summary.total} passed</span>
+      {summary.failed > 0 && <span>· {summary.failed} failed</span>}
+      {summary.skipped > 0 && <span>· {summary.skipped} skipped</span>}
+    </div>
+  )}
+
+  <ul {...ariaProps} class="flex flex-col gap-2">
+    {
+      results.map((result) => (
+        <li role="listitem" class={testRowVariants({ status: result.status })}>
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class={testStatusBadgeVariants({ status: result.status })}>
+                {result.status}
+              </span>
+              <span class={cn(testNameClass, 'truncate')}>{result.name}</span>
+            </div>
+            {result.durationMs !== undefined && (
+              <span class={testDurationClass}>{result.durationMs} ms</span>
+            )}
+          </div>
+
+          {result.status === 'fail' && result.expected !== undefined && (
+            <div class="flex flex-col gap-1 mt-1">
+              <div class={testDiffBlockVariants({ side: 'expected' })}>
+                <span class="opacity-60 mr-1 select-none">expected</span>
+                {result.expected}
+              </div>
+              {result.actual !== undefined && (
+                <div class={testDiffBlockVariants({ side: 'actual' })}>
+                  <span class="opacity-60 mr-1 select-none">actual</span>
+                  {result.actual}
+                </div>
+              )}
+            </div>
+          )}
+
+          {result.message && <p class={testMessageClass}>{result.message}</p>}
+        </li>
+      ))
+    }
+  </ul>
+</div>
