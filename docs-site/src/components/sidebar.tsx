@@ -156,6 +156,49 @@ const componentGroups = [
       { name: 'Thread View', href: '/components/thread-view' },
     ],
   },
+  {
+    title: 'Video & Calls',
+    items: [
+      { name: 'Video Tile', href: '/components/video-tile' },
+      { name: 'Video Grid', href: '/components/video-grid' },
+      { name: 'Call Controls', href: '/components/call-controls' },
+      { name: 'Live Captions', href: '/components/live-captions' },
+      { name: 'Live Transcript', href: '/components/live-transcript' },
+      { name: 'Audio Room', href: '/components/audio-room' },
+      { name: 'Floating Reactions', href: '/components/floating-reactions' },
+      { name: 'Pre-Call Lobby', href: '/components/pre-call-lobby' },
+    ],
+  },
+  {
+    title: 'Canvas & Diagramming',
+    items: [
+      { name: 'Infinite Canvas', href: '/components/infinite-canvas' },
+      { name: 'Sticky Note', href: '/components/sticky-note' },
+      { name: 'Flow Editor', href: '/components/flow-editor' },
+      { name: 'Graph View', href: '/components/graph-view' },
+      { name: 'Live Cursors', href: '/components/live-cursors' },
+      { name: 'Mini Map', href: '/components/mini-map' },
+    ],
+  },
+  {
+    title: 'Code & IDE',
+    items: [
+      { name: 'Editor Tabs', href: '/components/editor-tabs' },
+      { name: 'Terminal', href: '/components/terminal' },
+      { name: 'Test Results', href: '/components/test-results' },
+      { name: 'Editor Status Bar', href: '/components/editor-status-bar' },
+    ],
+  },
+  {
+    title: 'Assessment',
+    items: [
+      { name: 'Rating Scale', href: '/components/rating-scale' },
+      { name: 'Wizard', href: '/components/wizard' },
+      { name: 'Radial Gauge', href: '/components/radial-gauge' },
+      { name: 'Timeline', href: '/components/timeline' },
+      { name: 'Checklist', href: '/components/checklist' },
+    ],
+  },
 ]
 
 const themeSubItems = [
@@ -236,16 +279,28 @@ export function Sidebar() {
 
     if (!sidebar || !activeComponent) return
 
-    const sidebarBounds = sidebar.getBoundingClientRect()
-    const itemBounds = activeComponent.getBoundingClientRect()
-    const topPadding = 96
-    const bottomPadding = 32
-    const isAboveView = itemBounds.top < sidebarBounds.top + topPadding
-    const isBelowView = itemBounds.bottom > sidebarBounds.bottom - bottomPadding
+    // Center the active item within the sidebar's own scroll area when it's
+    // out of view. We adjust the sidebar's scrollTop directly (rather than
+    // Element.scrollIntoView, which on a position:fixed container can scroll
+    // the whole page) and run it after paint so layout is settled on the
+    // first load of a deep-linked component page.
+    const frame = requestAnimationFrame(() => {
+      const sidebarBounds = sidebar.getBoundingClientRect()
+      const itemBounds = activeComponent.getBoundingClientRect()
+      const topPadding = 96
+      const bottomPadding = 32
+      const isAboveView = itemBounds.top < sidebarBounds.top + topPadding
+      const isBelowView = itemBounds.bottom > sidebarBounds.bottom - bottomPadding
 
-    if (isAboveView || isBelowView) {
-      activeComponent.scrollIntoView({ block: 'center' })
-    }
+      if (!isAboveView && !isBelowView) return
+
+      // Distance to move so the item sits centered in the visible sidebar.
+      const itemCenter = itemBounds.top - sidebarBounds.top + itemBounds.height / 2
+      const delta = itemCenter - sidebar.clientHeight / 2
+      sidebar.scrollTo({ top: sidebar.scrollTop + delta })
+    })
+
+    return () => cancelAnimationFrame(frame)
   }, [currentPath])
 
   return (
