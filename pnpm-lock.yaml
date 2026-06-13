@@ -1267,6 +1267,9 @@ importers:
       '@refraction-ui/astro-radio':
         specifier: workspace:*
         version: link:../astro-radio
+      '@refraction-ui/astro-rating-scale':
+        specifier: workspace:*
+        version: link:../astro-rating-scale
       '@refraction-ui/astro-reaction-bar':
         specifier: workspace:*
         version: link:../astro-reaction-bar
@@ -1468,6 +1471,18 @@ importers:
       '@refraction-ui/radio':
         specifier: workspace:*
         version: link:../radio
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
+  packages/astro-rating-scale:
+    dependencies:
+      '@refraction-ui/rating-scale':
+        specifier: workspace:*
+        version: link:../rating-scale
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -2372,6 +2387,12 @@ importers:
         version: link:../shared
 
   packages/radio:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/rating-scale:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -3729,6 +3750,9 @@ importers:
       '@refraction-ui/react-radio':
         specifier: workspace:*
         version: link:../react-radio
+      '@refraction-ui/react-rating-scale':
+        specifier: workspace:*
+        version: link:../react-rating-scale
       '@refraction-ui/react-reaction-bar':
         specifier: workspace:*
         version: link:../react-reaction-bar
@@ -4050,6 +4074,28 @@ importers:
         version: 19.0.0
       react-dom:
         specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-rating-scale:
+    dependencies:
+      '@refraction-ui/rating-scale':
+        specifier: workspace:*
+        version: link:../rating-scale
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
   packages/react-reaction-bar:

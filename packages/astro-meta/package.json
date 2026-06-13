@@ -79,6 +79,7 @@
     "@refraction-ui/astro-presence-indicator": "workspace:*",
     "@refraction-ui/astro-progress-display": "workspace:*",
     "@refraction-ui/astro-radio": "workspace:*",
+    "@refraction-ui/astro-rating-scale": "workspace:*",
     "@refraction-ui/astro-reaction-bar": "workspace:*",
     "@refraction-ui/astro-resizable-layout": "workspace:*",
     "@refraction-ui/astro-rich-editor": "workspace:*",

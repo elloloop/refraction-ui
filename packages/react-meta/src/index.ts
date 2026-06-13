@@ -159,6 +159,7 @@ export {
 } from '@refraction-ui/react-presence-indicator'
 
 export * from '@refraction-ui/react-radio'
+export * from '@refraction-ui/react-rating-scale'
 export * from '@refraction-ui/react-reaction-bar'
 export * from '@refraction-ui/react-rich-editor'
 export * from '@refraction-ui/react-select'

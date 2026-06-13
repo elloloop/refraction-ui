@@ -110,6 +110,7 @@
     "@refraction-ui/react-presence-indicator": "workspace:*",
     "@refraction-ui/react-progress-display": "workspace:*",
     "@refraction-ui/react-radio": "workspace:*",
+    "@refraction-ui/react-rating-scale": "workspace:*",
     "@refraction-ui/react-reaction-bar": "workspace:*",
     "@refraction-ui/react-resizable-layout": "workspace:*",
     "@refraction-ui/react-rich-editor": "workspace:*",

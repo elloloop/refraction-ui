@@ -1,0 +1,73 @@
+---
+import {
+  createRatingScale,
+  resolveRatingPoints,
+  ratingScaleVariants,
+  ratingScaleTrackClass,
+  ratingScaleItemVariants,
+  ratingScaleLabelClass,
+  type RatingScaleSize,
+  type RatingScalePoint,
+} from '@refraction-ui/rating-scale'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Selected value. */
+  value?: number
+  /** Number of points (1..count). Ignored when `points` is provided. */
+  count?: number
+  /** Explicit points with accessible labels. */
+  points?: RatingScalePoint[]
+  /** Label shown before the scale (low end). */
+  minLabel?: string
+  /** Label shown after the scale (high end). */
+  maxLabel?: string
+  /** Visual size. */
+  size?: RatingScaleSize
+  /** Disables the whole scale. */
+  disabled?: boolean
+}
+
+const {
+  value,
+  count = 5,
+  points,
+  minLabel,
+  maxLabel,
+  size = 'md',
+  disabled = false,
+  class: className,
+  ...rest
+} = Astro.props
+
+const resolved = resolveRatingPoints(points, count)
+const selectedIndex = resolved.findIndex((p) => p.value === value)
+const tabbableIndex = selectedIndex === -1 ? 0 : selectedIndex
+const { ariaProps, dataAttributes } = createRatingScale({ value, size })
+---
+
+<div class={cn(ratingScaleVariants({ size }), className)} {...ariaProps} {...dataAttributes} {...rest}>
+  {minLabel && <span class={ratingScaleLabelClass}>{minLabel}</span>}
+  <div class={ratingScaleTrackClass}>
+    {
+      resolved.map((point, index) => {
+        const checked = point.value === value
+        return (
+          <button
+            type="button"
+            role="radio"
+            aria-checked={checked}
+            aria-label={point.label ?? String(point.value)}
+            tabindex={index === tabbableIndex ? 0 : -1}
+            disabled={disabled}
+            data-state={checked ? 'checked' : 'unchecked'}
+            class={ratingScaleItemVariants({ size, state: checked ? 'checked' : 'unchecked' })}
+          >
+            {point.label ?? point.value}
+          </button>
+        )
+      })
+    }
+  </div>
+  {maxLabel && <span class={ratingScaleLabelClass}>{maxLabel}</span>}
+</div>
