@@ -1,0 +1,99 @@
+---
+import {
+  createFlowEditor,
+  edgePath,
+  nodeById,
+  flowEditorVariants,
+  flowNodeVariants,
+  flowNodeLabelClass,
+  flowEdgePathClass,
+  flowEdgeLabelClass,
+  type FlowNode,
+  type FlowEdge,
+} from '@refraction-ui/flow-editor'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** The nodes to render. */
+  nodes: FlowNode[]
+  /** The directed edges connecting nodes. */
+  edges: FlowEdge[]
+  /** Id of the selected node. */
+  selectedId?: string
+}
+
+const {
+  nodes,
+  edges,
+  selectedId,
+  class: className,
+  ...rest
+} = Astro.props
+
+const { ariaProps, dataAttributes } = createFlowEditor()
+
+const DEFAULT_W = 160
+const DEFAULT_H = 48
+---
+
+<!--
+  Astro renders a static snapshot of the graph. The outer div uses a relative
+  bg-grid container (no InfiniteCanvas import — the .astro canvas is not trivial
+  to SSR without its own island machinery). Pan/zoom is a React-only feature.
+-->
+<div
+  class={cn(flowEditorVariants(), 'bg-[size:24px_24px] bg-[image:linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)]', className)}
+  {...ariaProps}
+  {...dataAttributes}
+  {...rest}
+>
+  <!-- SVG edge layer -->
+  <svg
+    class="absolute inset-0 w-full h-full overflow-visible text-muted-foreground pointer-events-none"
+    aria-hidden="true"
+  >
+    {
+      edges.map((edge) => {
+        const src = nodeById(nodes, edge.source)
+        const tgt = nodeById(nodes, edge.target)
+        if (!src || !tgt) return null
+        const d = edgePath(src, tgt)
+        const midX = (src.x + (src.width ?? DEFAULT_W) + tgt.x) / 2
+        const midY = (src.y + (src.height ?? DEFAULT_H) / 2 + tgt.y + (tgt.height ?? DEFAULT_H) / 2) / 2
+        return (
+          <g>
+            <path d={d} class={flowEdgePathClass} />
+            {edge.label != null && (
+              <text
+                x={midX}
+                y={midY - 4}
+                text-anchor="middle"
+                class={flowEdgeLabelClass}
+              >
+                {edge.label}
+              </text>
+            )}
+          </g>
+        )
+      })
+    }
+  </svg>
+
+  <!-- Node layer -->
+  {
+    nodes.map((node) => {
+      const isSelected = node.selected || node.id === selectedId
+      const w = node.width ?? DEFAULT_W
+      const h = node.height ?? DEFAULT_H
+      return (
+        <div
+          class={cn(flowNodeVariants({ selected: isSelected ? 'true' : 'false' }))}
+          style={`left:${node.x}px;top:${node.y}px;width:${w}px;height:${h}px`}
+          aria-label={node.label}
+        >
+          <span class={flowNodeLabelClass}>{node.label}</span>
+        </div>
+      )
+    })
+  }
+</div>

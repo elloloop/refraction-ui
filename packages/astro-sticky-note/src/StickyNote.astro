@@ -1,0 +1,55 @@
+---
+import {
+  createStickyNote,
+  stickyNoteVariants,
+  stickyNoteTextClass,
+  stickyNoteAuthorClass,
+  type StickyNoteColor,
+} from '@refraction-ui/sticky-note'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Color of the sticky note. */
+  color?: StickyNoteColor
+  /** Text content of the note. */
+  text?: string
+  /** Optional author name shown in the note footer. */
+  author?: string
+  /** Absolute x position in pixels (for board/canvas placement). */
+  x?: number
+  /** Absolute y position in pixels (for board/canvas placement). */
+  y?: number
+}
+
+const {
+  color = 'yellow',
+  text,
+  author,
+  x,
+  y,
+  class: className,
+  ...rest
+} = Astro.props
+
+const { ariaProps, dataAttributes } = createStickyNote({ color })
+
+const positionStyle =
+  x !== undefined && y !== undefined
+    ? `position:absolute;left:${x}px;top:${y}px;`
+    : ''
+---
+
+<div
+  class={cn(stickyNoteVariants({ color }), className)}
+  style={positionStyle || undefined}
+  {...ariaProps}
+  {...dataAttributes}
+  {...rest}
+>
+  {text ? (
+    <p class={`${stickyNoteTextClass} whitespace-pre-wrap`}>{text}</p>
+  ) : (
+    <p class={`${stickyNoteTextClass} whitespace-pre-wrap`}><slot /></p>
+  )}
+  {author && <span class={stickyNoteAuthorClass}>{author}</span>}
+</div>

@@ -1,0 +1,55 @@
+---
+import {
+  createLiveCursors,
+  assignCursorColor,
+  liveCursorsVariants,
+  cursorWrapperClass,
+  cursorArrowClass,
+  cursorLabelClass,
+  type CursorData,
+} from '@refraction-ui/live-cursors'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Array of collaborator cursor data to render. */
+  cursors: CursorData[]
+}
+
+const { cursors, class: className, ...rest } = Astro.props
+
+const { ariaProps, dataAttributes } = createLiveCursors()
+---
+
+<div class={cn(liveCursorsVariants(), className)} {...ariaProps} {...dataAttributes} {...rest}>
+  {
+    cursors.map((cursor, index) => {
+      const color = cursor.color ?? assignCursorColor(cursor.id, index)
+      return (
+        <div
+          class={cursorWrapperClass}
+          style={`left:${cursor.x}px;top:${cursor.y}px`}
+          data-cursor-name={cursor.name}
+        >
+          <svg
+            class={cursorArrowClass}
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            style={`fill:${color}`}
+          >
+            <path
+              d="M3 2L17 9.5L10.5 11.5L8 18L3 2Z"
+              stroke="white"
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span class={cursorLabelClass} style={`background-color:${color}`}>
+            {cursor.name}
+          </span>
+        </div>
+      )
+    })
+  }
+</div>

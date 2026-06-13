@@ -129,3 +129,11 @@ export * from '@refraction-ui/astro-live-transcript'
 export * from '@refraction-ui/astro-audio-room'
 export * from '@refraction-ui/astro-floating-reactions'
 export * from '@refraction-ui/astro-pre-call-lobby'
+
+// easyloops design-parity wave 3 (Cluster B — canvas)
+export * from '@refraction-ui/astro-infinite-canvas'
+export * from '@refraction-ui/astro-sticky-note'
+export * from '@refraction-ui/astro-flow-editor'
+export * from '@refraction-ui/astro-graph-view'
+export * from '@refraction-ui/astro-live-cursors'
+export * from '@refraction-ui/astro-mini-map'

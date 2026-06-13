@@ -212,3 +212,11 @@ export * from '@refraction-ui/react-live-transcript'
 export * from '@refraction-ui/react-audio-room'
 export * from '@refraction-ui/react-floating-reactions'
 export * from '@refraction-ui/react-pre-call-lobby'
+
+// easyloops design-parity wave 3 (Cluster B — canvas)
+export * from '@refraction-ui/react-infinite-canvas'
+export * from '@refraction-ui/react-sticky-note'
+export * from '@refraction-ui/react-flow-editor'
+export * from '@refraction-ui/react-graph-view'
+export * from '@refraction-ui/react-live-cursors'
+export * from '@refraction-ui/react-mini-map'
