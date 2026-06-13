@@ -1,0 +1,43 @@
+---
+import {
+  createInfiniteCanvas,
+  transformToCss,
+  infiniteCanvasVariants,
+  canvasContentClass,
+} from '@refraction-ui/infinite-canvas'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Zoom level (default 1). */
+  zoom?: number
+  /** Pan offset x (default 0). */
+  x?: number
+  /** Pan offset y (default 0). */
+  y?: number
+  /** Show a dot-grid background. */
+  showGrid?: boolean
+}
+
+const {
+  zoom = 1,
+  x = 0,
+  y = 0,
+  showGrid = false,
+  class: className,
+  ...rest
+} = Astro.props
+
+const { ariaProps, dataAttributes } = createInfiniteCanvas({ zoom })
+const transform = transformToCss({ zoom, x, y })
+---
+
+<div
+  class={cn(infiniteCanvasVariants({ grid: showGrid ? 'true' : 'false' }), className)}
+  {...ariaProps}
+  {...dataAttributes}
+  {...rest}
+>
+  <div class={canvasContentClass} style={`transform:${transform};transform-origin:0 0`}>
+    <slot />
+  </div>
+</div>

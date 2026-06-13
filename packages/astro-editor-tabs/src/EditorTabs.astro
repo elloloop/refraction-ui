@@ -1,0 +1,74 @@
+---
+import {
+  createEditorTabs,
+  editorTabsVariants,
+  editorTabVariants,
+  editorTabDirtyDotClass,
+  editorTabCloseButtonClass,
+  editorTabIconClass,
+  type EditorTabData,
+} from '@refraction-ui/editor-tabs'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** The list of tab entries to render. */
+  tabs: EditorTabData[]
+  /** The id of the currently active tab. */
+  activeId: string
+}
+
+const {
+  tabs,
+  activeId,
+  class: className,
+  ...rest
+} = Astro.props
+
+const activeIndex = tabs.findIndex((t) => t.id === activeId)
+const tabbableIndex = activeIndex === -1 ? 0 : activeIndex
+const { ariaProps, dataAttributes } = createEditorTabs({ activeId })
+---
+
+<div class={cn(editorTabsVariants(), className)} {...ariaProps} {...dataAttributes} {...rest}>
+  {
+    tabs.map((tab, index) => {
+      const isActive = tab.id === activeId
+      return (
+        <button
+          type="button"
+          role="tab"
+          aria-selected={isActive}
+          aria-controls={`tabpanel-${tab.id}`}
+          id={`tab-${tab.id}`}
+          tabindex={index === tabbableIndex ? 0 : -1}
+          data-state={isActive ? 'active' : 'inactive'}
+          class={editorTabVariants({ state: isActive ? 'active' : 'inactive' })}
+        >
+          {tab.icon && (
+            <span class={editorTabIconClass} aria-hidden="true">
+              {tab.icon}
+            </span>
+          )}
+          <span>{tab.label}</span>
+          {tab.dirty && (
+            <span
+              class={editorTabDirtyDotClass}
+              aria-label="unsaved changes"
+              role="status"
+            />
+          )}
+          {tab.closable && (
+            <span
+              role="button"
+              aria-label={`Close ${tab.label}`}
+              tabindex="-1"
+              class={editorTabCloseButtonClass}
+            >
+              ×
+            </span>
+          )}
+        </button>
+      )
+    })
+  }
+</div>

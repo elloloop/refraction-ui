@@ -159,6 +159,7 @@ export {
 } from '@refraction-ui/react-presence-indicator'
 
 export * from '@refraction-ui/react-radio'
+export * from '@refraction-ui/react-rating-scale'
 export * from '@refraction-ui/react-reaction-bar'
 export * from '@refraction-ui/react-rich-editor'
 export * from '@refraction-ui/react-select'
@@ -191,3 +192,31 @@ export * from '@refraction-ui/react-password-input'
 export * from '@refraction-ui/react-social-auth-button'
 export * from '@refraction-ui/react-separator'
 export * from '@refraction-ui/react-empty-state'
+
+// easyloops design-parity wave 1 (Cluster C + D)
+export * from '@refraction-ui/react-wizard'
+export * from '@refraction-ui/react-radial-gauge'
+export * from '@refraction-ui/react-timeline'
+export * from '@refraction-ui/react-checklist'
+export * from '@refraction-ui/react-editor-tabs'
+export * from '@refraction-ui/react-terminal'
+export * from '@refraction-ui/react-test-results'
+export * from '@refraction-ui/react-editor-status-bar'
+
+// easyloops design-parity wave 2 (Cluster A — video)
+export * from '@refraction-ui/react-video-tile'
+export * from '@refraction-ui/react-video-grid'
+export * from '@refraction-ui/react-call-controls'
+export * from '@refraction-ui/react-live-captions'
+export * from '@refraction-ui/react-live-transcript'
+export * from '@refraction-ui/react-audio-room'
+export * from '@refraction-ui/react-floating-reactions'
+export * from '@refraction-ui/react-pre-call-lobby'
+
+// easyloops design-parity wave 3 (Cluster B — canvas)
+export * from '@refraction-ui/react-infinite-canvas'
+export * from '@refraction-ui/react-sticky-note'
+export * from '@refraction-ui/react-flow-editor'
+export * from '@refraction-ui/react-graph-view'
+export * from '@refraction-ui/react-live-cursors'
+export * from '@refraction-ui/react-mini-map'

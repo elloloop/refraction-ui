@@ -1,0 +1,54 @@
+---
+import {
+  visibleCues,
+  createLiveCaptions,
+  liveCaptionsVariants,
+  liveCaptionsCueVariants,
+  liveCaptionsSpeakerClass,
+  type CaptionCue,
+} from '@refraction-ui/live-captions'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** The full ordered list of caption cues. */
+  cues: CaptionCue[]
+  /**
+   * Maximum number of cue lines to display at once.
+   * @default 2
+   */
+  maxLines?: number
+  /**
+   * How the container is positioned in the layout.
+   * @default 'static'
+   */
+  position?: 'static' | 'absolute'
+}
+
+const {
+  cues,
+  maxLines = 2,
+  position = 'static',
+  class: className,
+  ...rest
+} = Astro.props
+
+const shown = visibleCues(cues, maxLines)
+const { ariaProps, dataAttributes } = createLiveCaptions()
+---
+
+<div class={cn(liveCaptionsVariants({ position }), className)} {...ariaProps} {...dataAttributes} {...rest}>
+  {
+    shown.map((cue) => (
+      <p class={liveCaptionsCueVariants({ interim: cue.final === false ? 'true' : 'false' })}>
+        {cue.speaker ? (
+          <>
+            <span class={liveCaptionsSpeakerClass}>{cue.speaker}</span>
+            {`: ${cue.text}`}
+          </>
+        ) : (
+          cue.text
+        )}
+      </p>
+    ))
+  }
+</div>

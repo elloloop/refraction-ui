@@ -1,0 +1,182 @@
+---
+import {
+  createVideoGrid,
+  computeGridColumns,
+  videoGridVariants,
+  videoGridSpotlightClass,
+  videoGridFilmstripClass,
+  videoGridFilmstripTileClass,
+  type VideoGridLayout,
+} from '@refraction-ui/video-grid'
+import { getInitials, type VideoTileData } from '@refraction-ui/video-tile'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** List of participant data to render as tiles. */
+  participants: VideoTileData[]
+  /**
+   * Grid layout mode.
+   * - 'auto'    — grid unless ≤1 participant (falls back to speaker)
+   * - 'grid'    — always uniform CSS grid
+   * - 'speaker' — spotlight for `spotlightId` (or first participant) + filmstrip
+   */
+  layout?: VideoGridLayout
+  /**
+   * Participant `id` to spotlight in speaker view.
+   * Falls back to the first participant when omitted.
+   */
+  spotlightId?: string
+}
+
+const {
+  participants,
+  layout = 'auto',
+  spotlightId,
+  class: className,
+  style,
+  ...rest
+} = Astro.props
+
+const count = participants.length
+
+// Resolve effective layout: 'auto' with ≤1 participant shows speaker view.
+const effectiveLayout: VideoGridLayout =
+  layout === 'auto' ? (count <= 1 ? 'speaker' : 'grid') : layout
+
+const { ariaProps, dataAttributes } = createVideoGrid({ layout: effectiveLayout })
+const columns = computeGridColumns(count)
+
+const gridStyle =
+  effectiveLayout !== 'speaker'
+    ? `grid-template-columns: repeat(${columns}, 1fr);${style ? ` ${style}` : ''}`
+    : (style as string | undefined)
+
+const spotlightParticipant =
+  effectiveLayout === 'speaker'
+    ? (participants.find((p) => p.id === spotlightId) ?? participants[0])
+    : undefined
+
+const filmstrip =
+  effectiveLayout === 'speaker'
+    ? participants.filter((p) => p.id !== spotlightParticipant?.id)
+    : []
+
+// Inline tile helper — renders VideoTile markup without importing the .astro
+// file (which may not be built yet in a parallel-build context). When
+// astro-video-tile ships its own VideoTile.astro, replace this with:
+//   import VideoTile from '@refraction-ui/astro-video-tile/src/VideoTile.astro'
+function renderTileAttrs(p: VideoTileData): Record<string, string> {
+  const speaking = p.speaking ?? false
+  const pinned = p.pinned ?? false
+  return {
+    role: 'group',
+    'data-speaking': speaking ? 'true' : 'false',
+    'data-pinned': pinned ? 'true' : 'false',
+  }
+}
+---
+
+{effectiveLayout === 'speaker' ? (
+  <div
+    class={cn(videoGridVariants({ layout: 'speaker' }), className)}
+    style={style as string | undefined}
+    {...ariaProps}
+    {...dataAttributes}
+    {...rest}
+  >
+    {spotlightParticipant && (
+      <div class={videoGridSpotlightClass}>
+        {/* Inline VideoTile markup for the spotlight participant */}
+        <div
+          {...renderTileAttrs(spotlightParticipant)}
+          class="relative flex h-full w-full flex-col items-center justify-center bg-muted rounded-xl overflow-hidden"
+          aria-label={spotlightParticipant.name}
+        >
+          {spotlightParticipant.avatarUrl ? (
+            <img
+              src={spotlightParticipant.avatarUrl}
+              alt={spotlightParticipant.name}
+              class="h-full w-full object-cover"
+            />
+          ) : (
+            <span class="flex h-20 w-20 items-center justify-center rounded-full bg-primary text-3xl font-semibold text-primary-foreground">
+              {getInitials(spotlightParticipant.name)}
+            </span>
+          )}
+          <div class="absolute bottom-2 left-2 flex items-center gap-1 rounded-md bg-black/60 px-2 py-0.5 text-xs text-white">
+            {(spotlightParticipant.micState ?? 'on') === 'muted' && (
+              <span aria-label="Muted" role="img">🔇</span>
+            )}
+            <span>{spotlightParticipant.name}</span>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {filmstrip.length > 0 && (
+      <div class={videoGridFilmstripClass}>
+        {filmstrip.map((p) => (
+          <div class={videoGridFilmstripTileClass}>
+            <div
+              {...renderTileAttrs(p)}
+              class="relative flex h-24 flex-col items-center justify-center bg-muted rounded-lg overflow-hidden"
+              aria-label={p.name}
+            >
+              {p.avatarUrl ? (
+                <img
+                  src={p.avatarUrl}
+                  alt={p.name}
+                  class="h-full w-full object-cover"
+                />
+              ) : (
+                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
+                  {getInitials(p.name)}
+                </span>
+              )}
+              <div class="absolute bottom-1 left-1 flex items-center gap-0.5 rounded bg-black/60 px-1 py-0.5 text-[10px] text-white">
+                {(p.micState ?? 'on') === 'muted' && (
+                  <span aria-label="Muted" role="img">🔇</span>
+                )}
+                <span>{p.name}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+) : (
+  <div
+    class={cn(videoGridVariants({ layout: effectiveLayout }), className)}
+    style={gridStyle}
+    {...ariaProps}
+    {...dataAttributes}
+    {...rest}
+  >
+    {participants.map((p) => (
+      <div
+        {...renderTileAttrs(p)}
+        class="relative flex flex-col items-center justify-center bg-muted rounded-xl overflow-hidden aspect-video"
+        aria-label={p.name}
+      >
+        {p.avatarUrl ? (
+          <img
+            src={p.avatarUrl}
+            alt={p.name}
+            class="h-full w-full object-cover"
+          />
+        ) : (
+          <span class="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-xl font-semibold text-primary-foreground">
+            {getInitials(p.name)}
+          </span>
+        )}
+        <div class="absolute bottom-2 left-2 flex items-center gap-1 rounded-md bg-black/60 px-2 py-0.5 text-xs text-white">
+          {(p.micState ?? 'on') === 'muted' && (
+            <span aria-label="Muted" role="img">🔇</span>
+          )}
+          <span>{p.name}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+)}

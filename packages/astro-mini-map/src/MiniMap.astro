@@ -1,0 +1,74 @@
+---
+import {
+  contentBounds,
+  miniScale,
+  worldToMini,
+  viewportRectInMini,
+  createMiniMap,
+  miniMapVariants,
+  miniMapDotClass,
+  miniMapViewportClass,
+  type MiniMapItem,
+  type Rect,
+} from '@refraction-ui/mini-map'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Items to render as dots on the minimap. */
+  items: MiniMapItem[]
+  /** Current viewport in world coordinates. Renders a viewport indicator rect. */
+  viewport?: Rect
+  /** Width of the minimap box in px. */
+  width?: number
+  /** Height of the minimap box in px. */
+  height?: number
+  /** Padding inset in px (applied to all sides). */
+  padding?: number
+}
+
+const {
+  items,
+  viewport,
+  width = 200,
+  height = 140,
+  padding = 8,
+  class: className,
+  ...rest
+} = Astro.props
+
+const bounds = contentBounds(items)
+const scale = miniScale(bounds, width, height, padding)
+const { ariaProps, dataAttributes } = createMiniMap()
+
+const viewportRect = viewport != null
+  ? viewportRectInMini(viewport, bounds, scale, padding)
+  : null
+---
+
+<div
+  class={cn(miniMapVariants({ interactive: 'false' }), className)}
+  style={`width:${width}px;height:${height}px;position:relative`}
+  {...ariaProps}
+  {...dataAttributes}
+  {...rest}
+>
+  {items.map((item) => {
+    const pos = worldToMini(item, bounds, scale, padding)
+    const w = Math.max(4, (item.width ?? 8) * scale)
+    const h = Math.max(4, (item.height ?? 8) * scale)
+    return (
+      <span
+        class={miniMapDotClass}
+        style={`position:absolute;left:${pos.x}px;top:${pos.y}px;width:${w}px;height:${h}px`}
+        aria-hidden="true"
+      />
+    )
+  })}
+  {viewportRect != null && (
+    <span
+      class={miniMapViewportClass}
+      style={`position:absolute;left:${viewportRect.x}px;top:${viewportRect.y}px;width:${viewportRect.width}px;height:${viewportRect.height}px`}
+      aria-hidden="true"
+    />
+  )}
+</div>

@@ -1,0 +1,92 @@
+---
+import {
+  createEditorStatusBar,
+  formatCursorPosition,
+  partitionSegments,
+  editorStatusBarVariants,
+  statusBarGroupClass,
+  statusBarSegmentVariants,
+  type StatusSegment,
+  type StatusSegmentTone,
+} from '@refraction-ui/editor-status-bar'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /**
+   * Explicit list of segments. When provided, all convenience props are
+   * ignored.
+   */
+  segments?: StatusSegment[]
+  /** Current line number (1-indexed). */
+  line?: number
+  /** Current column number (1-indexed). */
+  col?: number
+  /** Indentation descriptor, e.g. `'Spaces: 4'`. */
+  indentation?: string
+  /** Language / runtime label, e.g. `'Python 3.11.4'`. */
+  language?: string
+  /** File encoding, e.g. `'UTF-8'`. */
+  encoding?: string
+  /** End-of-line sequence, e.g. `'LF'` or `'CRLF'`. */
+  eol?: string
+  /** Persistence status label, e.g. `'Auto-saved'`. */
+  status?: string
+}
+
+const {
+  segments: segmentsProp,
+  line,
+  col,
+  indentation,
+  language,
+  encoding,
+  eol,
+  status,
+  class: className,
+  ...rest
+} = Astro.props
+
+function buildSegments(): StatusSegment[] {
+  const segs: StatusSegment[] = []
+  if (line !== undefined && col !== undefined) {
+    segs.push({ id: 'cursor', label: formatCursorPosition(line, col), align: 'left', tone: 'default' })
+  }
+  if (indentation) {
+    segs.push({ id: 'indentation', label: indentation, align: 'left', tone: 'muted' })
+  }
+  if (language) {
+    segs.push({ id: 'language', label: language, align: 'right', tone: 'accent' })
+  }
+  if (encoding) {
+    segs.push({ id: 'encoding', label: encoding, align: 'right', tone: 'muted' })
+  }
+  if (eol) {
+    segs.push({ id: 'eol', label: eol, align: 'right', tone: 'muted' })
+  }
+  if (status) {
+    segs.push({ id: 'status', label: status, align: 'right', tone: 'muted' })
+  }
+  return segs
+}
+
+const segments = segmentsProp ?? buildSegments()
+const { left, right } = partitionSegments(segments)
+const { ariaProps, dataAttributes } = createEditorStatusBar()
+---
+
+<div class={cn(editorStatusBarVariants(), className)} {...ariaProps} {...dataAttributes} {...rest}>
+  <div class={statusBarGroupClass}>
+    {left.map((seg) => (
+      <span class={statusBarSegmentVariants({ tone: (seg.tone ?? 'default') as StatusSegmentTone })}>
+        {seg.label}
+      </span>
+    ))}
+  </div>
+  <div class={statusBarGroupClass}>
+    {right.map((seg) => (
+      <span class={statusBarSegmentVariants({ tone: (seg.tone ?? 'default') as StatusSegmentTone })}>
+        {seg.label}
+      </span>
+    ))}
+  </div>
+</div>

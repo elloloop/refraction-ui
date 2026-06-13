@@ -1,0 +1,109 @@
+---
+import {
+  createGraphView,
+  graphEdgePath,
+  summarizeStates,
+  graphViewVariants,
+  graphNodeVariants,
+  graphNodeLabelClass,
+  graphEdgeClass,
+  graphLegendChipVariants,
+  type GraphNode,
+  type GraphEdge,
+  type GraphNodeState,
+} from '@refraction-ui/graph-view'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Nodes to render. */
+  nodes: GraphNode[]
+  /** Directed edges connecting nodes. */
+  edges: GraphEdge[]
+  /** Show a legend summarising mastery-state counts. */
+  showLegend?: boolean
+}
+
+const { nodes, edges, showLegend = false, class: className, ...rest } = Astro.props
+
+const api = createGraphView()
+const summary = summarizeStates(nodes)
+
+const STATE_LABELS: Record<GraphNodeState, string> = {
+  mastered: 'Mastered',
+  'in-progress': 'In Progress',
+  'not-started': 'Not Started',
+  highlight: 'Highlight',
+}
+
+const LEGEND_ORDER: GraphNodeState[] = ['mastered', 'in-progress', 'not-started', 'highlight']
+
+const padding = 80
+const xs = nodes.map((n) => n.x)
+const ys = nodes.map((n) => n.y)
+const svgWidth = nodes.length === 0 ? 400 : Math.max(...xs) + padding * 2
+const svgHeight = nodes.length === 0 ? 300 : Math.max(...ys) + padding * 2
+
+// Build node lookup for edge resolution
+const nodeMap = new Map<string, GraphNode>(nodes.map((n) => [n.id, n]))
+---
+
+<div
+  class={cn(graphViewVariants(), className)}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...rest}
+>
+  <div class="relative" style={`width:${svgWidth}px;height:${svgHeight}px;`}>
+    <!-- SVG edge layer -->
+    <svg
+      width={svgWidth}
+      height={svgHeight}
+      aria-hidden="true"
+      style="position:absolute;top:0;left:0;pointer-events:none;"
+    >
+      {
+        edges.map((edge) => {
+          const source = nodeMap.get(edge.source)
+          const target = nodeMap.get(edge.target)
+          if (!source || !target) return null
+          return <path d={graphEdgePath(source, target)} class={graphEdgeClass} />
+        })
+      }
+    </svg>
+
+    <!-- Node chips -->
+    {
+      nodes.map((node) => {
+        const state: GraphNodeState = node.state ?? 'not-started'
+        return (
+          <span
+            data-state={state}
+            aria-label={node.label}
+            class={graphNodeVariants({ state, interactive: 'false' })}
+            style={`left:${node.x}px;top:${node.y}px;`}
+          >
+            <span class={graphNodeLabelClass}>{node.label}</span>
+          </span>
+        )
+      })
+    }
+  </div>
+
+  <!-- Optional legend -->
+  {
+    showLegend && (
+      <div
+        role="list"
+        aria-label="Graph legend"
+        class="flex flex-wrap gap-1.5 p-3"
+      >
+        {LEGEND_ORDER.filter((s) => summary[s] > 0).map((s) => (
+          <span role="listitem" class={graphLegendChipVariants({ state: s })}>
+            {STATE_LABELS[s]}
+            <span class="opacity-70">{summary[s]}</span>
+          </span>
+        ))}
+      </div>
+    )
+  }
+</div>
