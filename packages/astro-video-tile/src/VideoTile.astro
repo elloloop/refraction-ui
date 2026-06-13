@@ -1,0 +1,104 @@
+---
+import {
+  createVideoTile,
+  getInitials,
+  videoTileVariants,
+  videoTileNameChipClass,
+  videoTileMicIconClass,
+  videoTileAvatarFallbackClass,
+  videoTileAvatarCircleClass,
+  videoTileReactionBadgeClass,
+  type VideoTileMicState,
+} from '@refraction-ui/video-tile'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Participant display name — shown in the name chip and used for initials. */
+  name: string
+  /** Current microphone state. Defaults to 'on'. */
+  micState?: VideoTileMicState
+  /** Whether the participant is actively speaking. Adds an emerald ring. */
+  speaking?: boolean
+  /** Whether the tile is pinned in the grid. Adds a primary ring. */
+  pinned?: boolean
+  /** URL of the participant's avatar image, used in the fallback circle. */
+  avatarUrl?: string
+}
+
+const {
+  name,
+  micState = 'on',
+  speaking = false,
+  pinned = false,
+  avatarUrl,
+  class: className,
+  ...rest
+} = Astro.props
+
+const { ariaProps, dataAttributes } = createVideoTile({ speaking, pinned })
+const initials = getInitials(name)
+const isMuted = micState === 'muted'
+const hasDefaultSlot = Astro.slots.has('default')
+---
+
+<div
+  class={cn(
+    videoTileVariants({
+      speaking: speaking ? 'true' : 'false',
+      pinned: pinned ? 'true' : 'false',
+    }),
+    className,
+  )}
+  aria-label={name}
+  {...ariaProps}
+  {...dataAttributes}
+  {...rest}
+>
+  {hasDefaultSlot ? (
+    <!-- Media slot fills the tile -->
+    <div class="absolute inset-0 h-full w-full">
+      <slot />
+    </div>
+  ) : avatarUrl ? (
+    <!-- Avatar image fallback -->
+    <div class={videoTileAvatarFallbackClass}>
+      <img src={avatarUrl} alt={name} class={videoTileAvatarCircleClass} />
+    </div>
+  ) : (
+    <!-- Initials fallback -->
+    <div class={videoTileAvatarFallbackClass}>
+      <div class={videoTileAvatarCircleClass} aria-hidden="true">{initials}</div>
+    </div>
+  )}
+
+  {/* Reaction badge (top-right) — via named slot */}
+  <slot name="reaction" />
+
+  <!-- Name chip (bottom-left) -->
+  <div class={videoTileNameChipClass}>
+    <span>{name}</span>
+    {isMuted && (
+      <span class={videoTileMicIconClass} aria-label="Microphone muted">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="2" y1="2" x2="22" y2="22" />
+          <path d="M18.89 13.23A7.12 7.12 0 0 0 19 12v-2" />
+          <path d="M5 10v2a7 7 0 0 0 12 5" />
+          <path d="M15 9.34V5a3 3 0 0 0-5.68-1.33" />
+          <path d="M9 9v3a3 3 0 0 0 5.12 2.12" />
+          <line x1="12" y1="19" x2="12" y2="22" />
+        </svg>
+      </span>
+    )}
+  </div>
+</div>

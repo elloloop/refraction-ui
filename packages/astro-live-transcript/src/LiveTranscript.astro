@@ -1,0 +1,55 @@
+---
+import {
+  createLiveTranscript,
+  groupConsecutiveBySpeaker,
+  liveTranscriptVariants,
+  transcriptBlockVariants,
+  transcriptSpeakerRowClass,
+  transcriptSpeakerNameClass,
+  transcriptTimestampClass,
+  transcriptTextLineClass,
+  type TranscriptEntry,
+} from '@refraction-ui/live-transcript'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** The ordered list of transcript entries to display. */
+  entries: TranscriptEntry[]
+  /** Tightens spacing between speaker blocks. */
+  compact?: boolean
+}
+
+const { entries, compact = false, class: className, ...rest } = Astro.props
+
+const compactVariant = compact ? 'true' : 'false'
+const blocks = groupConsecutiveBySpeaker(entries)
+const { ariaProps, dataAttributes } = createLiveTranscript()
+---
+
+<div
+  class={cn(liveTranscriptVariants({ compact: compactVariant }), className)}
+  {...ariaProps}
+  {...dataAttributes}
+  {...rest}
+>
+  {
+    blocks.map((block, blockIndex) => (
+      <div class={transcriptBlockVariants({ compact: compactVariant })}>
+        <div class={transcriptSpeakerRowClass}>
+          <span
+            class={transcriptSpeakerNameClass}
+            style={block.speakerColor ? `color:${block.speakerColor}` : undefined}
+          >
+            {block.speaker}
+          </span>
+          {block.timestamp && (
+            <span class={transcriptTimestampClass}>{block.timestamp}</span>
+          )}
+        </div>
+        {block.texts.map((text) => (
+          <p class={transcriptTextLineClass}>{text}</p>
+        ))}
+      </div>
+    ))
+  }
+</div>

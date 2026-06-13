@@ -1,0 +1,56 @@
+---
+import {
+  createFloatingReactions,
+  laneOffsetPercent,
+  floatingReactionsVariants,
+  floatingReactionItemClass,
+  floatingReactionLabelClass,
+  type FloatingReaction,
+} from '@refraction-ui/floating-reactions'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /**
+   * Reactions to render at SSR time. For animated runtime usage, use the
+   * React adapter which manages auto-expiry via useFloatingReactions().
+   */
+  reactions?: FloatingReaction[]
+  /**
+   * Total number of horizontal lane buckets used to spread reactions.
+   * @default 5
+   */
+  lanes?: number
+}
+
+const {
+  reactions = [],
+  lanes = 5,
+  class: className,
+  ...rest
+} = Astro.props
+
+const { ariaProps, dataAttributes } = createFloatingReactions()
+---
+
+<div
+  class={cn(floatingReactionsVariants({ active: reactions.length > 0 ? 'true' : 'false' }), className)}
+  {...ariaProps}
+  {...dataAttributes}
+  {...rest}
+>
+  {
+    reactions.map((reaction) => {
+      const left = laneOffsetPercent(reaction.lane ?? 0, lanes)
+      return (
+        <span
+          class={floatingReactionItemClass}
+          style={`left:${left}%`}
+          aria-hidden="true"
+        >
+          {reaction.emoji}
+          <span class={floatingReactionLabelClass}>{reaction.emoji}</span>
+        </span>
+      )
+    })
+  }
+</div>

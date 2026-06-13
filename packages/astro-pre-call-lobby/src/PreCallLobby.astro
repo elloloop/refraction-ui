@@ -1,0 +1,202 @@
+---
+import {
+  createPreCallLobby,
+  micLevelToBars,
+  preCallLobbyVariants,
+  preCallCameraVariants,
+  preCallCameraPlaceholderClass,
+  preCallDeviceRowClass,
+  preCallDeviceLabelClass,
+  preCallDeviceSelectClass,
+  preCallMicMeterClass,
+  preCallMicBarVariants,
+  preCallControlsRowClass,
+  preCallToggleVariants,
+  preCallJoinButtonClass,
+  type MediaDeviceOption,
+} from '@refraction-ui/pre-call-lobby'
+import { cn } from '@refraction-ui/shared'
+
+const MIC_BAR_COUNT = 8
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Whether the camera is on. */
+  cameraOn?: boolean
+  /** Whether the microphone is on. */
+  micOn?: boolean
+  /** Current microphone level (0..1). */
+  micLevel?: number
+  /** Available cameras. */
+  cameras?: MediaDeviceOption[]
+  /** Available microphones. */
+  microphones?: MediaDeviceOption[]
+  /** Available speakers. */
+  speakers?: MediaDeviceOption[]
+  /** Currently selected camera id. */
+  selectedCamera?: string
+  /** Currently selected microphone id. */
+  selectedMicrophone?: string
+  /** Currently selected speaker id. */
+  selectedSpeaker?: string
+  /** Label for the join button. */
+  joinLabel?: string
+}
+
+const {
+  cameraOn = true,
+  micOn = true,
+  micLevel = 0,
+  cameras = [],
+  microphones = [],
+  speakers = [],
+  selectedCamera,
+  selectedMicrophone,
+  selectedSpeaker,
+  joinLabel = 'Join',
+  class: className,
+  ...rest
+} = Astro.props
+
+const { ariaProps, dataAttributes } = createPreCallLobby({ cameraOn, micOn })
+const litBars = micLevelToBars(micLevel, MIC_BAR_COUNT)
+---
+
+<div class={cn(preCallLobbyVariants(), className)} {...ariaProps} {...dataAttributes} {...rest}>
+  <!-- Camera preview -->
+  <div class={preCallCameraVariants({ camera: cameraOn ? 'on' : 'off' })}>
+    {cameraOn ? (
+      <slot name="preview">
+        <div class={preCallCameraPlaceholderClass}>
+          <span class="text-xs">No preview</span>
+        </div>
+      </slot>
+    ) : (
+      <div class={preCallCameraPlaceholderClass}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <line x1="2" y1="2" x2="22" y2="22" />
+        </svg>
+        <span class="text-xs">Camera is off</span>
+      </div>
+    )}
+  </div>
+
+  <!-- Mic level meter -->
+  <div class="flex items-center gap-2">
+    <span class="text-xs text-muted-foreground">Mic</span>
+    <div class={preCallMicMeterClass} aria-label={`Mic level: ${litBars} of ${MIC_BAR_COUNT}`}>
+      {Array.from({ length: MIC_BAR_COUNT }, (_, i) => {
+        const isLit = i < litBars
+        const heightClass = i < 2 ? 'h-2' : i < 4 ? 'h-3' : i < 6 ? 'h-4' : 'h-5'
+        return (
+          <div
+            class={`${preCallMicBarVariants({ lit: isLit ? 'true' : 'false' })} ${heightClass}`}
+            data-lit={isLit ? 'true' : 'false'}
+          />
+        )
+      })}
+    </div>
+  </div>
+
+  <!-- Device selectors -->
+  {cameras.length > 0 && (
+    <div class={preCallDeviceRowClass}>
+      <label for="pcl-camera-select" class={preCallDeviceLabelClass}>Camera</label>
+      <select id="pcl-camera-select" class={preCallDeviceSelectClass} value={selectedCamera}>
+        {cameras.map((d) => (
+          <option value={d.id}>{d.label}</option>
+        ))}
+      </select>
+    </div>
+  )}
+
+  {microphones.length > 0 && (
+    <div class={preCallDeviceRowClass}>
+      <label for="pcl-mic-select" class={preCallDeviceLabelClass}>Microphone</label>
+      <select id="pcl-mic-select" class={preCallDeviceSelectClass} value={selectedMicrophone}>
+        {microphones.map((d) => (
+          <option value={d.id}>{d.label}</option>
+        ))}
+      </select>
+    </div>
+  )}
+
+  {speakers.length > 0 && (
+    <div class={preCallDeviceRowClass}>
+      <label for="pcl-speaker-select" class={preCallDeviceLabelClass}>Speaker</label>
+      <select id="pcl-speaker-select" class={preCallDeviceSelectClass} value={selectedSpeaker}>
+        {speakers.map((d) => (
+          <option value={d.id}>{d.label}</option>
+        ))}
+      </select>
+    </div>
+  )}
+
+  <!-- Controls row -->
+  <div class={preCallControlsRowClass}>
+    <button
+      type="button"
+      aria-label={cameraOn ? 'Turn camera off' : 'Turn camera on'}
+      aria-pressed={cameraOn}
+      class={preCallToggleVariants({ active: cameraOn ? 'true' : 'false' })}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M23 7l-7 5 7 5V7z" />
+        <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+      </svg>
+    </button>
+
+    <button
+      type="button"
+      aria-label={micOn ? 'Mute microphone' : 'Unmute microphone'}
+      aria-pressed={micOn}
+      class={preCallToggleVariants({ active: micOn ? 'true' : 'false' })}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+        <line x1="12" y1="19" x2="12" y2="23" />
+        <line x1="8" y1="23" x2="16" y2="23" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Join button -->
+  <button type="button" class={preCallJoinButtonClass}>
+    {joinLabel}
+  </button>
+</div>

@@ -119,3 +119,13 @@ export * from '@refraction-ui/astro-editor-tabs'
 export * from '@refraction-ui/astro-terminal'
 export * from '@refraction-ui/astro-test-results'
 export * from '@refraction-ui/astro-editor-status-bar'
+
+// easyloops design-parity wave 2 (Cluster A — video)
+export * from '@refraction-ui/astro-video-tile'
+export * from '@refraction-ui/astro-video-grid'
+export * from '@refraction-ui/astro-call-controls'
+export * from '@refraction-ui/astro-live-captions'
+export * from '@refraction-ui/astro-live-transcript'
+export * from '@refraction-ui/astro-audio-room'
+export * from '@refraction-ui/astro-floating-reactions'
+export * from '@refraction-ui/astro-pre-call-lobby'

@@ -1,0 +1,57 @@
+---
+import {
+  createCallControls,
+  callControlsVariants,
+  callControlButtonVariants,
+  callControlLabelClass,
+  type CallControlTone,
+  type CallControlItem,
+} from '@refraction-ui/call-controls'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /**
+   * Array of control descriptors to render as buttons.
+   * If omitted, the default <slot /> is used instead (composable usage).
+   */
+  controls?: CallControlItem[]
+  /** Visual size of the toolbar and its buttons. */
+  size?: 'sm' | 'md'
+}
+
+const {
+  controls,
+  size = 'md',
+  class: className,
+  ...rest
+} = Astro.props
+
+const { ariaProps, dataAttributes } = createCallControls({ controls })
+
+function toneClass(tone: CallControlTone | undefined): string {
+  return callControlButtonVariants({ tone: tone ?? 'default', size })
+}
+---
+
+<div
+  class={cn(callControlsVariants({ size }), className)}
+  role={ariaProps.role}
+  aria-label={ariaProps['aria-label']}
+  {...dataAttributes}
+  {...rest}
+>
+  {controls
+    ? controls.map((ctrl) => (
+        <button
+          type="button"
+          aria-label={ctrl.label}
+          aria-pressed={ctrl.pressed !== undefined ? ctrl.pressed : undefined}
+          class={toneClass(ctrl.tone)}
+        >
+          {ctrl.icon && <span aria-hidden="true">{ctrl.icon}</span>}
+          <span class={callControlLabelClass}>{ctrl.label}</span>
+        </button>
+      ))
+    : <slot />
+  }
+</div>

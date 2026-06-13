@@ -1,0 +1,81 @@
+---
+import {
+  createAudioRoom,
+  getInitials,
+  orbColumns,
+  audioRoomVariants,
+  audioRoomOrbCellVariants,
+  speakingOrbVariants,
+  audioRoomNameLabelClass,
+  audioRoomMutedBadgeClass,
+  audioRoomHandBadgeClass,
+  type AudioParticipant,
+} from '@refraction-ui/audio-room'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Participants to render as speaking orbs. */
+  participants: AudioParticipant[]
+}
+
+const { participants, class: className, ...rest } = Astro.props
+
+const cols = orbColumns(participants.length)
+const { ariaProps, dataAttributes } = createAudioRoom()
+---
+
+<div
+  class={cn(audioRoomVariants(), className)}
+  style={`grid-template-columns: repeat(${cols}, minmax(0, 1fr))`}
+  {...ariaProps}
+  {...dataAttributes}
+  {...rest}
+>
+  {
+    participants.map((participant) => {
+      const initials = getInitials(participant.name)
+      const speaking = participant.speaking ?? false
+      const muted = participant.muted ?? false
+      const handRaised = participant.handRaised ?? false
+
+      return (
+        <div class={audioRoomOrbCellVariants()}>
+          <div
+            role="img"
+            aria-label={participant.name}
+            data-speaking={speaking ? 'true' : 'false'}
+            data-muted={muted ? 'true' : 'false'}
+            data-hand-raised={handRaised ? 'true' : 'false'}
+            class={speakingOrbVariants({
+              speaking: speaking ? 'true' : 'false',
+              muted: muted ? 'true' : 'false',
+            })}
+          >
+            {participant.avatarUrl ? (
+              <img
+                src={participant.avatarUrl}
+                alt={participant.name}
+                class="absolute inset-0 size-full object-cover"
+              />
+            ) : (
+              <span aria-hidden="true">{initials}</span>
+            )}
+
+            {muted && (
+              <span class={audioRoomMutedBadgeClass} aria-label="Muted">
+                🔇
+              </span>
+            )}
+
+            {handRaised && (
+              <span class={audioRoomHandBadgeClass} aria-label="Hand raised">
+                ✋
+              </span>
+            )}
+          </div>
+          <span class={audioRoomNameLabelClass}>{participant.name}</span>
+        </div>
+      )
+    })
+  }
+</div>
