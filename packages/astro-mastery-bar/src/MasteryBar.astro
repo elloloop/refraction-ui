@@ -1,0 +1,56 @@
+---
+import {
+  clampPercent,
+  createMasteryBar,
+  masteryBarVariants,
+  masteryBarFillVariants,
+  masteryBarLabelClass,
+  masteryBarLeadingLabelClass,
+  masteryBarHeaderClass,
+  type MasteryBarSize,
+} from '@refraction-ui/mastery-bar'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Progress value (0–100). Values outside this range are clamped. */
+  value: number
+  /** Label shown on the right side of the header row. */
+  label?: string
+  /** Label shown on the left side of the header row. */
+  leadingLabel?: string
+  /** Visual size of the track. */
+  size?: MasteryBarSize
+  /** Renders the fill at reduced opacity to indicate a muted/secondary state. */
+  muted?: boolean
+}
+
+const {
+  value,
+  label,
+  leadingLabel,
+  size = 'md',
+  muted = false,
+  class: className,
+  ...rest
+} = Astro.props
+
+const clamped = clampPercent(value)
+const { ariaProps, dataAttributes } = createMasteryBar({ value })
+const hasHeader = leadingLabel != null || label != null
+const fillWidth = `${clamped}%`
+---
+
+<div class={cn('w-full', className)} {...rest}>
+  {hasHeader && (
+    <div class={masteryBarHeaderClass}>
+      {leadingLabel != null && <span class={masteryBarLeadingLabelClass}>{leadingLabel}</span>}
+      {label != null && <span class={masteryBarLabelClass}>{label}</span>}
+    </div>
+  )}
+  <div class={masteryBarVariants({ size })} {...ariaProps} {...dataAttributes}>
+    <div
+      class={masteryBarFillVariants({ muted: muted ? 'true' : 'false' })}
+      style={`width:${fillWidth}`}
+    />
+  </div>
+</div>

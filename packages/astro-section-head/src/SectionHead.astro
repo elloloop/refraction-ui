@@ -1,0 +1,44 @@
+---
+import {
+  createSectionHead,
+  sectionHeadVariants,
+  sectionHeadKickerClass,
+  sectionHeadTitleClass,
+  sectionHeadLedeClass,
+  type SectionHeadAlign,
+} from '@refraction-ui/section-head'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Optional eyebrow / kicker rendered above the title. */
+  kicker?: string
+  /** Primary heading content. Falls back to the default slot when not set. */
+  title?: string
+  /** Optional lede paragraph rendered below the title. */
+  lede?: string
+  /** Horizontal alignment of the cluster. */
+  align?: SectionHeadAlign
+  /** Override the heading element rendered for the title. Defaults to `h2`. */
+  as?: 'h1' | 'h2' | 'h3'
+}
+
+const {
+  kicker,
+  title,
+  lede,
+  align = 'center',
+  as: Tag = 'h2',
+  class: className,
+  ...rest
+} = Astro.props
+
+const { dataAttributes } = createSectionHead({ align })
+---
+
+<div class={cn(sectionHeadVariants({ align }), className)} {...dataAttributes} {...rest}>
+  {kicker && <p class={sectionHeadKickerClass}>{kicker}</p>}
+  <Tag class={sectionHeadTitleClass}>
+    {title ?? <slot />}
+  </Tag>
+  {lede && <p class={sectionHeadLedeClass}>{lede}</p>}
+</div>

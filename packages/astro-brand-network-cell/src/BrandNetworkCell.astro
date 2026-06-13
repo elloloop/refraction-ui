@@ -1,0 +1,77 @@
+---
+import {
+  createBrandNetworkCell,
+  brandNetworkCellVariants,
+  brandNetworkCellGlyphClass,
+  brandNetworkCellDomainClass,
+  brandNetworkCellCurrentBadgeClass,
+  brandNetworkCellBodyClass,
+  brandNetworkCellLinkClass,
+} from '@refraction-ui/brand-network-cell'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Single character or short string used as the brand monogram. */
+  glyph: string
+  /** CSS colour value for the glyph box background (brand tint). Applied via inline style. */
+  glyphBg?: string
+  /** CSS colour value for the glyph text (brand tint). Applied via inline style. */
+  glyphColor?: string
+  /** Primary identifier shown below the glyph (product domain or name). */
+  domain: string
+  /** Supporting description text. */
+  body: string
+  /** When provided, renders a link at the bottom of the card. */
+  href?: string
+  /** Label for the link. Defaults to "Visit →". */
+  linkLabel?: string
+  /** Marks this cell as the current/active product in the network. */
+  current?: boolean
+}
+
+const {
+  glyph,
+  glyphBg,
+  glyphColor,
+  domain,
+  body,
+  href,
+  linkLabel,
+  current = false,
+  class: className,
+  ...rest
+} = Astro.props
+
+const { ariaProps, dataAttributes } = createBrandNetworkCell({ current })
+const glyphStyle = `${glyphBg ? `background:${glyphBg};` : ''}${glyphColor ? `color:${glyphColor};` : ''}`
+---
+
+<div
+  class={cn(brandNetworkCellVariants({ current: current ? 'true' : 'false' }), className)}
+  {...ariaProps}
+  {...dataAttributes}
+  {...rest}
+>
+  <!-- Glyph box — brand tint via inline style -->
+  <div class={brandNetworkCellGlyphClass} style={glyphStyle} aria-hidden="true">
+    {glyph}
+  </div>
+
+  <!-- Domain row -->
+  <div class="flex items-center gap-2">
+    <span class={brandNetworkCellDomainClass}>{domain}</span>
+    {current && (
+      <span class={brandNetworkCellCurrentBadgeClass}>You are here</span>
+    )}
+  </div>
+
+  <!-- Body -->
+  <p class={brandNetworkCellBodyClass}>{body}</p>
+
+  <!-- Optional link -->
+  {href && (
+    <a href={href} class={brandNetworkCellLinkClass}>
+      {linkLabel ?? 'Visit →'}
+    </a>
+  )}
+</div>

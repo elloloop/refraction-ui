@@ -1,0 +1,62 @@
+---
+import {
+  createBrowserChromeMock,
+  splitUrl,
+  browserChromeMockVariants,
+  chromeBarClass,
+  trafficDotClass,
+  urlBarClass,
+  urlDomainClass,
+  statusBadgeVariants,
+  contentAreaClass,
+  type BrowserChromeStatus,
+} from '@refraction-ui/browser-chrome-mock'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** URL to display in the address bar. Bold domain + normal path. */
+  url: string
+  /** Optional status badge shown in the chrome bar. */
+  status?: BrowserChromeStatus
+}
+
+const { url, status, class: className, ...rest } = Astro.props
+
+const { ariaProps, dataAttributes } = createBrowserChromeMock({ status })
+const { domain, path } = splitUrl(url)
+
+const trafficDots = ['bg-red-400', 'bg-yellow-400', 'bg-green-400'] as const
+---
+
+<div class={cn(browserChromeMockVariants(), className)} {...ariaProps} {...dataAttributes} {...rest}>
+  <!-- Chrome toolbar -->
+  <div class={chromeBarClass}>
+    <!-- Traffic-light dots -->
+    <div class="flex items-center gap-1.5 shrink-0">
+      {trafficDots.map((color) => (
+        <span class={`${trafficDotClass} ${color}`} />
+      ))}
+    </div>
+
+    <!-- URL bar -->
+    <div class={urlBarClass}>
+      <span class={urlDomainClass}>{domain}</span>
+      {path && <span>{path}</span>}
+    </div>
+
+    <!-- Status badge -->
+    {status && (
+      <div class={statusBadgeVariants({ status })}>
+        {status === 'rec' && (
+          <span class="size-1.5 rounded-full bg-destructive animate-pulse" />
+        )}
+        {status}
+      </div>
+    )}
+  </div>
+
+  <!-- Content area -->
+  <div class={contentAreaClass}>
+    <slot />
+  </div>
+</div>

@@ -1,0 +1,53 @@
+---
+import {
+  createAudienceFeatureCard,
+  audienceFeatureCardVariants,
+  audienceFeatureCardKickerClass,
+  audienceFeatureCardTitleClass,
+  audienceFeatureCardBodyClass,
+  audienceFeatureCardFooterClass,
+} from '@refraction-ui/audience-feature-card'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Kicker text displayed above the title (e.g. "For teams"). */
+  kicker?: string
+  /** Main title — required (or pass content via default slot). */
+  title?: string
+  /** Body copy. */
+  body?: string
+  /** Footer string (alternative to the named footer slot). */
+  footer?: string
+  class?: string
+}
+
+const {
+  kicker,
+  title,
+  body,
+  footer,
+  class: className,
+  ...rest
+} = Astro.props
+
+const { ariaProps, dataAttributes } = createAudienceFeatureCard()
+---
+
+<div
+  class={cn(audienceFeatureCardVariants(), className)}
+  {...ariaProps}
+  {...dataAttributes}
+  {...rest}
+>
+  {kicker && <p class={audienceFeatureCardKickerClass}>{kicker}</p>}
+  {title
+    ? <p class={audienceFeatureCardTitleClass}>{title}</p>
+    : <p class={audienceFeatureCardTitleClass}><slot /></p>
+  }
+  {body && <p class={audienceFeatureCardBodyClass}>{body}</p>}
+  {(footer || Astro.slots.has('footer')) && (
+    <div class={audienceFeatureCardFooterClass}>
+      {footer ?? <slot name="footer" />}
+    </div>
+  )}
+</div>

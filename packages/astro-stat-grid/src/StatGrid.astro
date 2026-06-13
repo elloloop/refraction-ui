@@ -1,0 +1,46 @@
+---
+import {
+  createStatGrid,
+  statColumns,
+  statGridVariants,
+  statItemClass,
+  statValueClass,
+  statLabelClass,
+  type StatItem,
+} from '@refraction-ui/stat-grid'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** The stat items to display in the grid (value and label as strings). */
+  items: StatItem[]
+  /**
+   * Number of columns. Defaults to statColumns(items.length):
+   * 1 item → 1, 2 items → 2, 3+ items → 3.
+   */
+  columns?: number
+}
+
+const { items, columns, class: className, ...rest } = Astro.props
+
+const cols = columns ?? statColumns(items.length)
+const colsKey = String(cols) as '1' | '2' | '3'
+const { ariaProps, dataAttributes } = createStatGrid()
+const gridStyle = `grid-template-columns:repeat(${cols}, 1fr)`
+---
+
+<div
+  class={cn(statGridVariants({ columns: colsKey }), className)}
+  style={gridStyle}
+  {...ariaProps}
+  {...dataAttributes}
+  {...rest}
+>
+  {
+    items.map((item) => (
+      <div role="listitem" class={statItemClass}>
+        <span class={statValueClass}>{item.value}</span>
+        <span class={statLabelClass}>{item.label}</span>
+      </div>
+    ))
+  }
+</div>
