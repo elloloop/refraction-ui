@@ -63,7 +63,12 @@ export interface AvatarImageProps extends React.ImgHTMLAttributes<HTMLImageEleme
 
 export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
   ({ className, src, alt = '', onLoad, onError, ...props }, ref) => {
-    const { setImageLoaded, setImageError } = React.useContext(AvatarContext)
+    const { imageError, setImageLoaded, setImageError } = React.useContext(AvatarContext)
+
+    React.useEffect(() => {
+      setImageLoaded(false)
+      setImageError(false)
+    }, [src, setImageLoaded, setImageError])
 
     const handleLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
       setImageLoaded(true)
@@ -74,6 +79,8 @@ export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
       setImageError(true)
       onError?.(e)
     }
+
+    if (imageError) return null
 
     return (
       <img
@@ -95,7 +102,9 @@ export interface AvatarFallbackProps extends React.HTMLAttributes<HTMLSpanElemen
 
 export const AvatarFallback = React.forwardRef<HTMLSpanElement, AvatarFallbackProps>(
   ({ className, children, ...props }, ref) => {
-    const { size } = React.useContext(AvatarContext)
+    const { size, imageLoaded, imageError } = React.useContext(AvatarContext)
+
+    if (imageLoaded && !imageError) return null
 
     return (
       <span

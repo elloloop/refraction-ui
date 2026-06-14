@@ -1,12 +1,25 @@
 import Component from './VideoPlayer.astro'
 
-// Auto-generated baseline story. Renders the component with empty args;
-// components that require props show a render error (enrich by hand as needed).
 const meta = {
   title: 'Astro/VideoPlayer',
   component: Component,
+  argTypes: {
+    src: { control: 'text' },
+    poster: { control: 'text' },
+    autoplay: { control: 'boolean' },
+    muted: { control: 'boolean' },
+    controls: { control: 'boolean' },
+  },
 }
 
 export default meta
 
-export const Default = { args: {} }
+export const Default = {
+  args: {
+    src: '',
+    poster: '',
+    autoplay: false,
+    muted: false,
+    controls: false,
+  },
+}

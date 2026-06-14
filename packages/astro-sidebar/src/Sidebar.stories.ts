@@ -1,12 +1,23 @@
 import Component from './Sidebar.astro'
 
-// Auto-generated baseline story. Renders the component with empty args;
-// components that require props show a render error (enrich by hand as needed).
 const meta = {
   title: 'Astro/Sidebar',
   component: Component,
+  argTypes: {
+    sections: { control: 'text' },
+    currentPath: { control: 'text' },
+    collapsed: { control: 'boolean' },
+    userRoles: { control: 'text' },
+  },
 }
 
 export default meta
 
-export const Default = { args: {} }
+export const Default = {
+  args: {
+    sections: '',
+    currentPath: '',
+    collapsed: false,
+    userRoles: '',
+  },
+}

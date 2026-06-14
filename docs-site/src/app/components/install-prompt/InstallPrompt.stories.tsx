@@ -1,7 +1,28 @@
-import { InstallPromptExamples } from './examples'
+import type { Meta, StoryObj } from '@storybook/react'
+import { InstallPrompt } from '@refraction-ui/react-install-prompt'
 
-// Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/InstallPrompt' }
+const meta: Meta<typeof InstallPrompt> = {
+  title: 'Components/InstallPrompt',
+  component: InstallPrompt,
+  args: {
+    appName: 'My App',
+    description: 'Install this app for the best experience.',
+  },
+  argTypes: {
+    appName: { control: 'text' },
+    description: { control: 'text' },
+    onInstall: { action: 'installed' },
+    onDismiss: { action: 'dismissed' },
+  },
+}
 export default meta
 
-export const Basic = { render: () => <InstallPromptExamples section="basic" /> }
+type Story = StoryObj<typeof InstallPrompt>
+
+export const Default: Story = {
+  render: (args) => (
+    <div className="max-w-md w-full">
+      <InstallPrompt {...args} />
+    </div>
+  ),
+}

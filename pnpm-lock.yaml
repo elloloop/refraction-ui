@@ -476,6 +476,12 @@ importers:
       '@refraction-ui/react-video-tile':
         specifier: workspace:*
         version: link:../packages/react-video-tile
+      '@refraction-ui/react-voice-pill':
+        specifier: workspace:*
+        version: link:../packages/react-voice-pill
+      '@refraction-ui/react-waveform':
+        specifier: workspace:*
+        version: link:../packages/react-waveform
       '@refraction-ui/react-wizard':
         specifier: workspace:*
         version: link:../packages/react-wizard

@@ -3,14 +3,25 @@ import Badge from './Badge.astro'
 const meta = {
   title: 'Astro/Badge',
   component: Badge,
-  argTypes: {
-    variant: { control: 'select', options: ['default', 'secondary', 'destructive', 'outline'] },
-    size: { control: 'select', options: ['sm', 'default', 'lg'] },
-  },
 }
 
 export default meta
 
-export const Default = { args: { variant: 'default' } }
-export const Secondary = { args: { variant: 'secondary' } }
-export const Outline = { args: { variant: 'outline' } }
+export const Default = {
+  args: {
+    default: '<span>Default Slot Content</span>',
+    variant: 'default',
+    size: 'default'
+  },
+  render: (args) => {
+    const { default: slotContent, ...rest } = args;
+    const propsStr = Object.entries(rest)
+      .filter(([_, v]) => v !== undefined && v !== '')
+      .map(([k, v]) => typeof v === 'boolean' ? (v ? k : '') : `${k}="${v}"`)
+      .join(' ');
+    return {
+      components: { Badge },
+      template: `<Badge ${propsStr}>${slotContent}</Badge>`
+    };
+  }
+}

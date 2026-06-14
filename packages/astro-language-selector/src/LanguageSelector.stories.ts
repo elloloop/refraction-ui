@@ -1,7 +1,5 @@
 import Component from './LanguageSelector.astro'
 
-// Auto-generated baseline story. Renders the component with empty args;
-// components that require props show a render error (enrich by hand as needed).
 const meta = {
   title: 'Astro/LanguageSelector',
   component: Component,
@@ -9,4 +7,11 @@ const meta = {
 
 export default meta
 
-export const Default = { args: {} }
+export const Default = {
+  args: {
+    value: ['Item 1', 'Item 2'],
+    options: undefined,
+    multiple: false,
+    placeholder: 'Example placeholder'
+  }
+}

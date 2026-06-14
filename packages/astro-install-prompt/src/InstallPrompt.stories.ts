@@ -1,7 +1,5 @@
 import Component from './InstallPrompt.astro'
 
-// Auto-generated baseline story. Renders the component with empty args;
-// components that require props show a render error (enrich by hand as needed).
 const meta = {
   title: 'Astro/InstallPrompt',
   component: Component,
@@ -9,4 +7,12 @@ const meta = {
 
 export default meta
 
-export const Default = { args: {} }
+export const Default = {
+  args: {
+    delay: 42,
+    storageKey: 'Example storageKey',
+    installLabel: 'Example installLabel',
+    dismissLabel: 'Example dismissLabel',
+    message: 'Example message'
+  }
+}

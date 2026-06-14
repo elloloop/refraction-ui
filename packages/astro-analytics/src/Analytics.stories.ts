@@ -1,7 +1,5 @@
 import Component from './AnalyticsScript.astro'
 
-// Auto-generated baseline story. Renders the component with empty args;
-// components that require props show a render error (enrich by hand as needed).
 const meta = {
   title: 'Astro/Analytics',
   component: Component,
@@ -9,4 +7,8 @@ const meta = {
 
 export default meta
 
-export const Default = { args: {} }
+export const Default = {
+  args: {
+    
+  }
+}

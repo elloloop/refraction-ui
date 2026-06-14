@@ -1,7 +1,5 @@
 import Component from './Breadcrumbs.astro'
 
-// Auto-generated baseline story. Renders the component with empty args;
-// components that require props show a render error (enrich by hand as needed).
 const meta = {
   title: 'Astro/Breadcrumbs',
   component: Component,
@@ -9,4 +7,12 @@ const meta = {
 
 export default meta
 
-export const Default = { args: {} }
+export const Default = {
+  args: {
+    pathname: 'Example pathname',
+    items: undefined,
+    labels: 'Example labels',
+    separator: 'Example separator',
+    maxItems: 42
+  }
+}

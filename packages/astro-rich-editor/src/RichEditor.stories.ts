@@ -1,12 +1,29 @@
 import Component from './RichEditor.astro'
 
-// Auto-generated baseline story. Renders the component with empty args;
-// components that require props show a render error (enrich by hand as needed).
 const meta = {
   title: 'Astro/RichEditor',
   component: Component,
+  argTypes: {
+    content: { control: 'text' },
+    placeholder: { control: 'text' },
+    readOnly: { control: 'boolean' },
+    maxLength: { control: 'number' },
+    showToolbar: { control: 'boolean' },
+    showCount: { control: 'boolean' },
+    name: { control: 'text' },
+  },
 }
 
 export default meta
 
-export const Default = { args: {} }
+export const Default = {
+  args: {
+    content: '',
+    placeholder: '',
+    readOnly: false,
+    maxLength: 0,
+    showToolbar: false,
+    showCount: false,
+    name: '',
+  },
+}

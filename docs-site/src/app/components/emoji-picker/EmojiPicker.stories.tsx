@@ -1,7 +1,22 @@
-import { EmojiPickerExamples } from './examples'
+import type { Meta, StoryObj } from '@storybook/react'
+import { EmojiPicker } from '@refraction-ui/react-emoji-picker'
 
-// Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/EmojiPicker' }
+const meta: Meta<typeof EmojiPicker> = {
+  title: 'Components/EmojiPicker',
+  component: EmojiPicker,
+  parameters: {
+    layout: 'centered',
+  },
+  args: {
+  },
+  argTypes: {
+    onSelect: { action: 'selected' },
+  },
+}
+
 export default meta
+type Story = StoryObj<typeof meta>
 
-export const Basic = { render: () => <EmojiPickerExamples section="basic" /> }
+export const Default: Story = {
+  args: {},
+}

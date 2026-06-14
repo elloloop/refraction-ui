@@ -1,12 +1,33 @@
 import Component from './Toast.astro'
 
-// Auto-generated baseline story. Renders the component with empty args;
-// components that require props show a render error (enrich by hand as needed).
 const meta = {
   title: 'Astro/Toast',
   component: Component,
+  argTypes: {
+    variant: { control: 'select', options: ['default', 'secondary', 'destructive', 'outline', 'ghost', 'link'] },
+    duration: { control: 'number' },
+    dismissible: { control: 'boolean' },
+    message: { control: 'text' },
+    default: { control: 'text' },
+  },
 }
 
 export default meta
 
-export const Default = { args: {} }
+export const Default = {
+  args: {
+    variant: 'default',
+    duration: 0,
+    dismissible: false,
+    message: '',
+    default: '<span>default content</span>',
+  },
+  render: (args: any) => {
+    const { default: defaultSlot, ...props } = args;
+    return {
+      Component,
+      props,
+      slots: { default: defaultSlot },
+    };
+  },
+}

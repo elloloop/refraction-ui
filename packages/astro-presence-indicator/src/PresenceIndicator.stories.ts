@@ -1,12 +1,23 @@
 import Component from './PresenceIndicator.astro'
 
-// Auto-generated baseline story. Renders the component with empty args;
-// components that require props show a render error (enrich by hand as needed).
 const meta = {
   title: 'Astro/PresenceIndicator',
   component: Component,
+  argTypes: {
+    status: { control: 'text' },
+    showLabel: { control: 'boolean' },
+    label: { control: 'text' },
+    size: { control: 'select', options: ['sm', 'default', 'lg', 'icon'] },
+  },
 }
 
 export default meta
 
-export const Default = { args: {} }
+export const Default = {
+  args: {
+    status: '',
+    showLabel: false,
+    label: '',
+    size: 'default',
+  },
+}
