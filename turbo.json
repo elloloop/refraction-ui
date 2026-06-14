@@ -17,7 +17,7 @@
       "outputs": ["coverage/**"]
     },
     "test:coverage": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["build", "^build"],
       "outputs": ["coverage/**"]
     },
     "storybook:test": {

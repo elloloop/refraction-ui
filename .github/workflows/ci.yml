@@ -65,8 +65,13 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: pnpm
-      - name: Setup Turborepo Caching
-        uses: dtinth/setup-github-actions-caching-for-turbo@v1
+      - name: Cache Turborepo
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ github.job }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-${{ github.job }}-
       - name: Install deps
         run: make install
       - name: Run CI for React
@@ -95,8 +100,13 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: pnpm
-      - name: Setup Turborepo Caching
-        uses: dtinth/setup-github-actions-caching-for-turbo@v1
+      - name: Cache Turborepo
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ github.job }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-${{ github.job }}-
       - name: Install deps
         run: make install
       - name: Run CI for Astro
