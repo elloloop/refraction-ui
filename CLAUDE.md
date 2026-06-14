@@ -1,9 +1,32 @@
 # Refraction UI — Agent Instructions (AUTHORITATIVE)
 
 This file is the single source of truth for AI agents. If any other doc
-(GEMINI.md, older notes, a sub-package README) disagrees with this file about
-packaging or releasing, **this file wins**. Read this before creating packages
-or publishing.
+(`AGENTS.md`, `GEMINI.md`, older notes, a sub-package README) disagrees with
+this file about packaging or releasing, **this file wins**. Read this before
+creating packages or publishing.
+
+## What this project is
+
+Refraction UI is a **headless, token-driven UI component library shipped across
+multiple frameworks** — React and Astro (on npm) and Flutter (on pub.dev) — so a
+single design language travels with a product across every surface. Components
+are built on a small set of semantic design tokens; logic lives in
+framework-agnostic **headless cores**, and thin **framework adapters** wrap each
+core for their framework. The same component (e.g. `Button`, `VideoTile`,
+`RatingScale`) looks and behaves the same whether a team builds in React, Astro,
+or Flutter.
+
+Two architectural commitments drive almost every rule below:
+
+1. **One published artifact _per framework_, not per component.** Consumers
+   install a single meta package per framework (`@refraction-ui/react`,
+   `@refraction-ui/astro`, `refraction_ui` on pub.dev) and get *every* component
+   from it — not 80+ individual packages. Per-component packages exist in the
+   monorepo for isolation/testing but are all `private: true` and ride the meta.
+   This keeps install/versioning trivial for consumers and lets the whole
+   library move in lockstep. Do not try to publish a component on its own.
+2. **Every component is a _triple_ that must stay in sync** — see
+   "The component triple" below.
 
 ## Packaging & Release Architecture — READ FIRST
 
@@ -66,6 +89,109 @@ adapters (e.g. `@refraction-ui/ai` is private; `react-ai` depends on it;
    - (this is exactly what `update-meta-packages.cjs` automates)
 4. Build the metas (`pnpm turbo run build --filter=@refraction-ui/react …`) to
    catch `export *` name collisions before landing.
+5. **Ship the component triple** (below) — implementation, Storybook story, and
+   docs-site page — in the same change. A component is not "done" until all
+   three exist and agree.
+6. **Add a changeset** bumping the affected metas and land it so the component
+   actually reaches npm (see Releasing). An unpublished component helps no one.
+
+## The component triple — keep these in sync
+
+Every component is three artifacts that **must stay in sync and ship together**:
+
+1. **Implementation** — headless core + the per-framework adapters
+   (`packages/<feature>`, `packages/<fw>-<feature>`). The source of truth for
+   behavior, props, and tokens.
+2. **Storybook story** — `docs-site/src/app/components/<slug>/<Name>.stories.tsx`
+   (plus the `examples.tsx` it renders). The interactive showcase.
+3. **Docs-site page** — `docs-site/src/app/components/<slug>/page.tsx` with the
+   live examples, a props table, and an install snippet.
+
+Rules:
+
+- **Never land one without the others.** If you add a prop, a variant, or a
+  whole component, update the implementation **and** the story **and** the docs
+  page in the same PR. A docs page that lists a prop the component doesn't have
+  (or vice-versa) is a bug.
+- **The story and docs page import the real published-shape component** (the
+  `@refraction-ui/react-<feature>` adapter, re-exported by the meta) — not a
+  local mock — so they exercise exactly what consumers get.
+- **Add the new `@refraction-ui/react-<feature>` to `docs-site/package.json`
+  `dependencies`** (`workspace:*`) or the docs build can't resolve it.
+- **Publish regularly.** The triple is only useful to consumers once it's on
+  npm. Don't let implementation, docs, and the published meta drift apart —
+  land the changeset and merge the Version PR so the docs site and the npm
+  package describe the same thing. Treat "implemented but unpublished" as
+  unfinished work.
+
+## Component build playbook (hard-won — follow exactly)
+
+Mirror an existing, recently-shipped component as your template (e.g.
+`packages/rating-scale` + `packages/react-rating-scale` + `packages/astro-rating-scale`
++ `docs-site/src/app/components/rating-scale/*`). The conventions below are not
+style preferences — each one is a build error or a shipped bug we have already
+hit. Authoring many components in parallel (one subagent per component) works
+well **only if every agent follows these**; the integrator then wires metas,
+builds, and fixes centrally.
+
+**Headless core (`packages/<feature>`):**
+- JSX-free: pure logic/state helpers + `cva` style variants only. `private: true`.
+- **`cva` variant values are STRINGS.** A boolean-ish variant uses keys
+  `true:`/`false:`, and **`defaultVariants` must use the string `'false'`/`'true'`**
+  (not a boolean) — `defaultVariants: { featured: 'false' }`. At call sites pass
+  `cond ? 'true' : 'false'`, never a raw boolean. (Raw booleans fail the dts build.)
+- ARIA props that include `role`/`aria-*` (esp. `aria-live`, `aria-valuenow`):
+  type the returned object as **`Record<string, string | number | boolean>`**,
+  not `Partial<AccessibilityProps>` (that type is narrow and rejects most aria-*).
+- **No `Math.random()` / `Date.now()` / argless `new Date()`** in cores — keep
+  them deterministic; accept ids/timestamps as inputs.
+
+**React adapter (`packages/react-<feature>`):**
+- Thin wrapper over the core; `private: true`; `forwardRef` + `className`.
+- **`Omit` every prop name that collides with `React.HTMLAttributes<…>`.** Hit so
+  far: `onSelect`, `results`, `color`, `content`, `title`, `defaultValue`,
+  `onChange`. If your component declares any of these with a non-DOM type, add it
+  to the `Omit` or the interface "incorrectly extends" and the build fails.
+- Spread the core's ARIA object **directly** (`{...api.ariaProps}`). Do **not**
+  cast it `as React.AriaAttributes & { role: string }` — that assertion fails to
+  compile; the direct spread works.
+- **SSR text rule:** adjacent `{a} {b}` expressions get comment markers between
+  them under `renderToString`, so a composed string renders non-contiguously and
+  breaks `toContain('a b')`. Render composed strings as a **single template
+  literal**: `{`${a} ${b}`}`.
+- Generic components: make the component generic (`<T,>`); a generic +
+  `forwardRef` is awkward, so a plain generic function component is acceptable.
+
+**Astro adapter (`packages/astro-<feature>`):** `private: true`; `src/index.ts`
+is `export {}`; the real component is `src/<Name>.astro` (SSR; content via
+`<slot/>`). `astro-meta`'s `build.mjs` auto-copies the `.astro` files for any
+`astro-*` package listed in `astro-meta`'s deps — so wiring = the devDependency
++ `export *` only.
+
+**Tests (what we write, and what they do _not_ cover):**
+- Core: unit tests of the pure logic (Vitest, node env).
+- React adapter: **SSR `renderToString`** tests (node env — no jsdom/Testing
+  Library) asserting rendered structure + ARIA. These do **not** exercise click/
+  drag/keyboard interaction or visual output. When a component's value is in
+  interaction (drag-reorder, slot selection) or pixels, say so — the SSR tests
+  prove it renders the right shape, not that the interaction works. Add
+  interaction/visual coverage (jsdom + Testing Library, or Playwright) when that
+  behavior is load-bearing; don't imply coverage you didn't write.
+
+**Build/verify locally (in this order — turbo respects the dep graph):**
+- `pnpm turbo run build --filter=@refraction-ui/react` — builds the whole graph
+  and the React meta; catches `export *` collisions and dts errors. (Building a
+  single package directly often fails to resolve `@refraction-ui/shared` types —
+  use turbo.)
+- `pnpm turbo run build --filter=@refraction-ui/astro` — runs `build.mjs`.
+- `pnpm turbo run test --filter=…` for the new packages.
+- Docs build in a fresh checkout needs its deps built first:
+  `pnpm turbo run build --filter='refraction-ui-docs^...'` then
+  `pnpm --filter refraction-ui-docs run build`. **Add the new
+  `@refraction-ui/react-<feature>` to `docs-site/package.json` deps** or the docs
+  build can't resolve the import.
+- `pnpm turbo run lint typecheck --filter='[HEAD~1]'` after committing — must be
+  **0 errors** (pre-existing warnings in other packages are fine).
 
 ## Releasing
 
@@ -84,6 +210,39 @@ adapters (e.g. `@refraction-ui/ai` is private; `react-ai` depends on it;
 Existing public packages already have npm OIDC trusted publishers configured
 (that's why they publish). Brand-new public package names would NOT — another
 reason new feature packages must stay private and ride the metas.
+
+### CI gating facts (so you don't get stuck or merge-past-red blindly)
+
+- **Only `commit-lint` is a required status check.** Everything else is
+  informational at the branch-protection level.
+- The **`dependencies` / `validation` "Audit dependencies"** step fails on a
+  **pre-existing transitive esbuild advisory** that is present on `main` and
+  unrelated to component work. It does **not** gate the release pipeline. Do not
+  treat it as your failure — but **do** confirm the `validation` job's **"Run CI"
+  step** (the full `make ci`: lint + typecheck + test + build) **succeeded**;
+  that is the real green signal. Verify by step conclusion, never assume.
+- The **`Release` workflow is `workflow_run` on _"Test Matrix"_ success** (not on
+  the "CI" workflow). So the publish pipeline is gated by **Test Matrix passing
+  on `main`**, regardless of the audit red. Sequence after merging a feature PR:
+  Test Matrix (main) → Release opens the **`chore: release packages` Version PR**
+  → merge it → Test Matrix again → Release sees no changesets → `publish-oidc`
+  publishes via OIDC. Each Test Matrix run is ~25–35 min; poll, don't assume.
+- Admin-merging past the audit red is acceptable **only after** the validation
+  "Run CI" step is confirmed green and `commit-lint` passes. Surface that you did
+  so and why.
+- The recurring esbuild audit failure is tracked separately; if asked to fix CI
+  reds, that audit advisory — not your component — is usually the culprit.
+
+### Flutter releases (separate ecosystem)
+
+`refraction_ui` publishes to **pub.dev** via the **`flutter-publish` tag
+workflow** (tag `refraction_ui-vX.Y.Z` matching `packages/flutter/pubspec.yaml`).
+The publish gate runs `flutter test --exclude-tags golden` — **golden
+(visual-baseline) tests are excluded** because their macOS-generated PNGs cannot
+render pixel-identical on the Linux CI runner (this silently blocked every
+release 0.10→0.42 until fixed). Don't ship checked-in test artifacts
+(`test/failures/**`, stray `*_results.*`) in the package, and declare any
+test-only imports in `dev_dependencies` or `dart pub publish` fails.
 
 ## Pre-push
 

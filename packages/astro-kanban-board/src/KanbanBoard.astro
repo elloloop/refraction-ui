@@ -1,0 +1,92 @@
+---
+import {
+  createKanbanBoard,
+  cardsByColumn,
+  visibleAndOverflow,
+  kanbanBoardVariants,
+  kanbanColumnVariants,
+  kanbanColumnHeaderClass,
+  kanbanColumnTitleClass,
+  kanbanColumnCountClass,
+  kanbanAccentBarClass,
+  kanbanNoteBarClass,
+  kanbanColumnBodyClass,
+  kanbanCardVariants,
+  type KanbanColumnDef,
+} from '@refraction-ui/kanban-board'
+import { cn } from '@refraction-ui/shared'
+
+interface KanbanCard {
+  /** Must match one of the column ids. */
+  columnId: string
+  /** Primary label rendered in the card header. */
+  title: string
+  /** Optional secondary label rendered below the title. */
+  subtitle?: string
+}
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Column definitions in left-to-right order. */
+  columns: KanbanColumnDef[]
+  /** All cards to distribute across columns. */
+  cards: KanbanCard[]
+  /** Max visible cards per column before overflow is hidden. Defaults to 5. */
+  cardCap?: number
+}
+
+const { columns, cards, cardCap = 5, class: className, ...rest } = Astro.props
+
+const { ariaProps, dataAttributes } = createKanbanBoard()
+const buckets = cardsByColumn(cards, (c) => c.columnId, columns)
+---
+
+<div class={cn(kanbanBoardVariants(), className)} {...ariaProps} {...dataAttributes} {...rest}>
+  {
+    columns.map((def) => {
+      const colCards = buckets.get(def.id) ?? []
+      const { visible, overflow } = visibleAndOverflow(colCards, cardCap)
+      const count = colCards.length
+
+      return (
+        <div
+          class={kanbanColumnVariants()}
+          style={def.accent ? `--kanban-accent: ${def.accent}` : undefined}
+        >
+          {/* Column header */}
+          <div class={kanbanColumnHeaderClass}>
+            <span class={kanbanColumnTitleClass}>{def.title}</span>
+            <span class={kanbanColumnCountClass}>{count}</span>
+          </div>
+
+          {/* Accent bar */}
+          <div
+            class={kanbanAccentBarClass}
+            style={def.accent ? 'background-color: var(--kanban-accent)' : 'background-color: transparent'}
+            aria-hidden="true"
+          />
+
+          {/* Note bar */}
+          {def.note && <p class={kanbanNoteBarClass}>{def.note}</p>}
+
+          {/* Cards */}
+          <div class={kanbanColumnBodyClass}>
+            {visible.map((card) => (
+              <div class={kanbanCardVariants({ clickable: 'false' })}>
+                <p class="font-medium text-foreground leading-snug">{card.title}</p>
+                {card.subtitle && (
+                  <p class="mt-0.5 text-xs text-muted-foreground">{card.subtitle}</p>
+                )}
+              </div>
+            ))}
+
+            {overflow > 0 && (
+              <p class="mt-1 text-center text-xs text-muted-foreground">
+                {`+${overflow} more`}
+              </p>
+            )}
+          </div>
+        </div>
+      )
+    })
+  }
+</div>

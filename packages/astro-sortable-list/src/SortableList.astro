@@ -1,0 +1,68 @@
+---
+import {
+  createSortableList,
+  sortableListVariants,
+  sortableListRowVariants,
+  sortableListGripClass,
+  sortableListContentClass,
+} from '@refraction-ui/sortable-list'
+import { cn } from '@refraction-ui/shared'
+
+interface Item {
+  /** Unique key for the item. */
+  id: string | number
+  /** Display label rendered as the row content. */
+  label: string
+}
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** The ordered list of items to render. */
+  items: Item[]
+  /** Disables drag affordances visually. */
+  disabled?: boolean
+}
+
+const {
+  items,
+  disabled = false,
+  class: className,
+  ...rest
+} = Astro.props
+
+const { ariaProps, dataAttributes } = createSortableList()
+---
+
+<div
+  class={cn(sortableListVariants({ disabled: disabled ? 'true' : 'false' }), className)}
+  {...ariaProps}
+  {...dataAttributes}
+  {...rest}
+>
+  {
+    items.map((item) => (
+      <div
+        role="listitem"
+        class={sortableListRowVariants({ dragging: 'false' })}
+      >
+        {/* Grip handle — static in SSR; interactivity is React-only */}
+        <span class={sortableListGripClass} aria-hidden="true">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M2 4h12M2 8h12M2 12h12"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+          </svg>
+        </span>
+        <span class={sortableListContentClass}>{item.label}</span>
+      </div>
+    ))
+  }
+</div>

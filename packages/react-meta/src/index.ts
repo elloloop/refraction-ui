@@ -231,3 +231,8 @@ export * from '@refraction-ui/react-marquee-strip'
 export * from '@refraction-ui/react-browser-chrome-mock'
 export * from '@refraction-ui/react-mastery-bar'
 export * from '@refraction-ui/react-audience-feature-card'
+
+// loopwyse pipeline components
+export * from '@refraction-ui/react-sortable-list'
+export * from '@refraction-ui/react-kanban-board'
+export * from '@refraction-ui/react-slot-picker'
