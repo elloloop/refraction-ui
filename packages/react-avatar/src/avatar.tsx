@@ -65,6 +65,11 @@ export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
   ({ className, src, alt = '', onLoad, onError, ...props }, ref) => {
     const { imageError, setImageLoaded, setImageError } = React.useContext(AvatarContext)
 
+    React.useEffect(() => {
+      setImageLoaded(false)
+      setImageError(false)
+    }, [src, setImageLoaded, setImageError])
+
     const handleLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
       setImageLoaded(true)
       onLoad?.(e)
