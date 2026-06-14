@@ -290,6 +290,9 @@ importers:
       '@refraction-ui/react-install-prompt':
         specifier: workspace:*
         version: link:../packages/react-install-prompt
+      '@refraction-ui/react-kanban-board':
+        specifier: workspace:*
+        version: link:../packages/react-kanban-board
       '@refraction-ui/react-keyboard-shortcut':
         specifier: workspace:*
         version: link:../packages/react-keyboard-shortcut
@@ -407,9 +410,15 @@ importers:
       '@refraction-ui/react-slider':
         specifier: workspace:*
         version: link:../packages/react-slider
+      '@refraction-ui/react-slot-picker':
+        specifier: workspace:*
+        version: link:../packages/react-slot-picker
       '@refraction-ui/react-social-auth-button':
         specifier: workspace:*
         version: link:../packages/react-social-auth-button
+      '@refraction-ui/react-sortable-list':
+        specifier: workspace:*
+        version: link:../packages/react-sortable-list
       '@refraction-ui/react-stat-grid':
         specifier: workspace:*
         version: link:../packages/react-stat-grid
@@ -1246,6 +1255,18 @@ importers:
         specifier: 6.3.1
         version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
 
+  packages/astro-kanban-board:
+    dependencies:
+      '@refraction-ui/kanban-board':
+        specifier: workspace:*
+        version: link:../kanban-board
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
   packages/astro-keyboard-shortcut:
     dependencies:
       '@refraction-ui/keyboard-shortcut':
@@ -1558,6 +1579,9 @@ importers:
       '@refraction-ui/astro-install-prompt':
         specifier: workspace:*
         version: link:../astro-install-prompt
+      '@refraction-ui/astro-kanban-board':
+        specifier: workspace:*
+        version: link:../astro-kanban-board
       '@refraction-ui/astro-keyboard-shortcut':
         specifier: workspace:*
         version: link:../astro-keyboard-shortcut
@@ -1675,9 +1699,15 @@ importers:
       '@refraction-ui/astro-slider':
         specifier: workspace:*
         version: link:../astro-slider
+      '@refraction-ui/astro-slot-picker':
+        specifier: workspace:*
+        version: link:../astro-slot-picker
       '@refraction-ui/astro-social-auth-button':
         specifier: workspace:*
         version: link:../astro-social-auth-button
+      '@refraction-ui/astro-sortable-list':
+        specifier: workspace:*
+        version: link:../astro-sortable-list
       '@refraction-ui/astro-stat-grid':
         specifier: workspace:*
         version: link:../astro-stat-grid
@@ -2099,6 +2129,18 @@ importers:
         specifier: 6.3.1
         version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
 
+  packages/astro-slot-picker:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/slot-picker':
+        specifier: workspace:*
+        version: link:../slot-picker
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
   packages/astro-social-auth-button:
     dependencies:
       '@refraction-ui/shared':
@@ -2107,6 +2149,18 @@ importers:
       '@refraction-ui/social-auth-button':
         specifier: workspace:*
         version: link:../social-auth-button
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
+  packages/astro-sortable-list:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/sortable-list':
+        specifier: workspace:*
+        version: link:../sortable-list
       astro:
         specifier: 6.3.1
         version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
@@ -2909,6 +2963,12 @@ importers:
         version: link:../shared
 
   packages/install-prompt:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/kanban-board:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -4392,6 +4452,28 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-kanban-board:
+    dependencies:
+      '@refraction-ui/kanban-board':
+        specifier: workspace:*
+        version: link:../kanban-board
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-keyboard-shortcut:
     dependencies:
       '@refraction-ui/keyboard-shortcut':
@@ -4817,6 +4899,9 @@ importers:
       '@refraction-ui/react-install-prompt':
         specifier: workspace:*
         version: link:../react-install-prompt
+      '@refraction-ui/react-kanban-board':
+        specifier: workspace:*
+        version: link:../react-kanban-board
       '@refraction-ui/react-keyboard-shortcut':
         specifier: workspace:*
         version: link:../react-keyboard-shortcut
@@ -4937,9 +5022,15 @@ importers:
       '@refraction-ui/react-slider':
         specifier: workspace:*
         version: link:../react-slider
+      '@refraction-ui/react-slot-picker':
+        specifier: workspace:*
+        version: link:../react-slot-picker
       '@refraction-ui/react-social-auth-button':
         specifier: workspace:*
         version: link:../react-social-auth-button
+      '@refraction-ui/react-sortable-list':
+        specifier: workspace:*
+        version: link:../react-sortable-list
       '@refraction-ui/react-stat-grid':
         specifier: workspace:*
         version: link:../react-stat-grid
@@ -5682,6 +5773,28 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-slot-picker:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/slot-picker':
+        specifier: workspace:*
+        version: link:../slot-picker
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-social-auth-button:
     dependencies:
       '@refraction-ui/react-button':
@@ -5705,6 +5818,28 @@ importers:
         version: 19.0.0
       react-dom:
         specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-sortable-list:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/sortable-list':
+        specifier: workspace:*
+        version: link:../sortable-list
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
   packages/react-stat-grid:
@@ -6283,7 +6418,19 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/slot-picker:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/social-auth-button:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/sortable-list:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*

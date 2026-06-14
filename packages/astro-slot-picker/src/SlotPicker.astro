@@ -1,0 +1,105 @@
+---
+import {
+  createSlotPicker,
+  slotsForDay,
+  isSlotSelected,
+  slotPickerVariants,
+  slotPickerDayRowClass,
+  slotPickerDayVariants,
+  slotPickerGridClass,
+  slotPickerSlotVariants,
+  slotPickerSectionLabelClass,
+  slotPickerTimezoneClass,
+  type SlotDay,
+  type SlotSelection,
+} from '@refraction-ui/slot-picker'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** The list of days to show as chips. */
+  days: SlotDay[]
+  /** Map of dayId → available time slot strings. */
+  slotsByDay: Record<string, string[]>
+  /** The currently-selected day (determines which slots are shown). */
+  selectedDayId?: string
+  /** The full selection (day + slot) used to highlight the selected slot. */
+  value?: SlotSelection
+  /** Label shown beside the "Pick a time" heading (e.g. "Eastern Time"). */
+  timezoneLabel?: string
+  /** Slot strings that should be rendered as disabled. */
+  disabledSlots?: string[]
+}
+
+const {
+  days,
+  slotsByDay,
+  selectedDayId,
+  value,
+  timezoneLabel,
+  disabledSlots = [],
+  class: className,
+  ...rest
+} = Astro.props
+
+const currentSlots = selectedDayId ? slotsForDay(slotsByDay, selectedDayId) : []
+const { ariaProps, dataAttributes } = createSlotPicker()
+---
+
+<div class={cn(slotPickerVariants(), className)} {...ariaProps} {...dataAttributes} {...rest}>
+  <!-- Day row -->
+  <div>
+    <p class={slotPickerSectionLabelClass}>Pick a day</p>
+    <div role="radiogroup" aria-label="Pick a day" class={`${slotPickerDayRowClass} mt-2`}>
+      {
+        days.map((day) => {
+          const isSelected = selectedDayId === day.id
+          return (
+            <button
+              type="button"
+              role="radio"
+              aria-checked={isSelected}
+              data-state={isSelected ? 'checked' : 'unchecked'}
+              class={slotPickerDayVariants({ selected: isSelected ? 'true' : 'false' })}
+            >
+              <span class="text-xs">{day.weekday}</span>
+              <span class="text-base font-bold leading-none">{day.dayNum}</span>
+            </button>
+          )
+        })
+      }
+    </div>
+  </div>
+
+  <!-- Slot grid (only when a day is selected) -->
+  {selectedDayId && currentSlots.length > 0 && (
+    <div>
+      <p class={slotPickerSectionLabelClass}>
+        Pick a time
+        {timezoneLabel && <span class={slotPickerTimezoneClass}>{timezoneLabel}</span>}
+      </p>
+      <div role="radiogroup" aria-label="Pick a time" class={`${slotPickerGridClass} mt-2`}>
+        {
+          currentSlots.map((slot) => {
+            const isSlotActive = isSlotSelected(value, selectedDayId, slot)
+            const isDisabled = disabledSlots.includes(slot)
+            return (
+              <button
+                type="button"
+                role="radio"
+                aria-checked={isSlotActive}
+                aria-disabled={isDisabled || undefined}
+                data-state={isSlotActive ? 'checked' : 'unchecked'}
+                class={slotPickerSlotVariants({
+                  selected: isSlotActive ? 'true' : 'false',
+                  disabled: isDisabled ? 'true' : 'false',
+                })}
+              >
+                {slot}
+              </button>
+            )
+          })
+        }
+      </div>
+    </div>
+  )}
+</div>

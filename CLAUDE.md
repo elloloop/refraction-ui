@@ -1,9 +1,32 @@
 # Refraction UI — Agent Instructions (AUTHORITATIVE)
 
 This file is the single source of truth for AI agents. If any other doc
-(GEMINI.md, older notes, a sub-package README) disagrees with this file about
-packaging or releasing, **this file wins**. Read this before creating packages
-or publishing.
+(`AGENTS.md`, `GEMINI.md`, older notes, a sub-package README) disagrees with
+this file about packaging or releasing, **this file wins**. Read this before
+creating packages or publishing.
+
+## What this project is
+
+Refraction UI is a **headless, token-driven UI component library shipped across
+multiple frameworks** — React and Astro (on npm) and Flutter (on pub.dev) — so a
+single design language travels with a product across every surface. Components
+are built on a small set of semantic design tokens; logic lives in
+framework-agnostic **headless cores**, and thin **framework adapters** wrap each
+core for their framework. The same component (e.g. `Button`, `VideoTile`,
+`RatingScale`) looks and behaves the same whether a team builds in React, Astro,
+or Flutter.
+
+Two architectural commitments drive almost every rule below:
+
+1. **One published artifact _per framework_, not per component.** Consumers
+   install a single meta package per framework (`@refraction-ui/react`,
+   `@refraction-ui/astro`, `refraction_ui` on pub.dev) and get *every* component
+   from it — not 80+ individual packages. Per-component packages exist in the
+   monorepo for isolation/testing but are all `private: true` and ride the meta.
+   This keeps install/versioning trivial for consumers and lets the whole
+   library move in lockstep. Do not try to publish a component on its own.
+2. **Every component is a _triple_ that must stay in sync** — see
+   "The component triple" below.
 
 ## Packaging & Release Architecture — READ FIRST
 
@@ -66,6 +89,40 @@ adapters (e.g. `@refraction-ui/ai` is private; `react-ai` depends on it;
    - (this is exactly what `update-meta-packages.cjs` automates)
 4. Build the metas (`pnpm turbo run build --filter=@refraction-ui/react …`) to
    catch `export *` name collisions before landing.
+5. **Ship the component triple** (below) — implementation, Storybook story, and
+   docs-site page — in the same change. A component is not "done" until all
+   three exist and agree.
+6. **Add a changeset** bumping the affected metas and land it so the component
+   actually reaches npm (see Releasing). An unpublished component helps no one.
+
+## The component triple — keep these in sync
+
+Every component is three artifacts that **must stay in sync and ship together**:
+
+1. **Implementation** — headless core + the per-framework adapters
+   (`packages/<feature>`, `packages/<fw>-<feature>`). The source of truth for
+   behavior, props, and tokens.
+2. **Storybook story** — `docs-site/src/app/components/<slug>/<Name>.stories.tsx`
+   (plus the `examples.tsx` it renders). The interactive showcase.
+3. **Docs-site page** — `docs-site/src/app/components/<slug>/page.tsx` with the
+   live examples, a props table, and an install snippet.
+
+Rules:
+
+- **Never land one without the others.** If you add a prop, a variant, or a
+  whole component, update the implementation **and** the story **and** the docs
+  page in the same PR. A docs page that lists a prop the component doesn't have
+  (or vice-versa) is a bug.
+- **The story and docs page import the real published-shape component** (the
+  `@refraction-ui/react-<feature>` adapter, re-exported by the meta) — not a
+  local mock — so they exercise exactly what consumers get.
+- **Add the new `@refraction-ui/react-<feature>` to `docs-site/package.json`
+  `dependencies`** (`workspace:*`) or the docs build can't resolve it.
+- **Publish regularly.** The triple is only useful to consumers once it's on
+  npm. Don't let implementation, docs, and the published meta drift apart —
+  land the changeset and merge the Version PR so the docs site and the npm
+  package describe the same thing. Treat "implemented but unpublished" as
+  unfinished work.
 
 ## Releasing
 

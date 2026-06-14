@@ -148,3 +148,8 @@ export * from '@refraction-ui/astro-marquee-strip'
 export * from '@refraction-ui/astro-browser-chrome-mock'
 export * from '@refraction-ui/astro-mastery-bar'
 export * from '@refraction-ui/astro-audience-feature-card'
+
+// loopwyse pipeline components
+export * from '@refraction-ui/astro-sortable-list'
+export * from '@refraction-ui/astro-kanban-board'
+export * from '@refraction-ui/astro-slot-picker'
