@@ -1,0 +1,63 @@
+---
+import {
+  createMarqueeStrip,
+  marqueeStripVariants,
+  marqueeStripInnerClass,
+  marqueeStripScrollOuterClass,
+  marqueeStripScrollTrackClass,
+  marqueeStripLabelClass,
+  marqueeStripItemClass,
+} from '@refraction-ui/marquee-strip'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Eyebrow label shown before the items (static mode only). */
+  label?: string
+  /** List of text items to display. */
+  items: string[]
+  /**
+   * When `true` the items scroll continuously using a CSS `marquee` keyframe.
+   * Define the keyframe in your global CSS:
+   *
+   * ```css
+   * @keyframes marquee {
+   *   from { transform: translateX(0); }
+   *   to   { transform: translateX(-50%); }
+   * }
+   * ```
+   *
+   * @default false
+   */
+  scroll?: boolean
+}
+
+const {
+  label,
+  items,
+  scroll = false,
+  class: className,
+  ...rest
+} = Astro.props
+
+const { ariaProps, dataAttributes } = createMarqueeStrip({ scroll })
+const scrollVariant = scroll ? 'true' : 'false'
+---
+
+<div class={cn(marqueeStripVariants({ scroll: scrollVariant }), className)} {...ariaProps} {...dataAttributes} {...rest}>
+  {scroll ? (
+    <div class={marqueeStripScrollOuterClass}>
+      <div class={marqueeStripScrollTrackClass}>
+        {[...items, ...items].map((item) => (
+          <span class={marqueeStripItemClass}>{item}</span>
+        ))}
+      </div>
+    </div>
+  ) : (
+    <div class={marqueeStripInnerClass}>
+      {label && <span class={marqueeStripLabelClass}>{label}</span>}
+      {items.map((item) => (
+        <span class={marqueeStripItemClass}>{item}</span>
+      ))}
+    </div>
+  )}
+</div>

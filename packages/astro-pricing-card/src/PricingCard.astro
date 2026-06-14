@@ -1,0 +1,114 @@
+---
+import {
+  createPricingCard,
+  pricingCardVariants,
+  pricingCardBadgeClass,
+  pricingCardNameClass,
+  pricingCardPriceClass,
+  pricingCardPeriodClass,
+  pricingCardDescriptionClass,
+  pricingCardFeatureListClass,
+  pricingCardFeatureRowClass,
+  pricingCardFeatureTickClass,
+  pricingCtaVariants,
+  type PricingCtaVariant,
+} from '@refraction-ui/pricing-card'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Optional badge label shown above the plan name (e.g. "Most popular"). */
+  badge?: string
+  /** Plan name (e.g. "Pro", "Starter"). */
+  name: string
+  /** Price string (e.g. "$29", "Free"). */
+  price: string
+  /** Billing period or qualifier (e.g. "/ month"). */
+  period?: string
+  /** Short marketing description. */
+  description?: string
+  /** List of included features to render as a checklist. */
+  features: string[]
+  /** CTA button/link label. */
+  cta: string
+  /** Visual variant for the CTA. */
+  ctaVariant?: PricingCtaVariant
+  /** When provided, the CTA renders as an `<a>` tag. */
+  ctaHref?: string
+  /** Highlights the card with a primary ring. */
+  featured?: boolean
+}
+
+const {
+  badge,
+  name,
+  price,
+  period,
+  description,
+  features,
+  cta,
+  ctaVariant = 'default',
+  ctaHref,
+  featured = false,
+  class: className,
+  ...rest
+} = Astro.props
+
+const { ariaProps, dataAttributes } = createPricingCard({ featured })
+const ctaClass = pricingCtaVariants({ variant: ctaVariant })
+---
+
+<div
+  class={cn(pricingCardVariants({ featured: featured ? 'true' : 'false' }), className)}
+  {...ariaProps}
+  {...dataAttributes}
+  {...rest}
+>
+  {badge && <span class={pricingCardBadgeClass}>{badge}</span>}
+
+  <p class={pricingCardNameClass}>{name}</p>
+
+  <div class="mt-4 flex items-baseline gap-1">
+    <span class={pricingCardPriceClass}>{price}</span>
+    {period && <span class={pricingCardPeriodClass}>{period}</span>}
+  </div>
+
+  {description && <p class={`mt-2 ${pricingCardDescriptionClass}`}>{description}</p>}
+
+  <ul class={`mt-6 ${pricingCardFeatureListClass}`}>
+    {
+      features.map((feature) => (
+        <li class={pricingCardFeatureRowClass}>
+          <svg
+            class={pricingCardFeatureTickClass}
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 8l3.5 3.5L13 4.5"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          {feature}
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="mt-6">
+    {
+      ctaHref ? (
+        <a href={ctaHref} class={ctaClass}>
+          {cta}
+        </a>
+      ) : (
+        <button type="button" class={ctaClass}>
+          {cta}
+        </button>
+      )
+    }
+  </div>
+</div>
