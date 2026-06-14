@@ -32,7 +32,7 @@ jobs:
           path: .turbo
           key: turbo-${{ runner.os }}-${{ github.job }}-${{ github.sha }}
           restore-keys: |
-            turbo-${{ runner.os }}-${{ github.job }}-
+            turbo-${{ runner.os }}-
       - name: Install dependencies
         run: make install
       - name: Run CI for React
@@ -64,7 +64,7 @@ jobs:
           path: .turbo
           key: turbo-${{ runner.os }}-${{ github.job }}-${{ github.sha }}
           restore-keys: |
-            turbo-${{ runner.os }}-${{ github.job }}-
+            turbo-${{ runner.os }}-
       - name: Install dependencies
         run: make install
       - name: Run CI for Astro
@@ -110,7 +110,7 @@ jobs:
           path: .turbo
           key: turbo-${{ runner.os }}-${{ github.job }}-${{ github.sha }}
           restore-keys: |
-            turbo-${{ runner.os }}-${{ github.job }}-
+            turbo-${{ runner.os }}-
       - name: Install dependencies
         run: make install
       - name: Build packages
@@ -141,7 +141,7 @@ jobs:
           path: .turbo
           key: turbo-${{ runner.os }}-${{ github.job }}-${{ github.sha }}
           restore-keys: |
-            turbo-${{ runner.os }}-${{ github.job }}-
+            turbo-${{ runner.os }}-
       - name: Install dependencies
         run: make install
       - name: Build for performance testing

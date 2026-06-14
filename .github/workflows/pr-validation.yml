@@ -87,7 +87,7 @@ jobs:
           path: .turbo
           key: turbo-${{ runner.os }}-validation-${{ github.sha }}
           restore-keys: |
-            turbo-${{ runner.os }}-validation-
+            turbo-${{ runner.os }}-
       - run: make install
       - name: Run CI
         run: make ci
