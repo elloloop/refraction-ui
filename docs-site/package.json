@@ -124,6 +124,8 @@
     "@refraction-ui/react-video-grid": "workspace:*",
     "@refraction-ui/react-video-player": "workspace:*",
     "@refraction-ui/react-video-tile": "workspace:*",
+    "@refraction-ui/react-voice-pill": "workspace:*",
+    "@refraction-ui/react-waveform": "workspace:*",
     "@refraction-ui/react-wizard": "workspace:*",
     "@refraction-ui/tailwind-config": "workspace:*",
     "next": "15.5.18",

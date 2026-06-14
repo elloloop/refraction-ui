@@ -1,12 +1,23 @@
 import Component from './StatusIndicator.astro'
 
-// Auto-generated baseline story. Renders the component with empty args;
-// components that require props show a render error (enrich by hand as needed).
 const meta = {
   title: 'Astro/StatusIndicator',
   component: Component,
+  argTypes: {
+    type: { control: 'text' },
+    label: { control: 'text' },
+    pulse: { control: 'boolean' },
+    showLabel: { control: 'boolean' },
+  },
 }
 
 export default meta
 
-export const Default = { args: {} }
+export const Default = {
+  args: {
+    type: '',
+    label: '',
+    pulse: false,
+    showLabel: false,
+  },
+}

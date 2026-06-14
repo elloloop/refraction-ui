@@ -1,7 +1,30 @@
-import { CodeEditorExamples } from './examples'
+import type { Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
+import { CodeEditor } from '@refraction-ui/react-code-editor'
 
-// Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/CodeEditor' }
+const meta: Meta<typeof CodeEditor> = {
+  title: 'Components/CodeEditor',
+  component: CodeEditor,
+  argTypes: {
+    language: { control: 'text' },
+  },
+  args: {
+    language: 'javascript',
+  },
+}
 export default meta
 
-export const Basic = { render: () => <CodeEditorExamples section="basic" /> }
+type Story = StoryObj<typeof CodeEditor>
+
+const CodeEditorWrapper = (args: any) => {
+  const [code, setCode] = useState('function hello() {\n  console.log("Hello, World!")\n}')
+  return <CodeEditor {...args} value={code} onChange={setCode} />
+}
+
+export const Basic: Story = {
+  render: (args) => (
+    <div className="max-w-lg">
+      <CodeEditorWrapper {...args} />
+    </div>
+  ),
+}

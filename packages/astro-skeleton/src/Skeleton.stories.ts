@@ -1,12 +1,23 @@
 import Component from './Skeleton.astro'
 
-// Auto-generated baseline story. Renders the component with empty args;
-// components that require props show a render error (enrich by hand as needed).
 const meta = {
   title: 'Astro/Skeleton',
   component: Component,
+  argTypes: {
+    shape: { control: 'text' },
+    width: { control: 'number' },
+    height: { control: 'number' },
+    animate: { control: 'boolean' },
+  },
 }
 
 export default meta
 
-export const Default = { args: {} }
+export const Default = {
+  args: {
+    shape: '',
+    width: 0,
+    height: 0,
+    animate: false,
+  },
+}

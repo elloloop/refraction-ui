@@ -1,7 +1,32 @@
-import { BottomNavExamples } from './examples'
+import type { Meta, StoryObj } from '@storybook/react'
+import { BottomNav } from '@refraction-ui/react-bottom-nav'
 
-// Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/BottomNav' }
+const meta: Meta<typeof BottomNav> = {
+  title: 'Components/BottomNav',
+  component: BottomNav,
+  argTypes: {
+    currentPath: { control: 'text' },
+  },
+}
 export default meta
+type Story = StoryObj<typeof BottomNav>
 
-export const Basic = { render: () => <BottomNavExamples section="basic" /> }
+export const Default: Story = {
+  args: {
+    currentPath: '/',
+    tabs: [
+      { label: 'Home', href: '/' },
+      { label: 'Search', href: '/search' },
+      { label: 'Profile', href: '/profile' },
+      { label: 'Settings', href: '/settings' },
+    ],
+  },
+  render: (args) => (
+    <div className="max-w-sm mx-auto rounded-lg border overflow-hidden relative">
+      <div className="h-32 flex items-center justify-center text-sm text-muted-foreground bg-card">
+        Page Content
+      </div>
+      <BottomNav {...args} className="relative" />
+    </div>
+  )
+}

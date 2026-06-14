@@ -1,9 +1,55 @@
-import { InputExamples } from './examples'
+import type { Meta, StoryObj } from '@storybook/react'
+import { Input } from '@refraction-ui/react-input'
 
-// Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/Input' }
+const meta: Meta<typeof Input> = {
+  title: 'Components/Input',
+  component: Input,
+  parameters: {
+    layout: 'centered',
+  },
+  args: {
+    type: 'text',
+    placeholder: 'Enter text',
+    disabled: false,
+    readOnly: false,
+    required: false,
+    size: 'default',
+  },
+  argTypes: {
+    type: { 
+      control: 'select',
+      options: ['text', 'email', 'password', 'number', 'search', 'url', 'tel'] 
+    },
+    size: {
+      control: 'select',
+      options: ['sm', 'default', 'lg']
+    },
+    disabled: { control: 'boolean' },
+    readOnly: { control: 'boolean' },
+    required: { control: 'boolean' },
+    placeholder: { control: 'text' },
+  },
+}
+
 export default meta
+type Story = StoryObj<typeof meta>
 
-export const Sizes = { render: () => <InputExamples section="sizes" /> }
-export const Types = { render: () => <InputExamples section="types" /> }
-export const States = { render: () => <InputExamples section="states" /> }
+export const Default: Story = {
+  render: (args) => (
+    <div className="w-80">
+      <Input {...args} />
+    </div>
+  ),
+}
+
+export const Invalid: Story = {
+  render: (args) => (
+    <div className="w-80 space-y-2">
+      <Input {...args} aria-invalid={true} />
+      <p className="text-xs text-destructive/80">This field has a validation error.</p>
+    </div>
+  ),
+  args: {
+    placeholder: 'Invalid input',
+  }
+}

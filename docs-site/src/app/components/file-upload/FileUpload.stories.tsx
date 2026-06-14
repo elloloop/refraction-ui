@@ -1,7 +1,32 @@
-import { FileUploadExamples } from './examples'
+import type { Meta, StoryObj } from '@storybook/react'
+import { FileUpload } from '@refraction-ui/react-file-upload'
 
-// Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/FileUpload' }
+const meta: Meta<typeof FileUpload> = {
+  title: 'Components/FileUpload',
+  component: FileUpload,
+  parameters: {
+    layout: 'centered',
+  },
+  args: {
+    accept: 'image/*,.pdf',
+    maxFiles: 5,
+    maxSize: 10 * 1024 * 1024,
+  },
+  argTypes: {
+    onFilesChange: { action: 'files changed' },
+    accept: { control: 'text' },
+    maxFiles: { control: 'number' },
+    maxSize: { control: 'number' },
+  },
+}
+
 export default meta
+type Story = StoryObj<typeof meta>
 
-export const Basic = { render: () => <FileUploadExamples section="basic" /> }
+export const Default: Story = {
+  render: (args) => (
+    <div className="max-w-md w-full">
+      <FileUpload {...args} />
+    </div>
+  ),
+}

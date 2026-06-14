@@ -1,7 +1,28 @@
-import { FeedbackDialogExamples } from './examples'
+import type { Meta, StoryObj } from '@storybook/react'
+import { FeedbackDialog, FeedbackButton } from '@refraction-ui/react-feedback-dialog'
 
-// Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/FeedbackDialog' }
+const meta: Meta<typeof FeedbackDialog> = {
+  title: 'Components/FeedbackDialog',
+  component: FeedbackDialog,
+  parameters: {
+    layout: 'centered',
+  },
+  args: {
+  },
+  argTypes: {
+    onSubmit: { action: 'submitted' },
+  },
+}
+
 export default meta
+type Story = StoryObj<typeof meta>
 
-export const Basic = { render: () => <FeedbackDialogExamples section="basic" /> }
+export const Default: Story = {
+  render: (args) => (
+    <FeedbackDialog {...args}>
+      <FeedbackButton className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90">
+        Send Feedback
+      </FeedbackButton>
+    </FeedbackDialog>
+  ),
+}

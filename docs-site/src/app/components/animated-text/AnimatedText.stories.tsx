@@ -1,7 +1,24 @@
-import { AnimatedTextExamples } from './examples'
+import type { Meta, StoryObj } from '@storybook/react'
+import { AnimatedText, TypewriterText } from '@refraction-ui/react-animated-text'
 
-// Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/AnimatedText' }
+const meta: Meta<typeof AnimatedText> = {
+  title: 'Components/AnimatedText',
+  component: AnimatedText,
+}
 export default meta
 
-export const Basic = { render: () => <AnimatedTextExamples section="basic" /> }
+export const Default: StoryObj<typeof AnimatedText> = {
+  args: {
+    words: ['innovative', 'beautiful', 'accessible', 'fast'],
+    className: 'text-2xl font-bold',
+  },
+  render: (args) => <AnimatedText {...args} />
+}
+
+export const Typewriter: StoryObj<typeof TypewriterText> = {
+  args: {
+    text: 'Hello, welcome to Refraction UI!',
+    className: 'text-lg',
+  },
+  render: (args) => <TypewriterText {...args} />
+}

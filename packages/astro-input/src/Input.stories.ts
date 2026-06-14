@@ -1,7 +1,5 @@
 import Component from './Input.astro'
 
-// Auto-generated baseline story. Renders the component with empty args;
-// components that require props show a render error (enrich by hand as needed).
 const meta = {
   title: 'Astro/Input',
   component: Component,
@@ -9,4 +7,14 @@ const meta = {
 
 export default meta
 
-export const Default = { args: {} }
+export const Default = {
+  args: {
+    type: 'Example type',
+    size: 'default',
+    disabled: false,
+    readonly: false,
+    required: false,
+    'aria-invalid': false,
+    validationState: undefined
+  }
+}

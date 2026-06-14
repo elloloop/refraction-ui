@@ -1,15 +1,31 @@
-import { ButtonExamples } from './examples'
+import type { Meta, StoryObj } from '@storybook/react'
+import { Button } from '@refraction-ui/react-button'
 
-// Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/Button' }
+const meta: Meta<typeof Button> = {
+  title: 'Components/Button',
+  component: Button,
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['default', 'primary', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
+    },
+    size: {
+      control: 'select',
+      options: ['default', 'sm', 'lg', 'icon', 'xs'],
+    },
+    disabled: { control: 'boolean' },
+    loading: { control: 'boolean' },
+    children: { control: 'text' },
+  },
+}
 export default meta
+type Story = StoryObj<typeof Button>
 
-export const Variants = { render: () => <ButtonExamples section="variants" /> }
-export const Sizes = { render: () => <ButtonExamples section="sizes" /> }
-export const States = { render: () => <ButtonExamples section="states" /> }
-
-// Issue #201 — `primary` is an alias of `default`. Side-by-side proves both
-// render identically; the alias exists so ecosystem muscle-memory works.
-export const PrimaryAlias = {
-  render: () => <ButtonExamples section="primary-alias" />,
+export const Default: Story = {
+  args: {
+    variant: 'default',
+    size: 'default',
+    children: 'Save',
+  },
+  render: (args) => <Button {...args} />
 }

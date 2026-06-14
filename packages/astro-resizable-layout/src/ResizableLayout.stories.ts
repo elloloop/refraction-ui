@@ -1,12 +1,35 @@
 import Component from './ResizableLayout.astro'
 
-// Auto-generated baseline story. Renders the component with empty args;
-// components that require props show a render error (enrich by hand as needed).
 const meta = {
   title: 'Astro/ResizableLayout',
   component: Component,
+  argTypes: {
+    orientation: { control: 'text' },
+    defaultSizes: { control: 'number' },
+    minSizes: { control: 'number' },
+    maxSizes: { control: 'number' },
+    persistKey: { control: 'text' },
+    default: { control: 'text' },
+  },
 }
 
 export default meta
 
-export const Default = { args: {} }
+export const Default = {
+  args: {
+    orientation: '',
+    defaultSizes: 0,
+    minSizes: 0,
+    maxSizes: 0,
+    persistKey: '',
+    default: '<span>default content</span>',
+  },
+  render: (args: any) => {
+    const { default: defaultSlot, ...props } = args;
+    return {
+      Component,
+      props,
+      slots: { default: defaultSlot },
+    };
+  },
+}

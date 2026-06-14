@@ -1,7 +1,26 @@
-import { CalendarExamples } from './examples'
+import type { Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
+import { Calendar } from '@refraction-ui/react-calendar'
 
-// Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/Calendar' }
+const meta: Meta<typeof Calendar> = {
+  title: 'Components/Calendar',
+  component: Calendar,
+}
 export default meta
+type Story = StoryObj<typeof Calendar>
 
-export const Basic = { render: () => <CalendarExamples section="basic" /> }
+export const Default: Story = {
+  render: (args) => {
+    const [selected, setSelected] = useState<Date | undefined>(undefined)
+    return (
+      <div className="space-y-4">
+        <Calendar {...args} value={selected} onSelect={setSelected} />
+        {selected && (
+          <p className="text-sm text-muted-foreground mt-2">
+            Selected: {selected.toLocaleDateString()}
+          </p>
+        )}
+      </div>
+    )
+  }
+}
