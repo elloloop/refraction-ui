@@ -56,8 +56,41 @@ core. The same component behaves the same in React, Astro, or Flutter.
 6. Add a changeset bumping the affected metas; land it and merge the Version PR
    to publish.
 
+## Build conventions (read before authoring a component)
+
+`CLAUDE.md` → **"Component build playbook"** has the exact, hard-won rules. The
+ones that bite every time:
+
+- Headless core is JSX-free (logic + `cva` styles). `cva` variant values are
+  **strings**; `defaultVariants` use `'false'`/`'true'`, never booleans.
+- React props extending `HTMLAttributes` must **`Omit`** colliding DOM names
+  (`onSelect`, `results`, `color`, `content`, `title`, `defaultValue`,
+  `onChange`).
+- Spread the core's ARIA object directly (`{...api.ariaProps}`), typed
+  `Record<string, string | number | boolean>` — no `as AriaAttributes` cast.
+- In SSR, render composed strings as a single template literal (`{`${a} ${b}`}`),
+  not adjacent `{a} {b}`.
+- No `Math.random()`/`Date.now()` in cores.
+- React adapter tests are SSR `renderToString` (no jsdom) — they assert
+  structure/ARIA, **not** interaction or visuals. Don't claim coverage you didn't
+  write; add jsdom/Playwright when interaction is the point.
+- Build via `turbo` (respects the dep graph); add the new
+  `@refraction-ui/react-<feature>` to `docs-site/package.json` deps.
+
+## Releasing & CI (read before merging)
+
+Publishing is CI-only (Changesets → Version PR → OIDC). Key gating facts in
+`CLAUDE.md` → "CI gating facts": only `commit-lint` is required; the
+`validation`/`dependencies` **audit** step fails on a pre-existing esbuild
+advisory and does **not** gate publishing (but confirm the validation **"Run CI"**
+step is green); the `Release` workflow fires on **Test Matrix** success on `main`,
+then a `chore: release packages` Version PR must be merged to publish. Flutter
+publishes to pub.dev via the `flutter-publish` tag (golden tests excluded from
+the gate).
+
 ## Before pushing
 
 Run `make ci` (lint + typecheck + test + build). Use `stax` for git/dev
 workflow, not raw `git`/`gh` (issue/PR skills excepted). See `CLAUDE.md` for the
-full hard rules, the exact publishing flow, and code-quality expectations.
+full hard rules, the build playbook, the exact publishing flow, and
+code-quality expectations.
