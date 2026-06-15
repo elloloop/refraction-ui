@@ -72,6 +72,42 @@ const components = [
   { name: 'Install Prompt', href: '/components/install-prompt', description: 'PWA install banner with install and dismiss actions.', category: 'Other' },
   { name: 'Content Protection', href: '/components/content-protection', description: 'Watermark overlay and copy/right-click protection.', category: 'Other' },
   { name: 'Device Frame', href: '/components/device-frame', description: 'iPhone, iPad, and device mockup frames for screenshots.', category: 'Other' },
+
+  { name: 'Section Head', href: '/components/section-head', description: 'Section header with title, subtitle, and action buttons.', category: 'Layout' },
+  { name: 'Stat Grid', href: '/components/stat-grid', description: 'Grid display for key metrics, growth rates, and trends.', category: 'Data' },
+  { name: 'Numbered Steps', href: '/components/numbered-steps', description: 'Sequential guide list with status indicators.', category: 'Layout' },
+  { name: 'Pricing Card', href: '/components/pricing-card', description: 'Feature lists and tier details for subscriptions.', category: 'Other' },
+  { name: 'Brand Network Cell', href: '/components/brand-network-cell', description: 'Interactive network node displaying brand metrics.', category: 'Other' },
+  { name: 'Marquee Strip', href: '/components/marquee-strip', description: 'Auto-scrolling banner for brand logos or notices.', category: 'Media' },
+  { name: 'Browser Chrome Mock', href: '/components/browser-chrome-mock', description: 'Mock browser shell for displaying web previews.', category: 'Other' },
+  { name: 'Mastery Bar', href: '/components/mastery-bar', description: 'Progress bar indicating skill or completeness levels.', category: 'Data' },
+  { name: 'Audience Feature Card', href: '/components/audience-feature-card', description: 'Descriptive card highlighting target audiences.', category: 'Layout' },
+  { name: 'Sortable List', href: '/components/sortable-list', description: 'Drag-and-drop sortable list of items.', category: 'Workplace' },
+  { name: 'Kanban Board', href: '/components/kanban-board', description: 'Board with columns for task status management.', category: 'Workplace' },
+  { name: 'Slot Picker', href: '/components/slot-picker', description: 'Time/date slot selection grid.', category: 'Forms' },
+  { name: 'Editor Tabs', href: '/components/editor-tabs', description: 'IDE-style horizontal file/tab navigation bar.', category: 'Core UI' },
+  { name: 'Editor Status Bar', href: '/components/editor-status-bar', description: 'Horizontal bottom bar displaying status information.', category: 'Layout' },
+  { name: 'Terminal', href: '/components/terminal', description: 'Mock interactive command line terminal.', category: 'Workplace' },
+  { name: 'Test Results', href: '/components/test-results', description: 'Visual representation of unit test suite executions.', category: 'Data' },
+  { name: 'Video Tile', href: '/components/video-tile', description: 'Call participant video tile with status overlays.', category: 'Media' },
+  { name: 'Video Grid', href: '/components/video-grid', description: 'Grid container for multiple video tiles.', category: 'Media' },
+  { name: 'Call Controls', href: '/components/call-controls', description: 'Actions bar for managing audio, video, and screenshare.', category: 'Media' },
+  { name: 'Live Captions', href: '/components/live-captions', description: 'Real-time speech-to-text subtitle overlay.', category: 'Media' },
+  { name: 'Live Transcript', href: '/components/live-transcript', description: 'Full conversation transcription list with search.', category: 'Media' },
+  { name: 'Audio Room', href: '/components/audio-room', description: 'Voice chat channel grid with speaker focus states.', category: 'Media' },
+  { name: 'Floating Reactions', href: '/components/floating-reactions', description: 'Floating emoji reaction overlays.', category: 'Media' },
+  { name: 'Pre Call Lobby', href: '/components/pre-call-lobby', description: 'Device setup and test screen before joining calls.', category: 'Media' },
+  { name: 'Infinite Canvas', href: '/components/infinite-canvas', description: 'Zoomable, pannable layout for diagramming.', category: 'Workplace' },
+  { name: 'Sticky Note', href: '/components/sticky-note', description: 'Interactive canvas sticky note with customizable colors.', category: 'Workplace' },
+  { name: 'Flow Editor', href: '/components/flow-editor', description: 'Interactive node-based flowchart editor.', category: 'Workplace' },
+  { name: 'Graph View', href: '/components/graph-view', description: 'Interactive visualization of relational graphs.', category: 'Workplace' },
+  { name: 'Live Cursors', href: '/components/live-cursors', description: 'Real-time collaborative cursor indicator overlays.', category: 'Workplace' },
+  { name: 'Mini Map', href: '/components/mini-map', description: 'Overview map overlay for infinite canvas navigation.', category: 'Workplace' },
+  { name: 'Rating Scale', href: '/components/rating-scale', description: 'Visual rating input with customizable range.', category: 'Forms' },
+  { name: 'Wizard', href: '/components/wizard', description: 'Multi-step form wizard with progress indicators.', category: 'Forms' },
+  { name: 'Radial Gauge', href: '/components/radial-gauge', description: 'Circular dial gauge for displaying percentage values.', category: 'Data' },
+  { name: 'Timeline', href: '/components/timeline', description: 'Vertical sequence flow displaying chronological events.', category: 'Data' },
+  { name: 'Checklist', href: '/components/checklist', description: 'To-do list with interactive check states.', category: 'Forms' },
 ]
 
 const categories = ['All', 'Core UI', 'Layout', 'Data', 'Forms', 'Media', 'AI', 'Workplace', 'Telemetry', 'Other']
@@ -116,7 +152,7 @@ export default function ComponentsPage() {
       <div>
         <h1 className="text-4xl font-bold tracking-tight text-foreground">Components</h1>
         <p className="mt-3 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-          51 production-ready components, each with live examples, copy-paste code, and a complete props reference.
+          {components.length} production-ready components, each with live examples, copy-paste code, and a complete props reference.
         </p>
       </div>
 
