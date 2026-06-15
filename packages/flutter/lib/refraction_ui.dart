@@ -134,3 +134,49 @@ export 'src/components/password_input.dart';
 export 'src/components/social_auth_button.dart';
 export 'src/components/separator.dart';
 export 'src/components/empty_state.dart';
+
+// Marketing & Landing components
+export 'src/components/section_head.dart';
+export 'src/components/stat_grid.dart';
+export 'src/components/numbered_steps.dart';
+export 'src/components/pricing_card.dart';
+export 'src/components/brand_network_cell.dart';
+export 'src/components/marquee_strip.dart';
+export 'src/components/browser_chrome_mock.dart';
+export 'src/components/mastery_bar.dart';
+export 'src/components/audience_feature_card.dart';
+
+// Loopwyse Pipeline & IDE Chrome components
+export 'src/components/sortable_list.dart';
+export 'src/components/kanban_board.dart';
+export 'src/components/slot_picker.dart';
+export 'src/components/editor_tabs.dart';
+export 'src/components/editor_status_bar.dart';
+export 'src/components/terminal.dart';
+export 'src/components/test_results.dart';
+
+// Video Conferencing & Media components
+export 'src/components/video_tile.dart';
+export 'src/components/video_grid.dart';
+export 'src/components/call_controls.dart';
+export 'src/components/live_captions.dart';
+export 'src/components/live_transcript.dart';
+export 'src/components/audio_room.dart';
+export 'src/components/floating_reactions.dart';
+export 'src/components/pre_call_lobby.dart';
+
+// Canvas & Diagramming components
+export 'src/components/infinite_canvas.dart';
+export 'src/components/sticky_note.dart';
+export 'src/components/flow_editor.dart';
+export 'src/components/graph_view.dart';
+export 'src/components/live_cursors.dart';
+export 'src/components/mini_map.dart';
+
+// Forms, Assessment & Misc components
+export 'src/components/rating_scale.dart';
+export 'src/components/wizard.dart';
+export 'src/components/radial_gauge.dart';
+export 'src/components/timeline.dart';
+export 'src/components/checklist.dart';
+
