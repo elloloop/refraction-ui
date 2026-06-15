@@ -23,13 +23,5 @@ export const Default = {
     maxSizes: 0,
     persistKey: '',
     default: '<span>default content</span>',
-  },
-  render: (args: any) => {
-    const { default: defaultSlot, ...props } = args;
-    return {
-      Component,
-      props,
-      slots: { default: defaultSlot },
-    };
-  },
+  }
 }

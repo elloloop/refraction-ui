@@ -1,0 +1,186 @@
+<!DOCTYPE html><!--9BIvCsfmJebGg0ImnI5fK--><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" as="image" href="/assets/people/eu/eu-3-portrait.jpg"/><link rel="preload" as="image" href="/assets/people/af/af-4-portrait.jpg"/><link rel="preload" as="image" href="/assets/people/sa/sa-3-portrait.jpg"/><link rel="stylesheet" href="/refraction-ui/flutter/_next/static/css/bb68b3f5a6d547ce.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/refraction-ui/flutter/_next/static/chunks/webpack-2b6d3913b5857979.js"/><script src="/refraction-ui/flutter/_next/static/chunks/ca1c6e5d-c353f23f2fe3e5c5.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/3515-e36b53fe67450b8c.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/main-app-f90ae1dfbc2f8972.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/1766-7b3651ce612bd2cd.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/4727-e44feae3daf35ab4.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/2828-60d715c248770acf.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/app/layout-16d2ceb7341fb116.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/7608-14958479e63d592b.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/app/examples/teamspace/page-f45e62604fcbb30f.js" async=""></script><title>Refraction UI - Component Documentation</title><meta name="description" content="Per-component headless UI library for React and Astro"/><script>
+              (function() {
+                try {
+                  var mode = localStorage.getItem('rfr-theme');
+                  if (mode === 'dark' || (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            </script><script src="/refraction-ui/flutter/_next/static/chunks/polyfills-42372ed130431b0a.js" noModule=""></script></head><body class="font-sans antialiased"><div hidden=""><!--$--><!--/$--></div><div class="flex min-h-screen"><div class="min-h-screen w-full flex-1"><div class="min-h-screen bg-background text-foreground"><nav class="border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-40"><div class="mx-auto max-w-6xl flex items-center justify-between px-6 py-4"><div class="flex items-center gap-2"><div class="h-8 w-8 rounded-[var(--radius)] bg-primary flex items-center justify-center"><svg class="h-5 w-5 text-primary-foreground" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5"></path></svg></div><span class="text-xl font-bold text-foreground"><div class="flex items-center gap-2 text-foreground"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-auto"><circle cx="9" cy="12" r="5"></circle><circle cx="15" cy="12" r="5"></circle></svg><span class="font-medium tracking-tight text-lg leading-none">teamspace</span></div></span></div><div class="hidden md:flex items-center gap-8 text-sm text-muted-foreground"><span class="hover:text-foreground cursor-pointer transition-colors">Product</span><span class="hover:text-foreground cursor-pointer transition-colors">Solutions</span><span class="hover:text-foreground cursor-pointer transition-colors">Pricing</span><span class="hover:text-foreground cursor-pointer transition-colors">Resources</span></div><div class="flex items-center gap-3"><a class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors" href="/refraction-ui/flutter/examples/teamspace/app/">Sign in</a><a class="rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity" href="/refraction-ui/flutter/examples/teamspace/app/">Get Started Free</a></div></div></nav><section class="mx-auto max-w-6xl px-6 pt-24 pb-20 text-center"><h1 class="text-5xl md:text-7xl font-bold tracking-tight text-foreground leading-tight">Where teams<span class="text-gradient bg-gradient-to-r from-primary to-primary/60 block">come together</span></h1><p class="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">Teamspace brings your team together with channels, messages, and integrations that make work simpler, more pleasant, and more productive.</p><div class="mt-10 flex items-center justify-center gap-4 flex-wrap"><a class="rounded-[var(--button-radius)] bg-primary px-8 py-3 text-base font-semibold text-primary-foreground hover:opacity-90 transition-opacity shadow-lg shadow-primary/20" href="/refraction-ui/flutter/examples/teamspace/app/">Get Started Free</a><a class="rounded-[var(--button-radius)] border border-border bg-card px-8 py-3 text-base font-semibold text-foreground hover:bg-muted transition-colors" href="/refraction-ui/flutter/examples/teamspace/app/">See Demo</a></div></section><section class="mx-auto max-w-5xl px-6 pb-20"><div class="rounded-[var(--card-radius)] border border-border bg-card shadow-xl overflow-hidden"><div class="border-b border-border bg-muted/30 px-4 py-2.5 flex items-center gap-2"><div class="flex gap-1.5"><div class="h-3 w-3 rounded-full bg-destructive/60"></div><div class="h-3 w-3 rounded-full bg-warning/60"></div><div class="h-3 w-3 rounded-full bg-success/60"></div></div></div><div class="flex h-64 md:h-80"><div class="w-16 md:w-56 bg-[hsl(var(--sidebar-background))] shrink-0 p-3"><div class="space-y-1.5"><div class="text-xs md:text-sm text-white/60 px-2 py-1 rounded truncate"># general</div><div class="text-xs md:text-sm text-white/60 px-2 py-1 rounded truncate"># engineering</div><div class="text-xs md:text-sm text-white/60 px-2 py-1 rounded truncate"># random</div><div class="text-xs md:text-sm text-white/60 px-2 py-1 rounded truncate"># design</div></div></div><div class="flex-1 p-4 space-y-3"><div class="flex items-start gap-3"><div class="h-8 w-8 rounded-[var(--radius)] bg-muted shrink-0 overflow-hidden"><img src="/assets/people/eu/eu-3-portrait.jpg" alt="Sarah K." class="w-full h-full object-cover"/></div><div><span class="text-sm font-semibold text-foreground">Sarah K.</span><p class="text-sm text-muted-foreground">Just deployed the new API endpoint!</p></div></div><div class="flex items-start gap-3"><div class="h-8 w-8 rounded-[var(--radius)] bg-muted shrink-0 overflow-hidden"><img src="/assets/people/af/af-4-portrait.jpg" alt="Mike R." class="w-full h-full object-cover"/></div><div><span class="text-sm font-semibold text-foreground">Mike R.</span><p class="text-sm text-muted-foreground">Nice! The tests are all passing.</p></div></div><div class="flex items-start gap-3"><div class="h-8 w-8 rounded-[var(--radius)] bg-muted shrink-0 overflow-hidden"><img src="/assets/people/sa/sa-3-portrait.jpg" alt="Lisa M." class="w-full h-full object-cover"/></div><div><span class="text-sm font-semibold text-foreground">Lisa M.</span><p class="text-sm text-muted-foreground">Can we review the PR before EOD?</p></div></div></div></div></div></section><section class="bg-muted/30 py-20"><div class="mx-auto max-w-6xl px-6"><h2 class="text-3xl font-bold text-center text-foreground mb-4">Everything your team needs</h2><p class="text-center text-muted-foreground mb-12 max-w-xl mx-auto">From quick messages to complex workflows, Teamspace has the tools to keep your team moving.</p><div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"><div class="rounded-[var(--card-radius)] border border-border bg-card p-6 hover:shadow-md transition-shadow"><div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] bg-primary/10 text-primary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5"></path></svg></div><h3 class="text-base font-semibold text-foreground mb-2">Channels</h3><p class="text-sm text-muted-foreground leading-relaxed">Organize conversations by topic, project, or team. Keep everything searchable.</p></div><div class="rounded-[var(--card-radius)] border border-border bg-card p-6 hover:shadow-md transition-shadow"><div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] bg-primary/10 text-primary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"></path></svg></div><h3 class="text-base font-semibold text-foreground mb-2">Direct Messages</h3><p class="text-sm text-muted-foreground leading-relaxed">Private conversations with teammates. Share files, code, and ideas one-on-one.</p></div><div class="rounded-[var(--card-radius)] border border-border bg-card p-6 hover:shadow-md transition-shadow"><div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] bg-primary/10 text-primary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 0 1-.657.643 48.39 48.39 0 0 1-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 0 1-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 0 0-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 0 1-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 0 0 .657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 0 1-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 0 0 5.427-.63 48.05 48.05 0 0 0 .582-4.717.532.532 0 0 0-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 0 0 .658-.663 48.422 48.422 0 0 0-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 0 1-.61-.58v0Z"></path></svg></div><h3 class="text-base font-semibold text-foreground mb-2">Integrations</h3><p class="text-sm text-muted-foreground leading-relaxed">Connect your favorite tools: project trackers, file storage, code repos, and 2,400+ more apps.</p></div><div class="rounded-[var(--card-radius)] border border-border bg-card p-6 hover:shadow-md transition-shadow"><div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius)] bg-primary/10 text-primary"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"></path></svg></div><h3 class="text-base font-semibold text-foreground mb-2">Search</h3><p class="text-sm text-muted-foreground leading-relaxed">Find any message, file, or conversation instantly across your entire workspace.</p></div></div></div></section><section class="py-20"><div class="mx-auto max-w-6xl px-6 text-center"><p class="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">Trusted worldwide</p><p class="text-4xl font-bold text-foreground mb-6">750,000+ companies</p><p class="text-muted-foreground max-w-lg mx-auto">From startups to Fortune 100, teams of every size rely on Teamspace to stay connected and productive.</p><div class="mt-10 flex items-center justify-center gap-8 flex-wrap"><span class="text-lg font-semibold text-muted-foreground/50">Acme Corp</span><span class="text-lg font-semibold text-muted-foreground/50">Globex</span><span class="text-lg font-semibold text-muted-foreground/50">Initech</span><span class="text-lg font-semibold text-muted-foreground/50">Solaris</span><span class="text-lg font-semibold text-muted-foreground/50">Apex Digital</span></div></div></section><footer class="border-t border-border bg-muted/20 py-12"><div class="mx-auto max-w-6xl px-6"><div class="grid gap-8 sm:grid-cols-4"><div><h4 class="font-semibold text-foreground mb-3">Product</h4><div class="space-y-2 text-sm text-muted-foreground"><p class="hover:text-foreground cursor-pointer transition-colors">Features</p><p class="hover:text-foreground cursor-pointer transition-colors">Channels</p><p class="hover:text-foreground cursor-pointer transition-colors">Integrations</p><p class="hover:text-foreground cursor-pointer transition-colors">Security</p></div></div><div><h4 class="font-semibold text-foreground mb-3">Solutions</h4><div class="space-y-2 text-sm text-muted-foreground"><p class="hover:text-foreground cursor-pointer transition-colors">Engineering</p><p class="hover:text-foreground cursor-pointer transition-colors">Sales</p><p class="hover:text-foreground cursor-pointer transition-colors">Marketing</p><p class="hover:text-foreground cursor-pointer transition-colors">Support</p></div></div><div><h4 class="font-semibold text-foreground mb-3">Resources</h4><div class="space-y-2 text-sm text-muted-foreground"><p class="hover:text-foreground cursor-pointer transition-colors">Blog</p><p class="hover:text-foreground cursor-pointer transition-colors">Developers</p><p class="hover:text-foreground cursor-pointer transition-colors">Community</p><p class="hover:text-foreground cursor-pointer transition-colors">Events</p></div></div><div><h4 class="font-semibold text-foreground mb-3">Company</h4><div class="space-y-2 text-sm text-muted-foreground"><p class="hover:text-foreground cursor-pointer transition-colors">About</p><p class="hover:text-foreground cursor-pointer transition-colors">Careers</p><p class="hover:text-foreground cursor-pointer transition-colors">Press</p><a class="hover:text-foreground transition-colors block" href="/refraction-ui/flutter/examples/">All Examples</a></div></div></div><div class="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">Built with refraction-ui. Themed by CSS variables only.</div></div></footer><button class="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-lg hover:opacity-90 transition-opacity"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402M6.75 21A3.75 3.75 0 0 1 3 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z"></path></svg>Edit Theme</button><div class="fixed inset-0 z-[100] bg-black/40 transition-opacity duration-300 opacity-0 pointer-events-none"></div><div class="fixed top-0 right-0 z-[101] h-full w-[400px] max-w-[90vw] bg-card border-l border-border shadow-xl flex flex-col transition-transform duration-300 ease-in-out translate-x-full"><div class="flex items-center justify-between border-b border-border px-5 py-4 shrink-0"><h2 class="text-base font-semibold text-foreground">Theme Config</h2><button class="rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path></svg></button></div><div class="flex-1 overflow-auto p-5"><p class="text-sm text-muted-foreground mb-4">Edit the CSS custom properties below and click <strong>Apply</strong> to see changes live. Copy the config to use in your own project.</p><textarea spellCheck="false" class="w-full h-[calc(100%-3rem)] min-h-[400px] rounded-md border border-input bg-muted/50 p-4 text-xs font-mono text-foreground leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-ring">:root {
+  /* Colors — deep blue */
+  --background: 0 0% 100%;
+  --foreground: 213 13% 16%;
+  --card: 0 0% 100%;
+  --card-foreground: 213 13% 16%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 213 13% 16%;
+  --primary: 220 72% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 5% 96%;
+  --secondary-foreground: 213 13% 40%;
+  --accent: 220 40% 95%;
+  --accent-foreground: 220 72% 35%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 9% 46%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 154 64% 40%;
+  --success-foreground: 0 0% 100%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 213 13% 16%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --ring: 220 72% 50%;
+  --chart-1: 220 72% 50%;
+  --chart-2: 154 64% 40%;
+  --chart-3: 38 92% 50%;
+  --chart-4: 198 80% 45%;
+  --chart-5: 340 65% 50%;
+
+  /* Sidebar — deep navy */
+  --sidebar-background: 220 40% 18%;
+  --sidebar-foreground: 220 20% 85%;
+  --sidebar-primary: 0 0% 100%;
+  --sidebar-primary-foreground: 220 40% 18%;
+  --sidebar-accent: 220 30% 25%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-border: 220 25% 25%;
+  --sidebar-ring: 220 72% 50%;
+
+  /* Typography */
+  --font-sans: &#x27;Lato&#x27;, system-ui, sans-serif;
+  --font-heading: &#x27;Lato&#x27;, system-ui, sans-serif;
+  --font-mono: &#x27;JetBrains Mono&#x27;, ui-monospace, monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Shadows */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --shadow-md: 0 2px 4px -1px rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.03);
+  --shadow-lg: 0 6px 10px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+  --shadow-xl: 0 12px 20px -4px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+
+  /* Glass &amp; overlay */
+  --overlay-opacity: 0.5;
+  --backdrop-blur: 8px;
+  --glass-bg: rgba(252, 252, 253, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.15);
+
+  /* Spacing &amp; density — compact */
+  --spacing-scale: 0.9;
+  --container-max-width: 1280px;
+  --container-padding: 1.5rem;
+  --card-padding: 1.25rem;
+  --input-height: 2.25rem;
+  --button-height: 2rem;
+  --section-gap: 3rem;
+
+  /* Typography tokens */
+  --letter-spacing-tighter: -0.04em;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.02em;
+  --letter-spacing-wider: 0.05em;
+  --line-height-tight: 1.3;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+  --heading-weight: 700;
+  --heading-letter-spacing: -0.02em;
+  --heading-line-height: 1.2;
+
+  /* Shape — functional, compact */
+  --radius: 0.375rem;
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+  --avatar-radius: 0.375rem;
+  --badge-radius: 9999px;
+  --button-radius: 0.375rem;
+  --input-radius: 0.375rem;
+  --card-radius: 0.5rem;
+  --tooltip-radius: 0.375rem;
+
+  /* Component shadows */
+  --card-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --dropdown-shadow: 0 6px 10px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+  --dialog-shadow: 0 12px 20px -4px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+  --button-shadow: none;
+
+  /* Borders &amp; dividers */
+  --border-width: 1px;
+  --border-style: solid;
+  --divider-style: solid;
+  --divider-opacity: 0.15;
+
+  /* Inputs */
+  --input-style: bordered;
+  --input-border-on-focus: 0;
+  --placeholder-opacity: 0.5;
+
+  /* Buttons */
+  --button-style: filled;
+  --button-weight: 500;
+  --hover-effect: darken;
+  --active-effect: scale-down;
+  --disabled-opacity: 0.5;
+
+  /* Links */
+  --link-style: color-only;
+  --link-weight: inherit;
+
+  /* Focus */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-style: ring;
+
+  /* Icons */
+  --icon-style: outlined;
+  --icon-stroke-width: 1.5;
+  --icon-size: 1.25rem;
+
+  /* Scrollbar */
+  --scrollbar-style: thin;
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(0, 0, 0, 0.15);
+
+  /* Selection */
+  --selection-background: 220 72% 50%;
+  --selection-foreground: 0 0% 100%;
+
+  /* Tooltips */
+  --tooltip-style: dark;
+
+  /* Tables */
+  --table-style: clean;
+  --table-header-weight: 600;
+
+  /* Loading */
+  --spinner-style: circle;
+
+  /* Motion */
+  --transition-duration: 150ms;
+  --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-speed: fast;
+  --hover-transition: 150ms ease;
+  --enter-transition: 200ms ease-out;
+  --exit-transition: 150ms ease-in;
+}</textarea></div><div class="border-t border-border px-5 py-4 shrink-0 flex items-center gap-2"><button class="flex-1 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">Apply</button><button class="rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors">Reset</button><button class="rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors">Copy</button></div></div></div><!--$--><!--/$--><a href="/" class="fixed bottom-4 left-4 z-50 flex items-center gap-1.5 rounded-full bg-foreground/5 px-3 py-1.5 text-xs text-muted-foreground hover:bg-foreground/10 transition-colors backdrop-blur-sm"><span class="h-3 w-3 rounded bg-primary flex items-center justify-center text-[8px] text-primary-foreground font-bold">R</span>Built with Refraction UI</a></div></div><script src="/refraction-ui/flutter/_next/static/chunks/webpack-2b6d3913b5857979.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[1753,[\"1766\",\"static/chunks/1766-7b3651ce612bd2cd.js\",\"4727\",\"static/chunks/4727-e44feae3daf35ab4.js\",\"2828\",\"static/chunks/2828-60d715c248770acf.js\",\"7177\",\"static/chunks/app/layout-16d2ceb7341fb116.js\"],\"Providers\"]\n3:I[37591,[\"1766\",\"static/chunks/1766-7b3651ce612bd2cd.js\",\"4727\",\"static/chunks/4727-e44feae3daf35ab4.js\",\"2828\",\"static/chunks/2828-60d715c248770acf.js\",\"7177\",\"static/chunks/app/layout-16d2ceb7341fb116.js\"],\"ConditionalSidebar\"]\n4:I[7151,[\"1766\",\"static/chunks/1766-7b3651ce612bd2cd.js\",\"4727\",\"static/chunks/4727-e44feae3daf35ab4.js\",\"2828\",\"static/chunks/2828-60d715c248770acf.js\",\"7177\",\"static/chunks/app/layout-16d2ceb7341fb116.js\"],\"MainContent\"]\n5:I[40658,[],\"\"]\n6:I[42784,[],\"\"]\n7:I[93859,[],\"ClientPageRoot\"]\n8:I[31509,[\"4727\",\"static/chunks/4727-e44feae3daf35ab4.js\",\"7608\",\"static/chunks/7608-14958479e63d592b.js\",\"7954\",\"static/chunks/app/examples/teamspace/page-f45e62604fcbb30f.js\"],\"default\"]\nb:I[81531,[],\"OutletBoundary\"]\nd:I[96554,[],\"AsyncMetadataOutlet\"]\nf:I[81531,[],\"ViewportBoundary\"]\n11:I[81531,[],\"MetadataBoundary\"]\n12:\"$Sreact.suspense\"\n14:I[15146,[],\"\"]\n:HL[\"/refraction-ui/flutter/_next/static/css/bb68b3f5a6d547ce.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"9BIvCsfmJebGg0ImnI5fK\",\"p\":\"/refraction-ui/flutter\",\"c\":[\"\",\"examples\",\"teamspace\",\"\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"examples\",{\"children\":[\"teamspace\",{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/refraction-ui/flutter/_next/static/css/bb68b3f5a6d547ce.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n              (function() {\\n                try {\\n                  var mode = localStorage.getItem('rfr-theme');\\n                  if (mode === 'dark' || (mode === 'system' \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n                    document.documentElement.classList.add('dark');\\n                  } else {\\n                    document.documentElement.classList.remove('dark');\\n                  }\\n                } catch (e) {}\\n              })();\\n            \"}}]}],[\"$\",\"body\",null,{\"className\":\"font-sans antialiased\",\"children\":[\"$\",\"$L2\",null,{\"children\":[\"$\",\"div\",null,{\"className\":\"flex min-h-screen\",\"children\":[[\"$\",\"$L3\",null,{}],[\"$\",\"$L4\",null,{\"children\":[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]}]]}]]}],{\"children\":[\"examples\",[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[\"teamspace\",[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[[\"$\",\"$L7\",null,{\"Component\":\"$8\",\"searchParams\":{},\"params\":{},\"promises\":[\"$@9\",\"$@a\"]}],null,[\"$\",\"$Lb\",null,{\"children\":[\"$Lc\",[\"$\",\"$Ld\",null,{\"promise\":\"$@e\"}]]}]]}],{},null,false]},null,false]},null,false]},null,false],[\"$\",\"$1\",\"h\",{\"children\":[null,[[\"$\",\"$Lf\",null,{\"children\":\"$L10\"}],null],[\"$\",\"$L11\",null,{\"children\":[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$12\",null,{\"fallback\":null,\"children\":\"$L13\"}]}]}]]}],false]],\"m\":\"$undefined\",\"G\":[\"$14\",[]],\"s\":false,\"S\":true}\n"])</script><script>self.__next_f.push([1,"9:{}\na:\"$0:f:0:1:2:children:2:children:2:children:1:props:children:0:props:params\"\n"])</script><script>self.__next_f.push([1,"10:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\nc:null\n"])</script><script>self.__next_f.push([1,"e:{\"metadata\":[[\"$\",\"title\",\"0\",{\"children\":\"Refraction UI - Component Documentation\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Per-component headless UI library for React and Astro\"}]],\"error\":null,\"digest\":\"$undefined\"}\n"])</script><script>self.__next_f.push([1,"13:\"$e:metadata\"\n"])</script></body></html>

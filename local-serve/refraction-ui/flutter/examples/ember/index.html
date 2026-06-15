@@ -1,0 +1,186 @@
+<!DOCTYPE html><!--9BIvCsfmJebGg0ImnI5fK--><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/refraction-ui/flutter/_next/static/css/bb68b3f5a6d547ce.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/refraction-ui/flutter/_next/static/chunks/webpack-2b6d3913b5857979.js"/><script src="/refraction-ui/flutter/_next/static/chunks/ca1c6e5d-c353f23f2fe3e5c5.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/3515-e36b53fe67450b8c.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/main-app-f90ae1dfbc2f8972.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/1766-7b3651ce612bd2cd.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/4727-e44feae3daf35ab4.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/2828-60d715c248770acf.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/app/layout-16d2ceb7341fb116.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/7608-14958479e63d592b.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/2534-954f9e292e039009.js" async=""></script><script src="/refraction-ui/flutter/_next/static/chunks/app/examples/ember/page-e4f5ed01d6560ff8.js" async=""></script><title>Refraction UI - Component Documentation</title><meta name="description" content="Per-component headless UI library for React and Astro"/><script>
+              (function() {
+                try {
+                  var mode = localStorage.getItem('rfr-theme');
+                  if (mode === 'dark' || (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            </script><script src="/refraction-ui/flutter/_next/static/chunks/polyfills-42372ed130431b0a.js" noModule=""></script></head><body class="font-sans antialiased"><div hidden=""><!--$--><!--/$--></div><div class="flex min-h-screen"><div class="min-h-screen w-full flex-1"><div class="flex min-h-screen flex-col" style="--page-max-width:80rem;--page-nav-height:4rem;--page-footer-columns:4" data-page-shell=""><nav role="navigation" aria-label="Main navigation" class="flex items-center h-[var(--page-nav-height)] px-4 sm:px-6 lg:px-8 sticky top-0 z-40 bg-background border-b justify-between bg-background/80 backdrop-blur-sm"><span class="text-lg font-semibold text-foreground tracking-tight">Ember &amp; Oak</span><div class="flex items-center gap-6"><a class="text-sm text-muted-foreground hover:text-foreground transition-colors" href="/refraction-ui/flutter/examples/ember/app/">Menu</a><a class="text-sm text-muted-foreground hover:text-foreground transition-colors" href="#story">Our Story</a><a class="text-sm text-muted-foreground hover:text-foreground transition-colors" href="#location">Visit</a><a class="rounded-[var(--button-radius)] bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity" href="/refraction-ui/flutter/examples/ember/app/reservation/">Reserve a Table</a></div></nav><section class="py-12 px-4 sm:px-6 lg:px-8 py-0"><div class="h-[440px] bg-gradient-to-br from-primary/10 via-muted to-accent/20 flex items-center justify-center relative"><div class="absolute inset-0 bg-foreground/3"></div><div class="relative text-center space-y-6 px-8"><p class="text-sm tracking-[0.15em] uppercase text-muted-foreground">Fine Dining</p><h1 class="text-5xl font-bold tracking-tight text-foreground" style="letter-spacing:var(--heading-letter-spacing)">Ember &amp; Oak</h1><p class="text-lg text-muted-foreground max-w-md mx-auto">Farm to flame. An intimate dining experience rooted in seasonal ingredients and open-flame cooking.</p><a class="inline-flex items-center gap-2 rounded-[var(--button-radius)] bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity" href="/refraction-ui/flutter/examples/ember/app/reservation/">Reserve a Table</a></div></div></section><section class="py-12 mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8 py-[var(--section-gap)]"><div class="space-y-8"><div class="text-center space-y-2"><h2 class="text-3xl font-semibold tracking-tight text-foreground" style="letter-spacing:var(--heading-letter-spacing)">From Our Kitchen</h2><p class="text-muted-foreground">A selection of our most celebrated dishes.</p></div><div class="space-y-1"><div class="flex items-start justify-between py-5 border-b border-border"><div class="space-y-1 pr-8"><h3 class="font-medium text-foreground">Pan-Seared Scallops</h3><p class="text-sm text-muted-foreground">Hokkaido scallops with cauliflower puree, brown butter, and crispy capers</p></div><span class="text-foreground font-medium whitespace-nowrap">$38</span></div><div class="flex items-start justify-between py-5 border-b border-border"><div class="space-y-1 pr-8"><h3 class="font-medium text-foreground">Wagyu Beef Tenderloin</h3><p class="text-sm text-muted-foreground">A5 wagyu with truffle jus, roasted bone marrow, and seasonal vegetables</p></div><span class="text-foreground font-medium whitespace-nowrap">$72</span></div><div class="flex items-start justify-between py-5 border-b border-border"><div class="space-y-1 pr-8"><h3 class="font-medium text-foreground">Wild Mushroom Risotto</h3><p class="text-sm text-muted-foreground">Arborio rice with porcini, chanterelle, and shaved Parmigiano-Reggiano</p></div><span class="text-foreground font-medium whitespace-nowrap">$28</span></div><div class="flex items-start justify-between py-5 "><div class="space-y-1 pr-8"><h3 class="font-medium text-foreground">Tarte Tatin</h3><p class="text-sm text-muted-foreground">Caramelized apple tart with vanilla bean ice cream and salted caramel</p></div><span class="text-foreground font-medium whitespace-nowrap">$18</span></div></div><div class="text-center"><a class="text-sm text-primary hover:underline" href="/refraction-ui/flutter/examples/ember/app/">View full menu →</a></div></div></section><section class="py-12 mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8 bg-muted py-[var(--section-gap)]"><div id="story" class="grid md:grid-cols-2 gap-12 items-center"><div class="h-72 rounded-[var(--card-radius)] bg-gradient-to-br from-accent/50 to-muted flex items-center justify-center"><div class="text-center text-muted-foreground"><svg class="h-12 w-12 mx-auto mb-2 opacity-40" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z"></path></svg><span class="text-sm">Chef Portrait</span></div></div><div class="space-y-4"><h2 class="text-3xl font-semibold tracking-tight text-foreground" style="letter-spacing:var(--heading-letter-spacing)">Our Story</h2><p class="text-muted-foreground leading-relaxed">Founded by Chef Elena Marchand in 2019, Ember &amp; Oak was born from a passion for live-fire cooking and the belief that the best meals come from the simplest, freshest ingredients.</p><p class="text-muted-foreground leading-relaxed">Our open kitchen features a custom-built wood-fired grill and hearth, where every dish is kissed by flame. We source exclusively from local farms and foragers, ensuring each plate tells the story of the season.</p></div></div></section><section class="py-12 mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8 py-[var(--section-gap)]"><div id="location" class="grid md:grid-cols-2 gap-12"><div class="space-y-6"><h2 class="text-3xl font-semibold tracking-tight text-foreground" style="letter-spacing:var(--heading-letter-spacing)">Visit Us</h2><div class="space-y-4"><div><h3 class="font-medium text-foreground mb-1">Address</h3><p class="text-sm text-muted-foreground">742 Evergreen Terrace, Suite 1<br/>San Francisco, CA 94110</p></div><div><h3 class="font-medium text-foreground mb-1">Hours</h3><div class="text-sm text-muted-foreground space-y-0.5"><p>Tuesday - Thursday: 5:30 PM - 10:00 PM</p><p>Friday - Saturday: 5:30 PM - 11:00 PM</p><p>Sunday: 5:00 PM - 9:00 PM</p><p>Monday: Closed</p></div></div><div><h3 class="font-medium text-foreground mb-1">Contact</h3><p class="text-sm text-muted-foreground">+1 (415) 555-0182</p><p class="text-sm text-muted-foreground">hello@emberandoak.com</p></div></div></div><div class="h-72 rounded-[var(--card-radius)] bg-muted border border-border flex items-center justify-center"><div class="text-center text-muted-foreground"><svg class="h-12 w-12 mx-auto mb-2 opacity-40" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"></path></svg><span class="text-sm">Map Placeholder</span></div></div></div></section><section class="py-12 mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8 bg-muted py-[var(--section-gap)]"><div class="space-y-6"><div class="text-center"><h2 class="text-lg font-medium text-foreground">@emberandoak</h2><p class="text-sm text-muted-foreground mt-1">Follow us on social media</p></div><div class="grid grid-cols-4 gap-2"><div class="aspect-square rounded-[var(--radius)] bg-gradient-to-br from-accent to-muted flex items-center justify-center"><svg class="h-6 w-6 text-muted-foreground opacity-30" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z"></path></svg></div><div class="aspect-square rounded-[var(--radius)] bg-gradient-to-br from-accent to-muted flex items-center justify-center"><svg class="h-6 w-6 text-muted-foreground opacity-30" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z"></path></svg></div><div class="aspect-square rounded-[var(--radius)] bg-gradient-to-br from-accent to-muted flex items-center justify-center"><svg class="h-6 w-6 text-muted-foreground opacity-30" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z"></path></svg></div><div class="aspect-square rounded-[var(--radius)] bg-gradient-to-br from-accent to-muted flex items-center justify-center"><svg class="h-6 w-6 text-muted-foreground opacity-30" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z"></path></svg></div></div></div></section><footer role="contentinfo" class="border-t bg-muted py-12 px-4 sm:px-6 lg:px-8"><div class="mx-auto max-w-[var(--page-max-width)] grid gap-8" style="grid-template-columns:repeat(2, minmax(0, 1fr))"><span class="text-sm text-muted-foreground">© 2026 Ember &amp; Oak. All rights reserved.</span><div class="flex gap-6 justify-end"><span class="text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Social</span><span class="text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Facebook</span><span class="text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Yelp</span></div></div></footer><button class="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-lg hover:opacity-90 transition-opacity"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402M6.75 21A3.75 3.75 0 0 1 3 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z"></path></svg>Edit Theme</button><div class="fixed inset-0 z-[100] bg-black/40 transition-opacity duration-300 opacity-0 pointer-events-none"></div><div class="fixed top-0 right-0 z-[101] h-full w-[400px] max-w-[90vw] bg-card border-l border-border shadow-xl flex flex-col transition-transform duration-300 ease-in-out translate-x-full"><div class="flex items-center justify-between border-b border-border px-5 py-4 shrink-0"><h2 class="text-base font-semibold text-foreground">Theme Config</h2><button class="rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path></svg></button></div><div class="flex-1 overflow-auto p-5"><p class="text-sm text-muted-foreground mb-4">Edit the CSS custom properties below and click <strong>Apply</strong> to see changes live. Copy the config to use in your own project.</p><textarea spellCheck="false" class="w-full h-[calc(100%-3rem)] min-h-[400px] rounded-md border border-input bg-muted/50 p-4 text-xs font-mono text-foreground leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-ring">:root {
+  /* Colors — terracotta/warm red */
+  --background: 15 30% 99%;
+  --foreground: 15 15% 12%;
+  --card: 15 20% 99%;
+  --card-foreground: 15 15% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 15 15% 12%;
+  --primary: 12 75% 45%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 15 15% 95%;
+  --secondary-foreground: 15 10% 40%;
+  --accent: 12 35% 92%;
+  --accent-foreground: 12 75% 35%;
+  --muted: 15 15% 95%;
+  --muted-foreground: 15 8% 45%;
+  --destructive: 0 70% 48%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 142 55% 38%;
+  --success-foreground: 0 0% 100%;
+  --warning: 38 85% 48%;
+  --warning-foreground: 15 15% 12%;
+  --border: 15 10% 90%;
+  --input: 15 10% 90%;
+  --ring: 12 75% 45%;
+  --chart-1: 12 75% 45%;
+  --chart-2: 35 80% 50%;
+  --chart-3: 142 55% 38%;
+  --chart-4: 200 50% 45%;
+  --chart-5: 280 40% 45%;
+
+  /* Sidebar */
+  --sidebar-background: 15 12% 97%;
+  --sidebar-foreground: 15 15% 12%;
+  --sidebar-primary: 12 75% 45%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 12 35% 92%;
+  --sidebar-accent-foreground: 12 75% 35%;
+  --sidebar-border: 15 10% 90%;
+  --sidebar-ring: 12 75% 45%;
+
+  /* Typography — serif headings for menu items */
+  --font-sans: &#x27;DM Sans&#x27;, system-ui, sans-serif;
+  --font-heading: &#x27;Playfair Display&#x27;, Georgia, serif;
+  --font-mono: &#x27;JetBrains Mono&#x27;, ui-monospace, monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Shadows */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --shadow-md: 0 2px 5px -1px rgb(0 0 0 / 0.04), 0 1px 3px -1px rgb(0 0 0 / 0.03);
+  --shadow-lg: 0 6px 12px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+  --shadow-xl: 0 12px 20px -4px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+
+  /* Glass &amp; overlay */
+  --overlay-opacity: 0.5;
+  --backdrop-blur: 10px;
+  --glass-bg: rgba(255, 252, 250, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.18);
+
+  /* Spacing &amp; density */
+  --spacing-scale: 1.05;
+  --container-max-width: 1200px;
+  --container-padding: 2rem;
+  --card-padding: 1.75rem;
+  --input-height: 2.75rem;
+  --button-height: 2.5rem;
+  --section-gap: 5rem;
+
+  /* Typography tokens */
+  --letter-spacing-tighter: -0.04em;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.02em;
+  --letter-spacing-wider: 0.05em;
+  --line-height-tight: 1.3;
+  --line-height-normal: 1.55;
+  --line-height-relaxed: 1.75;
+  --heading-weight: 600;
+  --heading-letter-spacing: -0.015em;
+  --heading-line-height: 1.2;
+
+  /* Shape */
+  --radius: 0.5rem;
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+  --avatar-radius: 9999px;
+  --badge-radius: 9999px;
+  --button-radius: 0.5rem;
+  --input-radius: 0.5rem;
+  --card-radius: 0.625rem;
+  --tooltip-radius: 0.375rem;
+
+  /* Component shadows */
+  --card-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.03);
+  --dropdown-shadow: 0 6px 12px -2px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+  --dialog-shadow: 0 12px 20px -4px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+  --button-shadow: none;
+
+  /* Borders &amp; dividers */
+  --border-width: 1px;
+  --border-style: solid;
+  --divider-style: solid;
+  --divider-opacity: 0.12;
+
+  /* Inputs */
+  --input-style: bordered;
+  --input-border-on-focus: 0;
+  --placeholder-opacity: 0.45;
+
+  /* Buttons */
+  --button-style: filled;
+  --button-weight: 500;
+  --hover-effect: darken;
+  --active-effect: scale-down;
+  --disabled-opacity: 0.5;
+
+  /* Links */
+  --link-style: color-only;
+  --link-weight: inherit;
+
+  /* Focus */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-style: ring;
+
+  /* Icons */
+  --icon-style: outlined;
+  --icon-stroke-width: 1.5;
+  --icon-size: 1.25rem;
+
+  /* Scrollbar */
+  --scrollbar-style: thin;
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(0, 0, 0, 0.12);
+
+  /* Selection */
+  --selection-background: 12 75% 45%;
+  --selection-foreground: 0 0% 100%;
+
+  /* Tooltips */
+  --tooltip-style: dark;
+
+  /* Tables */
+  --table-style: clean;
+  --table-header-weight: 600;
+
+  /* Loading */
+  --spinner-style: circle;
+
+  /* Motion */
+  --transition-duration: 200ms;
+  --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-speed: normal;
+  --hover-transition: 200ms ease;
+  --enter-transition: 250ms ease-out;
+  --exit-transition: 200ms ease-in;
+}</textarea></div><div class="border-t border-border px-5 py-4 shrink-0 flex items-center gap-2"><button class="flex-1 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity">Apply</button><button class="rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors">Reset</button><button class="rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors">Copy</button></div></div></div><!--$--><!--/$--><a href="/" class="fixed bottom-4 left-4 z-50 flex items-center gap-1.5 rounded-full bg-foreground/5 px-3 py-1.5 text-xs text-muted-foreground hover:bg-foreground/10 transition-colors backdrop-blur-sm"><span class="h-3 w-3 rounded bg-primary flex items-center justify-center text-[8px] text-primary-foreground font-bold">R</span>Built with Refraction UI</a></div></div><script src="/refraction-ui/flutter/_next/static/chunks/webpack-2b6d3913b5857979.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[1753,[\"1766\",\"static/chunks/1766-7b3651ce612bd2cd.js\",\"4727\",\"static/chunks/4727-e44feae3daf35ab4.js\",\"2828\",\"static/chunks/2828-60d715c248770acf.js\",\"7177\",\"static/chunks/app/layout-16d2ceb7341fb116.js\"],\"Providers\"]\n3:I[37591,[\"1766\",\"static/chunks/1766-7b3651ce612bd2cd.js\",\"4727\",\"static/chunks/4727-e44feae3daf35ab4.js\",\"2828\",\"static/chunks/2828-60d715c248770acf.js\",\"7177\",\"static/chunks/app/layout-16d2ceb7341fb116.js\"],\"ConditionalSidebar\"]\n4:I[7151,[\"1766\",\"static/chunks/1766-7b3651ce612bd2cd.js\",\"4727\",\"static/chunks/4727-e44feae3daf35ab4.js\",\"2828\",\"static/chunks/2828-60d715c248770acf.js\",\"7177\",\"static/chunks/app/layout-16d2ceb7341fb116.js\"],\"MainContent\"]\n5:I[40658,[],\"\"]\n6:I[42784,[],\"\"]\n7:I[93859,[],\"ClientPageRoot\"]\n8:I[44463,[\"4727\",\"static/chunks/4727-e44feae3daf35ab4.js\",\"7608\",\"static/chunks/7608-14958479e63d592b.js\",\"2534\",\"static/chunks/2534-954f9e292e039009.js\",\"7836\",\"static/chunks/app/examples/ember/page-e4f5ed01d6560ff8.js\"],\"default\"]\nb:I[81531,[],\"OutletBoundary\"]\nd:I[96554,[],\"AsyncMetadataOutlet\"]\nf:I[81531,[],\"ViewportBoundary\"]\n11:I[81531,[],\"MetadataBoundary\"]\n12:\"$Sreact.suspense\"\n14:I[15146,[],\"\"]\n:HL[\"/refraction-ui/flutter/_next/static/css/bb68b3f5a6d547ce.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"9BIvCsfmJebGg0ImnI5fK\",\"p\":\"/refraction-ui/flutter\",\"c\":[\"\",\"examples\",\"ember\",\"\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"examples\",{\"children\":[\"ember\",{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/refraction-ui/flutter/_next/static/css/bb68b3f5a6d547ce.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"suppressHydrationWarning\":true,\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"script\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"\\n              (function() {\\n                try {\\n                  var mode = localStorage.getItem('rfr-theme');\\n                  if (mode === 'dark' || (mode === 'system' \u0026\u0026 window.matchMedia('(prefers-color-scheme: dark)').matches)) {\\n                    document.documentElement.classList.add('dark');\\n                  } else {\\n                    document.documentElement.classList.remove('dark');\\n                  }\\n                } catch (e) {}\\n              })();\\n            \"}}]}],[\"$\",\"body\",null,{\"className\":\"font-sans antialiased\",\"children\":[\"$\",\"$L2\",null,{\"children\":[\"$\",\"div\",null,{\"className\":\"flex min-h-screen\",\"children\":[[\"$\",\"$L3\",null,{}],[\"$\",\"$L4\",null,{\"children\":[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]}]}]]}]]}],{\"children\":[\"examples\",[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[\"ember\",[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[[\"$\",\"$L7\",null,{\"Component\":\"$8\",\"searchParams\":{},\"params\":{},\"promises\":[\"$@9\",\"$@a\"]}],null,[\"$\",\"$Lb\",null,{\"children\":[\"$Lc\",[\"$\",\"$Ld\",null,{\"promise\":\"$@e\"}]]}]]}],{},null,false]},null,false]},null,false]},null,false],[\"$\",\"$1\",\"h\",{\"children\":[null,[[\"$\",\"$Lf\",null,{\"children\":\"$L10\"}],null],[\"$\",\"$L11\",null,{\"children\":[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$12\",null,{\"fallback\":null,\"children\":\"$L13\"}]}]}]]}],false]],\"m\":\"$undefined\",\"G\":[\"$14\",[]],\"s\":false,\"S\":true}\n"])</script><script>self.__next_f.push([1,"9:{}\na:\"$0:f:0:1:2:children:2:children:2:children:1:props:children:0:props:params\"\n"])</script><script>self.__next_f.push([1,"10:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\nc:null\n"])</script><script>self.__next_f.push([1,"e:{\"metadata\":[[\"$\",\"title\",\"0\",{\"children\":\"Refraction UI - Component Documentation\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Per-component headless UI library for React and Astro\"}]],\"error\":null,\"digest\":\"$undefined\"}\n"])</script><script>self.__next_f.push([1,"13:\"$e:metadata\"\n"])</script></body></html>

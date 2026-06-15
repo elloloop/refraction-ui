@@ -29,13 +29,5 @@ export const Default = {
     position: '',
     showMuteButton: false,
     avatar: '<span>avatar content</span>',
-  },
-  render: (args: any) => {
-    const { avatar, ...props } = args;
-    return {
-      Component,
-      props,
-      slots: { avatar },
-    };
-  },
+  }
 }

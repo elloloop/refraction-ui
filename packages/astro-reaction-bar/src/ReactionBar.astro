@@ -35,7 +35,7 @@ const api = createReactionBar({ reactions })
   aria-label="Reactions"
   {...props}
 >
-  {api.reactions.map((reaction) => (
+  {(api.reactions || []).map((reaction) => (
     <button
       type="button"
       data-rfr-rb-emoji={reaction.emoji}

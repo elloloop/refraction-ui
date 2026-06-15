@@ -85,7 +85,7 @@ const hasFilterable = columns.some((c: ColumnDef) => c.filterable)
           </td>
         </tr>
       ) : (
-        sortedData.map((row: Record<string, unknown>, rowIndex: number) => (
+        sortedData.map((row, rowIndex) => (
           <tr
             role="row"
             class={rowVariants()}

@@ -18,7 +18,7 @@ const api = createProgressDisplay({ stats, badges })
 ---
 
 <div class={cn(statsGridVariants(), className)} {...api.ariaProps} {...props}>
-  {api.stats.map((stat) => (
+  {(api.stats || []).map((stat) => (
     <div
       class={statCardVariants({
         color: (stat.color as 'default' | 'primary' | 'success' | 'warning' | 'destructive') ?? 'default',

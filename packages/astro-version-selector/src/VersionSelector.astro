@@ -23,7 +23,7 @@ const {
 } = Astro.props
 
 const api = createVersionSelector({ value, versions })
-const selectedOpt = versions.find((v) => v.value === value)
+const selectedOpt = (versions || []).find((v) => v.value === value)
 const displayLabel = selectedOpt ? selectedOpt.label : placeholder
 ---
 
@@ -106,7 +106,7 @@ const displayLabel = selectedOpt ? selectedOpt.label : placeholder
       selectedValue = value
       root.setAttribute('data-rfr-version-value', value)
 
-      const opt = versions.find((v) => v.value === value)
+      const opt = (versions || []).find((v) => v.value === value)
       label.textContent = opt ? opt.label : placeholder
 
       // Update latest badge on trigger

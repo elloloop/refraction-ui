@@ -10,6 +10,7 @@
   ],
   "dependencies": {
     "@refraction-ui/astro-input": "workspace:*",
+    "@refraction-ui/input": "workspace:*",
     "@refraction-ui/password-input": "workspace:*",
     "@refraction-ui/shared": "workspace:*"
   },

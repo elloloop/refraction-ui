@@ -19,13 +19,5 @@ export const Default = {
     initialSlide: 0,
     size: 'default',
     default: '<span>default content</span>',
-  },
-  render: (args: any) => {
-    const { default: defaultSlot, ...props } = args;
-    return {
-      Component,
-      props,
-      slots: { default: defaultSlot },
-    };
-  },
+  }
 }

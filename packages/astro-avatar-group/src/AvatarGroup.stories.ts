@@ -9,8 +9,11 @@ export default meta
 
 export const Default = {
   args: {
-    users: undefined,
-    max: 42,
-    size: 'default'
+    users: [
+      { name: 'Alice', src: 'https://example.com/alice.jpg' },
+      { name: 'Bob', src: 'https://example.com/bob.jpg' }
+    ],
+    max: 3,
+    size: 'md'
   }
 }

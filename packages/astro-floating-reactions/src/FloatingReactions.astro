@@ -39,7 +39,7 @@ const { ariaProps, dataAttributes } = createFloatingReactions()
   {...rest}
 >
   {
-    reactions.map((reaction) => {
+    (reactions || []).map((reaction) => {
       const left = laneOffsetPercent(reaction.lane ?? 0, lanes)
       return (
         <span

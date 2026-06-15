@@ -41,7 +41,7 @@ const api = createThreadView({ messages, currentUserId })
   data-rfr-thread-view
   {...props}
 >
-  {messages.map((message) => {
+  {(messages || []).map((message) => {
     const msgAriaProps = api.getMessageAriaProps(message)
     const replyAriaProps = api.getReplyButtonAriaProps(message.id)
     return (
