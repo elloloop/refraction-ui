@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
-import '../theme/refraction_theme_data.dart';
 
 /// Layout orientation of the timeline.
 enum RefractionTimelineOrientation {

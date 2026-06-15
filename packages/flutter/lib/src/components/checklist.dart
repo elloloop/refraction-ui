@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/refraction_theme.dart';
-import '../theme/refraction_theme_data.dart';
 
 /// Data describing a single item in a checklist.
 class RefractionChecklistItemData {

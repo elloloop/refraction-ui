@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
-import '../theme/refraction_theme_data.dart';
 
 /// Visual size of a [RefractionRadialGauge].
 enum RefractionRadialGaugeSize {

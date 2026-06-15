@@ -144,7 +144,6 @@ class RefractionEditorStatusBar extends StatelessWidget {
         case StatusSegmentTone.accent:
           return colors.primary;
         case StatusSegmentTone.defaultTone:
-        default:
           return colors.mutedForeground;
       }
     }

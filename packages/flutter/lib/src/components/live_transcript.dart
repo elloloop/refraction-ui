@@ -1,7 +1,5 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
-import '../theme/refraction_theme_data.dart';
 
 /// A single transcript entry from a speaker.
 class RefractionTranscriptEntry {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
-import '../theme/refraction_theme_data.dart';
 
 /// Participant model for [RefractionAudioRoom].
 class RefractionAudioParticipant {

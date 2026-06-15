@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../theme/refraction_theme.dart';
 
 /// Lifetime of a floating reaction in milliseconds.
 const int refractionReactionLifetimeMs = 3000;

@@ -61,7 +61,6 @@ class RefractionTerminal extends StatelessWidget {
         case TerminalMaxHeight.lg:
           return 512;
         case TerminalMaxHeight.none:
-        default:
           return null;
       }
     }
@@ -76,7 +75,6 @@ class RefractionTerminal extends StatelessWidget {
           return const Color(0xFF10B981); // emerald green
         case TerminalLineKind.command:
         case TerminalLineKind.stdout:
-        default:
           return colors.foreground;
       }
     }
