@@ -1,3 +1,14 @@
+## 0.44.0
+
+- **Marketing / Landing**: Add `RefractionSectionHead`, `RefractionStatGrid`, `RefractionNumberedSteps`, `RefractionPricingCard`, `RefractionBrandNetworkCell`, `RefractionMarqueeStrip`, `RefractionBrowserChromeMock`, `RefractionMasteryBar`, and `RefractionAudienceFeatureCard` (#385).
+- **Video Conferencing**: Add `RefractionVideoTile`, `RefractionVideoGrid`, `RefractionCallControls`, `RefractionLiveCaptions`, `RefractionLiveTranscript`, `RefractionAudioRoom`, `RefractionFloatingReactions`, and `RefractionPreCallLobby` (#384).
+- **Canvas / Diagramming**: Add `RefractionInfiniteCanvas`, `RefractionStickyNote`, `RefractionFlowEditor`, `RefractionGraphView`, `RefractionLiveCursors`, and `RefractionMiniMap` (#384).
+- **Forms / Assessment**: Add `RefractionRatingScale`, `RefractionWizard`, `RefractionRadialGauge`, `RefractionTimeline`, and `RefractionChecklist` (#384).
+- **Pipeline**: Add `RefractionSortableList`, `RefractionKanbanBoard`, and `RefractionSlotPicker` (#389).
+- **IDE Chrome**: Add `RefractionEditorTabs`, `RefractionTerminal`, `RefractionTestResults`, and `RefractionEditorStatusBar` (#384).
+
+  Brings the Flutter package to complete component parity with all React/Astro easyloops and loopwyse components (Epics #259).
+
 ## 0.43.0
 
 - **Auth surface**: Add `RefractionSegmentedControl` — a pill-shaped, radio-semantics value picker with an animated active segment, `sm`/`md` sizes, controlled/uncontrolled usage, and roving arrow/Home/End keyboard navigation.
