@@ -29,7 +29,7 @@ const {
 const store = createConversation(config)
 const state = store.getState()
 const timeline = selectMainTimeline(state.messages, state.threadingMode)
-const activeConv = state.conversations.find((c) => c.id === state.activeConversationId)
+const activeConv = (state.conversations || []).find((c) => c.id === state.activeConversationId)
 
 /** Render markdown to sanitized HTML (mirrors react-markdown-renderer). */
 function renderMarkdown(content: string): string {

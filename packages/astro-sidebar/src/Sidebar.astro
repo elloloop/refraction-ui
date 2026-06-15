@@ -32,7 +32,7 @@ const classes = cn(
 
 <aside class={classes} {...api.ariaProps} {...props}>
   <div class="flex flex-col gap-4 p-4">
-    {api.visibleSections.map((section, sIdx) => (
+    {(api.visibleSections || []).map((section, sIdx) => (
       <div>
         {section.title && !collapsed && (
           <h3 class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">

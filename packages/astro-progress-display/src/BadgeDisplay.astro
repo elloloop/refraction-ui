@@ -16,7 +16,7 @@ const api = createProgressDisplay({ stats: [], badges })
 ---
 
 <div class={cn(badgeGridVariants(), className)} {...props}>
-  {api.badges.map((badge) => (
+  {(api.badges || []).map((badge) => (
     <div
       class={badgeItemVariants({
         state: badge.isUnlocked ? 'unlocked' : 'locked',

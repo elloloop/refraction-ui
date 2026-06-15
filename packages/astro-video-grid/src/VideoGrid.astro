@@ -53,7 +53,7 @@ const gridStyle =
 
 const spotlightParticipant =
   effectiveLayout === 'speaker'
-    ? (participants.find((p) => p.id === spotlightId) ?? participants[0])
+    ? ((participants || []).find((p) => p.id === spotlightId) ?? participants[0])
     : undefined
 
 const filmstrip =

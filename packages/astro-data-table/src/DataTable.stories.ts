@@ -9,10 +9,16 @@ export default meta
 
 export const Default = {
   args: {
-    columns: undefined,
-    data: 'Example data',
-    sortBy: 'Example sortBy',
-    sortDir: undefined,
-    emptyMessage: 'Example emptyMessage'
+    columns: [
+      { key: 'id', title: 'ID' },
+      { key: 'name', title: 'Name' }
+    ],
+    data: [
+      { id: 1, name: 'Alice' },
+      { id: 2, name: 'Bob' }
+    ],
+    sortBy: 'id',
+    sortDir: 'asc',
+    emptyMessage: 'No data found'
   }
 }

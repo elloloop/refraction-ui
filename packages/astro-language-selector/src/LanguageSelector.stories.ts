@@ -9,9 +9,12 @@ export default meta
 
 export const Default = {
   args: {
-    value: ['Item 1', 'Item 2'],
-    options: undefined,
+    value: 'en',
+    options: [
+      { label: 'English', value: 'en' },
+      { label: 'Spanish', value: 'es' }
+    ],
     multiple: false,
-    placeholder: 'Example placeholder'
+    placeholder: 'Select a language'
   }
 }

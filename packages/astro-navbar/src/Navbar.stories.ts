@@ -21,13 +21,5 @@ export const Default = {
     variant: 'default',
     logo: '<span>logo content</span>',
     actions: '<span>actions content</span>',
-  },
-  render: (args: any) => {
-    const { logo, actions, ...props } = args;
-    return {
-      Component,
-      props,
-      slots: { logo, actions },
-    };
-  },
+  }
 }

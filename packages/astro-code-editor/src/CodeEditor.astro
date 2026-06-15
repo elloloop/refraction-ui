@@ -41,7 +41,7 @@ const containerClasses = cn(codeEditorVariants({ theme }), className)
     <span data-rfr-code-editor-lang>{api.getLanguageLabel()}</span>
     {actions && actions.length > 0 && (
       <div class="flex gap-1" data-rfr-code-editor-actions>
-        {actions.map((action) => (
+        {(actions || []).map((action) => (
           <button
             type="button"
             data-rfr-code-editor-action={action.label}
