@@ -20,9 +20,22 @@ const groups = [
 const sidebarPath = path.join(__dirname, '../packages/flutter-docs-site/src/components/sidebar.tsx');
 let content = fs.readFileSync(sidebarPath, 'utf8');
 
-const regex = /const componentGroups = \[[\s\S]*?\]\n/;
-const replacement = `const componentGroups = ${JSON.stringify(groups, null, 2).replace(/"([^"]+)":/g, '$1:')}\n`;
+const startStr = 'const componentGroups = [';
+const startIndex = content.indexOf(startStr);
+if (startIndex !== -1) {
+  let depth = 1;
+  let i = startIndex + startStr.length;
+  while (depth > 0 && i < content.length) {
+    if (content[i] === '[') depth++;
+    else if (content[i] === ']') depth--;
+    i++;
+  }
+  const replacement = `const componentGroups = ${JSON.stringify(groups, null, 2).replace(/"([^"]+)":/g, '$1:')}`;
+  content = content.slice(0, startIndex) + replacement + content.slice(i);
+} else {
+  console.error('Could not find componentGroups in sidebar.tsx');
+  process.exit(1);
+}
 
-content = content.replace(regex, replacement);
 fs.writeFileSync(sidebarPath, content);
 console.log('Sidebar updated');

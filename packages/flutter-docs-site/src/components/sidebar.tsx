@@ -26,6 +26,14 @@ const componentGroups = [
         href: "/components/app-shell"
       },
       {
+        name: "Audience Feature Card",
+        href: "/components/audience-feature-card"
+      },
+      {
+        name: "Audio Room",
+        href: "/components/audio-room"
+      },
+      {
         name: "Avatar",
         href: "/components/avatar"
       },
@@ -42,8 +50,16 @@ const componentGroups = [
         href: "/components/bottom-nav"
       },
       {
+        name: "Brand Network Cell",
+        href: "/components/brand-network-cell"
+      },
+      {
         name: "Breadcrumbs",
         href: "/components/breadcrumbs"
+      },
+      {
+        name: "Browser Chrome Mock",
+        href: "/components/browser-chrome-mock"
       },
       {
         name: "Button",
@@ -52,6 +68,10 @@ const componentGroups = [
       {
         name: "Calendar",
         href: "/components/calendar"
+      },
+      {
+        name: "Call Controls",
+        href: "/components/call-controls"
       },
       {
         name: "Callout",
@@ -80,6 +100,10 @@ const componentGroups = [
       {
         name: "Checkbox",
         href: "/components/checkbox"
+      },
+      {
+        name: "Checklist",
+        href: "/components/checklist"
       },
       {
         name: "Code Block",
@@ -146,8 +170,20 @@ const componentGroups = [
         href: "/components/dropdown-menu"
       },
       {
+        name: "Editor Status Bar",
+        href: "/components/editor-status-bar"
+      },
+      {
+        name: "Editor Tabs",
+        href: "/components/editor-tabs"
+      },
+      {
         name: "Emoji Picker",
         href: "/components/emoji-picker"
+      },
+      {
+        name: "Empty State",
+        href: "/components/empty-state"
       },
       {
         name: "Feedback Dialog",
@@ -162,12 +198,28 @@ const componentGroups = [
         href: "/components/file-upload"
       },
       {
+        name: "Floating Reactions",
+        href: "/components/floating-reactions"
+      },
+      {
+        name: "Flow Editor",
+        href: "/components/flow-editor"
+      },
+      {
         name: "Footer",
         href: "/components/footer"
       },
       {
         name: "Form",
         href: "/components/form"
+      },
+      {
+        name: "Graph View",
+        href: "/components/graph-view"
+      },
+      {
+        name: "Infinite Canvas",
+        href: "/components/infinite-canvas"
       },
       {
         name: "Inline Editor",
@@ -186,6 +238,10 @@ const componentGroups = [
         href: "/components/install-prompt"
       },
       {
+        name: "Kanban Board",
+        href: "/components/kanban-board"
+      },
+      {
         name: "Keyboard Shortcut",
         href: "/components/keyboard-shortcut"
       },
@@ -196,6 +252,18 @@ const componentGroups = [
       {
         name: "Link Card",
         href: "/components/link-card"
+      },
+      {
+        name: "Live Captions",
+        href: "/components/live-captions"
+      },
+      {
+        name: "Live Cursors",
+        href: "/components/live-cursors"
+      },
+      {
+        name: "Live Transcript",
+        href: "/components/live-transcript"
       },
       {
         name: "Location Selector",
@@ -210,12 +278,28 @@ const componentGroups = [
         href: "/components/markdown-renderer"
       },
       {
+        name: "Marquee Strip",
+        href: "/components/marquee-strip"
+      },
+      {
+        name: "Mastery Bar",
+        href: "/components/mastery-bar"
+      },
+      {
+        name: "Mini Map",
+        href: "/components/mini-map"
+      },
+      {
         name: "Mobile Nav",
         href: "/components/mobile-nav"
       },
       {
         name: "Navbar",
         href: "/components/navbar"
+      },
+      {
+        name: "Numbered Steps",
+        href: "/components/numbered-steps"
       },
       {
         name: "Otp Input",
@@ -226,6 +310,10 @@ const componentGroups = [
         href: "/components/pagination"
       },
       {
+        name: "Password Input",
+        href: "/components/password-input"
+      },
+      {
         name: "Payment",
         href: "/components/payment"
       },
@@ -234,12 +322,24 @@ const componentGroups = [
         href: "/components/popover"
       },
       {
+        name: "Pre Call Lobby",
+        href: "/components/pre-call-lobby"
+      },
+      {
         name: "Presence Indicator",
         href: "/components/presence-indicator"
       },
       {
+        name: "Pricing Card",
+        href: "/components/pricing-card"
+      },
+      {
         name: "Progress Display",
         href: "/components/progress-display"
+      },
+      {
+        name: "Radial Gauge",
+        href: "/components/radial-gauge"
       },
       {
         name: "Radio",
@@ -248,6 +348,10 @@ const componentGroups = [
       {
         name: "Radio Group",
         href: "/components/radio-group"
+      },
+      {
+        name: "Rating Scale",
+        href: "/components/rating-scale"
       },
       {
         name: "Reaction Bar",
@@ -266,8 +370,20 @@ const componentGroups = [
         href: "/components/search-bar"
       },
       {
+        name: "Section Head",
+        href: "/components/section-head"
+      },
+      {
+        name: "Segmented Control",
+        href: "/components/segmented-control"
+      },
+      {
         name: "Select",
         href: "/components/select"
+      },
+      {
+        name: "Separator",
+        href: "/components/separator"
       },
       {
         name: "Sheet",
@@ -294,12 +410,32 @@ const componentGroups = [
         href: "/components/slider"
       },
       {
+        name: "Slot Picker",
+        href: "/components/slot-picker"
+      },
+      {
+        name: "Social Auth Button",
+        href: "/components/social-auth-button"
+      },
+      {
+        name: "Sortable List",
+        href: "/components/sortable-list"
+      },
+      {
+        name: "Stat Grid",
+        href: "/components/stat-grid"
+      },
+      {
         name: "Status Indicator",
         href: "/components/status-indicator"
       },
       {
         name: "Steps",
         href: "/components/steps"
+      },
+      {
+        name: "Sticky Note",
+        href: "/components/sticky-note"
       },
       {
         name: "Switch",
@@ -314,12 +450,24 @@ const componentGroups = [
         href: "/components/tabs"
       },
       {
+        name: "Terminal",
+        href: "/components/terminal"
+      },
+      {
+        name: "Test Results",
+        href: "/components/test-results"
+      },
+      {
         name: "Textarea",
         href: "/components/textarea"
       },
       {
         name: "Thread View",
         href: "/components/thread-view"
+      },
+      {
+        name: "Timeline",
+        href: "/components/timeline"
       },
       {
         name: "Toast",
@@ -334,8 +482,16 @@ const componentGroups = [
         href: "/components/version-selector"
       },
       {
+        name: "Video Grid",
+        href: "/components/video-grid"
+      },
+      {
         name: "Video Player",
         href: "/components/video-player"
+      },
+      {
+        name: "Video Tile",
+        href: "/components/video-tile"
       },
       {
         name: "Voice Pill",
@@ -344,6 +500,10 @@ const componentGroups = [
       {
         name: "Waveform",
         href: "/components/waveform"
+      },
+      {
+        name: "Wizard",
+        href: "/components/wizard"
       }
     ]
   }
