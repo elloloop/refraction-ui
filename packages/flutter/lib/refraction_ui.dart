@@ -178,5 +178,7 @@ export 'src/components/rating_scale.dart';
 export 'src/components/wizard.dart';
 export 'src/components/radial_gauge.dart';
 export 'src/components/timeline.dart';
+export 'src/components/mascot.dart';
 export 'src/components/checklist.dart';
+
 

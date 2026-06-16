@@ -61,6 +61,7 @@ import 'pages/keyboard_shortcut_page.dart';
 import 'pages/logger_page.dart';
 import 'pages/version_selector_page.dart';
 import 'pages/skip_to_content_page.dart';
+import 'pages/mascot_page.dart';
 import 'dev_tools/preview_canvas.dart';
 
 // Import the mock applications
@@ -178,6 +179,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Logger',
     'Version Selector',
     'Skip To Content',
+    'Mascot',
   ];
 
   @override
@@ -427,6 +429,8 @@ class _AppShell extends ConsumerWidget {
   // Very simple mocked content mapper
   Widget _buildDocsContent(String route, BuildContext context) {
     switch (route) {
+      case '/docs/mascot':
+        return const MascotPage();
       case '/docs/install-prompt':
         return const InstallPromptPage();
       case '/docs/reaction-bar':

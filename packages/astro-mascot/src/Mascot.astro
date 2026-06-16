@@ -1,0 +1,274 @@
+---
+import { createMascot, type MascotMood, type MascotAnimation, type MascotSize } from '@refraction-ui/mascot'
+import { mascotVariants } from '@refraction-ui/mascot'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  mood?: MascotMood
+  animation?: MascotAnimation
+  size?: MascotSize
+  animate?: boolean
+}
+
+const {
+  mood = 'happy',
+  animation = 'none',
+  size = 'md',
+  animate = true,
+  class: className,
+  style,
+  ...restProps
+} = Astro.props
+
+const api = createMascot({ mood, animation, size, animate })
+
+const styleString = [
+  Object.entries(api.style).map(([k, v]) => `${k}:${v}`).join(';'),
+  style
+].filter(Boolean).join(';')
+---
+
+<svg
+  class={cn('mascot', mascotVariants({ size, animation }), className)}
+  viewBox="0 0 340 300"
+  xmlns="http://www.w3.org/2000/svg"
+  style={styleString}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...restProps}
+>
+  <defs>
+    <style>
+      /* Base styles and fallback HSL values */
+      svg.mascot {
+        --primary: 138 60% 51%;
+        --primary-200: 138 60% 83%;
+        --primary-300: 138 59% 74%;
+        --primary-400: 138 59% 63%;
+        --primary-600: 138 58% 43%;
+        --primary-700: 138 58% 36%;
+        --primary-800: 138 58% 29%;
+        --primary-900: 138 58% 22%;
+        --primary-950: 139 59% 16%;
+        --sunshine: 42 100% 62%;
+        --accent-solid: 26 100% 67%;
+
+        --rfr-mascot-stroke: var(--primary-950);
+
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* Mapping elements to tokens */
+      svg.mascot .shadow {
+        fill: hsl(var(--primary-900) / 0.15);
+      }
+      svg.mascot .stem {
+        stroke: hsl(var(--rfr-mascot-stroke));
+        stroke-width: 3px;
+        fill: none;
+      }
+      svg.mascot .leaf {
+        fill: hsl(var(--rfr-mascot-leaf));
+        stroke: hsl(var(--rfr-mascot-stroke));
+        stroke-width: 3px;
+      }
+      svg.mascot .skin-d {
+        fill: hsl(var(--rfr-mascot-skin-d));
+        stroke: hsl(var(--rfr-mascot-stroke));
+        stroke-width: 3px;
+      }
+      svg.mascot .skin {
+        fill: hsl(var(--rfr-mascot-skin));
+        stroke: hsl(var(--rfr-mascot-stroke));
+        stroke-width: 3px;
+      }
+      svg.mascot .shell-rim {
+        fill: hsl(var(--rfr-mascot-shell-rim));
+        stroke: hsl(var(--rfr-mascot-stroke));
+        stroke-width: 3px;
+      }
+      svg.mascot .shell {
+        fill: hsl(var(--rfr-mascot-shell));
+        stroke: hsl(var(--rfr-mascot-stroke));
+        stroke-width: 3px;
+      }
+      svg.mascot .belly {
+        fill: hsl(var(--rfr-mascot-belly));
+        stroke: hsl(var(--rfr-mascot-stroke));
+        stroke-width: 3px;
+      }
+      svg.mascot .scute {
+        fill: hsl(var(--rfr-mascot-scute));
+        stroke: hsl(var(--rfr-mascot-stroke));
+        stroke-width: 2.5px;
+      }
+      svg.mascot .scute.alt {
+        fill: hsl(var(--rfr-mascot-scute-alt));
+      }
+      svg.mascot .ln {
+        stroke: hsl(var(--rfr-mascot-stroke));
+        stroke-width: 3px;
+        fill: none;
+      }
+      svg.mascot .eye-w {
+        fill: #ffffff;
+        stroke: hsl(var(--rfr-mascot-stroke));
+        stroke-width: 3px;
+      }
+      svg.mascot .pupil {
+        fill: hsl(var(--rfr-mascot-stroke));
+      }
+      svg.mascot .glint {
+        fill: #ffffff;
+      }
+      svg.mascot .cheek {
+        fill: hsl(var(--rfr-mascot-cheek));
+      }
+
+      /* Float Animation keyframes */
+      @keyframes rfrMascotFloat {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      /* Sway/antenna animation keyframes */
+      @keyframes rfrMascotSway {
+        0%, 100% {
+          transform: rotate(0deg);
+        }
+        50% {
+          transform: rotate(4deg);
+        }
+      }
+
+      /* Waving animation keyframes */
+      @keyframes rfrMascotWave {
+        0%, 100% {
+          transform: rotate(0deg);
+        }
+        50% {
+          transform: rotate(-18deg);
+        }
+      }
+
+      /* Bounce animation keyframes */
+      @keyframes rfrMascotBounce {
+        0%, 100% {
+          transform: translateY(0) scaleY(1);
+        }
+        50% {
+          transform: translateY(-16px) scaleY(0.96);
+        }
+      }
+
+      /* Animation hook connections (only active if data-animate is true or not false) */
+      svg.mascot[data-animate="true"].rfr-mascot-float .m-bob {
+        animation: rfrMascotFloat 3s ease-in-out infinite;
+      }
+      svg.mascot[data-animate="true"].rfr-mascot-float .m-sprout {
+        animation: rfrMascotSway 3s ease-in-out infinite;
+        transform-origin: 158px 92px;
+      }
+      svg.mascot[data-animate="true"].rfr-mascot-float .m-wave {
+        animation: rfrMascotWave 1.2s ease-in-out infinite;
+        transform-origin: 250px 120px;
+      }
+
+      svg.mascot[data-animate="true"].motion-safe\:animate-bounce .m-bob {
+        animation: rfrMascotBounce 1.2s ease-in-out infinite;
+      }
+      svg.mascot[data-animate="true"].motion-safe\:animate-bounce .m-sprout {
+        animation: rfrMascotSway 1.2s ease-in-out infinite;
+        transform-origin: 158px 92px;
+      }
+
+      /* Stationary wave arm if not floating (only active if data-animate is true) */
+      svg.mascot[data-animate="true"]:not(.rfr-mascot-float) .m-wave {
+        animation: rfrMascotWave 1.2s ease-in-out infinite;
+        transform-origin: 250px 120px;
+      }
+    </style>
+  </defs>
+
+  {/* Flat Shadow at the base */}
+  <ellipse class="shadow" cx="166" cy="280" rx="116" ry="16"/>
+
+  {/* Main Bobbing Group */}
+  <g class="m-bob">
+    {/* Head Sprout */}
+    <g class="m-sprout">
+      <path class="stem" d="M158 92 C158 70 158 58 158 44"/>
+      <path class="leaf" d="M158 56 C140 50 126 58 128 74 C146 76 158 70 158 56 Z"/>
+      <path class="leaf" d="M158 50 C176 42 192 50 190 66 C172 70 158 64 158 50 Z"/>
+    </g>
+
+    {/* Back Legs & Tail (Rendered behind body) */}
+    <ellipse class="skin-d" cx="96" cy="222" rx="27" ry="32"/>
+    <ellipse class="skin-d" cx="214" cy="224" rx="27" ry="32"/>
+    <path class="skin-d" d="M58 176 C40 178 28 190 26 204 C44 206 60 196 66 182 Z"/>
+
+    {/* Shell Rim */}
+    <path class="shell-rim" d="M36 196 C30 86 92 70 162 70 C232 70 294 86 288 196 C288 210 252 220 162 220 C72 220 36 210 36 196 Z"/>
+
+    {/* Main Shell */}
+    <path class="shell" d="M44 190 C40 92 96 78 162 78 C228 78 284 92 280 190 C280 200 246 206 162 206 C78 206 44 200 44 190 Z"/>
+
+    {/* Underbelly */}
+    <path class="belly" d="M50 192 C92 206 232 206 274 192 C274 202 240 210 162 210 C84 210 50 202 50 192 Z"/>
+
+    {/* Shell Scutes (Plates) */}
+    <polygon class="scute" points="162,86 190,102 190,134 162,150 134,134 134,102"/>
+    <polygon class="scute alt" points="162,150 186,162 186,184 162,196 138,184 138,162"/>
+    <polygon class="scute alt" points="104,108 126,120 126,148 104,160 82,148 82,120"/>
+    <polygon class="scute alt" points="220,108 242,120 242,148 220,160 198,148 198,120"/>
+    <polygon class="scute" points="108,162 126,172 126,190 108,200 90,190 90,172"/>
+    <polygon class="scute" points="216,162 234,172 234,190 216,200 198,190 198,172"/>
+
+    {/* Front Legs */}
+    <ellipse class="skin" cx="116" cy="232" rx="25" ry="31"/>
+    <ellipse class="skin" cx="236" cy="234" rx="25" ry="31"/>
+    <path class="ln" d="M104 250 H128 M224 252 H248" opacity="0.4"/>
+
+    {/* Waving Arm (Conditional or animated) */}
+    {mood === 'wave' && (
+      <g class="m-wave">
+        <ellipse class="skin" cx="250" cy="120" rx="15" ry="22"/>
+        <path class="ln" d="M244 104 q6 -8 12 0" opacity="0.4"/>
+      </g>
+    )}
+
+    {/* Head, Neck, Blush */}
+    <path class="skin" d="M262 150 C276 142 296 142 310 150 L312 176 C300 188 274 188 262 178 Z"/>
+    <ellipse class="skin" cx="296" cy="156" rx="40" ry="36"/>
+    <ellipse class="cheek" cx="280" cy="174" rx="11" ry="8"/>
+
+    {/* Facial Features (Eyes and Mouth) */}
+    {mood === 'think' ? (
+      <g class="mascot-face-think">
+        <ellipse class="eye-w" cx="286" cy="150" rx="11" ry="13"/>
+        <ellipse class="eye-w" cx="314" cy="152" rx="10" ry="12"/>
+        <circle class="pupil" cx="288" cy="146" r="5.5"/>
+        <circle class="pupil" cx="315" cy="148" r="5"/>
+        <circle class="glint" cx="290" cy="143" r="1.9"/>
+        <circle class="glint" cx="317" cy="145" r="1.7"/>
+        <path class="ln" d="M280 174 q10 -5 18 1"/>
+      </g>
+    ) : (
+      <g class="mascot-face-happy">
+        <ellipse class="eye-w" cx="286" cy="150" rx="11" ry="13"/>
+        <ellipse class="eye-w" cx="314" cy="152" rx="10" ry="12"/>
+        <circle class="pupil" cx="289" cy="152" r="5.5"/>
+        <circle class="pupil" cx="316" cy="154" r="5"/>
+        <circle class="glint" cx="291" cy="149" r="1.9"/>
+        <circle class="glint" cx="318" cy="151" r="1.7"/>
+        <path class="ln" d="M286 172 C294 180 306 180 314 171"/>
+      </g>
+    )}
+  </g>
+</svg>

@@ -56,6 +56,8 @@ import 'package:example/use_cases/live_transcript_use_cases.dart'
     as _example_use_cases_live_transcript_use_cases;
 import 'package:example/use_cases/marquee_strip_use_cases.dart'
     as _example_use_cases_marquee_strip_use_cases;
+import 'package:example/use_cases/mascot_use_cases.dart'
+    as _example_use_cases_mascot_use_cases;
 import 'package:example/use_cases/mastery_bar_use_cases.dart'
     as _example_use_cases_mastery_bar_use_cases;
 import 'package:example/use_cases/mini_map_use_cases.dart'
@@ -481,6 +483,20 @@ final directories = <_widgetbook.WidgetbookNode>[
             name: 'Default Static',
             builder: _example_use_cases_marquee_strip_use_cases
                 .marqueeStripDefaultUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'RefractionMascot',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Moods Showcase',
+            builder: _example_use_cases_mascot_use_cases.mascotMoodsUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Playground',
+            builder:
+                _example_use_cases_mascot_use_cases.mascotPlaygroundUseCase,
           ),
         ],
       ),

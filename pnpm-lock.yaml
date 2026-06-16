@@ -1399,6 +1399,18 @@ importers:
         specifier: 6.3.1
         version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
 
+  packages/astro-mascot:
+    dependencies:
+      '@refraction-ui/mascot':
+        specifier: workspace:*
+        version: link:../mascot
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
   packages/astro-mastery-bar:
     dependencies:
       '@refraction-ui/mastery-bar':
@@ -1615,6 +1627,9 @@ importers:
       '@refraction-ui/astro-marquee-strip':
         specifier: workspace:*
         version: link:../astro-marquee-strip
+      '@refraction-ui/astro-mascot':
+        specifier: workspace:*
+        version: link:../astro-mascot
       '@refraction-ui/astro-mastery-bar':
         specifier: workspace:*
         version: link:../astro-mastery-bar
@@ -3047,6 +3062,12 @@ importers:
         version: link:../shared
 
   packages/marquee-strip:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/mascot:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -4703,6 +4724,28 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-mascot:
+    dependencies:
+      '@refraction-ui/mascot':
+        specifier: workspace:*
+        version: link:../mascot
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-mastery-bar:
     dependencies:
       '@refraction-ui/mastery-bar':
@@ -4938,6 +4981,9 @@ importers:
       '@refraction-ui/react-marquee-strip':
         specifier: workspace:*
         version: link:../react-marquee-strip
+      '@refraction-ui/react-mascot':
+        specifier: workspace:*
+        version: link:../react-mascot
       '@refraction-ui/react-mastery-bar':
         specifier: workspace:*
         version: link:../react-mastery-bar

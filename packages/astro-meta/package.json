@@ -87,6 +87,7 @@
     "@refraction-ui/astro-markdown-renderer": "workspace:*",
     "@refraction-ui/astro-marquee-strip": "workspace:*",
     "@refraction-ui/astro-mastery-bar": "workspace:*",
+    "@refraction-ui/astro-mascot": "workspace:*",
     "@refraction-ui/astro-mini-map": "workspace:*",
     "@refraction-ui/astro-mobile-nav": "workspace:*",
     "@refraction-ui/astro-navbar": "workspace:*",

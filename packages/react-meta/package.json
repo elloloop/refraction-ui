@@ -117,6 +117,7 @@
     "@refraction-ui/react-logger": "workspace:*",
     "@refraction-ui/react-markdown-renderer": "workspace:*",
     "@refraction-ui/react-marquee-strip": "workspace:*",
+    "@refraction-ui/react-mascot": "workspace:*",
     "@refraction-ui/react-mastery-bar": "workspace:*",
     "@refraction-ui/react-mini-map": "workspace:*",
     "@refraction-ui/react-mobile-nav": "workspace:*",
