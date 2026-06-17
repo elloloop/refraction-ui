@@ -1,5 +1,11 @@
 # @refraction-ui/astro
 
+## 0.15.1
+
+### Patch Changes
+
+- c3158d7: feat: add Mascot component (Tobi the Tortoise) supporting interactive bobbing, sprout swaying, and blinking states across React and Astro adapters.
+
 ## 0.15.0
 
 ### Minor Changes
