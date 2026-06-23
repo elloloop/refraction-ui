@@ -24,6 +24,8 @@ export interface DatePickerProps {
   defaultOpen?: boolean
   /** Callback when open changes */
   onOpenChange?: (open: boolean) => void
+  /** The currently displayed month (controlled) */
+  currentMonth?: Date
 }
 
 export interface DatePickerState {
@@ -149,7 +151,7 @@ export function createDatePicker(props: DatePickerProps = {}): DatePickerAPI {
 
   const today = new Date()
   let internalOpen = controlledOpen ?? defaultOpen
-  let currentMonth = value ? startOfMonth(value) : startOfMonth(today)
+  let currentMonth = props.currentMonth ?? (value ? startOfMonth(value) : startOfMonth(today))
   let view: DatePickerView = 'calendar'
   const hours = value ? value.getHours() : 0
   const minutes = value ? value.getMinutes() : 0
