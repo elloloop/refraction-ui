@@ -1,5 +1,11 @@
 # @refraction-ui/astro
 
+## 0.15.2
+
+### Patch Changes
+
+- c7c6ba4: Fix React DatePicker calendar day updating bug. Changed DatePicker API to accept currentMonth prop to support controlled updates from the React adapter.
+
 ## 0.15.1
 
 ### Patch Changes
