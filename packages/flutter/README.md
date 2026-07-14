@@ -63,6 +63,7 @@ All ~40 components below are token-driven and read from `RefractionTheme.of(cont
 | `RefractionSwitch` | Animated on/off toggle |
 | `RefractionOtpInput` | One-time code with auto-advance + paste support |
 | `RefractionRichChatInput` | Multi-line input with action slots (send, attach, mic) |
+| `RefractionComposer` | Chat composer: auto-grow, IME-safe Enter-to-send, mention/slash/emoji/tag trigger suggestions with atomic tokens, attachments, drafts, edit-in-place |
 
 ### Buttons & menus
 | Widget | Purpose |
