@@ -134,6 +134,10 @@ const componentGroups = [
         href: "/components/command-menu"
       },
       {
+        name: "Composer",
+        href: "/components/composer"
+      },
+      {
         name: "Content Protection",
         href: "/components/content-protection"
       },

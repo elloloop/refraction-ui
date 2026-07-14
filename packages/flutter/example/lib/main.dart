@@ -11,6 +11,7 @@ import 'pages/docs_layout.dart';
 import 'pages/carousel_page.dart';
 import 'pages/accordion_page.dart';
 import 'pages/chat_input_page.dart';
+import 'pages/composer_page.dart';
 import 'pages/command_menu_page.dart';
 import 'pages/command_input_page.dart';
 import 'pages/radio_group_page.dart';
@@ -628,6 +629,8 @@ class _AppShell extends ConsumerWidget {
         );
       case '/docs/chat-input':
         return ChatInputPage();
+      case '/docs/composer':
+        return ComposerPage();
       case '/docs/select-&-dropdowns':
         return PreviewCanvas(
           title: "Select & Dropdowns",

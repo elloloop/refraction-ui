@@ -10,7 +10,7 @@ import { cva } from '@refraction-ui/shared'
 export const composerSurfaceVariants = cva({
   base: [
     'overflow-hidden rounded-2xl border border-border bg-background shadow-sm',
-    'transition-shadow focus-within:border-foreground/25 focus-within:shadow-md',
+    'transition-shadow focus-within:border-ring focus-within:ring-1 focus-within:ring-ring focus-within:shadow-md',
   ].join(' '),
   variants: {
     disabled: {
