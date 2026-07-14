@@ -1,5 +1,11 @@
 # @refraction-ui/react
 
+## 0.17.1
+
+### Patch Changes
+
+- 7cf3572: Composer: use the theme `ring` token for the focus indicator (single focus ring on the pill surface) instead of a foreground-tint border, so keyboard focus is clearly visible and consistent with other Refraction inputs.
+
 ## 0.17.0
 
 ### Minor Changes
