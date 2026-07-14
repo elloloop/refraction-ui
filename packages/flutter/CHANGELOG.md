@@ -1,3 +1,8 @@
+## 0.45.0
+
+- **Chat**: Add `RefractionComposer` — a headless-core chat composer with auto-grow (viewport-capped), IME-safe Enter-to-send, `@`mention / `/`slash / `:emoji:` / `#`tag trigger suggestions committing atomic tokens, an attachments tray, injectable drafts, edit-in-place, busy/stop primary action, `compact`/`comfortable`/`spacious` density variants, RTL mirroring, and full Semantics. The pure-Dart `ComposerCore` (`lib/src/core/`) has zero `package:flutter` imports and emits structured `{plainText, tokens[]}` output identical to the React core.
+- **Fix**: Export `RefractionMobileNav` from the package barrel (shipped in 0.42.0 but never exported, so consumers couldn't import it).
+
 ## 0.44.0
 
 - **Marketing / Landing**: Add `RefractionSectionHead`, `RefractionStatGrid`, `RefractionNumberedSteps`, `RefractionPricingCard`, `RefractionBrandNetworkCell`, `RefractionMarqueeStrip`, `RefractionBrowserChromeMock`, `RefractionMasteryBar`, and `RefractionAudienceFeatureCard` (#385).
