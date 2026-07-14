@@ -6,6 +6,7 @@ import type { Document } from './model.js'
 import type { Selection } from './selection.js'
 import type { MentionSegment } from './model.js'
 import { findBlockById, getBlockText, createMentionSegment } from './model.js'
+import { detectTriggerInText } from './trigger.js'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -142,21 +143,6 @@ export function detectMentionTrigger(
   const block = findBlockById(doc, sel.anchor.blockId)
   if (!block) return { triggered: false, query: '' }
 
-  const text = getBlockText(block)
-  const textBeforeCursor = text.slice(0, sel.anchor.offset)
-
-  // Look for "@" preceded by start-of-text or a space
-  const atIdx = textBeforeCursor.lastIndexOf('@')
-  if (atIdx === -1) return { triggered: false, query: '' }
-
-  // The @ must be at position 0 or preceded by a space
-  if (atIdx > 0 && textBeforeCursor[atIdx - 1] !== ' ') {
-    return { triggered: false, query: '' }
-  }
-
-  const query = textBeforeCursor.slice(atIdx + 1)
-  // If query contains spaces, the mention trigger is no longer active
-  if (query.includes(' ')) return { triggered: false, query: '' }
-
-  return { triggered: true, query }
+  const hit = detectTriggerInText(getBlockText(block), sel.anchor.offset, '@')
+  return hit ? { triggered: true, query: hit.query } : { triggered: false, query: '' }
 }

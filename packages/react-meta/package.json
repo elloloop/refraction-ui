@@ -80,6 +80,7 @@
     "@refraction-ui/react-combobox": "workspace:*",
     "@refraction-ui/react-command": "workspace:*",
     "@refraction-ui/react-command-input": "workspace:*",
+    "@refraction-ui/react-composer": "workspace:*",
     "@refraction-ui/react-content-protection": "workspace:*",
     "@refraction-ui/react-conversation": "workspace:*",
     "@refraction-ui/react-cookie-consent": "workspace:*",

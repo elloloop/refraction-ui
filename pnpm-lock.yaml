@@ -212,6 +212,9 @@ importers:
       '@refraction-ui/react-command-input':
         specifier: workspace:*
         version: link:../packages/react-command-input
+      '@refraction-ui/react-composer':
+        specifier: workspace:*
+        version: link:../packages/react-composer
       '@refraction-ui/react-content-protection':
         specifier: workspace:*
         version: link:../packages/react-content-protection
@@ -963,6 +966,18 @@ importers:
         specifier: workspace:*
         version: link:../command-input
 
+  packages/astro-composer:
+    dependencies:
+      '@refraction-ui/composer':
+        specifier: workspace:*
+        version: link:../composer
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 6.3.1
+        version: 6.3.1(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
   packages/astro-content-protection:
     dependencies:
       '@refraction-ui/content-protection':
@@ -1519,6 +1534,9 @@ importers:
       '@refraction-ui/astro-command-input':
         specifier: workspace:*
         version: link:../astro-command-input
+      '@refraction-ui/astro-composer':
+        specifier: workspace:*
+        version: link:../astro-composer
       '@refraction-ui/astro-content-protection':
         specifier: workspace:*
         version: link:../astro-content-protection
@@ -2625,6 +2643,18 @@ importers:
 
   packages/command-input:
     dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/composer:
+    dependencies:
+      '@refraction-ui/conversation':
+        specifier: workspace:*
+        version: link:../conversation
+      '@refraction-ui/rich-editor':
+        specifier: workspace:*
+        version: link:../rich-editor
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -3881,6 +3911,31 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
+  packages/react-composer:
+    dependencies:
+      '@refraction-ui/composer':
+        specifier: workspace:*
+        version: link:../composer
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-content-protection:
     dependencies:
       '@refraction-ui/content-protection':
@@ -3911,6 +3966,9 @@ importers:
       '@refraction-ui/react-markdown-renderer':
         specifier: workspace:*
         version: link:../react-markdown-renderer
+      '@refraction-ui/rich-editor':
+        specifier: workspace:*
+        version: link:../rich-editor
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -4870,6 +4928,9 @@ importers:
       '@refraction-ui/react-command-input':
         specifier: workspace:*
         version: link:../react-command-input
+      '@refraction-ui/react-composer':
+        specifier: workspace:*
+        version: link:../react-composer
       '@refraction-ui/react-content-protection':
         specifier: workspace:*
         version: link:../react-content-protection

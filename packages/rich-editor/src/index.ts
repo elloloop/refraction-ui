@@ -83,6 +83,10 @@ export {
 // Markdown shortcuts
 export { processMarkdownShortcut } from './markdown-shortcuts.js'
 
+// Trigger detection (generalized — mentions/slash delegate to this)
+export type { TriggerHit } from './trigger.js'
+export { detectTriggerInText } from './trigger.js'
+
 // Slash commands
 export type { SlashCommand, SlashCommandMenu } from './slash-commands.js'
 export { BUILT_IN_COMMANDS, createSlashCommandMenu, detectSlashTrigger } from './slash-commands.js'
