@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { cn } from '@refraction-ui/shared'
 import type { MessageAttachment } from '@refraction-ui/conversation'
+import { detectTriggerInText } from '@refraction-ui/rich-editor'
 
 const h = React.createElement
 
@@ -133,14 +134,25 @@ interface TriggerState {
   end: number // caret position
 }
 
-/** Detect an active `/`, `@`, or `:` trigger immediately before the caret. */
+const TRIGGER_CHARS: readonly TriggerState['type'][] = ['/', '@', ':']
+/** Queries are word-ish (`[\w+-]*`) — a query hitting other punctuation closes the trigger. */
+const TRIGGER_QUERY_PATTERN = /^[\w+-]*$/
+
+/**
+ * Detect an active `/`, `@`, or `:` trigger immediately before the caret.
+ * Delegates the boundary/backward-scan rules to rich-editor's shared
+ * `detectTriggerInText` and picks the trigger nearest the caret.
+ */
 function detectTrigger(text: string, caret: number): TriggerState | null {
-  const before = text.slice(0, caret)
-  const m = before.match(/(?:^|\s)([/@:])([\w+-]*)$/)
-  if (!m) return null
-  const type = m[1] as TriggerState['type']
-  const query = m[2] ?? ''
-  return { type, query, start: caret - query.length - 1, end: caret }
+  let best: TriggerState | null = null
+  for (const type of TRIGGER_CHARS) {
+    const hit = detectTriggerInText(text, caret, type)
+    if (!hit || !TRIGGER_QUERY_PATTERN.test(hit.query)) continue
+    if (!best || hit.start > best.start) {
+      best = { type, query: hit.query, start: hit.start, end: caret }
+    }
+  }
+  return best
 }
 
 /**

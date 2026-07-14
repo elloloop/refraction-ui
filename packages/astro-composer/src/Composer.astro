@@ -1,0 +1,66 @@
+---
+import {
+  composerFieldClass,
+  composerPrimaryActionVariants,
+  composerSurfaceVariants,
+} from '@refraction-ui/composer'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Placeholder shown in the (read-only) message area. */
+  placeholder?: string
+  /** Accessible name of the composer landmark. */
+  label?: string
+  /** Accessible name of the (disabled) send button. */
+  sendLabel?: string
+  /** Render the surface in its disabled treatment. */
+  disabled?: boolean
+}
+
+const {
+  placeholder = 'Send a message…',
+  label = 'Message composer',
+  sendLabel = 'Send',
+  disabled = false,
+  class: className,
+  ...rest
+} = Astro.props
+
+const hasContent = Astro.slots.has('default')
+---
+
+{/* Static SSR composer shell: the interactive composer needs a client
+    runtime, so on Astro this renders the pill read-only — placeholder or
+    slotted content plus a disabled send button. */}
+<div role="form" aria-label={label} class={cn('relative', className)} {...rest}>
+  <div class={composerSurfaceVariants({ disabled: disabled ? 'true' : 'false' })}>
+    <div class={cn(composerFieldClass, 'min-h-[3rem] whitespace-pre-wrap break-words')}>
+      {hasContent ? <slot /> : <span class="text-muted-foreground">{placeholder}</span>}
+    </div>
+    <div class="flex items-center px-2 pb-2">
+      <div class="flex-1" />
+      <button
+        type="button"
+        aria-label={sendLabel}
+        disabled
+        class={composerPrimaryActionVariants({ enabled: 'false' })}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 19V5" />
+          <path d="m5 12 7-7 7 7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

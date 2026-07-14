@@ -29,6 +29,7 @@
   "dependencies": {
     "@refraction-ui/conversation": "workspace:*",
     "@refraction-ui/react-markdown-renderer": "workspace:*",
+    "@refraction-ui/rich-editor": "workspace:*",
     "@refraction-ui/thread-view": "workspace:*",
     "@refraction-ui/shared": "workspace:*"
   },

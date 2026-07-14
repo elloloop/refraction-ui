@@ -10,6 +10,7 @@ import type { EditorState } from './operations.js'
 import { changeBlockType, insertBlock, deleteSelection } from './operations.js'
 import { createCollapsedSelection, createSelection, createPosition } from './selection.js'
 import { findBlockById, getBlockText, cloneDocument, createTextSegment } from './model.js'
+import { detectTriggerInText } from './trigger.js'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -192,21 +193,6 @@ export function detectSlashTrigger(
   const block = findBlockById(doc, sel.anchor.blockId)
   if (!block) return { triggered: false, query: '' }
 
-  const text = getBlockText(block)
-  const textBeforeCursor = text.slice(0, sel.anchor.offset)
-
-  // Look for "/" preceded by start-of-text or a space
-  const slashIdx = textBeforeCursor.lastIndexOf('/')
-  if (slashIdx === -1) return { triggered: false, query: '' }
-
-  // The slash must be at position 0 or preceded by a space
-  if (slashIdx > 0 && textBeforeCursor[slashIdx - 1] !== ' ') {
-    return { triggered: false, query: '' }
-  }
-
-  const query = textBeforeCursor.slice(slashIdx + 1)
-  // If query contains spaces, the slash command is no longer active
-  if (query.includes(' ')) return { triggered: false, query: '' }
-
-  return { triggered: true, query }
+  const hit = detectTriggerInText(getBlockText(block), sel.anchor.offset, '/')
+  return hit ? { triggered: true, query: hit.query } : { triggered: false, query: '' }
 }

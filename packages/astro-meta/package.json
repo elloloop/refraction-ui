@@ -50,6 +50,7 @@
     "@refraction-ui/astro-collapsible": "workspace:*",
     "@refraction-ui/astro-command": "workspace:*",
     "@refraction-ui/astro-command-input": "workspace:*",
+    "@refraction-ui/astro-composer": "workspace:*",
     "@refraction-ui/astro-content-protection": "workspace:*",
     "@refraction-ui/astro-conversation": "workspace:*",
     "@refraction-ui/astro-cookie-consent": "workspace:*",
