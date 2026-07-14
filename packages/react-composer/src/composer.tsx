@@ -896,7 +896,7 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
                 : {})}
               className={cn(
                 composerFieldClass,
-                'absolute inset-0 h-full overflow-y-auto rounded-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring',
+                'absolute inset-0 h-full overflow-y-auto focus-visible:outline-none',
               )}
               style={{ lineHeight: FIELD_LINE_HEIGHT, maxHeight: fieldHeightFor(maxLines) }}
               onChange={handleChange}
