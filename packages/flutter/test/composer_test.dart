@@ -62,9 +62,27 @@ RefractionComposerController mentionController({
 }
 
 Future<void> focusField(WidgetTester tester) async {
-  await tester.tap(find.byType(TextField));
+  await tester.tap(find.byType(TextField).first);
   await tester.pump();
 }
+
+/// The pill's [BoxDecoration] — the only bordered Container ancestor of the
+/// text field.
+BoxDecoration pillDecorationOf(WidgetTester tester) {
+  return tester
+      .widgetList<Container>(
+        find.ancestor(
+          of: find.byType(TextField).first,
+          matching: find.byType(Container),
+        ),
+      )
+      .map((container) => container.decoration)
+      .whereType<BoxDecoration>()
+      .firstWhere((decoration) => decoration.border != null);
+}
+
+Color pillBorderColorOf(WidgetTester tester) =>
+    (pillDecorationOf(tester).border! as Border).top.color;
 
 void main() {
   testWidgets('J1 field exposes textField semantics with a label distinct '
@@ -854,5 +872,172 @@ void main() {
     expect(find.text('Pasted text was trimmed to fit'), findsOneWidget);
     await tester.pump(const Duration(seconds: 5));
     expect(find.text('Pasted text was trimmed to fit'), findsNothing);
+  });
+
+  // -- Issue #432 enhancements (J24–J29) ----------------------------------
+
+  testWidgets('J24 filled surface: the hairline stays neutral on focus and '
+      'never becomes the ring; the fill is distinct from the page', (
+    tester,
+  ) async {
+    final colors = RefractionThemeData.light().colors;
+    await tester.pumpWidget(
+      buildApp(
+        RefractionComposer(surface: ComposerSurface.filled, onSubmit: (_) {}),
+      ),
+    );
+    await focusField(tester);
+    expect(
+      tester.widget<TextField>(find.byType(TextField)).focusNode!.hasFocus,
+      isTrue,
+    );
+    expect(
+      pillBorderColorOf(tester),
+      colors.border,
+      reason: 'filled focus keeps the hairline',
+    );
+    expect(pillBorderColorOf(tester), isNot(colors.ring));
+    expect(
+      pillDecorationOf(tester).color,
+      colors.muted,
+      reason: 'filled fill is distinct from the page background',
+    );
+  });
+
+  testWidgets('J24b outlined (default) surface still colours the ring on '
+      'focus — backward compatible', (tester) async {
+    final colors = RefractionThemeData.light().colors;
+    await tester.pumpWidget(buildApp(RefractionComposer(onSubmit: (_) {})));
+    await focusField(tester);
+    expect(pillBorderColorOf(tester), colors.ring);
+    expect(pillDecorationOf(tester).color, colors.background);
+  });
+
+  testWidgets('J25 external focusNode: the host owns it and can drop the '
+      'soft keyboard programmatically', (tester) async {
+    final external = FocusNode();
+    await tester.pumpWidget(
+      buildApp(RefractionComposer(focusNode: external, onSubmit: (_) {})),
+    );
+    expect(
+      identical(
+        tester.widget<TextField>(find.byType(TextField)).focusNode,
+        external,
+      ),
+      isTrue,
+      reason: 'the field uses the injected node',
+    );
+    external.requestFocus();
+    await tester.pump();
+    expect(external.hasFocus, isTrue);
+    external.unfocus();
+    await tester.pump();
+    expect(external.hasFocus, isFalse, reason: 'host dropped the keyboard');
+
+    // Unmount before disposing: the widget must not dispose a node it does
+    // not own (a double-dispose would throw here).
+    await tester.pumpWidget(const SizedBox());
+    external.dispose();
+  });
+
+  testWidgets('J26 accessory panel opens below the pill: the field stays '
+      'present + visible, the keyboard is dropped, and refocus closes it', (
+    tester,
+  ) async {
+    final controller = RefractionComposerController();
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(
+      buildApp(
+        RefractionComposer(
+          controller: controller,
+          accessoryPanelBuilder: (_) => const Text('PANEL_BODY'),
+          onSubmit: (_) {},
+        ),
+      ),
+    );
+    await focusField(tester);
+    expect(
+      tester.widget<TextField>(find.byType(TextField)).focusNode!.hasFocus,
+      isTrue,
+    );
+
+    controller.openAccessoryPanel();
+    await tester.pump();
+    expect(controller.accessoryPanelOpen, isTrue);
+    expect(find.text('PANEL_BODY'), findsOneWidget);
+    expect(find.byType(TextField), findsOneWidget, reason: 'field stays');
+    expect(
+      tester.widget<TextField>(find.byType(TextField)).focusNode!.hasFocus,
+      isFalse,
+      reason: 'opening the panel drops the keyboard',
+    );
+    expect(
+      tester.getCenter(find.text('PANEL_BODY')).dy,
+      greaterThan(tester.getCenter(find.byType(TextField)).dy),
+      reason: 'panel renders below the still-visible field',
+    );
+
+    // Tapping the field to type yields the panel back to the keyboard.
+    await tester.tap(find.byType(TextField));
+    await tester.pump();
+    expect(controller.accessoryPanelOpen, isFalse);
+    expect(find.text('PANEL_BODY'), findsNothing);
+  });
+
+  testWidgets('J27 built-in expression panel: selecting an emoji inserts it '
+      'at the caret', (tester) async {
+    final controller = RefractionComposerController();
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(
+      buildApp(RefractionComposer(controller: controller, onSubmit: (_) {})),
+    );
+    controller.openAccessoryPanel();
+    await tester.pump();
+    expect(find.byType(ComposerExpressionPanel), findsOneWidget);
+
+    // Search narrows the grid to a single glyph, avoiding the category-tab
+    // duplicate of common emoji.
+    final searchField = find.descendant(
+      of: find.byType(ComposerExpressionPanel),
+      matching: find.byType(TextField),
+    );
+    await tester.enterText(searchField, 'pizza');
+    await tester.pump();
+    await tester.tap(find.text('\u{1F355}'));
+    await tester.pump();
+    expect(controller.state.value, '\u{1F355}');
+  });
+
+  testWidgets('J28 built-in emoji affordance toggles the panel and swaps its '
+      'glyph', (tester) async {
+    final controller = RefractionComposerController();
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(
+      buildApp(
+        RefractionComposer(
+          controller: controller,
+          showEmojiButton: true,
+          onSubmit: (_) {},
+        ),
+      ),
+    );
+    expect(find.byIcon(Icons.emoji_emotions_outlined), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.emoji_emotions_outlined));
+    await tester.pump();
+    expect(controller.accessoryPanelOpen, isTrue);
+    expect(find.byType(ComposerExpressionPanel), findsOneWidget);
+    expect(find.byIcon(Icons.keyboard_outlined), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.keyboard_outlined));
+    await tester.pump();
+    expect(controller.accessoryPanelOpen, isFalse);
+    expect(find.byType(ComposerExpressionPanel), findsNothing);
+  });
+
+  testWidgets('J29 no accessory panel and no emoji button unless opted in '
+      '— backward compatible default', (tester) async {
+    await tester.pumpWidget(buildApp(RefractionComposer(onSubmit: (_) {})));
+    expect(find.byType(ComposerExpressionPanel), findsNothing);
+    expect(find.byIcon(Icons.emoji_emotions_outlined), findsNothing);
   });
 }

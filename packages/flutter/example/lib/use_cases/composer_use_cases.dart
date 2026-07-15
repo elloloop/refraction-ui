@@ -220,6 +220,41 @@ Widget highContrastComposerUseCase(BuildContext context) {
   );
 }
 
+/// K13 — filled/soft surface (issue #432 Gap 1) with the built-in emoji
+/// affordance: no loud focus ring, a muted fill distinct from the page.
+@widgetbook.UseCase(name: 'Filled surface', type: RefractionComposer)
+Widget filledSurfaceComposerUseCase(BuildContext context) {
+  return _ControllerScope(
+    create: () => RefractionComposerController(
+      initialValue: 'Soft, filled surface — focus reads through the caret',
+    ),
+    builder: (controller) => RefractionComposer(
+      controller: controller,
+      surface: ComposerSurface.filled,
+      showEmojiButton: true,
+      onSubmit: (_) {},
+      onAttachRequested: () {},
+    ),
+  );
+}
+
+/// K14 — the keyboard-replacement accessory panel (issue #432 Gap 3) open,
+/// showing the built-in emoji picker below the still-visible pill.
+@widgetbook.UseCase(name: 'Accessory panel', type: RefractionComposer)
+Widget accessoryPanelComposerUseCase(BuildContext context) {
+  return _ControllerScope(
+    create: () => RefractionComposerController(),
+    arm: (controller) => controller.openAccessoryPanel(),
+    builder: (controller) => RefractionComposer(
+      controller: controller,
+      surface: ComposerSurface.filled,
+      showEmojiButton: true,
+      accessoryPanelHeight: 300,
+      onSubmit: (_) {},
+    ),
+  );
+}
+
 /// Owns a [RefractionComposerController] for a stateless use-case entry,
 /// optionally arming state (e.g. the suggestion overlay) after the first
 /// frame.

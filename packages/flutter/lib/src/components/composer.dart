@@ -11,11 +11,13 @@ import '../core/composer_core.dart';
 import '../core/composer_types.dart';
 import '../theme/refraction_colors.dart';
 import '../theme/refraction_theme.dart';
+import 'composer_expression_panel.dart';
 import 'emoji_picker.dart' show EmojiData;
 
 export '../core/composer_core.dart';
 export '../core/composer_trigger_engine.dart';
 export '../core/composer_types.dart';
+export 'composer_expression_panel.dart';
 
 /// Density variant for [RefractionComposer] (issue #426 §2.9).
 enum ComposerDensity {
@@ -142,6 +144,72 @@ bool resolveSubmitOnEnter({
   }
 }
 
+/// The pill surface treatment for [RefractionComposer] (issue #432 Gap 1).
+enum ComposerSurface {
+  /// The default: a page-coloured fill with a hairline that turns
+  /// `colors.ring` while focused (0.45.0 behavior — unchanged).
+  outlined,
+
+  /// A soft, filled surface distinct from the page (`colors.muted`) with a
+  /// constant hairline that does **not** colour on focus — focus reads
+  /// through the caret, so a saturated brand `ring` never draws a loud
+  /// full-perimeter border.
+  filled,
+}
+
+/// Which side of the text area a built-in action affordance sits on.
+enum ComposerActionPlacement {
+  /// Before the text area (mirrors under RTL).
+  leading,
+
+  /// After the text area, before the primary action.
+  trailing,
+}
+
+/// The resolved fill + border for one [ComposerSurface] and interaction
+/// state. Pure data so the surface matrix is unit-testable.
+@immutable
+class ComposerSurfaceStyle {
+  /// The pill fill colour.
+  final Color fill;
+
+  /// The pill border (hairline) colour.
+  final Color border;
+
+  /// Creates a resolved surface style.
+  const ComposerSurfaceStyle({required this.fill, required this.border});
+}
+
+/// Resolves the pill [ComposerSurfaceStyle] from design tokens — never
+/// hard-coded colours — for the given surface and state.
+///
+/// [ComposerSurface.outlined] preserves the 0.45.0 treatment exactly (page
+/// fill, `ring` on focus). [ComposerSurface.filled] uses a muted fill and a
+/// hairline that stays constant on focus. High contrast strengthens the
+/// hairline to `foreground` in both, keeping the palette the contrast lever.
+ComposerSurfaceStyle resolveComposerSurface({
+  required ComposerSurface surface,
+  required RefractionColors colors,
+  required bool focused,
+  required bool disabled,
+  required bool highContrast,
+}) {
+  switch (surface) {
+    case ComposerSurface.outlined:
+      return ComposerSurfaceStyle(
+        fill: disabled ? colors.muted : colors.background,
+        border: focused && !disabled
+            ? colors.ring
+            : (highContrast ? colors.foreground : colors.border),
+      );
+    case ComposerSurface.filled:
+      return ComposerSurfaceStyle(
+        fill: colors.muted,
+        border: highContrast ? colors.foreground : colors.border,
+      );
+  }
+}
+
 Map<String, String>? _cachedDefaultShortcodes;
 
 /// The default `:shortcode:` table, derived from [EmojiData] (emoji names
@@ -192,6 +260,16 @@ class RefractionComposerStrings {
   /// Transient banner after a clamped paste.
   final String trimmedNotice;
 
+  /// Label of the built-in emoji affordance (closed state).
+  final String emojiLabel;
+
+  /// Label of the built-in emoji affordance while the panel is open (it
+  /// returns to the keyboard).
+  final String keyboardLabel;
+
+  /// Accessible container label for the accessory panel.
+  final String accessoryPanelLabel;
+
   /// Creates the strings bundle.
   const RefractionComposerStrings({
     this.fieldLabel = 'Message input',
@@ -203,6 +281,9 @@ class RefractionComposerStrings {
     this.suggestionsError = "Couldn't load suggestions",
     this.retryLabel = 'Retry',
     this.trimmedNotice = 'Pasted text was trimmed to fit',
+    this.emojiLabel = 'Emoji',
+    this.keyboardLabel = 'Keyboard',
+    this.accessoryPanelLabel = 'Expression panel',
   });
 
   /// Accessible label for an attachment chip's remove button.
@@ -416,6 +497,33 @@ class RefractionComposerController extends ChangeNotifier {
 
   /// Forces a pending debounced draft write.
   void flushDraft() => core.flushDraft();
+
+  bool _accessoryPanelOpen = false;
+
+  /// Whether the keyboard-replacement accessory panel is open (issue #432
+  /// Gap 3). This is UI/keyboard state, so it lives on the controller
+  /// rather than in the pure [ComposerCore].
+  bool get accessoryPanelOpen => _accessoryPanelOpen;
+
+  /// Opens the accessory panel. The bound widget drops the soft keyboard so
+  /// the panel takes its vertical place; the panel auto-closes when the
+  /// field regains focus. No-op if already open.
+  void openAccessoryPanel() {
+    if (_accessoryPanelOpen || _disposed) return;
+    _accessoryPanelOpen = true;
+    notifyListeners();
+  }
+
+  /// Closes the accessory panel. No-op if already closed.
+  void closeAccessoryPanel() {
+    if (!_accessoryPanelOpen || _disposed) return;
+    _accessoryPanelOpen = false;
+    notifyListeners();
+  }
+
+  /// Toggles the accessory panel open/closed.
+  void toggleAccessoryPanel() =>
+      _accessoryPanelOpen ? closeAccessoryPanel() : openAccessoryPanel();
 
   @override
   void dispose() {
@@ -666,6 +774,43 @@ class RefractionComposer extends StatefulWidget {
   /// [leadingBuilder]) the attach slot is omitted entirely.
   final VoidCallback? onAttachRequested;
 
+  /// Pill surface treatment (issue #432 Gap 1). Defaults to
+  /// [ComposerSurface.outlined] — the 0.45.0 behavior, unchanged.
+  final ComposerSurface surface;
+
+  /// Optional externally-owned focus node (issue #432 Gap 2). When null the
+  /// widget owns an internal node (and disposes only the one it owns). Pass
+  /// one to dismiss/restore the keyboard programmatically.
+  final FocusNode? focusNode;
+
+  /// Builds the keyboard-replacement accessory panel content (issue #432
+  /// Gap 3). When null and the panel is opened, the built-in expression
+  /// panel ([expressionPanelConfig]) renders instead. Supply this to fully
+  /// replace the panel body (the component still owns layout + keyboard
+  /// choreography).
+  final WidgetBuilder? accessoryPanelBuilder;
+
+  /// Configuration for the built-in expression (emoji + sticker) panel used
+  /// when [accessoryPanelBuilder] is null. Defaults to a complete emoji
+  /// picker over the package's `EmojiData`, with no sticker tab.
+  final ComposerExpressionPanelConfig expressionPanelConfig;
+
+  /// When true, a built-in emoji affordance is shown that toggles the
+  /// accessory panel (opening it drops the keyboard; tapping again restores
+  /// the keyboard). Defaults to false — no button unless opted in.
+  final bool showEmojiButton;
+
+  /// Where the built-in emoji affordance sits when [showEmojiButton] is
+  /// true. Defaults to [ComposerActionPlacement.leading].
+  final ComposerActionPlacement emojiButtonPlacement;
+
+  /// Fired when a sticker is chosen in the built-in expression panel.
+  final ValueChanged<ComposerSticker>? onStickerSelected;
+
+  /// Fixed accessory-panel height (logical pixels) used when the last
+  /// keyboard height could not be captured. Defaults to 300.
+  final double accessoryPanelHeight;
+
   /// Creates a [RefractionComposer].
   const RefractionComposer({
     super.key,
@@ -699,6 +844,14 @@ class RefractionComposer extends StatefulWidget {
     this.onTypingActivity,
     this.onAttachmentRejected,
     this.onAttachRequested,
+    this.surface = ComposerSurface.outlined,
+    this.focusNode,
+    this.accessoryPanelBuilder,
+    this.expressionPanelConfig = const ComposerExpressionPanelConfig(),
+    this.showEmojiButton = false,
+    this.emojiButtonPlacement = ComposerActionPlacement.leading,
+    this.onStickerSelected,
+    this.accessoryPanelHeight = 300,
   });
 
   @override
@@ -720,7 +873,8 @@ class _RefractionComposerState extends State<RefractionComposer> {
   late RefractionComposerController _controller;
   bool _ownsController = false;
   late _RefractionComposerTextEditingController _textController;
-  late final FocusNode _focusNode;
+  late FocusNode _focusNode;
+  bool _ownsFocusNode = false;
   UndoHistoryController _undoController = UndoHistoryController();
   final LayerLink _layerLink = LayerLink();
   final GlobalKey _pillKey = GlobalKey();
@@ -729,6 +883,18 @@ class _RefractionComposerState extends State<RefractionComposer> {
   Duration _resizeDuration = _growDuration;
   bool _noticeVisible = false;
   Timer? _noticeTimer;
+
+  /// Mirrors the controller's panel flag so we can react to open/close
+  /// transitions (drop the keyboard on open).
+  bool _accessoryPanelWasOpen = false;
+
+  /// The last observed non-zero keyboard height, reused as the panel height
+  /// so the panel occupies exactly the keyboard's vertical space.
+  double _lastKeyboardInset = 0;
+
+  /// Recently used emoji glyphs (most-recent first), owned here so they
+  /// survive panel open/close within the composer's lifetime.
+  List<String> _recentEmoji = const [];
 
   @override
   void initState() {
@@ -743,8 +909,11 @@ class _RefractionComposerState extends State<RefractionComposer> {
     _textController = _RefractionComposerTextEditingController(
       _controller.core,
     );
-    _focusNode = FocusNode(debugLabel: 'RefractionComposer');
+    _focusNode =
+        widget.focusNode ?? FocusNode(debugLabel: 'RefractionComposer');
+    _ownsFocusNode = widget.focusNode == null;
     _focusNode.addListener(_handleFocusChanged);
+    _accessoryPanelWasOpen = _controller.accessoryPanelOpen;
     _lastValue = _controller.state.value;
   }
 
@@ -786,6 +955,17 @@ class _RefractionComposerState extends State<RefractionComposer> {
       previousText.dispose();
       if (oldWidget.controller == null) previousController.dispose();
       _lastValue = _controller.state.value;
+      _accessoryPanelWasOpen = _controller.accessoryPanelOpen;
+    }
+    if (widget.focusNode != oldWidget.focusNode) {
+      // Focus-node swap: detach from the old node, dispose it only if we
+      // owned it, then adopt the new node (internal when null).
+      _focusNode.removeListener(_handleFocusChanged);
+      if (_ownsFocusNode) _focusNode.dispose();
+      _focusNode =
+          widget.focusNode ?? FocusNode(debugLabel: 'RefractionComposer');
+      _ownsFocusNode = widget.focusNode == null;
+      _focusNode.addListener(_handleFocusChanged);
     }
     if (widget.disabled != oldWidget.disabled) {
       _controller.core.setDisabled(widget.disabled);
@@ -802,7 +982,8 @@ class _RefractionComposerState extends State<RefractionComposer> {
     _noticeTimer?.cancel();
     _unwire(_controller);
     _textController.dispose();
-    _focusNode.dispose();
+    _focusNode.removeListener(_handleFocusChanged);
+    if (_ownsFocusNode) _focusNode.dispose();
     _undoController.dispose();
     if (_ownsController) _controller.dispose();
     super.dispose();
@@ -832,7 +1013,18 @@ class _RefractionComposerState extends State<RefractionComposer> {
       widget.onChanged?.call(state.value);
     }
     _syncOverlay();
+    _syncAccessoryPanel();
     setState(() {});
+  }
+
+  /// Reacts to accessory-panel open/close transitions. Opening drops the
+  /// soft keyboard so the panel occupies its vertical space (issue #432
+  /// Gap 3); this relies on the externally-controllable focus node (Gap 2).
+  void _syncAccessoryPanel() {
+    final open = _controller.accessoryPanelOpen;
+    if (open == _accessoryPanelWasOpen) return;
+    _accessoryPanelWasOpen = open;
+    if (open && _focusNode.hasFocus) _focusNode.unfocus();
   }
 
   void _handleCoreEvent(ComposerEvent event) {
@@ -848,12 +1040,42 @@ class _RefractionComposerState extends State<RefractionComposer> {
   void _handleFocusChanged() {
     if (_focusNode.hasFocus) {
       _controller.core.cancelDeferredDismiss();
+      // The user tapped to type: the field yields the accessory panel back
+      // to the keyboard (issue #432 Gap 3).
+      if (_controller.accessoryPanelOpen) _controller.closeAccessoryPanel();
     } else {
       // Grace period so a pointer tap on a suggestion row lands first.
       _controller.core.dismissSuggestionDeferred();
     }
     if (mounted) setState(() {});
   }
+
+  /// Toggles the accessory panel from the built-in emoji affordance:
+  /// closing it restores focus (and the keyboard); opening it hands the
+  /// keyboard's space to the panel.
+  void _toggleAccessoryPanel() {
+    if (_controller.accessoryPanelOpen) {
+      _controller.closeAccessoryPanel();
+      _focusNode.requestFocus();
+    } else {
+      _controller.openAccessoryPanel();
+    }
+  }
+
+  /// Inserts a chosen emoji glyph at the caret and records it in recents.
+  void _handleEmojiSelected(String glyph) {
+    _controller.insertTextAtCursor(glyph);
+    setState(() {
+      final maxRecents = widget.expressionPanelConfig.maxRecents;
+      final next = [glyph, ..._recentEmoji.where((e) => e != glyph)];
+      _recentEmoji = next.length > maxRecents
+          ? next.sublist(0, maxRecents)
+          : next;
+    });
+  }
+
+  void _handleStickerSelected(ComposerSticker sticker) =>
+      widget.onStickerSelected?.call(sticker);
 
   void _showTrimmedNotice() {
     _noticeTimer?.cancel();
@@ -1303,19 +1525,37 @@ class _RefractionComposerState extends State<RefractionComposer> {
         widget.primaryBuilder?.call(context, primaryContext) ??
         _buildDefaultPrimary(tokens, colors, primaryContext);
 
+    final emojiButton = widget.showEmojiButton
+        ? _buildEmojiToggle(tokens, colors)
+        : null;
+    final leadingEmoji =
+        emojiButton != null &&
+            widget.emojiButtonPlacement == ComposerActionPlacement.leading
+        ? emojiButton
+        : null;
+    final trailingEmoji =
+        emojiButton != null &&
+            widget.emojiButtonPlacement == ComposerActionPlacement.trailing
+        ? emojiButton
+        : null;
+
     // High contrast strengthens the pill hairline to the foreground token
-    // (the palette itself is the host's contrast lever).
-    final highContrast = mediaQuery.highContrast;
-    final borderColor = _focusNode.hasFocus && !widget.disabled
-        ? colors.ring
-        : (highContrast ? colors.foreground : colors.border);
+    // (the palette itself is the host's contrast lever). The filled surface
+    // never colours the hairline on focus (issue #432 Gap 1).
+    final surfaceStyle = resolveComposerSurface(
+      surface: widget.surface,
+      colors: colors,
+      focused: _focusNode.hasFocus,
+      disabled: widget.disabled,
+      highContrast: mediaQuery.highContrast,
+    );
     final pill = Container(
       key: _pillKey,
       constraints: BoxConstraints(minHeight: tokens.minHeight),
       alignment: AlignmentDirectional.center,
       decoration: BoxDecoration(
-        color: widget.disabled ? colors.muted : colors.background,
-        border: Border.all(color: borderColor),
+        color: surfaceStyle.fill,
+        border: Border.all(color: surfaceStyle.border),
         borderRadius: BorderRadius.circular(tokens.minHeight / 2),
       ),
       child: Padding(
@@ -1331,14 +1571,32 @@ class _RefractionComposerState extends State<RefractionComposer> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             if (leading != null) ...[leading, SizedBox(width: tokens.gutter)],
+            if (leadingEmoji != null) ...[
+              leadingEmoji,
+              SizedBox(width: tokens.gutter),
+            ],
             Expanded(child: textArea),
             if (trailing != null) ...[SizedBox(width: tokens.gutter), trailing],
+            if (trailingEmoji != null) ...[
+              SizedBox(width: tokens.gutter),
+              trailingEmoji,
+            ],
             SizedBox(width: tokens.gutter),
             primary,
           ],
         ),
       ),
     );
+
+    // Cache the last non-zero keyboard height so the accessory panel can
+    // occupy exactly the keyboard's vertical space (issue #432 Gap 3).
+    final keyboardInset = mediaQuery.viewInsets.bottom;
+    if (keyboardInset > 0) _lastKeyboardInset = keyboardInset;
+    final panelOpen = _controller.accessoryPanelOpen && !widget.disabled;
+    final accessoryPanelBody = panelOpen ? _buildAccessoryPanel(theme) : null;
+    final panelHeight = _lastKeyboardInset > 0
+        ? _lastKeyboardInset
+        : widget.accessoryPanelHeight;
 
     final counter = state.counter;
     final dock = Column(
@@ -1400,14 +1658,29 @@ class _RefractionComposerState extends State<RefractionComposer> {
               ),
             ),
           ),
+        if (accessoryPanelBody != null) ...[
+          SizedBox(height: tokens.gutter),
+          // The panel stacks below the pill at the keyboard's height; the
+          // text area above keeps its own sizing and stays dominant.
+          SizedBox(
+            height: panelHeight,
+            child: Semantics(
+              container: true,
+              label: strings.accessoryPanelLabel,
+              child: accessoryPanelBody,
+            ),
+          ),
+        ],
       ],
     );
 
     // §2.8: never stack safe-area and keyboard insets — the keyboard
-    // replaces the home-indicator inset.
-    final keyboardOpen = mediaQuery.viewInsets.bottom > 0;
+    // replaces the home-indicator inset. An open accessory panel occupies
+    // that same space, so it suppresses the safe-area inset too, keeping
+    // the stack flush and avoiding a layout jump (issue #432 Gap 3).
+    final occupiesKeyboardSpace = mediaQuery.viewInsets.bottom > 0 || panelOpen;
     final bottomInset = widget.padSafeArea
-        ? (keyboardOpen ? 0.0 : mediaQuery.viewPadding.bottom)
+        ? (occupiesKeyboardSpace ? 0.0 : mediaQuery.viewPadding.bottom)
         : 0.0;
 
     return AnimatedPadding(
@@ -1439,6 +1712,49 @@ class _RefractionComposerState extends State<RefractionComposer> {
       icon: Icon(
         Icons.send_rounded,
         color: primary.canSend ? colors.primary : colors.mutedForeground,
+      ),
+    );
+  }
+
+  /// The built-in emoji affordance: an emoji glyph that opens the accessory
+  /// panel, swapping to a keyboard glyph while open (WhatsApp-style toggle).
+  Widget _buildEmojiToggle(
+    ComposerDensityTokens tokens,
+    RefractionColors colors,
+  ) {
+    final open = _controller.accessoryPanelOpen;
+    return _ComposerActionSlot(
+      tokens: tokens,
+      semanticLabel: open
+          ? widget.strings.keyboardLabel
+          : widget.strings.emojiLabel,
+      onPressed: widget.disabled ? null : _toggleAccessoryPanel,
+      icon: Icon(
+        open ? Icons.keyboard_outlined : Icons.emoji_emotions_outlined,
+        color: colors.mutedForeground,
+      ),
+    );
+  }
+
+  /// Resolves the accessory-panel body: the host [accessoryPanelBuilder]
+  /// wins; otherwise the built-in expression (emoji + sticker) panel.
+  Widget _buildAccessoryPanel(RefractionTheme theme) {
+    if (widget.accessoryPanelBuilder != null) {
+      return widget.accessoryPanelBuilder!(context);
+    }
+    final colors = theme.colors;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: colors.background,
+        border: Border(top: BorderSide(color: colors.border)),
+      ),
+      child: ComposerExpressionPanel(
+        config: widget.expressionPanelConfig,
+        recentEmojis: _recentEmoji,
+        onEmojiSelected: _handleEmojiSelected,
+        onStickerSelected: widget.onStickerSelected == null
+            ? null
+            : _handleStickerSelected,
       ),
     );
   }
