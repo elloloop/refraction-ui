@@ -83,6 +83,24 @@ const composerProps = [
     description: 'Fired by the built-in stop button while `busy`.',
   },
   {
+    name: 'surface',
+    type: "'outlined' | 'filled'",
+    default: "'outlined'",
+    description:
+      'Resting fill of the pill. `filled` uses a calm muted fill distinct from the page plus a hairline; both keep a tasteful focus-visible ring.',
+  },
+  {
+    name: 'accessoryPanel',
+    type: 'React.ReactNode',
+    description:
+      'Host content (e.g. an emoji picker) docked INLINE below the field — never a floating overlay. Adds a toggle button to the action row; open/close is animated + reduced-motion aware.',
+  },
+  {
+    name: 'accessoryPanelOpen / defaultAccessoryPanelOpen / onAccessoryPanelToggle',
+    type: 'boolean / boolean / (open) => void',
+    description: 'Controlled or uncontrolled open state for the inline expression panel.',
+  },
+  {
     name: 'autoFocus',
     type: 'boolean',
     description: 'Focus the textarea on mount.',
@@ -263,11 +281,29 @@ export default function ComposerPage() {
         <p className="text-sm text-muted-foreground">
           A <code className="text-xs bg-muted px-1 rounded">/</code> trigger scoped to the
           start of the message, plus a <code className="text-xs bg-muted px-1 rounded">:</code>{' '}
-          emoji trigger. Directly typing a known{' '}
+          emoji trigger from <code className="text-xs bg-muted px-1 rounded">createEmojiTrigger()</code>,
+          which resolves against the <strong>full shared emoji set (~1,900 emoji)</strong> — the
+          same source the picker uses. Directly typing a known{' '}
           <code className="text-xs bg-muted px-1 rounded">:shortcode:</code> commits the emoji
-          without opening the menu.
+          without opening the menu. The menu now eases in (fade + scale) and honours reduced motion.
         </p>
         <ComposerExamples section="slashAndEmoji" />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">
+          Inline expression panel &amp; filled surface
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          <code className="text-xs bg-muted px-1 rounded">accessoryPanel</code> docks host content
+          (here the full emoji picker) <strong>below the field, inside the composer&apos;s own
+          stack</strong> — never a floating overlay that covers the message you are typing, the web
+          analogue of WhatsApp&apos;s panel-in-the-keyboard. A toggle button appears in the action
+          row; open/close is animated and reduced-motion aware. This example also uses{' '}
+          <code className="text-xs bg-muted px-1 rounded">surface=&quot;filled&quot;</code>: a calm
+          muted fill distinct from the page with a tasteful focus ring.
+        </p>
+        <ComposerExamples section="expressionPanel" />
       </section>
 
       <section className="space-y-4">
@@ -275,7 +311,9 @@ export default function ComposerPage() {
         <p className="text-sm text-muted-foreground">
           Files arrive via paste, drag-and-drop, or imperatively through{' '}
           <code className="text-xs bg-muted px-1 rounded">apiRef.addAttachment</code>. Chips
-          render in a tray above the field; attachments-only messages are sendable.
+          render in a tray above the field and now <strong>animate in (fade + scale) and out
+          (a faster exit) </strong>before unmounting; attachments-only messages are sendable.
+          Under reduced motion the removal is instant.
         </p>
         <ComposerExamples section="attachments" />
       </section>

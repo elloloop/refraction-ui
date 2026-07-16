@@ -3,16 +3,19 @@
 import * as React from 'react'
 import {
   RefractionComposer,
+  createEmojiTrigger,
   type ComposerAPI,
   type ComposerSubmission,
   type ComposerTrigger,
 } from '@refraction-ui/react-composer'
+import { EmojiPicker } from '@refraction-ui/react-emoji-picker'
 
 interface ComposerExamplesProps {
   section:
     | 'basic'
     | 'mentions'
     | 'slashAndEmoji'
+    | 'expressionPanel'
     | 'attachments'
     | 'busyStop'
     | 'editMode'
@@ -25,6 +28,7 @@ export function ComposerExamples({ section }: ComposerExamplesProps) {
   if (section === 'basic') return <BasicExample />
   if (section === 'mentions') return <MentionsExample />
   if (section === 'slashAndEmoji') return <SlashAndEmojiExample />
+  if (section === 'expressionPanel') return <ExpressionPanelExample />
   if (section === 'attachments') return <AttachmentsExample />
   if (section === 'busyStop') return <BusyStopExample />
   if (section === 'editMode') return <EditModeExample />
@@ -86,15 +90,6 @@ const SLASH_COMMANDS = [
   { id: 'poll', display: 'poll', subtitle: 'Start a quick poll' },
 ]
 
-const EMOJI: Record<string, string> = {
-  fire: '🔥',
-  tada: '🎉',
-  heart: '❤️',
-  rocket: '🚀',
-  eyes: '👀',
-  thumbsup: '👍',
-}
-
 const slashTrigger: ComposerTrigger = {
   id: 'slash',
   symbol: '/',
@@ -103,24 +98,54 @@ const slashTrigger: ComposerTrigger = {
     SLASH_COMMANDS.filter((c) => c.display.startsWith(query.toLowerCase())),
 }
 
-const emojiTrigger: ComposerTrigger = {
-  id: 'emoji',
-  symbol: ':',
-  toDisplay: (candidate) => EMOJI[candidate.id] ?? candidate.display,
-  resolve: (query) =>
-    Object.entries(EMOJI)
-      .filter(([name]) => name.includes(query.toLowerCase()))
-      .map(([name, emoji]) => ({ id: name, display: `${emoji} :${name}:` })),
-}
+// The `:` trigger resolves against the FULL shared emoji set (~1900 emoji) — the
+// same source the picker uses. No hand-maintained map to drift out of sync.
+const emojiTrigger = createEmojiTrigger()
 
 function SlashAndEmojiExample() {
   return (
     <div className={card}>
       <RefractionComposer
-        placeholder="Type / for commands or : for emoji…"
+        placeholder="Type / for commands or :fir for emoji…"
         triggers={[slashTrigger, emojiTrigger]}
         onSubmit={() => undefined}
       />
+    </div>
+  )
+}
+
+/* ── Inline expression panel + filled surface ──────────────────── */
+
+function ExpressionPanelExample() {
+  const composerRef = React.useRef<HTMLTextAreaElement>(null)
+  return (
+    <div className={`${card} space-y-4`}>
+      <RefractionComposer
+        ref={composerRef}
+        surface="filled"
+        placeholder="Tap the smiley to open the emoji panel — your text stays visible…"
+        triggers={[emojiTrigger]}
+        onSubmit={() => undefined}
+        accessoryPanel={
+          <EmojiPicker
+            className="w-full border-0 shadow-none"
+            onSelect={(entry) => {
+              const el = composerRef.current
+              if (!el) return
+              // Insert the glyph at the caret and keep focus in the field.
+              const start = el.selectionStart ?? el.value.length
+              const end = el.selectionEnd ?? el.value.length
+              el.setRangeText(entry.emoji, start, end, 'end')
+              el.dispatchEvent(new Event('input', { bubbles: true }))
+              el.focus()
+            }}
+          />
+        }
+      />
+      <p className="text-xs text-muted-foreground">
+        The panel docks <strong>below the field, inside the composer</strong> — it never floats
+        over the message you are typing. Uses the <code>filled</code> surface.
+      </p>
     </div>
   )
 }

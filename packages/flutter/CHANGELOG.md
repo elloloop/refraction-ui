@@ -1,3 +1,14 @@
+## 0.46.0
+
+- **Chat / Emoji**: Major `RefractionComposer` + `RefractionEmojiPicker` upgrade.
+  - Full emoji set (~1,900, Unicode 16.0) from one generated source shared by the picker and the composer's `:` shortcode resolver.
+  - Uniform default rendering via a swappable `EmojiRenderer` seam — ships bundled **Twemoji** SVG assets (CC-BY 4.0; attribution in `NOTICE`/README) so emoji look identical on every platform; swap to `defaultEmojiRenderer` (native) to opt out. **Note:** the bundled Twemoji assets add ~8 MB to the package; the native renderer avoids this.
+  - Stickers: `EmojiSticker` type + a starter pack (8 SVG + 1 Lottie animated) + host-pack support and a sticker render seam.
+  - **Accessory panel** API (`accessoryPanelBuilder`, `controller.openAccessoryPanel()/closeAccessoryPanel()/toggleAccessoryPanel()`) — an emoji/expression panel opens in the keyboard's place with the field still visible above it (WhatsApp/Slack-style), not a modal sheet. Addresses Nesta feedback #432.
+  - **Filled surface** (`ComposerSurface.filled`, now default) with a calm caret-based focus (no saturated full-perimeter ring), and an optional external `FocusNode` — both from Nesta feedback #432.
+  - Motion polish: `AnimatedSwitcher` send⇄stop, eased suggestion overlay (faster exit), spring-in attachment chips, animated emoji category switching; all reduced-motion aware.
+- **Fix**: `RefractionEmojiPicker` now renders the complete category set with search, recents, and animated tabs.
+
 ## 0.45.0
 
 - **Chat**: Add `RefractionComposer` — a headless-core chat composer with auto-grow (viewport-capped), IME-safe Enter-to-send, `@`mention / `/`slash / `:emoji:` / `#`tag trigger suggestions committing atomic tokens, an attachments tray, injectable drafts, edit-in-place, busy/stop primary action, `compact`/`comfortable`/`spacious` density variants, RTL mirroring, and full Semantics. The pure-Dart `ComposerCore` (`lib/src/core/`) has zero `package:flutter` imports and emits structured `{plainText, tokens[]}` output identical to the React core.

@@ -17,6 +17,7 @@ export type { UseComposerResult } from './use-composer.js'
 // and react-thread-view owns `MessageAttachment`.
 export {
   createComposer,
+  createEmojiTrigger,
   toMessageAttachment,
   composerSurfaceVariants,
   composerFieldClass,
@@ -27,6 +28,8 @@ export {
   composerMenuItemVariants,
   composerCounterVariants,
   composerPrimaryActionVariants,
+  composerAccessoryPanelClass,
+  composerAccessoryToggleVariants,
 } from '@refraction-ui/composer'
 export type {
   ComposerAPI,
@@ -51,6 +54,7 @@ export type {
   ComposerValidationResult,
   ComposerValidator,
   CounterState,
+  EmojiTriggerOptions,
   EnterResult,
   PlacedToken,
   ResolvedToken,

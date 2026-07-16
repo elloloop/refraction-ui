@@ -27,6 +27,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@refraction-ui/emoji-picker": "workspace:*",
     "@refraction-ui/shared": "workspace:*"
   },
   "devDependencies": {},

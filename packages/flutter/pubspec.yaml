@@ -1,6 +1,6 @@
 name: refraction_ui
 description: "A headless, highly customizable, and fully accessible Flutter UI library matching Refraction UI."
-version: 0.45.0
+version: 0.46.0
 homepage: https://elloloop.github.io/refraction-ui
 repository: https://github.com/elloloop/refraction-ui
 issue_tracker: https://github.com/elloloop/refraction-ui/issues
@@ -26,6 +26,11 @@ dependencies:
   flutter_markdown: ^0.7.7+1
   markdown: ^7.3.1
   video_player: ^2.11.1
+  # Renders the bundled uniform Twemoji glyph set (assets/twemoji/*.svg) as
+  # the default EmojiRenderer, so emoji look identical across every platform.
+  flutter_svg: ^2.0.10
+  # Powers the animated-sticker render path (assets/stickers/pulse.json).
+  lottie: ^3.1.2
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +51,12 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+
+  assets:
+    # Uniform Twemoji glyph set (CC-BY 4.0 — see NOTICE). ~3.2 MB of SVG.
+    - assets/twemoji/
+    # Bundled starter sticker pack (SVG) + one Lottie animated sticker.
+    - assets/stickers/
 
   # To add assets to your package, add an assets section, like this:
   # assets:

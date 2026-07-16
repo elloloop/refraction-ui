@@ -1,0 +1,30 @@
+refraction_ui
+Copyright the Refraction UI authors.
+
+This package is licensed under the MIT License (see LICENSE).
+
+--------------------------------------------------------------------------------
+Third-party bundled assets
+--------------------------------------------------------------------------------
+
+Twemoji (assets/twemoji/*.svg)
+------------------------------
+The emoji graphics bundled under `assets/twemoji/` are from the Twemoji
+project and are used as the default, platform-uniform emoji glyph set.
+
+  Copyright 2020 Twitter, Inc and other contributors
+  Graphics licensed under CC-BY 4.0:
+  https://creativecommons.org/licenses/by/4.0/
+  Source: https://github.com/jdecked/twemoji
+
+CC-BY 4.0 requires attribution. This NOTICE, together with the credit in the
+README, provides that attribution. If you swap the default `EmojiRenderer`
+away from Twemoji (e.g. to native OS glyphs via `defaultEmojiRenderer`, or to
+your own uniform set), the Twemoji attribution requirement no longer applies
+to your build.
+
+Starter stickers (assets/stickers/*.svg, assets/stickers/*.json)
+----------------------------------------------------------------
+Original works created for refraction_ui, licensed under the package's MIT
+License. These are a small starter pack; hosts supply their own via the
+`RefractionEmojiPicker.stickers` seam.
