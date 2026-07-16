@@ -130,17 +130,20 @@ class _RefractionPopoverState extends State<RefractionPopover> {
     setState(() => _isOpen = true);
   }
 
-  void _closePopover() {
+  void _closePopover({bool isDisposing = false}) {
     _overlayEntry?.remove();
     _overlayEntry = null;
-    if (mounted) {
+    // Never call setState() while the element is being torn down — during
+    // dispose() `mounted` is still true but markNeedsBuild throws on a defunct
+    // element. Mirrors the combobox's isDisposing guard.
+    if (!isDisposing && mounted) {
       setState(() => _isOpen = false);
     }
   }
 
   @override
   void dispose() {
-    _closePopover();
+    _closePopover(isDisposing: true);
     super.dispose();
   }
 
