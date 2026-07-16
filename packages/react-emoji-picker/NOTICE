@@ -1,0 +1,20 @@
+@refraction-ui/react-emoji-picker
+=================================
+
+This package's default emoji renderer displays Twemoji graphics.
+
+Twemoji
+-------
+Copyright © Twitter, Inc and other contributors.
+Graphics licensed under CC-BY 4.0: https://creativecommons.org/licenses/by/4.0/
+Source: https://github.com/jdecked/twemoji
+
+Applications that render emoji using the default Twemoji renderer
+(`twemojiRenderer`, the default `emojiRenderer`) must preserve the CC-BY 4.0
+attribution above (for example, on an About or Licenses screen). To opt out,
+supply a different `emojiRenderer` (e.g. `nativeEmojiRenderer`) or self-host an
+alternative asset set.
+
+Emoji names, categories, and ordering are derived from the Unicode® UTS #51
+emoji-test data (https://www.unicode.org/reports/tr51). Unicode Terms of Use:
+https://www.unicode.org/terms_of_use.html

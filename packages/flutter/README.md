@@ -353,6 +353,37 @@ The repo's full CI (lint + unit tests + visual regression) runs on every PR via 
 
 ---
 
+## Emoji, stickers & attribution
+
+`RefractionEmojiPicker` ships the **complete Unicode emoji set (~1,870
+glyphs)** as a single generated dataset (`lib/src/data/emoji_dataset.g.dart`,
+produced by `tool/generate_emoji_data.dart`) — the same source the composer's
+`:shortcode:` resolver consumes, so a picker tap and a `:code:` always agree.
+
+By default the picker renders emoji with the **bundled, platform-uniform
+[Twemoji](https://github.com/jdecked/twemoji) set** (SVG, ~3.2 MB under
+`assets/twemoji/`) so emoji look identical on every OS and version — instead of
+the host platform's native glyphs, which differ. Rendering goes through a
+single `EmojiRenderer` seam, so you can swap it:
+
+```dart
+RefractionEmojiPicker(
+  // Uniform Twemoji is the default; force native OS glyphs like this:
+  emojiRenderer: defaultEmojiRenderer,
+  // ...or supply your own (Noto / Fluent / your asset set).
+)
+```
+
+A small **starter sticker pack** (`refractionStarterStickers()`) ships too —
+eight static SVG stickers plus one Lottie-animated sticker — proving both the
+static and animated render paths. Hosts add their own packs via
+`RefractionEmojiPicker(stickers: ...)`.
+
+> **Twemoji is licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/).**
+> Copyright 2020 Twitter, Inc and other contributors. See [`NOTICE`](NOTICE).
+> If you switch the renderer away from Twemoji, that attribution requirement no
+> longer applies to your build.
+
 ## License
 
 MIT © [elloloop](https://github.com/elloloop). See [`LICENSE`](LICENSE).

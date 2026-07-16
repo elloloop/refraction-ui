@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@refraction-ui/conversation": "workspace:*",
+    "@refraction-ui/emoji-picker": "workspace:*",
     "@refraction-ui/rich-editor": "workspace:*",
     "@refraction-ui/shared": "workspace:*"
   },

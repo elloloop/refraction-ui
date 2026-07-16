@@ -46,6 +46,8 @@ class _ComposerPageState extends State<ComposerPage> {
 
   late final RefractionComposerController _controller;
   late final List<ComposerTrigger> _triggers;
+  final FocusNode _focusNode = FocusNode();
+  final List<EmojiEntry> _recentEmojis = [];
 
   @override
   void initState() {
@@ -102,7 +104,28 @@ class _ComposerPageState extends State<ComposerPage> {
   @override
   void dispose() {
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
+  }
+
+  /// WhatsApp-style toggle: open the emoji panel (dismissing the keyboard) or,
+  /// if already open, close it and bring the keyboard back.
+  void _toggleEmojiPanel() {
+    if (_controller.isAccessoryPanelOpen) {
+      _controller.closeAccessoryPanel();
+      _focusNode.requestFocus();
+    } else {
+      _controller.openAccessoryPanel();
+    }
+  }
+
+  void _insertEmoji(EmojiEntry entry) {
+    _controller.insertTextAtCursor(entry.emoji);
+    setState(() {
+      _recentEmojis
+        ..removeWhere((e) => e.emoji == entry.emoji)
+        ..insert(0, entry);
+    });
   }
 
   void _handleSubmit(ComposerSubmission submission) {
@@ -130,6 +153,7 @@ class _ComposerPageState extends State<ComposerPage> {
           constraints: const BoxConstraints(maxWidth: 800),
           child: RefractionComposer(
             controller: _controller,
+            focusNode: _focusNode,
             placeholder: 'Message the team — try @, / or :joy:',
             maxLines: 6,
             triggers: _triggers,
@@ -152,6 +176,30 @@ class _ComposerPageState extends State<ComposerPage> {
                 ),
               ),
               icon: Icon(Icons.attach_file, color: colors.mutedForeground),
+            ),
+            // WhatsApp-style emoji toggle: the icon swaps emoji <-> keyboard.
+            trailingBuilder: (context, controller) => IconButton(
+              onPressed: _toggleEmojiPanel,
+              icon: Icon(
+                controller.isAccessoryPanelOpen
+                    ? Icons.keyboard_outlined
+                    : Icons.emoji_emotions_outlined,
+                color: colors.mutedForeground,
+              ),
+            ),
+            // The emoji/sticker picker lives in the accessory panel below the
+            // pill (never a modal sheet over the composer — issue #432 Gap 3).
+            accessoryPanelBuilder: (context) => RefractionEmojiPicker(
+              width: double.infinity,
+              fillHeight: true,
+              recentEmojis: _recentEmojis,
+              stickers: refractionStarterStickers(),
+              onSelect: _insertEmoji,
+              onStickerSelect: (sticker) => RefractionToast.show(
+                context: context,
+                title: 'Sticker',
+                description: sticker.label,
+              ),
             ),
           ),
         ),

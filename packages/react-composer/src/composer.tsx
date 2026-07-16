@@ -1,5 +1,7 @@
 import * as React from 'react'
 import {
+  composerAccessoryPanelClass,
+  composerAccessoryToggleVariants,
   composerAttachmentChipVariants,
   composerCounterVariants,
   composerFieldClass,
@@ -24,7 +26,7 @@ import type {
   ComposerValidator,
   PlacedToken,
 } from '@refraction-ui/composer'
-import { cn, generateId } from '@refraction-ui/shared'
+import { cn, generateId, prefersReducedMotion } from '@refraction-ui/shared'
 import { useComposer } from './use-composer.js'
 
 // ---------------------------------------------------------------------------
@@ -37,6 +39,8 @@ const FIELD_LINE_HEIGHT = 1.5
 const FIELD_VERTICAL_PADDING_REM = 1.5
 /** How long the "paste was trimmed" notice stays visible. */
 const TRIMMED_NOTICE_HIDE_MS = 4000
+/** Chip exit animation window before the attachment is actually removed. */
+const CHIP_EXIT_MS = 150
 
 function fieldHeightFor(lines: number): string {
   return `calc(${lines * FIELD_LINE_HEIGHT}em + ${FIELD_VERTICAL_PADDING_REM}rem)`
@@ -65,6 +69,8 @@ export interface RefractionComposerStrings {
   counterLabel: (remaining: number) => string
   editingLabel: string
   cancelEditLabel: string
+  /** Accessible name of the expression-panel toggle button. */
+  accessoryPanelLabel: string
   /** Live-region announcement while the suggestion menu shows results. */
   resultsAnnouncement: (count: number) => string
 }
@@ -84,6 +90,7 @@ export const DEFAULT_COMPOSER_STRINGS: RefractionComposerStrings = {
   counterLabel: (remaining) => `${remaining} characters remaining`,
   editingLabel: 'Editing message',
   cancelEditLabel: 'Cancel edit',
+  accessoryPanelLabel: 'Emoji and stickers',
   resultsAnnouncement: (count) => `${count} suggestions available`,
 }
 
@@ -128,6 +135,25 @@ export interface RefractionComposerProps
   /** Busy/streaming: swaps the default send button for a stop button. */
   busy?: boolean
   onStop?: () => void
+  /**
+   * Resting fill of the composer surface. `outlined` (default) is a
+   * transparent-on-page card; `filled` uses a calm muted fill distinct from the
+   * page. Both keep a tasteful focus-visible ring.
+   */
+  surface?: 'outlined' | 'filled'
+  /**
+   * Content for the inline expression panel (e.g. an emoji picker). When set, a
+   * toggle button appears in the action row and the panel docks BELOW the field
+   * inside the composer's own stack — it never floats over or covers the text
+   * being typed. Toggle open/close is animated and reduced-motion aware.
+   */
+  accessoryPanel?: React.ReactNode
+  /** Controlled open state for the accessory panel. */
+  accessoryPanelOpen?: boolean
+  /** Initial open state for the accessory panel (uncontrolled). Default false. */
+  defaultAccessoryPanelOpen?: boolean
+  /** Fired when the accessory-panel toggle changes the open state. */
+  onAccessoryPanelToggle?: (open: boolean) => void
   autoFocus?: boolean
   dir?: 'ltr' | 'rtl' | 'auto'
   /** Trigger configs (mention '@', slash '/', emoji ':', …). Fixed at mount. */
@@ -239,6 +265,16 @@ function IconStop() {
   )
 }
 
+function IconSmiley() {
+  return (
+    <svg {...iconSvgProps}>
+      <circle cx={12} cy={12} r={9} />
+      <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+      <path d="M9 9h.01M15 9h.01" />
+    </svg>
+  )
+}
+
 // ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
@@ -267,6 +303,11 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
       readOnly = false,
       busy = false,
       onStop,
+      surface = 'outlined',
+      accessoryPanel,
+      accessoryPanelOpen,
+      defaultAccessoryPanelOpen = false,
+      onAccessoryPanelToggle,
       autoFocus,
       dir,
       triggers,
@@ -310,9 +351,27 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
     const onAttachmentRejectedRef = useLatestRef(onAttachmentRejected)
     const onEditLastRequestedRef = useLatestRef(onEditLastRequested)
     const onEditCancelRef = useLatestRef(onEditCancel)
+    const onAccessoryPanelToggleRef = useLatestRef(onAccessoryPanelToggle)
 
     const [trimmedNoticeVisible, setTrimmedNoticeVisible] = React.useState(false)
     const trimmedTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+
+    // Inline expression panel open state (controlled or uncontrolled).
+    const [panelOpenInternal, setPanelOpenInternal] = React.useState(defaultAccessoryPanelOpen)
+    const panelControlled = accessoryPanelOpen !== undefined
+    const panelOpen = panelControlled ? accessoryPanelOpen : panelOpenInternal
+    const togglePanel = React.useCallback(() => {
+      const next = !(panelControlled ? accessoryPanelOpen : panelOpenInternal)
+      if (!panelControlled) setPanelOpenInternal(next)
+      onAccessoryPanelToggleRef.current?.(next)
+    }, [panelControlled, accessoryPanelOpen, panelOpenInternal, onAccessoryPanelToggleRef])
+
+    // Attachment chips animate out before they leave the DOM; track which ids
+    // are mid-exit and the timers so we can clean up on unmount.
+    const [exitingAttachments, setExitingAttachments] = React.useState<Set<string>>(
+      () => new Set(),
+    )
+    const exitTimersRef = React.useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map())
 
     // One stable config object. The core reads maxLength/maxAttachments/
     // validator/replyToMessageId/draft fields lazily on each operation, so
@@ -356,8 +415,13 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
       if (busy) core.setBusy(true)
     })
 
-    React.useEffect(() => () => {
-      if (trimmedTimerRef.current !== null) clearTimeout(trimmedTimerRef.current)
+    React.useEffect(() => {
+      const exitTimers = exitTimersRef.current
+      return () => {
+        if (trimmedTimerRef.current !== null) clearTimeout(trimmedTimerRef.current)
+        for (const timer of exitTimers.values()) clearTimeout(timer)
+        exitTimers.clear()
+      }
     }, [])
 
     // ---- refs / ids -------------------------------------------------------
@@ -596,6 +660,41 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
       [api, onAttachmentAddRef],
     )
 
+    const releasePreview = (previewUrl: string | undefined) => {
+      if (
+        previewUrl !== undefined &&
+        typeof URL !== 'undefined' &&
+        typeof URL.revokeObjectURL === 'function'
+      ) {
+        URL.revokeObjectURL(previewUrl)
+      }
+    }
+
+    // Remove with an exit animation, then drop from core state. Reduced motion
+    // (or SSR) removes immediately — no interpolation, still full feedback.
+    const removeAttachment = React.useCallback(
+      (id: string, previewUrl: string | undefined) => {
+        const finish = () => {
+          api.removeAttachment(id)
+          releasePreview(previewUrl)
+          exitTimersRef.current.delete(id)
+          setExitingAttachments((prev) => {
+            if (!prev.has(id)) return prev
+            const next = new Set(prev)
+            next.delete(id)
+            return next
+          })
+        }
+        if (prefersReducedMotion() || exitTimersRef.current.has(id)) {
+          if (!exitTimersRef.current.has(id)) finish()
+          return
+        }
+        setExitingAttachments((prev) => new Set(prev).add(id))
+        exitTimersRef.current.set(id, setTimeout(finish, CHIP_EXIT_MS))
+      },
+      [api],
+    )
+
     const handlePaste = (event: React.ClipboardEvent<HTMLTextAreaElement>) => {
       const files = event.clipboardData?.files
       if (files && files.length > 0) {
@@ -666,6 +765,7 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
 
     const defaultPrimaryAction = state.isBusy ? (
       <button
+        key="stop"
         type="button"
         aria-label={strings.stopLabel}
         className={composerPrimaryActionVariants({ enabled: 'true' })}
@@ -676,6 +776,7 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
       </button>
     ) : (
       <button
+        key="send"
         type="button"
         aria-label={strings.sendLabel}
         disabled={!state.canSend}
@@ -773,6 +874,7 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
           data-dragover={dragActive ? '' : undefined}
           className={cn(
             composerSurfaceVariants({
+              surface,
               disabled: state.disabled ? 'true' : 'false',
               error: state.error !== null ? 'true' : 'false',
             }),
@@ -815,23 +917,17 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
               {state.attachments.map((attachment) => (
                 <span
                   key={attachment.id}
-                  className={composerAttachmentChipVariants({ status: attachment.status })}
+                  className={composerAttachmentChipVariants({
+                    status: attachment.status,
+                    exiting: exitingAttachments.has(attachment.id) ? 'true' : 'false',
+                  })}
                 >
                   {attachment.name}
                   <button
                     type="button"
                     aria-label={strings.removeAttachmentLabel(attachment.name)}
                     className="text-muted-foreground hover:text-destructive"
-                    onClick={() => {
-                      api.removeAttachment(attachment.id)
-                      if (
-                        attachment.previewUrl !== undefined &&
-                        typeof URL !== 'undefined' &&
-                        typeof URL.revokeObjectURL === 'function'
-                      ) {
-                        URL.revokeObjectURL(attachment.previewUrl)
-                      }
-                    }}
+                    onClick={() => removeAttachment(attachment.id, attachment.previewUrl)}
                   >
                     ✕
                   </button>
@@ -913,6 +1009,19 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
           </div>
 
           <div className="flex items-center gap-0.5 px-2 pb-2">
+            {accessoryPanel !== undefined && (
+              <button
+                type="button"
+                aria-label={strings.accessoryPanelLabel}
+                aria-expanded={panelOpen}
+                aria-controls={`${idBase}-accessory`}
+                className={composerAccessoryToggleVariants({ active: panelOpen ? 'true' : 'false' })}
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={togglePanel}
+              >
+                <IconSmiley />
+              </button>
+            )}
             {leading}
             <div className="flex-1" />
             {state.counter.visible && state.counter.remaining !== null && (
@@ -931,6 +1040,15 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
             {trailing}
             {primaryAction ? primaryAction(primaryContext) : defaultPrimaryAction}
           </div>
+
+          {/* Inline expression panel — docked in the composer's own stack so the
+              field and the message in progress stay fully visible. Never a
+              floating portal over the text. */}
+          {accessoryPanel !== undefined && panelOpen && (
+            <div id={`${idBase}-accessory`} className={composerAccessoryPanelClass}>
+              {accessoryPanel}
+            </div>
+          )}
         </div>
 
         <div aria-live="polite" className="sr-only">

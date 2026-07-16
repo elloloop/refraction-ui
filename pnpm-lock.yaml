@@ -2652,6 +2652,9 @@ importers:
       '@refraction-ui/conversation':
         specifier: workspace:*
         version: link:../conversation
+      '@refraction-ui/emoji-picker':
+        specifier: workspace:*
+        version: link:../emoji-picker
       '@refraction-ui/rich-editor':
         specifier: workspace:*
         version: link:../rich-editor
@@ -6468,6 +6471,9 @@ importers:
 
   packages/rich-editor:
     dependencies:
+      '@refraction-ui/emoji-picker':
+        specifier: workspace:*
+        version: link:../emoji-picker
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared

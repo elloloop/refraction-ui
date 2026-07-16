@@ -1,3 +1,22 @@
+/**
+ * Emoji data — the single source of truth for the whole library.
+ *
+ * The full base emoji set (Unicode 16.0, ~1900 emoji) is generated offline into
+ * `emoji-dataset.generated.ts` from the canonical `scripts/emoji/emoji-test-16.0.txt`
+ * (regenerate with `node scripts/generate-emoji-data.mjs`). This module decodes
+ * that compact data and layers on curated `:shortcode:` aliases, search, and
+ * resolution helpers. It is consumed by:
+ *   - the emoji picker (grid + category tabs + search + recents),
+ *   - the composer's `:` shortcode trigger (`createEmojiTrigger`),
+ *   - rich-editor's `EMOJI_MAP` (`:shortcode:` → glyph).
+ * so the three no longer diverge.
+ */
+import {
+  CATEGORY_ORDER,
+  EMOJI_TUPLES,
+  EMOJI_COUNT,
+} from './emoji-dataset.generated.js'
+
 export type EmojiCategory =
   | 'smileys'
   | 'people'
@@ -10,260 +29,36 @@ export type EmojiCategory =
   | 'flags'
 
 export interface EmojiEntry {
+  /** The rendered glyph (native codepoints). */
   emoji: string
+  /** CLDR short name, e.g. "face with tears of joy". */
   name: string
   category: EmojiCategory
+  /** Search keywords (does not include the name words verbatim-repeated). */
   keywords: string[]
+  /** Canonical `snake_case` shortcode body (no surrounding colons). */
+  shortcode: string
 }
 
-export const EMOJI_DATA: Record<EmojiCategory, EmojiEntry[]> = {
-  smileys: [
-    { emoji: '\u{1F600}', name: 'grinning face', category: 'smileys', keywords: ['happy', 'smile', 'grin'] },
-    { emoji: '\u{1F603}', name: 'grinning face with big eyes', category: 'smileys', keywords: ['happy', 'smile'] },
-    { emoji: '\u{1F604}', name: 'grinning face with smiling eyes', category: 'smileys', keywords: ['happy', 'joy'] },
-    { emoji: '\u{1F601}', name: 'beaming face', category: 'smileys', keywords: ['happy', 'grin', 'beam'] },
-    { emoji: '\u{1F606}', name: 'grinning squinting face', category: 'smileys', keywords: ['laugh', 'happy'] },
-    { emoji: '\u{1F605}', name: 'grinning face with sweat', category: 'smileys', keywords: ['nervous', 'laugh'] },
-    { emoji: '\u{1F923}', name: 'rolling on the floor laughing', category: 'smileys', keywords: ['lol', 'rofl', 'laugh'] },
-    { emoji: '\u{1F602}', name: 'face with tears of joy', category: 'smileys', keywords: ['laugh', 'cry', 'joy', 'lol'] },
-    { emoji: '\u{1F642}', name: 'slightly smiling face', category: 'smileys', keywords: ['smile', 'happy'] },
-    { emoji: '\u{1F643}', name: 'upside-down face', category: 'smileys', keywords: ['silly', 'sarcasm'] },
-    { emoji: '\u{1F609}', name: 'winking face', category: 'smileys', keywords: ['wink', 'flirt'] },
-    { emoji: '\u{1F60A}', name: 'smiling face with smiling eyes', category: 'smileys', keywords: ['blush', 'happy'] },
-    { emoji: '\u{1F607}', name: 'smiling face with halo', category: 'smileys', keywords: ['angel', 'innocent'] },
-    { emoji: '\u{1F970}', name: 'smiling face with hearts', category: 'smileys', keywords: ['love', 'crush', 'adore'] },
-    { emoji: '\u{1F60D}', name: 'smiling face with heart-eyes', category: 'smileys', keywords: ['love', 'heart'] },
-    { emoji: '\u{1F929}', name: 'star-struck', category: 'smileys', keywords: ['star', 'eyes', 'wow'] },
-    { emoji: '\u{1F618}', name: 'face blowing a kiss', category: 'smileys', keywords: ['kiss', 'love'] },
-    { emoji: '\u{1F617}', name: 'kissing face', category: 'smileys', keywords: ['kiss'] },
-    { emoji: '\u{1F61A}', name: 'kissing face with closed eyes', category: 'smileys', keywords: ['kiss', 'love'] },
-    { emoji: '\u{1F619}', name: 'kissing face with smiling eyes', category: 'smileys', keywords: ['kiss'] },
-    { emoji: '\u{1F60B}', name: 'face savoring food', category: 'smileys', keywords: ['yummy', 'delicious'] },
-    { emoji: '\u{1F61C}', name: 'winking face with tongue', category: 'smileys', keywords: ['tongue', 'wink', 'silly'] },
-    { emoji: '\u{1F61D}', name: 'squinting face with tongue', category: 'smileys', keywords: ['tongue', 'silly'] },
-    { emoji: '\u{1F911}', name: 'money-mouth face', category: 'smileys', keywords: ['money', 'rich'] },
-    { emoji: '\u{1F917}', name: 'hugging face', category: 'smileys', keywords: ['hug', 'warm'] },
-    { emoji: '\u{1F914}', name: 'thinking face', category: 'smileys', keywords: ['think', 'hmm'] },
-    { emoji: '\u{1F910}', name: 'zipper-mouth face', category: 'smileys', keywords: ['secret', 'quiet', 'zip'] },
-    { emoji: '\u{1F928}', name: 'face with raised eyebrow', category: 'smileys', keywords: ['skeptical', 'doubt'] },
-    { emoji: '\u{1F610}', name: 'neutral face', category: 'smileys', keywords: ['meh', 'neutral'] },
-    { emoji: '\u{1F611}', name: 'expressionless face', category: 'smileys', keywords: ['blank', 'expressionless'] },
-  ],
-  people: [
-    { emoji: '\u{1F44B}', name: 'waving hand', category: 'people', keywords: ['wave', 'hello', 'hi', 'bye'] },
-    { emoji: '\u{1F91A}', name: 'raised back of hand', category: 'people', keywords: ['hand', 'backhand'] },
-    { emoji: '\u{1F590}', name: 'hand with fingers splayed', category: 'people', keywords: ['hand', 'fingers'] },
-    { emoji: '\u270B', name: 'raised hand', category: 'people', keywords: ['hand', 'stop', 'high five'] },
-    { emoji: '\u{1F596}', name: 'vulcan salute', category: 'people', keywords: ['spock', 'star trek'] },
-    { emoji: '\u{1F44C}', name: 'OK hand', category: 'people', keywords: ['ok', 'perfect', 'fine'] },
-    { emoji: '\u270C', name: 'victory hand', category: 'people', keywords: ['peace', 'victory', 'v'] },
-    { emoji: '\u{1F91E}', name: 'crossed fingers', category: 'people', keywords: ['luck', 'hope'] },
-    { emoji: '\u{1F918}', name: 'love-you gesture', category: 'people', keywords: ['love', 'rock'] },
-    { emoji: '\u{1F919}', name: 'call me hand', category: 'people', keywords: ['call', 'phone'] },
-    { emoji: '\u{1F448}', name: 'backhand index pointing left', category: 'people', keywords: ['left', 'point'] },
-    { emoji: '\u{1F449}', name: 'backhand index pointing right', category: 'people', keywords: ['right', 'point'] },
-    { emoji: '\u{1F446}', name: 'backhand index pointing up', category: 'people', keywords: ['up', 'point'] },
-    { emoji: '\u{1F447}', name: 'backhand index pointing down', category: 'people', keywords: ['down', 'point'] },
-    { emoji: '\u261D', name: 'index pointing up', category: 'people', keywords: ['up', 'point'] },
-    { emoji: '\u{1F44D}', name: 'thumbs up', category: 'people', keywords: ['like', 'yes', 'approve', 'thumbsup'] },
-    { emoji: '\u{1F44E}', name: 'thumbs down', category: 'people', keywords: ['dislike', 'no', 'disapprove'] },
-    { emoji: '\u270A', name: 'raised fist', category: 'people', keywords: ['fist', 'power'] },
-    { emoji: '\u{1F44A}', name: 'oncoming fist', category: 'people', keywords: ['punch', 'fist bump'] },
-    { emoji: '\u{1F91B}', name: 'left-facing fist', category: 'people', keywords: ['fist'] },
-    { emoji: '\u{1F91C}', name: 'right-facing fist', category: 'people', keywords: ['fist'] },
-    { emoji: '\u{1F44F}', name: 'clapping hands', category: 'people', keywords: ['clap', 'applause', 'bravo'] },
-    { emoji: '\u{1F64C}', name: 'raising hands', category: 'people', keywords: ['celebrate', 'hooray'] },
-    { emoji: '\u{1F450}', name: 'open hands', category: 'people', keywords: ['hands', 'open'] },
-    { emoji: '\u{1F932}', name: 'palms up together', category: 'people', keywords: ['prayer', 'please'] },
-    { emoji: '\u{1F91D}', name: 'handshake', category: 'people', keywords: ['deal', 'agree', 'shake'] },
-    { emoji: '\u{1F64F}', name: 'folded hands', category: 'people', keywords: ['pray', 'please', 'thank you'] },
-  ],
-  nature: [
-    { emoji: '\u{1F436}', name: 'dog face', category: 'nature', keywords: ['dog', 'puppy', 'pet'] },
-    { emoji: '\u{1F431}', name: 'cat face', category: 'nature', keywords: ['cat', 'kitten', 'pet'] },
-    { emoji: '\u{1F42D}', name: 'mouse face', category: 'nature', keywords: ['mouse', 'rodent'] },
-    { emoji: '\u{1F439}', name: 'hamster', category: 'nature', keywords: ['hamster', 'pet'] },
-    { emoji: '\u{1F430}', name: 'rabbit face', category: 'nature', keywords: ['rabbit', 'bunny'] },
-    { emoji: '\u{1F98A}', name: 'fox', category: 'nature', keywords: ['fox', 'animal'] },
-    { emoji: '\u{1F43B}', name: 'bear', category: 'nature', keywords: ['bear', 'animal'] },
-    { emoji: '\u{1F43C}', name: 'panda', category: 'nature', keywords: ['panda', 'animal'] },
-    { emoji: '\u{1F428}', name: 'koala', category: 'nature', keywords: ['koala', 'animal'] },
-    { emoji: '\u{1F42F}', name: 'tiger face', category: 'nature', keywords: ['tiger', 'animal'] },
-    { emoji: '\u{1F981}', name: 'lion', category: 'nature', keywords: ['lion', 'animal'] },
-    { emoji: '\u{1F42E}', name: 'cow face', category: 'nature', keywords: ['cow', 'animal'] },
-    { emoji: '\u{1F437}', name: 'pig face', category: 'nature', keywords: ['pig', 'animal'] },
-    { emoji: '\u{1F438}', name: 'frog', category: 'nature', keywords: ['frog', 'animal'] },
-    { emoji: '\u{1F435}', name: 'monkey face', category: 'nature', keywords: ['monkey', 'animal'] },
-    { emoji: '\u{1F412}', name: 'monkey', category: 'nature', keywords: ['monkey', 'animal'] },
-    { emoji: '\u{1F414}', name: 'chicken', category: 'nature', keywords: ['chicken', 'animal'] },
-    { emoji: '\u{1F427}', name: 'penguin', category: 'nature', keywords: ['penguin', 'animal'] },
-    { emoji: '\u{1F426}', name: 'bird', category: 'nature', keywords: ['bird', 'animal'] },
-    { emoji: '\u{1F40A}', name: 'crocodile', category: 'nature', keywords: ['crocodile', 'animal'] },
-    { emoji: '\u{1F422}', name: 'turtle', category: 'nature', keywords: ['turtle', 'slow'] },
-    { emoji: '\u{1F40D}', name: 'snake', category: 'nature', keywords: ['snake', 'animal'] },
-    { emoji: '\u{1F332}', name: 'evergreen tree', category: 'nature', keywords: ['tree', 'pine'] },
-    { emoji: '\u{1F333}', name: 'deciduous tree', category: 'nature', keywords: ['tree'] },
-    { emoji: '\u{1F334}', name: 'palm tree', category: 'nature', keywords: ['palm', 'tree', 'tropical'] },
-    { emoji: '\u{1F335}', name: 'cactus', category: 'nature', keywords: ['cactus', 'desert'] },
-    { emoji: '\u{1F337}', name: 'tulip', category: 'nature', keywords: ['flower', 'tulip'] },
-    { emoji: '\u{1F339}', name: 'rose', category: 'nature', keywords: ['flower', 'rose', 'love'] },
-  ],
-  food: [
-    { emoji: '\u{1F34E}', name: 'red apple', category: 'food', keywords: ['apple', 'fruit'] },
-    { emoji: '\u{1F34A}', name: 'tangerine', category: 'food', keywords: ['orange', 'fruit'] },
-    { emoji: '\u{1F34B}', name: 'lemon', category: 'food', keywords: ['lemon', 'fruit'] },
-    { emoji: '\u{1F34C}', name: 'banana', category: 'food', keywords: ['banana', 'fruit'] },
-    { emoji: '\u{1F349}', name: 'watermelon', category: 'food', keywords: ['watermelon', 'fruit'] },
-    { emoji: '\u{1F347}', name: 'grapes', category: 'food', keywords: ['grapes', 'fruit'] },
-    { emoji: '\u{1F353}', name: 'strawberry', category: 'food', keywords: ['strawberry', 'fruit'] },
-    { emoji: '\u{1F352}', name: 'cherries', category: 'food', keywords: ['cherry', 'fruit'] },
-    { emoji: '\u{1F351}', name: 'peach', category: 'food', keywords: ['peach', 'fruit'] },
-    { emoji: '\u{1F34D}', name: 'pineapple', category: 'food', keywords: ['pineapple', 'fruit'] },
-    { emoji: '\u{1F354}', name: 'hamburger', category: 'food', keywords: ['burger', 'fast food'] },
-    { emoji: '\u{1F355}', name: 'pizza', category: 'food', keywords: ['pizza', 'food'] },
-    { emoji: '\u{1F32E}', name: 'taco', category: 'food', keywords: ['taco', 'mexican'] },
-    { emoji: '\u{1F32F}', name: 'burrito', category: 'food', keywords: ['burrito', 'mexican'] },
-    { emoji: '\u{1F35F}', name: 'french fries', category: 'food', keywords: ['fries', 'fast food'] },
-    { emoji: '\u{1F357}', name: 'poultry leg', category: 'food', keywords: ['chicken', 'meat'] },
-    { emoji: '\u{1F356}', name: 'meat on bone', category: 'food', keywords: ['meat', 'bone'] },
-    { emoji: '\u{1F363}', name: 'sushi', category: 'food', keywords: ['sushi', 'japanese'] },
-    { emoji: '\u{1F370}', name: 'shortcake', category: 'food', keywords: ['cake', 'dessert'] },
-    { emoji: '\u{1F36B}', name: 'chocolate bar', category: 'food', keywords: ['chocolate', 'candy'] },
-    { emoji: '\u{1F369}', name: 'doughnut', category: 'food', keywords: ['donut', 'dessert'] },
-    { emoji: '\u{1F36A}', name: 'cookie', category: 'food', keywords: ['cookie', 'dessert'] },
-    { emoji: '\u2615', name: 'hot beverage', category: 'food', keywords: ['coffee', 'tea', 'drink'] },
-    { emoji: '\u{1F37A}', name: 'beer mug', category: 'food', keywords: ['beer', 'drink'] },
-    { emoji: '\u{1F377}', name: 'wine glass', category: 'food', keywords: ['wine', 'drink'] },
-  ],
-  travel: [
-    { emoji: '\u{1F697}', name: 'automobile', category: 'travel', keywords: ['car', 'drive'] },
-    { emoji: '\u{1F695}', name: 'taxi', category: 'travel', keywords: ['taxi', 'cab'] },
-    { emoji: '\u{1F68C}', name: 'bus', category: 'travel', keywords: ['bus', 'transit'] },
-    { emoji: '\u{1F682}', name: 'locomotive', category: 'travel', keywords: ['train', 'rail'] },
-    { emoji: '\u2708', name: 'airplane', category: 'travel', keywords: ['plane', 'fly', 'travel'] },
-    { emoji: '\u{1F680}', name: 'rocket', category: 'travel', keywords: ['rocket', 'space', 'launch'] },
-    { emoji: '\u{1F6F8}', name: 'flying saucer', category: 'travel', keywords: ['ufo', 'alien'] },
-    { emoji: '\u{1F6A2}', name: 'ship', category: 'travel', keywords: ['ship', 'boat', 'cruise'] },
-    { emoji: '\u{1F3E0}', name: 'house', category: 'travel', keywords: ['house', 'home'] },
-    { emoji: '\u{1F3E2}', name: 'office building', category: 'travel', keywords: ['office', 'building', 'work'] },
-    { emoji: '\u{1F3EB}', name: 'school', category: 'travel', keywords: ['school', 'education'] },
-    { emoji: '\u{1F3E5}', name: 'hospital', category: 'travel', keywords: ['hospital', 'health'] },
-    { emoji: '\u{1F30D}', name: 'globe showing Europe-Africa', category: 'travel', keywords: ['earth', 'globe', 'world'] },
-    { emoji: '\u{1F30E}', name: 'globe showing Americas', category: 'travel', keywords: ['earth', 'globe', 'world'] },
-    { emoji: '\u{1F30F}', name: 'globe showing Asia-Australia', category: 'travel', keywords: ['earth', 'globe', 'world'] },
-    { emoji: '\u{1F5FC}', name: 'Tokyo tower', category: 'travel', keywords: ['tokyo', 'japan', 'tower'] },
-    { emoji: '\u{1F5FD}', name: 'Statue of Liberty', category: 'travel', keywords: ['statue', 'liberty', 'new york'] },
-    { emoji: '\u26F0', name: 'mountain', category: 'travel', keywords: ['mountain', 'nature'] },
-    { emoji: '\u{1F3D6}', name: 'beach with umbrella', category: 'travel', keywords: ['beach', 'vacation'] },
-    { emoji: '\u{1F3DD}', name: 'desert island', category: 'travel', keywords: ['island', 'tropical'] },
-  ],
-  activities: [
-    { emoji: '\u26BD', name: 'soccer ball', category: 'activities', keywords: ['soccer', 'football', 'sport'] },
-    { emoji: '\u{1F3C0}', name: 'basketball', category: 'activities', keywords: ['basketball', 'sport'] },
-    { emoji: '\u{1F3C8}', name: 'american football', category: 'activities', keywords: ['football', 'sport'] },
-    { emoji: '\u26BE', name: 'baseball', category: 'activities', keywords: ['baseball', 'sport'] },
-    { emoji: '\u{1F3BE}', name: 'tennis', category: 'activities', keywords: ['tennis', 'sport'] },
-    { emoji: '\u{1F3D0}', name: 'volleyball', category: 'activities', keywords: ['volleyball', 'sport'] },
-    { emoji: '\u{1F3B1}', name: 'pool 8 ball', category: 'activities', keywords: ['pool', 'billiards'] },
-    { emoji: '\u{1F3D3}', name: 'ping pong', category: 'activities', keywords: ['table tennis', 'sport'] },
-    { emoji: '\u{1F3C6}', name: 'trophy', category: 'activities', keywords: ['trophy', 'winner', 'award'] },
-    { emoji: '\u{1F3C5}', name: 'sports medal', category: 'activities', keywords: ['medal', 'winner'] },
-    { emoji: '\u{1F947}', name: 'first place medal', category: 'activities', keywords: ['gold', 'first', 'winner'] },
-    { emoji: '\u{1F948}', name: 'second place medal', category: 'activities', keywords: ['silver', 'second'] },
-    { emoji: '\u{1F949}', name: 'third place medal', category: 'activities', keywords: ['bronze', 'third'] },
-    { emoji: '\u{1F3AF}', name: 'bullseye', category: 'activities', keywords: ['target', 'dart'] },
-    { emoji: '\u{1F3AE}', name: 'video game', category: 'activities', keywords: ['game', 'controller'] },
-    { emoji: '\u{1F3B2}', name: 'game die', category: 'activities', keywords: ['dice', 'game'] },
-    { emoji: '\u{1F3B5}', name: 'musical note', category: 'activities', keywords: ['music', 'note'] },
-    { emoji: '\u{1F3B6}', name: 'musical notes', category: 'activities', keywords: ['music', 'notes'] },
-    { emoji: '\u{1F3A4}', name: 'microphone', category: 'activities', keywords: ['karaoke', 'sing', 'mic'] },
-    { emoji: '\u{1F3AC}', name: 'clapper board', category: 'activities', keywords: ['movie', 'film'] },
-  ],
-  objects: [
-    { emoji: '\u{1F4F1}', name: 'mobile phone', category: 'objects', keywords: ['phone', 'mobile', 'cell'] },
-    { emoji: '\u{1F4BB}', name: 'laptop', category: 'objects', keywords: ['laptop', 'computer'] },
-    { emoji: '\u{1F5A5}', name: 'desktop computer', category: 'objects', keywords: ['computer', 'desktop'] },
-    { emoji: '\u2328', name: 'keyboard', category: 'objects', keywords: ['keyboard', 'type'] },
-    { emoji: '\u{1F4F7}', name: 'camera', category: 'objects', keywords: ['camera', 'photo'] },
-    { emoji: '\u{1F4FA}', name: 'television', category: 'objects', keywords: ['tv', 'television'] },
-    { emoji: '\u{1F4E7}', name: 'e-mail', category: 'objects', keywords: ['email', 'mail'] },
-    { emoji: '\u{1F4DD}', name: 'memo', category: 'objects', keywords: ['memo', 'note', 'write'] },
-    { emoji: '\u{1F4D6}', name: 'open book', category: 'objects', keywords: ['book', 'read'] },
-    { emoji: '\u{1F4DA}', name: 'books', category: 'objects', keywords: ['books', 'library'] },
-    { emoji: '\u{1F4C5}', name: 'calendar', category: 'objects', keywords: ['calendar', 'date'] },
-    { emoji: '\u{1F4CB}', name: 'clipboard', category: 'objects', keywords: ['clipboard', 'paste'] },
-    { emoji: '\u{1F4CC}', name: 'pushpin', category: 'objects', keywords: ['pin', 'pushpin'] },
-    { emoji: '\u{1F4CE}', name: 'paperclip', category: 'objects', keywords: ['paperclip', 'attach'] },
-    { emoji: '\u{1F511}', name: 'key', category: 'objects', keywords: ['key', 'lock'] },
-    { emoji: '\u{1F512}', name: 'locked', category: 'objects', keywords: ['lock', 'secure'] },
-    { emoji: '\u{1F513}', name: 'unlocked', category: 'objects', keywords: ['unlock', 'open'] },
-    { emoji: '\u{1F50D}', name: 'magnifying glass tilted left', category: 'objects', keywords: ['search', 'find'] },
-    { emoji: '\u{1F4A1}', name: 'light bulb', category: 'objects', keywords: ['idea', 'light'] },
-    { emoji: '\u{1F527}', name: 'wrench', category: 'objects', keywords: ['tool', 'wrench', 'fix'] },
-    { emoji: '\u{1F528}', name: 'hammer', category: 'objects', keywords: ['tool', 'hammer', 'build'] },
-    { emoji: '\u2699', name: 'gear', category: 'objects', keywords: ['settings', 'gear', 'config'] },
-  ],
-  symbols: [
-    { emoji: '\u2764', name: 'red heart', category: 'symbols', keywords: ['heart', 'love'] },
-    { emoji: '\u{1F9E1}', name: 'orange heart', category: 'symbols', keywords: ['heart', 'orange'] },
-    { emoji: '\u{1F49B}', name: 'yellow heart', category: 'symbols', keywords: ['heart', 'yellow'] },
-    { emoji: '\u{1F49A}', name: 'green heart', category: 'symbols', keywords: ['heart', 'green'] },
-    { emoji: '\u{1F499}', name: 'blue heart', category: 'symbols', keywords: ['heart', 'blue'] },
-    { emoji: '\u{1F49C}', name: 'purple heart', category: 'symbols', keywords: ['heart', 'purple'] },
-    { emoji: '\u{1F494}', name: 'broken heart', category: 'symbols', keywords: ['heart', 'broken', 'sad'] },
-    { emoji: '\u{1F495}', name: 'two hearts', category: 'symbols', keywords: ['heart', 'love'] },
-    { emoji: '\u{1F4AF}', name: 'hundred points', category: 'symbols', keywords: ['100', 'perfect', 'score'] },
-    { emoji: '\u{1F4A5}', name: 'collision', category: 'symbols', keywords: ['boom', 'bang', 'explosion'] },
-    { emoji: '\u{1F4AB}', name: 'dizzy', category: 'symbols', keywords: ['star', 'dizzy'] },
-    { emoji: '\u2728', name: 'sparkles', category: 'symbols', keywords: ['sparkle', 'shine', 'star'] },
-    { emoji: '\u{1F525}', name: 'fire', category: 'symbols', keywords: ['fire', 'hot', 'flame'] },
-    { emoji: '\u2705', name: 'check mark button', category: 'symbols', keywords: ['check', 'done', 'yes'] },
-    { emoji: '\u274C', name: 'cross mark', category: 'symbols', keywords: ['no', 'wrong', 'x'] },
-    { emoji: '\u2757', name: 'exclamation mark', category: 'symbols', keywords: ['exclamation', 'warning', 'alert'] },
-    { emoji: '\u2753', name: 'question mark', category: 'symbols', keywords: ['question', 'what'] },
-    { emoji: '\u{1F6AB}', name: 'prohibited', category: 'symbols', keywords: ['no', 'forbidden', 'stop'] },
-    { emoji: '\u267B', name: 'recycling symbol', category: 'symbols', keywords: ['recycle', 'green'] },
-    { emoji: '\u{1F4AC}', name: 'speech balloon', category: 'symbols', keywords: ['speech', 'chat', 'message'] },
-    { emoji: '\u{1F4AD}', name: 'thought balloon', category: 'symbols', keywords: ['thought', 'think'] },
-    { emoji: '\u{1F514}', name: 'bell', category: 'symbols', keywords: ['bell', 'notification', 'alert'] },
-  ],
-  flags: [
-    { emoji: '\u{1F1FA}\u{1F1F8}', name: 'flag: United States', category: 'flags', keywords: ['us', 'usa', 'america'] },
-    { emoji: '\u{1F1EC}\u{1F1E7}', name: 'flag: United Kingdom', category: 'flags', keywords: ['uk', 'britain', 'england'] },
-    { emoji: '\u{1F1E8}\u{1F1E6}', name: 'flag: Canada', category: 'flags', keywords: ['canada'] },
-    { emoji: '\u{1F1E6}\u{1F1FA}', name: 'flag: Australia', category: 'flags', keywords: ['australia'] },
-    { emoji: '\u{1F1EF}\u{1F1F5}', name: 'flag: Japan', category: 'flags', keywords: ['japan'] },
-    { emoji: '\u{1F1EB}\u{1F1F7}', name: 'flag: France', category: 'flags', keywords: ['france'] },
-    { emoji: '\u{1F1E9}\u{1F1EA}', name: 'flag: Germany', category: 'flags', keywords: ['germany'] },
-    { emoji: '\u{1F1EE}\u{1F1F3}', name: 'flag: India', category: 'flags', keywords: ['india'] },
-    { emoji: '\u{1F1E7}\u{1F1F7}', name: 'flag: Brazil', category: 'flags', keywords: ['brazil'] },
-    { emoji: '\u{1F1F0}\u{1F1F7}', name: 'flag: South Korea', category: 'flags', keywords: ['korea', 'south korea'] },
-    { emoji: '\u{1F1EE}\u{1F1F9}', name: 'flag: Italy', category: 'flags', keywords: ['italy'] },
-    { emoji: '\u{1F1EA}\u{1F1F8}', name: 'flag: Spain', category: 'flags', keywords: ['spain'] },
-    { emoji: '\u{1F1F2}\u{1F1FD}', name: 'flag: Mexico', category: 'flags', keywords: ['mexico'] },
-    { emoji: '\u{1F1F7}\u{1F1FA}', name: 'flag: Russia', category: 'flags', keywords: ['russia'] },
-    { emoji: '\u{1F1E8}\u{1F1F3}', name: 'flag: China', category: 'flags', keywords: ['china'] },
-    { emoji: '\u{1F3C1}', name: 'chequered flag', category: 'flags', keywords: ['finish', 'race'] },
-    { emoji: '\u{1F3F3}', name: 'white flag', category: 'flags', keywords: ['surrender', 'peace'] },
-    { emoji: '\u{1F3F4}', name: 'black flag', category: 'flags', keywords: ['pirate'] },
-    { emoji: '\u{1F6A9}', name: 'triangular flag', category: 'flags', keywords: ['flag', 'marker'] },
-  ],
-}
+/** Total number of base emoji shipped. */
+export const EMOJI_COUNT_TOTAL = EMOJI_COUNT
 
-/** All categories in display order */
-export const EMOJI_CATEGORIES: EmojiCategory[] = [
-  'smileys',
-  'people',
-  'nature',
-  'food',
-  'travel',
-  'activities',
-  'objects',
-  'symbols',
-  'flags',
-]
+// ---------------------------------------------------------------------------
+// Decode the generated dataset once.
+// ---------------------------------------------------------------------------
 
-/** Category display labels */
+const ALL_EMOJIS: EmojiEntry[] = EMOJI_TUPLES.map((t) => ({
+  emoji: t[0],
+  name: t[1],
+  category: CATEGORY_ORDER[t[2]] as EmojiCategory,
+  shortcode: t[3],
+  keywords: t[4] ? t[4].split(' ') : [],
+}))
+
+/** All categories in display order. */
+export const EMOJI_CATEGORIES: EmojiCategory[] = [...CATEGORY_ORDER]
+
+/** Category display labels. */
 export const CATEGORY_LABELS: Record<EmojiCategory, string> = {
   smileys: 'Smileys & Emotion',
   people: 'People & Body',
@@ -276,7 +71,206 @@ export const CATEGORY_LABELS: Record<EmojiCategory, string> = {
   flags: 'Flags',
 }
 
-/** Get all emojis as a flat array */
+/** Emojis grouped by category (display order preserved within each group). */
+export const EMOJI_DATA: Record<EmojiCategory, EmojiEntry[]> = EMOJI_CATEGORIES.reduce(
+  (acc, cat) => {
+    acc[cat] = ALL_EMOJIS.filter((e) => e.category === cat)
+    return acc
+  },
+  {} as Record<EmojiCategory, EmojiEntry[]>,
+)
+
+/** Get all emojis as a flat array (display order). */
 export function getAllEmojis(): EmojiEntry[] {
-  return EMOJI_CATEGORIES.flatMap((cat) => EMOJI_DATA[cat])
+  return ALL_EMOJIS
+}
+
+// ---------------------------------------------------------------------------
+// Shortcodes: derived (from names) + curated popular aliases.
+// ---------------------------------------------------------------------------
+
+/**
+ * Curated popular aliases (`:body:` → glyph) that don't match the derived
+ * snake_case name — the short forms people actually type (`:joy:`, `:100:`,
+ * `:thumbsup:`). These take precedence over derived shortcodes on lookup.
+ * This is the ONE place aliases live (rich-editor consumes it, no duplication).
+ */
+export const SHORTCODE_ALIASES: Record<string, string> = {
+  smile: '\u{1F604}',
+  laugh: '\u{1F602}',
+  joy: '\u{1F602}',
+  grin: '\u{1F601}',
+  wink: '\u{1F609}',
+  blush: '\u{1F60A}',
+  heart_eyes: '\u{1F60D}',
+  kissing: '\u{1F617}',
+  thinking: '\u{1F914}',
+  neutral: '\u{1F610}',
+  expressionless: '\u{1F611}',
+  unamused: '\u{1F612}',
+  sweat: '\u{1F613}',
+  pensive: '\u{1F614}',
+  confused: '\u{1F615}',
+  disappointed: '\u{1F61E}',
+  worried: '\u{1F61F}',
+  angry: '\u{1F620}',
+  rage: '\u{1F621}',
+  cry: '\u{1F622}',
+  sob: '\u{1F62D}',
+  scream: '\u{1F631}',
+  fearful: '\u{1F628}',
+  cold_sweat: '\u{1F630}',
+  relieved: '\u{1F60C}',
+  sleepy: '\u{1F62A}',
+  sleeping: '\u{1F634}',
+  mask: '\u{1F637}',
+  sunglasses: '\u{1F60E}',
+  nerd: '\u{1F913}',
+  heart: '\u{2764}\u{FE0F}',
+  broken_heart: '\u{1F494}',
+  sparkling_heart: '\u{1F496}',
+  two_hearts: '\u{1F495}',
+  fire: '\u{1F525}',
+  '100': '\u{1F4AF}',
+  star: '\u{2B50}',
+  star2: '\u{1F31F}',
+  sparkles: '\u{2728}',
+  thumbsup: '\u{1F44D}',
+  thumbsdown: '\u{1F44E}',
+  wave: '\u{1F44B}',
+  clap: '\u{1F44F}',
+  raised_hands: '\u{1F64C}',
+  pray: '\u{1F64F}',
+  muscle: '\u{1F4AA}',
+  point_up: '\u{261D}\u{FE0F}',
+  point_down: '\u{1F447}',
+  point_left: '\u{1F448}',
+  point_right: '\u{1F449}',
+  ok_hand: '\u{1F44C}',
+  v: '\u{270C}\u{FE0F}',
+  eyes: '\u{1F440}',
+  tongue: '\u{1F445}',
+  lips: '\u{1F444}',
+  rocket: '\u{1F680}',
+  tada: '\u{1F389}',
+  confetti: '\u{1F38A}',
+  balloon: '\u{1F388}',
+  gift: '\u{1F381}',
+  trophy: '\u{1F3C6}',
+  medal: '\u{1F3C5}',
+  crown: '\u{1F451}',
+  gem: '\u{1F48E}',
+  bell: '\u{1F514}',
+  check: '\u{2705}',
+  x: '\u{274C}',
+  warning: '\u{26A0}\u{FE0F}',
+  no_entry: '\u{26D4}',
+  question: '\u{2753}',
+  exclamation: '\u{2757}',
+  bulb: '\u{1F4A1}',
+  book: '\u{1F4D6}',
+  memo: '\u{1F4DD}',
+  pencil: '\u{270F}\u{FE0F}',
+  calendar: '\u{1F4C5}',
+  clock: '\u{1F550}',
+  hourglass: '\u{231B}',
+  lock: '\u{1F512}',
+  key: '\u{1F511}',
+  hammer: '\u{1F528}',
+  wrench: '\u{1F527}',
+  link: '\u{1F517}',
+  paperclip: '\u{1F4CE}',
+  scissors: '\u{2702}\u{FE0F}',
+  package: '\u{1F4E6}',
+  email: '\u{1F4E7}',
+  phone: '\u{1F4DE}',
+  computer: '\u{1F4BB}',
+  house: '\u{1F3E0}',
+  tree: '\u{1F333}',
+  sun: '\u{2600}\u{FE0F}',
+  moon: '\u{1F319}',
+  cloud: '\u{2601}\u{FE0F}',
+  rain: '\u{1F327}\u{FE0F}',
+  snow: '\u{2744}\u{FE0F}',
+  zap: '\u{26A1}',
+  rainbow: '\u{1F308}',
+  pizza: '\u{1F355}',
+  hamburger: '\u{1F354}',
+  coffee: '\u{2615}',
+  beer: '\u{1F37A}',
+  wine: '\u{1F377}',
+  cake: '\u{1F370}',
+  dog: '\u{1F436}',
+  cat: '\u{1F431}',
+  poop: '\u{1F4A9}',
+  ghost: '\u{1F47B}',
+  skull: '\u{1F480}',
+  alien: '\u{1F47D}',
+  robot: '\u{1F916}',
+  handshake: '\u{1F91D}',
+  salute: '\u{1FAE1}',
+}
+
+/** shortcode body → EmojiEntry, for the derived (name-based) shortcodes. */
+const BY_SHORTCODE = new Map<string, EmojiEntry>()
+for (const e of ALL_EMOJIS) BY_SHORTCODE.set(e.shortcode, e)
+/** glyph → EmojiEntry (for alias resolution back to a full entry). */
+const BY_GLYPH = new Map<string, EmojiEntry>()
+for (const e of ALL_EMOJIS) if (!BY_GLYPH.has(e.emoji)) BY_GLYPH.set(e.emoji, e)
+
+/**
+ * Resolve a `:shortcode:` (with or without surrounding colons) to its glyph.
+ * Aliases win over derived shortcodes. Returns `null` when unknown.
+ */
+export function resolveShortcode(code: string): string | null {
+  const body = code.replace(/^:/, '').replace(/:$/, '').toLowerCase()
+  if (body in SHORTCODE_ALIASES) return SHORTCODE_ALIASES[body]
+  const entry = BY_SHORTCODE.get(body)
+  return entry ? entry.emoji : null
+}
+
+/**
+ * `:body:` → glyph map covering the full derived set plus curated aliases.
+ * This is the shared source rich-editor's `EMOJI_MAP` is built from.
+ */
+export function buildShortcodeMap(): Record<string, string> {
+  const map: Record<string, string> = {}
+  for (const e of ALL_EMOJIS) map[`:${e.shortcode}:`] = e.emoji
+  for (const [body, glyph] of Object.entries(SHORTCODE_ALIASES)) map[`:${body}:`] = glyph
+  return map
+}
+
+/**
+ * Fuzzy-search emoji by name, keyword, or shortcode. Prefix matches on the
+ * shortcode/name rank first. Used by the picker search and the `:` trigger.
+ */
+export function searchEmojis(query: string, limit = 50): EmojiEntry[] {
+  const q = query.toLowerCase().replace(/^:/, '').replace(/:$/, '').trim()
+  if (q === '') return ALL_EMOJIS.slice(0, limit)
+
+  const scored: { entry: EmojiEntry; score: number }[] = []
+  for (const entry of ALL_EMOJIS) {
+    const sc = entry.shortcode
+    const name = entry.name.toLowerCase()
+    let score = -1
+    if (sc === q) score = 100
+    else if (sc.startsWith(q)) score = 80
+    else if (name.startsWith(q)) score = 70
+    else if (sc.includes(q)) score = 50
+    else if (name.includes(q)) score = 40
+    else if (entry.keywords.some((k) => k.startsWith(q))) score = 30
+    else if (entry.keywords.some((k) => k.includes(q))) score = 15
+    if (score >= 0) scored.push({ entry, score })
+  }
+  // Include alias-only matches (e.g. `joy`) that point at a known glyph.
+  for (const [body, glyph] of Object.entries(SHORTCODE_ALIASES)) {
+    if (!body.includes(q)) continue
+    const entry = BY_GLYPH.get(glyph)
+    if (!entry) continue
+    if (scored.some((s) => s.entry === entry)) continue
+    scored.push({ entry, score: body === q ? 95 : body.startsWith(q) ? 60 : 20 })
+  }
+
+  scored.sort((a, b) => b.score - a.score || a.entry.name.localeCompare(b.entry.name))
+  return scored.slice(0, limit).map((s) => s.entry)
 }

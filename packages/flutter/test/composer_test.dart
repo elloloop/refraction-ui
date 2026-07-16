@@ -855,4 +855,127 @@ void main() {
     await tester.pump(const Duration(seconds: 5));
     expect(find.text('Pasted text was trimmed to fit'), findsNothing);
   });
+
+  // -- #432 Gap 2: external FocusNode -------------------------------------
+
+  testWidgets('external FocusNode drives the field and is not disposed by the '
+      'composer', (tester) async {
+    final external = FocusNode();
+    addTearDown(external.dispose);
+    await tester.pumpWidget(
+      buildApp(RefractionComposer(focusNode: external, onSubmit: (_) {})),
+    );
+    final field = tester.widget<TextField>(find.byType(TextField));
+    expect(field.focusNode, same(external), reason: 'field uses the host node');
+
+    expect(external.hasFocus, isFalse);
+    external.requestFocus();
+    await tester.pump();
+    expect(external.hasFocus, isTrue);
+    external.unfocus();
+    await tester.pump();
+    expect(external.hasFocus, isFalse);
+    // If the composer had disposed `external`, the teardown dispose would
+    // throw — its absence proves the host retains ownership.
+  });
+
+  // -- #432 Gap 3: accessory panel ----------------------------------------
+
+  testWidgets('accessory panel opens below the pill, dismisses the keyboard, '
+      'keeps the field visible, and closes on field focus', (tester) async {
+    final controller = mentionController();
+    addTearDown(controller.dispose);
+    final focus = FocusNode();
+    addTearDown(focus.dispose);
+    await tester.pumpWidget(
+      buildApp(
+        RefractionComposer(
+          controller: controller,
+          focusNode: focus,
+          onSubmit: (_) {},
+          accessoryPanelBuilder: (_) => const Text('PANEL-CONTENT'),
+        ),
+      ),
+    );
+    expect(find.text('PANEL-CONTENT'), findsNothing);
+
+    focus.requestFocus();
+    await tester.pump();
+    expect(focus.hasFocus, isTrue);
+
+    controller.openAccessoryPanel();
+    await tester.pumpAndSettle();
+    expect(controller.isAccessoryPanelOpen, isTrue);
+    expect(find.text('PANEL-CONTENT'), findsOneWidget);
+    expect(
+      focus.hasFocus,
+      isFalse,
+      reason: 'opening the panel dismisses the soft keyboard',
+    );
+
+    // The pill/field stays visible ABOVE the panel.
+    expect(find.byType(TextField), findsOneWidget);
+    final fieldTop = tester.getTopLeft(find.byType(TextField)).dy;
+    final panelTop = tester.getTopLeft(find.text('PANEL-CONTENT')).dy;
+    expect(panelTop, greaterThan(fieldTop));
+
+    // Tapping the field to type yields the panel and returns the keyboard.
+    focus.requestFocus();
+    await tester.pumpAndSettle();
+    expect(controller.isAccessoryPanelOpen, isFalse);
+    expect(find.text('PANEL-CONTENT'), findsNothing);
+  });
+
+  testWidgets('accessory panel height collapses instantly under reduced '
+      'motion', (tester) async {
+    final controller = mentionController();
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(
+      buildApp(
+        RefractionComposer(
+          controller: controller,
+          onSubmit: (_) {},
+          accessoryPanelBuilder: (_) => const Text('PANEL-CONTENT'),
+        ),
+        mediaQuery: (base) => base.copyWith(disableAnimations: true),
+      ),
+    );
+    controller.openAccessoryPanel();
+    // A single frame reaches full interactivity — no AnimatedSize interpolation.
+    await tester.pump();
+    expect(find.text('PANEL-CONTENT'), findsOneWidget);
+  });
+
+  // -- #432 Gap 1: filled surface, calm focus -----------------------------
+
+  testWidgets('filled surface draws no saturated focus ring', (tester) async {
+    final colors = RefractionThemeData.light().colors;
+    final focus = FocusNode();
+    addTearDown(focus.dispose);
+    await tester.pumpWidget(
+      buildApp(RefractionComposer(focusNode: focus, onSubmit: (_) {})),
+    );
+
+    Color pillBorderColor() {
+      for (final c in tester.widgetList<Container>(find.byType(Container))) {
+        final d = c.decoration;
+        if (d is BoxDecoration &&
+            d.border is Border &&
+            d.borderRadius != null) {
+          return (d.border as Border).top.color;
+        }
+      }
+      fail('pill container not found');
+    }
+
+    final resting = pillBorderColor();
+    expect(resting, colors.border);
+    expect(resting, isNot(colors.ring));
+
+    focus.requestFocus();
+    await tester.pump();
+    final focused = pillBorderColor();
+    expect(focused, colors.border, reason: 'focus stays calm — no ring');
+    expect(focused, isNot(colors.ring));
+  });
 }

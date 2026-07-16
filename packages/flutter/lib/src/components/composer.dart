@@ -31,6 +31,23 @@ enum ComposerDensity {
   spacious,
 }
 
+/// The pill's surface treatment (issue #432 Gap 1).
+enum ComposerSurface {
+  /// A hairline-outlined pill on the page background. Calm focus: no
+  /// saturated full-perimeter ring — focus reads through the caret.
+  outlined,
+
+  /// A filled pill on a secondary surface (`colors.muted`) with a hairline
+  /// edge and no coloured focus ring. The default — matches WhatsApp /
+  /// iMessage / Slack and avoids a host's saturated brand ring shouting on
+  /// every focus.
+  filled,
+}
+
+/// Fallback accessory-panel height when no soft-keyboard height has been
+/// observed yet and none is supplied (issue #432 Gap 3).
+const double defaultAccessoryPanelHeight = 300;
+
 /// The resolved sizing rhythm for one [ComposerDensity].
 ///
 /// Every geometric decision in the composer reads from this table — no
@@ -144,15 +161,28 @@ bool resolveSubmitOnEnter({
 
 Map<String, String>? _cachedDefaultShortcodes;
 
-/// The default `:shortcode:` table, derived from [EmojiData] (emoji names
-/// snake_cased, then keywords, first entry wins). Used by
-/// [RefractionComposerController] unless a custom table is injected.
+/// The default `:shortcode:` table, derived from the shared [EmojiData]
+/// dataset: canonical `:aliases:` first, then the snake-cased name, then
+/// keywords (first writer wins). Both this table and [RefractionEmojiPicker]
+/// consume the same single-source dataset, so a `:code:` and a picker tap
+/// always resolve to the same glyph.
 Map<String, String> refractionDefaultShortcodes() {
   final cached = _cachedDefaultShortcodes;
   if (cached != null) return cached;
   final map = <String, String>{};
-  for (final entry in EmojiData.getAllEmojis()) {
+  final all = EmojiData.getAllEmojis();
+  // Three global passes so canonical aliases always outrank a name, which
+  // outranks a keyword tag (a per-entry loop would let an early entry's
+  // keyword shadow a later entry's real shortcode, e.g. `:joy:`).
+  for (final entry in all) {
+    for (final shortcode in entry.shortcodes) {
+      map.putIfAbsent(shortcode.replaceAll(' ', '_'), () => entry.emoji);
+    }
+  }
+  for (final entry in all) {
     map.putIfAbsent(entry.name.replaceAll(' ', '_'), () => entry.emoji);
+  }
+  for (final entry in all) {
     for (final keyword in entry.keywords) {
       map.putIfAbsent(keyword.replaceAll(' ', '_'), () => entry.emoji);
     }
@@ -278,6 +308,7 @@ class RefractionComposerController extends ChangeNotifier {
 
   late final void Function() _unsubscribe;
   bool _disposed = false;
+  bool _accessoryPanelOpen = false;
 
   /// Creates a controller and its core.
   RefractionComposerController({
@@ -409,6 +440,33 @@ class RefractionComposerController extends ChangeNotifier {
       }
     }
     return core.submit();
+  }
+
+  /// Whether the accessory panel (emoji/sticker tray, etc.) is open
+  /// (issue #432 Gap 3). Uncontrolled use; ignored when the widget's
+  /// `showAccessoryPanel` prop is non-null (controlled).
+  bool get isAccessoryPanelOpen => _accessoryPanelOpen;
+
+  /// Opens the accessory panel. The widget dismisses the soft keyboard and
+  /// animates the panel into the freed space, keeping the pill visible.
+  void openAccessoryPanel() {
+    if (_accessoryPanelOpen) return;
+    _accessoryPanelOpen = true;
+    notifyListeners();
+  }
+
+  /// Closes the accessory panel (the field can take focus and the keyboard
+  /// returns).
+  void closeAccessoryPanel() {
+    if (!_accessoryPanelOpen) return;
+    _accessoryPanelOpen = false;
+    notifyListeners();
+  }
+
+  /// Toggles the accessory panel.
+  void toggleAccessoryPanel() {
+    _accessoryPanelOpen = !_accessoryPanelOpen;
+    notifyListeners();
   }
 
   /// Clears text, tokens, and attachments.
@@ -599,6 +657,30 @@ class RefractionComposer extends StatefulWidget {
   /// Sizing rhythm; defaults to [ComposerDensity.comfortable].
   final ComposerDensity density;
 
+  /// Pill surface treatment; defaults to [ComposerSurface.filled] (calm
+  /// focus, no saturated ring — issue #432 Gap 1).
+  final ComposerSurface surface;
+
+  /// External focus node (issue #432 Gap 2). When null an internal one is
+  /// created and disposed with the widget; when provided, the host owns its
+  /// lifecycle. Gap 3's keyboard choreography reads/controls this node.
+  final FocusNode? focusNode;
+
+  /// Builds the accessory panel rendered BELOW the pill, occupying the soft
+  /// keyboard's vertical space (issue #432 Gap 3). This is the natural home
+  /// for the emoji/sticker picker. Null disables the feature.
+  final WidgetBuilder? accessoryPanelBuilder;
+
+  /// Controlled open state for the accessory panel. When non-null it wins
+  /// over the controller's [RefractionComposerController.isAccessoryPanelOpen];
+  /// null means uncontrolled (drive via the controller).
+  final bool? showAccessoryPanel;
+
+  /// Explicit accessory-panel height. When null the composer reuses the
+  /// last-observed soft-keyboard height (so the swap has no layout jump),
+  /// falling back to [defaultAccessoryPanelHeight].
+  final double? accessoryPanelHeight;
+
   /// Trigger configurations (internal controller only).
   final List<ComposerTrigger> triggers;
 
@@ -680,6 +762,11 @@ class RefractionComposer extends StatefulWidget {
     this.autofocus = false,
     this.textCapitalization = TextCapitalization.sentences,
     this.density = ComposerDensity.comfortable,
+    this.surface = ComposerSurface.filled,
+    this.focusNode,
+    this.accessoryPanelBuilder,
+    this.showAccessoryPanel,
+    this.accessoryPanelHeight,
     this.triggers = const [],
     this.submitOnEnter,
     this.padSafeArea = true,
@@ -705,8 +792,14 @@ class RefractionComposer extends StatefulWidget {
   State<RefractionComposer> createState() => _RefractionComposerState();
 }
 
-class _RefractionComposerState extends State<RefractionComposer> {
+class _RefractionComposerState extends State<RefractionComposer>
+    with TickerProviderStateMixin {
+  // One easing family across every composer transition (issue #426 §7.10):
+  // easeOutCubic base ~180ms; exits are faster than entries.
   static const Duration _growDuration = Duration(milliseconds: 180);
+  static const Duration _overlayInDuration = Duration(milliseconds: 160);
+  static const Duration _overlayOutDuration = Duration(milliseconds: 100);
+  static const Duration _primarySwapDuration = Duration(milliseconds: 160);
   static const Curve _growCurve = Curves.easeOutCubic;
 
   /// Deltas larger than this per change are non-incremental
@@ -720,11 +813,15 @@ class _RefractionComposerState extends State<RefractionComposer> {
   late RefractionComposerController _controller;
   bool _ownsController = false;
   late _RefractionComposerTextEditingController _textController;
-  late final FocusNode _focusNode;
+  late FocusNode _focusNode;
+  bool _ownsFocusNode = false;
+  bool _panelWasOpen = false;
+  double _lastKeyboardHeight = 0;
   UndoHistoryController _undoController = UndoHistoryController();
   final LayerLink _layerLink = LayerLink();
   final GlobalKey _pillKey = GlobalKey();
   OverlayEntry? _overlayEntry;
+  late final AnimationController _overlayAnimation;
   String _lastValue = '';
   Duration _resizeDuration = _growDuration;
   bool _noticeVisible = false;
@@ -743,8 +840,16 @@ class _RefractionComposerState extends State<RefractionComposer> {
     _textController = _RefractionComposerTextEditingController(
       _controller.core,
     );
-    _focusNode = FocusNode(debugLabel: 'RefractionComposer');
+    _focusNode =
+        widget.focusNode ?? FocusNode(debugLabel: 'RefractionComposer');
+    _ownsFocusNode = widget.focusNode == null;
     _focusNode.addListener(_handleFocusChanged);
+    _panelWasOpen = _resolveAccessoryPanelOpen();
+    _overlayAnimation = AnimationController(
+      vsync: this,
+      duration: _overlayInDuration,
+      reverseDuration: _overlayOutDuration,
+    );
     _lastValue = _controller.state.value;
   }
 
@@ -794,6 +899,16 @@ class _RefractionComposerState extends State<RefractionComposer> {
     if (widget.readOnly != oldWidget.readOnly) {
       _controller.core.setReadOnly(widget.readOnly);
     }
+    if (widget.focusNode != oldWidget.focusNode) {
+      // Focus-node swap: move our listener, and dispose only a node we owned.
+      _focusNode.removeListener(_handleFocusChanged);
+      if (_ownsFocusNode) _focusNode.dispose();
+      _focusNode =
+          widget.focusNode ?? FocusNode(debugLabel: 'RefractionComposer');
+      _ownsFocusNode = widget.focusNode == null;
+      _focusNode.addListener(_handleFocusChanged);
+    }
+    _syncAccessoryPanel();
   }
 
   @override
@@ -802,8 +917,10 @@ class _RefractionComposerState extends State<RefractionComposer> {
     _noticeTimer?.cancel();
     _unwire(_controller);
     _textController.dispose();
-    _focusNode.dispose();
+    _focusNode.removeListener(_handleFocusChanged);
+    if (_ownsFocusNode) _focusNode.dispose();
     _undoController.dispose();
+    _overlayAnimation.dispose();
     if (_ownsController) _controller.dispose();
     super.dispose();
   }
@@ -832,7 +949,28 @@ class _RefractionComposerState extends State<RefractionComposer> {
       widget.onChanged?.call(state.value);
     }
     _syncOverlay();
+    _syncAccessoryPanel();
     setState(() {});
+  }
+
+  // -- Accessory panel (issue #432 Gap 3) ---------------------------------
+
+  bool get _hasAccessoryPanel => widget.accessoryPanelBuilder != null;
+
+  /// The resolved open state: controlled by `showAccessoryPanel` when set,
+  /// otherwise the controller's flag.
+  bool _resolveAccessoryPanelOpen() {
+    if (!_hasAccessoryPanel) return false;
+    return widget.showAccessoryPanel ?? _controller.isAccessoryPanelOpen;
+  }
+
+  /// On an open transition, dismiss the soft keyboard so the panel animates
+  /// into the freed space with no layout jump (issue #432 Gap 3).
+  void _syncAccessoryPanel() {
+    final open = _resolveAccessoryPanelOpen();
+    if (open == _panelWasOpen) return;
+    _panelWasOpen = open;
+    if (open && _focusNode.hasFocus) _focusNode.unfocus();
   }
 
   void _handleCoreEvent(ComposerEvent event) {
@@ -848,6 +986,13 @@ class _RefractionComposerState extends State<RefractionComposer> {
   void _handleFocusChanged() {
     if (_focusNode.hasFocus) {
       _controller.core.cancelDeferredDismiss();
+      // Tapping the field to type yields the accessory panel so the keyboard
+      // returns (issue #432 Gap 3). Only in uncontrolled mode — a controlled
+      // host owns the open state.
+      if (widget.showAccessoryPanel == null &&
+          _controller.isAccessoryPanelOpen) {
+        _controller.closeAccessoryPanel();
+      }
     } else {
       // Grace period so a pointer tap on a suggestion row lands first.
       _controller.core.dismissSuggestionDeferred();
@@ -961,10 +1106,15 @@ class _RefractionComposerState extends State<RefractionComposer> {
     final shouldShow = _controller.state.suggestion.isOpen && !widget.disabled;
     if (shouldShow && _overlayEntry == null) {
       _showOverlay();
-    } else if (!shouldShow && _overlayEntry != null) {
-      _removeOverlay();
-    } else {
+    } else if (shouldShow && _overlayEntry != null) {
+      // A re-open landed while a close animation was mid-flight — reverse
+      // back to fully shown instead of tearing the panel out.
+      if (_overlayAnimation.status == AnimationStatus.reverse) {
+        _overlayAnimation.forward();
+      }
       _overlayEntry?.markNeedsBuild();
+    } else if (!shouldShow && _overlayEntry != null) {
+      _startOverlayExit();
     }
   }
 
@@ -1006,7 +1156,11 @@ class _RefractionComposerState extends State<RefractionComposer> {
                 offset: Offset(0, anchorBelow ? 4 : -4),
                 child: Material(
                   color: Colors.transparent,
-                  child: _buildSuggestionPanel(theme),
+                  child: _animatedOverlayChild(
+                    overlayContext,
+                    anchorBelow,
+                    _buildSuggestionPanel(theme),
+                  ),
                 ),
               ),
             ),
@@ -1015,9 +1169,63 @@ class _RefractionComposerState extends State<RefractionComposer> {
       },
     );
     Overlay.of(context).insert(_overlayEntry!);
+    _overlayAnimation.forward(from: 0);
+  }
+
+  /// Eased entry (fade + a small settle), opacity-only under reduced motion.
+  /// The controller's shorter `reverseDuration` makes the exit faster than
+  /// the entry (issue #426 §7.10).
+  Widget _animatedOverlayChild(
+    BuildContext overlayContext,
+    bool anchorBelow,
+    Widget child,
+  ) {
+    final reduceMotion = MediaQuery.of(overlayContext).disableAnimations;
+    final curved = CurvedAnimation(
+      parent: _overlayAnimation,
+      curve: _growCurve,
+      reverseCurve: _growCurve,
+    );
+    final fade = FadeTransition(
+      opacity: curved,
+      alwaysIncludeSemantics: true,
+      child: child,
+    );
+    if (reduceMotion) return fade;
+    return AnimatedBuilder(
+      animation: curved,
+      child: fade,
+      builder: (context, inner) {
+        final t = curved.value;
+        return Transform.translate(
+          offset: Offset(0, (1 - t) * (anchorBelow ? -6 : 6)),
+          child: Transform.scale(
+            scale: 0.98 + 0.02 * t,
+            alignment: anchorBelow
+                ? Alignment.topCenter
+                : Alignment.bottomCenter,
+            child: inner,
+          ),
+        );
+      },
+    );
+  }
+
+  void _startOverlayExit() {
+    final entry = _overlayEntry;
+    if (entry == null) return;
+    _overlayAnimation.reverse().whenCompleteOrCancel(() {
+      // Only tear down if we actually finished closing (a re-open may have
+      // driven the controller forward again in the meantime).
+      if (_overlayAnimation.status == AnimationStatus.dismissed &&
+          _overlayEntry == entry) {
+        _removeOverlay();
+      }
+    });
   }
 
   void _removeOverlay() {
+    _overlayAnimation.stop();
     _overlayEntry?.remove();
     _overlayEntry = null;
   }
@@ -1214,6 +1422,19 @@ class _RefractionComposerState extends State<RefractionComposer> {
     final disableAnimations = mediaQuery.disableAnimations;
     final strings = widget.strings;
 
+    // Remember the tallest soft-keyboard inset seen so the accessory panel
+    // occupies exactly that space (no layout jump on the swap — #432 Gap 3).
+    final keyboardInset = mediaQuery.viewInsets.bottom;
+    if (keyboardInset > _lastKeyboardHeight) {
+      _lastKeyboardHeight = keyboardInset;
+    }
+    final panelOpen = _resolveAccessoryPanelOpen();
+    final panelHeight =
+        widget.accessoryPanelHeight ??
+        (_lastKeyboardHeight > 0
+            ? _lastKeyboardHeight
+            : defaultAccessoryPanelHeight);
+
     final scaledLineHeight = MediaQuery.textScalerOf(
       context,
     ).scale(tokens.lineHeight);
@@ -1299,22 +1520,52 @@ class _RefractionComposerState extends State<RefractionComposer> {
       canSend: state.canSend,
       isBusy: state.isBusy,
     );
-    final primary =
+    final primaryChild =
         widget.primaryBuilder?.call(context, primaryContext) ??
         _buildDefaultPrimary(tokens, colors, primaryContext);
+    // Morph the primary action (send ⇄ mic ⇄ stop) with a cross-fade + tiny
+    // scale so the swap never jumps (issue #426 §7.10). The default slots
+    // carry distinct keys (send/stop) so those morph, while a plain
+    // enable/disable (same key) updates in place with no double-render. A
+    // host `primaryBuilder` gets the morph by keying its own children (e.g.
+    // ValueKey('mic') vs ValueKey('send')). Instant under reduced motion.
+    final primary = AnimatedSwitcher(
+      duration: disableAnimations ? Duration.zero : _primarySwapDuration,
+      switchInCurve: _growCurve,
+      switchOutCurve: _growCurve,
+      transitionBuilder: (child, animation) => disableAnimations
+          ? child
+          : FadeTransition(
+              opacity: animation,
+              alwaysIncludeSemantics: true,
+              child: ScaleTransition(
+                scale: Tween<double>(begin: 0.7, end: 1.0).animate(animation),
+                child: child,
+              ),
+            ),
+      child: primaryChild,
+    );
 
-    // High contrast strengthens the pill hairline to the foreground token
-    // (the palette itself is the host's contrast lever).
+    // Calm focus (issue #432 Gap 1): no saturated full-perimeter ring on
+    // focus — focus reads through the caret. High contrast still strengthens
+    // the hairline to the foreground token (the palette is the contrast
+    // lever); `filled` sits on a secondary surface, `outlined` on the page.
     final highContrast = mediaQuery.highContrast;
-    final borderColor = _focusNode.hasFocus && !widget.disabled
-        ? colors.ring
-        : (highContrast ? colors.foreground : colors.border);
+    final borderColor = highContrast ? colors.foreground : colors.border;
+    final Color fillColor;
+    if (widget.disabled) {
+      fillColor = colors.muted;
+    } else if (widget.surface == ComposerSurface.filled) {
+      fillColor = colors.muted;
+    } else {
+      fillColor = colors.background;
+    }
     final pill = Container(
       key: _pillKey,
       constraints: BoxConstraints(minHeight: tokens.minHeight),
       alignment: AlignmentDirectional.center,
       decoration: BoxDecoration(
-        color: widget.disabled ? colors.muted : colors.background,
+        color: fillColor,
         border: Border.all(color: borderColor),
         borderRadius: BorderRadius.circular(tokens.minHeight / 2),
       ),
@@ -1345,16 +1596,17 @@ class _RefractionComposerState extends State<RefractionComposer> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (state.attachments.isNotEmpty) ...[
-          _AttachmentTray(
-            attachments: state.attachments,
-            colors: colors,
-            theme: theme,
-            strings: strings,
-            onRemove: widget.disabled ? null : _controller.removeAttachment,
-          ),
-          SizedBox(height: tokens.gutter),
-        ],
+        _AttachmentTray(
+          attachments: state.attachments,
+          colors: colors,
+          theme: theme,
+          strings: strings,
+          reduceMotion: disableAnimations,
+          bottomGap: tokens.gutter,
+          duration: _growDuration,
+          curve: _growCurve,
+          onRemove: widget.disabled ? null : _controller.removeAttachment,
+        ),
         if (state.error != null) ...[
           _ComposerBanner(
             text: state.error!,
@@ -1400,14 +1652,27 @@ class _RefractionComposerState extends State<RefractionComposer> {
               ),
             ),
           ),
+        if (_hasAccessoryPanel)
+          _AccessoryPanel(
+            open: panelOpen,
+            height: panelHeight,
+            reduceMotion: disableAnimations,
+            duration: _growDuration,
+            curve: _growCurve,
+            colors: colors,
+            bottomSafeInset: widget.padSafeArea
+                ? mediaQuery.viewPadding.bottom
+                : 0.0,
+            builder: widget.accessoryPanelBuilder!,
+          ),
       ],
     );
 
-    // §2.8: never stack safe-area and keyboard insets — the keyboard
-    // replaces the home-indicator inset.
+    // §2.8: never stack safe-area and keyboard insets — the keyboard (or an
+    // open accessory panel that replaced it) owns the home-indicator inset.
     final keyboardOpen = mediaQuery.viewInsets.bottom > 0;
     final bottomInset = widget.padSafeArea
-        ? (keyboardOpen ? 0.0 : mediaQuery.viewPadding.bottom)
+        ? ((keyboardOpen || panelOpen) ? 0.0 : mediaQuery.viewPadding.bottom)
         : 0.0;
 
     return AnimatedPadding(
@@ -1425,6 +1690,7 @@ class _RefractionComposerState extends State<RefractionComposer> {
   ) {
     if (primary.isBusy) {
       return _ComposerActionSlot(
+        key: const ValueKey('composer-primary-stop'),
         tokens: tokens,
         semanticLabel: widget.strings.stopLabel,
         onPressed: widget.onStop,
@@ -1432,6 +1698,7 @@ class _RefractionComposerState extends State<RefractionComposer> {
       );
     }
     return _ComposerActionSlot(
+      key: const ValueKey('composer-primary-send'),
       tokens: tokens,
       semanticLabel: widget.strings.sendLabel,
       onPressed: primary.canSend ? _handleSubmit : null,
@@ -1460,6 +1727,7 @@ class _ComposerActionSlot extends StatelessWidget {
   final String? semanticLabel;
 
   const _ComposerActionSlot({
+    super.key,
     required this.tokens,
     required this.icon,
     required this.onPressed,
@@ -1567,11 +1835,18 @@ class _RenderOversizedHitBox extends RenderShiftedBox {
   }
 }
 
+/// The inline attachments tray. Its height eases open/closed via
+/// [AnimatedSize] and each chip springs in on mount (issue #426 §7.10);
+/// under reduced motion both collapse to an opacity-only fade.
 class _AttachmentTray extends StatelessWidget {
   final List<ComposerAttachment> attachments;
   final RefractionColors colors;
   final RefractionTheme theme;
   final RefractionComposerStrings strings;
+  final bool reduceMotion;
+  final double bottomGap;
+  final Duration duration;
+  final Curve curve;
   final void Function(String id)? onRemove;
 
   const _AttachmentTray({
@@ -1579,6 +1854,10 @@ class _AttachmentTray extends StatelessWidget {
     required this.colors,
     required this.theme,
     required this.strings,
+    required this.reduceMotion,
+    required this.bottomGap,
+    required this.duration,
+    required this.curve,
     required this.onRemove,
   });
 
@@ -1592,31 +1871,109 @@ class _AttachmentTray extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 4,
-      runSpacing: 4,
-      children: [for (final attachment in attachments) _buildChip(attachment)],
+    // Nothing to animate when empty — render no box (keeps the grow
+    // AnimatedSize the only one in the tree, and adds no spacing).
+    if (attachments.isEmpty) return const SizedBox.shrink();
+    final content = Padding(
+      padding: EdgeInsetsDirectional.only(bottom: bottomGap),
+      child: Wrap(
+        spacing: 4,
+        runSpacing: 4,
+        children: [
+          for (final attachment in attachments)
+            _AttachmentChip(
+              // Keyed by id so an existing chip is preserved across rebuilds
+              // (no false entrance) while a new id animates in.
+              key: ValueKey(attachment.id),
+              attachment: attachment,
+              colors: colors,
+              theme: theme,
+              strings: strings,
+              icon: _kindIcons[attachment.kind],
+              reduceMotion: reduceMotion,
+              onRemove: onRemove,
+            ),
+        ],
+      ),
+    );
+    // A zero-duration AnimatedSize re-dirties itself during layout, so under
+    // reduced motion drop the widget entirely and swap content instantly.
+    if (reduceMotion) return content;
+    return AnimatedSize(
+      duration: duration,
+      curve: curve,
+      alignment: Alignment.topCenter,
+      child: content,
     );
   }
+}
 
-  Widget _buildChip(ComposerAttachment attachment) {
+/// One attachment chip that plays a scale+fade entrance the first time it is
+/// mounted (opacity-only under reduced motion).
+class _AttachmentChip extends StatefulWidget {
+  final ComposerAttachment attachment;
+  final RefractionColors colors;
+  final RefractionTheme theme;
+  final RefractionComposerStrings strings;
+  final IconData? icon;
+  final bool reduceMotion;
+  final void Function(String id)? onRemove;
+
+  const _AttachmentChip({
+    super.key,
+    required this.attachment,
+    required this.colors,
+    required this.theme,
+    required this.strings,
+    required this.icon,
+    required this.reduceMotion,
+    required this.onRemove,
+  });
+
+  @override
+  State<_AttachmentChip> createState() => _AttachmentChipState();
+}
+
+class _AttachmentChipState extends State<_AttachmentChip>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _curved;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 160),
+      value: widget.reduceMotion ? 1.0 : 0.0,
+    );
+    _curved = CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic);
+    if (!widget.reduceMotion) _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = widget.colors;
+    final attachment = widget.attachment;
     final isError = attachment.status == ComposerAttachmentStatus.error;
     final foreground = isError ? colors.destructive : colors.foreground;
-    return Container(
+    final chip = Container(
       padding: const EdgeInsetsDirectional.fromSTEB(8, 4, 4, 4),
       decoration: BoxDecoration(
         color: colors.muted,
-        borderRadius: BorderRadius.circular(theme.borderRadius),
+        borderRadius: BorderRadius.circular(widget.theme.borderRadius),
         border: Border.all(color: isError ? colors.destructive : colors.border),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            _kindIcons[attachment.kind],
-            size: 14,
-            color: colors.mutedForeground,
-          ),
+          Icon(widget.icon, size: 14, color: colors.mutedForeground),
           const SizedBox(width: 4),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 160),
@@ -1639,15 +1996,15 @@ class _AttachmentTray extends StatelessWidget {
               ),
             ),
           ],
-          if (onRemove != null) ...[
+          if (widget.onRemove != null) ...[
             const SizedBox(width: 2),
             Semantics(
               container: true,
               button: true,
-              label: strings.removeAttachmentLabel(attachment.name),
+              label: widget.strings.removeAttachmentLabel(attachment.name),
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
-                onTap: () => onRemove!(attachment.id),
+                onTap: () => widget.onRemove!(attachment.id),
                 child: Padding(
                   padding: const EdgeInsetsDirectional.all(2),
                   child: Icon(
@@ -1660,6 +2017,15 @@ class _AttachmentTray extends StatelessWidget {
             ),
           ],
         ],
+      ),
+    );
+    if (widget.reduceMotion) return chip;
+    return FadeTransition(
+      opacity: _curved,
+      alwaysIncludeSemantics: true,
+      child: ScaleTransition(
+        scale: Tween<double>(begin: 0.8, end: 1.0).animate(_curved),
+        child: chip,
       ),
     );
   }
@@ -1687,6 +2053,62 @@ class _ComposerBanner extends StatelessWidget {
         borderRadius: BorderRadius.circular(theme.borderRadius),
       ),
       child: Text(text, style: TextStyle(fontSize: 12, color: foreground)),
+    );
+  }
+}
+
+/// The accessory panel rendered below the pill (issue #432 Gap 3): it eases
+/// its height open/closed so the pill never jumps, and hosts the emoji /
+/// sticker picker in the soft keyboard's freed space. Under reduced motion
+/// the height change is instant (content still cross-fades via its own build).
+class _AccessoryPanel extends StatelessWidget {
+  final bool open;
+  final double height;
+  final bool reduceMotion;
+  final Duration duration;
+  final Curve curve;
+  final RefractionColors colors;
+  final double bottomSafeInset;
+  final WidgetBuilder builder;
+
+  const _AccessoryPanel({
+    required this.open,
+    required this.height,
+    required this.reduceMotion,
+    required this.duration,
+    required this.curve,
+    required this.colors,
+    required this.bottomSafeInset,
+    required this.builder,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final targetHeight = open ? height + bottomSafeInset : 0.0;
+    final content = SizedBox(
+      height: targetHeight,
+      width: double.infinity,
+      child: open
+          ? DecoratedBox(
+              decoration: BoxDecoration(
+                color: colors.background,
+                border: Border(top: BorderSide(color: colors.border)),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(bottom: bottomSafeInset),
+                child: builder(context),
+              ),
+            )
+          : null,
+    );
+    // ClipRect keeps the panel content from painting past the collapsing box.
+    final clipped = ClipRect(child: content);
+    if (reduceMotion) return clipped;
+    return AnimatedSize(
+      duration: duration,
+      curve: curve,
+      alignment: Alignment.topCenter,
+      child: clipped,
     );
   }
 }

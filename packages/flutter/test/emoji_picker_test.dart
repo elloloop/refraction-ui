@@ -3,82 +3,105 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:refraction_ui/refraction_ui.dart';
 
 void main() {
-  Widget buildApp({Widget? child}) {
+  // Use the native renderer in widget tests so assertions can find glyphs as
+  // text (the default Twemoji renderer paints SVGs, exercised separately in
+  // emoji_data_test.dart) and no async asset load is involved.
+  Widget buildApp({
+    ValueChanged<EmojiEntry>? onSelect,
+    List<EmojiSticker> stickers = const [],
+    EmojiRenderer renderer = defaultEmojiRenderer,
+    bool reduceMotion = false,
+  }) {
     return MaterialApp(
       home: Scaffold(
-        body: RefractionTheme(
-          data: RefractionThemeData.light(),
-          child: child ?? const SizedBox(),
+        body: MediaQuery(
+          data: MediaQueryData(disableAnimations: reduceMotion),
+          child: RefractionTheme(
+            data: RefractionThemeData.light(),
+            child: RefractionEmojiPicker(
+              onSelect: onSelect,
+              stickers: stickers,
+              emojiRenderer: renderer,
+            ),
+          ),
         ),
       ),
     );
   }
 
-  testWidgets('RefractionEmojiPicker renders and shows smileys by default', (
-    WidgetTester tester,
-  ) async {
-    await tester.pumpWidget(buildApp(child: const RefractionEmojiPicker()));
-
+  testWidgets('renders search + smileys grid by default', (tester) async {
+    await tester.pumpWidget(buildApp());
     expect(find.byType(TextField), findsOneWidget);
-    expect(find.byType(InkWell), findsWidgets);
-
-    // 2 instances of \u{1F600} (1 in tabs, 1 in grid)
-    expect(find.text('\u{1F600}'), findsNWidgets(2));
+    // Grinning face appears in the smileys tab AND as the first grid cell.
+    expect(find.text('😀'), findsNWidgets(2));
   });
 
-  testWidgets('RefractionEmojiPicker filters emojis on search', (
-    WidgetTester tester,
-  ) async {
-    await tester.pumpWidget(buildApp(child: const RefractionEmojiPicker()));
-
+  testWidgets('filters emoji on search', (tester) async {
+    await tester.pumpWidget(buildApp());
     await tester.enterText(find.byType(TextField), 'pizza');
     await tester.pumpAndSettle();
-
-    expect(find.text('\u{1F355}'), findsOneWidget);
-    // Only 1 instance of \u{1F600} (in tabs)
-    expect(find.text('\u{1F600}'), findsOneWidget);
+    expect(find.text('🍕'), findsOneWidget);
+    // The smileys tab glyph remains, but the grid no longer shows it.
+    expect(find.text('😀'), findsOneWidget);
   });
 
-  testWidgets('RefractionEmojiPicker switches categories', (
-    WidgetTester tester,
-  ) async {
-    await tester.pumpWidget(buildApp(child: const RefractionEmojiPicker()));
-
-    // Tap on 'food' category (4th category tab)
-    await tester.tap(find.text('\u{1F34E}').first);
+  testWidgets('switches category shows that category header', (tester) async {
+    await tester.pumpWidget(buildApp());
+    // Tap the Food & Drink tab (🍎).
+    await tester.tap(find.text('🍎').first);
     await tester.pumpAndSettle();
-
-    // 2 instances of \u{1F34E} (1 in tabs, 1 in grid)
-    expect(find.text('\u{1F34E}'), findsNWidgets(2));
-    // Only 1 instance of \u{1F600} (in tabs)
-    expect(find.text('\u{1F600}'), findsOneWidget);
+    expect(find.text('Food & Drink'), findsOneWidget);
   });
 
-  testWidgets('RefractionEmojiPicker calls onSelect and adds to recent', (
-    WidgetTester tester,
+  testWidgets('selecting an emoji fires onSelect and reveals recents', (
+    tester,
   ) async {
-    EmojiEntry? selectedEmoji;
+    EmojiEntry? selected;
+    await tester.pumpWidget(buildApp(onSelect: (e) => selected = e));
+    // Tap the grinning face in the grid (last instance; first is the tab).
+    await tester.tap(find.text('😀').last);
+    await tester.pumpAndSettle();
+    expect(selected, isNotNull);
+    expect(selected!.name, 'grinning face');
+    // A recents tab (🕘) now exists.
+    expect(find.text('🕘'), findsOneWidget);
+  });
+
+  testWidgets('EmojiRenderer seam is used for every glyph', (tester) async {
+    const sentinelKey = Key('custom-emoji');
+    await tester.pumpWidget(
+      buildApp(
+        renderer: (context, entry, size) =>
+            SizedBox(key: sentinelKey, width: size, height: size),
+      ),
+    );
+    // The grid renders through the injected renderer, not native text.
+    expect(find.byKey(sentinelKey), findsWidgets);
+  });
+
+  testWidgets('stickers tab appears only when stickers are supplied', (
+    tester,
+  ) async {
+    await tester.pumpWidget(buildApp());
+    expect(find.text('🎟️'), findsNothing);
 
     await tester.pumpWidget(
       buildApp(
-        child: RefractionEmojiPicker(
-          onSelect: (emoji) {
-            selectedEmoji = emoji;
-          },
-        ),
+        stickers: const [EmojiSticker(id: 's1', label: 'Star', glyph: '⭐')],
       ),
     );
+    expect(find.text('🎟️'), findsOneWidget);
+  });
 
-    // Tap on grinning face in the grid (which is the last one)
-    final grinningFinder = find.text('\u{1F600}');
-    await tester.tap(grinningFinder.last);
-    await tester.pumpAndSettle();
-
-    expect(selectedEmoji, isNotNull);
-    expect(selectedEmoji!.name, 'grinning face');
-
-    expect(find.text('Recently Used'), findsOneWidget);
-    // Now there are 3 instances of \u{1F600} (1 in tabs, 1 in recent, 1 in grid)
-    expect(find.text('\u{1F600}'), findsNWidgets(3));
+  testWidgets('reduced motion still switches categories in one frame', (
+    tester,
+  ) async {
+    await tester.pumpWidget(buildApp(reduceMotion: true));
+    await tester.tap(find.text('🍎').first);
+    // A single pump (no long settle) reaches the new category — the switch is
+    // an opacity-only cross-fade with a shortened duration.
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(find.text('Food & Drink'), findsOneWidget);
   });
 }
