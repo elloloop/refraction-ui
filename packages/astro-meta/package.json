@@ -1,6 +1,6 @@
 {
   "name": "@refraction-ui/astro",
-  "version": "0.16.1",
+  "version": "0.17.0",
   "description": "All Refraction UI Astro components in one package",
   "type": "module",
   "exports": {
