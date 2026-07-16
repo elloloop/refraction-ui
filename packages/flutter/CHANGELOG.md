@@ -1,3 +1,7 @@
+## 0.46.1
+
+- **Fix**: `RefractionPopover` no longer throws `_ElementLifecycle.defunct` when disposed — it called `setState()` from `dispose()` (via `_closePopover()`); guarded with `isDisposing`. Affected any screen that disposes a popover (e.g. navigating away while one is mounted) in debug builds.
+
 ## 0.46.0
 
 - **Chat / Emoji**: Major `RefractionComposer` + `RefractionEmojiPicker` upgrade.
