@@ -43,6 +43,7 @@ export 'src/components/badge.dart';
 export 'src/components/button.dart';
 export 'src/components/checkbox.dart';
 export 'src/components/chat_input.dart';
+export 'src/components/chat_bubble.dart';
 export 'src/components/composer.dart';
 // Drive-by packaging fix: RefractionMobileNav shipped in 0.42.0 but was
 // never exported from the barrel, so consumers (and the example app)

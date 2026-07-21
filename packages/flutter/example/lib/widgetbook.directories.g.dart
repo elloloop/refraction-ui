@@ -22,6 +22,8 @@ import 'package:example/use_cases/browser_chrome_mock_use_cases.dart'
     as _example_use_cases_browser_chrome_mock_use_cases;
 import 'package:example/use_cases/call_controls_use_cases.dart'
     as _example_use_cases_call_controls_use_cases;
+import 'package:example/use_cases/chat_bubble_use_cases.dart'
+    as _example_use_cases_chat_bubble_use_cases;
 import 'package:example/use_cases/checklist_use_cases.dart'
     as _example_use_cases_checklist_use_cases;
 import 'package:example/use_cases/code_block_use_cases.dart'
@@ -30,6 +32,10 @@ import 'package:example/use_cases/combobox_use_cases.dart'
     as _example_use_cases_combobox_use_cases;
 import 'package:example/use_cases/command_use_cases.dart'
     as _example_use_cases_command_use_cases;
+import 'package:example/use_cases/composer_full_demo.dart'
+    as _example_use_cases_composer_full_demo;
+import 'package:example/use_cases/composer_use_cases.dart'
+    as _example_use_cases_composer_use_cases;
 import 'package:example/use_cases/editor_status_bar_use_cases.dart'
     as _example_use_cases_editor_status_bar_use_cases;
 import 'package:example/use_cases/editor_tabs_use_cases.dart'
@@ -260,6 +266,51 @@ final directories = <_widgetbook.WidgetbookNode>[
         ],
       ),
       _widgetbook.WidgetbookComponent(
+        name: 'RefractionChatBubble',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Animated sticker',
+            builder: _example_use_cases_chat_bubble_use_cases
+                .stickerChatBubbleUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Audio',
+            builder:
+                _example_use_cases_chat_bubble_use_cases.audioChatBubbleUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'File card',
+            builder:
+                _example_use_cases_chat_bubble_use_cases.fileChatBubbleUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Image with caption',
+            builder:
+                _example_use_cases_chat_bubble_use_cases.imageChatBubbleUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Jumbo emoji',
+            builder:
+                _example_use_cases_chat_bubble_use_cases.jumboChatBubbleUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Media grid',
+            builder:
+                _example_use_cases_chat_bubble_use_cases.gridChatBubbleUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Text',
+            builder:
+                _example_use_cases_chat_bubble_use_cases.textChatBubbleUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Video',
+            builder:
+                _example_use_cases_chat_bubble_use_cases.videoChatBubbleUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
         name: 'RefractionChecklist',
         useCases: [
           _widgetbook.WidgetbookUseCase(
@@ -314,6 +365,73 @@ final directories = <_widgetbook.WidgetbookNode>[
           _widgetbook.WidgetbookUseCase(
             name: 'With Many Items',
             builder: _example_use_cases_command_use_cases.manyItemsCommand,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'RefractionComposer',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Attachments',
+            builder: _example_use_cases_composer_use_cases
+                .attachmentsComposerUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Counter near limit',
+            builder:
+                _example_use_cases_composer_use_cases.counterComposerUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Default',
+            builder:
+                _example_use_cases_composer_use_cases.defaultComposerUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Densities',
+            builder:
+                _example_use_cases_composer_use_cases.densitiesComposerUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Disabled',
+            builder:
+                _example_use_cases_composer_use_cases.disabledComposerUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Error',
+            builder: _example_use_cases_composer_use_cases.errorComposerUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Full featured',
+            builder: _example_use_cases_composer_full_demo
+                .fullFeaturedComposerUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'High contrast',
+            builder: _example_use_cases_composer_use_cases
+                .highContrastComposerUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Multiline',
+            builder:
+                _example_use_cases_composer_use_cases.multilineComposerUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Overlay open',
+            builder:
+                _example_use_cases_composer_use_cases.overlayComposerUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'RTL',
+            builder: _example_use_cases_composer_use_cases.rtlComposerUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Read only',
+            builder:
+                _example_use_cases_composer_use_cases.readOnlyComposerUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Token inserted',
+            builder: _example_use_cases_composer_use_cases.tokenComposerUseCase,
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import '../theme/refraction_theme.dart';
 import '../theme/refraction_theme_data.dart';
+import 'chat_bubble.dart';
 
 /// The role of a message in a conversation.
 enum RefractionMessageRole { user, assistant, system }
@@ -16,6 +17,11 @@ class RefractionMessage {
   final String? authorName;
   final Widget? customContent;
 
+  /// Optional attachments rendered below the content via the shared
+  /// [RefractionChatAttachmentView] renderer (ignored when [customContent]
+  /// is set — the host owns that layout).
+  final List<RefractionChatAttachment>? attachments;
+
   const RefractionMessage({
     required this.id,
     this.content = '',
@@ -24,6 +30,7 @@ class RefractionMessage {
     this.avatar,
     this.authorName,
     this.customContent,
+    this.attachments,
   });
 }
 
@@ -154,13 +161,29 @@ class _RefractionMessageBubble extends StatelessWidget {
                 ),
                 child:
                     message.customContent ??
-                    Text(
-                      message.content,
-                      style: theme.textStyle.copyWith(
-                        color: isUser
-                            ? theme.colors.primaryForeground
-                            : theme.colors.foreground,
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (message.content.isNotEmpty)
+                          Text(
+                            message.content,
+                            style: theme.textStyle.copyWith(
+                              color: isUser
+                                  ? theme.colors.primaryForeground
+                                  : theme.colors.foreground,
+                            ),
+                          ),
+                        if (message.attachments != null)
+                          for (final attachment in message.attachments!)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: RefractionChatAttachmentView(
+                                attachment: attachment,
+                                onFilledBubble: isUser,
+                              ),
+                            ),
+                      ],
                     ),
               ),
               if (message.createdAt != null) ...[

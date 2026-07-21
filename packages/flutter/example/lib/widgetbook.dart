@@ -17,6 +17,7 @@ class WidgetbookApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Widgetbook.material(
       directories: directories,
+      initialRoute: '/?path=components/refractioncomposer/full-featured',
       addons: [
         ThemeAddon(
           themes: [

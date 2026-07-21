@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:refraction_ui/refraction_ui.dart';
 import '../dev_tools/preview_canvas.dart';
+import '../use_cases/composer_full_demo.dart';
 
 class ComposerPage extends StatefulWidget {
   const ComposerPage({super.key});
@@ -158,25 +159,8 @@ class _ComposerPageState extends State<ComposerPage> {
             maxLines: 6,
             triggers: _triggers,
             onSubmit: _handleSubmit,
-            onAttachRequested: () {
-              RefractionToast.show(
-                context: context,
-                title: 'Attach',
-                description: 'Wire this slot to your file picker.',
-              );
-            },
-            leadingBuilder: (context, controller) => IconButton(
-              onPressed: () => controller.addAttachment(
-                ComposerAttachment(
-                  id: '',
-                  kind: ComposerAttachmentKind.file,
-                  name: 'demo.pdf',
-                  sizeBytes: 48213,
-                  status: ComposerAttachmentStatus.ready,
-                ),
-              ),
-              icon: Icon(Icons.attach_file, color: colors.mutedForeground),
-            ),
+            onAttachRequested: () =>
+                showComposerAttachSheet(context, _controller),
             // WhatsApp-style emoji toggle: the icon swaps emoji <-> keyboard.
             trailingBuilder: (context, controller) => IconButton(
               onPressed: _toggleEmojiPanel,

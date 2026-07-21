@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 import '../theme/refraction_theme_data.dart';
+import 'chat_bubble.dart';
 
 class RefractionThreadMessageAuthor {
   final String id;
@@ -287,38 +288,16 @@ class _ThreadMessageNodeState extends State<_ThreadMessageNode> {
                             widget.message.attachments!.isNotEmpty) ...[
                           const SizedBox(height: 4),
                           ...widget.message.attachments!.map((attachment) {
-                            return Container(
-                              margin: const EdgeInsets.only(top: 4),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 8,
-                              ),
-                              decoration: BoxDecoration(
-                                color: theme.colors.muted.withValues(alpha: 0.5),
-                                borderRadius: BorderRadius.circular(
-                                  theme.borderRadius / 2,
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: RefractionChatAttachmentView(
+                                attachment: RefractionChatAttachment(
+                                  id: attachment.id,
+                                  name: attachment.name,
+                                  url: attachment.url,
+                                  type: attachment.type,
+                                  size: attachment.size,
                                 ),
-                                border: Border.all(color: theme.colors.border),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    Icons.attach_file,
-                                    size: 14,
-                                    color: theme.colors.foreground,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Flexible(
-                                    child: Text(
-                                      attachment.name,
-                                      style: theme.textStyle.copyWith(
-                                        fontSize: 12,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ],
                               ),
                             );
                           }),
