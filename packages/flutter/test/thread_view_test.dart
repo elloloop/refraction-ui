@@ -269,7 +269,7 @@ void main() {
       );
 
       expect(find.text('document.pdf'), findsOneWidget);
-      expect(find.byIcon(Icons.attach_file), findsOneWidget);
+      expect(find.byIcon(Icons.picture_as_pdf_outlined), findsOneWidget);
     });
 
     testWidgets('supports deep nesting of replies', (

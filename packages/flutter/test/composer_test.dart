@@ -946,6 +946,76 @@ void main() {
     expect(find.text('PANEL-CONTENT'), findsOneWidget);
   });
 
+  // -- tap-outside dismissal ------------------------------------------------
+
+  testWidgets('tap outside the composer resigns field focus and closes an '
+      'uncontrolled accessory panel', (tester) async {
+    final controller = mentionController();
+    addTearDown(controller.dispose);
+    final focus = FocusNode();
+    addTearDown(focus.dispose);
+    await tester.pumpWidget(
+      buildApp(
+        RefractionComposer(
+          controller: controller,
+          focusNode: focus,
+          onSubmit: (_) {},
+          accessoryPanelBuilder: (_) => const Text('PANEL-CONTENT'),
+        ),
+      ),
+    );
+
+    // Keyboard case: a focused field loses focus on an outside tap (the
+    // soft keyboard follows focus on mobile).
+    focus.requestFocus();
+    await tester.pump();
+    expect(focus.hasFocus, isTrue);
+    await tester.tapAt(const Offset(400, 580));
+    await tester.pump();
+    expect(focus.hasFocus, isFalse, reason: 'outside tap resigns the field');
+
+    // Panel case: an open (uncontrolled) accessory panel closes too.
+    controller.openAccessoryPanel();
+    await tester.pumpAndSettle();
+    expect(controller.isAccessoryPanelOpen, isTrue);
+    expect(find.text('PANEL-CONTENT'), findsOneWidget);
+    await tester.tapAt(const Offset(400, 580));
+    await tester.pumpAndSettle();
+    expect(controller.isAccessoryPanelOpen, isFalse);
+    expect(find.text('PANEL-CONTENT'), findsNothing);
+  });
+
+  testWidgets('tapping a suggestion row does not resign the field',
+      (tester) async {
+    final controller = mentionController();
+    addTearDown(controller.dispose);
+    final focus = FocusNode();
+    addTearDown(focus.dispose);
+    await tester.pumpWidget(
+      buildApp(
+        RefractionComposer(
+          controller: controller,
+          focusNode: focus,
+          onSubmit: (_) {},
+        ),
+      ),
+    );
+    focus.requestFocus();
+    await tester.pump();
+    await tester.enterText(find.byType(TextField), '@');
+    await tester.pumpAndSettle();
+    expect(controller.state.suggestion.isOpen, isTrue);
+
+    await tester.tap(find.text('Jordan Lee'));
+    await tester.pumpAndSettle();
+    expect(controller.state.value, contains('Jordan'));
+    expect(
+      focus.hasFocus,
+      isTrue,
+      reason: 'overlay rows are inside the composer tap region',
+    );
+  });
+
   // -- #432 Gap 1: filled surface, calm focus -----------------------------
 
   testWidgets('filled surface draws no saturated focus ring', (tester) async {

@@ -28,3 +28,15 @@ Starter stickers (assets/stickers/*.svg, assets/stickers/*.json)
 Original works created for refraction_ui, licensed under the package's MIT
 License. These are a small starter pack; hosts supply their own via the
 `RefractionEmojiPicker.stickers` seam.
+
+Animated Noto emoji (assets/emoji_animated/*.json)
+---------------------------------------------------
+The Lottie animations bundled under `assets/emoji_animated/` are from
+Google's Noto animated emoji project, fetched from the official emoji CDN
+(fonts.gstatic.com/s/e/notoemoji/). Noto emoji are licensed under the
+SIL Open Font License 1.1 (https://openfontlicense.org); image assets and
+tools in the project are under the Apache License 2.0.
+
+  Copyright Google Inc. and other contributors
+  Source: https://googlefonts.github.io/noto-emoji-animation/
+          https://github.com/googlefonts/noto-emoji

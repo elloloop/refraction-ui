@@ -821,6 +821,11 @@ class _RefractionComposerState extends State<RefractionComposer>
   final LayerLink _layerLink = LayerLink();
   final GlobalKey _pillKey = GlobalKey();
   OverlayEntry? _overlayEntry;
+  // Shared tap-region id covering the pill/dock and the suggestion overlay
+  // (which lives in a separate OverlayEntry) — taps on either count as
+  // "inside"; anything else resigns the field (mobile keyboards do not
+  // dismiss on their own).
+  final Object _tapRegionGroupId = Object();
   late final AnimationController _overlayAnimation;
   String _lastValue = '';
   Duration _resizeDuration = _growDuration;
@@ -1102,6 +1107,19 @@ class _RefractionComposerState extends State<RefractionComposer>
 
   // -- Suggestion overlay ---------------------------------------------------
 
+  /// A tap outside the composer surface (pill, tray, counter, accessory
+  /// panel, suggestion overlay) resigns the field — mobile soft keyboards
+  /// don't dismiss when focus is lost elsewhere, and every messaging app
+  /// closes the keyboard when the conversation is tapped. An uncontrolled
+  /// accessory panel closes too (a controlled one is the host's call).
+  void _handleTapOutside(PointerDownEvent event) {
+    if (widget.disabled) return;
+    _focusNode.unfocus();
+    if (widget.showAccessoryPanel == null) {
+      _controller.closeAccessoryPanel();
+    }
+  }
+
   void _syncOverlay() {
     final shouldShow = _controller.state.suggestion.isOpen && !widget.disabled;
     if (shouldShow && _overlayEntry == null) {
@@ -1156,10 +1174,13 @@ class _RefractionComposerState extends State<RefractionComposer>
                 offset: Offset(0, anchorBelow ? 4 : -4),
                 child: Material(
                   color: Colors.transparent,
-                  child: _animatedOverlayChild(
-                    overlayContext,
-                    anchorBelow,
-                    _buildSuggestionPanel(theme),
+                  child: TapRegion(
+                    groupId: _tapRegionGroupId,
+                    child: _animatedOverlayChild(
+                      overlayContext,
+                      anchorBelow,
+                      _buildSuggestionPanel(theme),
+                    ),
                   ),
                 ),
               ),
@@ -1675,11 +1696,15 @@ class _RefractionComposerState extends State<RefractionComposer>
         ? ((keyboardOpen || panelOpen) ? 0.0 : mediaQuery.viewPadding.bottom)
         : 0.0;
 
-    return AnimatedPadding(
-      duration: disableAnimations ? Duration.zero : _growDuration,
-      curve: _growCurve,
-      padding: EdgeInsets.only(bottom: bottomInset),
-      child: dock,
+    return TapRegion(
+      groupId: _tapRegionGroupId,
+      onTapOutside: _handleTapOutside,
+      child: AnimatedPadding(
+        duration: disableAnimations ? Duration.zero : _growDuration,
+        curve: _growCurve,
+        padding: EdgeInsets.only(bottom: bottomInset),
+        child: dock,
+      ),
     );
   }
 
@@ -1711,14 +1736,64 @@ class _RefractionComposerState extends State<RefractionComposer>
   }
 }
 
+/// An action slot for [RefractionComposer]'s leading/trailing positions,
+/// sized and aligned exactly like the built-in attach/send slots: the layout
+/// box is one scaled text line tall so the glyph stays optically centered
+/// with the input text, while the tap target remains the density's full hit
+/// size.
+///
+/// Use inside [RefractionComposer.leadingBuilder] or
+/// [RefractionComposer.trailingBuilder]. Pass the same [density] as the
+/// enclosing composer when it is not [ComposerDensity.comfortable].
+class ComposerActionSlot extends StatelessWidget {
+  /// The slot glyph (typically an [Icon]).
+  final Widget icon;
+
+  /// Tap handler; null renders the slot disabled.
+  final VoidCallback? onPressed;
+
+  /// Accessible label for the slot.
+  final String? semanticLabel;
+
+  /// Density table to size against. Should match the enclosing composer's
+  /// density (default: [ComposerDensity.comfortable]).
+  final ComposerDensity density;
+
+  /// Creates an action slot.
+  const ComposerActionSlot({
+    super.key,
+    required this.icon,
+    this.onPressed,
+    this.semanticLabel,
+    this.density = ComposerDensity.comfortable,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return _ComposerActionSlot(
+      tokens: ComposerDensityTokens.resolve(density),
+      icon: icon,
+      onPressed: onPressed,
+      semanticLabel: semanticLabel,
+    );
+  }
+}
+
 /// The action-slot primitive (issue #426 §2.5): contributes exactly
-/// `iconSlotSize` to layout while its tap target is the larger
-/// `hitTargetSize`, bled beyond the slot bounds without inflating the
-/// pill.
+/// `iconSlotSize` horizontally and one scaled text line vertically to
+/// layout, while its tap target is the larger `hitTargetSize`, bled beyond
+/// the slot bounds without inflating the pill.
+///
+/// The one-line vertical contribution is what keeps the glyph optically
+/// centered with the text: the pill's row bottom-anchors slots against the
+/// text area (§2.3), so a single-line field and the slot share the same
+/// height and center, and on a grown field the glyph centers on the last
+/// text line (WhatsApp-style) instead of riding (iconSlotSize − lineHeight)/2
+/// above the placeholder.
 ///
 /// Note: Flutter's hit testing is gated by every ancestor's bounds, so
 /// the bleed is effective within the pill's content row (guaranteed
-/// horizontally; vertically it clips to the row height on a single-line
+/// horizontally; vertically it clips to the pill bounds on a single-line
 /// pill).
 class _ComposerActionSlot extends StatelessWidget {
   final ComposerDensityTokens tokens;
@@ -1737,7 +1812,8 @@ class _ComposerActionSlot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _OversizedHitBox(
-      slotSize: tokens.iconSlotSize,
+      slotWidth: tokens.iconSlotSize,
+      slotHeight: MediaQuery.textScalerOf(context).scale(tokens.lineHeight),
       hitSize: tokens.hitTargetSize,
       child: Semantics(
         container: true,
@@ -1759,22 +1835,28 @@ class _ComposerActionSlot extends StatelessWidget {
   }
 }
 
-/// Lays out as a tight [slotSize] square while its child (the tap target)
-/// is laid out at [hitSize], centered, painting and hit-testing beyond
-/// the slot bounds.
+/// Lays out as a tight [slotWidth] × [slotHeight] box while its child (the
+/// tap target) is laid out at [hitSize], centered, painting and hit-testing
+/// beyond the slot bounds.
 class _OversizedHitBox extends SingleChildRenderObjectWidget {
-  final double slotSize;
+  final double slotWidth;
+  final double slotHeight;
   final double hitSize;
 
   const _OversizedHitBox({
-    required this.slotSize,
+    required this.slotWidth,
+    required this.slotHeight,
     required this.hitSize,
     super.child,
   });
 
   @override
   RenderObject createRenderObject(BuildContext context) =>
-      _RenderOversizedHitBox(slotSize: slotSize, hitSize: hitSize);
+      _RenderOversizedHitBox(
+        slotWidth: slotWidth,
+        slotHeight: slotHeight,
+        hitSize: hitSize,
+      );
 
   @override
   void updateRenderObject(
@@ -1782,24 +1864,34 @@ class _OversizedHitBox extends SingleChildRenderObjectWidget {
     _RenderOversizedHitBox renderObject,
   ) {
     renderObject
-      ..slotSize = slotSize
+      ..slotWidth = slotWidth
+      ..slotHeight = slotHeight
       ..hitSize = hitSize;
   }
 }
 
 class _RenderOversizedHitBox extends RenderShiftedBox {
   _RenderOversizedHitBox({
-    required double slotSize,
+    required double slotWidth,
+    required double slotHeight,
     required double hitSize,
     RenderBox? child,
-  }) : _slotSize = slotSize,
+  }) : _slotWidth = slotWidth,
+       _slotHeight = slotHeight,
        _hitSize = hitSize,
        super(child);
 
-  double _slotSize;
-  set slotSize(double value) {
-    if (_slotSize == value) return;
-    _slotSize = value;
+  double _slotWidth;
+  set slotWidth(double value) {
+    if (_slotWidth == value) return;
+    _slotWidth = value;
+    markNeedsLayout();
+  }
+
+  double _slotHeight;
+  set slotHeight(double value) {
+    if (_slotHeight == value) return;
+    _slotHeight = value;
     markNeedsLayout();
   }
 
@@ -1812,7 +1904,7 @@ class _RenderOversizedHitBox extends RenderShiftedBox {
 
   @override
   void performLayout() {
-    size = constraints.constrain(Size.square(_slotSize));
+    size = constraints.constrain(Size(_slotWidth, _slotHeight));
     final child = this.child;
     if (child != null) {
       child.layout(BoxConstraints.tight(Size.square(_hitSize)));

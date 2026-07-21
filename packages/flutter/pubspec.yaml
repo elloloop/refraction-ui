@@ -1,6 +1,6 @@
 name: refraction_ui
 description: "A headless, highly customizable, and fully accessible Flutter UI library matching Refraction UI."
-version: 0.46.1
+version: 0.47.0
 homepage: https://elloloop.github.io/refraction-ui
 repository: https://github.com/elloloop/refraction-ui
 issue_tracker: https://github.com/elloloop/refraction-ui/issues
@@ -57,6 +57,9 @@ flutter:
     - assets/twemoji/
     # Bundled starter sticker pack (SVG) + one Lottie animated sticker.
     - assets/stickers/
+    # Animated Noto emoji (Lottie) for jumbo emoji-only chat messages —
+    # see NOTICE for license/attribution.
+    - assets/emoji_animated/
 
   # To add assets to your package, add an assets section, like this:
   # assets:
