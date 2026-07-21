@@ -8,7 +8,7 @@ import {
   type BookmarkType,
   type SlideType,
 } from '@refraction-ui/slide-viewer'
-import { cn, createKeyboardHandler } from '@refraction-ui/shared'
+import { cn } from '@refraction-ui/shared'
 
 export type { SlideData, BookmarkType, SlideType }
 
@@ -53,7 +53,15 @@ export const SlideViewer = React.forwardRef<HTMLDivElement, SlideViewerProps>(
     const containerClasses = cn(slideViewerVariants({ size }), className)
     const currentSlide = slides[api.state.currentSlide]
     const slideAriaProps = api.getSlideAriaProps()
-    const handleKeyDown = createKeyboardHandler(api.keyboardHandlers)
+    // The core's keyboard handlers mutate state in place; re-render after a
+    // handled key so the counter, progress bar, and buttons stay in sync.
+    function handleKeyDown(event: KeyboardEvent) {
+      const handler =
+        api.keyboardHandlers[event.key as keyof typeof api.keyboardHandlers]
+      if (!handler) return
+      handler(event)
+      rerender()
+    }
 
     function handlePrev() {
       api.prev()
