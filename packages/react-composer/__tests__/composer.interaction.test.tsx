@@ -217,6 +217,44 @@ describe('RefractionComposer (interaction, jsdom)', () => {
     expect(container.querySelector('[role="listbox"]')).toBeNull()
   })
 
+  it('H5b suggestion menu flips to the side of the pill with more viewport space', () => {
+    render(<RefractionComposer triggers={[mentionTrigger]} />)
+    const form = container.querySelector('[role="form"]') as HTMLElement
+    const rectFor = (top: number, bottom: number) =>
+      ({
+        top,
+        bottom,
+        left: 0,
+        right: 320,
+        width: 320,
+        height: bottom - top,
+        x: 0,
+        y: top,
+        toJSON: () => ({}),
+      }) as DOMRect
+    const spy = vi.spyOn(form, 'getBoundingClientRect')
+    const el = textarea()
+
+    // jsdom viewport is 768px tall: little room above → menu opens below.
+    spy.mockReturnValue(rectFor(20, 60))
+    setValue(el, '@')
+    const below = container.querySelector('[role="listbox"]') as HTMLElement
+    expect(below.className).toContain('top-full')
+    expect(below.className).not.toContain('bottom-full')
+    expect(below.style.maxHeight).not.toBe('')
+
+    // Plenty of room above → menu opens above (fresh occurrence).
+    keyDown(el, 'Escape')
+    spy.mockReturnValue(rectFor(700, 740))
+    setValue(el, '')
+    setValue(el, '@a')
+    const above = container.querySelector('[role="listbox"]') as HTMLElement
+    expect(above.className).toContain('bottom-full')
+    expect(above.className).not.toContain('top-full')
+
+    spy.mockRestore()
+  })
+
   it('H6 clicking an option commits it; row mousedown is prevented so the textarea keeps focus', () => {
     render(<RefractionComposer triggers={[mentionTrigger]} />)
     const el = textarea()

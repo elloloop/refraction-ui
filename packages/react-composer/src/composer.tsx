@@ -428,6 +428,7 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
 
     const textareaRef = React.useRef<HTMLTextAreaElement | null>(null)
     const highlightRef = React.useRef<HTMLDivElement | null>(null)
+    const rootRef = React.useRef<HTMLDivElement | null>(null)
     const mergedTextareaRef = React.useCallback(
       (node: HTMLTextAreaElement | null) => {
         textareaRef.current = node
@@ -749,6 +750,32 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
     const menuOpen = state.suggestion.isOpen
     const visibleItems = state.suggestion.visibleItems
     const activeIndex = state.suggestion.activeIndex
+
+    // Space-aware suggestion menu: 'above' is the SSR-stable default; once
+    // mounted (and on scroll/resize while open) the menu flips to whichever
+    // side of the pill has more viewport room and caps its height to fit.
+    const [menuSide, setMenuSide] = React.useState<'above' | 'below'>('above')
+    const [menuMaxHeight, setMenuMaxHeight] = React.useState<number | undefined>(undefined)
+    React.useLayoutEffect(() => {
+      if (!menuOpen) return
+      const measure = () => {
+        const el = rootRef.current
+        if (el === null) return
+        const rect = el.getBoundingClientRect()
+        const spaceAbove = rect.top
+        const spaceBelow = window.innerHeight - rect.bottom
+        const side = spaceAbove >= spaceBelow ? 'above' : 'below'
+        setMenuSide(side)
+        setMenuMaxHeight(Math.max(96, (side === 'above' ? spaceAbove : spaceBelow) - 16))
+      }
+      measure()
+      window.addEventListener('resize', measure)
+      window.addEventListener('scroll', measure, true)
+      return () => {
+        window.removeEventListener('resize', measure)
+        window.removeEventListener('scroll', measure, true)
+      }
+    }, [menuOpen])
     const hasText = state.value.trim().length > 0
     const effectivePlaceholder =
       state.disabled && disabledPlaceholder !== undefined ? disabledPlaceholder : placeholder
@@ -850,6 +877,7 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
     return (
       <div
         {...rest}
+        ref={rootRef}
         id={idBase}
         dir={dir}
         role="form"
@@ -864,7 +892,16 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
             id={listId}
             role="listbox"
             aria-label={strings.suggestionsLabel}
-            className={cn(composerMenuClass, 'absolute bottom-full start-0 mb-2')}
+            className={cn(
+              composerMenuClass,
+              'absolute start-0',
+              menuSide === 'above' ? 'bottom-full mb-2' : 'top-full mt-2 origin-top',
+            )}
+            style={
+              menuMaxHeight !== undefined
+                ? { maxHeight: menuMaxHeight, overflowY: 'auto' }
+                : undefined
+            }
           >
             {menuBody()}
           </div>
