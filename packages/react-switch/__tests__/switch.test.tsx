@@ -111,3 +111,83 @@ describe('Switch (React)', () => {
     expect(html).toContain('translate-x-5')
   })
 })
+
+describe('Switch (React) - additional ARIA and data coverage', () => {
+  it('does not render aria-disabled when enabled', () => {
+    const html = renderToString(React.createElement(Switch))
+    expect(html).not.toContain('aria-disabled')
+  })
+
+  it('renders data-disabled when disabled', () => {
+    const html = renderToString(React.createElement(Switch, { disabled: true }))
+    expect(html).toContain('data-disabled=""')
+  })
+
+  it('does not render data-disabled when enabled', () => {
+    const html = renderToString(React.createElement(Switch))
+    expect(html).not.toContain('data-disabled')
+  })
+
+  it('disabled checked switch keeps data-state checked', () => {
+    const html = renderToString(React.createElement(Switch, { disabled: true, checked: true }))
+    expect(html).toContain('data-state="checked"')
+    expect(html).toContain('aria-checked="true"')
+    expect(html).toContain('aria-disabled="true"')
+  })
+
+  it('passes through name and value attributes for form usage', () => {
+    const html = renderToString(
+      React.createElement(Switch, { name: 'notifications', value: 'on' }),
+    )
+    expect(html).toContain('name="notifications"')
+    expect(html).toContain('value="on"')
+  })
+
+  it('passes through aria-label', () => {
+    const html = renderToString(
+      React.createElement(Switch, { 'aria-label': 'Enable notifications' }),
+    )
+    expect(html).toContain('aria-label="Enable notifications"')
+  })
+
+  it('applies default size when no size prop is given', () => {
+    const html = renderToString(React.createElement(Switch))
+    expect(html).toContain('h-5')
+    expect(html).toContain('w-9')
+  })
+
+  it('thumb has sm size classes', () => {
+    const html = renderToString(React.createElement(Switch, { size: 'sm' }))
+    expect(html).toContain('h-3')
+    expect(html).toContain('w-3')
+  })
+
+  it('thumb has default size classes', () => {
+    const html = renderToString(React.createElement(Switch, { size: 'default' }))
+    expect(html).toContain('h-4')
+    expect(html).toContain('w-4')
+  })
+
+  it('thumb has lg size classes', () => {
+    const html = renderToString(React.createElement(Switch, { size: 'lg' }))
+    expect(html).toContain('h-5')
+    expect(html).toContain('w-5')
+  })
+
+  it('base classes include focus-visible ring styles', () => {
+    const html = renderToString(React.createElement(Switch))
+    expect(html).toContain('focus-visible:ring-2')
+    expect(html).toContain('focus-visible:ring-ring')
+  })
+
+  it('base classes include disabled cursor and opacity styles', () => {
+    const html = renderToString(React.createElement(Switch))
+    expect(html).toContain('disabled:cursor-not-allowed')
+    expect(html).toContain('disabled:opacity-50')
+  })
+
+  it('thumb is pointer-events-none so clicks hit the button', () => {
+    const html = renderToString(React.createElement(Switch))
+    expect(html).toContain('pointer-events-none')
+  })
+})

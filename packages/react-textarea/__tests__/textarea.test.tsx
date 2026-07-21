@@ -137,3 +137,113 @@ describe('Textarea (React) - disabled + readOnly attributes', () => {
     expect(html).toContain('data-readonly')
   })
 })
+
+describe('Textarea (React) - rows contract', () => {
+  it('renders no rows attribute when rows is not provided', () => {
+    const html = renderToString(React.createElement(Textarea))
+    expect(html).not.toContain('rows=')
+  })
+
+  it('maxRows is consumed by the component and not leaked as a DOM attribute', () => {
+    const html = renderToString(React.createElement(Textarea, { rows: 3, maxRows: 8 }))
+    expect(html).toContain('rows="3"')
+    expect(html.toLowerCase()).not.toContain('maxrows')
+  })
+
+  it('no fixed height or max-height clamp is imposed (element can grow)', () => {
+    for (const size of ['sm', 'default', 'lg'] as const) {
+      const html = renderToString(React.createElement(Textarea, { size }))
+      // Sizing is expressed purely via min-h-*; nothing caps the height.
+      expect(html).toContain('min-h-')
+      expect(html).not.toContain('max-h')
+      expect(html).not.toMatch(/\sh-\d/)
+    }
+  })
+})
+
+describe('Textarea (React) - resize behavior', () => {
+  it('does not impose a resize utility (native resize handle preserved)', () => {
+    const html = renderToString(React.createElement(Textarea))
+    expect(html).not.toContain('resize-')
+  })
+
+  it('a resize utility can be opted into via className', () => {
+    const html = renderToString(React.createElement(Textarea, { className: 'resize-y' }))
+    expect(html).toContain('resize-y')
+  })
+
+  it('resize can be disabled via className', () => {
+    const html = renderToString(React.createElement(Textarea, { className: 'resize-none' }))
+    expect(html).toContain('resize-none')
+  })
+})
+
+describe('Textarea (React) - form attributes', () => {
+  it('renders maxLength as a native attribute', () => {
+    const html = renderToString(React.createElement(Textarea, { maxLength: 280 }))
+    expect(html).toContain('maxLength="280"')
+  })
+
+  it('passes name and id through for form submission and labelling', () => {
+    const html = renderToString(
+      React.createElement(Textarea, { name: 'bio', id: 'user-bio' }),
+    )
+    expect(html).toContain('name="bio"')
+    expect(html).toContain('id="user-bio"')
+  })
+
+  it('defaultValue renders as the textarea text content', () => {
+    const html = renderToString(React.createElement(Textarea, { defaultValue: 'hello world' }))
+    expect(html).toContain('>hello world</textarea>')
+  })
+
+  it('aria-invalid={false} does not render aria-invalid or data-invalid', () => {
+    const html = renderToString(React.createElement(Textarea, { 'aria-invalid': false }))
+    expect(html).not.toContain('aria-invalid')
+    expect(html).not.toContain('data-invalid')
+  })
+
+  it('aria-label passes through', () => {
+    const html = renderToString(
+      React.createElement(Textarea, { 'aria-label': 'Message body' }),
+    )
+    expect(html).toContain('aria-label="Message body"')
+  })
+})
+
+describe('Textarea (React) - base styling', () => {
+  it('base classes include w-full rounded-md border-input', () => {
+    const html = renderToString(React.createElement(Textarea))
+    expect(html).toContain('w-full')
+    expect(html).toContain('rounded-md')
+    expect(html).toContain('border-input')
+  })
+
+  it('base classes include padding, text size and shadow', () => {
+    const html = renderToString(React.createElement(Textarea))
+    expect(html).toContain('px-3')
+    expect(html).toContain('py-2')
+    expect(html).toContain('text-sm')
+    expect(html).toContain('shadow-sm')
+  })
+
+  it('base classes include placeholder and focus ring styles', () => {
+    const html = renderToString(React.createElement(Textarea))
+    expect(html).toContain('placeholder:text-muted-foreground')
+    expect(html).toContain('focus-visible:ring-1')
+    expect(html).toContain('focus-visible:ring-ring')
+  })
+
+  it('base classes include disabled cursor and opacity styles', () => {
+    const html = renderToString(React.createElement(Textarea))
+    expect(html).toContain('disabled:cursor-not-allowed')
+    expect(html).toContain('disabled:opacity-50')
+  })
+
+  it('sm size adds text-xs, lg size adds text-base', () => {
+    const sm = renderToString(React.createElement(Textarea, { size: 'sm' }))
+    const lg = renderToString(React.createElement(Textarea, { size: 'lg' }))
+    expect(sm).toContain('text-xs')
+    expect(lg).toContain('text-base')
+  })
+})

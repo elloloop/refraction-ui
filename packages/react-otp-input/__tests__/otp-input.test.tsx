@@ -150,3 +150,57 @@ describe('OtpInput (React)', () => {
     expect(html).toContain('data-filled=""')
   })
 })
+
+describe('OtpInput (React) - additional SSR coverage', () => {
+  it('distributes a combined value one character per cell, in order', () => {
+    const html = renderToString(React.createElement(OtpInput, { length: 3, value: '987' }))
+    const first = html.indexOf('value="9"')
+    const second = html.indexOf('value="8"')
+    const third = html.indexOf('value="7"')
+    expect(first).toBeGreaterThanOrEqual(0)
+    expect(second).toBeGreaterThan(first)
+    expect(third).toBeGreaterThan(second)
+  })
+
+  it('masks overflow characters beyond length', () => {
+    const html = renderToString(React.createElement(OtpInput, { length: 4, value: '123456' }))
+    expect(html).toContain('value="4"')
+    expect(html).not.toContain('value="5"')
+    expect(html).not.toContain('value="6"')
+  })
+
+  it('partial pre-fill marks only filled cells with data-filled', () => {
+    const html = renderToString(React.createElement(OtpInput, { length: 4, value: '12' }))
+    const filledCount = (html.match(/data-filled=""/g) || []).length
+    expect(filledCount).toBe(2)
+  })
+
+  it('autoFocus marks the first slot as focused', () => {
+    const html = renderToString(React.createElement(OtpInput, { length: 3, autoFocus: true }))
+    expect(html).toContain('data-focused=""')
+    expect(html).toContain('ring-2')
+  })
+
+  it('no slot is focused without autoFocus', () => {
+    const html = renderToString(React.createElement(OtpInput, { length: 3 }))
+    expect(html).not.toContain('data-focused')
+  })
+
+  it('a custom aria-label overrides the container label', () => {
+    const html = renderToString(
+      React.createElement(OtpInput, { 'aria-label': 'Verification code' }),
+    )
+    expect(html).toContain('aria-label="Verification code"')
+    expect(html).not.toContain('aria-label="One-time password input"')
+  })
+
+  it('slots use font-mono for digit alignment', () => {
+    const html = renderToString(React.createElement(OtpInput, { length: 1 }))
+    expect(html).toContain('font-mono')
+  })
+
+  it('filled slots get the filled border class', () => {
+    const html = renderToString(React.createElement(OtpInput, { length: 2, value: '5' }))
+    expect(html).toContain('border-primary')
+  })
+})

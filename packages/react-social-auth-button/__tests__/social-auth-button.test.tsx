@@ -106,3 +106,95 @@ describe('SocialAuthRow (React)', () => {
     expect(html).toContain('my-row')
   })
 })
+
+// ---------------------------------------------------------------
+// Additional SSR coverage (brand icons, button semantics)
+// ---------------------------------------------------------------
+
+describe('SocialAuthButton – brand icons (React)', () => {
+  it('renders the Google mark in brand color (not mono)', () => {
+    const html = renderToString(
+      React.createElement(SocialAuthButton, { provider: 'google' }),
+    )
+    expect(html).toContain('fill="#4285F4"')
+    expect(html).toContain('fill="#FBBC05"')
+  })
+
+  it('renders the GitHub mark monochrome', () => {
+    const html = renderToString(
+      React.createElement(SocialAuthButton, { provider: 'github' }),
+    )
+    expect(html).toContain('fill="currentColor"')
+    // Octocat path
+    expect(html).toContain('M12 2a10 10 0 0 0-3.16 19.49')
+  })
+
+  it('renders the Microsoft mark in its four brand colors', () => {
+    const html = renderToString(
+      React.createElement(SocialAuthButton, { provider: 'microsoft' }),
+    )
+    expect(html).toContain('fill="#F25022"')
+    expect(html).toContain('fill="#7FBA00"')
+    expect(html).toContain('fill="#00A4EF"')
+    expect(html).toContain('fill="#FFB900"')
+  })
+
+  it('renders the Apple mark monochrome', () => {
+    const html = renderToString(
+      React.createElement(SocialAuthButton, { provider: 'apple' }),
+    )
+    expect(html).toContain('fill="currentColor"')
+    expect(html).not.toContain('fill="#')
+  })
+
+  it('icons are decorative and sized 18px', () => {
+    const html = renderToString(
+      React.createElement(SocialAuthButton, { provider: 'google' }),
+    )
+    expect(html).toContain('aria-hidden="true"')
+    expect(html).toContain('width="18"')
+    expect(html).toContain('height="18"')
+  })
+})
+
+describe('SocialAuthButton – button semantics (React)', () => {
+  it('renders type="button" by default', () => {
+    const html = renderToString(
+      React.createElement(SocialAuthButton, { provider: 'google' }),
+    )
+    expect(html).toContain('type="button"')
+  })
+
+  it('puts data-provider on the button element', () => {
+    const html = renderToString(
+      React.createElement(SocialAuthButton, { provider: 'github' }),
+    )
+    expect(html).toMatch(/<button[^>]*data-provider="github"/)
+  })
+
+  it('wraps the button in a relative container for the badge', () => {
+    const html = renderToString(
+      React.createElement(SocialAuthButton, { provider: 'google' }),
+    )
+    expect(html).toContain('relative')
+  })
+
+  it('loading swaps the brand icon for a spinner', () => {
+    const html = renderToString(
+      React.createElement(SocialAuthButton, { provider: 'google', loading: true }),
+    )
+    expect(html).toContain('animate-spin')
+    // Brand mark is not rendered while loading.
+    expect(html).not.toContain('fill="#4285F4"')
+  })
+
+  it('"Last used" badge carries positioning classes', () => {
+    const html = renderToString(
+      React.createElement(SocialAuthButton, { provider: 'apple', lastUsed: true }),
+    )
+    expect(html).toContain('absolute')
+    expect(html).toContain('-right-2')
+    expect(html).toContain('rounded-full')
+    expect(html).toContain('text-[10px]')
+  })
+})

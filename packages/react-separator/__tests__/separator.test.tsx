@@ -48,3 +48,98 @@ describe('Separator (React)', () => {
     expect(html).toContain('my-sep')
   })
 })
+
+// ---------------------------------------------------------------
+// Additional SSR coverage (orientations, decorative vs semantic)
+// ---------------------------------------------------------------
+
+describe('Separator – orientation data attributes (React)', () => {
+  it('marks horizontal orientation by default', () => {
+    const html = renderToString(React.createElement(Separator, null))
+    expect(html).toContain('data-orientation="horizontal"')
+  })
+
+  it('marks vertical orientation when set', () => {
+    const html = renderToString(
+      React.createElement(Separator, { orientation: 'vertical' }),
+    )
+    expect(html).toContain('data-orientation="vertical"')
+  })
+
+  it('pairs semantic vertical with role and data attribute', () => {
+    const html = renderToString(
+      React.createElement(Separator, { orientation: 'vertical', decorative: false }),
+    )
+    expect(html).toContain('role="separator"')
+    expect(html).toContain('aria-orientation="vertical"')
+    expect(html).toContain('data-orientation="vertical"')
+  })
+})
+
+describe('Separator – decorative vs semantic (React)', () => {
+  it('decorative vertical renders role="none" with no aria-orientation', () => {
+    const html = renderToString(
+      React.createElement(Separator, { orientation: 'vertical' }),
+    )
+    expect(html).toContain('role="none"')
+    expect(html).not.toContain('aria-orientation')
+  })
+
+  it('semantic horizontal exposes the separator role', () => {
+    const html = renderToString(
+      React.createElement(Separator, { decorative: false }),
+    )
+    expect(html).toContain('role="separator"')
+    expect(html).not.toContain('role="none"')
+  })
+
+  it('renders the rule color class', () => {
+    const html = renderToString(React.createElement(Separator, null))
+    expect(html).toContain('bg-border')
+  })
+})
+
+describe('Separator – labeled divider (React)', () => {
+  it('is decorative chrome with role="none"', () => {
+    const html = renderToString(React.createElement(Separator, { label: 'OR' }))
+    expect(html).toContain('role="none"')
+    expect(html).not.toContain('aria-orientation')
+    // The labeled branch carries no orientation data attribute.
+    expect(html).not.toContain('data-orientation')
+  })
+
+  it('styles the label with muted uppercase text', () => {
+    const html = renderToString(React.createElement(Separator, { label: 'OR' }))
+    expect(html).toContain('uppercase')
+    expect(html).toContain('tracking-wide')
+    expect(html).toContain('px-3')
+  })
+
+  it('accepts a React node as the label', () => {
+    const html = renderToString(
+      React.createElement(Separator, {
+        label: React.createElement('em', null, 'or'),
+      }),
+    )
+    expect(html).toContain('<em>or</em>')
+  })
+
+  it('ignores the label for vertical orientation', () => {
+    const html = renderToString(
+      React.createElement(Separator, { orientation: 'vertical', label: 'OR' }),
+    )
+    expect(html).not.toContain('OR')
+    expect(html).toContain('w-px')
+    expect(html).toContain('role="none"')
+  })
+})
+
+describe('Separator – prop passthrough (React)', () => {
+  it('forwards extra props to the root element', () => {
+    const html = renderToString(
+      React.createElement(Separator, { id: 'rule-1', 'data-testid': 'sep' }),
+    )
+    expect(html).toContain('id="rule-1"')
+    expect(html).toContain('data-testid="sep"')
+  })
+})
