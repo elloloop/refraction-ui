@@ -21,13 +21,15 @@ for (const component of components) {
     await page.goto(`/components/${component}`)
     await page.waitForLoadState('networkidle')
     // Deterministic settle: fonts loaded and every CodeBlock finished its
-    // async shiki highlight (code-block.tsx flips data-highlighted to 'true'
-    // only after codeToHtml resolves). On slow CI a code-heavy page (logger
-    // is ~10k px of code blocks) is still morphing after networkidle, which
-    // makes the two-consecutive-stable-screenshots check impossible.
+    // async shiki highlight. code-block.tsx flips data-highlighted to 'true'
+    // only after codeToHtml resolves — and pre-hydration there are no marked
+    // blocks at all, so the check must ALSO require at least one 'true'
+    // block (waiting for zero pendings alone passes trivially too early).
     await page.waitForFunction(() => document.fonts.status === 'loaded')
     await page.waitForFunction(
-      () => document.querySelectorAll('[data-highlighted="pending"]').length === 0,
+      () =>
+        document.querySelectorAll('[data-highlighted="pending"]').length === 0 &&
+        document.querySelectorAll('[data-highlighted="true"]').length > 0,
       undefined,
       { timeout: 30000 },
     )
