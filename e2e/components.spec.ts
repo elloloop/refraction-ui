@@ -20,12 +20,17 @@ for (const component of components) {
   test(`component: ${component}`, async ({ page }) => {
     await page.goto(`/components/${component}`)
     await page.waitForLoadState('networkidle')
-    // Let on-demand route compilation, fonts, and syntax highlighting finish
-    // before the stability check — CI is slow enough that a page can still be
-    // morphing inside the screenshot window right after networkidle (this
-    // flaked logger into "no two consecutive stable screenshots").
+    // Deterministic settle: fonts loaded and every CodeBlock finished its
+    // async shiki highlight (code-block.tsx flips data-highlighted to 'true'
+    // only after codeToHtml resolves). On slow CI a code-heavy page (logger
+    // is ~10k px of code blocks) is still morphing after networkidle, which
+    // makes the two-consecutive-stable-screenshots check impossible.
     await page.waitForFunction(() => document.fonts.status === 'loaded')
-    await page.waitForTimeout(600)
+    await page.waitForFunction(
+      () => document.querySelectorAll('[data-highlighted="pending"]').length === 0,
+      undefined,
+      { timeout: 30000 },
+    )
     await expect(page).toHaveScreenshot(`component-${component}.png`, {
       fullPage: true,
       maxDiffPixelRatio: 0.05,
