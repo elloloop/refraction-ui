@@ -33,6 +33,25 @@ for (const component of components) {
       undefined,
       { timeout: 30000 },
     )
+    // Belt-and-braces stabilization: code-heavy pages (logger is ~10k px of
+    // shiki blocks) can keep morphing after the highlight pass (framework
+    // context swaps re-highlight blocks post-hydration). Require the body
+    // DOM to be byte-identical across 800 ms before the screenshot — the
+    // assertion itself is unchanged.
+    await page.waitForFunction(
+      async () => {
+        const hash = (s: string) => {
+          let h = 0
+          for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0
+          return h
+        }
+        const before = hash(document.body.innerHTML)
+        await new Promise((r) => setTimeout(r, 800))
+        return before === hash(document.body.innerHTML)
+      },
+      undefined,
+      { timeout: 30000, polling: 400 },
+    )
     await expect(page).toHaveScreenshot(`component-${component}.png`, {
       fullPage: true,
       maxDiffPixelRatio: 0.05,
