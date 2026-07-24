@@ -3,7 +3,7 @@ import { InlineEditor } from '@refraction-ui/react-inline-editor'
 import { useState } from 'react'
 
 const meta: Meta<typeof InlineEditor> = {
-  title: 'Components/InlineEditor',
+  title: 'Chat & AI/InlineEditor',
   component: InlineEditor,
   parameters: {
     layout: 'centered',

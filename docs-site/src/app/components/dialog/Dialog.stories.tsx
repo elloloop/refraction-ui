@@ -13,7 +13,7 @@ import {
 import { Input } from '@refraction-ui/react-input'
 
 const meta: Meta<typeof Dialog> = {
-  title: 'Components/Dialog',
+  title: 'Feedback/Dialog',
   component: Dialog,
   argTypes: {},
 }

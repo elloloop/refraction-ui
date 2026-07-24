@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { AnimatedText, TypewriterText } from '@refraction-ui/react-animated-text'
 
 const meta: Meta<typeof AnimatedText> = {
-  title: 'Components/AnimatedText',
+  title: 'Utilities/AnimatedText',
   component: AnimatedText,
 }
 export default meta

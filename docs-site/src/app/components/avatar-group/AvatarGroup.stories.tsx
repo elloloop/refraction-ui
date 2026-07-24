@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { AvatarGroup } from '@refraction-ui/react-avatar-group'
 
 const meta: Meta<typeof AvatarGroup> = {
-  title: 'Components/AvatarGroup',
+  title: 'Data Display/AvatarGroup',
   component: AvatarGroup,
   argTypes: {
     max: { control: 'number' },

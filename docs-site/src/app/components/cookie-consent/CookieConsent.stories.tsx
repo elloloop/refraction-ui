@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { CookieConsent, useCookieConsent } from '@refraction-ui/react-cookie-consent'
 
 const meta: Meta<typeof CookieConsent> = {
-  title: 'Components/CookieConsent',
+  title: 'Feedback/CookieConsent',
   component: CookieConsent,
   argTypes: {
     policyUrl: { control: 'text' },

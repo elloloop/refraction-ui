@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { FileTree } from '@refraction-ui/react-file-tree'
 
 const meta: Meta<typeof FileTree> = {
-  title: 'Components/FileTree',
+  title: 'Data Display/FileTree',
   component: FileTree,
   parameters: {
     layout: 'centered',

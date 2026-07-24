@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Slider } from '@refraction-ui/react-slider';
 
 const meta: Meta<typeof Slider> = {
-  title: 'Components/Slider',
+  title: 'Inputs/Slider',
   component: Slider,
   parameters: {
     layout: 'centered',

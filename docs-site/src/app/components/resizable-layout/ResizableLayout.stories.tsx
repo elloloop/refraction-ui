@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ResizableLayout } from '@refraction-ui/react-resizable-layout';
 
 const meta: Meta<typeof ResizableLayout> = {
-  title: 'Components/ResizableLayout',
+  title: 'Layout/ResizableLayout',
   component: ResizableLayout,
   parameters: {
     layout: 'centered',

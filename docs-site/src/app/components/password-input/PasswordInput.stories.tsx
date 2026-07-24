@@ -1,7 +1,7 @@
 import { PasswordInputExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/PasswordInput' }
+const meta = { title: 'Inputs/PasswordInput' }
 export default meta
 
 export const Basic = {

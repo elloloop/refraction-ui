@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { RadioGroup, RadioItem } from '@refraction-ui/react-radio';
 
 const meta: Meta<typeof RadioGroup> = {
-  title: 'Components/Radio',
+  title: 'Inputs/Radio',
   component: RadioGroup,
   parameters: {
     layout: 'centered',

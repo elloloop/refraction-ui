@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { LocationSelector } from '@refraction-ui/react-location-selector'
 
 const meta: Meta<typeof LocationSelector> = {
-  title: 'Components/LocationSelector',
+  title: 'Inputs/LocationSelector',
   component: LocationSelector,
   args: {
     defaultCountry: 'US',

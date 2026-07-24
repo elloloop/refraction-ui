@@ -1,7 +1,7 @@
 // The @refraction-ui/react-rich-editor adapter is still in early development —
 // the package currently exports nothing — so this story mirrors the docs-site
 // page's status content instead of rendering a live component.
-const meta = { title: 'Components/RichEditor' }
+const meta = { title: 'Chat & AI/RichEditor' }
 export default meta
 
 export const ComingSoon = {

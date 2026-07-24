@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { FileUpload } from '@refraction-ui/react-file-upload'
 
 const meta: Meta<typeof FileUpload> = {
-  title: 'Components/FileUpload',
+  title: 'Inputs/FileUpload',
   component: FileUpload,
   parameters: {
     layout: 'centered',

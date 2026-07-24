@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { CardGrid } from '@refraction-ui/react-card-grid'
 
 const meta: Meta<typeof CardGrid> = {
-  title: 'Components/CardGrid',
+  title: 'Data Display/CardGrid',
   component: CardGrid,
   argTypes: {
     columns: { control: { type: 'number', min: 1, max: 6 } },

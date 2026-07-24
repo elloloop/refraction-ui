@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { ContentProtection } from '@refraction-ui/react-content-protection'
 
 const meta: Meta<typeof ContentProtection> = {
-  title: 'Components/ContentProtection',
+  title: 'Feedback/ContentProtection',
   component: ContentProtection,
   argTypes: {
     watermark: { control: 'object' },

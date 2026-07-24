@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@refraction-ui/react-sheet';
 
 const meta: Meta<typeof Sheet> = {
-  title: 'Components/Sheet',
+  title: 'Overlays/Sheet',
   component: Sheet,
   parameters: {
     layout: 'centered',

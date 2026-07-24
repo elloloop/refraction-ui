@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { LinkCard } from '@refraction-ui/react-link-card'
 
 const meta: Meta<typeof LinkCard> = {
-  title: 'Components/LinkCard',
+  title: 'Data Display/LinkCard',
   component: LinkCard,
   args: {
     href: 'https://refraction-ui.dev/docs',

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Calendar } from '@refraction-ui/react-calendar'
 
 const meta: Meta<typeof Calendar> = {
-  title: 'Components/Calendar',
+  title: 'Data Display/Calendar',
   component: Calendar,
 }
 export default meta

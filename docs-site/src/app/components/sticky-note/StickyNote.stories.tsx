@@ -1,7 +1,7 @@
 import { StickyNoteExamples } from './examples'
 
 // Stories generated from the docs-site examples.
-const meta = { title: 'Components/StickyNote' }
+const meta = { title: 'Layout/StickyNote' }
 export default meta
 
 export const Colors = { render: () => <StickyNoteExamples section="colors" /> }

@@ -1,7 +1,7 @@
 import { BrandNetworkCellExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/BrandNetworkCell' }
+const meta = { title: 'Marketing/BrandNetworkCell' }
 export default meta
 
 export const Current = {

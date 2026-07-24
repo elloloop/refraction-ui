@@ -4,7 +4,7 @@
  */
 import * as React from 'react'
 
-export default { title: 'Components/Theme' }
+export default { title: 'Utilities/Theme' }
 
 interface DocCardProps {
   title: string

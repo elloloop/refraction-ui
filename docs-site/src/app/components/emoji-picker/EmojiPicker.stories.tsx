@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { EmojiPicker } from '@refraction-ui/react-emoji-picker'
 
 const meta: Meta<typeof EmojiPicker> = {
-  title: 'Components/EmojiPicker',
+  title: 'Utilities/EmojiPicker',
   component: EmojiPicker,
   parameters: {
     layout: 'centered',

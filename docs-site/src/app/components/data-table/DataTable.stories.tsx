@@ -9,7 +9,7 @@ const sampleData = [
 ]
 
 const meta: Meta<typeof DataTable> = {
-  title: 'Components/DataTable',
+  title: 'Data Display/DataTable',
   component: DataTable,
   argTypes: {},
   args: {

@@ -8,7 +8,7 @@ import {
 // Composed directly from the adapter: the docs-site example predates the
 // current `userReacted`/`onToggle` API and no longer typechecks against it.
 const meta: Meta<typeof ReactionBar> = {
-  title: 'Components/ReactionBar',
+  title: 'Data Display/ReactionBar',
   component: ReactionBar,
 }
 export default meta

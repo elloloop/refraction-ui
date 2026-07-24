@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Badge } from '@refraction-ui/react-badge'
 
 const meta: Meta<typeof Badge> = {
-  title: 'Components/Badge',
+  title: 'Data Display/Badge',
   component: Badge,
   argTypes: {
     variant: {

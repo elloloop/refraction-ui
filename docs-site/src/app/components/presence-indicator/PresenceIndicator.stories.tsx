@@ -2,7 +2,7 @@ import { PresenceIndicator } from '@refraction-ui/react-presence-indicator'
 import { PresenceIndicatorExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/PresenceIndicator' }
+const meta = { title: 'Data Display/PresenceIndicator' }
 export default meta
 
 export const Basic = {

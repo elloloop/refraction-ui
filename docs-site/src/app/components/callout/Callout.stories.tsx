@@ -8,7 +8,7 @@ import {
 } from '@refraction-ui/react-callout'
 
 const meta: Meta<typeof Callout> = {
-  title: 'Components/Callout',
+  title: 'Feedback/Callout',
   component: Callout,
   argTypes: {
     variant: {

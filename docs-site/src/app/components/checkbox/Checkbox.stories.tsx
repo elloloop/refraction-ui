@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Checkbox } from '@refraction-ui/react-checkbox'
 
 const meta: Meta<typeof Checkbox> = {
-  title: 'Components/Checkbox',
+  title: 'Inputs/Checkbox',
   component: Checkbox,
   argTypes: {
     checked: { control: 'radio', options: [true, false, 'indeterminate'] },

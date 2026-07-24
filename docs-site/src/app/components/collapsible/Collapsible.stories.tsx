@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@refraction-ui/react-collapsible'
 
 const meta: Meta<typeof Collapsible> = {
-  title: 'Components/Collapsible',
+  title: 'Layout/Collapsible',
   component: Collapsible,
   argTypes: {
     defaultOpen: { control: 'boolean' },

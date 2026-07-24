@@ -18,7 +18,7 @@ const FILES: DiffFile[] = [
 ]
 
 const meta: Meta<typeof DiffViewer> = {
-  title: 'Components/DiffViewer',
+  title: 'Data Display/DiffViewer',
   component: DiffViewer,
   argTypes: {
     viewMode: { control: 'radio', options: ['split', 'inline'] },

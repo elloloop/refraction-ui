@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { SkipToContent } from '@refraction-ui/react-skip-to-content';
 
 const meta: Meta<typeof SkipToContent> = {
-  title: 'Components/SkipToContent',
+  title: 'Navigation/SkipToContent',
   component: SkipToContent,
   parameters: {
     layout: 'centered',

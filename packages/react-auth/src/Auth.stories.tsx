@@ -1,5 +1,5 @@
 // @refraction-ui/react-auth is a headless provider/hook package — no standalone UI.
-export default { title: 'Components/Auth' }
+export default { title: 'Utilities/Auth' }
 
 export const Overview = {
   render: () => (

@@ -1,7 +1,7 @@
 import { LiveCursorsExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/LiveCursors' }
+const meta = { title: 'Calls & Media/LiveCursors' }
 export default meta
 
 export const WithLabels = { render: () => <LiveCursorsExamples section="labeled" /> }
