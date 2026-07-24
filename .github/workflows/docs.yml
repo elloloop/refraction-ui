@@ -45,6 +45,14 @@ jobs:
       - name: Build Flutter UI Prototype
         working-directory: packages/flutter
         run: make build-web
+
+      - name: Build Flutter Widgetbook
+        # The Flutter component gallery (Widgetbook) — same role as the React
+        # Storybook, deployed at /flutter/widgetbook/. Separate output dir so
+        # it doesn't clobber the prototype build above; --base-href matches
+        # the Pages subpath (verified locally).
+        working-directory: packages/flutter/example
+        run: flutter build web -t lib/widgetbook.dart --base-href /refraction-ui/flutter/widgetbook/ --output "$GITHUB_WORKSPACE/packages/flutter/example/build/web-widgetbook"
         
       - name: Build Flutter Docs Site
         run: GITHUB_PAGES=true pnpm --filter @refraction-ui/flutter-docs-site build
@@ -67,6 +75,9 @@ jobs:
           # Static Storybook at /storybook/
           mkdir -p docs-site/out/storybook
           cp -r storybook-static/* docs-site/out/storybook/
+          # Flutter Widgetbook at /flutter/widgetbook/
+          mkdir -p docs-site/out/flutter/widgetbook
+          cp -r packages/flutter/example/build/web-widgetbook/* docs-site/out/flutter/widgetbook/
 
       - uses: actions/upload-pages-artifact@v3
         with:
