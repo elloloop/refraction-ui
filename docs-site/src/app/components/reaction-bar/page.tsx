@@ -3,16 +3,17 @@ import { PropsTable } from '@/components/props-table'
 import { CodeBlock } from '@/components/code-block'
 import { InstallCommand } from '@/components/install-command'
 const reactionProps = [
-  { name: 'reactions', type: 'Reaction[]', description: 'Array of { emoji, count, reacted }.' },
-  { name: 'onReact', type: '(emoji: string) => void', description: 'Callback when a reaction is toggled.' },
+  { name: 'reactions', type: 'Reaction[]', description: 'Array of { emoji, count, userReacted }.' },
+  { name: 'onToggle', type: '(emoji: string) => void', description: 'Callback when a reaction is toggled.' },
+  { name: 'onAdd', type: '(emoji: string) => void', description: 'Callback when the add-reaction button is pressed.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
 const usageCode = `import { ReactionBar } from '@refraction-ui/react-reaction-bar'
 export function MyComponent() {
   return (
     <ReactionBar
-      reactions={[{ emoji: '👍', count: 5, reacted: false }]}
-      onReact={(emoji) => console.log(emoji)}
+      reactions={[{ emoji: '👍', count: 5, userReacted: false }]}
+      onToggle={(emoji) => console.log(emoji)}
     />
   )
 }`

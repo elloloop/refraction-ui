@@ -72,7 +72,10 @@ export function CodeBlock({ code, frameworks, language = 'tsx', showLineNumbers 
   }
 
   return (
-    <div className="group relative rounded-xl bg-[#24292e] overflow-hidden ring-1 ring-white/10">
+    <div
+      className="group relative rounded-xl bg-[#24292e] overflow-hidden ring-1 ring-white/10"
+      data-highlighted={html ? 'true' : 'pending'}
+    >
       {/* Header bar */}
       <div className="flex items-center justify-between border-b border-white/5 px-4 py-2.5">
         <div className="flex items-center gap-2">

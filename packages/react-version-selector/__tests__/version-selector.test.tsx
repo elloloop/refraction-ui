@@ -91,3 +91,71 @@ describe('VersionSelector (React)', () => {
     expect(html).toContain('rounded-md')
   })
 })
+
+// ---------------------------------------------------------------
+// Expanded SSR coverage
+// ---------------------------------------------------------------
+
+describe('VersionSelector – trigger (React)', () => {
+  it('renders the default placeholder when nothing is selected', () => {
+    const html = renderToString(
+      React.createElement(VersionSelector, { versions }),
+    )
+    expect(html).toContain('Select version...')
+  })
+
+  it('trigger is a type="button" button', () => {
+    const html = renderToString(
+      React.createElement(VersionSelector, { versions }),
+    )
+    expect(html).toContain('type="button"')
+  })
+
+  it('renders the chevron indicator hidden from assistive technology', () => {
+    const html = renderToString(
+      React.createElement(VersionSelector, { versions }),
+    )
+    expect(html).toContain('aria-hidden="true"')
+  })
+
+  it('trigger has aria-controls pointing at the dropdown', () => {
+    const html = renderToString(
+      React.createElement(VersionSelector, { versions }),
+    )
+    expect(html).toContain('aria-controls="rfr-ver-sel-')
+  })
+
+  it('wraps everything in the rfr-version-selector container', () => {
+    const html = renderToString(
+      React.createElement(VersionSelector, { versions }),
+    )
+    expect(html).toContain('rfr-version-selector')
+    expect(html).toContain('relative')
+    expect(html).toContain('inline-block')
+  })
+
+  it('falls back to the placeholder for a value not in the list', () => {
+    const html = renderToString(
+      React.createElement(VersionSelector, { value: '9.9.9', versions }),
+    )
+    expect(html).toContain('Select version...')
+    expect(html).not.toContain('v9.9.9')
+  })
+
+  it('renders badge styles when the selected version is latest', () => {
+    const html = renderToString(
+      React.createElement(VersionSelector, { value: '3.0.0', versions }),
+    )
+    expect(html).toContain('rounded-full')
+    expect(html).toContain('bg-primary/10')
+    expect(html).toContain('text-primary')
+  })
+
+  it('renders without crashing when versions is empty', () => {
+    const html = renderToString(
+      React.createElement(VersionSelector, { versions: [] }),
+    )
+    expect(html).toContain('Select version...')
+    expect(html).toContain('role="combobox"')
+  })
+})

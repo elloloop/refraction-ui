@@ -217,3 +217,115 @@ describe('Skeleton extended (React)', () => {
     expect(html).toContain('data-animate="false"')
   })
 })
+
+describe('Skeleton variants (React)', () => {
+  it.each([
+    ['text', 'rounded'],
+    ['circular', 'rounded-full'],
+    ['rectangular', 'rounded-none'],
+    ['rounded', 'rounded-md'],
+  ] as const)('shape "%s" renders data-shape and its rounding class', (shape, rounding) => {
+    const html = renderToString(React.createElement(Skeleton, { shape }))
+    expect(html).toContain(`data-shape="${shape}"`)
+    expect(html).toContain(rounding)
+  })
+
+  it('defaults to the text shape', () => {
+    const html = renderToString(React.createElement(Skeleton))
+    expect(html).toContain('data-shape="text"')
+  })
+
+  it('every variant carries the base animate-pulse and bg-muted classes', () => {
+    for (const shape of ['text', 'circular', 'rectangular', 'rounded'] as const) {
+      const html = renderToString(React.createElement(Skeleton, { shape }))
+      expect(html).toContain('animate-pulse')
+      expect(html).toContain('bg-muted')
+    }
+  })
+})
+
+describe('Skeleton dimensions (React)', () => {
+  it('renders no inline style when width and height are omitted', () => {
+    const html = renderToString(React.createElement(Skeleton))
+    expect(html).not.toContain('style=')
+  })
+
+  it('applies width without height', () => {
+    const html = renderToString(React.createElement(Skeleton, { width: 120 }))
+    expect(html).toContain('width:120px')
+    expect(html).not.toContain('height:')
+  })
+
+  it('applies height without width', () => {
+    const html = renderToString(React.createElement(Skeleton, { height: '1.5rem' }))
+    expect(html).toContain('height:1.5rem')
+    expect(html).not.toContain('width:')
+  })
+
+  it('merges a provided style object with width and height', () => {
+    const html = renderToString(
+      React.createElement(Skeleton, {
+        width: 40,
+        style: { opacity: 0.5 },
+      }),
+    )
+    expect(html).toContain('width:40px')
+    expect(html).toContain('opacity:0.5')
+  })
+
+  it('circular skeletons can be sized into avatars via equal width and height', () => {
+    const html = renderToString(
+      React.createElement(Skeleton, { shape: 'circular', width: 40, height: 40 }),
+    )
+    expect(html).toContain('rounded-full')
+    expect(html).toContain('width:40px')
+    expect(html).toContain('height:40px')
+  })
+})
+
+describe('Skeleton accessibility (React)', () => {
+  it('hides the placeholder from assistive tech', () => {
+    const html = renderToString(React.createElement(Skeleton))
+    expect(html).toContain('aria-hidden="true"')
+    expect(html).toContain('role="presentation"')
+    // Loading state is communicated by surrounding content; the decorative
+    // placeholder itself carries no aria-busy.
+    expect(html).not.toContain('aria-busy')
+  })
+
+  it('data-animate defaults to "true"', () => {
+    const html = renderToString(React.createElement(Skeleton))
+    expect(html).toContain('data-animate="true"')
+  })
+
+  it('forwards extra HTML attributes to the root element', () => {
+    const html = renderToString(
+      React.createElement(Skeleton, { id: 'loading-block', 'data-testid': 'skel' }),
+    )
+    expect(html).toContain('id="loading-block"')
+    expect(html).toContain('data-testid="skel"')
+  })
+})
+
+describe('SkeletonText extended (React)', () => {
+  it('passes animate=false through to every line', () => {
+    const html = renderToString(
+      React.createElement(SkeletonText, { lines: 3, animate: false }),
+    )
+    const matches = html.match(/data-animate="false"/g)
+    expect(matches).toHaveLength(3)
+  })
+
+  it('line widths repeat the 8-entry cycle beyond 8 lines', () => {
+    const html = renderToString(React.createElement(SkeletonText, { lines: 9 }))
+    // 100% is the first entry, so it reappears on line 9
+    const matches = html.match(/width:100%/g)
+    expect(matches).toHaveLength(2)
+  })
+
+  it('each line is individually hidden from assistive tech', () => {
+    const html = renderToString(React.createElement(SkeletonText, { lines: 4 }))
+    const matches = html.match(/aria-hidden="true"/g)
+    expect(matches).toHaveLength(4)
+  })
+})

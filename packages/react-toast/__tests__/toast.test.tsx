@@ -6,6 +6,7 @@ import {
   ToastProvider,
   Toaster,
   Toast,
+  type ToastEntry,
 } from '../src/toast.js'
 
 beforeEach(() => {
@@ -358,5 +359,152 @@ describe('Toast – additional', () => {
     )
     expect(html).toContain('flex-1')
     expect(html).toContain('Flex message')
+  })
+})
+
+// ---------------------------------------------------------------
+// Expanded SSR coverage
+// ---------------------------------------------------------------
+
+function makeEntry(overrides: Partial<ToastEntry> = {}): ToastEntry {
+  return {
+    id: 'entry-1',
+    message: 'Toast message',
+    variant: 'default',
+    duration: 3000,
+    createdAt: 0,
+    ...overrides,
+  }
+}
+
+describe('Toaster – container styling (SSR)', () => {
+  it('constrains width and opts out of pointer events', () => {
+    const html = renderToString(
+      React.createElement(
+        ToastProvider,
+        null,
+        React.createElement(Toaster, null),
+      ),
+    )
+    expect(html).toContain('w-full')
+    expect(html).toContain('max-w-sm')
+    expect(html).toContain('pointer-events-none')
+  })
+
+  it('spreads extra HTML attributes onto the container', () => {
+    const html = renderToString(
+      React.createElement(
+        ToastProvider,
+        null,
+        React.createElement(Toaster, { id: 'toast-region' }),
+      ),
+    )
+    expect(html).toContain('id="toast-region"')
+  })
+})
+
+describe('Toast – structure (SSR)', () => {
+  it('renders base layout classes', () => {
+    const html = renderToString(
+      React.createElement(
+        ToastProvider,
+        null,
+        React.createElement(Toast, { entry: makeEntry() }),
+      ),
+    )
+    expect(html).toContain('rounded-lg')
+    expect(html).toContain('p-4')
+    expect(html).toContain('shadow-lg')
+    // Toasts re-enable pointer events inside the pointer-events-none container
+    expect(html).toContain('pointer-events-auto')
+  })
+
+  it('renders default variant classes', () => {
+    const html = renderToString(
+      React.createElement(
+        ToastProvider,
+        null,
+        React.createElement(Toast, { entry: makeEntry() }),
+      ),
+    )
+    expect(html).toContain('bg-background')
+    expect(html).toContain('text-foreground')
+  })
+
+  it('renders dark-mode classes for the success variant', () => {
+    const html = renderToString(
+      React.createElement(
+        ToastProvider,
+        null,
+        React.createElement(Toast, { entry: makeEntry({ variant: 'success' }) }),
+      ),
+    )
+    expect(html).toContain('dark:bg-green-950')
+    expect(html).toContain('text-green-900')
+  })
+
+  it('renders dark-mode classes for the error variant', () => {
+    const html = renderToString(
+      React.createElement(
+        ToastProvider,
+        null,
+        React.createElement(Toast, { entry: makeEntry({ variant: 'error' }) }),
+      ),
+    )
+    expect(html).toContain('dark:bg-red-950')
+    expect(html).toContain('text-red-900')
+  })
+
+  it('renders dark-mode classes for the warning variant', () => {
+    const html = renderToString(
+      React.createElement(
+        ToastProvider,
+        null,
+        React.createElement(Toast, { entry: makeEntry({ variant: 'warning' }) }),
+      ),
+    )
+    expect(html).toContain('dark:bg-amber-950')
+    expect(html).toContain('text-amber-900')
+  })
+
+  it('dismiss button is type="button" and shows the × glyph', () => {
+    const html = renderToString(
+      React.createElement(
+        ToastProvider,
+        null,
+        React.createElement(Toast, {
+          entry: makeEntry(),
+          onDismiss: () => {},
+        }),
+      ),
+    )
+    expect(html).toContain('type="button"')
+    expect(html).toContain('×')
+  })
+
+  it('renders children as an extra action slot', () => {
+    const html = renderToString(
+      React.createElement(
+        ToastProvider,
+        null,
+        React.createElement(
+          Toast,
+          { entry: makeEntry() },
+          React.createElement('button', null, 'Undo'),
+        ),
+      ),
+    )
+    expect(html).toContain('Undo')
+  })
+
+  it('spreads extra HTML attributes onto the toast element', () => {
+    const html = renderToString(
+      React.createElement(
+        ToastProvider,
+        null,
+        React.createElement(Toast, { entry: makeEntry(), id: 'my-toast' }),
+      ),
+    )
+    expect(html).toContain('id="my-toast"')
   })
 })

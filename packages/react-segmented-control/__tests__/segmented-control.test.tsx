@@ -114,3 +114,89 @@ describe('SegmentedControl (React)', () => {
     expect(html).toContain('List')
   })
 })
+
+describe('SegmentedControl (React) - additional SSR coverage', () => {
+  it('group carries data-size and data-value', () => {
+    const html = render({ defaultValue: 'week' }, basicItems)
+    expect(html).toContain('data-size="md"')
+    expect(html).toContain('data-value="week"')
+  })
+
+  it('group data-size reflects the size prop', () => {
+    const html = render({ defaultValue: 'day', size: 'sm' }, basicItems)
+    expect(html).toContain('data-size="sm"')
+  })
+
+  it('omits data-value when nothing is selected', () => {
+    const html = render({}, basicItems)
+    expect(html).not.toContain('data-value')
+  })
+
+  it('uncontrolled defaultValue selects the matching item', () => {
+    const html = render({ defaultValue: 'month' }, basicItems)
+    const monthButton = html.match(/<button[^>]*>Month<\/button>/)
+    expect(monthButton).toBeTruthy()
+    expect(monthButton![0]).toContain('aria-checked="true"')
+    expect(monthButton![0]).toContain('tabindex="0"')
+  })
+
+  it('no selection renders every item unchecked and untabbable', () => {
+    const html = render({}, basicItems)
+    expect(html).not.toContain('aria-checked="true"')
+    expect(html.match(/tabindex="-1"/g)).toHaveLength(3)
+  })
+
+  it('items render type="button"', () => {
+    const html = render({ defaultValue: 'day' }, basicItems)
+    expect(html.match(/type="button"/g)).toHaveLength(3)
+  })
+
+  it('applies a custom className to an item', () => {
+    const html = renderToString(
+      React.createElement(
+        SegmentedControl,
+        { defaultValue: 'day' },
+        React.createElement(
+          SegmentedControlItem,
+          { value: 'day', className: 'my-item' },
+          'Day',
+        ),
+      ),
+    )
+    expect(html).toContain('my-item')
+  })
+
+  it('passes the disabled attribute through to an item', () => {
+    const html = renderToString(
+      React.createElement(
+        SegmentedControl,
+        { defaultValue: 'day' },
+        React.createElement(SegmentedControlItem, { value: 'day' }, 'Day'),
+        React.createElement(SegmentedControlItem, { value: 'week', disabled: true }, 'Week'),
+      ),
+    )
+    const weekButton = html.match(/<button[^>]*>Week<\/button>/)
+    expect(weekButton).toBeTruthy()
+    expect(weekButton![0]).toContain('disabled=""')
+  })
+
+  it('group base classes include bg-muted and rounded-lg', () => {
+    const html = render({ defaultValue: 'day' }, basicItems)
+    expect(html).toContain('bg-muted')
+    expect(html).toContain('rounded-lg')
+  })
+
+  it('unselected items carry hover and muted text classes', () => {
+    const html = render({ value: 'day' }, basicItems)
+    expect(html).toContain('text-muted-foreground')
+    expect(html).toContain('hover:text-foreground')
+  })
+
+  it('throws when SegmentedControlItem is used outside SegmentedControl', () => {
+    expect(() =>
+      renderToString(
+        React.createElement(SegmentedControlItem, { value: 'day' }, 'Day'),
+      ),
+    ).toThrow('must be used within <SegmentedControl>')
+  })
+})
