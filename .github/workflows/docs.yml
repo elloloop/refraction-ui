@@ -49,6 +49,13 @@ jobs:
       - name: Build Flutter Docs Site
         run: GITHUB_PAGES=true pnpm --filter @refraction-ui/flutter-docs-site build
 
+      - name: Build Storybook
+        # Static React Storybook — deployed under /storybook/ (asset URLs are
+        # relative, so the subpath needs no base config). Lets us eyeball
+        # docs-site ↔ storybook sync on every main push; intentionally not
+        # linked from the docs nav.
+        run: pnpm build-storybook
+
       - name: Merge Flutter Docs into Main Docs
         run: |
           mkdir -p docs-site/out/flutter
@@ -57,6 +64,9 @@ jobs:
           # Also merge the flutter web prototype into the flutter docs site if needed for iframes
           mkdir -p docs-site/out/flutter/prototype
           cp -r packages/flutter/example/build/web/* docs-site/out/flutter/prototype/ || true
+          # Static Storybook at /storybook/
+          mkdir -p docs-site/out/storybook
+          cp -r storybook-static/* docs-site/out/storybook/
 
       - uses: actions/upload-pages-artifact@v3
         with:
