@@ -16,6 +16,43 @@ describe('FeedbackDialog (React SSR)', () => {
     expect(html).toBe('')
   })
 
+  it('renders the trigger children when closed (trigger stays mounted)', () => {
+    const html = renderToString(
+      React.createElement(
+        FeedbackDialog,
+        null,
+        React.createElement(FeedbackButton, null, 'Send Feedback'),
+      ),
+    )
+    expect(html).toContain('Send Feedback')
+    expect(html).not.toContain('role="dialog"')
+  })
+
+  it('defaultOpen renders the dialog initially without a controlled open', () => {
+    const html = renderToString(
+      React.createElement(
+        FeedbackDialog,
+        { defaultOpen: true },
+        React.createElement(FeedbackButton, null, 'Send Feedback'),
+      ),
+    )
+    expect(html).toContain('role="dialog"')
+    expect(html).toContain('aria-modal="true"')
+    expect(html).toContain('Send Feedback')
+  })
+
+  it('renders trigger alongside the open dialog', () => {
+    const html = renderToString(
+      React.createElement(
+        FeedbackDialog,
+        { open: true },
+        React.createElement(FeedbackButton, null, 'Send Feedback'),
+      ),
+    )
+    expect(html).toContain('role="dialog"')
+    expect(html).toContain('<button')
+  })
+
   it('renders dialog with form when open', () => {
     const html = renderToString(
       React.createElement(FeedbackDialog, { open: true }),

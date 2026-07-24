@@ -41,7 +41,9 @@ const streamingTransport: ChatTransport = {
 }
 
 function seed(): ConversationConfig {
-  const t = (min: number) => new Date(Date.now() - min * 60_000)
+  // Fixed timestamps — Date.now() would render different text during SSR and
+  // hydration (React hydration mismatch on the docs page).
+  const t = (min: number) => new Date(Date.UTC(2026, 0, 15, 12, 0, 0) - min * 60_000)
   const root: ChatMessage = {
     id: 'm1',
     conversationId: 'c1',

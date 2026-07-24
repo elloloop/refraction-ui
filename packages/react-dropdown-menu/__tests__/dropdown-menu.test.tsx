@@ -42,6 +42,38 @@ describe('DropdownMenu (React SSR)', () => {
     expect(html).toContain('aria-expanded="true"')
   })
 
+  it('asChild merges trigger props onto the child instead of nesting a button', () => {
+    const html = renderToString(
+      React.createElement(
+        DropdownMenu,
+        null,
+        React.createElement(
+          DropdownMenuTrigger,
+          { asChild: true },
+          React.createElement('a', { href: '#menu' }, 'Open'),
+        ),
+      ),
+    )
+    // No wrapper <button> (nested buttons are invalid HTML) and the asChild
+    // prop itself never reaches the DOM.
+    expect(html).not.toContain('<button')
+    expect(html).toContain('<a')
+    expect(html).toContain('aria-expanded="false"')
+    expect(html).toContain('aria-haspopup="menu"')
+    expect(html).not.toContain('asChild')
+  })
+
+  it('asChild with a non-element child renders nothing (dev warns)', () => {
+    const html = renderToString(
+      React.createElement(
+        DropdownMenu,
+        null,
+        React.createElement(DropdownMenuTrigger, { asChild: true }, 'Open'),
+      ),
+    )
+    expect(html).not.toContain('<button')
+  })
+
   it('does not render content when closed', () => {
     const html = renderToString(
       React.createElement(
