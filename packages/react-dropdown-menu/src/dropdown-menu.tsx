@@ -89,10 +89,16 @@ DropdownMenu.displayName = 'DropdownMenu'
 // DropdownMenuTrigger
 // ---------------------------------------------------------------------------
 
-export interface DropdownMenuTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+export interface DropdownMenuTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Merge the trigger's props/behavior onto the child element instead of
+   * rendering a `<button>` around it (Radix-style `asChild`). Use it with
+   * styled triggers like `<Button>` — otherwise you'd nest a button in a
+   * button (invalid HTML and a hydration error). */
+  asChild?: boolean
+}
 
 export const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, DropdownMenuTriggerProps>(
-  ({ onClick, children, ...props }, ref) => {
+  ({ asChild = false, onClick, children, ...props }, ref) => {
     const { open, onOpenChange, contentId } = useDropdownMenuContext()
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -100,19 +106,48 @@ export const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, DropdownM
       onClick?.(e)
     }
 
-    return React.createElement(
-      'button',
-      {
-        ref,
-        type: 'button',
-        'aria-expanded': open,
-        'aria-controls': contentId,
-        'aria-haspopup': 'menu',
-        onClick: handleClick,
-        ...props,
-      },
-      children,
-    )
+    const triggerProps = {
+      type: 'button' as const,
+      'aria-expanded': open,
+      'aria-controls': contentId,
+      'aria-haspopup': 'menu' as const,
+      onClick: handleClick,
+      ...props,
+    }
+
+    if (asChild) {
+      if (!React.isValidElement(children)) {
+        devWarn(
+          'dropdown-menu-trigger-asChild-child',
+          'DropdownMenuTrigger: `asChild` expects a single React element child; rendering nothing.',
+        )
+        return null
+      }
+      const child = children as React.ReactElement<
+        Record<string, unknown>
+      > & { ref?: React.Ref<HTMLButtonElement> }
+      const childOnClick = child.props.onClick as
+        | ((e: React.MouseEvent<HTMLButtonElement>) => void)
+        | undefined
+      const childRef = child.ref
+      const mergedProps = {
+        ...triggerProps,
+        onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
+          childOnClick?.(e)
+          if (!e.defaultPrevented) handleClick(e)
+        },
+        ref: (node: HTMLButtonElement | null) => {
+          if (typeof ref === 'function') ref(node)
+          else if (ref) ref.current = node
+          if (typeof childRef === 'function') childRef(node)
+          else if (childRef) childRef.current = node
+        },
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return React.cloneElement(child, mergedProps as any)
+    }
+
+    return React.createElement('button', { ref, ...triggerProps }, children)
   },
 )
 

@@ -14,6 +14,8 @@ import { cn } from '@refraction-ui/shared'
 
 export interface FeedbackDialogProps {
   open?: boolean
+  /** Initial open state for uncontrolled usage (like Radix `defaultOpen`). */
+  defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
   onSubmit?: (data: FeedbackData) => void | Promise<void>
   type?: FeedbackType
@@ -23,12 +25,14 @@ export interface FeedbackDialogProps {
 
 export function FeedbackDialog({
   open: controlledOpen,
+  defaultOpen = false,
   onOpenChange,
   onSubmit,
   type = 'general',
   className,
+  children,
 }: FeedbackDialogProps) {
-  const [open, setOpen] = React.useState(controlledOpen ?? false)
+  const [open, setOpen] = React.useState(controlledOpen ?? defaultOpen)
   const [comment, setComment] = React.useState('')
   const [email, setEmail] = React.useState('')
   const [honeypot, setHoneypot] = React.useState('')
@@ -81,40 +85,73 @@ export function FeedbackDialog({
     setIsSubmitted(false)
   }, [])
 
-  if (!isOpen) return null
-
   const api = apiRef.current
+
+  // The trigger child stays mounted in every state and opens the dialog on
+  // click (composed with the child's own onClick).
+  const trigger = React.isValidElement(children)
+    ? (() => {
+        const child = children as React.ReactElement<Record<string, unknown>> & {
+          ref?: React.Ref<HTMLButtonElement>
+        }
+        const childOnClick = child.props.onClick as
+          | ((e: React.MouseEvent<HTMLButtonElement>) => void)
+          | undefined
+        const childRef = child.ref
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return React.cloneElement(child, {
+          onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
+            childOnClick?.(e)
+            if (!e.defaultPrevented) handleOpenChange(true)
+          },
+          ref: (node: HTMLButtonElement | null) => {
+            if (typeof childRef === 'function') childRef(node)
+            else if (childRef) childRef.current = node
+          },
+        } as any)
+      })()
+    : children
 
   if (isSubmitted) {
     return React.createElement(
-      'div',
-      {
-        className: cn(feedbackDialogVariants({ type }), className),
-        ...api.ariaProps,
-        'data-state': 'submitted',
-      },
-      React.createElement('p', { 'data-testid': 'success-message' }, 'Thank you for your feedback!'),
+      React.Fragment,
+      null,
+      trigger,
       React.createElement(
-        'button',
+        'div',
         {
-          type: 'button',
-          onClick: () => {
-            handleReset()
-            handleOpenChange(false)
-          },
+          className: cn(feedbackDialogVariants({ type }), className),
+          ...api.ariaProps,
+          'data-state': 'submitted',
         },
-        'Close',
+        React.createElement('p', { 'data-testid': 'success-message' }, 'Thank you for your feedback!'),
+        React.createElement(
+          'button',
+          {
+            type: 'button',
+            onClick: () => {
+              handleReset()
+              handleOpenChange(false)
+            },
+          },
+          'Close',
+        ),
       ),
     )
   }
 
   return React.createElement(
-    'div',
-    {
-      className: cn(feedbackDialogVariants({ type }), className),
-      ...api.ariaProps,
-      'data-state': 'open',
-    },
+    React.Fragment,
+    null,
+    trigger,
+    isOpen
+      ? React.createElement(
+          'div',
+          {
+            className: cn(feedbackDialogVariants({ type }), className),
+            ...api.ariaProps,
+            'data-state': 'open',
+          },
     React.createElement('h2', { id: `${api.ariaProps.id}-title` }, 'Send Feedback'),
     React.createElement('textarea', {
       'aria-label': 'Feedback comment',
@@ -151,6 +188,8 @@ export function FeedbackDialog({
       },
       isSubmitting ? 'Submitting...' : 'Submit',
     ),
+      )
+    : null,
   )
 }
 
