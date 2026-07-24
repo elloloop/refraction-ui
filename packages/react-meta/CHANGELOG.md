@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- e05f851: SlideViewer: arrow-key navigation (ArrowRight/ArrowLeft) now actually re-renders the component — previously the headless state advanced and `onSlideChange` fired, but the slide counter, progress bar, content, and button states stayed stale until the next click.
+- 76a8ae1: Composer: the suggestion menu (`@` mentions, `/` commands, `:emoji:`) now opens on whichever side of the composer has more viewport space — previously it always opened above, which could render it off-screen when the composer sat near the top of the viewport. The menu also caps its height to the available space and scrolls.
 
 ## 0.18.0
 
