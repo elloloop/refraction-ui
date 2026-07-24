@@ -7,7 +7,7 @@ import {
 } from '@refraction-ui/react-input-group'
 
 const meta: Meta<typeof InputGroup> = {
-  title: 'Components/InputGroup',
+  title: 'Inputs/InputGroup',
   component: InputGroup,
   args: {
     orientation: 'horizontal',

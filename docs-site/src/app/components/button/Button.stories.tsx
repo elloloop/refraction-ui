@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Button } from '@refraction-ui/react-button'
 
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: 'Inputs/Button',
   component: Button,
   argTypes: {
     variant: {

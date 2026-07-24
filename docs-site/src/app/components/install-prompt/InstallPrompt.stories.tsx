@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { InstallPrompt } from '@refraction-ui/react-install-prompt'
 
 const meta: Meta<typeof InstallPrompt> = {
-  title: 'Components/InstallPrompt',
+  title: 'Feedback/InstallPrompt',
   component: InstallPrompt,
   args: {
     appName: 'My App',

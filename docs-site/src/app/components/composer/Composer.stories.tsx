@@ -1,7 +1,7 @@
 import { ComposerExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/Composer' }
+const meta = { title: 'Chat & AI/Composer' }
 export default meta
 
 export const Basic = { render: () => <ComposerExamples section="basic" /> }

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { LanguageSelector } from '@refraction-ui/react-language-selector'
 
 const meta: Meta<typeof LanguageSelector> = {
-  title: 'Components/LanguageSelector',
+  title: 'Inputs/LanguageSelector',
   component: LanguageSelector,
   args: {
     options: [

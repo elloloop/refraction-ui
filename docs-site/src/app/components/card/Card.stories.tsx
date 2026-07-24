@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from '@refraction-ui/react-button'
 
 const meta: Meta<typeof Card> = {
-  title: 'Components/Card',
+  title: 'Data Display/Card',
   component: Card,
   args: {},
 }

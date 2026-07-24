@@ -1,7 +1,7 @@
 import { VideoGridExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/VideoGrid' }
+const meta = { title: 'Calls & Media/VideoGrid' }
 export default meta
 
 export const SmallGroup = {

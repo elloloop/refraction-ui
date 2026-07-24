@@ -2,7 +2,7 @@ import { Sidebar } from '@refraction-ui/react-sidebar'
 import { SidebarExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/Sidebar' }
+const meta = { title: 'Navigation/Sidebar' }
 export default meta
 
 export const Basic = { render: () => <SidebarExamples section="basic" /> }

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { AppShell } from '@refraction-ui/react-app-shell'
 
 const meta: Meta<typeof AppShell> = {
-  title: 'Components/AppShell',
+  title: 'Navigation/AppShell',
   component: AppShell,
 }
 export default meta

@@ -3,7 +3,7 @@ import { DatePicker } from '@refraction-ui/react-date-picker'
 import { useState } from 'react'
 
 const meta: Meta<typeof DatePicker> = {
-  title: 'Components/DatePicker',
+  title: 'Inputs/DatePicker',
   component: DatePicker,
   argTypes: {},
 }

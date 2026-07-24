@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@refraction-ui/react-accordion'
 
 const meta: Meta<typeof Accordion> = {
-  title: 'Components/Accordion',
+  title: 'Navigation/Accordion',
   component: Accordion,
   argTypes: {
     type: { control: 'radio', options: ['single', 'multiple'] },

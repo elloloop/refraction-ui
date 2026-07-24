@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { ShortcutBadge } from '@refraction-ui/react-keyboard-shortcut'
 
 const meta: Meta<typeof ShortcutBadge> = {
-  title: 'Components/KeyboardShortcut',
+  title: 'Utilities/KeyboardShortcut',
   component: ShortcutBadge,
   args: {
     keys: ['Cmd', 'K'],

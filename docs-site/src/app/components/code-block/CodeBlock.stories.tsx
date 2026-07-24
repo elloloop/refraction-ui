@@ -6,7 +6,7 @@ import {
 } from '@refraction-ui/react-code-block'
 
 const meta: Meta<typeof RuiCodeBlock> = {
-  title: 'Components/CodeBlock',
+  title: 'Data Display/CodeBlock',
   component: RuiCodeBlock,
   args: {},
 }

@@ -1,7 +1,7 @@
 import { LiveCaptionsExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/LiveCaptions' }
+const meta = { title: 'Calls & Media/LiveCaptions' }
 export default meta
 
 export const SingleLine = { render: () => <LiveCaptionsExamples section="single-line" /> }

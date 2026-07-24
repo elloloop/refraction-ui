@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Avatar, AvatarImage, AvatarFallback } from '@refraction-ui/react-avatar'
 
 const meta: Meta<typeof Avatar> = {
-  title: 'Components/Avatar',
+  title: 'Data Display/Avatar',
   component: Avatar,
   argTypes: {
     size: {

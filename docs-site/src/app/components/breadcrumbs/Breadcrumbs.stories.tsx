@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Breadcrumbs } from '@refraction-ui/react-breadcrumbs'
 
 const meta: Meta<typeof Breadcrumbs> = {
-  title: 'Components/Breadcrumbs',
+  title: 'Navigation/Breadcrumbs',
   component: Breadcrumbs,
   argTypes: {
     pathname: { control: 'text' },

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ThreadView } from '@refraction-ui/react-thread-view';
 
 const meta: Meta<typeof ThreadView> = {
-  title: 'Components/ThreadView',
+  title: 'Chat & AI/ThreadView',
   component: ThreadView,
   parameters: {
     layout: 'centered',

@@ -3,7 +3,7 @@ import { CommandInput } from '@refraction-ui/react-command-input'
 import { useState } from 'react'
 
 const meta: Meta<typeof CommandInput> = {
-  title: 'Components/CommandInput',
+  title: 'Inputs/CommandInput',
   component: CommandInput,
   argTypes: {},
 }

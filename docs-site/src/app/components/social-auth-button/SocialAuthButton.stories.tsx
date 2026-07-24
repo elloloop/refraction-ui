@@ -1,7 +1,7 @@
 import { SocialAuthButtonExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/SocialAuthButton' }
+const meta = { title: 'Utilities/SocialAuthButton' }
 export default meta
 
 export const Basic = { render: () => <SocialAuthButtonExamples section="basic" /> }

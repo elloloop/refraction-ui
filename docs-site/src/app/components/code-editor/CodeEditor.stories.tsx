@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { CodeEditor } from '@refraction-ui/react-code-editor'
 
 const meta: Meta<typeof CodeEditor> = {
-  title: 'Components/CodeEditor',
+  title: 'Editors & IDE/CodeEditor',
   component: CodeEditor,
   argTypes: {
     language: { control: 'text' },

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Steps } from '@refraction-ui/react-steps';
 
 const meta: Meta<typeof Steps> = {
-  title: 'Components/Steps',
+  title: 'Navigation/Steps',
   component: Steps,
   parameters: {
     layout: 'centered',

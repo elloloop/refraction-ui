@@ -1,7 +1,7 @@
 import { SkeletonExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/Skeleton' }
+const meta = { title: 'Feedback/Skeleton' }
 export default meta
 
 export const Shapes = { render: () => <SkeletonExamples section="shapes" /> }

@@ -1,5 +1,5 @@
 // @refraction-ui/react-logger is a headless provider/hook package — no standalone UI.
-export default { title: 'Components/Logger' }
+export default { title: 'Utilities/Logger' }
 
 export const Overview = {
   render: () => (

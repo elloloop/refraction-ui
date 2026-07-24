@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TableOfContents } from '@refraction-ui/react-table-of-contents';
 
 const meta: Meta<typeof TableOfContents> = {
-  title: 'Components/TableOfContents',
+  title: 'Navigation/TableOfContents',
   component: TableOfContents,
   parameters: {
     layout: 'centered',

@@ -1,5 +1,5 @@
 // @refraction-ui/react-analytics is a headless provider/hook package — no standalone UI.
-export default { title: 'Components/Analytics' }
+export default { title: 'Utilities/Analytics' }
 
 export const Overview = {
   render: () => (

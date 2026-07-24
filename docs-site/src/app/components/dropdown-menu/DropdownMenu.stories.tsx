@@ -10,7 +10,7 @@ import {
 import { Button } from '@refraction-ui/react-button'
 
 const meta: Meta<typeof DropdownMenu> = {
-  title: 'Components/DropdownMenu',
+  title: 'Overlays/DropdownMenu',
   component: DropdownMenu,
   parameters: {
     layout: 'centered',

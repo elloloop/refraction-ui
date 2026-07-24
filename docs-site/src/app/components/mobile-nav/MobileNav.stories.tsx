@@ -8,7 +8,7 @@ import {
 } from '@refraction-ui/react-mobile-nav'
 
 const meta: Meta<typeof MobileNav> = {
-  title: 'Components/MobileNav',
+  title: 'Navigation/MobileNav',
   component: MobileNav,
   args: {
     defaultOpen: false,

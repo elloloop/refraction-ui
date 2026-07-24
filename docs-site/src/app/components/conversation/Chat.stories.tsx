@@ -8,7 +8,7 @@ import {
 } from '@refraction-ui/react-conversation'
 
 const meta: Meta<typeof Chat> = {
-  title: 'Components/Chat',
+  title: 'Chat & AI/Chat',
   component: Chat,
   argTypes: {},
 }

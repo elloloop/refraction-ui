@@ -1,7 +1,7 @@
 import { AudioRoomExamples, SpeakingOrbDemo } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/AudioRoom' }
+const meta = { title: 'Calls & Media/AudioRoom' }
 export default meta
 
 export const BasicRoom = {

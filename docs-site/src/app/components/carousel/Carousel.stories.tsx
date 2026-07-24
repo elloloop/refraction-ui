@@ -7,7 +7,7 @@ import {
 } from '@refraction-ui/react-carousel'
 
 const meta: Meta<typeof Carousel> = {
-  title: 'Components/Carousel',
+  title: 'Data Display/Carousel',
   component: Carousel,
   argTypes: {
     type: { control: 'radio', options: ['single', 'multiple'] },

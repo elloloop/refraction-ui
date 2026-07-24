@@ -103,7 +103,11 @@ Every component is three artifacts that **must stay in sync and ship together**:
    (`packages/<feature>`, `packages/<fw>-<feature>`). The source of truth for
    behavior, props, and tokens.
 2. **Storybook story** — `docs-site/src/app/components/<slug>/<Name>.stories.tsx`
-   (plus the `examples.tsx` it renders). The interactive showcase.
+   (plus the `examples.tsx` it renders). The interactive showcase. The story
+   `title` must be `<Category>/<Name>` where Category is one of: **Inputs,
+   Navigation, Data Display, Feedback, Overlays, Layout, Chat & AI, Calls &
+   Media, Marketing, Editors & IDE, Utilities** (the sidebar taxonomy — flat
+   `Components/<Name>` titles are not allowed).
 3. **Docs-site page** — `docs-site/src/app/components/<slug>/page.tsx` with the
    live examples, a props table, and an install snippet.
 

@@ -11,7 +11,7 @@ import {
 } from '@refraction-ui/react-form'
 
 const meta: Meta<typeof Form> = {
-  title: 'Components/Form',
+  title: 'Inputs/Form',
   component: Form,
   parameters: {
     layout: 'centered',

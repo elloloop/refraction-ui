@@ -1,5 +1,5 @@
 // @refraction-ui/react-ai is a headless provider/hook package — no standalone UI.
-export default { title: 'Components/Ai' }
+export default { title: 'Chat & AI/Ai' }
 
 export const Overview = {
   render: () => (

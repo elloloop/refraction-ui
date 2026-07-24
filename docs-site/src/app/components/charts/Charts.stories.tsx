@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Chart, Bars, Line, Circles, PieChart } from '@refraction-ui/react-charts'
 
 const meta: Meta<typeof Chart> = {
-  title: 'Components/Charts',
+  title: 'Data Display/Charts',
   component: Chart,
 }
 export default meta

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Mascot } from './mascot.js'
 
 const meta: Meta<typeof Mascot> = {
-  title: 'Components/Mascot',
+  title: 'Marketing/Mascot',
   component: Mascot,
   argTypes: {
     mood: {

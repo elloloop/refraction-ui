@@ -18,7 +18,7 @@ console.log(greeting)
 `
 
 const meta: Meta<typeof MarkdownRenderer> = {
-  title: 'Components/MarkdownRenderer',
+  title: 'Data Display/MarkdownRenderer',
   component: MarkdownRenderer,
   args: {
     content: sampleMarkdown,

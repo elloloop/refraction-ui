@@ -12,7 +12,7 @@ import {
 } from '@refraction-ui/react-combobox'
 
 const meta: Meta<typeof Combobox> = {
-  title: 'Components/Combobox',
+  title: 'Inputs/Combobox',
   component: Combobox,
   args: {},
 }

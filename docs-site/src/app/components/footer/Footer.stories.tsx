@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Footer } from '@refraction-ui/react-footer'
 
 const meta: Meta<typeof Footer> = {
-  title: 'Components/Footer',
+  title: 'Layout/Footer',
   component: Footer,
   parameters: {
     layout: 'centered',

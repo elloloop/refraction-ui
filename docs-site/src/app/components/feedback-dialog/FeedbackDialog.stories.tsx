@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { FeedbackDialog, FeedbackButton } from '@refraction-ui/react-feedback-dialog'
 
 const meta: Meta<typeof FeedbackDialog> = {
-  title: 'Components/FeedbackDialog',
+  title: 'Feedback/FeedbackDialog',
   component: FeedbackDialog,
   parameters: {
     layout: 'centered',

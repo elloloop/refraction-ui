@@ -1,7 +1,7 @@
 import { MasteryBarExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/MasteryBar' }
+const meta = { title: 'Chat & AI/MasteryBar' }
 export default meta
 
 export const Basic = { render: () => <MasteryBarExamples section="basic" /> }

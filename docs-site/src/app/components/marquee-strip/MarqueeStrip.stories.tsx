@@ -1,7 +1,7 @@
 import { MarqueeStripExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/MarqueeStrip' }
+const meta = { title: 'Marketing/MarqueeStrip' }
 export default meta
 
 export const Static = { render: () => <MarqueeStripExamples section="static" /> }

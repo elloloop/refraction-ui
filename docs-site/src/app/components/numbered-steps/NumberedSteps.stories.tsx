@@ -1,7 +1,7 @@
 import { NumberedStepsExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/NumberedSteps' }
+const meta = { title: 'Marketing/NumberedSteps' }
 export default meta
 
 export const FourSteps = {

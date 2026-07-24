@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { DeviceFrame } from '@refraction-ui/react-device-frame'
 
 const meta: Meta<typeof DeviceFrame> = {
-  title: 'Components/DeviceFrame',
+  title: 'Layout/DeviceFrame',
   component: DeviceFrame,
   argTypes: {
     device: {

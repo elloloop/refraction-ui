@@ -10,7 +10,7 @@ import {
 } from '@refraction-ui/react-command'
 
 const meta: Meta<typeof Command> = {
-  title: 'Components/Command',
+  title: 'Navigation/Command',
   component: Command,
   argTypes: {},
 }

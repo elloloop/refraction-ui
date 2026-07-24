@@ -1,7 +1,7 @@
 import { TestResultsExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/TestResults' }
+const meta = { title: 'Editors & IDE/TestResults' }
 export default meta
 
 export const AllPassing = {

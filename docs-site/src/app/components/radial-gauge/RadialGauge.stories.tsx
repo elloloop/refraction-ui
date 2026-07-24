@@ -1,7 +1,7 @@
 import { RadialGaugeExamples } from './examples'
 
 // Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/RadialGauge' }
+const meta = { title: 'Data Display/RadialGauge' }
 export default meta
 
 export const Basic = { render: () => <RadialGaugeExamples section="basic" /> }

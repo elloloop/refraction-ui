@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { BottomNav } from '@refraction-ui/react-bottom-nav'
 
 const meta: Meta<typeof BottomNav> = {
-  title: 'Components/BottomNav',
+  title: 'Navigation/BottomNav',
   component: BottomNav,
   argTypes: {
     currentPath: { control: 'text' },

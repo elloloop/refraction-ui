@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Pagination } from '@refraction-ui/react-pagination';
 
 const meta: Meta<typeof Pagination> = {
-  title: 'Components/Pagination',
+  title: 'Navigation/Pagination',
   component: Pagination,
   parameters: {
     layout: 'centered',

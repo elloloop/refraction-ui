@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { EmptyState, ConfirmationCard } from '@refraction-ui/react-empty-state'
 
 const meta: Meta<typeof EmptyState> = {
-  title: 'Components/EmptyState',
+  title: 'Feedback/EmptyState',
   component: EmptyState,
   parameters: {
     layout: 'centered',
