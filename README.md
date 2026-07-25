@@ -6,6 +6,7 @@ A headless core UI library with framework-specific wrappers. Zero external runti
 
 - **React** (`@refraction-ui/react`) - ✅ Fully Supported
 - **Astro** (`@refraction-ui/astro`) - ✅ Fully Supported
+- **Flutter** (`refraction_ui` on pub.dev) - ✅ Fully Supported
 
 ## Community Help Wanted
 
@@ -16,12 +17,11 @@ We'd love to see Refraction UI support the following frameworks! If you're inter
 ## Components
 
 **Core UI**
-- ✅ Accordion, Avatar, Badge, Button, Calendar, Card, Charts, Checkbox, Code Editor, Collapsible, Command, Data Table, Date Picker, Dialog, Dropdown Menu, Input, Popover, Radio, Resizable Layout, Rich Editor, Select, Skeleton, Slide Viewer, Switch, Tabs, Textarea, Toast, Tooltip.
-- 🚧 *Planned:* Carousel, Context Menu, Hover Card, Menubar, Navigation Menu, Scroll Area, Slider.
+- ✅ Accordion, Avatar, Badge, Button, Calendar, Card, Carousel, Charts, Checkbox, Code Editor, Collapsible, Command, Data Table, Date Picker, Dialog, Dropdown Menu, Input, Popover, Radio, Resizable Layout, Rich Editor, Select, Skeleton, Slide Viewer, Slider, Switch, Tabs, Textarea, Toast, Tooltip.
+- 🚧 *Planned:* Context Menu, Hover Card, Menubar, Navigation Menu, Scroll Area.
 
 **Layout & Navigation**
-- ✅ App Shell, Bottom Nav, Breadcrumbs, Footer, Mobile Nav, Navbar, Sidebar.
-- 🚧 *Planned:* Pagination, Stepper.
+- ✅ App Shell, Bottom Nav, Breadcrumbs, Footer, Mobile Nav, Navbar, Pagination, Sidebar, Stepper.
 
 ### App Shell Composition
 
@@ -48,6 +48,8 @@ When using the App Shell components, the header must be placed inside the `AppSh
 npm install @refraction-ui/react
 # or
 npm install @refraction-ui/astro
+# or (Flutter)
+flutter pub add refraction_ui
 ```
 
 ## Features

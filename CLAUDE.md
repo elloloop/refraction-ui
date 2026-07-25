@@ -86,7 +86,8 @@ adapters (e.g. `@refraction-ui/ai` is private; `react-ai` depends on it;
      `packages/<fw>-meta/package.json` **`devDependencies`**
    - add `export * from '@refraction-ui/<fw>-<feature>'` to
      `packages/<fw>-meta/src/index.ts`
-   - (this is exactly what `update-meta-packages.cjs` automates)
+   - (wire by hand; the repo-root `update-meta-packages.cjs` was a one-off
+     script with a hardcoded component list, not a general tool)
 4. Build the metas (`pnpm turbo run build --filter=@refraction-ui/react …`) to
    catch `export *` name collisions before landing.
 5. **Ship the component triple** (below) — implementation, Storybook story, and
@@ -302,7 +303,7 @@ values, a test covers it, and the analyzer/formatter are clean.
 - **Test command (single file/test):** `pnpm --filter <pkg> exec vitest run <file>` or scope by name with `vitest run -t "<name>"`
 - **Format command:** No Prettier; formatting is `.editorconfig` (2-space, LF, final newline) enforced via ESLint — run `make lint`
 - **Run an app:** `pnpm storybook` (React, port 6006) / `pnpm storybook:astro` (Astro, port 6008); docs in `docs-site`; Flutter package has its own `packages/flutter/Makefile`
-- **Repo layout:** pnpm + Turborepo monorepo. `packages/*` (~298 dirs: headless cores, `react-*`/`astro-*`/`angular-*` adapters, `*-meta` aggregators, `tailwind-config`, Dart `flutter`); `docs-site` (docs); `e2e` + `playwright.config.ts` (Playwright); `.storybook`/`.storybook-astro`; `scripts/` (codegen/publish helpers)
+- **Repo layout:** pnpm + Turborepo monorepo. `packages/*` (~390 dirs: headless cores, `react-*`/`astro-*` adapters, `*-meta` aggregators, `tailwind-config`, Dart `flutter`); `docs-site` (docs); `e2e` + `playwright.config.ts` (Playwright); `.storybook`/`.storybook-astro`; `scripts/` (codegen/publish helpers)
 - **State management / data layer conventions:** Headless cores (`private: true`) hold logic; framework adapters (`react-*`/`astro-*`, also `private: true`) wrap them; only the per-framework `*-meta` packages plus `tailwind-config` are published, re-exporting adapters via `export *`. Consumers install only a meta or `@refraction-ui/shared`
-- **Generated files NOT to hand-edit:** Built `dist/**` and `coverage/**` (Turbo outputs); meta `package.json` deps / `src/index.ts` exports are managed by `update-meta-packages.cjs`; packages and stories scaffolded by `scripts/generate-package.mjs`, `scripts/generate-astro-packages.mjs`, `scripts/generate-stories.mjs`, `scripts/generate-astro-stories.mjs`, `scripts/generate-docs-stories.mjs`; docs by `update-docs.cjs`; `pnpm-lock.yaml`
+- **Generated files NOT to hand-edit:** Built `dist/**` and `coverage/**` (Turbo outputs); packages and stories scaffolded by `scripts/generate-package.mjs`, `scripts/generate-astro-packages.mjs`, `scripts/generate-stories.mjs`, `scripts/generate-astro-stories.mjs`, `scripts/generate-docs-stories.mjs`; `pnpm-lock.yaml`. Meta `package.json` deps / `src/index.ts` exports and the docs pages are hand-maintained — the repo-root `update-meta-packages.cjs` / `update-docs.cjs` were one-off codemods (hardcoded inputs), not living generators
 - **Other gotchas:** Only 3 npm packages publish (`@refraction-ui/react`, `@refraction-ui/astro`, `@refraction-ui/tailwind-config`) — everything else is `private: true` (see "Hard rules"); Flutter publishes to pub.dev via the `flutter-publish` tag workflow, not npm; releases are Changesets + OIDC trusted publishing only (never local/token publish); run `make ci` before push and use `stax` over raw `git`/`gh`
