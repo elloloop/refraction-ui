@@ -135,7 +135,7 @@ export default function HomePage() {
             Component Catalog
           </h2>
           <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-            Browse all 49 components with live examples, variant grids, and copy-paste code.
+            Browse all 121 components with live examples, variant grids, and copy-paste code.
           </p>
         </Link>
 

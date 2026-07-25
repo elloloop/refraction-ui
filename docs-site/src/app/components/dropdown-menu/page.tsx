@@ -10,6 +10,21 @@ const dropdownProps = [
   { name: 'children', type: 'ReactNode', description: 'Trigger + Content with items.' },
 ]
 
+const triggerProps = [
+  {
+    name: 'asChild',
+    type: 'boolean',
+    default: 'false',
+    description:
+      'Merge the trigger props/behavior onto the child element instead of rendering a <button> around it. Use with styled triggers like <Button> to avoid nesting a button in a button.',
+  },
+]
+
+const itemProps = [
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the item: removes it from tab order and blocks selection.' },
+  { name: 'onSelect', type: '() => void', description: 'Callback fired when the item is selected via click or Enter/Space, before the menu closes.' },
+]
+
 const usageCode = `import {
   DropdownMenu, DropdownMenuTrigger, DropdownMenuContent,
   DropdownMenuItem, DropdownMenuSeparator, DropdownMenuLabel,
@@ -63,6 +78,16 @@ export default function DropdownMenuPage() {
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Props</h2>
         <PropsTable props={dropdownProps} />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">DropdownMenuTrigger props</h2>
+        <PropsTable props={triggerProps} />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">DropdownMenuItem props</h2>
+        <PropsTable props={itemProps} />
       </section>
     </div>
   )

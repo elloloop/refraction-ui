@@ -24,6 +24,10 @@ const components = [
   { name: 'Command', href: '/components/command', description: 'Searchable command palette with groups and keyboard navigation.', category: 'Core UI' },
   { name: 'Toast', href: '/components/toast', description: 'Notification toasts with auto-dismiss, hover pause, and 4 variants.', category: 'Core UI' },
   { name: 'Tabs', href: '/components/tabs', description: 'Tabbed interface with keyboard navigation and ARIA support.', category: 'Core UI' },
+  { name: 'Accordion', href: '/components/accordion', description: 'Vertically stacked headings that each reveal a section of content.', category: 'Core UI' },
+  { name: 'Password Input', href: '/components/password-input', description: 'Password field with a built-in reveal/hide toggle.', category: 'Core UI' },
+  { name: 'Separator', href: '/components/separator', description: 'Thin rule that visually divides content, horizontal or vertical.', category: 'Core UI' },
+  { name: 'Sheet', href: '/components/sheet', description: 'Panel that slides in from any screen edge via a portal with focus management.', category: 'Core UI' },
 
   // Layout
   { name: 'Card', href: '/components/card', description: 'Container with header, content, and footer compound components.', category: 'Layout' },
@@ -32,10 +36,19 @@ const components = [
   { name: 'Breadcrumbs', href: '/components/breadcrumbs', description: 'Breadcrumb trail auto-generated from pathname or manual items.', category: 'Layout' },
   { name: 'Footer', href: '/components/footer', description: 'Site footer with link columns, copyright, and social links.', category: 'Layout' },
   { name: 'Bottom Nav', href: '/components/bottom-nav', description: 'Mobile tab bar fixed to the bottom of the viewport.', category: 'Layout' },
+  { name: 'App Shell', href: '/components/app-shell', description: 'Responsive app layout with collapsible sidebar and sticky header.', category: 'Layout' },
+  { name: 'Card Grid', href: '/components/card-grid', description: 'Layout container arranging cards into responsive columns.', category: 'Layout' },
+  { name: 'Mobile Nav', href: '/components/mobile-nav', description: 'Compound navigation with hamburger trigger and collapsible link panel.', category: 'Layout' },
+  { name: 'Pagination', href: '/components/pagination', description: 'Lightweight, unstyled wrapper for building page navigation.', category: 'Layout' },
+  { name: 'Resizable Layout', href: '/components/resizable-layout', description: 'Flex panes separated by draggable dividers.', category: 'Layout' },
+  { name: 'Skip to Content', href: '/components/skip-to-content', description: 'Accessible skip link that jumps straight to the main content.', category: 'Layout' },
+  { name: 'Steps', href: '/components/steps', description: 'Composable step indicator for multi-stage flows like checkout and onboarding.', category: 'Layout' },
+  { name: 'Table of Contents', href: '/components/table-of-contents', description: 'Navigable outline auto-generated from page headings with active highlight.', category: 'Layout' },
 
   // Data
   { name: 'Data Table', href: '/components/data-table', description: 'Sortable, filterable data table with column definitions.', category: 'Data' },
   { name: 'Progress Display', href: '/components/progress-display', description: 'Stats grid, progress bar, and badge display components.', category: 'Data' },
+  { name: 'Charts', href: '/components/charts', description: 'Composable SVG chart primitives for data visualization.', category: 'Data' },
 
   // Forms
   { name: 'Search Bar', href: '/components/search-bar', description: 'Search input with debounced search and suggestions dropdown.', category: 'Forms' },
@@ -43,6 +56,16 @@ const components = [
   { name: 'Version Selector', href: '/components/version-selector', description: 'Version dropdown with "Latest" badge indicator.', category: 'Forms' },
   { name: 'Feedback Dialog', href: '/components/feedback-dialog', description: 'Feedback form dialog with trigger button and submit callback.', category: 'Forms' },
   { name: 'Inline Editor', href: '/components/inline-editor', description: 'Inline view/edit toggle for editing text content in place.', category: 'Forms' },
+  { name: 'Combobox', href: '/components/combobox', description: 'Searchable select with text filtering and controlled/uncontrolled modes.', category: 'Forms' },
+  { name: 'Command Input', href: '/components/command-input', description: 'Contenteditable input that detects trigger characters like @ and /.', category: 'Forms' },
+  { name: 'Form', href: '/components/form', description: 'Accessible form primitives on react-hook-form wiring labels, errors, and ARIA ids.', category: 'Forms' },
+  { name: 'Input Group', href: '/components/input-group', description: 'Flex container joining inputs with addons, icons, and buttons.', category: 'Forms' },
+  { name: 'Location Selector', href: '/components/location-selector', description: 'Paired country and language selects with built-in option lists.', category: 'Forms' },
+  { name: 'Payment', href: '/components/payment', description: 'Styled card surface for building checkout and payment forms.', category: 'Forms' },
+  { name: 'Radio', href: '/components/radio', description: 'Single-select group of radio options with keyboard and ARIA support.', category: 'Forms' },
+  { name: 'Segmented Control', href: '/components/segmented-control', description: 'Pill-shaped single-select for switching between a small set of options.', category: 'Forms' },
+  { name: 'Slider', href: '/components/slider', description: 'Control for selecting a numeric value from a continuous range.', category: 'Forms' },
+  { name: 'Social Auth Button', href: '/components/social-auth-button', description: 'Branded social sign-in buttons for Google, GitHub, Microsoft, and Apple.', category: 'Forms' },
 
   // Media
   { name: 'Video Player', href: '/components/video-player', description: 'Video player with custom controls, progress, and fullscreen.', category: 'Media' },
@@ -50,9 +73,18 @@ const components = [
   { name: 'Code Editor', href: '/components/code-editor', description: 'Code editor with syntax highlighting and editing support.', category: 'Media' },
   { name: 'Slide Viewer', href: '/components/slide-viewer', description: 'Slide presentation viewer with navigation and progress.', category: 'Media' },
   { name: 'Animated Text', href: '/components/animated-text', description: 'Word carousel and typewriter text animation components.', category: 'Media' },
+  { name: 'Callout', href: '/components/callout', description: 'Bordered message block for contextual information, tips, and warnings.', category: 'Media' },
+  { name: 'Carousel', href: '/components/carousel', description: 'Collapsible expand/collapse panel set for FAQs and disclosure sections.', category: 'Media' },
+  { name: 'Code Block', href: '/components/code-block', description: 'Styled container for source code with optional header and content blocks.', category: 'Media' },
+  { name: 'Diff Viewer', href: '/components/diff-viewer', description: 'Monaco-powered side-by-side and inline diff viewer with file sidebar.', category: 'Media' },
+  { name: 'File Tree', href: '/components/file-tree', description: 'Hierarchical view of files and folders (early-stage primitive).', category: 'Media' },
+  { name: 'Link Card', href: '/components/link-card', description: 'Anchor wrapping an entire card so the whole surface is clickable.', category: 'Media' },
   // AI
   { name: 'Voice Pill', href: '/components/voice-pill', description: 'Floating speaker indicator with intensity-driven pulse and mute control.', category: 'AI' },
   { name: 'Waveform', href: '/components/waveform', description: 'Canvas audio visualization for live analysers, samples, or intensity streams.', category: 'AI' },
+  { name: 'Composer', href: '/components/composer', description: 'Chat message composer with auto-grow and inline @mention and /command triggers.', category: 'AI' },
+  { name: 'Conversation', href: '/components/conversation', description: 'Full chat UI with conversations and reply threads; backend-agnostic.', category: 'AI' },
+  { name: 'Thread View', href: '/components/thread-view', description: 'Conversation thread with avatars, relative timestamps, and reactions.', category: 'AI' },
 
   // Workplace
   { name: 'Date Picker', href: '/components/date-picker', description: 'Date picker with calendar dropdown and time selection.', category: 'Workplace' },
@@ -72,6 +104,8 @@ const components = [
   { name: 'Install Prompt', href: '/components/install-prompt', description: 'PWA install banner with install and dismiss actions.', category: 'Other' },
   { name: 'Content Protection', href: '/components/content-protection', description: 'Watermark overlay and copy/right-click protection.', category: 'Other' },
   { name: 'Device Frame', href: '/components/device-frame', description: 'iPhone, iPad, and device mockup frames for screenshots.', category: 'Other' },
+  { name: 'Cookie Consent', href: '/components/cookie-consent', description: 'GDPR-style consent banner with per-category opt-in and versioned persistence.', category: 'Other' },
+  { name: 'Empty State', href: '/components/empty-state', description: 'Centered column for empty and zero-result states with inline confirmations.', category: 'Other' },
 
   { name: 'Section Head', href: '/components/section-head', description: 'Section header with title, subtitle, and action buttons.', category: 'Layout' },
   { name: 'Stat Grid', href: '/components/stat-grid', description: 'Grid display for key metrics, growth rates, and trends.', category: 'Data' },
