@@ -14,7 +14,7 @@ const passwordInputProps = [
   { name: 'className', type: 'string', description: 'Additional CSS classes applied to the input.' },
 ]
 
-const usageCode = `import { PasswordInput } from '@refraction-ui/react-password-input'
+const usageCode = `import { PasswordInput } from '@refraction-ui/react'
 
 export function SignInForm() {
   return (
@@ -38,7 +38,7 @@ export default function PasswordInputPage() {
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Password Input</h1>
         <p className="mt-3 text-lg text-muted-foreground leading-relaxed">
           A password field with a built-in reveal/hide toggle, layered on the
-          styled <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/react-input</code>.
+          styled <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/react</code>.
           Supports the same <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">validationState</code> affordance.
         </p>
       </div>
@@ -53,7 +53,7 @@ export default function PasswordInputPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-password-input" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       {/* Code */}

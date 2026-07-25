@@ -6,7 +6,7 @@ const markdownProps = [
   { name: 'content', type: 'string', description: 'Markdown string to render.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
-const usageCode = `import { MarkdownRenderer } from '@refraction-ui/react-markdown-renderer'
+const usageCode = `import { MarkdownRenderer } from '@refraction-ui/react'
 export function MyComponent() {
   return <MarkdownRenderer content="# Hello **World**" />
 }`
@@ -31,7 +31,7 @@ export default function MarkdownRendererPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-markdown-renderer" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} /></section>

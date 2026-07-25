@@ -11,7 +11,7 @@ const popoverProps = [
   { name: 'children', type: 'ReactNode', description: 'PopoverTrigger + PopoverContent.' },
 ]
 
-const usageCode = `import { Popover, PopoverTrigger, PopoverContent } from '@refraction-ui/react-popover'
+const usageCode = `import { Popover, PopoverTrigger, PopoverContent } from '@refraction-ui/react'
 
 export function MyComponent() {
   return (
@@ -45,7 +45,7 @@ export default function PopoverPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-popover" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

@@ -54,7 +54,7 @@ const itemProps = [
 const usageCode = `import {
   SegmentedControl,
   SegmentedControlItem,
-} from '@refraction-ui/react-segmented-control'
+} from '@refraction-ui/react'
 
 export function MyComponent() {
   const [view, setView] = useState('week')
@@ -105,7 +105,7 @@ export default function SegmentedControlPage() {
         <h2 className="text-xl font-semibold tracking-tight text-foreground">
           Installation
         </h2>
-        <InstallCommand packageName="@refraction-ui/react-segmented-control" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       {/* Code */}

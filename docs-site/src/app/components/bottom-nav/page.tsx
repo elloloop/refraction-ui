@@ -9,7 +9,7 @@ const bottomNavProps = [
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
 
-const usageCode = `import { BottomNav } from '@refraction-ui/react-bottom-nav'
+const usageCode = `import { BottomNav } from '@refraction-ui/react'
 
 export function MyComponent() {
   return (
@@ -45,7 +45,7 @@ export default function BottomNavPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-bottom-nav" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

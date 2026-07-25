@@ -41,16 +41,13 @@ const presetRows = [
   { name: 'beacon flush on exit', type: 'no', default: 'yes', description: 'production flushes on pagehide + visibilitychange (hidden) so in-flight data is not lost.' },
 ]
 
-const installCode = `# core (always)
-pnpm add @refraction-ui/logger
-
-# React adapter
-pnpm add @refraction-ui/react-logger
+const installCode = `# everything ships in the React meta (headless core included)
+pnpm add @refraction-ui/react
 
 # optional — only needed when you set an \`endpoint\`
 pnpm add @grafana/faro-web-sdk @grafana/faro-web-tracing`
 
-const quickStartCode = `import { createTelemetry } from '@refraction-ui/logger'
+const quickStartCode = `import { createTelemetry } from '@refraction-ui/react'
 
 // Create ONCE, outside React render.
 export const telemetry = createTelemetry({
@@ -111,8 +108,8 @@ await telemetry.flush() // resolves immediately`
 const providerCode = `// app/providers.tsx
 'use client'
 
-import { TelemetryProvider } from '@refraction-ui/react-logger'
-import { createTelemetry } from '@refraction-ui/logger'
+import { TelemetryProvider } from '@refraction-ui/react'
+import { createTelemetry } from '@refraction-ui/react'
 
 // Created once at module scope — never re-created on render.
 const telemetry = createTelemetry({
@@ -127,7 +124,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
 const useLoggerCode = `'use client'
 
-import { useLogger } from '@refraction-ui/react-logger'
+import { useLogger } from '@refraction-ui/react'
 
 export function AnswerButton({ questionId }: { questionId: string }) {
   // Scope string -> bound context { scope }. Stable across renders.
@@ -146,7 +143,7 @@ export function AnswerButton({ questionId }: { questionId: string }) {
 
 const useSpanCode = `'use client'
 
-import { useSpan } from '@refraction-ui/react-logger'
+import { useSpan } from '@refraction-ui/react'
 
 export function TranscribeControl({ clipId }: { clipId: string }) {
   // useSpan() returns a stable startSpan bound to the provider's logger.
@@ -171,8 +168,8 @@ const errorBoundaryCode = `// app/providers.tsx
 import {
   TelemetryProvider,
   TelemetryErrorBoundary,
-} from '@refraction-ui/react-logger'
-import { createTelemetry } from '@refraction-ui/logger'
+} from '@refraction-ui/react'
+import { createTelemetry } from '@refraction-ui/react'
 
 const telemetry = createTelemetry({ app: 'interview-app', env: 'production' })
 
@@ -193,7 +190,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 const aiInterviewCode = `'use client'
 
 import { useEffect } from 'react'
-import { useLogger } from '@refraction-ui/react-logger'
+import { useLogger } from '@refraction-ui/react'
 
 /**
  * AI interview / live meeting: a long-lived session with many nested,
@@ -282,9 +279,9 @@ export default function LoggerPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-logger" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
         <p className="text-sm text-muted-foreground">
-          The React adapter pulls in the <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/logger</code> core.
+          The headless logger core is re-exported from <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/react</code> — no separate install needed.
           The Grafana Faro packages are <strong>optional peer dependencies</strong> — install them only
           when you configure an <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">endpoint</code>;
           without them the logger silently stays console-only.

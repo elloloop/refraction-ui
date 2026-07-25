@@ -7,7 +7,7 @@ const presenceProps = [
   { name: 'showLabel', type: 'boolean', default: 'false', description: 'Show status label text.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
-const usageCode = `import { PresenceIndicator } from '@refraction-ui/react-presence-indicator'
+const usageCode = `import { PresenceIndicator } from '@refraction-ui/react'
 export function MyComponent() {
   return <PresenceIndicator status="online" showLabel />
 }`
@@ -32,7 +32,7 @@ export default function PresenceIndicatorPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-presence-indicator" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} /></section>

@@ -12,7 +12,7 @@ const props = [
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
 
-const usageCode = `import { useCookieConsent, CookieConsent } from '@refraction-ui/react-cookie-consent'
+const usageCode = `import { useCookieConsent, CookieConsent } from '@refraction-ui/react'
 
 export function App() {
   const consent = useCookieConsent({
@@ -51,7 +51,7 @@ export default function CookieConsentPage() {
 
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

@@ -80,7 +80,7 @@ const diffViewerProps = [
   },
 ]
 
-const usageCode = `import { DiffViewer, type DiffFile } from '@refraction-ui/react-diff-viewer'
+const usageCode = `import { DiffViewer, type DiffFile } from '@refraction-ui/react'
 
 const files: DiffFile[] = [
   { path: 'src/greet.ts', status: 'modified', additions: 2, deletions: 2 },
@@ -128,7 +128,7 @@ export default function DiffViewerPage() {
 
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-diff-viewer" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

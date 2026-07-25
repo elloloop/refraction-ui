@@ -8,7 +8,7 @@ const shortcutProps = [
   { name: 'onTrigger (KeyboardShortcut)', type: '() => void', description: 'Callback when shortcut is pressed.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
-const usageCode = `import { KeyboardShortcut, ShortcutBadge } from '@refraction-ui/react-keyboard-shortcut'
+const usageCode = `import { KeyboardShortcut, ShortcutBadge } from '@refraction-ui/react'
 export function MyComponent() {
   return (
     <div>
@@ -38,7 +38,7 @@ export default function KeyboardShortcutPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-keyboard-shortcut" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} /></section>

@@ -51,7 +51,7 @@ export default function AccordionPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand basePackage="accordion" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       {/* Code */}
@@ -59,7 +59,7 @@ export default function AccordionPage() {
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
         <CodeBlock
           frameworks={{
-            react: `import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@refraction-ui/react-accordion'
+            react: `import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@refraction-ui/react'
 
 export function MyComponent() {
   return (
@@ -76,7 +76,7 @@ export function MyComponent() {
   )
 }`,
             astro: `---
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@refraction-ui/astro-accordion'
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@refraction-ui/astro'
 ---
 
 <Accordion type="single" collapsible client:load>

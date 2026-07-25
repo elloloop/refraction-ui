@@ -8,7 +8,7 @@ const codeEditorProps = [
   { name: 'language', type: 'string', description: 'Syntax highlighting language.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
-const usageCode = `import { CodeEditor } from '@refraction-ui/react-code-editor'
+const usageCode = `import { CodeEditor } from '@refraction-ui/react'
 export function MyComponent() {
   const [code, setCode] = useState('const x = 1')
   return <CodeEditor value={code} onChange={setCode} language="javascript" />
@@ -34,7 +34,7 @@ export default function CodeEditorPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-code-editor" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} /></section>

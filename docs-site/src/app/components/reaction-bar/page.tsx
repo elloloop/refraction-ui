@@ -8,7 +8,7 @@ const reactionProps = [
   { name: 'onAdd', type: '(emoji: string) => void', description: 'Callback when the add-reaction button is pressed.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
-const usageCode = `import { ReactionBar } from '@refraction-ui/react-reaction-bar'
+const usageCode = `import { ReactionBar } from '@refraction-ui/react'
 export function MyComponent() {
   return (
     <ReactionBar
@@ -38,7 +38,7 @@ export default function ReactionBarPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-reaction-bar" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} /></section>
