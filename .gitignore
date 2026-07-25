@@ -150,6 +150,7 @@ playwright-report/
 # Local-only / editor / tooling artifacts
 .DS_Store
 .claude/
+.stax/
 job_log_vrt.txt
 
 # Storybook

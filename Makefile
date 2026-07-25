@@ -1,4 +1,4 @@
-.PHONY: ci install build test typecheck lint audit storybook a11y size-check size-analyze build-packages test-coverage
+.PHONY: ci ci-coverage install build test typecheck lint audit storybook build-packages test-coverage
 
 # Run all core checks sequentially/parallel optimally
 ci:
@@ -34,12 +34,3 @@ audit:
 storybook:
 	pnpm build-storybook
 	pnpm build-storybook:astro
-
-a11y:
-	pnpm turbo run a11y --continue
-
-size-check:
-	pnpm turbo run size:check --continue
-
-size-analyze:
-	pnpm turbo run size:analyze --continue
