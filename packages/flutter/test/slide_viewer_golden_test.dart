@@ -8,7 +8,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionSlideViewer Golden Tests', () {
-    testGoldens('Slide Viewer Use Cases', (tester) async {
+    testGoldens('Slide Viewer Use Cases', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario(
           'Default',

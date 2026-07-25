@@ -9,7 +9,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionTooltip Goldens', () {
-    testGoldens('tooltip_use_cases_light', (tester) async {
+    testGoldens('tooltip_use_cases_light', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario('Default', Builder(builder: (ctx) => defaultTooltip(ctx)))
         ..addScenario(
@@ -41,7 +41,7 @@ void main() {
       );
     });
 
-    testGoldens('tooltip_use_cases_dark', (tester) async {
+    testGoldens('tooltip_use_cases_dark', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario('Default', Builder(builder: (ctx) => defaultTooltip(ctx)))
         ..addScenario(

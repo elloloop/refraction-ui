@@ -8,7 +8,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionLinkCard Golden Tests', () {
-    testGoldens('LinkCard Use Cases', (tester) async {
+    testGoldens('LinkCard Use Cases', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario(
           'Default',

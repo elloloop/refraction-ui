@@ -8,7 +8,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionToast Goldens', () {
-    testGoldens('toast_use_cases_light', (tester) async {
+    testGoldens('toast_use_cases_light', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario('Default', Builder(builder: (ctx) => defaultToast(ctx)))
         ..addScenario(
@@ -36,7 +36,7 @@ void main() {
       await tester.pump(const Duration(seconds: 5));
     });
 
-    testGoldens('toast_use_cases_dark', (tester) async {
+    testGoldens('toast_use_cases_dark', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario('Default', Builder(builder: (ctx) => defaultToast(ctx)))
         ..addScenario(

@@ -8,7 +8,7 @@ import '../example/lib/use_cases/code_block_use_cases.dart';
 import 'golden_test_helper.dart';
 
 void main() {
-  testGoldens('CodeBlock Goldens', (WidgetTester tester) async {
+  testGoldens('CodeBlock Goldens', tags: ['golden'], (WidgetTester tester) async {
     final builderLight = GoldenBuilder.column()
       ..addScenario('Default', Builder(builder: (ctx) => defaultCodeBlock(ctx)))
       ..addScenario(

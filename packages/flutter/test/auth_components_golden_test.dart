@@ -40,7 +40,7 @@ void main() {
     await screenMatchesGolden(tester, '${name}_dark', customPump: (t) => t.pump());
   }
 
-  testGoldens('SegmentedControl', (tester) async {
+  testGoldens('SegmentedControl', tags: ['golden'], (tester) async {
     final builder = GoldenBuilder.column()
       ..addScenario('Default', Builder(builder: defaultSegmentedControl))
       ..addScenario('Small + icons', Builder(builder: smallSegmentedControl));
@@ -52,7 +52,7 @@ void main() {
     );
   });
 
-  testGoldens('PasswordField & Input validation', (tester) async {
+  testGoldens('PasswordField & Input validation', tags: ['golden'], (tester) async {
     final builder = GoldenBuilder.column()
       ..addScenario('Password', Builder(builder: defaultPasswordField))
       ..addScenario('Validation', Builder(builder: validationPasswordField));
@@ -64,7 +64,7 @@ void main() {
     );
   });
 
-  testGoldens('SocialAuthButton', (tester) async {
+  testGoldens('SocialAuthButton', tags: ['golden'], (tester) async {
     final builder = GoldenBuilder.column()
       ..addScenario('Buttons', Builder(builder: socialAuthButtons));
     await matchBoth(
@@ -75,7 +75,7 @@ void main() {
     );
   });
 
-  testGoldens('Separator', (tester) async {
+  testGoldens('Separator', tags: ['golden'], (tester) async {
     final builder = GoldenBuilder.column()
       ..addScenario('Horizontal', Builder(builder: horizontalSeparator))
       ..addScenario('Labeled', Builder(builder: labeledSeparator))
@@ -88,7 +88,7 @@ void main() {
     );
   });
 
-  testGoldens('EmptyState', (tester) async {
+  testGoldens('EmptyState', tags: ['golden'], (tester) async {
     final builder = GoldenBuilder.column()
       ..addScenario('Default', Builder(builder: defaultEmptyState))
       ..addScenario('Tones', Builder(builder: toneEmptyState))
