@@ -152,6 +152,9 @@ playwright-report/
 .claude/
 job_log_vrt.txt
 
+# Local static-serve scratch output (never commit build exports here)
+local-serve/
+
 # Storybook
 storybook-static/
 storybook-static-astro/
