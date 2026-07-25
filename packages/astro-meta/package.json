@@ -84,6 +84,7 @@
     "@refraction-ui/astro-live-captions": "workspace:*",
     "@refraction-ui/astro-live-cursors": "workspace:*",
     "@refraction-ui/astro-live-transcript": "workspace:*",
+    "@refraction-ui/astro-location-selector": "workspace:*",
     "@refraction-ui/astro-logger": "workspace:*",
     "@refraction-ui/astro-markdown-renderer": "workspace:*",
     "@refraction-ui/astro-marquee-strip": "workspace:*",

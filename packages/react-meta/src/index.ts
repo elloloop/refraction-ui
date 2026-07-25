@@ -16,13 +16,12 @@
  * part of this client module — instantiate them inside the client boundary.
  *
  * Meta package that re-exports all @refraction-ui/react-* component packages.
- * Allows consumers to install everything from a single package:
+ * Consumers install this single package and import everything from it:
  *
  *   import { Button, Dialog } from '@refraction-ui/react'
  *
- * Or install individual packages for smaller bundles:
- *
- *   import { Button } from '@refraction-ui/react-button'
+ * The individual react-* adapter packages are private and never published —
+ * this meta is the only supported entry point.
  */
 
 // Core / theme
@@ -36,8 +35,7 @@
 
 // Components (alphabetical)
 export * from '@refraction-ui/react-accordion'
-// Note: react-ai and react-charts are stubs with no exports yet.
-// They are included as dependencies but skipped here until they have exports.
+export * from '@refraction-ui/react-ai'
 export * from '@refraction-ui/react-animated-text'
 export * from '@refraction-ui/react-auth'
 export * from '@refraction-ui/react-badge'
@@ -45,10 +43,19 @@ export * from '@refraction-ui/react-bottom-nav'
 export * from '@refraction-ui/react-breadcrumbs'
 export * from '@refraction-ui/react-button'
 export * from '@refraction-ui/react-calendar'
+export * from '@refraction-ui/react-charts'
 export * from '@refraction-ui/react-code-editor'
 export * from '@refraction-ui/react-collapsible'
 export * from '@refraction-ui/react-combobox'
 export * from '@refraction-ui/react-command'
+// react-command-input: conflicts with react-command on CommandInput /
+// CommandInputProps (react-command's compound palette input keeps the stable
+// public name). The standalone trigger-detection input is exposed under an
+// alias instead.
+export {
+  CommandInput as StandaloneCommandInput,
+  type CommandInputProps as StandaloneCommandInputProps,
+} from '@refraction-ui/react-command-input'
 export * from '@refraction-ui/react-composer'
 export * from '@refraction-ui/react-conversation'
 export * from '@refraction-ui/react-content-protection'
@@ -63,6 +70,7 @@ export * from '@refraction-ui/react-inline-editor'
 export * from '@refraction-ui/react-input'
 export * from '@refraction-ui/react-input-group'
 export * from '@refraction-ui/react-install-prompt'
+export * from '@refraction-ui/react-location-selector'
 export * from '@refraction-ui/react-markdown-renderer'
 export * from '@refraction-ui/react-mascot'
 export * from '@refraction-ui/react-mobile-nav'
@@ -126,6 +134,29 @@ export {
   AppShell,
   type AppShellProps,
       } from '@refraction-ui/react-app-shell'
+
+// react-diff-viewer: re-exports sidebarVariants/sidebarItemVariants from its
+// headless core, which clash with react-sidebar's (exported above). Keep the
+// pre-existing react-sidebar names stable and expose the diff-viewer variants
+// under aliases instead.
+export {
+  DiffViewer,
+  type DiffViewerProps,
+  createDiffViewer,
+  diffViewerVariants,
+  sidebarVariants as diffViewerSidebarVariants,
+  sidebarItemVariants as diffViewerSidebarItemVariants,
+  tabBarVariants,
+  tabVariants,
+  statusBarVariants,
+  diffViewerTokens,
+  type DiffFile,
+  type DiffFileStatus,
+  type DiffViewerTheme,
+  type DiffViewMode,
+  type DiffViewerAPI,
+  type DiffViewerState,
+} from '@refraction-ui/react-diff-viewer'
 
 // react-avatar: keep as-is (primary source of avatarVariants, AvatarSize)
 export * from '@refraction-ui/react-avatar'
