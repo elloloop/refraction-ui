@@ -17,7 +17,7 @@ Thanks for helping. Please read this before you start.
 ## Style rules
 - TypeScript strict mode.
 - Named exports only.
-- ESLint + Prettier must pass.
+- ESLint must pass (formatting is `.editorconfig` enforced via ESLint; no Prettier).
 
 ## Commit messages
 
@@ -37,18 +37,13 @@ Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chor
 
 ### How versioning works
 
-- Versions are determined **automatically** from conventional commits via [semantic-release](https://semantic-release.gitbook.io/).
-- `fix:` commits trigger a **patch** bump (0.1.0 -> 0.1.1).
-- `feat:` commits trigger a **minor** bump (0.1.0 -> 0.2.0).
-- `feat!:` or `BREAKING CHANGE:` in the footer triggers a **major** bump (0.1.0 -> 1.0.0).
-- No manual version bumps or changelogs needed — it's all automated.
+Releases use [Changesets](https://github.com/changesets/changesets):
 
-### Release channels (npm)
+1. Include a changeset file (`.changeset/*.md`, via `pnpm changeset`) in your PR when you change a published package — the metas (`@refraction-ui/react`, `@refraction-ui/astro`) or `@refraction-ui/tailwind-config`. Choose the bump (`patch`/`minor`/`major`) that matches the change.
+2. On merge, the Changesets Action opens/updates a **`chore: release packages` Version PR** that consumes the changesets, bumps versions, and writes CHANGELOGs.
+3. Merging the Version PR publishes the non-private packages to npm `@latest` via GitHub-Actions **OIDC trusted publishing** (with provenance). Publishing is CI-only — never publish from a local machine.
 
-- **`main` branch** publishes canary prereleases (`x.x.x-canary.N`) to npm `@canary` dist-tag.
-- **`stable` branch** publishes stable releases to npm `@latest` dist-tag.
-
-> **Note**: the bullets above describe the JS / npm release flow. The actual mechanism in this repo is [Changesets](https://github.com/changesets/changesets) (see `.changeset/` and `pnpm release`), not semantic-release — the conventional-commit rules above are still enforced for commit-lint, but versions are bumped from the changeset files in PRs, not from commit messages.
+The conventional-commit rules above are still required (commit-lint is enforced), but versions come from changeset files, not from commit messages.
 
 ### Releasing the Flutter package (`refraction_ui`)
 
@@ -67,15 +62,16 @@ The `flutter-publish` workflow runs analyzer + tests + dry-run before doing the 
 - PR titles must follow conventional commit format (enforced by CI).
 - PR descriptions must be at least 20 characters.
 - Fill out the PR template completely.
-- All CI checks (lint, test, build, security audit) must pass.
+- Only `commit-lint` is a required CI check. The dependency-audit step is known-red on a pre-existing advisory and does not gate merging — but the validation **"Run CI"** step (lint + typecheck + test + build) should be green. See `CLAUDE.md` → "CI gating facts".
 
 ## Tests
-- Unit: Vitest + @testing-library.
-- Accessibility: jest-axe or axe-playwright.
-- Visual: Playwright or Chromatic snapshots.
+- Unit: Vitest (headless cores, node env).
+- React adapters: SSR `renderToString` tests asserting rendered structure + ARIA (no Testing Library).
+- Accessibility: ARIA assertions in the adapter SSR tests.
+- Visual: Playwright screenshot diffs + Lost Pixel (`lostpixel.config.ts`).
 
 ## Docs
-- Update MDX in `docs/` or component stories.
+- Update the docs-site page and story under `docs-site/src/app/components/<slug>/` (page + story + live examples) — keep the component triple in sync (see `CLAUDE.md`).
 - If you add a new concept, consider an ADR.
 
 ## Opening issues

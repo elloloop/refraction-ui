@@ -36,6 +36,16 @@ const buttonProps = [
     description: 'Render as child element (e.g. wrap an <a> tag).',
   },
   {
+    name: 'shortcut',
+    type: 'string',
+    description: 'Keyboard shortcut (e.g. "mod+k") that triggers a click; renders a shortcut hint on the button.',
+  },
+  {
+    name: 'action',
+    type: 'string',
+    description: 'Named action bound to a registered shortcut; also renders a shortcut hint on the button.',
+  },
+  {
     name: 'className',
     type: 'string',
     description: 'Additional CSS classes to apply.',

@@ -48,9 +48,11 @@ jobs:
 
       - name: Update snapshots
         env:
-          # workflow_dispatch passes a grep input; the PR-label path defaults to
-          # the components that drift (button/status-indicator).
-          GREP: ${{ github.event_name == 'workflow_dispatch' && inputs.grep || 'button|status-indicator' }}
+          # workflow_dispatch: grep input verbatim — blank means ALL specs.
+          # (The previous A && B || C expression made a blank dispatch grep fall
+          # through to the label-path default and silently regen almost nothing.)
+          # PR-label path: default to the components that drift (button/status-indicator).
+          GREP: ${{ github.event_name == 'pull_request' && (inputs.grep || 'button|status-indicator') || inputs.grep }}
         run: |
           if [ -n "$GREP" ]; then
             pnpm exec playwright test --update-snapshots --grep "$GREP"

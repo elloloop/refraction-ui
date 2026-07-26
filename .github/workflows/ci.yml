@@ -78,8 +78,6 @@ jobs:
         run: pnpm turbo run lint typecheck test:coverage build --filter="!*astro*" --continue
       - name: Build Storybooks — React
         run: pnpm build-storybook
-      - name: Bundle size check
-        run: pnpm turbo run size:check --filter="!*astro*" --continue
       - name: Upload coverage reports
         uses: codecov/codecov-action@v4
         with:
@@ -113,8 +111,6 @@ jobs:
         run: pnpm turbo run lint typecheck test:coverage build --filter="*astro*" --continue
       - name: Build Storybooks — Astro
         run: pnpm build-storybook:astro
-      - name: Bundle size check
-        run: pnpm turbo run size:check --filter="*astro*" --continue
       - name: Upload coverage reports
         uses: codecov/codecov-action@v4
         with:
@@ -146,25 +142,3 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: false
-
-  performance:
-    runs-on: ubuntu-latest
-    needs: [build-test-react, build-test-astro, build-test-flutter]
-    if: github.event_name == 'pull_request'
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 10.13.1
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: ".nvmrc"
-          cache: pnpm
-      - name: Install deps
-        run: make install
-      - name: Build for performance testing
-        run: make build
-      - name: Run bundle analysis
-        run: make size-analyze

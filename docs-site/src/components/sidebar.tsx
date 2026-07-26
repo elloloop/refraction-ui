@@ -17,6 +17,7 @@ const componentGroups = [
       { name: 'Checkbox', href: '/components/checkbox' },
       { name: 'Switch', href: '/components/switch' },
       { name: 'OTP Input', href: '/components/otp-input' },
+      { name: 'Slot Picker', href: '/components/slot-picker' },
       { name: 'Badge', href: '/components/badge' },
       { name: 'Skeleton', href: '/components/skeleton' },
       { name: 'Avatar', href: '/components/avatar' },
@@ -47,6 +48,8 @@ const componentGroups = [
     items: [
       { name: 'Data Table', href: '/components/data-table' },
       { name: 'Progress Display', href: '/components/progress-display' },
+      { name: 'Kanban Board', href: '/components/kanban-board' },
+      { name: 'Sortable List', href: '/components/sortable-list' },
     ],
   },
   {
@@ -73,8 +76,10 @@ const componentGroups = [
     title: 'AI',
     items: [
       { name: 'Chat', href: '/components/conversation' },
+      { name: 'Composer', href: '/components/composer' },
       { name: 'Voice Pill', href: '/components/voice-pill' },
       { name: 'Waveform', href: '/components/waveform' },
+      { name: 'Mastery Bar', href: '/components/mastery-bar' },
     ],
   },
   {
@@ -197,6 +202,19 @@ const componentGroups = [
       { name: 'Radial Gauge', href: '/components/radial-gauge' },
       { name: 'Timeline', href: '/components/timeline' },
       { name: 'Checklist', href: '/components/checklist' },
+    ],
+  },
+  {
+    title: 'Marketing',
+    items: [
+      { name: 'Audience Feature Card', href: '/components/audience-feature-card' },
+      { name: 'Brand Network Cell', href: '/components/brand-network-cell' },
+      { name: 'Browser Chrome Mock', href: '/components/browser-chrome-mock' },
+      { name: 'Marquee Strip', href: '/components/marquee-strip' },
+      { name: 'Numbered Steps', href: '/components/numbered-steps' },
+      { name: 'Pricing Card', href: '/components/pricing-card' },
+      { name: 'Section Head', href: '/components/section-head' },
+      { name: 'Stat Grid', href: '/components/stat-grid' },
     ],
   },
 ]
@@ -325,7 +343,6 @@ export function Sidebar() {
           </div>
           <div className="flex flex-col">
             <span className="font-semibold text-sm leading-tight">Refraction UI</span>
-            <span className="text-[10px] text-sidebar-foreground/50 leading-tight">v0.1.0</span>
           </div>
         </Link>
       </div>

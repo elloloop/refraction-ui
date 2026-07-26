@@ -20,18 +20,6 @@
       "dependsOn": ["build", "^build"],
       "outputs": ["coverage/**"]
     },
-    "storybook:test": {
-      "dependsOn": ["^storybook:test"]
-    },
-    "size:check": {
-      "dependsOn": ["^size:check"]
-    },
-    "size:analyze": {
-      "dependsOn": ["^size:analyze"]
-    },
-    "a11y": {
-      "dependsOn": ["^a11y"]
-    },
     "dev": {
       "cache": false,
       "persistent": true

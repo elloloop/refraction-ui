@@ -22,6 +22,16 @@ const accordionProps = [
     default: 'false',
     description: 'When type is "single", allows closing content when clicking trigger for an open item.',
   },
+  {
+    name: 'value',
+    type: 'string | string[]',
+    description: 'The controlled value of the item(s) to expand. Use together with onValueChange.',
+  },
+  {
+    name: 'onValueChange',
+    type: '(value: string | string[]) => void',
+    description: 'Callback fired when the expanded item(s) change.',
+  },
 ]
 
 export default function AccordionPage() {

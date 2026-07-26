@@ -28,11 +28,7 @@
     "test:coverage": "vitest --coverage",
     "test:watch": "vitest --watch",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist",
-    "storybook:test": "echo 'Storybook tests not implemented yet'",
-    "size:check": "echo 'Size check not implemented yet'",
-    "size:analyze": "echo 'Size analysis not implemented yet'",
-    "a11y": "echo 'A11y tests not implemented yet'"
+    "clean": "rm -rf dist"
   },
   "dependencies": {
     "commander": "10.0.0",

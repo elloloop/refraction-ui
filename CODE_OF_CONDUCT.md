@@ -17,7 +17,7 @@ Unacceptable behavior includes:
 - Publishing others' private information without consent.
 
 ## Enforcement
-Report incidents to the maintainers (contact in README).  
+Report incidents to the maintainers via [GitHub Security Advisories](https://github.com/elloloop/refraction-ui/security/advisories).
 Maintainers will review and take action which may include warnings, temporary bans, or permanent expulsion.
 
 ## Attribution
