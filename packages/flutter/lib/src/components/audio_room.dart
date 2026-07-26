@@ -189,7 +189,7 @@ class RefractionSpeakingOrb extends StatelessWidget {
                 height: 24.0,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color(0xFFF59E0B), // warning/amber color
+                  color: colors.warning,
                   border: Border.all(color: colors.background, width: 2.0),
                 ),
                 alignment: Alignment.center,

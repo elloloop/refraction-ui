@@ -171,16 +171,16 @@ class _RefractionInputState extends State<RefractionInput> {
     final colors = theme.colors;
 
     // Validation tinting takes precedence over the resting/focus border so an
-    // invalid field always reads as an error, focused or not. `valid` borrows
-    // a fixed green that reads on both light and dark surfaces.
-    const validGreen = Color(0xFF22C55E);
+    // invalid field always reads as an error, focused or not. `valid` reads
+    // the success color token — a fixed green that reads on both light and
+    // dark surfaces.
     Color borderColor;
     switch (widget.validationState) {
       case RefractionInputValidationState.invalid:
         borderColor = colors.destructive;
         break;
       case RefractionInputValidationState.valid:
-        borderColor = validGreen;
+        borderColor = colors.success;
         break;
       case null:
         borderColor = _isFocused ? colors.ring : colors.input;
@@ -244,7 +244,7 @@ class _RefractionInputState extends State<RefractionInput> {
             if (widget.validationState ==
                 RefractionInputValidationState.valid) ...[
               const SizedBox(width: 8),
-              const Icon(Icons.check, size: 16, color: validGreen),
+              Icon(Icons.check, size: 16, color: colors.success),
             ],
             if (widget.suffix != null) ...[
               const SizedBox(width: 8),

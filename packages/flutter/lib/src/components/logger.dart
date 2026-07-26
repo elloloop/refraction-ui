@@ -111,7 +111,7 @@ class _RefractionLoggerState extends State<RefractionLogger> {
       case RefractionLogLevel.info:
         return colors.primary;
       case RefractionLogLevel.warning:
-        return Color(0xFFF59E0B);
+        return colors.warning;
       case RefractionLogLevel.error:
         return colors.destructive;
     }
@@ -314,7 +314,7 @@ class _LogItem extends StatelessWidget {
         levelColor = colors.primary;
         break;
       case RefractionLogLevel.warning:
-        levelColor = Color(0xFFF59E0B);
+        levelColor = colors.warning;
         break;
       case RefractionLogLevel.error:
         levelColor = colors.destructive;
