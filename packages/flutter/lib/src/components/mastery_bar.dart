@@ -126,7 +126,7 @@ class RefractionMasteryBar extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (headerRow != null) headerRow,
+          ?headerRow,
           track,
         ],
       ),

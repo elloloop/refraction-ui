@@ -332,3 +332,41 @@ describe('createTelemetry', () => {
     })
   })
 })
+
+
+describe('determinism (injected now/random)', () => {
+  it('stamps log records from the injected clock', () => {
+    const t = createTelemetry({ ...baseDev, now: () => 1_700_000_000_000 })
+    const sink = createMockSink()
+    t.addSink(sink)
+    t.info('hello')
+    expect(sink.logs[0].timestamp).toBe(1_700_000_000_000)
+  })
+
+  it('span timing comes from the injected clock', () => {
+    let tick = 5_000
+    const t = createTelemetry({ ...baseDev, now: () => tick })
+    const sink = createMockSink()
+    t.addSink(sink)
+    const span = t.startSpan('op')
+    tick += 250
+    span.end()
+    expect(sink.spans[0].startTime).toBe(5_000)
+    expect(sink.spans[0].endTime).toBe(5_250)
+    expect(sink.spans[0].durationMs).toBe(250)
+  })
+
+  it('sampling decisions follow the injected rng', () => {
+    const kept = createTelemetry({ ...baseDev, sampleRate: 0.5, random: () => 0.4 })
+    const keptSink = createMockSink()
+    kept.addSink(keptSink)
+    kept.info('x')
+    expect(keptSink.logs).toHaveLength(1)
+
+    const dropped = createTelemetry({ ...baseDev, sampleRate: 0.5, random: () => 0.6 })
+    const droppedSink = createMockSink()
+    dropped.addSink(droppedSink)
+    dropped.info('x')
+    expect(droppedSink.logs).toHaveLength(0)
+  })
+})

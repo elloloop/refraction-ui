@@ -398,3 +398,33 @@ describe('toastVariants – all 4 variants produce distinct classes', () => {
     }
   })
 })
+
+
+describe('determinism (injected now)', () => {
+  it('pause/resume math uses the injected clock', () => {
+    let tick = 10_000
+    const onOpenChange = vi.fn()
+    const api = createToast({ duration: 3000, onOpenChange, now: () => tick })
+    api.startTimer()
+
+    tick += 1000 // 1s elapsed on the injected clock
+    api.pauseTimer()
+
+    tick += 60_000 // injected clock jumps while paused — must not count
+    api.resumeTimer()
+    vi.advanceTimersByTime(1999)
+    expect(onOpenChange).not.toHaveBeenCalled()
+    vi.advanceTimersByTime(1)
+    expect(onOpenChange).toHaveBeenCalledWith(false)
+  })
+
+  it('manager stamps createdAt from the injected clock', () => {
+    let tick = 123_456
+    const manager = createToastManager({ now: () => tick })
+    manager.toast('one')
+    tick = 789_012
+    manager.toast('two')
+    expect(manager.toasts[0]!.createdAt).toBe(123_456)
+    expect(manager.toasts[1]!.createdAt).toBe(789_012)
+  })
+})

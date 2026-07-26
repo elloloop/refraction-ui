@@ -84,7 +84,7 @@ class RefractionBrowserChromeMock extends StatelessWidget {
     Widget? statusWidget;
     if (status != null) {
       final isRec = status == RefractionBrowserChromeStatus.rec;
-      final badgeColor = isRec ? colors.destructive : const Color(0xFF10B981);
+      final badgeColor = isRec ? colors.destructive : colors.success;
       final badgeBgColor = badgeColor.withValues(alpha: 0.1);
 
       statusWidget = Container(
@@ -149,7 +149,7 @@ class RefractionBrowserChromeMock extends StatelessWidget {
                 children: [
                   trafficDots,
                   urlBar,
-                  if (statusWidget != null) statusWidget,
+                  ?statusWidget,
                 ],
               ),
             ),

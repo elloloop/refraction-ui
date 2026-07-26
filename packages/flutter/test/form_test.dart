@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:refraction_ui/refraction_ui.dart';
-import 'dart:async';
 
 void main() {
   group('RefractionForm - Comprehensive Tests', () {
@@ -43,7 +42,7 @@ void main() {
           child: Builder(
             builder: (context) {
               final isLoading = RefractionForm.isLoading(context);
-              return Text('Loading: ${isLoading}');
+              return Text('Loading: $isLoading');
             },
           ),
         ),

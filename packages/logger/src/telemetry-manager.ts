@@ -34,6 +34,9 @@ export function createTelemetry(config: TelemetryConfig): Telemetry {
   const preset = resolvePreset(config.env)
   const sampleRate = config.sampleRate ?? preset.sampleRate
   const redactKeys = config.redactKeys ?? []
+  // Injection boundary: ambient time/randomness default here; inject `now`/`random` for determinism.
+  const now = config.now ?? (() => Date.now())
+  const random = config.random ?? (() => Math.random())
 
   const sinks = new Map<string, TelemetrySink>()
   /** Insertion-ordered sink names. */
@@ -71,7 +74,7 @@ export function createTelemetry(config: TelemetryConfig): Telemetry {
   function shouldSample(): boolean {
     if (sampleRate >= 1) return true
     if (sampleRate <= 0) return false
-    return Math.random() < sampleRate
+    return random() < sampleRate
   }
 
   function dispatch(
@@ -134,7 +137,7 @@ export function createTelemetry(config: TelemetryConfig): Telemetry {
       const record: LogRecord = {
         level,
         message,
-        timestamp: Date.now(),
+        timestamp: now(),
         app: config.app,
         env: config.env,
         context: merged,
@@ -164,13 +167,13 @@ export function createTelemetry(config: TelemetryConfig): Telemetry {
       },
 
       startSpan(name: string, attributes?: LogContext): Span {
-        const startTime = Date.now()
+        const startTime = now()
         let ended = false
         return {
           end(opts?: { error?: unknown; attributes?: LogContext }): void {
             if (ended) return
             ended = true
-            const endTime = Date.now()
+            const endTime = now()
             const merged = redact(
               { ...boundContext, ...attributes, ...opts?.attributes },
               redactKeys,

@@ -8,11 +8,9 @@ describe('createFooter', () => {
     expect(api.ariaProps.role).toBe('contentinfo')
   })
 
-  it('generates default copyright with current year', () => {
-    const api = createFooter()
-    const year = new Date().getFullYear()
-    expect(api.copyrightText).toContain(String(year))
-    expect(api.copyrightText).toContain('All rights reserved')
+  it('generates default copyright with the injected year', () => {
+    const api = createFooter({ year: 2026 })
+    expect(api.copyrightText).toBe('© 2026 All rights reserved.')
   })
 
   it('uses custom copyright text', () => {
@@ -24,10 +22,14 @@ describe('createFooter', () => {
 // ── Additional tests ──
 
 describe('createFooter - year and copyright', () => {
-  it('year in copyright is current year', () => {
+  it('year in copyright comes from the year prop', () => {
+    const api = createFooter({ year: 2030 })
+    expect(api.copyrightText).toContain('2030')
+  })
+
+  it('default copyright falls back to a 4-digit current year', () => {
     const api = createFooter()
-    const year = new Date().getFullYear()
-    expect(api.copyrightText).toContain(String(year))
+    expect(api.copyrightText).toMatch(/^© \d{4} All rights reserved\.$/)
   })
 
   it('default copyright contains copyright symbol', () => {

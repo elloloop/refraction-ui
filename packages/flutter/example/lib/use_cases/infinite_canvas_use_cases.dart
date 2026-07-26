@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:refraction_ui/refraction_ui.dart';
-import 'package:refraction_ui/src/components/infinite_canvas.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 @widgetbook.UseCase(name: 'Default', type: RefractionInfiniteCanvas)
@@ -19,7 +18,7 @@ Widget infiniteCanvasDefaultUseCase(BuildContext context) {
             child: Container(
               width: 200,
               height: 200,
-              color: Colors.blue.withOpacity(0.5),
+              color: Colors.blue.withValues(alpha: 0.5),
               child: const Center(
                 child: Text('Drag to pan\nScroll to zoom', textAlign: TextAlign.center),
               ),
@@ -31,7 +30,7 @@ Widget infiniteCanvasDefaultUseCase(BuildContext context) {
             child: Container(
               width: 150,
               height: 150,
-              color: Colors.green.withOpacity(0.5),
+              color: Colors.green.withValues(alpha: 0.5),
               child: const Center(
                 child: Text('Element 2'),
               ),

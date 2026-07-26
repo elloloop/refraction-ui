@@ -18,6 +18,8 @@ export interface CalendarProps {
   maxDate?: Date
   /** Specific dates to disable */
   disabledDates?: Date[]
+  /** Reference "today" for isToday/aria-current. Default: ambient `new Date()` — inject to avoid SSR/CSR hydration mismatch. */
+  today?: Date
 }
 
 export interface CalendarDay {
@@ -52,9 +54,9 @@ export interface CalendarAPI {
   /** Select a date */
   select(date: Date): void
   /** ARIA attributes for the calendar grid */
-  ariaProps: Partial<AccessibilityProps> & Record<string, unknown>
+  ariaProps: Partial<AccessibilityProps> & Record<string, string | number | boolean>
   /** Get ARIA attributes for a specific day cell */
-  getDayAriaProps(day: CalendarDay): Partial<AccessibilityProps> & Record<string, unknown>
+  getDayAriaProps(day: CalendarDay): Partial<AccessibilityProps> & Record<string, string | number | boolean>
   /** Generated IDs */
   ids: {
     grid: string
@@ -89,9 +91,11 @@ export function createCalendar(props: CalendarProps = {}): CalendarAPI {
     minDate,
     maxDate,
     disabledDates = [],
+    today: injectedToday,
   } = props
 
-  const today = new Date()
+  // Injection boundary: ambient "today" is the default; inject `today` so SSR and client agree.
+  const today = injectedToday ?? new Date()
 
   // Determine selected date
   const selectedDate = controlledValue ?? defaultValue
@@ -167,18 +171,19 @@ export function createCalendar(props: CalendarProps = {}): CalendarAPI {
     }
   }
 
-  const ariaProps: Partial<AccessibilityProps> & Record<string, unknown> = {
+  const ariaProps: Partial<AccessibilityProps> & Record<string, string | number | boolean> = {
     role: 'grid',
     'aria-labelledby': labelId,
     id: gridId,
   }
 
-  function getDayAriaProps(day: CalendarDay): Partial<AccessibilityProps> & Record<string, unknown> {
+  function getDayAriaProps(day: CalendarDay): Partial<AccessibilityProps> & Record<string, string | number | boolean> {
     return {
       role: 'gridcell',
       'aria-selected': day.isSelected,
       'aria-disabled': day.isDisabled,
-      'aria-current': day.isToday ? ('date' as const) : undefined,
+      // Key absent (not undefined) when not today — the ARIA record type excludes undefined.
+      ...(day.isToday ? { 'aria-current': 'date' as const } : {}),
       'aria-label': `${DAY_NAMES[day.date.getDay()]}, ${day.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`,
     }
   }

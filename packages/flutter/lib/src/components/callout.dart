@@ -63,21 +63,21 @@ class RefractionCallout extends StatelessWidget {
         defaultIconData = Icons.error_outline;
         break;
       case RefractionCalloutVariant.warning:
-        backgroundColor = Colors.orange.withValues(alpha: 0.1);
-        foregroundColor = Colors.orange;
-        borderColor = Colors.orange.withValues(alpha: 0.2);
+        backgroundColor = theme.colors.warning.withValues(alpha: 0.1);
+        foregroundColor = theme.colors.warning;
+        borderColor = theme.colors.warning.withValues(alpha: 0.2);
         defaultIconData = Icons.warning_amber_rounded;
         break;
       case RefractionCalloutVariant.success:
-        backgroundColor = Colors.green.withValues(alpha: 0.1);
-        foregroundColor = Colors.green;
-        borderColor = Colors.green.withValues(alpha: 0.2);
+        backgroundColor = theme.colors.success.withValues(alpha: 0.1);
+        foregroundColor = theme.colors.success;
+        borderColor = theme.colors.success.withValues(alpha: 0.2);
         defaultIconData = Icons.check_circle_outline;
         break;
       case RefractionCalloutVariant.info:
-        backgroundColor = Colors.blue.withValues(alpha: 0.1);
-        foregroundColor = Colors.blue;
-        borderColor = Colors.blue.withValues(alpha: 0.2);
+        backgroundColor = theme.colors.info.withValues(alpha: 0.1);
+        foregroundColor = theme.colors.info;
+        borderColor = theme.colors.info.withValues(alpha: 0.2);
         defaultIconData = Icons.info_outline;
         break;
       case RefractionCalloutVariant.standard:

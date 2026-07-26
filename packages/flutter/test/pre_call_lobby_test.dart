@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:refraction_ui/refraction_ui.dart';
-import 'package:refraction_ui/src/components/pre_call_lobby.dart';
 
 void main() {
   Widget buildTestApp(Widget child) {
@@ -19,8 +18,6 @@ void main() {
     bool cameraToggled = false;
     bool micToggled = false;
     bool joinTapped = false;
-    RefractionDeviceKind? changedKind;
-    String? changedDeviceId;
 
     await tester.pumpWidget(
       buildTestApp(
@@ -45,10 +42,7 @@ void main() {
           onJoin: () {
             joinTapped = true;
           },
-          onDeviceChange: (kind, id) {
-            changedKind = kind;
-            changedDeviceId = id;
-          },
+          onDeviceChange: (kind, id) {},
           previewSlot: const Text('Live Camera Preview'),
         ),
       ),

@@ -1,10 +1,15 @@
 import * as React from 'react'
 import { cn, devWarn } from '@refraction-ui/shared'
+import {
+  createCarousel,
+  isItemOpen,
+  type CarouselAPI,
+  type CarouselState,
+} from '@refraction-ui/carousel'
 
 const CarouselContext = React.createContext<{
-  type: 'single' | 'multiple'
-  value: string | string[]
-  onValueChange: (value: string) => void
+  state: CarouselState
+  toggleItem: CarouselAPI['toggleItem']
 } | null>(null)
 
 export interface CarouselProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> {
@@ -17,32 +22,25 @@ export interface CarouselProps extends Omit<React.HTMLAttributes<HTMLDivElement>
 
 export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
   ({ className, type = 'single', collapsible, value: controlledValue, defaultValue, onValueChange, ...props }, ref) => {
-    const [uncontrolledValue, setUncontrolledValue] = React.useState<string | string[]>(
-      defaultValue ?? (type === 'multiple' ? [] : '')
-    )
+    // The headless core owns the open/closed state machine; it is created once
+    // and props are synced into it below.
+    const apiRef = React.useRef<CarouselAPI | null>(null)
+    if (apiRef.current === null) {
+      apiRef.current = createCarousel({ type, collapsible, defaultValue, value: controlledValue, onValueChange })
+    }
+    const api = apiRef.current
 
-    const value = controlledValue !== undefined ? controlledValue : uncontrolledValue
+    const state = React.useSyncExternalStore(api.subscribe, api.getState, api.getState)
 
-    const handleValueChange = React.useCallback(
-      (itemValue: string) => {
-        if (type === 'single') {
-          const newValue = value === itemValue && collapsible ? '' : itemValue
-          setUncontrolledValue(newValue)
-          onValueChange?.(newValue)
-        } else {
-          const arrValue = Array.isArray(value) ? value : []
-          const newValue = arrValue.includes(itemValue)
-            ? arrValue.filter((v) => v !== itemValue)
-            : [...arrValue, itemValue]
-          setUncontrolledValue(newValue)
-          onValueChange?.(newValue)
-        }
-      },
-      [type, collapsible, value, onValueChange]
-    )
+    React.useEffect(() => {
+      api.setOptions({ type, collapsible, onValueChange })
+    })
+    React.useEffect(() => {
+      if (controlledValue !== undefined) api.setValue(controlledValue)
+    }, [api, controlledValue])
 
     return (
-      <CarouselContext.Provider value={{ type, value, onValueChange: handleValueChange }}>
+      <CarouselContext.Provider value={{ state, toggleItem: api.toggleItem }}>
         <div ref={ref} className={cn("flex flex-col w-full", className)} {...props} />
       </CarouselContext.Provider>
     )
@@ -67,9 +65,7 @@ export const CarouselItem = React.forwardRef<HTMLDivElement, CarouselItemProps>(
       throw new Error('CarouselItem must be within Carousel')
     }
 
-    const isOpen = context.type === 'single'
-      ? context.value === value
-      : Array.isArray(context.value) && context.value.includes(value)
+    const isOpen = isItemOpen(context.state, value)
 
     return (
       <CarouselItemContext.Provider value={{ value, isOpen }}>
@@ -86,7 +82,7 @@ export const CarouselTrigger = React.forwardRef<HTMLButtonElement, CarouselTrigg
   ({ className, children, ...props }, ref) => {
     const carouselContext = React.useContext(CarouselContext)
     const itemContext = React.useContext(CarouselItemContext)
-    
+
     if (!carouselContext || !itemContext) {
       devWarn(
         'react-carousel/carousel-trigger-outside-item',
@@ -106,7 +102,7 @@ export const CarouselTrigger = React.forwardRef<HTMLButtonElement, CarouselTrigg
             className
           )}
           data-state={itemContext.isOpen ? 'open' : 'closed'}
-          onClick={() => carouselContext.onValueChange(itemContext.value)}
+          onClick={() => carouselContext.toggleItem(itemContext.value)}
           {...props}
         >
           {children}

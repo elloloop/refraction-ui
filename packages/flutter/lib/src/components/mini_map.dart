@@ -202,7 +202,7 @@ class _RefractionMiniMapState extends State<RefractionMiniMap> {
               height: viewportH,
               child: Container(
                 decoration: BoxDecoration(
-                  color: colors.primary.withOpacity(0.1),
+                  color: colors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(2),
                   border: Border.all(color: colors.primary, width: 1.5),
                 ),

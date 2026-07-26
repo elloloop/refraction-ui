@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:refraction_ui/refraction_ui.dart';
-import 'package:refraction_ui/src/components/video_grid.dart';
-import 'package:refraction_ui/src/components/video_tile.dart';
 
 void main() {
   Widget buildTestApp(Widget child) {

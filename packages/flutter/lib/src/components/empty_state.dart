@@ -68,16 +68,20 @@ class RefractionEmptyState extends StatelessWidget {
 
   /// Resolves the (background, foreground) pair for the icon chip.
   ({Color background, Color foreground}) _chipColors(RefractionTheme theme) {
-    const success = Color(0xFF22C55E);
-    const warning = Color(0xFFF59E0B);
     final colors = theme.colors;
     switch (tone) {
       case RefractionEmptyStateTone.neutral:
         return (background: colors.muted, foreground: colors.mutedForeground);
       case RefractionEmptyStateTone.success:
-        return (background: success.withValues(alpha: 0.1), foreground: success);
+        return (
+          background: colors.success.withValues(alpha: 0.1),
+          foreground: colors.success,
+        );
       case RefractionEmptyStateTone.warning:
-        return (background: warning.withValues(alpha: 0.1), foreground: warning);
+        return (
+          background: colors.warning.withValues(alpha: 0.1),
+          foreground: colors.warning,
+        );
       case RefractionEmptyStateTone.danger:
         return (
           background: colors.destructive.withValues(alpha: 0.1),

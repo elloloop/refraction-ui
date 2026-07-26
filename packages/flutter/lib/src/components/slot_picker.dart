@@ -92,7 +92,7 @@ class _RefractionSlotPickerState extends State<RefractionSlotPicker> {
   }
 
   SlotSelection? get _effectiveSelection =>
-      widget.value != null ? widget.value : _internalSelection;
+      widget.value ?? _internalSelection;
 
   void _handleDaySelect(String dayId) {
     final slots = widget.slotsByDay[dayId] ?? [];

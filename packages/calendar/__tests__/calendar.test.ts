@@ -256,3 +256,28 @@ describe('calendar styles', () => {
     expect(dayVariants({ state: 'default' })).toContain('hover:bg-accent')
   })
 })
+
+
+describe('determinism (injected today)', () => {
+  it('marks the injected today as isToday with aria-current=date', () => {
+    const today = new Date(2026, 0, 15)
+    const api = createCalendar({ today, month: today })
+    const todayDays = api.days.filter((d) => d.isToday)
+    expect(todayDays).toHaveLength(1)
+    expect(todayDays[0]!.date).toEqual(today)
+    expect(api.getDayAriaProps(todayDays[0]!)['aria-current']).toBe('date')
+  })
+
+  it('two instances with the same injected today render identical grids', () => {
+    const today = new Date(2026, 0, 15)
+    const a = createCalendar({ today })
+    const b = createCalendar({ today })
+    expect(a.days.map((d) => d.isToday)).toEqual(b.days.map((d) => d.isToday))
+    expect(a.state.currentMonth).toEqual(b.state.currentMonth)
+  })
+
+  it('injected today drives the default displayed month', () => {
+    const api = createCalendar({ today: new Date(2025, 10, 20) })
+    expect(api.state.currentMonth).toEqual(new Date(2025, 10, 1))
+  })
+})

@@ -5,6 +5,8 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "eslint src --ext .ts,.tsx",
     "typecheck": "tsc --noEmit"
   },
@@ -18,5 +20,8 @@
       "require": "./dist/index.cjs"
     }
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@refraction-ui/shared": "workspace:*"
+  }
 }

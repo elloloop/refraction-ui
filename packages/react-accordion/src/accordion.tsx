@@ -1,10 +1,15 @@
 import * as React from 'react'
 import { cn, devWarn } from '@refraction-ui/shared'
+import {
+  createAccordion,
+  isItemOpen,
+  type AccordionAPI,
+  type AccordionState,
+} from '@refraction-ui/accordion'
 
 const AccordionContext = React.createContext<{
-  type: 'single' | 'multiple'
-  value: string | string[]
-  onValueChange: (value: string) => void
+  state: AccordionState
+  toggleItem: AccordionAPI['toggleItem']
 } | null>(null)
 
 export interface AccordionProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> {
@@ -17,32 +22,25 @@ export interface AccordionProps extends Omit<React.HTMLAttributes<HTMLDivElement
 
 export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
   ({ className, type = 'single', collapsible, value: controlledValue, defaultValue, onValueChange, ...props }, ref) => {
-    const [uncontrolledValue, setUncontrolledValue] = React.useState<string | string[]>(
-      defaultValue ?? (type === 'multiple' ? [] : '')
-    )
+    // The headless core owns the open/closed state machine; it is created once
+    // and props are synced into it below.
+    const apiRef = React.useRef<AccordionAPI | null>(null)
+    if (apiRef.current === null) {
+      apiRef.current = createAccordion({ type, collapsible, defaultValue, value: controlledValue, onValueChange })
+    }
+    const api = apiRef.current
 
-    const value = controlledValue !== undefined ? controlledValue : uncontrolledValue
+    const state = React.useSyncExternalStore(api.subscribe, api.getState, api.getState)
 
-    const handleValueChange = React.useCallback(
-      (itemValue: string) => {
-        if (type === 'single') {
-          const newValue = value === itemValue && collapsible ? '' : itemValue
-          setUncontrolledValue(newValue)
-          onValueChange?.(newValue)
-        } else {
-          const arrValue = Array.isArray(value) ? value : []
-          const newValue = arrValue.includes(itemValue)
-            ? arrValue.filter((v) => v !== itemValue)
-            : [...arrValue, itemValue]
-          setUncontrolledValue(newValue)
-          onValueChange?.(newValue)
-        }
-      },
-      [type, collapsible, value, onValueChange]
-    )
+    React.useEffect(() => {
+      api.setOptions({ type, collapsible, onValueChange })
+    })
+    React.useEffect(() => {
+      if (controlledValue !== undefined) api.setValue(controlledValue)
+    }, [api, controlledValue])
 
     return (
-      <AccordionContext.Provider value={{ type, value, onValueChange: handleValueChange }}>
+      <AccordionContext.Provider value={{ state, toggleItem: api.toggleItem }}>
         <div ref={ref} className={cn("flex flex-col w-full", className)} {...props} />
       </AccordionContext.Provider>
     )
@@ -67,9 +65,7 @@ export const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps
       throw new Error('AccordionItem must be within Accordion')
     }
 
-    const isOpen = context.type === 'single'
-      ? context.value === value
-      : Array.isArray(context.value) && context.value.includes(value)
+    const isOpen = isItemOpen(context.state, value)
 
     return (
       <AccordionItemContext.Provider value={{ value, isOpen }}>
@@ -86,7 +82,7 @@ export const AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTri
   ({ className, children, ...props }, ref) => {
     const accordionContext = React.useContext(AccordionContext)
     const itemContext = React.useContext(AccordionItemContext)
-    
+
     if (!accordionContext || !itemContext) {
       devWarn(
         'react-accordion/trigger-missing-context',
@@ -106,7 +102,7 @@ export const AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTri
             className
           )}
           data-state={itemContext.isOpen ? 'open' : 'closed'}
-          onClick={() => accordionContext.onValueChange(itemContext.value)}
+          onClick={() => accordionContext.toggleItem(itemContext.value)}
           {...props}
         >
           {children}

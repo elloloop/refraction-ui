@@ -16,8 +16,12 @@ import 'package:example/use_cases/audio_room_use_cases.dart'
     as _example_use_cases_audio_room_use_cases;
 import 'package:example/use_cases/avatar_group_use_cases.dart'
     as _example_use_cases_avatar_group_use_cases;
+import 'package:example/use_cases/bottom_nav_use_cases.dart'
+    as _example_use_cases_bottom_nav_use_cases;
 import 'package:example/use_cases/brand_network_cell_use_cases.dart'
     as _example_use_cases_brand_network_cell_use_cases;
+import 'package:example/use_cases/breadcrumbs_use_cases.dart'
+    as _example_use_cases_breadcrumbs_use_cases;
 import 'package:example/use_cases/browser_chrome_mock_use_cases.dart'
     as _example_use_cases_browser_chrome_mock_use_cases;
 import 'package:example/use_cases/call_controls_use_cases.dart'
@@ -36,6 +40,8 @@ import 'package:example/use_cases/composer_full_demo.dart'
     as _example_use_cases_composer_full_demo;
 import 'package:example/use_cases/composer_use_cases.dart'
     as _example_use_cases_composer_use_cases;
+import 'package:example/use_cases/dialog_use_cases.dart'
+    as _example_use_cases_dialog_use_cases;
 import 'package:example/use_cases/editor_status_bar_use_cases.dart'
     as _example_use_cases_editor_status_bar_use_cases;
 import 'package:example/use_cases/editor_tabs_use_cases.dart'
@@ -46,10 +52,14 @@ import 'package:example/use_cases/floating_reactions_use_cases.dart'
     as _example_use_cases_floating_reactions_use_cases;
 import 'package:example/use_cases/flow_editor_use_cases.dart'
     as _example_use_cases_flow_editor_use_cases;
+import 'package:example/use_cases/footer_use_cases.dart'
+    as _example_use_cases_footer_use_cases;
 import 'package:example/use_cases/graph_view_use_cases.dart'
     as _example_use_cases_graph_view_use_cases;
 import 'package:example/use_cases/infinite_canvas_use_cases.dart'
     as _example_use_cases_infinite_canvas_use_cases;
+import 'package:example/use_cases/input_group_use_cases.dart'
+    as _example_use_cases_input_group_use_cases;
 import 'package:example/use_cases/kanban_board_use_cases.dart'
     as _example_use_cases_kanban_board_use_cases;
 import 'package:example/use_cases/link_card_use_cases.dart'
@@ -94,12 +104,16 @@ import 'package:example/use_cases/radio_use_cases.dart'
     as _example_use_cases_radio_use_cases;
 import 'package:example/use_cases/rating_scale_use_cases.dart'
     as _example_use_cases_rating_scale_use_cases;
+import 'package:example/use_cases/search_bar_use_cases.dart'
+    as _example_use_cases_search_bar_use_cases;
 import 'package:example/use_cases/section_head_use_cases.dart'
     as _example_use_cases_section_head_use_cases;
 import 'package:example/use_cases/segmented_control_use_cases.dart'
     as _example_use_cases_segmented_control_use_cases;
 import 'package:example/use_cases/separator_use_cases.dart'
     as _example_use_cases_separator_use_cases;
+import 'package:example/use_cases/skeleton_use_cases.dart'
+    as _example_use_cases_skeleton_use_cases;
 import 'package:example/use_cases/skip_to_content_use_cases.dart'
     as _example_use_cases_skip_to_content_use_cases;
 import 'package:example/use_cases/slide_viewer_use_cases.dart'
@@ -216,6 +230,20 @@ final directories = <_widgetbook.WidgetbookNode>[
         ],
       ),
       _widgetbook.WidgetbookComponent(
+        name: 'RefractionBottomNav',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Default',
+            builder: _example_use_cases_bottom_nav_use_cases.defaultBottomNav,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'With Active Icons',
+            builder:
+                _example_use_cases_bottom_nav_use_cases.activeIconsBottomNav,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
         name: 'RefractionBrandNetworkCell',
         useCases: [
           _widgetbook.WidgetbookUseCase(
@@ -227,6 +255,21 @@ final directories = <_widgetbook.WidgetbookNode>[
             name: 'Default',
             builder: _example_use_cases_brand_network_cell_use_cases
                 .brandNetworkCellDefaultUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'RefractionBreadcrumbs',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Custom Separator',
+            builder: _example_use_cases_breadcrumbs_use_cases
+                .customSeparatorBreadcrumbs,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Default',
+            builder:
+                _example_use_cases_breadcrumbs_use_cases.defaultBreadcrumbs,
           ),
         ],
       ),
@@ -445,6 +488,19 @@ final directories = <_widgetbook.WidgetbookNode>[
         ],
       ),
       _widgetbook.WidgetbookComponent(
+        name: 'RefractionDialog',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Default',
+            builder: _example_use_cases_dialog_use_cases.defaultDialog,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Info Only',
+            builder: _example_use_cases_dialog_use_cases.infoOnlyDialog,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
         name: 'RefractionEditorStatusBar',
         useCases: [
           _widgetbook.WidgetbookUseCase(
@@ -503,6 +559,19 @@ final directories = <_widgetbook.WidgetbookNode>[
         ],
       ),
       _widgetbook.WidgetbookComponent(
+        name: 'RefractionFooter',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Default',
+            builder: _example_use_cases_footer_use_cases.defaultFooter,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Minimal',
+            builder: _example_use_cases_footer_use_cases.minimalFooter,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
         name: 'RefractionGraphView',
         useCases: [
           _widgetbook.WidgetbookUseCase(
@@ -519,6 +588,21 @@ final directories = <_widgetbook.WidgetbookNode>[
             name: 'Default',
             builder: _example_use_cases_infinite_canvas_use_cases
                 .infiniteCanvasDefaultUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'RefractionInputGroup',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Horizontal',
+            builder:
+                _example_use_cases_input_group_use_cases.horizontalInputGroup,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Vertical',
+            builder:
+                _example_use_cases_input_group_use_cases.verticalInputGroup,
           ),
         ],
       ),
@@ -854,6 +938,19 @@ final directories = <_widgetbook.WidgetbookNode>[
         ],
       ),
       _widgetbook.WidgetbookComponent(
+        name: 'RefractionSearchBar',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Default',
+            builder: _example_use_cases_search_bar_use_cases.defaultSearchBar,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Loading',
+            builder: _example_use_cases_search_bar_use_cases.loadingSearchBar,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
         name: 'RefractionSectionHead',
         useCases: [
           _widgetbook.WidgetbookUseCase(
@@ -902,6 +999,19 @@ final directories = <_widgetbook.WidgetbookNode>[
           _widgetbook.WidgetbookUseCase(
             name: 'Vertical',
             builder: _example_use_cases_separator_use_cases.verticalSeparator,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'RefractionSkeleton',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Shapes',
+            builder: _example_use_cases_skeleton_use_cases.shapeSkeletons,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Text Block',
+            builder: _example_use_cases_skeleton_use_cases.textBlockSkeleton,
           ),
         ],
       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:refraction_ui/refraction_ui.dart';
-import 'package:refraction_ui/src/components/radial_gauge.dart';
 
 void main() {
   group('RefractionRadialGauge Tests', () {
@@ -65,7 +64,6 @@ void main() {
       );
 
       final RefractionRadialGauge gaugeWidget1 = tester.widget(find.byType(RefractionRadialGauge));
-      final theme1 = RefractionThemeData.light();
       expect(gaugeWidget1.value, equals(20.0));
 
       // Test warning zone (value = 50)

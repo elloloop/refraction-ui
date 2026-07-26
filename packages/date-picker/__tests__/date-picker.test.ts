@@ -412,3 +412,33 @@ describe('date-picker styles', () => {
     expect(datePickerTimeInputStyles).toContain('rounded')
   })
 })
+
+
+describe('determinism (injected today)', () => {
+  it('marks the injected today as isToday', () => {
+    const today = new Date(2026, 0, 15, 9, 30)
+    const api = createDatePicker({ today })
+    const todayCells = api.days.filter((d) => d.isToday)
+    expect(todayCells).toHaveLength(1)
+    expect(todayCells[0]!.date).toEqual(new Date(2026, 0, 15))
+    expect(api.getDayAriaProps(todayCells[0]!)['aria-current']).toBe('date')
+  })
+
+  it('two instances with the same injected today render identical grids', () => {
+    const today = new Date(2026, 0, 15)
+    const a = createDatePicker({ today })
+    const b = createDatePicker({ today })
+    expect(a.days.map((d) => d.isToday)).toEqual(b.days.map((d) => d.isToday))
+    expect(a.state.currentMonth).toEqual(b.state.currentMonth)
+  })
+
+  it('setHours/setMinutes fall back to the injected today when no value', () => {
+    const today = new Date(2026, 0, 15, 9, 30)
+    const onChange = vi.fn()
+    const api = createDatePicker({ today, onChange, showTime: true })
+    api.setHours(14)
+    expect(onChange).toHaveBeenCalledWith(new Date(2026, 0, 15, 14, 30))
+    api.setMinutes(45)
+    expect(onChange).toHaveBeenCalledWith(new Date(2026, 0, 15, 9, 45))
+  })
+})

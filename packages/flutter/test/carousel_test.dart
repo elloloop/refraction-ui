@@ -21,7 +21,6 @@ void main() {
           data: RefractionThemeData.light(),
           child: Scaffold(
             body: RefractionCarousel(
-              children: children,
               controller: controller,
               onPageChanged: onPageChanged,
               showIndicators: showIndicators,
@@ -31,6 +30,7 @@ void main() {
               animationDuration: animationDuration,
               height: height,
               indicatorAlignment: indicatorAlignment,
+              children: children,
             ),
           ),
         ),
