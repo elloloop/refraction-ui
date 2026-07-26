@@ -320,3 +320,38 @@ describe('createAnalytics — noop kill switch', () => {
     expect(a.enabled).toBe(true)
   })
 })
+
+
+describe('determinism (injected now/random)', () => {
+  it('defaults event timestamps to the injected clock', () => {
+    const { a, sink } = devConfig(createMockSink(), {
+      now: () => new Date('2026-01-02T03:04:05.000Z'),
+    })
+    a.track('X')
+    expect(sink.events[0].timestamp).toBe('2026-01-02T03:04:05.000Z')
+  })
+
+  it('per-call timestamp override still wins over the injected clock', () => {
+    const { a, sink } = devConfig(createMockSink(), {
+      now: () => new Date('2026-01-02T03:04:05.000Z'),
+    })
+    a.track('X', undefined, { timestamp: '1999-12-31T23:59:59.000Z' })
+    expect(sink.events[0].timestamp).toBe('1999-12-31T23:59:59.000Z')
+  })
+
+  it('sampling decisions follow the injected rng', () => {
+    const { a: kept, sink: keptSink } = devConfig(createMockSink(), {
+      sampleRate: 0.5,
+      random: () => 0.4,
+    })
+    kept.track('X')
+    expect(keptSink.events).toHaveLength(1)
+
+    const { a: dropped, sink: droppedSink } = devConfig(createMockSink(), {
+      sampleRate: 0.5,
+      random: () => 0.6,
+    })
+    dropped.track('X')
+    expect(droppedSink.events).toHaveLength(0)
+  })
+})

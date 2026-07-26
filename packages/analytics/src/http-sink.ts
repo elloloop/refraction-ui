@@ -113,6 +113,8 @@ export function createHttpSink(options: HttpSinkOptions): AnalyticsSink {
   const base = endpoint.replace(/\/+$/, '')
   const url = `${base}/v${SCHEMA_VERSION}/batch`
   const authHeader = `Basic ${base64(`${writeKey}:`)}`
+  // Injection boundary: `sentAt` defaults to ambient time; inject `now` for determinism.
+  const now = options.now ?? (() => new Date())
 
   const resolveFetch = (): typeof fetch => {
     if (options.fetchImpl) return options.fetchImpl
@@ -137,7 +139,7 @@ export function createHttpSink(options: HttpSinkOptions): AnalyticsSink {
   function envelope(batch: AnalyticsEvent[]) {
     return {
       batch,
-      sentAt: new Date().toISOString(),
+      sentAt: now().toISOString(),
       batchId: uuidv4(),
     }
   }

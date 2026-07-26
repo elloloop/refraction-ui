@@ -187,6 +187,8 @@ export interface HttpSinkOptions {
   maxBatchBytes?: number
   /** Soft per-event byte cap (Segment ≈ 32KB). Default 32_000. */
   maxEventBytes?: number
+  /** Clock for the batch `sentAt` stamp. Default: ambient `new Date()` — inject for deterministic tests. */
+  now?: () => Date
 }
 
 /** `createAnalytics` configuration. */
@@ -222,6 +224,10 @@ export interface AnalyticsConfig {
   batchSize?: number
   /** Auto-flush interval in ms (prod). Default 10_000. */
   flushIntervalMs?: number
+  /** Clock for default event timestamps. Default: ambient `new Date()` — inject for deterministic tests/SSR. */
+  now?: () => Date
+  /** RNG for sample-rate decisions. Default: ambient `Math.random` — inject for deterministic tests. */
+  random?: () => number
 }
 
 /** Options accepted by every top-level call. */

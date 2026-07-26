@@ -84,6 +84,10 @@ export interface TelemetryConfig {
    * PII / secrets, e.g. `['password', 'token', 'authorization']`.
    */
   redactKeys?: string[]
+  /** Clock for record timestamps and span timing (ms epoch). Default: ambient `Date.now()` — inject for deterministic tests. */
+  now?: () => number
+  /** RNG for sample-rate decisions. Default: ambient `Math.random` — inject for deterministic tests. */
+  random?: () => number
 }
 
 /** A logger bound to a context. Child loggers inherit + extend that context. */
