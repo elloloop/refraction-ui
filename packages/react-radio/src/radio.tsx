@@ -22,16 +22,8 @@ export interface RadioGroupProps extends CoreRadioGroupProps {
   className?: string
 }
 
-export function RadioGroup({
-  children,
-  className,
-  value: controlledValue,
-  defaultValue,
-  onValueChange,
-  name,
-  disabled = false,
-  orientation = 'vertical',
-}: RadioGroupProps) {
+export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
+  ({ children, className, value: controlledValue, defaultValue, onValueChange, name, disabled = false, orientation = 'vertical' }: RadioGroupProps, ref) => {
   const [internalValue, setInternalValue] = React.useState(defaultValue)
   const isControlled = controlledValue !== undefined
   const currentValue = isControlled ? controlledValue : internalValue
@@ -56,11 +48,12 @@ export function RadioGroup({
     { value: ctx },
     React.createElement(
       'div',
-      { ...api.groupProps, className: cn(radioGroupVariants({ orientation }), className) },
+      { ref, ...api.groupProps, className: cn(radioGroupVariants({ orientation }), className) },
       children,
     ),
   )
-}
+  },
+)
 
 export interface RadioItemProps {
   value: string
@@ -69,7 +62,8 @@ export interface RadioItemProps {
   className?: string
 }
 
-export function RadioItem({ value, children, disabled = false, className }: RadioItemProps) {
+export const RadioItem = React.forwardRef<HTMLLabelElement, RadioItemProps>(
+  ({ value, children, disabled = false, className }, ref) => {
   const ctx = React.useContext(RadioContext)
   if (!ctx) {
     devWarn(
@@ -85,6 +79,7 @@ export function RadioItem({ value, children, disabled = false, className }: Radi
   return React.createElement(
     'label',
     {
+      ref,
       className: cn(radioItemVariants({ disabled: isDisabled ? 'true' : 'false' }), className),
       'data-state': isChecked ? 'checked' : 'unchecked',
     },
@@ -108,7 +103,8 @@ export function RadioItem({ value, children, disabled = false, className }: Radi
     ),
     children && React.createElement('span', { className: 'text-sm' }, children),
   )
-}
+  },
+)
 
 RadioGroup.displayName = 'RadioGroup'
 RadioItem.displayName = 'RadioItem'

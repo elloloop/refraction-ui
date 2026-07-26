@@ -88,7 +88,8 @@ export interface ShortcutHintProps extends Omit<ShortcutBadgeProps, 'keys'> {
   action?: string;
 }
 
-export function ShortcutHint({ shortcut, action, className, platform = true, ...props }: ShortcutHintProps) {
+export const ShortcutHint = React.forwardRef<HTMLDivElement, ShortcutHintProps>(
+  ({ shortcut, action, className, platform = true, ...props }, ref) => {
   const showHints = React.useContext(ShortcutContext);
 
   const keys = React.useMemo(() => {
@@ -104,11 +105,14 @@ export function ShortcutHint({ shortcut, action, className, platform = true, ...
   if (!showHints || keys.length === 0) return null;
 
   return (
-    <div className={cn("absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none z-10", className)}>
+    <div ref={ref} className={cn("absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none z-10", className)}>
       <ShortcutBadge keys={keys} platform={platform} {...props} />
     </div>
   );
-}
+  },
+)
+
+ShortcutHint.displayName = 'ShortcutHint'
 
 export interface KeyboardShortcutProps {
   /** Key combination */

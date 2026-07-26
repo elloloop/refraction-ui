@@ -159,27 +159,14 @@ function detectTrigger(text: string, caret: number): TriggerState | null {
  * Composer — rich message input: markdown formatting toolbar + Cmd/Ctrl shortcuts,
  * and `/` command, `@` mention, and `:` emoji autocomplete menus.
  */
-export function Composer({
-  placeholder = 'Send a message…',
-  busy = false,
-  slashCommands = [],
-  mentions,
-  toolbar = true,
-  emoji = true,
-  attachments = true,
-  error,
-  onRetry,
-  onSubmit,
-  onStop,
-  onSlashCommand,
-  autoFocus,
-}: ComposerProps) {
+export const Composer = React.forwardRef<HTMLDivElement, ComposerProps>(
+  ({ placeholder = 'Send a message…', busy = false, slashCommands = [], mentions, toolbar = true, emoji = true, attachments = true, error, onRetry, onSubmit, onStop, onSlashCommand, autoFocus }: ComposerProps, ref) => {
   const [value, setValue] = React.useState('')
   const [pending, setPending] = React.useState<MessageAttachment[]>([])
   const [trigger, setTrigger] = React.useState<TriggerState | null>(null)
   const [active, setActive] = React.useState(0)
   const [mentionItems, setMentionItems] = React.useState<Mention[]>([])
-  const ref = React.useRef<HTMLTextAreaElement>(null)
+  const textareaRef = React.useRef<HTMLTextAreaElement>(null)
   const fileRef = React.useRef<HTMLInputElement>(null)
 
   // Resolve `@` mentions for the current query.
@@ -254,7 +241,7 @@ export function Composer({
 
   function queueCaret(pos: number) {
     requestAnimationFrame(() => {
-      const el = ref.current
+      const el = textareaRef.current
       if (!el) return
       el.focus()
       el.setSelectionRange(pos, pos)
@@ -263,7 +250,7 @@ export function Composer({
 
   /** Wrap or prefix the current selection for a toolbar action. */
   function format(kind: 'bold' | 'italic' | 'code' | 'link' | 'quote' | 'ul' | 'ol') {
-    const el = ref.current
+    const el = textareaRef.current
     if (!el) return
     const start = el.selectionStart ?? 0
     const end = el.selectionEnd ?? 0
@@ -384,7 +371,7 @@ export function Composer({
 
   return h(
     'div',
-    { className: 'p-3' },
+    { ref, className: 'p-3' },
     h(
       'div',
       { className: 'relative' },
@@ -428,7 +415,7 @@ export function Composer({
           : null,
         // textarea (borderless)
         h('textarea', {
-          ref,
+          ref: textareaRef,
           className: 'block max-h-40 w-full resize-none bg-transparent px-3.5 py-3 text-sm placeholder:text-muted-foreground focus:outline-none',
           rows: 1,
           value,
@@ -500,4 +487,7 @@ export function Composer({
       ),
     ),
   )
-}
+  },
+)
+
+Composer.displayName = 'Composer'

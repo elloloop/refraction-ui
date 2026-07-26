@@ -26,7 +26,8 @@ afterEach(() => {
 
 describe('react-version-selector devWarn (footgun: compound-context-throw)', () => {
   it('exports the VersionSelector component (guard module loads)', () => {
-    expect(typeof VersionSelectorModule.VersionSelector).toBe('function')
+    // React.forwardRef components are objects ({ $$typeof, render }), not plain functions.
+    expect(['function', 'object']).toContain(typeof VersionSelectorModule.VersionSelector)
   })
 
   it('warns once in dev for the guard code', () => {

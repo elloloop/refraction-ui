@@ -19,12 +19,8 @@ export interface InlineEditorProps {
   className?: string
 }
 
-export function InlineEditor({
-  value: initialValue,
-  onSave,
-  onCancel,
-  className,
-}: InlineEditorProps) {
+export const InlineEditor = React.forwardRef<HTMLDivElement, InlineEditorProps>(
+  ({ value: initialValue, onSave, onCancel, className }, ref) => {
   const [isEditing, setIsEditing] = React.useState(false)
   const [editValue, setEditValue] = React.useState(initialValue)
 
@@ -62,6 +58,7 @@ export function InlineEditor({
     return React.createElement(
       'div',
       {
+        ref,
         className: cn(editorVariants({ state: 'viewing' }), className),
         onClick: handleStartEditing,
         role: 'button',
@@ -82,6 +79,7 @@ export function InlineEditor({
   return React.createElement(
     'div',
     {
+      ref,
       className: cn(editorVariants({ state: 'editing' }), className),
     },
     // Toolbar
@@ -137,6 +135,7 @@ export function InlineEditor({
       ),
     ),
   )
-}
+  },
+)
 
 InlineEditor.displayName = 'InlineEditor'

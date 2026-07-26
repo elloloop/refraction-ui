@@ -47,16 +47,19 @@ export interface VersionSelectorProps {
   className?: string
 }
 
-export function VersionSelector({
-  value: controlledValue,
-  onValueChange,
-  versions,
-  placeholder = 'Select version...',
-  className,
-}: VersionSelectorProps) {
+export const VersionSelector = React.forwardRef<HTMLDivElement, VersionSelectorProps>(
+  ({ value: controlledValue, onValueChange, versions, placeholder = 'Select version...', className }: VersionSelectorProps, ref) => {
   const [selectedVersion, setSelectedVersion] = React.useState(controlledValue ?? '')
   const [isOpen, setIsOpen] = React.useState(false)
   const containerRef = React.useRef<HTMLDivElement>(null)
+  const mergedRef = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      containerRef.current = node
+      if (typeof ref === 'function') ref(node)
+      else if (ref) ref.current = node
+    },
+    [ref],
+  )
 
   const handleValueChange = React.useCallback(
     (val: string) => {
@@ -136,7 +139,7 @@ export function VersionSelector({
     { value: ctx },
     React.createElement(
       'div',
-      { ref: containerRef, className: cn('rfr-version-selector relative inline-block', className) },
+      { ref: mergedRef, className: cn('rfr-version-selector relative inline-block', className) },
       // Trigger
       React.createElement(
         'button',
@@ -192,6 +195,7 @@ export function VersionSelector({
         ),
     ),
   )
-}
+  },
+)
 
 VersionSelector.displayName = 'VersionSelector'

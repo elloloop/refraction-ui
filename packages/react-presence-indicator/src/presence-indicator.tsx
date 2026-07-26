@@ -16,24 +16,20 @@ export interface PresenceIndicatorProps {
   className?: string
 }
 
-export function PresenceIndicator({
-  status,
-  showLabel = false,
-  label,
-  size = 'md',
-  className,
-}: PresenceIndicatorProps) {
+export const PresenceIndicator = React.forwardRef<HTMLSpanElement, PresenceIndicatorProps>(
+  ({ status, showLabel = false, label, size = 'md', className }, ref) => {
   const api = createPresence({ status, showLabel, label })
 
   return React.createElement(
     'span',
-    { ...api.ariaProps, className: cn(presenceContainerStyles, className) },
+    { ref, ...api.ariaProps, className: cn(presenceContainerStyles, className) },
     React.createElement('span', {
       className: presenceDotVariants({ status, size }),
     }),
     api.showLabel &&
       React.createElement('span', { className: presenceLabelStyles }, api.label),
   )
-}
+  },
+)
 
 PresenceIndicator.displayName = 'PresenceIndicator'

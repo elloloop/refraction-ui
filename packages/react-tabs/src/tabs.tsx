@@ -36,7 +36,7 @@ function useTabsContext(): TabsContextValue {
 // Tabs (root provider)
 // ---------------------------------------------------------------------------
 
-export interface TabsProps {
+export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string
   defaultValue?: string
   onValueChange?: (value: string) => void
@@ -45,14 +45,8 @@ export interface TabsProps {
   children?: React.ReactNode
 }
 
-export function Tabs({
-  value: controlledValue,
-  defaultValue = '',
-  onValueChange,
-  orientation = 'horizontal',
-  className,
-  children,
-}: TabsProps) {
+export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
+  ({ value: controlledValue, defaultValue = '', onValueChange, orientation = 'horizontal', className, children, ...props }: TabsProps, ref) => {
   const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue)
   const isControlled = controlledValue !== undefined
   const value = isControlled ? controlledValue : uncontrolledValue
@@ -86,10 +80,11 @@ export function Tabs({
 
   return React.createElement(
     'div',
-    { className, 'data-orientation': orientation },
+    { ref, className, 'data-orientation': orientation, ...props },
     React.createElement(TabsContext.Provider, { value: ctx }, children),
   )
-}
+  },
+)
 
 Tabs.displayName = 'Tabs'
 
