@@ -2579,6 +2579,9 @@ importers:
 
   packages/carousel:
     dependencies:
+      '@refraction-ui/accordion':
+        specifier: workspace:*
+        version: link:../accordion
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -2748,7 +2751,11 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
-  packages/file-tree: {}
+  packages/file-tree:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
 
   packages/file-upload:
     dependencies:
@@ -4266,6 +4273,13 @@ importers:
         version: 19.0.0(react@19.0.0)
 
   packages/react-file-tree:
+    dependencies:
+      '@refraction-ui/file-tree':
+        specifier: workspace:*
+        version: link:../file-tree
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
     devDependencies:
       '@types/react':
         specifier: 19.0.0

@@ -5,17 +5,56 @@ import { InstallCommand } from '@/components/install-command'
 
 const fileTreeProps = [
   {
-    name: 'FileTree',
-    type: 'React.FC',
+    name: 'nodes',
+    type: 'FileTreeNode[]',
     description:
-      'Renders a hierarchical file/folder tree. The component is an early-stage primitive — the props API (nodes, selection, expand/collapse) is still being finalized.',
+      'Root-level nodes. Each node is `{ id, label, children?, disabled? }`; nodes with `children` render as expandable folders.',
+  },
+  {
+    name: 'expandedIds',
+    type: 'string[]',
+    description: 'Controlled expanded node ids. Pair with `onExpandedChange`.',
+  },
+  {
+    name: 'defaultExpandedIds',
+    type: 'string[]',
+    description: 'Uncontrolled initial expanded node ids.',
+  },
+  {
+    name: 'selectedId',
+    type: 'string | null',
+    description: 'Controlled selected node id. Pair with `onSelectionChange`.',
+  },
+  {
+    name: 'defaultSelectedId',
+    type: 'string | null',
+    description: 'Uncontrolled initial selected node id.',
+  },
+  {
+    name: 'onExpandedChange',
+    type: '(ids: string[]) => void',
+    description: 'Called whenever the expanded set changes (click, ArrowRight/ArrowLeft).',
+  },
+  {
+    name: 'onSelectionChange',
+    type: '(id: string | null) => void',
+    description: 'Called whenever the selection changes (click, Enter, Space).',
   },
 ]
 
-const usageCode = `import { FileTree } from '@refraction-ui/react'
+const usageCode = `import { FileTree, type FileTreeNode } from '@refraction-ui/react'
+
+const nodes: FileTreeNode[] = [
+  {
+    id: 'src',
+    label: 'src',
+    children: [{ id: 'src/index.ts', label: 'index.ts' }],
+  },
+  { id: 'package.json', label: 'package.json' },
+]
 
 export function MyComponent() {
-  return <FileTree />
+  return <FileTree nodes={nodes} defaultExpandedIds={['src']} />
 }`
 
 export default function FileTreePage() {
@@ -29,15 +68,16 @@ export default function FileTreePage() {
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">File Tree</h1>
         <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
-          A hierarchical view of files and folders. This is an early-stage primitive — the example below shows the
-          intended layout while the props API is finalized.
+          A hierarchical view of files and folders with expand/collapse, selection, and keyboard
+          navigation (WAI-ARIA treeview).
         </p>
       </div>
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Overview</h2>
         <p className="text-sm text-muted-foreground">
-          A typical file tree nests folders and files with indentation per depth level.
+          A typical file tree nests folders and files with indentation per depth level. Arrow keys
+          move between rows; ArrowRight/ArrowLeft expand and collapse folders; Enter selects.
         </p>
         <FileTreeExamples section="basic" />
       </section>
