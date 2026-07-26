@@ -2,7 +2,9 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    environment: 'jsdom',
+    // SSR tests run in node; the interaction suite opts into jsdom via a
+    // per-file `// @vitest-environment jsdom` pragma.
+    environment: 'node',
     globals: false,
     passWithNoTests: true,
   },
