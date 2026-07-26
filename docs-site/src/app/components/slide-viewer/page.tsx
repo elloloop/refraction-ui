@@ -6,7 +6,7 @@ const slideProps = [
   { name: 'slides', type: 'SlideData[]', description: 'Array of { id, title, content, type }.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
-const usageCode = `import { SlideViewer } from '@refraction-ui/react-slide-viewer'
+const usageCode = `import { SlideViewer } from '@refraction-ui/react'
 export function MyComponent() {
   return (
     <SlideViewer slides={[
@@ -35,7 +35,7 @@ export default function SlideViewerPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-slide-viewer" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} /></section>

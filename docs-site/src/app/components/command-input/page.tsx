@@ -35,7 +35,7 @@ const commandInputProps = [
   },
 ]
 
-const usageCode = `import { CommandInput } from '@refraction-ui/react-command-input'
+const usageCode = `import { CommandInput } from '@refraction-ui/react'
 import { useState } from 'react'
 
 export function MentionField() {
@@ -90,7 +90,7 @@ export default function CommandInputPage() {
 
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-command-input" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

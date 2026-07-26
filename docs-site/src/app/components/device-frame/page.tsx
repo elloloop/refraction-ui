@@ -8,7 +8,7 @@ const deviceProps = [
   { name: 'children', type: 'ReactNode', description: 'Content to display inside the frame.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
-const usageCode = `import { DeviceFrame } from '@refraction-ui/react-device-frame'
+const usageCode = `import { DeviceFrame } from '@refraction-ui/react'
 export function MyComponent() {
   return (
     <DeviceFrame device="iphone">
@@ -37,7 +37,7 @@ export default function DeviceFramePage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-device-frame" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} /></section>

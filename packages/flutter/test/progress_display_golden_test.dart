@@ -8,7 +8,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionProgressDisplay Golden Tests', () {
-    testGoldens('Progress Display Use Cases', (tester) async {
+    testGoldens('Progress Display Use Cases', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario(
           'Linear (Default)',

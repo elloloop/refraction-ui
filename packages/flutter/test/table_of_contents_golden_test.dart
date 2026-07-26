@@ -8,7 +8,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionTableOfContents Goldens', () {
-    testGoldens('table_of_contents_use_cases_light', (tester) async {
+    testGoldens('table_of_contents_use_cases_light', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario(
           'Default',
@@ -35,7 +35,7 @@ void main() {
       );
     });
 
-    testGoldens('table_of_contents_use_cases_dark', (tester) async {
+    testGoldens('table_of_contents_use_cases_dark', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario(
           'Default',

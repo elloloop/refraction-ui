@@ -7,7 +7,7 @@ const datePickerProps = [
   { name: 'onChange', type: '(date: Date) => void', description: 'Callback when date changes.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
-const usageCode = `import { DatePicker } from '@refraction-ui/react-date-picker'
+const usageCode = `import { DatePicker } from '@refraction-ui/react'
 export function MyComponent() {
   const [date, setDate] = useState<Date>()
   return <DatePicker value={date} onChange={setDate} />
@@ -33,7 +33,7 @@ export default function DatePickerPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-date-picker" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} /></section>

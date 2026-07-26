@@ -31,7 +31,7 @@ Widget buildThemedChild(
 }
 
 void main() {
-  testGoldens('PresenceIndicator Goldens', (WidgetTester tester) async {
+  testGoldens('PresenceIndicator Goldens', tags: ['golden'], (WidgetTester tester) async {
     final builderLight = GoldenBuilder.column()
       ..addScenario('Online', Builder(builder: (ctx) => onlinePresence(ctx)))
       ..addScenario(

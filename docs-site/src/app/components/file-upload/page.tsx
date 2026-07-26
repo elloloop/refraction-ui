@@ -9,7 +9,7 @@ const fileUploadProps = [
   { name: 'maxSize', type: 'number', description: 'Maximum file size in bytes.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
-const usageCode = `import { FileUpload } from '@refraction-ui/react-file-upload'
+const usageCode = `import { FileUpload } from '@refraction-ui/react'
 export function MyComponent() {
   return <FileUpload onFilesChange={(files) => console.log(files)} accept="image/*" maxFiles={3} />
 }`
@@ -34,7 +34,7 @@ export default function FileUploadPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-file-upload" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} /></section>

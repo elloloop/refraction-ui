@@ -42,6 +42,21 @@ export interface ThemeToggleProps {
 export function ThemeToggle({ className, variant = 'segmented' }: ThemeToggleProps) {
   const { mode, setMode } = useTheme()
 
+  // Hooks must run unconditionally so hook order stays stable if `variant`
+  // changes at runtime. `open` can only become true in the dropdown variant,
+  // so the effect body is a no-op for segmented.
+  const [open, setOpen] = React.useState(false)
+  const ref = React.useRef<HTMLDivElement>(null)
+
+  React.useEffect(() => {
+    if (!open) return
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [open])
+
   if (variant === 'segmented') {
     return React.createElement('div', {
       className: `inline-flex items-center gap-1 rounded-lg border p-1 ${className ?? ''}`,
@@ -67,18 +82,6 @@ export function ThemeToggle({ className, variant = 'segmented' }: ThemeTogglePro
   }
 
   // Dropdown variant — simplified, no external dropdown dependency
-  const [open, setOpen] = React.useState(false)
-  const ref = React.useRef<HTMLDivElement>(null)
-
-  React.useEffect(() => {
-    if (!open) return
-    const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [open])
-
   const currentIcon = modes.find((m) => m.value === mode)?.icon ?? 'monitor'
 
   return React.createElement('div', { ref, className: `relative ${className ?? ''}` },

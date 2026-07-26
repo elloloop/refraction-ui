@@ -43,7 +43,7 @@ const emptyStateProps = [
   },
 ]
 
-const usageCode = `import { EmptyState, ConfirmationCard } from '@refraction-ui/react-empty-state'
+const usageCode = `import { EmptyState, ConfirmationCard } from '@refraction-ui/react'
 
 export function MyComponent() {
   return (
@@ -106,7 +106,7 @@ export default function EmptyStatePage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-empty-state" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       {/* Code */}

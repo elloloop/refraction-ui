@@ -59,7 +59,7 @@ void main() {
           Builder(builder: (ctx) => highContrastComposerUseCase(ctx)),
         );
 
-  testGoldens('Composer Goldens', (WidgetTester tester) async {
+  testGoldens('Composer Goldens', tags: ['golden'], (WidgetTester tester) async {
     await tester.pumpWidgetBuilder(
       buildScenarios().build(),
       wrapper: (child) => buildThemedChild(

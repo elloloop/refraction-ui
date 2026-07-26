@@ -8,7 +8,7 @@ import '../example/lib/use_cases/otp_input_use_cases.dart';
 import 'golden_test_helper.dart';
 
 void main() {
-  testGoldens('OtpInput Goldens', (WidgetTester tester) async {
+  testGoldens('OtpInput Goldens', tags: ['golden'], (WidgetTester tester) async {
     final builderLight = GoldenBuilder.column()
       ..addScenario('Default', Builder(builder: (ctx) => defaultOtpInput(ctx)))
       ..addScenario('Short', Builder(builder: (ctx) => shortOtpInput(ctx)));

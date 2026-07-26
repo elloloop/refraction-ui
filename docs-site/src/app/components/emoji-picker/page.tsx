@@ -12,13 +12,13 @@ const emojiProps = [
   { name: 'stickerRenderer', type: '(sticker: StickerItem) => ReactNode', default: 'defaultStickerRenderer', description: 'Sticker render seam (svg / image / lottie). Supply a Lottie player here for animated Lottie stickers.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
-const usageCode = `import { EmojiPicker } from '@refraction-ui/react-emoji-picker'
+const usageCode = `import { EmojiPicker } from '@refraction-ui/react'
 
 export function MyComponent() {
   // Uniform Twemoji glyphs by default; onSelect gives the full entry.
   return <EmojiPicker onSelect={(e) => console.log(e.emoji, e.shortcode)} />
 }`
-const seamCode = `import { EmojiPicker, nativeEmojiRenderer } from '@refraction-ui/react-emoji-picker'
+const seamCode = `import { EmojiPicker, nativeEmojiRenderer } from '@refraction-ui/react'
 
 // Swap the uniform Twemoji default for OS-native glyphs — data + picker unchanged.
 <EmojiPicker emojiRenderer={nativeEmojiRenderer} />
@@ -85,7 +85,7 @@ export default function EmojiPickerPage() {
 
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-emoji-picker" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} /></section>

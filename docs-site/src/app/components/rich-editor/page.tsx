@@ -1,7 +1,7 @@
 import { CodeBlock } from '@/components/code-block'
 import { InstallCommand } from '@/components/install-command'
 
-const usageCode = `import { } from '@refraction-ui/react-rich-editor'
+const usageCode = `import { } from '@refraction-ui/react'
 
 // Rich Editor is in early development.
 // Core package structure is defined but exports are not yet available.`

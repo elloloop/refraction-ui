@@ -115,6 +115,7 @@
     "@refraction-ui/react-live-captions": "workspace:*",
     "@refraction-ui/react-live-cursors": "workspace:*",
     "@refraction-ui/react-live-transcript": "workspace:*",
+    "@refraction-ui/react-location-selector": "workspace:*",
     "@refraction-ui/react-logger": "workspace:*",
     "@refraction-ui/react-markdown-renderer": "workspace:*",
     "@refraction-ui/react-marquee-strip": "workspace:*",

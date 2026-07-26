@@ -11,7 +11,7 @@ const progressProps = [
   { name: 'badges (BadgeDisplay)', type: 'BadgeData[]', description: 'Array of { name, icon, isUnlocked }.' },
 ]
 
-const usageCode = `import { StatsGrid, ProgressBar, BadgeDisplay } from '@refraction-ui/react-progress-display'
+const usageCode = `import { StatsGrid, ProgressBar, BadgeDisplay } from '@refraction-ui/react'
 
 export function Dashboard() {
   return (
@@ -44,7 +44,7 @@ export default function ProgressDisplayPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-progress-display" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

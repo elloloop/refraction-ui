@@ -31,7 +31,7 @@ Widget buildThemedChild(
 }
 
 void main() {
-  testGoldens('Popover Goldens', (WidgetTester tester) async {
+  testGoldens('Popover Goldens', tags: ['golden'], (WidgetTester tester) async {
     final builderLight = GoldenBuilder.grid(columns: 2, widthToHeightRatio: 1)
       ..addScenario('Default', Builder(builder: (ctx) => defaultPopover(ctx)))
       ..addScenario(

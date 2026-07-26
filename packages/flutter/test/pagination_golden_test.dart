@@ -31,7 +31,7 @@ Widget buildThemedChild(
 }
 
 void main() {
-  testGoldens('Pagination Goldens', (WidgetTester tester) async {
+  testGoldens('Pagination Goldens', tags: ['golden'], (WidgetTester tester) async {
     final builderLight = GoldenBuilder.column()
       ..addScenario(
         'Default',

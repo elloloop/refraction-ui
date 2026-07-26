@@ -1636,6 +1636,9 @@ importers:
       '@refraction-ui/astro-live-transcript':
         specifier: workspace:*
         version: link:../astro-live-transcript
+      '@refraction-ui/astro-location-selector':
+        specifier: workspace:*
+        version: link:../astro-location-selector
       '@refraction-ui/astro-logger':
         specifier: workspace:*
         version: link:../astro-logger
@@ -5036,6 +5039,9 @@ importers:
       '@refraction-ui/react-live-transcript':
         specifier: workspace:*
         version: link:../react-live-transcript
+      '@refraction-ui/react-location-selector':
+        specifier: workspace:*
+        version: link:../react-location-selector
       '@refraction-ui/react-logger':
         specifier: workspace:*
         version: link:../react-logger

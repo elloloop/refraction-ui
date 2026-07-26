@@ -9,7 +9,7 @@ const avatarProps = [
   { name: 'children', type: 'ReactNode', description: 'AvatarImage and/or AvatarFallback.' },
 ]
 
-const usageCode = `import { Avatar, AvatarImage, AvatarFallback } from '@refraction-ui/react-avatar'
+const usageCode = `import { Avatar, AvatarImage, AvatarFallback } from '@refraction-ui/react'
 
 export function MyComponent() {
   return (
@@ -46,7 +46,7 @@ export default function AvatarPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-avatar" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

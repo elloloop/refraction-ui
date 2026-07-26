@@ -8,7 +8,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionAvatarGroup Golden Tests', () {
-    testGoldens('AvatarGroup Use Cases', (tester) async {
+    testGoldens('AvatarGroup Use Cases', tags: ['golden'], (tester) async {
       await loadAppFonts();
 
       final builder = GoldenBuilder.column()

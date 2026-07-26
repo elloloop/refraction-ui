@@ -6,7 +6,7 @@ const videoProps = [
   { name: 'src', type: 'string', description: 'Video source URL.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
-const usageCode = `import { VideoPlayer } from '@refraction-ui/react-video-player'
+const usageCode = `import { VideoPlayer } from '@refraction-ui/react'
 export function MyComponent() {
   return <VideoPlayer src="/video.mp4" />
 }`
@@ -31,7 +31,7 @@ export default function VideoPlayerPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-video-player" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} /></section>

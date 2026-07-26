@@ -14,7 +14,7 @@ const dataTableProps = [
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
 
-const usageCode = `import { DataTable } from '@refraction-ui/react-data-table'
+const usageCode = `import { DataTable } from '@refraction-ui/react'
 
 export function MyComponent() {
   return (
@@ -49,7 +49,7 @@ export default function DataTablePage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-data-table" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

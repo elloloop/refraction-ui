@@ -12,7 +12,7 @@ const breadcrumbsProps = [
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
 
-const usageCode = `import { Breadcrumbs } from '@refraction-ui/react-breadcrumbs'
+const usageCode = `import { Breadcrumbs } from '@refraction-ui/react'
 
 export function MyComponent() {
   return <Breadcrumbs pathname="/docs/components/button" />
@@ -39,7 +39,7 @@ export default function BreadcrumbsPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-breadcrumbs" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

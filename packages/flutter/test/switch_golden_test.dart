@@ -8,7 +8,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionSwitch Golden Tests', () {
-    testGoldens('Switch Use Cases', (tester) async {
+    testGoldens('Switch Use Cases', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario('Default', Builder(builder: (ctx) => defaultSwitch(ctx)))
         ..addScenario(

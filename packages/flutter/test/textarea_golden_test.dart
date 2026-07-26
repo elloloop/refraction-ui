@@ -12,7 +12,7 @@ void main() {
   });
 
   group('RefractionTextarea Golden Tests', () {
-    testGoldens('Textarea Use Cases', (tester) async {
+    testGoldens('Textarea Use Cases', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario(
           'Default',

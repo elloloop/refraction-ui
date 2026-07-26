@@ -97,10 +97,10 @@ export class CommandInput {
       const matchedTrigger = this.options.triggers.find((t) => t.char === char);
 
       if (matchedTrigger) {
-        const isStartOfWord = i === 0 || /\\s/.test(rawText[i - 1]);
+        const isStartOfWord = i === 0 || /\s/.test(rawText[i - 1]);
         if (isStartOfWord) {
           const commandText = rawText.slice(i + 1, cursorPosition);
-          if (!/\\s/.test(commandText)) {
+          if (!/\s/.test(commandText)) {
             let isValid = true;
             if (matchedTrigger.pattern) {
               isValid = matchedTrigger.pattern.test(commandText);
@@ -118,7 +118,7 @@ export class CommandInput {
         break;
       }
       
-      if (/\\s/.test(char)) {
+      if (/\s/.test(char)) {
         break;
       }
     }
@@ -130,8 +130,8 @@ export class CommandInput {
       return;
     }
 
-    const triggerChars = this.options.triggers.map((t) => t.char.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&'));
-    const patternStr = `(^|\\\\s)(${triggerChars.join('|')})([^\\\\s]*)`;
+    const triggerChars = this.options.triggers.map((t) => t.char.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    const patternStr = `(^|\\s)(${triggerChars.join('|')})([^\\s]*)`;
     const regex = new RegExp(patternStr, 'g');
     
     let currentIndex = 0;

@@ -8,7 +8,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionRadio Golden Tests', () {
-    testGoldens('Radio Use Cases', (tester) async {
+    testGoldens('Radio Use Cases', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario('Default', Builder(builder: (ctx) => defaultRadio(ctx)))
         ..addScenario(

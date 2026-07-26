@@ -8,7 +8,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionStatusIndicator Golden Tests', () {
-    testGoldens('Status Indicator Use Cases', (tester) async {
+    testGoldens('Status Indicator Use Cases', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario(
           'Default',

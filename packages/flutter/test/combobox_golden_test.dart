@@ -11,7 +11,7 @@ void main() {
     await loadAppFonts();
   });
 
-  testGoldens('Combobox Goldens', (WidgetTester tester) async {
+  testGoldens('Combobox Goldens', tags: ['golden'], (WidgetTester tester) async {
     final builderLight = GoldenBuilder.grid(columns: 2, widthToHeightRatio: 1)
       ..addScenario(
         'Default',

@@ -11,7 +11,7 @@ const selectProps = [
   { name: 'children', type: 'ReactNode', description: 'SelectTrigger + SelectContent.' },
 ]
 
-const usageCode = `import { Select, SelectTrigger, SelectContent, SelectItem } from '@refraction-ui/react-select'
+const usageCode = `import { Select, SelectTrigger, SelectContent, SelectItem } from '@refraction-ui/react'
 
 export function MyComponent() {
   const [value, setValue] = useState<string>()
@@ -51,7 +51,7 @@ export default function SelectPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-select" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       {/* Code */}
