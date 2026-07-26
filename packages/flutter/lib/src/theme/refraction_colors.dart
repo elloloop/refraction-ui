@@ -13,7 +13,10 @@ import 'hsl_color.dart';
 /// Each "thing" token is paired with a `Foreground` token that is
 /// guaranteed to read accessibly on top of it — for example, draw text in
 /// [primaryForeground] when the surface beneath it is filled with
-/// [primary].
+/// [primary]. The status tokens ([success], [warning], [info]) stand
+/// alone: components paint them both as low-alpha tints and as the
+/// text/icon color on top of those tints, and they currently share one
+/// fixed hue across every curated palette.
 ///
 /// Implements [ThemeExtension] so it can also be plugged into a Material
 /// `ThemeData.extensions` list when interoperating with Material widgets.
@@ -88,6 +91,18 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
   /// keyboard focus. Should provide strong contrast against [background].
   final Color ring;
 
+  /// Success / positive status color. Used for confirmation banners, valid
+  /// input borders, "live" badges, and other completed or healthy states.
+  final Color success;
+
+  /// Warning status color. Used for caution banners, raised-hand badges,
+  /// and warning-level log output.
+  final Color warning;
+
+  /// Informational status color. Used for info banners and neutral
+  /// highlights that should not read as the brand [primary].
+  final Color info;
+
   /// Creates a [RefractionColors] palette.
   ///
   /// All tokens are required — there are no implicit fallbacks, so a
@@ -114,6 +129,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     required this.border,
     required this.input,
     required this.ring,
+    required this.success,
+    required this.warning,
+    required this.info,
   });
 
   /// Minimal palette, light mode. Pure monochrome — Apple/Nike aesthetic
@@ -138,6 +156,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: Color(0xFFE5E5EA),
     input: Color(0xFFE5E5EA),
     ring: Color(0xFFD1D1D6),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   /// Minimal palette, dark mode. Inverse monochrome — pure black surfaces,
@@ -162,6 +183,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: Color(0xFF38383A),
     input: Color(0xFF38383A),
     ring: Color(0xFF48484A),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   /// Fintech palette, light mode. Revolut-inspired — neon green primary on
@@ -186,6 +210,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: Color(0xFFEAEDF0),
     input: Color(0xFFEAEDF0),
     ring: Color(0xFF00D632),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   /// Fintech palette, dark mode. Bright accent green over deep blue-black
@@ -210,6 +237,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: Color(0xFF1F242C),
     input: Color(0xFF1F242C),
     ring: Color(0xFF05FF3E),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   /// Wellness palette, light mode. Warm off-whites, organic taupe borders,
@@ -234,6 +264,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: Color(0xFFE8E5DF),
     input: Color(0xFFE8E5DF),
     ring: Color(0xFFFFb6b3),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   /// Wellness palette, dark mode. Warm browns and muted coral primaries
@@ -258,6 +291,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: Color(0xFF4D4139),
     input: Color(0xFF4D4139),
     ring: Color(0xFFFF837D),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   /// Creative palette, light mode. Discord-style "blurple" primaries on
@@ -282,6 +318,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: Color(0xFFE5E7EB),
     input: Color(0xFFE5E7EB),
     ring: Color(0xFF5046E5),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   /// Creative palette, dark mode. Indigo primaries on near-black surfaces
@@ -306,6 +345,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: Color(0xFF27272A),
     input: Color(0xFF27272A),
     ring: Color(0xFF6366F1),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   /// Productivity palette, light mode. Linear-style subdued blues on crisp
@@ -330,6 +372,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: Color(0xFFE4E4E7),
     input: Color(0xFFE4E4E7),
     ring: Color(0xFF3B82F6),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   /// Productivity palette, dark mode. Soft sky blue primaries on graphite
@@ -354,6 +399,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: Color(0xFF2B2B2B),
     input: Color(0xFF2B2B2B),
     ring: Color(0xFF60A5FA),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   static final RefractionColors refractionLight = RefractionColors(
@@ -376,6 +424,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: HslColor.parse('240 6% 92%'),
     input: HslColor.parse('240 6% 92%'),
     ring: HslColor.parse('250 50% 50%'),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   static final RefractionColors refractionDark = RefractionColors(
@@ -398,6 +449,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: HslColor.parse('240 5% 16%'),
     input: HslColor.parse('240 5% 16%'),
     ring: HslColor.parse('250 50% 65%'),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   static final RefractionColors luxeLight = RefractionColors(
@@ -420,6 +474,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: HslColor.parse('220 6% 93%'),
     input: HslColor.parse('220 6% 93%'),
     ring: HslColor.parse('220 90% 45%'),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   static final RefractionColors luxeDark = RefractionColors(
@@ -442,6 +499,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: HslColor.parse('220 5% 16%'),
     input: HslColor.parse('220 5% 16%'),
     ring: HslColor.parse('220 85% 60%'),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   static final RefractionColors warmLight = RefractionColors(
@@ -464,6 +524,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: HslColor.parse('30 12% 90%'),
     input: HslColor.parse('30 12% 90%'),
     ring: HslColor.parse('350 85% 46%'),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   static final RefractionColors warmDark = RefractionColors(
@@ -486,6 +549,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: HslColor.parse('20 10% 16%'),
     input: HslColor.parse('20 10% 16%'),
     ring: HslColor.parse('350 80% 65%'),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   static final RefractionColors signalLight = RefractionColors(
@@ -508,6 +574,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: HslColor.parse('210 10% 90%'),
     input: HslColor.parse('210 10% 90%'),
     ring: HslColor.parse('190 80% 32%'),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   static final RefractionColors signalDark = RefractionColors(
@@ -530,6 +599,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: HslColor.parse('210 10% 16%'),
     input: HslColor.parse('210 10% 16%'),
     ring: HslColor.parse('190 70% 50%'),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   static final RefractionColors pulseLight = RefractionColors(
@@ -552,6 +624,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: HslColor.parse('240 8% 90%'),
     input: HslColor.parse('240 8% 90%'),
     ring: HslColor.parse('265 80% 55%'),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   static final RefractionColors pulseDark = RefractionColors(
@@ -574,6 +649,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: HslColor.parse('260 6% 16%'),
     input: HslColor.parse('260 6% 16%'),
     ring: HslColor.parse('265 75% 65%'),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   static final RefractionColors monoLight = RefractionColors(
@@ -596,6 +674,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: HslColor.parse('210 14% 89%'),
     input: HslColor.parse('210 14% 89%'),
     ring: HslColor.parse('210 10% 23%'),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   static final RefractionColors monoDark = RefractionColors(
@@ -618,6 +699,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     border: HslColor.parse('210 8% 16%'),
     input: HslColor.parse('210 8% 16%'),
     ring: HslColor.parse('210 10% 80%'),
+    success: Color(0xFF22C55E),
+    warning: Color(0xFFF59E0B),
+    info: Color(0xFF2196F3),
   );
 
   /// Default light palette. Currently aliases [minimalLight].
@@ -657,6 +741,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     Color? border,
     Color? input,
     Color? ring,
+    Color? success,
+    Color? warning,
+    Color? info,
   }) {
     return RefractionColors(
       primary: primary ?? this.primary,
@@ -679,6 +766,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
       border: border ?? this.border,
       input: input ?? this.input,
       ring: ring ?? this.ring,
+      success: success ?? this.success,
+      warning: warning ?? this.warning,
+      info: info ?? this.info,
     );
   }
 
@@ -737,6 +827,9 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
       border: Color.lerp(border, other.border, t)!,
       input: Color.lerp(input, other.input, t)!,
       ring: Color.lerp(ring, other.ring, t)!,
+      success: Color.lerp(success, other.success, t)!,
+      warning: Color.lerp(warning, other.warning, t)!,
+      info: Color.lerp(info, other.info, t)!,
     );
   }
 }
