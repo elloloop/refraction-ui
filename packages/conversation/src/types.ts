@@ -170,6 +170,8 @@ export interface ConversationConfig {
   generateTitle?: (firstMessage: string) => string
   /** Threading mode (default 'inline') */
   threadingMode?: ThreadingMode
+  /** Clock for conversation/message timestamps. Default: ambient `new Date()` — inject for deterministic SSR/tests. */
+  now?: () => Date
 }
 
 /** Options for a single `sendMessage`. */

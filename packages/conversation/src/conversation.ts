@@ -33,6 +33,8 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
   const assistant = config.assistant ?? DEFAULT_ASSISTANT
   const currentUser = config.currentUser ?? DEFAULT_USER
   const generateTitle = config.generateTitle ?? defaultGenerateTitle
+  // Injection boundary: ambient time is the default; inject `now` for deterministic timestamps.
+  const now = config.now ?? (() => new Date())
 
   let transport = config.transport
   let threadingMode: ThreadingMode = config.threadingMode ?? 'inline'
@@ -87,7 +89,7 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
 
   function touch(conversationId: string): void {
     const c = conversations.get(conversationId)
-    if (c) conversations.set(conversationId, { ...c, updatedAt: new Date() })
+    if (c) conversations.set(conversationId, { ...c, updatedAt: now() })
   }
 
   function ensureActiveConversation(opts?: SendOptions): string {
@@ -103,12 +105,12 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
     opts: { title?: string; metadata?: Record<string, unknown> },
     id?: string,
   ): Conversation {
-    const now = new Date()
+    const timestamp = now()
     const conversation: Conversation = {
       id: id ?? generateId('rfr-conv'),
       title: opts.title ?? DEFAULT_TITLE,
-      createdAt: now,
-      updatedAt: now,
+      createdAt: timestamp,
+      updatedAt: timestamp,
       metadata: opts.metadata,
     }
     conversations.set(conversation.id, conversation)
@@ -294,7 +296,7 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
         role: 'user',
         author: currentUser,
         content: trimmed,
-        timestamp: new Date(),
+        timestamp: now(),
         status: 'sent',
         parentId,
         replyToId,
@@ -323,7 +325,7 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
         role: 'assistant',
         author: assistant,
         content: '',
-        timestamp: new Date(),
+        timestamp: now(),
         status: 'streaming',
         parentId,
       }
@@ -350,7 +352,7 @@ export function createConversation(config: ConversationConfig = {}): Conversatio
         role: 'assistant',
         author: assistant,
         content: '',
-        timestamp: new Date(),
+        timestamp: now(),
         status: 'streaming',
         parentId,
       }
