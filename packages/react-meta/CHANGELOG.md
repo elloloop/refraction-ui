@@ -1,5 +1,38 @@
 # @refraction-ui/react
 
+## 0.19.0
+
+### Minor Changes
+
+- 75dac80: feat: real accordion/carousel/pagination/slider headless cores + FileTree implementation
+
+  - `@refraction-ui/accordion` core owns the disclosure state machine (single/multiple, collapsible, controlled+uncontrolled); `react-accordion` consumes it (public API unchanged).
+  - `@refraction-ui/carousel` core shares that state machine (the shipped "Carousel" is an expand/collapse panel set, as demoed on the docs site); `react-carousel` consumes it (public API unchanged).
+  - `@refraction-ui/pagination` core computes the windowed page range with ellipses plus prev/next edges and nav ARIA; `react-pagination` now renders a real pagination nav (children still override the generated controls).
+  - `@refraction-ui/slider` core owns value clamping/step rounding, keyboard rules, and slider ARIA; `react-slider` is wired to it (`onChange` now reports the numeric value, as the docs already promised).
+  - `@refraction-ui/file-tree` core + `react-file-tree` implement a real tree view (node model, expand/collapse, selection, treeview keyboard navigation, ARIA); `<FileTree />` no longer renders an empty div.
+
+### Patch Changes
+
+- 2b5ad57: Adapter standards fixes across the React adapter packages (all ride the `@refraction-ui/react` meta):
+
+  - **forwardRef coverage**: root components in avatar-group, calendar (Calendar + CalendarHeader), conversation (Chat + Composer), cookie-consent, device-frame, emoji-picker, file-upload, inline-editor, language-selector, location-selector, app-shell (root + all subcomponents), keyboard-shortcut (ShortcutHint), radio (RadioGroup + RadioItem), search-bar (ref to the input), version-selector, reaction-bar, thread-view, presence-indicator, status-indicator, and tabs now forward refs to their root element; `TabsProps` now extends `React.HTMLAttributes<HTMLDivElement>` and spreads rest props.
+  - **charts**: all chart components (Chart, Bars, Circles, Gradient, Histogram, Line, PieChart, ScatterPlot, XAxis, YAxis) accept `className`, forwarded to the root `<svg>`/`<g>`.
+  - **call-controls**: core `ariaProps` retyped from `Partial<AccessibilityProps>` to `Record<string, string | number | boolean>`; the adapter spreads `{...api.ariaProps}` directly without an `as React.AriaAttributes` cast.
+  - **command / dropdown-menu**: `CommandItemProps`/`DropdownMenuItemProps` now `Omit` the DOM-colliding `onSelect` from `React.HTMLAttributes`, fixing a consumer-facing type break.
+  - **diff-viewer**: status-bar strings render as single template literals (SSR-safe composed output).
+  - **core ARIA typing**: thread-view, voice-pill, device-frame, reaction-bar, emoji-picker, presence-indicator, and status-indicator cores return `Record<string, string | number | boolean>` instead of `Record<string, unknown>`.
+  - **payment**: added missing vitest wiring (test script + config) and an SSR renderToString test.
+
+- 5992000: - **Core determinism**: headless cores no longer hard-depend on ambient time/randomness — each now accepts an optional, injectable clock/rng at its config seam (defaults stay ambient, so existing usage is unchanged):
+  - **Conversation**: `now?: () => Date` for conversation/message timestamps.
+  - **Calendar** / **DatePicker**: `today?: Date` reference date — fixes SSR/CSR hydration mismatch when server and client render on different days (also drives time-default fallbacks in DatePicker).
+  - **Toast**: `now?: () => number` for timer pause/resume math and manager `createdAt` stamps.
+  - **Analytics**: `now?: () => Date` (default event `timestamp`, HTTP-sink `sentAt`) and `random?: () => number` (sample-rate decisions); per-call `timestamp` override still wins.
+  - **Logger**: `now?: () => number` (record timestamps, span timing) and `random?: () => number` (sampling).
+  - **Footer**: `year?: number` for the default copyright text — fixes year-boundary SSR/CSR mismatch.
+  - **Calendar**: ARIA prop returns are now typed `Record<string, string | number | boolean>` (spread-safe), with `aria-current` omitted rather than `undefined` on non-today cells.
+
 ## 0.18.4
 
 ### Patch Changes
