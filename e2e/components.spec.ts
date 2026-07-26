@@ -1,4 +1,7 @@
 import { test, expect } from '@playwright/test'
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 // Pages whose content can't be pixel-locked: logger's ~10k px of async code
 // blocks keeps growing by a few px between captures, and animated-text's
@@ -7,21 +10,21 @@ import { test, expect } from '@playwright/test'
 // remaining pages keep the strict comparison.
 const smokeOnly = new Set(['logger', 'animated-text'])
 
-const components = [
-  'button', 'input', 'textarea', 'dialog', 'badge', 'toast', 'tabs',
-  'select', 'checkbox', 'switch', 'otp-input', 'skeleton', 'avatar',
-  'calendar', 'tooltip', 'popover', 'collapsible', 'dropdown-menu',
-  'command', 'card', 'navbar', 'sidebar-component', 'breadcrumbs', 'footer',
-  'bottom-nav', 'data-table', 'progress-display', 'search-bar',
-  'language-selector', 'version-selector', 'feedback-dialog',
-  'inline-editor', 'video-player', 'markdown-renderer', 'code-editor',
-  'slide-viewer', 'animated-text', 'date-picker', 'emoji-picker',
-  'file-upload', 'avatar-group', 'presence-indicator', 'reaction-bar',
-  'status-indicator', 'keyboard-shortcut', 'install-prompt',
-  'content-protection', 'device-frame', 'segmented-control', 'separator',
-  'voice-pill', 'waveform', 'password-input', 'social-auth-button',
-  'rich-editor', 'logger',
-]
+// Derive the component list from the docs-site pages on disk so a newly added
+// page is screenshotted automatically — the previous hardcoded list silently
+// drifted behind docs-site/src/app/components. Resolved relative to this spec
+// file (the repo is ESM, so no __dirname), not the cwd Playwright is run from.
+// Dirs without a page.tsx (e.g. a stray folder) don't define a route — skip.
+const componentsDir = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  '../docs-site/src/app/components',
+)
+const components = fs
+  .readdirSync(componentsDir, { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .filter((entry) => fs.existsSync(path.join(componentsDir, entry.name, 'page.tsx')))
+  .map((entry) => entry.name)
+  .sort()
 
 for (const component of components) {
   test(`component: ${component}`, async ({ page }) => {
