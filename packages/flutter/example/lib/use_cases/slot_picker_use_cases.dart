@@ -3,7 +3,6 @@ import 'package:refraction_ui/refraction_ui.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 // Exporting types directly needed for cases
-import 'package:refraction_ui/src/components/slot_picker.dart';
 
 @widgetbook.UseCase(name: 'Default', type: RefractionSlotPicker)
 Widget defaultSlotPickerUseCase(BuildContext context) {

@@ -42,7 +42,7 @@ Widget defaultThreadView(BuildContext context) {
     messages: _messages,
     currentUserId: 'u1',
     onReply: (_) {},
-    onReact: (_, __) {},
+    onReact: (_, _) {},
   );
 }
 

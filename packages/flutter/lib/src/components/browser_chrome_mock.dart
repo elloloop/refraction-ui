@@ -149,7 +149,7 @@ class RefractionBrowserChromeMock extends StatelessWidget {
                 children: [
                   trafficDots,
                   urlBar,
-                  if (statusWidget != null) statusWidget,
+                  ?statusWidget,
                 ],
               ),
             ),

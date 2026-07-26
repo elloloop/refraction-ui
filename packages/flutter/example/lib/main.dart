@@ -38,14 +38,12 @@ import 'pages/table_of_contents_page.dart';
 import 'pages/video_player_page.dart';
 import 'pages/waveform_page.dart';
 import 'pages/animated_text_page.dart';
-import 'pages/voice_pill_page.dart';
 import 'pages/markdown_renderer_page.dart';
 import 'pages/install_prompt_page.dart';
 import 'pages/cookie_consent_page.dart';
 import 'pages/diff_viewer_page.dart';
 import 'pages/dropdown_menu_page.dart';
 import 'pages/reaction_bar_page.dart';
-import 'pages/animated_text_page.dart';
 import 'pages/device_frame_page.dart';
 import 'pages/slide_viewer_page.dart';
 import 'pages/charts_page.dart';
@@ -830,8 +828,6 @@ class _AppShell extends ConsumerWidget {
         return const SlideViewerPage();
       case '/docs/animated-text':
         return const AnimatedTextPage();
-      case '/docs/reaction-bar':
-        return const ReactionBarPage();
 
       default:
         // Render a generic placeholder for other components

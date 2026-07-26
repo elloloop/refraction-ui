@@ -309,7 +309,7 @@ class _FlowEdgePainter extends CustomPainter {
               color: color,
               fontSize: 10,
               fontWeight: FontWeight.w500,
-              backgroundColor: Colors.white.withOpacity(0.8),
+              backgroundColor: Colors.white.withValues(alpha: 0.8),
             ),
           ),
           textDirection: TextDirection.ltr,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/refraction_theme.dart';
 
-/// Visual tone for a [RefractionAlert] or [RefractionCallout].
+/// Visual tone for a [RefractionAlert].
 ///
 /// Selects the color palette — background, foreground, border — applied to
 /// the alert. See [RefractionAlert] for typical usage.
@@ -48,7 +48,8 @@ enum RefractionAlertVariant {
 /// )
 /// ```
 ///
-/// For a simpler, info-only banner with a default icon, see [RefractionCallout].
+/// See also `RefractionCallout` (`callout.dart`) for a stylized banner with
+/// its own variant set.
 class RefractionAlert extends StatelessWidget {
   /// Optional leading icon, tinted to match [variant].
   final Widget? icon;
@@ -160,52 +161,6 @@ class RefractionAlert extends StatelessWidget {
           if (action != null) ...[const SizedBox(width: 12), action!],
         ],
       ),
-    );
-  }
-}
-
-/// A simplified informational banner.
-///
-/// A thin convenience wrapper over [RefractionAlert] that supplies a default
-/// `info_outline` icon and omits the trailing action slot. Use [RefractionAlert]
-/// directly when you need an action button.
-///
-/// ```dart
-/// RefractionCallout(
-///   title: 'New feature',
-///   description: 'You can now drag-and-drop files into the editor.',
-/// )
-/// ```
-class RefractionCallout extends StatelessWidget {
-  /// Optional leading icon. If null, an `Icons.info_outline` is used.
-  final Widget? icon;
-
-  /// Headline displayed in bold.
-  final String title;
-
-  /// Optional secondary line of supporting text.
-  final String? description;
-
-  /// Color palette applied to the callout. Defaults to
-  /// [RefractionAlertVariant.standard].
-  final RefractionAlertVariant variant;
-
-  /// Creates a [RefractionCallout] with the given content.
-  const RefractionCallout({
-    super.key,
-    this.icon,
-    required this.title,
-    this.description,
-    this.variant = RefractionAlertVariant.standard,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return RefractionAlert(
-      icon: icon ?? const Icon(Icons.info_outline),
-      title: title,
-      description: description,
-      variant: variant,
     );
   }
 }

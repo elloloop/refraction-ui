@@ -10,11 +10,11 @@ A **headless, fully accessible, token-driven Flutter UI library**. The Flutter c
 
 > **Try it live**: https://elloloop.github.io/refraction-ui/flutter/
 >
-> The link above runs the Flutter example app compiled to Flutter Web — every component below is interactive, with light/dark theming and a developer tools panel for poking at tokens.
+> The link above runs the Flutter example app compiled to Flutter Web — most components below are interactive there, with light/dark theming and a developer tools panel for poking at tokens.
 
 ```yaml
 dependencies:
-  refraction_ui: ^0.2.0
+  refraction_ui: ^0.47.0
 ```
 
 ---
@@ -24,8 +24,8 @@ dependencies:
 - **Headless first.** Every widget exposes the right hooks for behavior + accessibility, but visual style is driven entirely by `RefractionThemeData`. Re-skin the entire library in one place — no per-widget overrides, no global `Theme` patching.
 - **One token model, every framework.** The same color/radius/typography scale powers `@refraction-ui/react`, `@refraction-ui/astro`, and this Flutter package. Mobile and web stay in lockstep without duplicated theme definitions.
 - **Accessible by default.** Components ship with proper `Semantics`, focus traversal, and keyboard handling. Buttons announce their pressed/disabled state, inputs are labeled, dialogs trap focus, etc.
-- **Pure Flutter.** No platform channels, no native plugins, no FFI. Just widgets — works everywhere Flutter does (iOS, Android, web, macOS, Windows, Linux).
-- **Zero deps beyond Flutter.** The package's only runtime dependency is the Flutter SDK.
+- **Pure-Dart UI, small dependency footprint.** The components are plain Flutter widgets built on a small set of well-known packages (`characters`, `flutter_markdown`/`markdown`, `flutter_svg`, `lottie`) — no heavyweight vendor SDKs. Video playback (`RefractionVideoPlayer`) is delegated to the [`video_player`](https://pub.dev/packages/video_player) plugin.
+- **Works everywhere Flutter does.** iOS, Android, web, macOS, Windows, Linux. Note that `video_player` is a federated plugin that uses platform channels on the platforms it supports.
 
 ---
 
@@ -41,7 +41,7 @@ The live demo is built from the [`example/`](https://github.com/elloloop/refract
 
 ## Components
 
-All ~40 components below are token-driven and read from `RefractionTheme.of(context)`.
+The library ships **127 components** (`lib/src/components/`); the most-used ones are listed below. All are token-driven and read from `RefractionTheme.of(context)`.
 
 ### Layout & navigation
 | Widget | Purpose |
@@ -70,7 +70,7 @@ All ~40 components below are token-driven and read from `RefractionTheme.of(cont
 |---|---|
 | `RefractionButton` | Variants: primary, secondary, destructive, outline, ghost, link. Sizes: sm / default / lg / icon |
 | `RefractionCommandMenu` | Searchable command palette (cmd-K style) |
-| `RefractionDropdown` | Context menu / overflow menu |
+| `RefractionDropdownMenu` | Context menu / overflow menu |
 
 ### Feedback
 | Widget | Purpose |
@@ -79,7 +79,7 @@ All ~40 components below are token-driven and read from `RefractionTheme.of(cont
 | `RefractionToast` | Transient notification with auto-dismiss |
 | `RefractionTooltip` | Hover/focus tooltip |
 | `RefractionSkeleton` | Pulsing placeholder for loading states |
-| `RefractionProgress` | Determinate / indeterminate progress bar |
+| `RefractionProgressDisplay` | Determinate / indeterminate progress bar |
 | `RefractionSlider` | Single-thumb range input |
 
 ### Identity
@@ -310,10 +310,12 @@ More recipes — including a complete family-calendar app and a pregnancy tracke
 | Requirement | Version |
 |---|---|
 | Dart SDK | `^3.10.1` |
-| Flutter | `>= 1.17.0` (tested against current stable) |
+| Flutter | `>= 3.27.0` (tested against current stable) |
 | Platforms | iOS, Android, Web, macOS, Windows, Linux |
 
-Null-safety is on. No platform channels — runs everywhere Flutter runs.
+Null-safety is on. The widgets themselves are pure Dart; only video playback
+(`RefractionVideoPlayer`, via the `video_player` plugin) touches platform
+channels.
 
 ---
 
@@ -361,7 +363,7 @@ produced by `tool/generate_emoji_data.dart`) — the same source the composer's
 `:shortcode:` resolver consumes, so a picker tap and a `:code:` always agree.
 
 By default the picker renders emoji with the **bundled, platform-uniform
-[Twemoji](https://github.com/jdecked/twemoji) set** (SVG, ~3.2 MB under
+[Twemoji](https://github.com/jdecked/twemoji) set** (SVG, ~8 MB under
 `assets/twemoji/`) so emoji look identical on every OS and version — instead of
 the host platform's native glyphs, which differ. Rendering goes through a
 single `EmojiRenderer` seam, so you can swap it:

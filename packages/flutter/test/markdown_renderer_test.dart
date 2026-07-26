@@ -157,14 +157,11 @@ void main() {
     });
 
     testWidgets('handles link tap', (WidgetTester tester) async {
-      String? tappedHref;
       await tester.pumpWidget(
         buildTestApp(
           RefractionMarkdownRenderer(
             content: '[Test Link](https://test.com)',
-            onTapLink: (text, href, title) {
-              tappedHref = href;
-            },
+            onTapLink: (text, href, title) {},
           ),
         ),
       );

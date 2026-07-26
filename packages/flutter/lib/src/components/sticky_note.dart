@@ -140,7 +140,7 @@ class _RefractionStickyNoteState extends State<RefractionStickyNote> {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                color: textColor.withOpacity(0.7),
+                color: textColor.withValues(alpha: 0.7),
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
               ),

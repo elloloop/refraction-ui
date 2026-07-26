@@ -97,7 +97,7 @@ class RefractionSectionHead extends StatelessWidget {
           const SizedBox(height: 8),
         ],
         titleWidget,
-        if (ledeWidget != null) ledeWidget,
+        ?ledeWidget,
       ],
     );
 

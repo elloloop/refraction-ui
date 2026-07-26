@@ -300,7 +300,7 @@ class RefractionGraphView extends StatelessWidget {
           Text(
             '$count',
             style: TextStyle(
-              color: textColor.withOpacity(0.7),
+              color: textColor.withValues(alpha: 0.7),
               fontSize: 10,
               fontWeight: FontWeight.w500,
             ),
@@ -325,7 +325,7 @@ class _GraphEdgePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = color.withOpacity(0.6)
+      ..color = color.withValues(alpha: 0.6)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5;
 

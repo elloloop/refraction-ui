@@ -88,7 +88,7 @@ class _MascotPlaygroundState extends State<_MascotPlayground> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: colors.muted.withOpacity(0.2),
+                  color: colors.muted.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(16.0),
                   border: Border.all(color: colors.border),
                 ),
@@ -119,27 +119,29 @@ class _MascotPlaygroundState extends State<_MascotPlayground> {
                             color: colors.foreground,
                           ),
                         ),
-                        Row(
-                          children: MascotMood.values.map((m) {
-                            return Expanded(
-                              child: RadioListTile<MascotMood>(
-                                contentPadding: EdgeInsets.zero,
-                                title: Text(
-                                  m.name,
-                                  style: const TextStyle(fontSize: 12.0),
+                        RadioGroup<MascotMood>(
+                          groupValue: _mood,
+                          onChanged: (val) {
+                            if (val != null) {
+                              setState(() {
+                                _mood = val;
+                              });
+                            }
+                          },
+                          child: Row(
+                            children: MascotMood.values.map((m) {
+                              return Expanded(
+                                child: RadioListTile<MascotMood>(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: Text(
+                                    m.name,
+                                    style: const TextStyle(fontSize: 12.0),
+                                  ),
+                                  value: m,
                                 ),
-                                value: m,
-                                groupValue: _mood,
-                                onChanged: (val) {
-                                  if (val != null) {
-                                    setState(() {
-                                      _mood = val;
-                                    });
-                                  }
-                                },
-                              ),
-                            );
-                          }).toList(),
+                              );
+                            }).toList(),
+                          ),
                         ),
                         const Divider(),
                         Text(

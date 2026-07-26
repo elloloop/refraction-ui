@@ -40,6 +40,8 @@ dependencies:
   widgetbook_annotation: ^3.11.0
   image_picker: ^1.2.3
   file_picker: ^11.0.2
+  # Imported by video_player_use_cases.dart / composer_full_demo.dart.
+  video_player: ^2.11.1
 
 dev_dependencies:
   flutter_test:

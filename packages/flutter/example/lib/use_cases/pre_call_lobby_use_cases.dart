@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:refraction_ui/refraction_ui.dart';
-import 'package:refraction_ui/src/components/pre_call_lobby.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 @widgetbook.UseCase(name: 'Default Lobby', type: RefractionPreCallLobby)

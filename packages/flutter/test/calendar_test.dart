@@ -19,7 +19,7 @@ class TestCalendarWrapper extends StatefulWidget {
   dayBuilder;
   final List<Widget> Function(BuildContext, DateTime)? eventMarkersBuilder;
 
-  TestCalendarWrapper({
+  const TestCalendarWrapper({
     super.key,
     this.initialMonth,
     this.minDate,
@@ -589,8 +589,9 @@ void main() {
           TestCalendarWrapper(
             initialMonth: DateTime(2023, 10, 1),
             dayBuilder: (c, d, s) {
-              if (d.day == day && d.month == 10)
+              if (d.day == day && d.month == 10) {
                 return const Text("CUSTOM_DAY");
+              }
               return Text(d.day.toString());
             },
           ),
