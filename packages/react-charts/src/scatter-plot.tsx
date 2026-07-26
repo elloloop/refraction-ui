@@ -16,6 +16,7 @@ export interface ScatterPlotProps<T = unknown> {
   r?: number
   fill?: string
   margin?: Partial<Margin>
+  className?: string
 }
 
 export function ScatterPlot<T>({
@@ -27,6 +28,7 @@ export function ScatterPlot<T>({
   r = 4,
   fill = 'steelblue',
   margin,
+  className,
 }: ScatterPlotProps<T>) {
   const dimensions = combineDimensions({ width, height, margin })
   const { boundedWidth, boundedHeight } = dimensions
@@ -43,7 +45,7 @@ export function ScatterPlot<T>({
   const yTicks = yScale.ticks(5)
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} className={className}>
       <g transform={`translate(${dimensions.margin.left},${dimensions.margin.top})`}>
         {data.map((d, i) => (
           <circle

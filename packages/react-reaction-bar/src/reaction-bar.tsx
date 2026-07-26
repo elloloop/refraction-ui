@@ -18,18 +18,13 @@ export interface ReactionBarProps {
   className?: string
 }
 
-export function ReactionBar({
-  reactions,
-  onToggle,
-  onAdd,
-  showAddButton = true,
-  className,
-}: ReactionBarProps) {
+export const ReactionBar = React.forwardRef<HTMLDivElement, ReactionBarProps>(
+  ({ reactions, onToggle, onAdd, showAddButton = true, className }, ref) => {
   const api = createReactionBar({ reactions, onToggle, onAdd })
 
   return React.createElement(
     'div',
-    { ...api.ariaProps, className: cn(reactionBarStyles, className) },
+    { ref, ...api.ariaProps, className: cn(reactionBarStyles, className) },
     api.reactions.map((reaction, i) =>
       React.createElement(
         'button',
@@ -58,6 +53,7 @@ export function ReactionBar({
         '+',
       ),
   )
-}
+  },
+)
 
 ReactionBar.displayName = 'ReactionBar'

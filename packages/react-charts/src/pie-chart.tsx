@@ -13,6 +13,7 @@ export interface PieChartProps<T = unknown> {
   width?: number
   height?: number
   colors?: string[]
+  className?: string
 }
 
 export function PieChart<T>({
@@ -21,6 +22,7 @@ export function PieChart<T>({
   width = 300,
   height = 300,
   colors = DEFAULT_COLORS,
+  className,
 }: PieChartProps<T>) {
   const cx = width / 2
   const cy = height / 2
@@ -40,7 +42,7 @@ export function PieChart<T>({
   })
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} className={className}>
       {arcs.map((arc, i) => (
         <path
           key={i}

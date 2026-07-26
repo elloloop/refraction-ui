@@ -60,9 +60,10 @@ describe('AuthGuard (SSR)', () => {
         ),
       ),
     )
-    // Mock adapter starts unauthenticated on SSR (no user)
-    // Either shows fallback or protected depending on mock timing
-    expect(html).toBeDefined()
+    // Mock adapter never fires onAuthStateChange, so SSR stays unauthenticated
+    // and the guard renders the fallback.
+    expect(html).toContain('Loading...')
+    expect(html).not.toContain('Protected')
   })
 })
 

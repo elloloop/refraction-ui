@@ -47,18 +47,8 @@ export interface SearchBarProps extends Omit<React.InputHTMLAttributes<HTMLInput
   children?: React.ReactNode
 }
 
-export function SearchBar({
-  value: controlledValue,
-  defaultValue = '',
-  onValueChange,
-  onSearch,
-  debounceMs = 300,
-  loading = false,
-  placeholder,
-  className,
-  children,
-  ...inputProps
-}: SearchBarProps) {
+export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
+  ({ value: controlledValue, defaultValue = '', onValueChange, onSearch, debounceMs = 300, loading = false, placeholder, className, children, ...inputProps }, ref) => {
   const [internalValue, setInternalValue] = React.useState(controlledValue ?? defaultValue)
   const isControlled = controlledValue !== undefined
   const currentValue = isControlled ? controlledValue : internalValue
@@ -153,6 +143,7 @@ export function SearchBar({
       { className: cn(searchBarVariants(), className) },
       React.createElement('span', { className: 'rfr-search-icon', 'aria-hidden': 'true' }, '\u{1F50D}'),
       React.createElement('input', {
+        ref,
         ...inputProps,
         role: api.inputProps.role,
         'aria-expanded': api.inputProps['aria-expanded'],
@@ -181,7 +172,8 @@ export function SearchBar({
     ),
     children,
   )
-}
+  },
+)
 
 SearchBar.displayName = 'SearchBar'
 

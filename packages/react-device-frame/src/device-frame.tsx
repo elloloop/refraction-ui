@@ -19,17 +19,14 @@ export interface DeviceFrameProps {
   children?: React.ReactNode
 }
 
-export function DeviceFrame({
-  device,
-  orientation = 'portrait',
-  className,
-  children,
-}: DeviceFrameProps) {
+export const DeviceFrame = React.forwardRef<HTMLDivElement, DeviceFrameProps>(
+  ({ device, orientation = 'portrait', className, children }, ref) => {
   const api = createDeviceFrame({ device, orientation })
 
   return React.createElement(
     'div',
     {
+      ref,
       className: cn(deviceFrameVariants({ device, orientation }), className),
       style: {
         width: `${api.dimensions.width}px`,
@@ -64,6 +61,7 @@ export function DeviceFrame({
         })
       : null,
   )
-}
+  },
+)
 
 DeviceFrame.displayName = 'DeviceFrame'

@@ -1,4 +1,3 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
 import { generateId } from '@refraction-ui/shared'
 
 export interface Reaction {
@@ -27,7 +26,7 @@ export interface ReactionBarAPI {
   /** Add a new reaction */
   add(emoji: string): void
   /** ARIA props for the reaction bar container */
-  ariaProps: Partial<AccessibilityProps> & Record<string, unknown>
+  ariaProps: Record<string, string | number | boolean>
   /** Get ARIA props for an individual reaction pill */
   getReactionAriaProps(reaction: Reaction): Record<string, unknown>
   /** ARIA props for the "add reaction" button */
@@ -53,7 +52,7 @@ export function createReactionBar(props: ReactionBarProps): ReactionBarAPI {
     onAdd?.(emoji)
   }
 
-  const ariaProps: Partial<AccessibilityProps> & Record<string, unknown> = {
+  const ariaProps: Record<string, string | number | boolean> = {
     role: 'group',
     'aria-label': 'Reactions',
     id: containerId,

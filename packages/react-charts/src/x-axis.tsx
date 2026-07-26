@@ -5,6 +5,7 @@ export interface XAxisProps {
   scale: (value: number | string) => number
   height: number
   tickSize?: number
+  className?: string
 }
 
 export function XAxis({
@@ -12,9 +13,10 @@ export function XAxis({
   scale,
   height,
   tickSize = 6,
+  className,
 }: XAxisProps) {
   return (
-    <g transform={`translate(0,${height})`}>
+    <g className={className} transform={`translate(0,${height})`}>
       {ticks.map((tick, i) => {
         const x = scale(tick)
         return (

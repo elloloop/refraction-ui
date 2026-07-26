@@ -264,11 +264,11 @@ export const DiffViewer = React.forwardRef<HTMLDivElement, DiffViewerProps>(
             {statusBarTitle && <span>{statusBarTitle}</span>}
             {activeFile && <span>{activeFile.path}</span>}
             <span style={{ marginLeft: 'auto' }}>
-              +{api.totalAdditions()} -{api.totalDeletions()}
+              {`+${api.totalAdditions()} -${api.totalDeletions()}`}
             </span>
             {statusBarStatus && <span>{statusBarStatus}</span>}
             <span>
-              {files.length} {files.length === 1 ? 'file' : 'files'}
+              {`${files.length} ${files.length === 1 ? 'file' : 'files'}`}
             </span>
           </div>
         )}

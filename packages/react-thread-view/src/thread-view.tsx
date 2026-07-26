@@ -124,18 +124,13 @@ function MessageComponent({
   )
 }
 
-export function ThreadView({
-  messages,
-  onReply,
-  onReact,
-  currentUserId,
-  className,
-}: ThreadViewProps) {
+export const ThreadView = React.forwardRef<HTMLDivElement, ThreadViewProps>(
+  ({ messages, onReply, onReact, currentUserId, className }, ref) => {
   const api = createThreadView({ messages, onReply, onReact, currentUserId })
 
   return React.createElement(
     'div',
-    { ...api.ariaProps, className: cn(threadContainerStyles, className) },
+    { ref, ...api.ariaProps, className: cn(threadContainerStyles, className) },
     messages.map((message) =>
       React.createElement(MessageComponent, {
         key: message.id,
@@ -144,6 +139,7 @@ export function ThreadView({
       }),
     ),
   )
-}
+  },
+)
 
 ThreadView.displayName = 'ThreadView'

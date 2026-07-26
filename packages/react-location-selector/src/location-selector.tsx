@@ -10,13 +10,8 @@ export interface LocationSelectorProps {
   className?: string
 }
 
-export function LocationSelector({
-  defaultCountry = 'US',
-  defaultLanguage = 'en',
-  onCountryChange,
-  onLanguageChange,
-  className,
-}: LocationSelectorProps) {
+export const LocationSelector = React.forwardRef<HTMLDivElement, LocationSelectorProps>(
+  ({ defaultCountry = 'US', defaultLanguage = 'en', onCountryChange, onLanguageChange, className }, ref) => {
   const [country, setCountry] = React.useState(defaultCountry)
   const [language, setLanguage] = React.useState(defaultLanguage)
 
@@ -49,7 +44,7 @@ export function LocationSelector({
 
   return React.createElement(
     'div',
-    { className: cn('flex flex-col gap-4 sm:flex-row', className) },
+    { ref, className: cn('flex flex-col gap-4 sm:flex-row', className) },
     React.createElement(
       'div',
       { className: 'flex flex-col gap-1.5 flex-1' },
@@ -87,4 +82,7 @@ export function LocationSelector({
       )
     )
   )
-}
+  },
+)
+
+LocationSelector.displayName = 'LocationSelector'

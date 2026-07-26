@@ -8,6 +8,7 @@ export interface ChartProps {
   height?: number
   margin?: Partial<Margin>
   children?: React.ReactNode
+  className?: string
 }
 
 export function Chart({
@@ -15,11 +16,12 @@ export function Chart({
   height = 400,
   margin,
   children,
+  className,
 }: ChartProps) {
   const dimensions = combineDimensions({ width, height, margin })
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} className={className}>
       <ChartContext.Provider value={{ dimensions }}>
         <g transform={`translate(${dimensions.margin.left},${dimensions.margin.top})`}>
           {children}

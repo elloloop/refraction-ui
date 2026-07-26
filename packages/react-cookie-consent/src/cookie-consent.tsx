@@ -75,15 +75,16 @@ function CookieIcon() {
  * CookieConsent — batteries-included consent banner over `useCookieConsent()`.
  * Renders nothing once the user has consented.
  */
-export function CookieConsent({
-  consent,
-  position = 'bottom',
-  title = 'We use cookies',
-  description = 'We use cookies to run the site, remember your preferences, and measure traffic. Choose which to allow.',
-  policyUrl,
-  policyLabel = 'Cookie policy',
-  className,
-}: CookieConsentProps) {
+export const CookieConsent = React.forwardRef<HTMLDivElement, CookieConsentProps>(
+  ({
+    consent,
+    position = 'bottom',
+    title = 'We use cookies',
+    description = 'We use cookies to run the site, remember your preferences, and measure traffic. Choose which to allow.',
+    policyUrl,
+    policyLabel = 'Cookie policy',
+    className,
+  }: CookieConsentProps, ref) => {
   const { state, acceptAll, rejectAll, savePreferences, setPreference } = consent
   const [settings, setSettings] = React.useState(false)
 
@@ -169,7 +170,10 @@ export function CookieConsent({
 
   return h(
     'div',
-    { className: wrapper, role: 'dialog', 'aria-label': 'Cookie consent', 'aria-modal': false },
+    { ref, className: wrapper, role: 'dialog', 'aria-label': 'Cookie consent', 'aria-modal': false },
     h('div', { className: panel }, settings ? settingsView : promptView),
   )
-}
+  },
+)
+
+CookieConsent.displayName = 'CookieConsent'

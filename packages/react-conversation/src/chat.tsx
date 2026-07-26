@@ -418,19 +418,8 @@ function ModeToggle({ conversation }: { conversation: UseConversationResult }) {
  * bubble. Markdown/code/gifs, reactions, edit/delete, streaming, and a composer
  * with `/` commands, `@` mentions, `:` emoji, and a formatting toolbar.
  */
-export function Chat({
-  conversation,
-  showConversationList = true,
-  showModeToggle = true,
-  placeholder,
-  currentUserId,
-  emptyState,
-  className,
-  slashCommands,
-  mentions,
-  onSlashCommand,
-  composerToolbar = true,
-}: ChatProps) {
+export const Chat = React.forwardRef<HTMLDivElement, ChatProps>(
+  ({ conversation, showConversationList = true, showModeToggle = true, placeholder, currentUserId, emptyState, className, slashCommands, mentions, onSlashCommand, composerToolbar = true }: ChatProps, ref) => {
   const { state, sendMessage } = conversation
   const timeline = selectMainTimeline(state.messages, state.threadingMode)
   const activeConv = state.conversations.find((c) => c.id === state.activeConversationId)
@@ -489,7 +478,7 @@ export function Chat({
 
   return h(
     'div',
-    { className: cn('flex h-full min-h-0 overflow-hidden rounded-xl border border-border bg-background', className) },
+    { ref, className: cn('flex h-full min-h-0 overflow-hidden rounded-xl border border-border bg-background', className) },
     showConversationList ? h(ConversationSidebar, { conversation }) : null,
     h(
       'div',
@@ -505,4 +494,7 @@ export function Chat({
     ),
     h(ThreadPanel, { conversation, currentUserId, composer: threadComposer }),
   )
-}
+  },
+)
+
+Chat.displayName = 'Chat'

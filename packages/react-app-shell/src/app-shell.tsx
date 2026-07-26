@@ -41,7 +41,8 @@ export interface AppShellProps {
   className?: string
 }
 
-function AppShellRoot({ config, children, className }: AppShellProps) {
+const AppShellRoot = React.forwardRef<HTMLDivElement, AppShellProps>(
+  ({ config, children, className }, ref) => {
   // Create the headless API once
   const apiRef = React.useRef<AppShellAPI | null>(null)
   if (apiRef.current === null) {
@@ -100,6 +101,7 @@ function AppShellRoot({ config, children, className }: AppShellProps) {
     React.createElement(
       'div',
       {
+        ref,
         className: cn('flex h-screen w-full overflow-hidden', className),
         style: cssVars as React.CSSProperties,
         'data-shell': '',
@@ -107,7 +109,8 @@ function AppShellRoot({ config, children, className }: AppShellProps) {
       children,
     ),
   )
-}
+  },
+)
 
 AppShellRoot.displayName = 'AppShell'
 
@@ -120,7 +123,8 @@ export interface AppShellSidebarProps {
   className?: string
 }
 
-function Sidebar({ children, className }: AppShellSidebarProps) {
+const Sidebar = React.forwardRef<HTMLElement, AppShellSidebarProps>(
+  ({ children, className }, ref) => {
   const { api, state } = useAppShell()
   const isRight = api.config.sidebarPosition === 'right'
 
@@ -153,6 +157,7 @@ function Sidebar({ children, className }: AppShellSidebarProps) {
   return React.createElement(
     'aside',
     {
+      ref,
       ...api.sidebarAriaProps,
       className: cn(baseClasses.join(' '), mobileClasses.join(' '), className),
       'data-collapsed': state.sidebarCollapsed ? '' : undefined,
@@ -160,7 +165,8 @@ function Sidebar({ children, className }: AppShellSidebarProps) {
     },
     children,
   )
-}
+  },
+)
 
 Sidebar.displayName = 'AppShell.Sidebar'
 
@@ -173,15 +179,18 @@ export interface AppShellMainProps {
   className?: string
 }
 
-function Main({ children, className }: AppShellMainProps) {
+const Main = React.forwardRef<HTMLDivElement, AppShellMainProps>(
+  ({ children, className }, ref) => {
   return React.createElement(
     'div',
     {
+      ref,
       className: cn('flex flex-1 flex-col min-w-0 h-full', className),
     },
     children,
   )
-}
+  },
+)
 
 Main.displayName = 'AppShell.Main'
 
@@ -194,7 +203,8 @@ export interface AppShellHeaderProps {
   className?: string
 }
 
-function Header({ children, className }: AppShellHeaderProps) {
+const Header = React.forwardRef<HTMLElement, AppShellHeaderProps>(
+  ({ children, className }, ref) => {
   const { api, state } = useAppShell()
 
   const hamburger = state.isMobile
@@ -232,6 +242,7 @@ function Header({ children, className }: AppShellHeaderProps) {
   return React.createElement(
     'header',
     {
+      ref,
       ...api.headerAriaProps,
       className: cn(
         'sticky top-0 z-30 flex items-center shrink-0',
@@ -243,7 +254,8 @@ function Header({ children, className }: AppShellHeaderProps) {
     hamburger,
     children,
   )
-}
+  },
+)
 
 Header.displayName = 'AppShell.Header'
 
@@ -258,13 +270,15 @@ export interface AppShellContentProps {
   maxWidth?: string
 }
 
-function Content({ children, className, maxWidth }: AppShellContentProps) {
+const Content = React.forwardRef<HTMLElement, AppShellContentProps>(
+  ({ children, className, maxWidth }, ref) => {
   const { api } = useAppShell()
   const mwClass = maxWidth ? `max-w-${maxWidth}` : ''
 
   return React.createElement(
     'main',
     {
+      ref,
       ...api.mainAriaProps,
       className: cn(
         'flex-1 overflow-y-auto',
@@ -275,7 +289,8 @@ function Content({ children, className, maxWidth }: AppShellContentProps) {
     },
     children,
   )
-}
+  },
+)
 
 Content.displayName = 'AppShell.Content'
 
@@ -288,7 +303,8 @@ export interface AppShellMobileNavProps {
   className?: string
 }
 
-function MobileNav({ children, className }: AppShellMobileNavProps) {
+const MobileNav = React.forwardRef<HTMLElement, AppShellMobileNavProps>(
+  ({ children, className }, ref) => {
   const { api, state } = useAppShell()
 
   if (!state.isMobile) return null
@@ -297,6 +313,7 @@ function MobileNav({ children, className }: AppShellMobileNavProps) {
   return React.createElement(
     'nav',
     {
+      ref,
       ...api.mobileNavAriaProps,
       className: cn(
         'fixed bottom-0 left-0 right-0 z-30',
@@ -308,7 +325,8 @@ function MobileNav({ children, className }: AppShellMobileNavProps) {
     },
     children,
   )
-}
+  },
+)
 
 MobileNav.displayName = 'AppShell.MobileNav'
 
@@ -320,12 +338,14 @@ export interface AppShellOverlayProps {
   className?: string
 }
 
-function Overlay({ className }: AppShellOverlayProps) {
+const Overlay = React.forwardRef<HTMLDivElement, AppShellOverlayProps>(
+  ({ className }, ref) => {
   const { api, state } = useAppShell()
 
   if (!state.isMobile || !state.sidebarOpen) return null
 
   return React.createElement('div', {
+    ref,
     ...api.overlayAriaProps,
     className: cn(
       'fixed inset-0 z-30 bg-black/50 transition-opacity',
@@ -334,7 +354,8 @@ function Overlay({ className }: AppShellOverlayProps) {
     onClick: () => api.closeSidebar(),
     'data-shell-overlay': '',
   })
-}
+  },
+)
 
 Overlay.displayName = 'AppShell.Overlay'
 

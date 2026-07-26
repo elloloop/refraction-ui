@@ -33,14 +33,8 @@ function deriveAriaLabel(
   return fallback
 }
 
-export function StatusIndicator({
-  type,
-  label,
-  children,
-  pulse,
-  showLabel = true,
-  className,
-}: StatusIndicatorProps) {
+export const StatusIndicator = React.forwardRef<HTMLSpanElement, StatusIndicatorProps>(
+  ({ type, label, children, pulse, showLabel = true, className }, ref) => {
   const api = createStatusIndicator({ type, label, pulse })
   const ariaLabel = deriveAriaLabel(label, children, api.label)
   const visibleLabel: React.ReactNode = label ?? children ?? api.label
@@ -51,6 +45,7 @@ export function StatusIndicator({
 
   return (
     <span
+      ref={ref}
       {...api.ariaProps}
       aria-label={ariaLabel}
       className={cn(statusContainerStyles, className)}
@@ -59,6 +54,7 @@ export function StatusIndicator({
       {showLabel && <span className={statusLabelStyles}>{visibleLabel}</span>}
     </span>
   )
-}
+  },
+)
 
 StatusIndicator.displayName = 'StatusIndicator'

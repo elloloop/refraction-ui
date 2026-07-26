@@ -9,6 +9,7 @@ export interface LineProps<T = unknown> {
   stroke?: string
   strokeWidth?: number
   fill?: string
+  className?: string
 }
 
 export function Line<T>({
@@ -18,6 +19,7 @@ export function Line<T>({
   stroke = 'currentColor',
   strokeWidth = 2,
   fill = 'none',
+  className,
 }: LineProps<T>) {
   const { dimensions } = useChartContext()
   const { boundedWidth, boundedHeight } = dimensions
@@ -39,6 +41,7 @@ export function Line<T>({
 
   return (
     <path
+      className={className}
       d={d}
       stroke={stroke}
       strokeWidth={strokeWidth}

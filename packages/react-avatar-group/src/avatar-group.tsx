@@ -18,12 +18,13 @@ export interface AvatarGroupProps {
   className?: string
 }
 
-export function AvatarGroup({ users, max, size = 'md', className }: AvatarGroupProps) {
+export const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
+  ({ users, max, size = 'md', className }, ref) => {
   const api = createAvatarGroup({ users, max, size })
 
   return React.createElement(
     'div',
-    { ...api.ariaProps, className: cn(avatarGroupStyles, className) },
+    { ref, ...api.ariaProps, className: cn(avatarGroupStyles, className) },
     api.visibleUsers.map((user) =>
       React.createElement(
         'div',
@@ -55,6 +56,7 @@ export function AvatarGroup({ users, max, size = 'md', className }: AvatarGroupP
         `+${api.overflowCount}`,
       ),
   )
-}
+  },
+)
 
 AvatarGroup.displayName = 'AvatarGroup'

@@ -26,7 +26,8 @@ afterEach(() => {
 
 describe('react-language-selector devWarn (footgun: compound-context-throw)', () => {
   it('exports the LanguageSelector component (guard module loads)', () => {
-    expect(typeof LanguageSelectorModule.LanguageSelector).toBe('function')
+    // React.forwardRef components are objects ({ $$typeof, render }), not plain functions.
+    expect(['function', 'object']).toContain(typeof LanguageSelectorModule.LanguageSelector)
   })
 
   it('warns once in dev for the guard code', () => {

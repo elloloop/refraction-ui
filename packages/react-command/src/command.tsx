@@ -282,7 +282,7 @@ CommandGroup.displayName = 'CommandGroup'
 // CommandItem
 // ---------------------------------------------------------------------------
 
-export interface CommandItemProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CommandItemProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   value?: string
   disabled?: boolean
   onSelect?: () => void

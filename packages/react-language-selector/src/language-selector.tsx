@@ -48,14 +48,8 @@ export interface LanguageSelectorProps {
   className?: string
 }
 
-export function LanguageSelector({
-  value: controlledValue,
-  onValueChange,
-  options,
-  multiple = false,
-  placeholder = 'Select language...',
-  className,
-}: LanguageSelectorProps) {
+export const LanguageSelector = React.forwardRef<HTMLDivElement, LanguageSelectorProps>(
+  ({ value: controlledValue, onValueChange, options, multiple = false, placeholder = 'Select language...', className }: LanguageSelectorProps, ref) => {
   const initialValues = Array.isArray(controlledValue)
     ? controlledValue
     : controlledValue
@@ -65,6 +59,14 @@ export function LanguageSelector({
   const [selectedValues, setSelectedValues] = React.useState<string[]>(initialValues)
   const [isOpen, setIsOpen] = React.useState(false)
   const containerRef = React.useRef<HTMLDivElement>(null)
+  const mergedRef = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      containerRef.current = node
+      if (typeof ref === 'function') ref(node)
+      else if (ref) ref.current = node
+    },
+    [ref],
+  )
 
   const handleValueChange = React.useCallback(
     (val: string | string[]) => {
@@ -176,7 +178,7 @@ export function LanguageSelector({
     { value: ctx },
     React.createElement(
       'div',
-      { ref: containerRef, className: cn('rfr-language-selector relative inline-block', className) },
+      { ref: mergedRef, className: cn('rfr-language-selector relative inline-block', className) },
       // Trigger
       React.createElement(
         'button',
@@ -254,6 +256,7 @@ export function LanguageSelector({
         ),
     ),
   )
-}
+  },
+)
 
 LanguageSelector.displayName = 'LanguageSelector'

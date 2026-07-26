@@ -24,16 +24,8 @@ export interface FileUploadProps {
   children?: React.ReactNode
 }
 
-export function FileUpload({
-  accept,
-  maxSize,
-  maxFiles,
-  multiple = false,
-  onFilesSelected,
-  onError,
-  className,
-  children,
-}: FileUploadProps) {
+export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
+  ({ accept, maxSize, maxFiles, multiple = false, onFilesSelected, onError, className, children }, ref) => {
   const [files, setFiles] = React.useState<FileEntry[]>([])
   const [isDragging, setIsDragging] = React.useState(false)
   const inputRef = React.useRef<HTMLInputElement>(null)
@@ -116,7 +108,7 @@ export function FileUpload({
 
   return React.createElement(
     'div',
-    { className },
+    { ref, className },
     // Hidden file input
     React.createElement('input', {
       ref: inputRef,
@@ -213,6 +205,7 @@ export function FileUpload({
         ),
       ),
   )
-}
+  },
+)
 
 FileUpload.displayName = 'FileUpload'
