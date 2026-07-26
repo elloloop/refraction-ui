@@ -200,11 +200,11 @@ class RefractionPricingCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (badgeWidget != null) badgeWidget,
+            ?badgeWidget,
             nameWidget,
             const SizedBox(height: 16),
             priceWidget,
-            if (descWidget != null) descWidget,
+            ?descWidget,
             featuresWidget,
             const SizedBox(height: 24),
             ctaButton,

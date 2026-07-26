@@ -14,7 +14,7 @@ format:
 
 # Static analysis validation
 lint:
-	flutter analyze --no-fatal-warnings --no-fatal-infos .
+	flutter analyze .
 
 # Automated Widget & Unit tests
 test:

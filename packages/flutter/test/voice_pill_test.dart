@@ -153,10 +153,6 @@ void main() {
       // SafeArea > Align > Padding > child is the wrapper for non-inline.
       // We can check if Align exists above the pill content.
       // With inline, it should just be the AnimatedOpacity -> Container directly under Scaffold body.
-      final alignFinder = find.ancestor(
-        of: find.text('Inline'),
-        matching: find.byType(Align),
-      );
       // Wait, there might be Align inside MaterialApp/Scaffold.
       // Let's check for SafeArea
       final safeAreaFinder = find.ancestor(
@@ -294,7 +290,6 @@ void main() {
 
       // AnimatedBuilder is used for rings. Check if any are found.
       // Wait, there might be other AnimatedBuilders. We can check for the Transform used in pulse.
-      final rings = find.byType(Transform);
       // Wait, the test might find Transforms used elsewhere.
       // In RefractionVoicePill, pulse rings are added if _visualIntensity > 0
       // So let's look for Opacity widget inside Transform.

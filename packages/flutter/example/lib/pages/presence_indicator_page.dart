@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:refraction_ui/refraction_ui.dart';
-import 'package:refraction_ui/src/components/presence_indicator.dart';
 import '../dev_tools/preview_canvas.dart';
 
 class PresenceIndicatorPage extends StatelessWidget {

@@ -237,7 +237,7 @@ void main() {
         find.byType(AnimatedContainer).first,
       );
       final decoration = container.decoration as BoxDecoration;
-      expect(decoration.color!.opacity, greaterThan(0));
+      expect(decoration.color!.a, greaterThan(0));
     });
 
     testWidgets('uses muted background when inactive and not hovered', (

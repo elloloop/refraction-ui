@@ -88,13 +88,11 @@ class WidgetbookApp extends StatelessWidget {
             );
           },
         ),
-        DeviceFrameAddon(
-          devices: [
-            Devices.ios.iPhone13,
-            Devices.macOS.macBookPro,
-            Devices.windows.wideMonitor,
-          ],
-        ),
+        ViewportAddon([
+          IosViewports.iPhone13,
+          MacosViewports.macbookPro,
+          WindowsViewports.desktop,
+        ]),
       ],
     );
   }

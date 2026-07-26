@@ -1,0 +1,9 @@
+include: ../analysis_options.yaml
+
+linter:
+  rules:
+    # Golden tests screenshot the example app's use-case widgets so the
+    # goldens match the widgetbook exactly. The example app is
+    # `publish_to: none` and not a pub dependency of this package, so those
+    # imports must stay relative (`../example/lib/...`).
+    avoid_relative_lib_imports: false

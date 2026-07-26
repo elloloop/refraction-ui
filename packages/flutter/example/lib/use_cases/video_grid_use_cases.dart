@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:refraction_ui/refraction_ui.dart';
-import 'package:refraction_ui/src/components/video_grid.dart';
-import 'package:refraction_ui/src/components/video_tile.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 final List<RefractionVideoTileData> _demoParticipants = [

@@ -323,12 +323,12 @@ void main() {
           if (currentDepth >= depth) {
             return RefractionFileTreeNode(
               id: '${prefix}_file',
-              label: 'File ${prefix}',
+              label: 'File $prefix',
             );
           }
           return RefractionFileTreeNode(
             id: '${prefix}_folder',
-            label: 'Folder ${prefix}',
+            label: 'Folder $prefix',
             isFolder: true,
             children: List.generate(
               nodeCount,

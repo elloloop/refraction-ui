@@ -23,7 +23,7 @@ class DropdownMenuPage extends StatelessWidget {
                   label: 'Profile',
                   shortcut: '⇧⌘P',
                   onSelected: () {
-                    print('Profile selected');
+                    debugPrint('Profile selected');
                   },
                 ),
                 RefractionDropdownItem(
