@@ -11,7 +11,7 @@ const collapsibleProps = [
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
 
-const usageCode = `import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@refraction-ui/react-collapsible'
+const usageCode = `import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@refraction-ui/react'
 
 export function MyComponent() {
   return (
@@ -45,7 +45,7 @@ export default function CollapsiblePage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-collapsible" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

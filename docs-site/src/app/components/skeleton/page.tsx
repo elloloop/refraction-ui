@@ -11,7 +11,7 @@ const skeletonProps = [
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
 
-const usageCode = `import { Skeleton, SkeletonText } from '@refraction-ui/react-skeleton'
+const usageCode = `import { Skeleton, SkeletonText } from '@refraction-ui/react'
 
 export function LoadingCard() {
   return (
@@ -48,7 +48,7 @@ export default function SkeletonPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-skeleton" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

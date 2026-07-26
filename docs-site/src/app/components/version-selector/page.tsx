@@ -11,7 +11,7 @@ const versionProps = [
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
 
-const usageCode = `import { VersionSelector } from '@refraction-ui/react-version-selector'
+const usageCode = `import { VersionSelector } from '@refraction-ui/react'
 
 export function MyComponent() {
   const [version, setVersion] = useState('3.0.0')
@@ -48,7 +48,7 @@ export default function VersionSelectorPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-version-selector" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

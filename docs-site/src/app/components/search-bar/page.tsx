@@ -13,7 +13,7 @@ const searchBarProps = [
   { name: 'children', type: 'ReactNode', description: 'SearchResults component.' },
 ]
 
-const usageCode = `import { SearchBar, SearchResults, SearchResultItem } from '@refraction-ui/react-search-bar'
+const usageCode = `import { SearchBar, SearchResults, SearchResultItem } from '@refraction-ui/react'
 
 export function MyComponent() {
   const [results, setResults] = useState([])
@@ -47,7 +47,7 @@ export default function SearchBarPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-search-bar" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

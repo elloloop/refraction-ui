@@ -11,7 +11,7 @@ const textareaProps = [
   { name: 'className', type: 'string', description: 'Additional CSS classes to apply.' },
 ]
 
-const usageCode = `import { Textarea } from '@refraction-ui/react-textarea'
+const usageCode = `import { Textarea } from '@refraction-ui/react'
 
 export function MyComponent() {
   return (
@@ -47,7 +47,7 @@ export default function TextareaPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-textarea" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       {/* Code */}

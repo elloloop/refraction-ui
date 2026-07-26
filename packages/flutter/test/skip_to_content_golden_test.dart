@@ -8,7 +8,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionSkipToContent Golden Tests', () {
-    testGoldens('Skip To Content Use Cases', (tester) async {
+    testGoldens('Skip To Content Use Cases', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario(
           'Default',

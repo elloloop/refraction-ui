@@ -52,7 +52,7 @@ const seriesProps = [
   },
 ]
 
-const usageCode = `import { Chart, Bars } from '@refraction-ui/react-charts'
+const usageCode = `import { Chart, Bars } from '@refraction-ui/react'
 
 const data = [
   { month: 'Jan', value: 32 },
@@ -114,7 +114,7 @@ export default function ChartsPage() {
 
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-charts" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

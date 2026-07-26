@@ -33,7 +33,7 @@ const locationSelectorProps = [
   },
 ]
 
-const usageCode = `import { LocationSelector } from '@refraction-ui/react-location-selector'
+const usageCode = `import { LocationSelector } from '@refraction-ui/react'
 
 export function MyComponent() {
   return (
@@ -74,7 +74,7 @@ export default function LocationSelectorPage() {
 
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-location-selector" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

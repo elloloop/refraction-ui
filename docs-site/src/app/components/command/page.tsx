@@ -14,7 +14,7 @@ const commandProps = [
 const usageCode = `import {
   Command, CommandInput, CommandList, CommandEmpty,
   CommandGroup, CommandItem, CommandSeparator,
-} from '@refraction-ui/react-command'
+} from '@refraction-ui/react'
 
 export function MyComponent() {
   return (
@@ -52,7 +52,7 @@ export default function CommandPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-command" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

@@ -8,7 +8,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionCommand Golden Tests', () {
-    testGoldens('Command Use Cases', (tester) async {
+    testGoldens('Command Use Cases', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario('Default', Builder(builder: (ctx) => defaultCommand(ctx)))
         ..addScenario(

@@ -90,9 +90,9 @@ export default function HomePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0-3-3m3 3 3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
               </svg>
             </div>
-            <h3 className="font-semibold text-foreground">Per-Component Packages</h3>
+            <h3 className="font-semibold text-foreground">One Package per Framework</h3>
             <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-              Install only what you need. Each component is its own package with zero cross-dependencies.
+              Install a single meta package and get every component — one dependency, one version, zero drift.
             </p>
           </div>
           <div className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-md hover:shadow-primary/5">
@@ -177,9 +177,6 @@ export default function HomePage() {
           <pre className="overflow-x-auto p-5">
             <code className="text-[13px] font-mono text-zinc-200 leading-relaxed">{`# Install the meta package (all components)
 pnpm add @refraction-ui/react
-
-# Or install individual components
-pnpm add @refraction-ui/react-button @refraction-ui/react-dialog
 
 # Add the Tailwind preset
 pnpm add -D @refraction-ui/tailwind-config`}</code>

@@ -8,7 +8,7 @@ const cardProps = [
   { name: 'children', type: 'ReactNode', description: 'CardHeader, CardContent, CardFooter compound components.' },
 ]
 
-const usageCode = `import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@refraction-ui/react-card'
+const usageCode = `import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@refraction-ui/react'
 
 export function MyComponent() {
   return (
@@ -48,7 +48,7 @@ export default function CardPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-card" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

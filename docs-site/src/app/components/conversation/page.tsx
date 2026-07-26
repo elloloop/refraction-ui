@@ -13,7 +13,7 @@ const chatProps = [
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
 
-const usageCode = `import { useConversation, Chat, type ChatTransport } from '@refraction-ui/react-conversation'
+const usageCode = `import { useConversation, Chat, type ChatTransport } from '@refraction-ui/react'
 
 // Your backend, behind the transport contract — nothing else knows about it:
 const transport: ChatTransport = {
@@ -67,7 +67,7 @@ export default function ConversationPage() {
 
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

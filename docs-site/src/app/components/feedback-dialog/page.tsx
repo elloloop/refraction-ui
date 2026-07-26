@@ -8,7 +8,7 @@ const feedbackProps = [
   { name: 'children', type: 'ReactNode', description: 'FeedbackButton trigger element.' },
 ]
 
-const usageCode = `import { FeedbackDialog, FeedbackButton } from '@refraction-ui/react-feedback-dialog'
+const usageCode = `import { FeedbackDialog, FeedbackButton } from '@refraction-ui/react'
 
 export function MyComponent() {
   return (
@@ -39,7 +39,7 @@ export default function FeedbackDialogPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-feedback-dialog" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

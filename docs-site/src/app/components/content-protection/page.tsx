@@ -9,7 +9,7 @@ const protectionProps = [
   { name: 'children', type: 'ReactNode', description: 'Protected content.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
-const usageCode = `import { ContentProtection } from '@refraction-ui/react-content-protection'
+const usageCode = `import { ContentProtection } from '@refraction-ui/react'
 export function MyComponent() {
   return (
     <ContentProtection watermark={{ text: 'CONFIDENTIAL', opacity: 0.1 }}>
@@ -38,7 +38,7 @@ export default function ContentProtectionPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-content-protection" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} /></section>

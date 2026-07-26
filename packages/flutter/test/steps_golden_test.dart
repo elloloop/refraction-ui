@@ -8,7 +8,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionSteps Golden Tests', () {
-    testGoldens('Steps Use Cases', (tester) async {
+    testGoldens('Steps Use Cases', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario('Vertical', Builder(builder: (ctx) => verticalSteps(ctx)))
         ..addScenario(

@@ -12,7 +12,7 @@ const tooltipProps = [
   { name: 'children', type: 'ReactNode', description: 'TooltipTrigger + TooltipContent.' },
 ]
 
-const usageCode = `import { Tooltip, TooltipTrigger, TooltipContent } from '@refraction-ui/react-tooltip'
+const usageCode = `import { Tooltip, TooltipTrigger, TooltipContent } from '@refraction-ui/react'
 
 export function MyComponent() {
   return (
@@ -46,7 +46,7 @@ export default function TooltipPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-tooltip" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

@@ -55,7 +55,7 @@ const socialAuthRowProps = [
 const usageCode = `import {
   SocialAuthButton,
   SocialAuthRow,
-} from '@refraction-ui/react-social-auth-button'
+} from '@refraction-ui/react'
 
 export function SignIn() {
   return (
@@ -97,7 +97,7 @@ export default function SocialAuthButtonPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-social-auth-button" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       {/* Usage */}

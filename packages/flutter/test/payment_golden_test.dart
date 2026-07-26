@@ -31,7 +31,7 @@ Widget buildThemedChild(
 }
 
 void main() {
-  testGoldens('Payment Goldens', (WidgetTester tester) async {
+  testGoldens('Payment Goldens', tags: ['golden'], (WidgetTester tester) async {
     final builderLight = GoldenBuilder.column()
       ..addScenario('Default', Builder(builder: (ctx) => defaultPayment(ctx)))
       ..addScenario(

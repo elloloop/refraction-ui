@@ -8,7 +8,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionThreadView Goldens', () {
-    testGoldens('thread_view_use_cases_light', (tester) async {
+    testGoldens('thread_view_use_cases_light', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario(
           'Default',
@@ -32,7 +32,7 @@ void main() {
       );
     });
 
-    testGoldens('thread_view_use_cases_dark', (tester) async {
+    testGoldens('thread_view_use_cases_dark', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario(
           'Default',

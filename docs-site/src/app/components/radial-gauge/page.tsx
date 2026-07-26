@@ -87,7 +87,7 @@ export function ScoreCard() {
 }`
 
 const astroCode = `---
-import { RadialGauge } from '@refraction-ui/astro-radial-gauge/src/RadialGauge.astro'
+import { RadialGauge } from '@refraction-ui/astro'
 ---
 
 <RadialGauge
@@ -160,7 +160,7 @@ export default function RadialGaugePage() {
 
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4">

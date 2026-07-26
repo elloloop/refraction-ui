@@ -6,7 +6,7 @@ export const metadata = {
     'Headless Segment-spec analytics router: consumer API, sessions/identity/consent, GA4 collection-parity, the backend wire contract, and the recommended server-relay topology.',
 }
 
-const consumerApi = `import { createAnalytics } from '@refraction-ui/analytics'
+const consumerApi = `import { createAnalytics } from '@refraction-ui/react'
 
 const analytics = createAnalytics({
   app: 'my-app',
@@ -35,7 +35,7 @@ const checkout = analytics.with({ feature: 'checkout' })
 await analytics.flush()                // drain batch + flush all sinks
 analytics.reset()                      // privacy-safe logout`
 
-const reactApi = `import { AnalyticsProvider, useAnalytics, useTrackEvent } from '@refraction-ui/react-analytics'
+const reactApi = `import { AnalyticsProvider, useAnalytics, useTrackEvent } from '@refraction-ui/react'
 
 function App() {
   return (
@@ -173,10 +173,10 @@ export default function AnalyticsPage() {
         <h3 className="text-lg font-semibold text-foreground pt-2">React</h3>
         <p className="text-muted-foreground leading-relaxed">
           <code className="text-foreground">
-            @refraction-ui/react-analytics
+            @refraction-ui/react
           </code>{' '}
-          mirrors <code className="text-foreground">react-ai</code>: a provider
-          plus hooks. No vendor SDK is loaded in the browser.
+          ships the provider plus hooks alongside every component. No vendor
+          SDK is loaded in the browser.
         </p>
         <Code code={reactApi} />
       </section>

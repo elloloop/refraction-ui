@@ -9,7 +9,7 @@ const installProps = [
   { name: 'onDismiss', type: '() => void', description: 'Callback when dismissed.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
-const usageCode = `import { InstallPrompt } from '@refraction-ui/react-install-prompt'
+const usageCode = `import { InstallPrompt } from '@refraction-ui/react'
 export function MyComponent() {
   return (
     <InstallPrompt
@@ -41,7 +41,7 @@ export default function InstallPromptPage() {
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
-        <InstallCommand packageName="@refraction-ui/react-install-prompt" />
+        <InstallCommand frameworkPackages={{ react: '@refraction-ui/react', astro: '@refraction-ui/astro' }} />
       </section>
 
       <section className="space-y-4"><h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2><CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} /></section>

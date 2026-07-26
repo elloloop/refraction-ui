@@ -8,7 +8,7 @@ import 'golden_test_helper.dart';
 
 void main() {
   group('RefractionVoicePill Golden Tests', () {
-    testGoldens('Voice Pill Use Cases', (tester) async {
+    testGoldens('Voice Pill Use Cases', tags: ['golden'], (tester) async {
       final builder = GoldenBuilder.column()
         ..addScenario(
           'Default AI',
