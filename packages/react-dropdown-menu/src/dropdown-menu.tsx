@@ -207,7 +207,7 @@ DropdownMenuContent.displayName = 'DropdownMenuContent'
 // DropdownMenuItem
 // ---------------------------------------------------------------------------
 
-export interface DropdownMenuItemProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface DropdownMenuItemProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   disabled?: boolean
   onSelect?: () => void
 }

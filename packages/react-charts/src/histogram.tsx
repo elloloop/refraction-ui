@@ -15,6 +15,7 @@ export interface HistogramProps {
   bins?: number
   fill?: string
   margin?: Partial<Margin>
+  className?: string
 }
 
 export function Histogram({
@@ -24,6 +25,7 @@ export function Histogram({
   bins: binCount = 10,
   fill = 'steelblue',
   margin,
+  className,
 }: HistogramProps) {
   const dimensions = combineDimensions({ width, height, margin })
   const { boundedWidth, boundedHeight } = dimensions
@@ -38,7 +40,7 @@ export function Histogram({
   const yTicks = yScale.ticks(5)
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} className={className}>
       <g transform={`translate(${dimensions.margin.left},${dimensions.margin.top})`}>
         {histBins.map((bin, i) => {
           const label = labels[i]

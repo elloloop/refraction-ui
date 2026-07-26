@@ -1,5 +1,3 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
-
 /** Visual/semantic tone of a call control button. */
 export type CallControlTone = 'default' | 'active' | 'destructive'
 
@@ -33,7 +31,7 @@ export interface CallControlsProps {
 
 export interface CallControlsAPI {
   /** ARIA attributes to spread on the toolbar element (`role="toolbar"`). */
-  ariaProps: Partial<AccessibilityProps>
+  ariaProps: Record<string, string | number | boolean>
   /** Data attributes for styling hooks. */
   dataAttributes: Record<string, string>
 }
@@ -66,7 +64,7 @@ export function controlTone(
  * attributes; adapters spread these onto their container element.
  */
 export function createCallControls(_props: CallControlsProps = {}): CallControlsAPI {
-  const ariaProps: Partial<AccessibilityProps> = {
+  const ariaProps: Record<string, string | number | boolean> = {
     role: 'toolbar',
     'aria-label': 'Call controls',
   }

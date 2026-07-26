@@ -1,5 +1,3 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
-
 export type VoicePillSpeaker = 'ai' | 'user' | (string & {})
 
 export type VoicePillPosition =
@@ -60,7 +58,7 @@ export interface VoicePillAPI {
   /** Invoke the mute callback when provided */
   toggleMute(): void
   /** ARIA props for the live status pill */
-  ariaProps: Partial<AccessibilityProps> & Record<string, unknown>
+  ariaProps: Record<string, string | number | boolean>
   /** ARIA props for the mute toggle */
   toggleMuteAriaProps: Record<string, unknown>
   /** Data attributes reflecting speaker/state */
@@ -196,7 +194,7 @@ export function createVoicePill(props: VoicePillProps): VoicePillAPI {
     onToggleMute?.()
   }
 
-  const ariaProps: Partial<AccessibilityProps> & Record<string, unknown> = {
+  const ariaProps: Record<string, string | number | boolean> = {
     role: 'status',
     'aria-live': 'polite',
     'aria-atomic': true,

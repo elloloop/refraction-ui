@@ -1,5 +1,3 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
-
 export type DeviceType = 'iphone' | 'ipad' | 'android-phone' | 'android-tablet'
 export type DeviceOrientation = 'portrait' | 'landscape'
 
@@ -27,7 +25,7 @@ export interface DeviceFrameAPI {
   /** Computed dimensions for the device */
   dimensions: DeviceDimensions
   /** ARIA attributes for the device frame */
-  ariaProps: Partial<AccessibilityProps> & Record<string, unknown>
+  ariaProps: Record<string, string | number | boolean>
   /** Data attributes for styling hooks */
   dataAttributes: Record<string, string>
 }
@@ -92,7 +90,7 @@ export function createDeviceFrame(props: DeviceFrameProps): DeviceFrameAPI {
     homeIndicator: spec.homeIndicator,
   }
 
-  const ariaProps: Partial<AccessibilityProps> & Record<string, unknown> = {
+  const ariaProps: Record<string, string | number | boolean> = {
     role: 'img',
     'aria-label': `${DEVICE_LABELS[device]} device frame in ${orientation} orientation`,
   }

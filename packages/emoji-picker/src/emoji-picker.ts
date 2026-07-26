@@ -1,4 +1,3 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
 import { generateId } from '@refraction-ui/shared'
 import {
   EMOJI_DATA,
@@ -39,7 +38,7 @@ export interface EmojiPickerAPI {
   /** Category tabs with labels */
   categoryTabs: { category: EmojiCategory; label: string; emoji: string }[]
   /** ARIA props for the picker container */
-  ariaProps: Partial<AccessibilityProps> & Record<string, unknown>
+  ariaProps: Record<string, string | number | boolean>
   /** ARIA props for the search input */
   searchInputProps: Record<string, unknown>
   /** Get ARIA props for an emoji button */
@@ -118,7 +117,7 @@ export function createEmojiPicker(props: EmojiPickerProps = {}): EmojiPickerAPI 
     emoji: CATEGORY_ICONS[cat],
   }))
 
-  const ariaProps: Partial<AccessibilityProps> & Record<string, unknown> = {
+  const ariaProps: Record<string, string | number | boolean> = {
     role: 'dialog',
     'aria-labelledby': labelId,
     id: containerId,

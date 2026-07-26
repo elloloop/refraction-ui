@@ -8,6 +8,7 @@ export interface CirclesProps<T = unknown> {
   cy: (d: T) => number
   r?: number
   fill?: string
+  className?: string
 }
 
 export function Circles<T>({
@@ -16,6 +17,7 @@ export function Circles<T>({
   cy,
   r = 4,
   fill = 'currentColor',
+  className,
 }: CirclesProps<T>) {
   const { dimensions } = useChartContext()
   const { boundedWidth, boundedHeight } = dimensions
@@ -29,7 +31,7 @@ export function Circles<T>({
   const yScale = createLinearScale([yMin, yMax], [boundedHeight, 0])
 
   return (
-    <g>
+    <g className={className}>
       {data.map((d, i) => (
         <circle
           key={i}

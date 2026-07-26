@@ -1,5 +1,3 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
-
 export type StatusType = 'success' | 'error' | 'warning' | 'info' | 'pending' | 'neutral'
 
 export interface StatusProps {
@@ -13,7 +11,7 @@ export interface StatusProps {
 
 export interface StatusAPI {
   /** ARIA attributes for the status indicator */
-  ariaProps: Partial<AccessibilityProps> & Record<string, unknown>
+  ariaProps: Record<string, string | number | boolean>
   /** The status type */
   type: StatusType
   /** The display label */
@@ -54,7 +52,7 @@ export function createStatusIndicator(props: StatusProps): StatusAPI {
   const label = labelOverride ?? STATUS_INDICATOR_LABELS[type]
   const pulse = pulseOverride ?? (type === 'pending')
 
-  const ariaProps: Partial<AccessibilityProps> & Record<string, unknown> = {
+  const ariaProps: Record<string, string | number | boolean> = {
     role: 'status',
     'aria-label': label,
   }

@@ -1,5 +1,3 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
-
 export type PresenceStatus = 'online' | 'offline' | 'away' | 'busy' | 'dnd'
 
 export interface PresenceProps {
@@ -13,7 +11,7 @@ export interface PresenceProps {
 
 export interface PresenceAPI {
   /** ARIA attributes for the indicator */
-  ariaProps: Partial<AccessibilityProps> & Record<string, unknown>
+  ariaProps: Record<string, string | number | boolean>
   /** CSS color for the status dot */
   color: string
   /** Human-readable label for the status */
@@ -48,7 +46,7 @@ export function createPresence(props: PresenceProps): PresenceAPI {
   const color = STATUS_COLORS[status]
   const label = labelOverride ?? STATUS_LABELS[status]
 
-  const ariaProps: Partial<AccessibilityProps> & Record<string, unknown> = {
+  const ariaProps: Record<string, string | number | boolean> = {
     role: 'status',
     'aria-label': label,
   }

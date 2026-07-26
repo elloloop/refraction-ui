@@ -1,4 +1,3 @@
-import type { AccessibilityProps } from '@refraction-ui/shared'
 import { generateId } from '@refraction-ui/shared'
 
 export interface MessageReaction {
@@ -70,11 +69,11 @@ export interface ThreadViewAPI {
   /** Format relative time (e.g., "2 minutes ago") */
   formatRelativeTime(date: Date): string
   /** ARIA props for the thread container */
-  ariaProps: Partial<AccessibilityProps> & Record<string, unknown>
+  ariaProps: Record<string, string | number | boolean>
   /** Get ARIA props for a message */
-  getMessageAriaProps(message: MessageData): Record<string, unknown>
+  getMessageAriaProps(message: MessageData): Record<string, string | number | boolean>
   /** Get ARIA props for a reply button */
-  getReplyButtonAriaProps(messageId: string): Record<string, unknown>
+  getReplyButtonAriaProps(messageId: string): Record<string, string | number | boolean>
   /** Generated IDs */
   ids: {
     thread: string
@@ -132,14 +131,14 @@ export function createThreadView(props: ThreadViewProps): ThreadViewAPI {
     onReact?.(messageId, emoji)
   }
 
-  const ariaProps: Partial<AccessibilityProps> & Record<string, unknown> = {
+  const ariaProps: Record<string, string | number | boolean> = {
     role: 'log',
     'aria-label': 'Message thread',
     'aria-live': 'polite',
     id: threadId,
   }
 
-  function getMessageAriaProps(message: MessageData): Record<string, unknown> {
+  function getMessageAriaProps(message: MessageData): Record<string, string | number | boolean> {
     const isOwn = currentUserId && message.author.id === currentUserId
     return {
       role: 'article',
@@ -147,7 +146,7 @@ export function createThreadView(props: ThreadViewProps): ThreadViewAPI {
     }
   }
 
-  function getReplyButtonAriaProps(_messageId: string): Record<string, unknown> {
+  function getReplyButtonAriaProps(_messageId: string): Record<string, string | number | boolean> {
     return {
       role: 'button',
       'aria-label': `Reply to message`,

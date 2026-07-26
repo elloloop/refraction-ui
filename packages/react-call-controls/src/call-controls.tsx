@@ -100,7 +100,7 @@ export const CallControls = React.forwardRef<HTMLDivElement, CallControlsProps>(
       <div
         ref={ref}
         className={cn(callControlsVariants({ size }), className)}
-        {...(api.ariaProps as React.AriaAttributes & { role: string })}
+        {...api.ariaProps}
         {...api.dataAttributes}
         {...props}
       >

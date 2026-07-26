@@ -5,6 +5,7 @@ export interface GradientProps {
   from: string
   to: string
   direction?: 'vertical' | 'horizontal'
+  className?: string
 }
 
 export function Gradient({
@@ -12,11 +13,12 @@ export function Gradient({
   from,
   to,
   direction = 'vertical',
+  className,
 }: GradientProps) {
   const isVertical = direction === 'vertical'
 
   return (
-    <defs>
+    <defs className={className}>
       <linearGradient
         id={id}
         x1="0"

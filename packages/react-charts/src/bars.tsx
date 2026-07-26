@@ -7,9 +7,10 @@ export interface BarsProps<T = unknown> {
   x: (d: T) => string
   y: (d: T) => number
   fill?: string
+  className?: string
 }
 
-export function Bars<T>({ data, x, y, fill = 'currentColor' }: BarsProps<T>) {
+export function Bars<T>({ data, x, y, fill = 'currentColor', className }: BarsProps<T>) {
   const { dimensions } = useChartContext()
   const { boundedWidth, boundedHeight } = dimensions
 
@@ -21,7 +22,7 @@ export function Bars<T>({ data, x, y, fill = 'currentColor' }: BarsProps<T>) {
   const yScale = createLinearScale([0, maxVal], [boundedHeight, 0])
 
   return (
-    <g>
+    <g className={className}>
       {data.map((d, i) => {
         const label = labels[i]
         const value = values[i]
