@@ -1,3 +1,13 @@
+## 0.47.1
+
+- **Theme**: Add `success`, `warning`, and `info` status tokens to `RefractionColors` (wired through `copyWith`/`lerp` and every curated palette) and route the previously hardcoded status hues through them: `RefractionCallout` success/warning/info variants, `RefractionEmptyState` tones, the `RefractionInput` valid state, the `RefractionAudioRoom` raised-hand badge, `RefractionLogger` warning level, and the `RefractionBrowserChromeMock` live badge. One token swap now re-skins every status surface. Note: the callout success/warning variants and the browser-chrome live badge adopt the shared token hues (green-500 `0xFF22C55E`, amber-500 `0xFFF59E0B`), replacing their slightly different ad-hoc greens/oranges; every other routed surface is pixel-identical.
+- **Tests**: Add widget tests for the 13 exported widgets that had none — `RefractionAlert`, `RefractionCallout`, `RefractionBottomNav`, `RefractionBreadcrumbs`, `RefractionRichChatInput`, `RefractionCommandMenu`, `RefractionFooter`, `RefractionInputGroup`, `RefractionMobileNav`, `RefractionNavbar`, `RefractionSearchBar`, `RefractionSelect`, and `RefractionSkeleton` — plus direct unit coverage of the new status tokens.
+- **Widgetbook**: Add example use cases for the 7 widgets missing from the catalog (`RefractionBottomNav`, `RefractionBreadcrumbs`, `RefractionDialog`, `RefractionFooter`, `RefractionInputGroup`, `RefractionSearchBar`, `RefractionSkeleton`) and regenerate the directories index.
+- **Docs**: README corrections (accurate install/snippet details).
+- **Chore**: Set the Dart SDK floor to `>=3.27.0` and drop the unused `widgetbook_annotation` dev dependency from the package.
+- **Chore**: Remove the duplicate `RefractionCallout` class from `alert.dart` — the exported implementation lives in `callout.dart` (the barrel already hid the duplicate).
+- **Chore**: Move store-compliance notes under `store_compliance/`, clean up the analyze gate, and refresh the example lockfile.
+
 ## 0.47.0
 
 - **Feature**: Jumbo emoji-only chat messages now **animate** — the package bundles Google's animated Noto emoji (Lottie, ~190 of the most-used emoji, `assets/emoji_animated/`, SIL OFL 1.1 / Apache 2.0 — see NOTICE). `RefractionChatBubble` plays the Lottie for any jumbo glyph that has an asset and falls back to the static glyph for the rest. **Bundle-size note:** this adds ~12 MB of Lottie JSON.
