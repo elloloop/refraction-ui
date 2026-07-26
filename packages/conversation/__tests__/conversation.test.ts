@@ -315,3 +315,36 @@ describe('subscribe', () => {
     expect(listener.mock.calls.length).toBe(before)
   })
 })
+
+
+describe('determinism (injected now)', () => {
+  it('stamps conversations and messages with the injected clock', async () => {
+    let tick = new Date('2026-01-02T03:04:05.000Z').getTime()
+    const now = () => new Date(tick)
+    const c = createConversation({ now, transport: echoTransport(['ok']) })
+
+    const conv = c.newConversation()
+    expect(conv.createdAt).toEqual(new Date('2026-01-02T03:04:05.000Z'))
+    expect(conv.updatedAt).toEqual(conv.createdAt)
+
+    tick += 60_000
+    await c.sendMessage('hello')
+    const { messages } = c.getState()
+    expect(messages[0]!.timestamp).toEqual(new Date(tick))
+    expect(messages[1]!.timestamp).toEqual(new Date(tick))
+    expect(c.getState().conversations[0]!.updatedAt).toEqual(new Date(tick))
+  })
+
+  it('produces identical timestamps for two stores on the same fixed clock', async () => {
+    const fixed = new Date('2026-06-30T12:00:00.000Z')
+    const now = () => new Date(fixed.getTime())
+    const a = createConversation({ now })
+    const b = createConversation({ now })
+    await a.sendMessage('hi')
+    await b.sendMessage('hi')
+    expect(a.getState().messages[0]!.timestamp).toEqual(b.getState().messages[0]!.timestamp)
+    expect(a.getState().conversations[0]!.createdAt).toEqual(
+      b.getState().conversations[0]!.createdAt,
+    )
+  })
+})

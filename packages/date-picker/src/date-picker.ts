@@ -26,6 +26,8 @@ export interface DatePickerProps {
   onOpenChange?: (open: boolean) => void
   /** The currently displayed month (controlled) */
   currentMonth?: Date
+  /** Reference "today" for isToday/aria-current and time defaults. Default: ambient `new Date()` — inject to avoid SSR/CSR hydration mismatch. */
+  today?: Date
 }
 
 export interface DatePickerState {
@@ -149,7 +151,8 @@ export function createDatePicker(props: DatePickerProps = {}): DatePickerAPI {
     onOpenChange,
   } = props
 
-  const today = new Date()
+  // Injection boundary: ambient "today" is the default; inject `today` so SSR and client agree.
+  const today = props.today ?? new Date()
   let internalOpen = controlledOpen ?? defaultOpen
   let currentMonth = props.currentMonth ?? (value ? startOfMonth(value) : startOfMonth(today))
   let view: DatePickerView = 'calendar'
@@ -230,14 +233,14 @@ export function createDatePicker(props: DatePickerProps = {}): DatePickerAPI {
 
   function setHours(h: number): void {
     if (h < 0 || h > 23) return
-    const newDate = value ? new Date(value) : new Date()
+    const newDate = value ? new Date(value) : new Date(today.getTime())
     newDate.setHours(h)
     onChange?.(newDate)
   }
 
   function setMinutes(m: number): void {
     if (m < 0 || m > 59) return
-    const newDate = value ? new Date(value) : new Date()
+    const newDate = value ? new Date(value) : new Date(today.getTime())
     newDate.setMinutes(m)
     onChange?.(newDate)
   }

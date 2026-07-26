@@ -351,3 +351,19 @@ describe('http sink — consent categories', () => {
     expect(sink.consentCategories).toEqual(['marketing', 'analytics'])
   })
 })
+
+
+describe('determinism (injected now)', () => {
+  it('stamps sentAt from the injected clock', async () => {
+    const be = mockBackend()
+    const sink = createHttpSink({
+      endpoint: 'https://collector.example.com',
+      writeKey: 'WK123',
+      fetchImpl: be.fetchImpl,
+      now: () => new Date('2026-01-02T03:04:05.000Z'),
+    })
+    await sink.deliver([makeEvent()], CTX_ONLINE)
+    const body = be.calls[0].body as { sentAt: string }
+    expect(body.sentAt).toBe('2026-01-02T03:04:05.000Z')
+  })
+})

@@ -25,6 +25,8 @@ export interface ToastProps {
   open?: boolean
   /** Callback when open state changes */
   onOpenChange?: (open: boolean) => void
+  /** Elapsed-time clock for timer pause/resume math (ms). Default: ambient `Date.now()` — inject for deterministic tests. */
+  now?: () => number
 }
 
 export interface ToastState {
@@ -55,6 +57,8 @@ export function createToast(props: ToastProps = {}): ToastAPI {
     onOpenChange,
   } = props
 
+  // Injection boundary: ambient time is the default; inject `now` for deterministic timer math.
+  const now = props.now ?? (() => Date.now())
   let isOpen = controlledOpen ?? true
   let timerId: ReturnType<typeof setTimeout> | null = null
   let remaining = duration
@@ -77,21 +81,21 @@ export function createToast(props: ToastProps = {}): ToastAPI {
     if (duration <= 0) return
     clearTimer()
     remaining = duration
-    startedAt = Date.now()
+    startedAt = now()
     timerId = setTimeout(dismiss, remaining)
   }
 
   function pauseTimer(): void {
     if (timerId === null) return
     clearTimer()
-    remaining = remaining - (Date.now() - startedAt)
+    remaining = remaining - (now() - startedAt)
     if (remaining < 0) remaining = 0
   }
 
   function resumeTimer(): void {
     if (duration <= 0 || remaining <= 0) return
     clearTimer()
-    startedAt = Date.now()
+    startedAt = now()
     timerId = setTimeout(dismiss, remaining)
   }
 
@@ -136,7 +140,14 @@ export interface ToastManagerAPI {
   subscribe(fn: (toasts: ReadonlyArray<ToastEntry>) => void): () => void
 }
 
-export function createToastManager(): ToastManagerAPI {
+export interface ToastManagerConfig {
+  /** Clock for entry `createdAt` stamps (ms). Default: ambient `Date.now()` — inject for deterministic tests. */
+  now?: () => number
+}
+
+export function createToastManager(config: ToastManagerConfig = {}): ToastManagerAPI {
+  // Injection boundary: ambient time is the default; inject `now` for deterministic createdAt.
+  const now = config.now ?? (() => Date.now())
   let toasts: ToastEntry[] = []
   const listeners = new Set<(toasts: ReadonlyArray<ToastEntry>) => void>()
   const timers = new Map<string, ReturnType<typeof setTimeout>>()
@@ -171,7 +182,7 @@ export function createToastManager(): ToastManagerAPI {
       message,
       variant,
       duration,
-      createdAt: Date.now(),
+      createdAt: now(),
     }
 
     toasts = [...toasts, entry]

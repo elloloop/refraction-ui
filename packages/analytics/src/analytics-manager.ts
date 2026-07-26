@@ -64,6 +64,9 @@ export function createAnalytics(config: AnalyticsConfig): Analytics {
   const sampleRate = config.sampleRate ?? 1
   const batchSize = config.batchSize ?? 20
   const flushIntervalMs = config.flushIntervalMs ?? 10_000
+  // Injection boundary: ambient time/randomness default here; inject `now`/`random` for determinism.
+  const now = config.now ?? (() => new Date())
+  const random = config.random ?? (() => Math.random())
 
   const session = createSession(config.session)
   const identity = createIdentity(config.identity)
@@ -86,6 +89,8 @@ export function createAnalytics(config: AnalyticsConfig): Analytics {
       createHttpSink({
         endpoint: config.endpoint,
         writeKey: config.writeKey ?? '',
+        // One clock for the whole manager: the auto sink stamps sentAt with it too.
+        now,
       }),
     )
   }
@@ -203,7 +208,7 @@ export function createAnalytics(config: AnalyticsConfig): Analytics {
   function sampled(): boolean {
     if (sampleRate >= 1) return true
     if (sampleRate <= 0) return false
-    return Math.random() < sampleRate
+    return random() < sampleRate
   }
 
   function enqueue(ev: AnalyticsEvent): void {
@@ -238,7 +243,7 @@ export function createAnalytics(config: AnalyticsConfig): Analytics {
       userId: identity.userId(),
       sessionId,
       context: buildContext(opts?.context, childCtx),
-      timestamp: opts?.timestamp ?? new Date().toISOString(),
+      timestamp: opts?.timestamp ?? now().toISOString(),
       schemaVersion: SCHEMA_VERSION,
       ...fields,
     }
