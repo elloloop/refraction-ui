@@ -1,16 +1,19 @@
-# Store compliance — refraction_ui Flutter telemetry (Wave 1)
+# Store compliance — refraction_ui Flutter telemetry & analytics
 
 App Store / Play Store compliance for the telemetry/analytics layer is a
 **MANDATORY, release-blocking deliverable** (epic #225 DESIGN CLARIFICATION
 §3). Zero store-rejection risk is acceptance criteria. These artifacts cover
 exactly the code added in Wave 1 (offline persistence, crash-on-next-launch,
-native device/app context, ATT/consent sequencing).
+native device/app context, ATT/consent sequencing) plus the Wave-0 mobile
+analytics layer (epic #230 §3, issue #232).
 
 | File | Purpose |
 |---|---|
 | `ios/PrivacyInfo.xcprivacy` | iOS **privacy-manifest fragment** + **required-reason API** declarations (file-timestamp `C617.1`, defensive UserDefaults `CA92.1`) covering the durable queue / crash store / native-context code. Pure-Dart packages can't embed a binary manifest, so the consuming app **merges** these arrays into its `ios/Runner/PrivacyInfo.xcprivacy`. |
 | `PLAY_DATA_SAFETY.md` | Exact Google **Play Data Safety** mapping — what is/ isn't collected, linkage, tracking flags. |
 | `ATT_CONSENT.md` | iOS **ATT/IDFA** handling + the **consent sequencing** the app must follow. The package never reads the IDFA and makes "ID before consent" structurally impossible via `TelemetryConsent`. |
+| `PrivacyInfo.xcprivacy` | iOS privacy-manifest fragment for the **Wave-0 mobile analytics** layer (`lib/src/analytics/mobile/`): `NSPrivacyTracking=false`, UserDefaults `CA92.1` for the consent-gated identity/session store. Merge into the consuming app's manifest. |
+| `STORE_COMPLIANCE.md` | Full compliance write-up for the Wave-0 mobile analytics layer — what is/isn't collected, the iOS manifest contribution, the Play Data Safety mapping, and ATT/consent sequencing. |
 
 ### Guarantees that make review safe
 
