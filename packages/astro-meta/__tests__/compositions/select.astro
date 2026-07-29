@@ -1,0 +1,14 @@
+---
+import Select from '../../dist/astro-select/Select.astro'
+import SelectTrigger from '../../dist/astro-select/SelectTrigger.astro'
+import SelectContent from '../../dist/astro-select/SelectContent.astro'
+import SelectItem from '../../dist/astro-select/SelectItem.astro'
+---
+
+<Select value="apple" name="fruit">
+  <SelectTrigger>Apple</SelectTrigger>
+  <SelectContent>
+    <SelectItem value="apple" selected>Apple</SelectItem>
+    <SelectItem value="banana" disabled>Banana</SelectItem>
+  </SelectContent>
+</Select>

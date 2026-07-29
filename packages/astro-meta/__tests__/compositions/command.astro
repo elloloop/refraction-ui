@@ -1,0 +1,16 @@
+---
+import Command from '../../dist/astro-command/Command.astro'
+import CommandInput from '../../dist/astro-command/CommandInput.astro'
+import CommandList from '../../dist/astro-command/CommandList.astro'
+import CommandItem from '../../dist/astro-command/CommandItem.astro'
+import CommandEmpty from '../../dist/astro-command/CommandEmpty.astro'
+---
+
+<Command open>
+  <CommandInput placeholder="Type a command" />
+  <CommandList>
+    <CommandEmpty>No results.</CommandEmpty>
+    <CommandItem value="open">Open file</CommandItem>
+    <CommandItem value="delete" disabled>Delete file</CommandItem>
+  </CommandList>
+</Command>

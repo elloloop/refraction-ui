@@ -13,9 +13,10 @@
     "build": "node build.mjs",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage --passWithNoTests"
+    "test:coverage": "vitest run --coverage --passWithNoTests",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint __tests__ vitest.config.ts --ext .ts"
   },
-  "dependencies": {},
   "peerDependencies": {
     "astro": ">=4.0.0"
   },
@@ -88,8 +89,8 @@
     "@refraction-ui/astro-logger": "workspace:*",
     "@refraction-ui/astro-markdown-renderer": "workspace:*",
     "@refraction-ui/astro-marquee-strip": "workspace:*",
-    "@refraction-ui/astro-mastery-bar": "workspace:*",
     "@refraction-ui/astro-mascot": "workspace:*",
+    "@refraction-ui/astro-mastery-bar": "workspace:*",
     "@refraction-ui/astro-mini-map": "workspace:*",
     "@refraction-ui/astro-mobile-nav": "workspace:*",
     "@refraction-ui/astro-navbar": "workspace:*",
@@ -144,7 +145,8 @@
     "@refraction-ui/astro-voice-pill": "workspace:*",
     "@refraction-ui/astro-waveform": "workspace:*",
     "@refraction-ui/astro-wizard": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@refraction-ui/shared": "workspace:*",
+    "@types/node": "22.0.0"
   },
   "publishConfig": {
     "access": "public"

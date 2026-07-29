@@ -1819,6 +1819,9 @@ importers:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
+      '@types/node':
+        specifier: 22.0.0
+        version: 22.0.0
 
   packages/astro-mini-map:
     dependencies:
