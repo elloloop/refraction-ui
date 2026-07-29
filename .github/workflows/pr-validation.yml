@@ -86,7 +86,10 @@ jobs:
         with:
           path: .turbo
           key: turbo-${{ runner.os }}-validation-${{ github.sha }}
+          # Restore the validation job's own most recent cache first; the
+          # bare `turbo-<os>-` prefix stays as a cross-job fallback only.
           restore-keys: |
+            turbo-${{ runner.os }}-validation-
             turbo-${{ runner.os }}-
       - run: make install
       - name: Run CI
