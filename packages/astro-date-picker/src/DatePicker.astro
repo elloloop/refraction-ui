@@ -1,6 +1,6 @@
 ---
 import { cn } from '@refraction-ui/shared'
-import { datePickerTriggerStyles } from '@refraction-ui/date-picker'
+import { datePickerTriggerStyles, formatDate } from '@refraction-ui/date-picker'
 
 interface Props extends astroHTML.JSX.HTMLAttributes {
   /** Selected date value (ISO string) */
@@ -11,7 +11,7 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   maxDate?: string
   /** Show time selection inputs */
   showTime?: boolean
-  /** Date format string (ignored by native input, but kept for interface compatibility) */
+  /** Display format for the selected-date text shown next to the input (e.g. 'DD/MM/YYYY'). The native input value itself stays ISO (`YYYY-MM-DD`). */
   format?: string
   /** Placeholder text */
   placeholder?: string
@@ -49,6 +49,11 @@ function formatDateStr(isoStr?: string) {
 const parsedValue = formatDateStr(value)
 const parsedMin = formatDateStr(minDate)
 const parsedMax = formatDateStr(maxDate)
+
+// A custom display format cannot be honored by the native input itself (the
+// browser locale controls its presentation), so the formatted date renders as
+// adjacent text via the core's formatter — mirroring the React adapter.
+const formattedDisplay = format && value ? formatDate(new Date(value), format, showTime) : undefined
 ---
 
 <input
@@ -62,6 +67,9 @@ const parsedMax = formatDateStr(maxDate)
   data-rfr-datepicker
   {...props}
 />
+{formattedDisplay && (
+  <span class="text-sm text-muted-foreground">{formattedDisplay}</span>
+)}
 
 <script>
   document.querySelectorAll<HTMLInputElement>('[data-rfr-datepicker]').forEach((input) => {

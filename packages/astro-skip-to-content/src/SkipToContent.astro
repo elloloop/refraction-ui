@@ -1,3 +1,24 @@
 ---
+import {
+  createSkipToContent,
+  skipToContentVariants,
+} from '@refraction-ui/skip-to-content'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** The target element ID to skip to (without the #) */
+  targetId?: string
+}
+
+const { targetId = 'main-content', class: className, ...props } = Astro.props
+const api = createSkipToContent()
 ---
-<div></div>
+
+<a
+  href={`#${targetId}`}
+  class={cn(skipToContentVariants(), className)}
+  {...api.dataAttributes}
+  {...props}
+>
+  <slot>Skip to content</slot>
+</a>

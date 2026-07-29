@@ -31,7 +31,7 @@ const primaries = discoverPrimaries(COMPONENT_OVERRIDES)
 
 describe('astro adapter smoke (meta dist, container API)', () => {
   it('discovers a primary component for (almost) every adapter package', () => {
-    // 125 astro-* packages; astro-slider ships no .astro component.
+    // 125 astro-* packages ship at least one .astro primary component.
     expect(primaries.length).toBeGreaterThanOrEqual(120)
   })
 

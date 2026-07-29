@@ -16,21 +16,26 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   maxDate?: string
   /** Disabled date ISO strings */
   disabledDates?: string[]
+  /** Reference "today" (ISO string) for isToday/aria-current and the initial
+   *  month — inject to keep SSR and client hydration in agreement. */
+  today?: string
 }
 
-const { value, minDate, maxDate, disabledDates = [], class: className, ...props } = Astro.props
+const { value, minDate, maxDate, disabledDates = [], today, class: className, ...props } = Astro.props
 
 const parsedValue = value ? new Date(value) : undefined
 const parsedMin = minDate ? new Date(minDate) : undefined
 const parsedMax = maxDate ? new Date(maxDate) : undefined
 const parsedDisabled = disabledDates.map((d: string) => new Date(d))
+const parsedToday = today ? new Date(today) : undefined
 
 const api = createCalendar({
   value: parsedValue,
-  month: parsedValue ?? new Date(),
+  month: parsedValue ?? parsedToday,
   minDate: parsedMin,
   maxDate: parsedMax,
   disabledDates: parsedDisabled,
+  today: parsedToday,
 })
 
 const MONTH_NAMES = [

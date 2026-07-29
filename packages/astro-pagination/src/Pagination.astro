@@ -1,3 +1,102 @@
 ---
+import {
+  createPagination,
+  paginationVariants,
+  paginationItemVariants,
+  paginationEllipsisClass,
+} from '@refraction-ui/pagination'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Current page, 1-based. Clamped into `[1, totalPages]` (default 1). */
+  page?: number
+  /** Total number of pages (default 1). */
+  totalPages?: number
+  /** Pages shown on each side of the current page (default 1). */
+  siblingCount?: number
+  /** Disables every control. */
+  disabled?: boolean
+}
+
+const {
+  page = 1,
+  totalPages = 1,
+  siblingCount = 1,
+  disabled = false,
+  class: className,
+  ...props
+} = Astro.props
+
+const api = createPagination({ page, totalPages, siblingCount })
 ---
-<div></div>
+
+<div
+  data-rfr-pagination
+  data-rfr-pagination-disabled={disabled ? '' : undefined}
+  class={cn(paginationVariants(), className)}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...props}
+>
+  {Astro.slots.has('default') ? (
+    <slot />
+  ) : (
+    <>
+      <button
+        type="button"
+        {...api.getPreviousAria()}
+        disabled={disabled || !api.canGoPrevious}
+        class={paginationItemVariants()}
+        data-rfr-page={api.previousPage}
+      >
+        Previous
+      </button>
+      {api.items.map((item) =>
+        item.type === 'ellipsis' ? (
+          <span aria-hidden="true" class={paginationEllipsisClass}>…</span>
+        ) : (
+          <button
+            type="button"
+            {...api.getPageAria(item.page)}
+            disabled={disabled}
+            data-state={item.page === api.page ? 'current' : 'default'}
+            class={paginationItemVariants({
+              state: item.page === api.page ? 'current' : 'default',
+            })}
+            data-rfr-page={item.page}
+          >
+            {item.page}
+          </button>
+        ),
+      )}
+      <button
+        type="button"
+        {...api.getNextAria()}
+        disabled={disabled || !api.canGoNext}
+        class={paginationItemVariants()}
+        data-rfr-page={api.nextPage}
+      >
+        Next
+      </button>
+    </>
+  )}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rfr-pagination]').forEach((root) => {
+    if (root.hasAttribute('data-rfr-pagination-init')) return
+    root.setAttribute('data-rfr-pagination-init', '')
+
+    // SSR-static component: activation is delivered as a bubbling
+    // `rfr-page-change` CustomEvent; the consumer re-renders (or navigates)
+    // with the requested page. The DOM is never mutated here.
+    root.addEventListener('click', (e) => {
+      if (root.hasAttribute('data-rfr-pagination-disabled')) return
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-rfr-page]')
+      if (!btn || btn.disabled) return
+      const page = parseInt(btn.getAttribute('data-rfr-page') || '', 10)
+      if (Number.isNaN(page) || String(page) === root.getAttribute('data-page')) return
+      root.dispatchEvent(new CustomEvent('rfr-page-change', { detail: { page }, bubbles: true }))
+    })
+  })
+</script>

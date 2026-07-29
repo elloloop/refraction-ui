@@ -1,0 +1,75 @@
+---
+import { createSlider } from '@refraction-ui/slider'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Current value. Clamped into `[min, max]` and rounded to `step`. */
+  value?: number
+  /** Initial value when `value` is not given (defaults to `min`). */
+  defaultValue?: number
+  /** Minimum selectable value (default 0). */
+  min?: number
+  /** Maximum selectable value (default 100). */
+  max?: number
+  /** Granularity between selectable values (default 1). */
+  step?: number
+  /** Disables the control. */
+  disabled?: boolean
+  variant?: 'default'
+}
+
+const {
+  value,
+  defaultValue,
+  min = 0,
+  max = 100,
+  step = 1,
+  disabled,
+  variant: _variant,
+  class: className,
+  ...props
+} = Astro.props
+
+// Native `<input type="range">` owns keyboard/pointer interaction; the core
+// normalizes the rendered value and supplies the slider ARIA object.
+const api = createSlider({
+  value: value ?? defaultValue ?? min,
+  min,
+  max,
+  step,
+  disabled,
+  'aria-label': props['aria-label'] as string | undefined,
+})
+---
+
+<input
+  type="range"
+  data-rfr-slider
+  min={min}
+  max={max}
+  step={step}
+  value={api.value}
+  disabled={disabled}
+  class={cn('w-full', className)}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...props}
+/>
+
+<script>
+  document.querySelectorAll<HTMLInputElement>('input[data-rfr-slider]').forEach((input) => {
+    if (input.hasAttribute('data-rfr-slider-init')) return
+    input.setAttribute('data-rfr-slider-init', '')
+
+    // The native range input owns keyboard/pointer interaction and its own
+    // DOM value; the change is delivered as a bubbling `rfr-value-change`
+    // CustomEvent (SSR-static adapter — consumers re-render with the value).
+    input.addEventListener('input', () => {
+      input.setAttribute('data-value', input.value)
+      input.setAttribute('aria-valuenow', input.value)
+      input.dispatchEvent(
+        new CustomEvent('rfr-value-change', { detail: { value: Number(input.value) }, bubbles: true }),
+      )
+    })
+  })
+</script>

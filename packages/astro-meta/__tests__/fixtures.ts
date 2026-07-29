@@ -41,6 +41,16 @@ export const PROPS: Record<string, Record<string, unknown>> = {
     tabs: [{ id: '1', label: 'index.ts' }],
     activeId: '1',
   },
+  'astro-file-tree': {
+    nodes: [
+      {
+        id: 'src',
+        label: 'src',
+        children: [{ id: 'src-index', label: 'index.ts' }],
+      },
+    ],
+    expandedIds: ['src'],
+  },
   'astro-flow-editor': {
     nodes: [{ id: 'n1', x: 0, y: 0, label: 'Start' }],
     edges: [],
@@ -65,6 +75,7 @@ export const PROPS: Record<string, Record<string, unknown>> = {
   'astro-marquee-strip': { items: ['One', 'Two'] },
   'astro-mini-map': { items: [{ id: '1', x: 0, y: 0 }] },
   'astro-numbered-steps': { items: [{ title: 'Step one', body: 'Do it' }] },
+  'astro-pagination': { page: 5, totalPages: 20 },
   'astro-pricing-card': {
     name: 'Pro',
     price: '$29',
@@ -125,6 +136,7 @@ export const EXPECT_SLOT_CONTENT = new Set([
   'astro-input-group',
   'astro-link-card',
   'astro-mobile-nav',
+  'astro-pagination',
   'astro-popover',
   'astro-radio',
   'astro-resizable-layout',
@@ -133,6 +145,8 @@ export const EXPECT_SLOT_CONTENT = new Set([
   'astro-segmented-control',
   'astro-select',
   'astro-separator',
+  'astro-skip-to-content',
+  'astro-steps',
   'astro-sticky-note',
   'astro-tabs',
   'astro-toast',
@@ -144,13 +158,7 @@ export const EXPECT_SLOT_CONTENT = new Set([
  * class hook) is their entire current implementation. Asserted to render
  * without throwing; a marker assertion would be meaningless.
  */
-export const PLACEHOLDERS = new Set([
-  'astro-file-tree',
-  'astro-icon-system',
-  'astro-pagination',
-  'astro-skip-to-content',
-  'astro-steps',
-])
+export const PLACEHOLDERS = new Set(['astro-icon-system'])
 
 /** Pin a different primary component than the namesake/first-file rule. */
 export const COMPONENT_OVERRIDES: Record<string, string> = {
