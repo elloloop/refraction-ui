@@ -63,7 +63,7 @@ const CheckIcon = (
  * Styling via Tailwind utility classes (no external CSS-in-JS).
  */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  (
+  function Input(
     {
       type = 'text',
       size,
@@ -77,7 +77,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     // The core owns the `aria-invalid` derivation and the validation border
     // tokens; the React layer only does DOM composition (wrapper + icons).
     const api = createInput({
@@ -132,5 +132,3 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     )
   },
 )
-
-Input.displayName = 'Input'

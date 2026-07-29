@@ -5,7 +5,7 @@ import { cn } from '@refraction-ui/shared'
 export interface ReactCardGridProps extends React.HTMLAttributes<HTMLDivElement>, CardGridProps {}
 
 export const CardGrid = React.forwardRef<HTMLDivElement, ReactCardGridProps>(
-  ({ className, columns = 3, ...props }, ref) => {
+  function CardGrid({ className, columns = 3, ...props }, ref) {
     const api = createCardGrid({ columns })
     return (
       <div
@@ -17,4 +17,3 @@ export const CardGrid = React.forwardRef<HTMLDivElement, ReactCardGridProps>(
     )
   }
 )
-CardGrid.displayName = 'CardGrid'

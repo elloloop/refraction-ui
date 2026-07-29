@@ -111,8 +111,6 @@ export function Tooltip({
   return React.createElement(TooltipContext.Provider, { value: ctx }, children)
 }
 
-Tooltip.displayName = 'Tooltip'
-
 /* ------------------------------------------------------------------ */
 /*  TooltipTrigger                                                     */
 /* ------------------------------------------------------------------ */
@@ -120,7 +118,7 @@ Tooltip.displayName = 'Tooltip'
 export interface TooltipTriggerProps extends React.HTMLAttributes<HTMLSpanElement> {}
 
 export const TooltipTrigger = React.forwardRef<HTMLSpanElement, TooltipTriggerProps>(
-  ({ onMouseEnter, onMouseLeave, onFocus, onBlur, children, ...props }, ref) => {
+  function TooltipTrigger({ onMouseEnter, onMouseLeave, onFocus, onBlur, children, ...props }, ref) {
     const { api, setOpen, openWithDelay, cancelDelay } = useTooltipContext()
 
     const handleMouseEnter = (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -161,8 +159,6 @@ export const TooltipTrigger = React.forwardRef<HTMLSpanElement, TooltipTriggerPr
   },
 )
 
-TooltipTrigger.displayName = 'TooltipTrigger'
-
 /* ------------------------------------------------------------------ */
 /*  TooltipContent                                                     */
 /* ------------------------------------------------------------------ */
@@ -172,7 +168,7 @@ export interface TooltipContentProps extends React.HTMLAttributes<HTMLDivElement
 }
 
 export const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentProps>(
-  ({ side, className, children, ...props }, ref) => {
+  function TooltipContent({ side, className, children, ...props }, ref) {
     const { api, open } = useTooltipContext()
 
     if (!open) return null
@@ -196,5 +192,3 @@ export const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentPro
     return content
   },
 )
-
-TooltipContent.displayName = 'TooltipContent'

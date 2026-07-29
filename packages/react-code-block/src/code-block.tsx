@@ -10,7 +10,7 @@ import {
 import { cn } from '@refraction-ui/shared'
 
 export const CodeBlock = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
+  function CodeBlock({ className, ...props }, ref) {
     const api = createCodeBlock()
     return (
       <div
@@ -22,10 +22,9 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, React.HTMLAttributes<H
     )
   },
 )
-CodeBlock.displayName = 'CodeBlock'
 
 export const CodeBlockHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
+  function CodeBlockHeader({ className, ...props }, ref) {
     const api = createCodeBlockHeader()
     return (
       <div
@@ -37,10 +36,9 @@ export const CodeBlockHeader = React.forwardRef<HTMLDivElement, React.HTMLAttrib
     )
   },
 )
-CodeBlockHeader.displayName = 'CodeBlockHeader'
 
 export const CodeBlockContent = React.forwardRef<HTMLPreElement, React.HTMLAttributes<HTMLPreElement>>(
-  ({ className, ...props }, ref) => {
+  function CodeBlockContent({ className, ...props }, ref) {
     const api = createCodeBlockContent()
     return (
       <pre
@@ -52,4 +50,3 @@ export const CodeBlockContent = React.forwardRef<HTMLPreElement, React.HTMLAttri
     )
   },
 )
-CodeBlockContent.displayName = 'CodeBlockContent'

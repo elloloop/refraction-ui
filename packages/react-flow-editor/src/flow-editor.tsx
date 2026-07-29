@@ -50,7 +50,7 @@ export interface FlowEditorProps
  * Node drag is kept deliberately simple (pointer events, no external dep).
  */
 export const FlowEditor = React.forwardRef<HTMLDivElement, FlowEditorProps>(
-  (
+  function FlowEditor(
     {
       nodes,
       edges,
@@ -64,7 +64,7 @@ export const FlowEditor = React.forwardRef<HTMLDivElement, FlowEditorProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const api = createFlowEditor()
 
     // Track pointer-drag state without triggering re-renders mid-drag.
@@ -185,5 +185,3 @@ export const FlowEditor = React.forwardRef<HTMLDivElement, FlowEditorProps>(
     )
   },
 )
-
-FlowEditor.displayName = 'FlowEditor'

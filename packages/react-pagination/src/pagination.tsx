@@ -33,7 +33,7 @@ export interface PaginationProps
  * controls instead of the generated ones.
  */
 export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
-  (
+  function Pagination(
     {
       className,
       page: controlledPage,
@@ -46,7 +46,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const isControlled = controlledPage !== undefined
     const [internalPage, setInternalPage] = React.useState(defaultPage ?? 1)
 
@@ -121,4 +121,3 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
     )
   },
 )
-Pagination.displayName = 'Pagination'

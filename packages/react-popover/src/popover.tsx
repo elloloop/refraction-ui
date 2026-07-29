@@ -72,8 +72,6 @@ export function Popover({ open: controlledOpen, defaultOpen = false, onOpenChang
   return React.createElement(PopoverContext.Provider, { value: ctx }, children)
 }
 
-Popover.displayName = 'Popover'
-
 /* ------------------------------------------------------------------ */
 /*  PopoverTrigger                                                     */
 /* ------------------------------------------------------------------ */
@@ -81,7 +79,7 @@ Popover.displayName = 'Popover'
 export interface PopoverTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export const PopoverTrigger = React.forwardRef<HTMLButtonElement, PopoverTriggerProps>(
-  ({ onClick, children, ...props }, ref) => {
+  function PopoverTrigger({ onClick, children, ...props }, ref) {
     const { api, setOpen, open } = usePopoverContext()
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -105,8 +103,6 @@ export const PopoverTrigger = React.forwardRef<HTMLButtonElement, PopoverTrigger
   },
 )
 
-PopoverTrigger.displayName = 'PopoverTrigger'
-
 /* ------------------------------------------------------------------ */
 /*  PopoverContent                                                     */
 /* ------------------------------------------------------------------ */
@@ -116,7 +112,7 @@ export interface PopoverContentProps extends React.HTMLAttributes<HTMLDivElement
 }
 
 export const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentProps>(
-  ({ side, className, children, onKeyDown, ...props }, ref) => {
+  function PopoverContent({ side, className, children, onKeyDown, ...props }, ref) {
     const { api, open, setOpen } = usePopoverContext()
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -149,8 +145,6 @@ export const PopoverContent = React.forwardRef<HTMLDivElement, PopoverContentPro
   },
 )
 
-PopoverContent.displayName = 'PopoverContent'
-
 /* ------------------------------------------------------------------ */
 /*  PopoverClose                                                       */
 /* ------------------------------------------------------------------ */
@@ -158,7 +152,7 @@ PopoverContent.displayName = 'PopoverContent'
 export interface PopoverCloseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export const PopoverClose = React.forwardRef<HTMLButtonElement, PopoverCloseProps>(
-  ({ onClick, children, ...props }, ref) => {
+  function PopoverClose({ onClick, children, ...props }, ref) {
     const { setOpen } = usePopoverContext()
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -173,5 +167,3 @@ export const PopoverClose = React.forwardRef<HTMLButtonElement, PopoverCloseProp
     )
   },
 )
-
-PopoverClose.displayName = 'PopoverClose'

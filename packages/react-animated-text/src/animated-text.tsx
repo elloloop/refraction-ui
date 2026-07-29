@@ -18,7 +18,7 @@ export interface AnimatedTextProps
     CoreAnimatedTextProps {}
 
 export const AnimatedText = React.forwardRef<HTMLSpanElement, AnimatedTextProps>(
-  ({ words, interval = 2500, transitionDuration = 1000, className, ...props }, ref) => {
+  function AnimatedText({ words, interval = 2500, transitionDuration = 1000, className, ...props }, ref) {
     const apiRef = React.useRef(
       createAnimatedText({ words, interval, transitionDuration }),
     )
@@ -76,8 +76,6 @@ export const AnimatedText = React.forwardRef<HTMLSpanElement, AnimatedTextProps>
   },
 )
 
-AnimatedText.displayName = 'AnimatedText'
-
 /* ------------------------------------------------------------------ */
 /*  TypewriterText — char-by-char reveal                               */
 /* ------------------------------------------------------------------ */
@@ -87,7 +85,7 @@ export interface TypewriterTextProps
     CoreTypewriterProps {}
 
 export const TypewriterText = React.forwardRef<HTMLSpanElement, TypewriterTextProps>(
-  ({ text, speed = 50, startDelay = 0, className, ...props }, ref) => {
+  function TypewriterText({ text, speed = 50, startDelay = 0, className, ...props }, ref) {
     const apiRef = React.useRef(createTypewriter({ text, speed, startDelay }))
     const api = apiRef.current
 
@@ -136,5 +134,3 @@ export const TypewriterText = React.forwardRef<HTMLSpanElement, TypewriterTextPr
     )
   },
 )
-
-TypewriterText.displayName = 'TypewriterText'

@@ -14,7 +14,7 @@ export interface DatePickerProps extends Omit<React.InputHTMLAttributes<HTMLInpu
 }
 
 export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
-  ({ value, onChange, minDate, maxDate, showTime = false, format, placeholder, className, disabled = false, ...props }, ref) => {
+  function DatePicker({ value, onChange, minDate, maxDate, showTime = false, format, placeholder, className, disabled = false, ...props }, ref) {
 
     // Native date inputs expect YYYY-MM-DD or YYYY-MM-DDTHH:mm
     const dateToString = (date?: Date) => {
@@ -63,5 +63,3 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
     )
   }
 )
-
-DatePicker.displayName = 'DatePicker'

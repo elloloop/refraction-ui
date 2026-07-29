@@ -44,7 +44,7 @@ export interface SlotPickerProps
  * when the previously-chosen slot is not available on the new day.
  */
 export const SlotPicker = React.forwardRef<HTMLDivElement, SlotPickerProps>(
-  (
+  function SlotPicker(
     {
       days,
       slotsByDay,
@@ -57,7 +57,7 @@ export const SlotPicker = React.forwardRef<HTMLDivElement, SlotPickerProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const isControlled = valueProp !== undefined
     const [internal, setInternal] = React.useState<SlotSelection | undefined>(
       defaultValue,
@@ -167,5 +167,3 @@ export const SlotPicker = React.forwardRef<HTMLDivElement, SlotPickerProps>(
     )
   },
 )
-
-SlotPicker.displayName = 'SlotPicker'

@@ -16,7 +16,7 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Callout = React.forwardRef<HTMLDivElement, CalloutProps>(
-  ({ className, variant, ...props }, ref) => {
+  function Callout({ className, variant, ...props }, ref) {
     const api = createCallout({ role: variant === 'destructive' ? 'alert' : 'region' })
     return (
       <div
@@ -29,10 +29,9 @@ export const Callout = React.forwardRef<HTMLDivElement, CalloutProps>(
     )
   },
 )
-Callout.displayName = 'Callout'
 
 export const CalloutIcon = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
+  function CalloutIcon({ className, ...props }, ref) {
     const api = createCalloutIcon()
     return (
       <div
@@ -44,10 +43,9 @@ export const CalloutIcon = React.forwardRef<HTMLDivElement, React.HTMLAttributes
     )
   },
 )
-CalloutIcon.displayName = 'CalloutIcon'
 
 export const CalloutContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
+  function CalloutContent({ className, ...props }, ref) {
     const api = createCalloutContent()
     return (
       <div
@@ -59,10 +57,9 @@ export const CalloutContent = React.forwardRef<HTMLDivElement, React.HTMLAttribu
     )
   },
 )
-CalloutContent.displayName = 'CalloutContent'
 
 export const CalloutTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
-  ({ className, ...props }, ref) => {
+  function CalloutTitle({ className, ...props }, ref) {
     const api = createCalloutTitle()
     return (
       <h5
@@ -74,10 +71,9 @@ export const CalloutTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttri
     )
   },
 )
-CalloutTitle.displayName = 'CalloutTitle'
 
 export const CalloutDescription = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
+  function CalloutDescription({ className, ...props }, ref) {
     const api = createCalloutDescription()
     return (
       <div
@@ -89,4 +85,3 @@ export const CalloutDescription = React.forwardRef<HTMLDivElement, React.HTMLAtt
     )
   },
 )
-CalloutDescription.displayName = 'CalloutDescription'

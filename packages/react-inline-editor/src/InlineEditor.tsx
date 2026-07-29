@@ -20,7 +20,7 @@ export interface InlineEditorProps {
 }
 
 export const InlineEditor = React.forwardRef<HTMLDivElement, InlineEditorProps>(
-  ({ value: initialValue, onSave, onCancel, className }, ref) => {
+  function InlineEditor({ value: initialValue, onSave, onCancel, className }, ref) {
   const [isEditing, setIsEditing] = React.useState(false)
   const [editValue, setEditValue] = React.useState(initialValue)
 
@@ -137,5 +137,3 @@ export const InlineEditor = React.forwardRef<HTMLDivElement, InlineEditorProps>(
   )
   },
 )
-
-InlineEditor.displayName = 'InlineEditor'

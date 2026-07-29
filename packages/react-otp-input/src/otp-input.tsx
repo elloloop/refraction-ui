@@ -23,7 +23,7 @@ export interface OtpInputProps extends Omit<React.HTMLAttributes<HTMLDivElement>
  * Features: auto-advance on type, backspace navigation, paste support, numeric/text mode.
  */
 export const OtpInput = React.forwardRef<HTMLDivElement, OtpInputProps>(
-  ({
+  function OtpInput({
     length = 6,
     value = '',
     onChange,
@@ -33,7 +33,7 @@ export const OtpInput = React.forwardRef<HTMLDivElement, OtpInputProps>(
     size = 'default',
     className,
     ...props
-  }, ref) => {
+  }, ref) {
     const inputRefs = React.useRef<(HTMLInputElement | null)[]>([])
     const [focusedIndex, setFocusedIndex] = React.useState(autoFocus ? 0 : -1)
     const [values, setValues] = React.useState<string[]>(() =>
@@ -169,5 +169,3 @@ export const OtpInput = React.forwardRef<HTMLDivElement, OtpInputProps>(
     )
   },
 )
-
-OtpInput.displayName = 'OtpInput'

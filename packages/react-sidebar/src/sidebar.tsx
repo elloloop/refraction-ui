@@ -26,7 +26,7 @@ export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
  * Hidden on mobile (hidden md:flex via styles).
  */
 export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
-  (
+  function Sidebar(
     {
       sections = [],
       currentPath,
@@ -36,7 +36,7 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const api = createSidebar({ sections, currentPath, collapsed, userRoles })
     const classes = cn(
       sidebarVariants({ collapsed: collapsed ? 'true' : 'false' }),
@@ -79,5 +79,3 @@ export const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
     )
   },
 )
-
-Sidebar.displayName = 'Sidebar'

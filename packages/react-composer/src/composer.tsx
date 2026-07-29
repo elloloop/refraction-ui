@@ -288,7 +288,7 @@ function IconSmiley() {
  * textarea; the core is reachable through `apiRef`.
  */
 export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, RefractionComposerProps>(
-  (
+  function RefractionComposer(
     {
       value: valueProp,
       defaultValue,
@@ -335,7 +335,7 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
       ...rest
     },
     forwardedRef,
-  ) => {
+  ) {
     const strings = React.useMemo(
       () => ({ ...DEFAULT_COMPOSER_STRINGS, ...stringsProp }),
       [stringsProp],
@@ -1099,5 +1099,3 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
     )
   },
 )
-
-RefractionComposer.displayName = 'RefractionComposer'

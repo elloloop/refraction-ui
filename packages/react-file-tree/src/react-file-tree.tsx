@@ -118,7 +118,7 @@ function TreeItems({ nodes, depth, api, state, firstVisibleId }: TreeItemsProps)
  * `selectedId`) and uncontrolled usage.
  */
 export const FileTree = React.forwardRef<HTMLDivElement, FileTreeProps>(
-  (
+  function FileTree(
     {
       className,
       nodes = [],
@@ -132,7 +132,7 @@ export const FileTree = React.forwardRef<HTMLDivElement, FileTreeProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     // The headless core owns expansion/selection/focus; it is created once and
     // props are synced into it below.
     const apiRef = React.useRef<FileTreeAPI | null>(null)
@@ -190,4 +190,3 @@ export const FileTree = React.forwardRef<HTMLDivElement, FileTreeProps>(
     )
   },
 )
-FileTree.displayName = 'FileTree'

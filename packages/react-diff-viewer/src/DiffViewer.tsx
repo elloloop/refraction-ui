@@ -69,7 +69,7 @@ const MonacoDiffEditor = React.lazy(() =>
 // ---------------------------------------------------------------------------
 
 export const DiffViewer = React.forwardRef<HTMLDivElement, DiffViewerProps>(
-  (
+  function DiffViewer(
     {
       files,
       original = '',
@@ -91,7 +91,7 @@ export const DiffViewer = React.forwardRef<HTMLDivElement, DiffViewerProps>(
       editorOptions,
     },
     ref,
-  ) => {
+  ) {
     const [activeIdx, setActiveIdx] = React.useState(controlledIndex)
     const [sidebarOpen, setSidebarOpen] = React.useState(showSidebar)
     const [viewMode, setViewMode] = React.useState<DiffViewMode>(controlledViewMode)
@@ -276,5 +276,3 @@ export const DiffViewer = React.forwardRef<HTMLDivElement, DiffViewerProps>(
     )
   },
 )
-
-DiffViewer.displayName = 'DiffViewer'

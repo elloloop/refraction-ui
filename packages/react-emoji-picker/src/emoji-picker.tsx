@@ -111,7 +111,7 @@ export interface EmojiPickerProps {
 const RECENT_LIMIT = 20
 
 export const EmojiPicker = React.forwardRef<HTMLDivElement, EmojiPickerProps>(
-  ({ onSelect, onStickerSelect, recentEmojis: initialRecent = [], className, emojiRenderer, twemojiBaseUrl, stickerSets = [STARTER_STICKER_SET], stickerRenderer = defaultStickerRenderer }: EmojiPickerProps, ref) => {
+  function EmojiPicker({ onSelect, onStickerSelect, recentEmojis: initialRecent = [], className, emojiRenderer, twemojiBaseUrl, stickerSets = [STARTER_STICKER_SET], stickerRenderer = defaultStickerRenderer }: EmojiPickerProps, ref) {
   const [search, setSearch] = React.useState('')
   const [activeCategory, setActiveCategory] = React.useState<EmojiCategory>('smileys')
   const [mode, setMode] = React.useState<'emoji' | 'sticker'>('emoji')
@@ -300,5 +300,3 @@ function StickerPanel({
     </div>
   )
 }
-
-EmojiPicker.displayName = 'EmojiPicker'

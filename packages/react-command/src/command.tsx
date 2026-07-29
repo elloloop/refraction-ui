@@ -157,8 +157,6 @@ export function Command({
   )
 }
 
-Command.displayName = 'Command'
-
 // ---------------------------------------------------------------------------
 // CommandInput
 // ---------------------------------------------------------------------------
@@ -166,7 +164,7 @@ Command.displayName = 'Command'
 export interface CommandInputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 export const CommandInput = React.forwardRef<HTMLInputElement, CommandInputProps>(
-  ({ className, onChange, ...props }, ref) => {
+  function CommandInput({ className, onChange, ...props }, ref) {
     const { search, onSearch, inputId, listId } = useCommandContext()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -189,8 +187,6 @@ export const CommandInput = React.forwardRef<HTMLInputElement, CommandInputProps
   },
 )
 
-CommandInput.displayName = 'CommandInput'
-
 // ---------------------------------------------------------------------------
 // CommandList
 // ---------------------------------------------------------------------------
@@ -198,7 +194,7 @@ CommandInput.displayName = 'CommandInput'
 export interface CommandListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const CommandList = React.forwardRef<HTMLDivElement, CommandListProps>(
-  ({ className, children, ...props }, ref) => {
+  function CommandList({ className, children, ...props }, ref) {
     const { listId } = useCommandContext()
 
     return React.createElement(
@@ -216,8 +212,6 @@ export const CommandList = React.forwardRef<HTMLDivElement, CommandListProps>(
   },
 )
 
-CommandList.displayName = 'CommandList'
-
 // ---------------------------------------------------------------------------
 // CommandEmpty
 // ---------------------------------------------------------------------------
@@ -225,7 +219,7 @@ CommandList.displayName = 'CommandList'
 export interface CommandEmptyProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const CommandEmpty = React.forwardRef<HTMLDivElement, CommandEmptyProps>(
-  ({ className, children, ...props }, ref) => {
+  function CommandEmpty({ className, children, ...props }, ref) {
     const { filteredItems } = useCommandContext()
 
     if (filteredItems.length > 0) return null
@@ -243,8 +237,6 @@ export const CommandEmpty = React.forwardRef<HTMLDivElement, CommandEmptyProps>(
   },
 )
 
-CommandEmpty.displayName = 'CommandEmpty'
-
 // ---------------------------------------------------------------------------
 // CommandGroup
 // ---------------------------------------------------------------------------
@@ -254,7 +246,7 @@ export interface CommandGroupProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 export const CommandGroup = React.forwardRef<HTMLDivElement, CommandGroupProps>(
-  ({ className, heading, children, ...props }, ref) => {
+  function CommandGroup({ className, heading, children, ...props }, ref) {
     return React.createElement(
       'div',
       {
@@ -276,8 +268,6 @@ export const CommandGroup = React.forwardRef<HTMLDivElement, CommandGroupProps>(
   },
 )
 
-CommandGroup.displayName = 'CommandGroup'
-
 // ---------------------------------------------------------------------------
 // CommandItem
 // ---------------------------------------------------------------------------
@@ -289,7 +279,7 @@ export interface CommandItemProps extends Omit<React.HTMLAttributes<HTMLDivEleme
 }
 
 export const CommandItem = React.forwardRef<HTMLDivElement, CommandItemProps>(
-  ({ className, value, disabled, onSelect: onItemSelect, children, ...props }, ref) => {
+  function CommandItem({ className, value, disabled, onSelect: onItemSelect, children, ...props }, ref) {
     const state = disabled ? 'disabled' : 'default'
 
     return React.createElement(
@@ -313,8 +303,6 @@ export const CommandItem = React.forwardRef<HTMLDivElement, CommandItemProps>(
   },
 )
 
-CommandItem.displayName = 'CommandItem'
-
 // ---------------------------------------------------------------------------
 // CommandSeparator
 // ---------------------------------------------------------------------------
@@ -322,7 +310,7 @@ CommandItem.displayName = 'CommandItem'
 export interface CommandSeparatorProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const CommandSeparator = React.forwardRef<HTMLDivElement, CommandSeparatorProps>(
-  ({ className, ...props }, ref) => {
+  function CommandSeparator({ className, ...props }, ref) {
     return React.createElement('div', {
       ref,
       role: 'separator',
@@ -331,5 +319,3 @@ export const CommandSeparator = React.forwardRef<HTMLDivElement, CommandSeparato
     })
   },
 )
-
-CommandSeparator.displayName = 'CommandSeparator'

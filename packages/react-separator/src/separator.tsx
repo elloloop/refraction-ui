@@ -33,7 +33,7 @@ export interface SeparatorProps extends React.HTMLAttributes<HTMLDivElement> {
  * via Tailwind utility classes (no external CSS-in-JS).
  */
 export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
-  (
+  function Separator(
     {
       orientation = 'horizontal',
       label,
@@ -42,7 +42,7 @@ export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     // Labeled divider — decorative chrome wrapping a centered label.
     if (orientation === 'horizontal' && label != null) {
       return (
@@ -75,5 +75,3 @@ export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
     )
   },
 )
-
-Separator.displayName = 'Separator'

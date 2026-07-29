@@ -83,8 +83,6 @@ export function DropdownMenu({
   return React.createElement(DropdownMenuContext.Provider, { value: ctx }, children)
 }
 
-DropdownMenu.displayName = 'DropdownMenu'
-
 // ---------------------------------------------------------------------------
 // DropdownMenuTrigger
 // ---------------------------------------------------------------------------
@@ -98,7 +96,7 @@ export interface DropdownMenuTriggerProps extends React.ButtonHTMLAttributes<HTM
 }
 
 export const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, DropdownMenuTriggerProps>(
-  ({ asChild = false, onClick, children, ...props }, ref) => {
+  function DropdownMenuTrigger({ asChild = false, onClick, children, ...props }, ref) {
     const { open, onOpenChange, contentId } = useDropdownMenuContext()
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -151,8 +149,6 @@ export const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, DropdownM
   },
 )
 
-DropdownMenuTrigger.displayName = 'DropdownMenuTrigger'
-
 // ---------------------------------------------------------------------------
 // DropdownMenuContent
 // ---------------------------------------------------------------------------
@@ -160,7 +156,7 @@ DropdownMenuTrigger.displayName = 'DropdownMenuTrigger'
 export interface DropdownMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenuContentProps>(
-  ({ className, children, onKeyDown, ...props }, ref) => {
+  function DropdownMenuContent({ className, children, onKeyDown, ...props }, ref) {
     const { open, onOpenChange, contentId } = useDropdownMenuContext()
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -201,8 +197,6 @@ export const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenu
   },
 )
 
-DropdownMenuContent.displayName = 'DropdownMenuContent'
-
 // ---------------------------------------------------------------------------
 // DropdownMenuItem
 // ---------------------------------------------------------------------------
@@ -213,7 +207,7 @@ export interface DropdownMenuItemProps extends Omit<React.HTMLAttributes<HTMLDiv
 }
 
 export const DropdownMenuItem = React.forwardRef<HTMLDivElement, DropdownMenuItemProps>(
-  ({ className, disabled, onSelect, onClick, children, ...props }, ref) => {
+  function DropdownMenuItem({ className, disabled, onSelect, onClick, children, ...props }, ref) {
     const { onOpenChange } = useDropdownMenuContext()
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -250,8 +244,6 @@ export const DropdownMenuItem = React.forwardRef<HTMLDivElement, DropdownMenuIte
   },
 )
 
-DropdownMenuItem.displayName = 'DropdownMenuItem'
-
 // ---------------------------------------------------------------------------
 // DropdownMenuSeparator
 // ---------------------------------------------------------------------------
@@ -259,7 +251,7 @@ DropdownMenuItem.displayName = 'DropdownMenuItem'
 export interface DropdownMenuSeparatorProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const DropdownMenuSeparator = React.forwardRef<HTMLDivElement, DropdownMenuSeparatorProps>(
-  ({ className, ...props }, ref) => {
+  function DropdownMenuSeparator({ className, ...props }, ref) {
     return React.createElement('div', {
       ref,
       role: 'separator',
@@ -269,8 +261,6 @@ export const DropdownMenuSeparator = React.forwardRef<HTMLDivElement, DropdownMe
   },
 )
 
-DropdownMenuSeparator.displayName = 'DropdownMenuSeparator'
-
 // ---------------------------------------------------------------------------
 // DropdownMenuLabel
 // ---------------------------------------------------------------------------
@@ -278,7 +268,7 @@ DropdownMenuSeparator.displayName = 'DropdownMenuSeparator'
 export interface DropdownMenuLabelProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const DropdownMenuLabel = React.forwardRef<HTMLDivElement, DropdownMenuLabelProps>(
-  ({ className, ...props }, ref) => {
+  function DropdownMenuLabel({ className, ...props }, ref) {
     return React.createElement('div', {
       ref,
       className: cn('px-2 py-1.5 text-sm font-semibold', className),
@@ -286,5 +276,3 @@ export const DropdownMenuLabel = React.forwardRef<HTMLDivElement, DropdownMenuLa
     })
   },
 )
-
-DropdownMenuLabel.displayName = 'DropdownMenuLabel'

@@ -89,7 +89,7 @@ export interface LiveCursorsProps
  * decorative presence indicators, not interactive elements.
  */
 export const LiveCursors = React.forwardRef<HTMLDivElement, LiveCursorsProps>(
-  ({ cursors, className, ...props }, ref) => {
+  function LiveCursors({ cursors, className, ...props }, ref) {
     const api = createLiveCursors()
 
     return (
@@ -113,5 +113,3 @@ export const LiveCursors = React.forwardRef<HTMLDivElement, LiveCursorsProps>(
     )
   },
 )
-
-LiveCursors.displayName = 'LiveCursors'

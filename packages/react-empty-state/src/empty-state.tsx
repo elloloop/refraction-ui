@@ -37,7 +37,7 @@ export interface EmptyStateProps
  * core (no inline class literals here).
  */
 export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
-  (
+  function EmptyState(
     {
       icon,
       tone = 'neutral',
@@ -49,7 +49,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const api = createEmptyState({ tone })
 
     return (
@@ -79,8 +79,6 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
   },
 )
 
-EmptyState.displayName = 'EmptyState'
-
 export interface ConfirmationCardProps extends EmptyStateProps {}
 
 /**
@@ -90,8 +88,8 @@ export interface ConfirmationCardProps extends EmptyStateProps {}
 export const ConfirmationCard = React.forwardRef<
   HTMLDivElement,
   ConfirmationCardProps
->(({ bordered = true, ...props }, ref) => (
-  <EmptyState ref={ref} bordered={bordered} {...props} />
-))
-
-ConfirmationCard.displayName = 'ConfirmationCard'
+>(function ConfirmationCard({ bordered = true, ...props }, ref) {
+    return (
+    <EmptyState ref={ref} bordered={bordered} {...props} />
+  )
+  })

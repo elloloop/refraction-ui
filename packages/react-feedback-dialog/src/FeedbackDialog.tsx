@@ -193,8 +193,6 @@ export function FeedbackDialog({
   )
 }
 
-FeedbackDialog.displayName = 'FeedbackDialog'
-
 // ---------------------------------------------------------------------------
 // FeedbackButton
 // ---------------------------------------------------------------------------
@@ -204,7 +202,7 @@ export interface FeedbackButtonProps extends React.ButtonHTMLAttributes<HTMLButt
 }
 
 export const FeedbackButton = React.forwardRef<HTMLButtonElement, FeedbackButtonProps>(
-  ({ children, ...props }, ref) => {
+  function FeedbackButton({ children, ...props }, ref) {
     return React.createElement(
       'button',
       {
@@ -217,5 +215,3 @@ export const FeedbackButton = React.forwardRef<HTMLButtonElement, FeedbackButton
     )
   },
 )
-
-FeedbackButton.displayName = 'FeedbackButton'

@@ -40,7 +40,7 @@ export interface VideoGridProps
  * shared with the Astro adapter.
  */
 export const VideoGrid = React.forwardRef<HTMLDivElement, VideoGridProps>(
-  (
+  function VideoGrid(
     {
       participants,
       layout = 'auto',
@@ -50,7 +50,7 @@ export const VideoGrid = React.forwardRef<HTMLDivElement, VideoGridProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const count = participants.length
 
     // Resolve effective layout: 'auto' with ≤1 participant shows speaker view.
@@ -132,5 +132,3 @@ export const VideoGrid = React.forwardRef<HTMLDivElement, VideoGridProps>(
     )
   },
 )
-
-VideoGrid.displayName = 'VideoGrid'

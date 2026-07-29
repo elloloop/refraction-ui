@@ -46,7 +46,7 @@ export interface MiniMapProps
  * and rendering. SSR-safe (no `Math.random` or `Date.now`).
  */
 export const MiniMap = React.forwardRef<HTMLDivElement, MiniMapProps>(
-  (
+  function MiniMap(
     {
       items,
       viewport,
@@ -58,7 +58,7 @@ export const MiniMap = React.forwardRef<HTMLDivElement, MiniMapProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const containerRef = React.useRef<HTMLDivElement | null>(null)
     const isDragging = React.useRef(false)
 
@@ -181,5 +181,3 @@ export const MiniMap = React.forwardRef<HTMLDivElement, MiniMapProps>(
     )
   },
 )
-
-MiniMap.displayName = 'MiniMap'

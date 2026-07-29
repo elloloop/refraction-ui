@@ -16,36 +16,33 @@ export function Dialog(props: DialogProps) {
   return React.createElement(RadixDialog.Root, props)
 }
 
-Dialog.displayName = 'Dialog'
-
 export interface DialogTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean
 }
 
 export const DialogTrigger = React.forwardRef<HTMLButtonElement, DialogTriggerProps>(
-  (props, ref) => React.createElement(RadixDialog.Trigger, { ...props, ref })
+  function DialogTrigger(props, ref) {
+    return React.createElement(RadixDialog.Trigger, { ...props, ref })
+  }
 )
-
-DialogTrigger.displayName = 'DialogTrigger'
 
 export interface DialogOverlayProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const DialogOverlay = React.forwardRef<HTMLDivElement, DialogOverlayProps>(
-  ({ className, ...props }, ref) =>
-    React.createElement(RadixDialog.Overlay, {
+  function DialogOverlay({ className, ...props }, ref) {
+    return React.createElement(RadixDialog.Overlay, {
       className: cn(overlayStyles, className),
       ...props,
       ref,
     })
+  }
 )
-
-DialogOverlay.displayName = 'DialogOverlay'
 
 export interface DialogContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
-  ({ className, children, ...props }, ref) =>
-    React.createElement(
+  function DialogContent({ className, children, ...props }, ref) {
+    return React.createElement(
       RadixDialog.Portal,
       null,
       React.createElement(
@@ -58,28 +55,26 @@ export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps
         children
       )
     )
+  }
 )
-
-DialogContent.displayName = 'DialogContent'
 
 export interface DialogHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const DialogHeader = React.forwardRef<HTMLDivElement, DialogHeaderProps>(
-  ({ className, ...props }, ref) =>
-    React.createElement('div', {
+  function DialogHeader({ className, ...props }, ref) {
+    return React.createElement('div', {
       className: cn('flex flex-col space-y-1.5 text-center sm:text-left', className),
       ...props,
       ref,
     })
+  }
 )
-
-DialogHeader.displayName = 'DialogHeader'
 
 export interface DialogFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const DialogFooter = React.forwardRef<HTMLDivElement, DialogFooterProps>(
-  ({ className, ...props }, ref) =>
-    React.createElement('div', {
+  function DialogFooter({ className, ...props }, ref) {
+    return React.createElement('div', {
       className: cn(
         'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',
         className
@@ -87,40 +82,37 @@ export const DialogFooter = React.forwardRef<HTMLDivElement, DialogFooterProps>(
       ...props,
       ref,
     })
+  }
 )
-
-DialogFooter.displayName = 'DialogFooter'
 
 export interface DialogTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
 
 export const DialogTitle = React.forwardRef<HTMLHeadingElement, DialogTitleProps>(
-  ({ className, ...props }, ref) =>
-    React.createElement(RadixDialog.Title, {
+  function DialogTitle({ className, ...props }, ref) {
+    return React.createElement(RadixDialog.Title, {
       className: cn('text-lg font-semibold leading-none tracking-tight', className),
       ...props,
       ref,
     })
+  }
 )
-
-DialogTitle.displayName = 'DialogTitle'
 
 export interface DialogDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {}
 
 export const DialogDescription = React.forwardRef<HTMLParagraphElement, DialogDescriptionProps>(
-  ({ className, ...props }, ref) =>
-    React.createElement(RadixDialog.Description, {
+  function DialogDescription({ className, ...props }, ref) {
+    return React.createElement(RadixDialog.Description, {
       className: cn('text-sm text-muted-foreground', className),
       ...props,
       ref,
     })
+  }
 )
-
-DialogDescription.displayName = 'DialogDescription'
 
 export interface DialogCloseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export const DialogClose = React.forwardRef<HTMLButtonElement, DialogCloseProps>(
-  (props, ref) => React.createElement(RadixDialog.Close, { ...props, ref })
+  function DialogClose(props, ref) {
+    return React.createElement(RadixDialog.Close, { ...props, ref })
+  }
 )
-
-DialogClose.displayName = 'DialogClose'

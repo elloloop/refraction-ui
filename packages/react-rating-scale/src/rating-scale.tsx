@@ -48,7 +48,7 @@ export interface RatingScaleProps
  * come from the headless `@refraction-ui/rating-scale` core.
  */
 export const RatingScale = React.forwardRef<HTMLDivElement, RatingScaleProps>(
-  (
+  function RatingScale(
     {
       value: valueProp,
       defaultValue,
@@ -63,7 +63,7 @@ export const RatingScale = React.forwardRef<HTMLDivElement, RatingScaleProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const resolved = React.useMemo(
       () => resolveRatingPoints(points, count),
       [points, count],
@@ -149,5 +149,3 @@ export const RatingScale = React.forwardRef<HTMLDivElement, RatingScaleProps>(
     )
   },
 )
-
-RatingScale.displayName = 'RatingScale'

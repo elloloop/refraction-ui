@@ -36,7 +36,7 @@ export interface NumberedStepsProps
 export const NumberedSteps = React.forwardRef<
   HTMLDivElement,
   NumberedStepsProps
->(({ items, columns, className, ...props }, ref) => {
+>(function NumberedSteps({ items, columns, className, ...props }, ref) {
   const cols = columns ?? stepColumns(items.length)
   const { ariaProps, dataAttributes } = createNumberedSteps()
 
@@ -61,5 +61,3 @@ export const NumberedSteps = React.forwardRef<
     </div>
   )
 })
-
-NumberedSteps.displayName = 'NumberedSteps'

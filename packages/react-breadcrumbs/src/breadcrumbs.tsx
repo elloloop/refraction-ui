@@ -27,7 +27,7 @@ export interface BreadcrumbsProps extends React.HTMLAttributes<HTMLElement> {
  * Uses the headless @refraction-ui/breadcrumbs core for state and ARIA attributes.
  */
 export const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
-  (
+  function Breadcrumbs(
     {
       pathname,
       items,
@@ -38,7 +38,7 @@ export const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const api = createBreadcrumbs({ pathname, items, labels, separator, maxItems })
     const classes = cn(breadcrumbsVariants(), className)
 
@@ -79,5 +79,3 @@ export const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
     )
   },
 )
-
-Breadcrumbs.displayName = 'Breadcrumbs'

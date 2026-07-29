@@ -19,7 +19,7 @@ export interface AvatarGroupProps {
 }
 
 export const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
-  ({ users, max, size = 'md', className }, ref) => {
+  function AvatarGroup({ users, max, size = 'md', className }, ref) {
   const api = createAvatarGroup({ users, max, size })
 
   return React.createElement(
@@ -58,5 +58,3 @@ export const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
   )
   },
 )
-
-AvatarGroup.displayName = 'AvatarGroup'

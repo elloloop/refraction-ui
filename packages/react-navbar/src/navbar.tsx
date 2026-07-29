@@ -28,7 +28,7 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
  * Hidden on mobile (links use md:flex).
  */
 export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
-  (
+  function Navbar(
     {
       links = [],
       currentPath,
@@ -39,7 +39,7 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const api = createNavbar({ links, currentPath, variant })
     const classes = cn(navbarVariants({ variant }), className)
 
@@ -71,5 +71,3 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
     )
   },
 )
-
-Navbar.displayName = 'Navbar'

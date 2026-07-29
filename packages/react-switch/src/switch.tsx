@@ -19,7 +19,7 @@ export interface SwitchProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
  * Uses the headless @refraction-ui/switch core for state, ARIA, and keyboard handling.
  */
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
-  ({ checked = false, onCheckedChange, disabled = false, size = 'default', className, ...props }, ref) => {
+  function Switch({ checked = false, onCheckedChange, disabled = false, size = 'default', className, ...props }, ref) {
     const api = createSwitch({ checked, disabled })
 
     const handleClick = () => {
@@ -56,5 +56,3 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
     )
   },
 )
-
-Switch.displayName = 'Switch'

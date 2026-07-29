@@ -16,7 +16,7 @@ export interface CommandInputProps extends Omit<HTMLAttributes<HTMLDivElement>, 
 }
 
 export const CommandInput = forwardRef<HTMLDivElement, CommandInputProps>(
-  (
+  function CommandInput(
     {
       value = '',
       onChange,
@@ -26,7 +26,7 @@ export const CommandInput = forwardRef<HTMLDivElement, CommandInputProps>(
       ...props
     },
     ref
-  ) => {
+  ) {
     const localRef = useRef<HTMLDivElement>(null);
     const containerRef = (ref || localRef) as RefObject<HTMLDivElement>;
     
@@ -100,5 +100,3 @@ export const CommandInput = forwardRef<HTMLDivElement, CommandInputProps>(
     );
   }
 );
-
-CommandInput.displayName = 'CommandInput';

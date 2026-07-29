@@ -9,7 +9,7 @@ export interface TableOfContentsProps extends React.HTMLAttributes<HTMLDivElemen
 }
 
 export const TableOfContents = React.forwardRef<HTMLDivElement, TableOfContentsProps>(
-  ({ className, containerRef, selectors = 'h2, h3, h4', onActiveIdChange, ...props }, ref) => {
+  function TableOfContents({ className, containerRef, selectors = 'h2, h3, h4', onActiveIdChange, ...props }, ref) {
     const [headings, setHeadings] = React.useState<TocItem[]>([])
     const [activeId, setActiveId] = React.useState<string>('')
 
@@ -61,4 +61,3 @@ export const TableOfContents = React.forwardRef<HTMLDivElement, TableOfContentsP
     )
   }
 )
-TableOfContents.displayName = 'TableOfContents'

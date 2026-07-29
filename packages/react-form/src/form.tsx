@@ -133,7 +133,7 @@ const formItemVariants = cva({ base: 'space-y-2' })
 interface FormItemProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
-  ({ className, ...props }, ref) => {
+  function FormItem({ className, ...props }, ref) {
     const id = React.useId()
     return (
       <FormItemContext.Provider value={{ id }}>
@@ -142,7 +142,6 @@ const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
     )
   },
 )
-FormItem.displayName = 'FormItem'
 
 // -----------------------------------------------------------------------------
 // FormLabel
@@ -164,7 +163,7 @@ const formLabelVariants = cva({
 interface FormLabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {}
 
 const FormLabel = React.forwardRef<HTMLLabelElement, FormLabelProps>(
-  ({ className, ...props }, ref) => {
+  function FormLabel({ className, ...props }, ref) {
     const { invalid, formItemId } = useFormField()
     return (
       <label
@@ -177,7 +176,6 @@ const FormLabel = React.forwardRef<HTMLLabelElement, FormLabelProps>(
     )
   },
 )
-FormLabel.displayName = 'FormLabel'
 
 // -----------------------------------------------------------------------------
 // FormControl — Slot that injects id/aria-describedby/aria-invalid.
@@ -188,7 +186,7 @@ interface FormControlProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const FormControl = React.forwardRef<HTMLElement, FormControlProps>(
-  ({ ...props }, ref) => {
+  function FormControl({ ...props }, ref) {
     const { invalid, formItemId, formDescriptionId, formMessageId } =
       useFormField()
     return (
@@ -206,7 +204,6 @@ const FormControl = React.forwardRef<HTMLElement, FormControlProps>(
     )
   },
 )
-FormControl.displayName = 'FormControl'
 
 // -----------------------------------------------------------------------------
 // FormDescription
@@ -218,7 +215,7 @@ interface FormDescriptionProps
 const FormDescription = React.forwardRef<
   HTMLParagraphElement,
   FormDescriptionProps
->(({ className, ...props }, ref) => {
+>(function FormDescription({ className, ...props }, ref) {
   const { formDescriptionId } = useFormField()
   return (
     <p
@@ -229,7 +226,6 @@ const FormDescription = React.forwardRef<
     />
   )
 })
-FormDescription.displayName = 'FormDescription'
 
 // -----------------------------------------------------------------------------
 // FormMessage
@@ -238,7 +234,7 @@ FormDescription.displayName = 'FormDescription'
 interface FormMessageProps extends React.HTMLAttributes<HTMLParagraphElement> {}
 
 const FormMessage = React.forwardRef<HTMLParagraphElement, FormMessageProps>(
-  ({ className, children, ...props }, ref) => {
+  function FormMessage({ className, children, ...props }, ref) {
     const { error, formMessageId } = useFormField()
     const body = error?.message ? String(error.message) : children
     if (!body) return null
@@ -254,7 +250,6 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, FormMessageProps>(
     )
   },
 )
-FormMessage.displayName = 'FormMessage'
 
 export {
   Form,

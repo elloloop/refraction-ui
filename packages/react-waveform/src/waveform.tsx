@@ -30,7 +30,7 @@ interface WaveformSize {
 }
 
 export const Waveform = React.forwardRef<HTMLDivElement, WaveformProps>(
-  (
+  function Waveform(
     {
       source,
       samples,
@@ -48,7 +48,7 @@ export const Waveform = React.forwardRef<HTMLDivElement, WaveformProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const rootRef = React.useRef<HTMLDivElement | null>(null)
     const canvasRef = React.useRef<HTMLCanvasElement | null>(null)
     const previousSamplesRef = React.useRef<Float32Array | null>(null)
@@ -265,8 +265,6 @@ export const Waveform = React.forwardRef<HTMLDivElement, WaveformProps>(
     )
   },
 )
-
-Waveform.displayName = 'Waveform'
 
 function usePrefersReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = React.useState(false)

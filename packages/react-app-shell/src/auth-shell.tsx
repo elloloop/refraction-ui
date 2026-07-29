@@ -38,7 +38,7 @@ export interface AuthShellProps {
   className?: string
 }
 
-function AuthShellRoot({ config, children, className }: AuthShellProps) {
+const AuthShellRoot = function AuthShell({ config, children, className }: AuthShellProps) {
   const apiRef = React.useRef<AuthShellAPI | null>(null)
   if (apiRef.current === null) {
     apiRef.current = createAuthShell(config)
@@ -65,8 +65,6 @@ function AuthShellRoot({ config, children, className }: AuthShellProps) {
   )
 }
 
-AuthShellRoot.displayName = 'AuthShell'
-
 // ---------------------------------------------------------------------------
 // AuthShell.Card
 // ---------------------------------------------------------------------------
@@ -88,8 +86,6 @@ function AuthShellCard({ children, className }: AuthShellCardProps) {
     children,
   )
 }
-
-AuthShellCard.displayName = 'AuthShell.Card'
 
 // ---------------------------------------------------------------------------
 // Compound export

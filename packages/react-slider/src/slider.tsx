@@ -32,7 +32,7 @@ export interface SliderProps
  * non-native adapters).
  */
 export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
-  (
+  function Slider(
     {
       className,
       variant: _variant,
@@ -47,7 +47,7 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const isControlled = controlledValue !== undefined
     const [internalValue, setInternalValue] = React.useState(() =>
       clampSliderValue(roundToStep(defaultValue ?? min, min, step), min, max),
@@ -87,4 +87,3 @@ export const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
     )
   },
 )
-Slider.displayName = 'Slider'

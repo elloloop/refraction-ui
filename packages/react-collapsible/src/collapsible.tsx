@@ -100,8 +100,6 @@ export function Collapsible({
   )
 }
 
-Collapsible.displayName = 'Collapsible'
-
 // ---------------------------------------------------------------------------
 // CollapsibleTrigger
 // ---------------------------------------------------------------------------
@@ -112,7 +110,7 @@ export interface CollapsibleTriggerProps
 export const CollapsibleTrigger = React.forwardRef<
   HTMLButtonElement,
   CollapsibleTriggerProps
->(({ onClick, disabled: disabledProp, children, ...props }, ref) => {
+>(function CollapsibleTrigger({ onClick, disabled: disabledProp, children, ...props }, ref) {
   const { open, onOpenChange, disabled: ctxDisabled, contentId } =
     useCollapsibleContext()
   const disabled = disabledProp ?? ctxDisabled
@@ -141,8 +139,6 @@ export const CollapsibleTrigger = React.forwardRef<
   )
 })
 
-CollapsibleTrigger.displayName = 'CollapsibleTrigger'
-
 // ---------------------------------------------------------------------------
 // CollapsibleContent
 // ---------------------------------------------------------------------------
@@ -153,7 +149,7 @@ export interface CollapsibleContentProps
 export const CollapsibleContent = React.forwardRef<
   HTMLDivElement,
   CollapsibleContentProps
->(({ className, children, ...props }, ref) => {
+>(function CollapsibleContent({ className, children, ...props }, ref) {
   const { open, contentId } = useCollapsibleContext()
   const dataState = open ? 'open' : 'closed'
 
@@ -175,5 +171,3 @@ export const CollapsibleContent = React.forwardRef<
     children,
   )
 })
-
-CollapsibleContent.displayName = 'CollapsibleContent'

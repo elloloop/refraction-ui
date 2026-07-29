@@ -26,7 +26,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
  * Styling via Tailwind utility classes (no external CSS-in-JS).
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant, size, loading, asChild, className, disabled, children, shortcut, action, ...props }, ref) => {
+  function Button({ variant, size, loading, asChild, className, disabled, children, shortcut, action, ...props }, ref) {
     // `primary` is an ecosystem-muscle-memory alias for `default` — resolve it
     // here so styling, aria, and data attributes all see the canonical variant.
     // See issue #201.
@@ -111,5 +111,3 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     )
   },
 )
-
-Button.displayName = 'Button'

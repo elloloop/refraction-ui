@@ -35,7 +35,7 @@ export interface MasteryBarProps
  * and styles come from the headless `@refraction-ui/mastery-bar` core.
  */
 export const MasteryBar = React.forwardRef<HTMLDivElement, MasteryBarProps>(
-  (
+  function MasteryBar(
     {
       value,
       label,
@@ -46,7 +46,7 @@ export const MasteryBar = React.forwardRef<HTMLDivElement, MasteryBarProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const clamped = clampPercent(value)
     const { ariaProps, dataAttributes } = createMasteryBar({ value })
     const hasHeader = leadingLabel != null || label != null
@@ -77,5 +77,3 @@ export const MasteryBar = React.forwardRef<HTMLDivElement, MasteryBarProps>(
     )
   },
 )
-
-MasteryBar.displayName = 'MasteryBar'

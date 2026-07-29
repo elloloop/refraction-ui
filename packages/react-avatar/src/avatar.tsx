@@ -35,7 +35,7 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLSpanElement> {
  * Compound component: use Avatar > AvatarImage + AvatarFallback.
  */
 export const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
-  ({ size = 'md', className, children, ...props }, ref) => {
+  function Avatar({ size = 'md', className, children, ...props }, ref) {
     const [imageLoaded, setImageLoaded] = React.useState(false)
     const [imageError, setImageError] = React.useState(false)
 
@@ -56,13 +56,12 @@ export const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
     )
   },
 )
-Avatar.displayName = 'Avatar'
 
 /* ─── AvatarImage ──────────────────────────────────────────────── */
 export interface AvatarImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {}
 
 export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
-  ({ className, src, alt = '', onLoad, onError, ...props }, ref) => {
+  function AvatarImage({ className, src, alt = '', onLoad, onError, ...props }, ref) {
     const { imageError, setImageLoaded, setImageError } = React.useContext(AvatarContext)
 
     React.useEffect(() => {
@@ -95,13 +94,12 @@ export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
     )
   },
 )
-AvatarImage.displayName = 'AvatarImage'
 
 /* ─── AvatarFallback ───────────────────────────────────────────── */
 export interface AvatarFallbackProps extends React.HTMLAttributes<HTMLSpanElement> {}
 
 export const AvatarFallback = React.forwardRef<HTMLSpanElement, AvatarFallbackProps>(
-  ({ className, children, ...props }, ref) => {
+  function AvatarFallback({ className, children, ...props }, ref) {
     const { size, imageLoaded, imageError } = React.useContext(AvatarContext)
 
     if (imageLoaded && !imageError) return null
@@ -117,4 +115,3 @@ export const AvatarFallback = React.forwardRef<HTMLSpanElement, AvatarFallbackPr
     )
   },
 )
-AvatarFallback.displayName = 'AvatarFallback'

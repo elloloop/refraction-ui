@@ -3,7 +3,7 @@ import { createLinkCard } from '@refraction-ui/link-card'
 import { cn } from '@refraction-ui/shared'
 
 export const LinkCard = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttributes<HTMLAnchorElement>>(
-  ({ className, ...props }, ref) => {
+  function LinkCard({ className, ...props }, ref) {
     const api = createLinkCard(props)
     return (
       <a
@@ -15,4 +15,3 @@ export const LinkCard = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttr
     )
   }
 )
-LinkCard.displayName = 'LinkCard'

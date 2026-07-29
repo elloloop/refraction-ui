@@ -39,7 +39,7 @@ export const CallControlButton = React.forwardRef<
   HTMLButtonElement,
   CallControlButtonProps
 >(
-  (
+  function CallControlButton(
     {
       label,
       icon,
@@ -50,7 +50,7 @@ export const CallControlButton = React.forwardRef<
       ...props
     },
     ref,
-  ) => {
+  ) {
     const ariaPressedProps =
       pressed !== undefined ? { 'aria-pressed': pressed } : {}
 
@@ -69,8 +69,6 @@ export const CallControlButton = React.forwardRef<
     )
   },
 )
-
-CallControlButton.displayName = 'CallControlButton'
 
 // ─── CallControls ─────────────────────────────────────────────────────────────
 
@@ -93,7 +91,7 @@ export interface CallControlsProps
  * ```
  */
 export const CallControls = React.forwardRef<HTMLDivElement, CallControlsProps>(
-  ({ size = 'md', className, children, ...props }, ref) => {
+  function CallControls({ size = 'md', className, children, ...props }, ref) {
     const api = createCallControls()
 
     return (
@@ -109,5 +107,3 @@ export const CallControls = React.forwardRef<HTMLDivElement, CallControlsProps>(
     )
   },
 )
-
-CallControls.displayName = 'CallControls'

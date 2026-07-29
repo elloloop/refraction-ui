@@ -47,7 +47,7 @@ export interface MobileNavProps extends React.HTMLAttributes<HTMLElement> {
  * Supports both controlled (open + onOpenChange) and uncontrolled (defaultOpen) usage.
  */
 export const MobileNav = React.forwardRef<HTMLElement, MobileNavProps>(
-  ({ open: controlledOpen, onOpenChange, defaultOpen = false, className, children, ...props }, ref) => {
+  function MobileNav({ open: controlledOpen, onOpenChange, defaultOpen = false, className, children, ...props }, ref) {
     const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen)
     const isControlled = controlledOpen !== undefined
     const open = isControlled ? controlledOpen : uncontrolledOpen
@@ -89,8 +89,6 @@ export const MobileNav = React.forwardRef<HTMLElement, MobileNavProps>(
   },
 )
 
-MobileNav.displayName = 'MobileNav'
-
 /* ------------------------------------------------------------------ */
 /*  MobileNavTrigger                                                   */
 /* ------------------------------------------------------------------ */
@@ -101,7 +99,7 @@ export interface MobileNavTriggerProps extends React.ButtonHTMLAttributes<HTMLBu
  * MobileNavTrigger — hamburger button that toggles the mobile nav.
  */
 export const MobileNavTrigger = React.forwardRef<HTMLButtonElement, MobileNavTriggerProps>(
-  ({ className, children, ...props }, ref) => {
+  function MobileNavTrigger({ className, children, ...props }, ref) {
     const { open, setOpen, contentId } = useMobileNavContext()
 
     return (
@@ -146,8 +144,6 @@ export const MobileNavTrigger = React.forwardRef<HTMLButtonElement, MobileNavTri
   },
 )
 
-MobileNavTrigger.displayName = 'MobileNavTrigger'
-
 /* ------------------------------------------------------------------ */
 /*  MobileNavContent                                                   */
 /* ------------------------------------------------------------------ */
@@ -158,7 +154,7 @@ export interface MobileNavContentProps extends React.HTMLAttributes<HTMLDivEleme
  * MobileNavContent — the collapsible dropdown panel that holds nav links.
  */
 export const MobileNavContent = React.forwardRef<HTMLDivElement, MobileNavContentProps>(
-  ({ className, children, ...props }, ref) => {
+  function MobileNavContent({ className, children, ...props }, ref) {
     const { open, contentId } = useMobileNavContext()
     const state = open ? 'open' : 'closed'
 
@@ -177,8 +173,6 @@ export const MobileNavContent = React.forwardRef<HTMLDivElement, MobileNavConten
   },
 )
 
-MobileNavContent.displayName = 'MobileNavContent'
-
 /* ------------------------------------------------------------------ */
 /*  MobileNavLink                                                      */
 /* ------------------------------------------------------------------ */
@@ -189,7 +183,7 @@ export interface MobileNavLinkProps extends React.AnchorHTMLAttributes<HTMLAncho
  * MobileNavLink — a styled link inside the mobile nav dropdown.
  */
 export const MobileNavLink = React.forwardRef<HTMLAnchorElement, MobileNavLinkProps>(
-  ({ className, children, ...props }, ref) => {
+  function MobileNavLink({ className, children, ...props }, ref) {
     return (
       <a
         ref={ref}
@@ -202,5 +196,3 @@ export const MobileNavLink = React.forwardRef<HTMLAnchorElement, MobileNavLinkPr
     )
   },
 )
-
-MobileNavLink.displayName = 'MobileNavLink'

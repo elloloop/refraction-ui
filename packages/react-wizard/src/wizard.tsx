@@ -94,7 +94,7 @@ export interface WizardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
  * ```
  */
 export const Wizard = React.forwardRef<HTMLDivElement, WizardProps>(
-  (
+  function Wizard(
     {
       steps,
       step: stepProp,
@@ -111,7 +111,7 @@ export const Wizard = React.forwardRef<HTMLDivElement, WizardProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const isControlled = stepProp !== undefined
     const [internal, setInternal] = React.useState(defaultStep)
     const currentIndex = isControlled ? stepProp : internal
@@ -251,8 +251,6 @@ export const Wizard = React.forwardRef<HTMLDivElement, WizardProps>(
     )
   },
 )
-
-Wizard.displayName = 'Wizard'
 
 // ---------------------------------------------------------------------------
 // useWizard hook (for children that need context access)

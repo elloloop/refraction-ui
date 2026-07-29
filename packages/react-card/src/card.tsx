@@ -19,7 +19,7 @@ import { cn } from '@refraction-ui/shared'
  * Card -- a container with rounded corners, border, and shadow.
  */
 export const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
+  function Card({ className, ...props }, ref) {
     const api = createCard()
     return (
       <div
@@ -32,13 +32,12 @@ export const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
     )
   },
 )
-Card.displayName = 'Card'
 
 /**
  * CardHeader -- top section of a card, typically contains title and description.
  */
 export const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
+  function CardHeader({ className, ...props }, ref) {
     const api = createCardHeader()
     return (
       <div
@@ -50,13 +49,12 @@ export const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
     )
   },
 )
-CardHeader.displayName = 'CardHeader'
 
 /**
  * CardTitle -- heading within a card header.
  */
 export const CardTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
-  ({ className, ...props }, ref) => {
+  function CardTitle({ className, ...props }, ref) {
     const api = createCardTitle()
     return (
       <h3
@@ -68,13 +66,12 @@ export const CardTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttribut
     )
   },
 )
-CardTitle.displayName = 'CardTitle'
 
 /**
  * CardDescription -- subtext within a card header.
  */
 export const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
-  ({ className, ...props }, ref) => {
+  function CardDescription({ className, ...props }, ref) {
     const api = createCardDescription()
     return (
       <p
@@ -86,13 +83,12 @@ export const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTML
     )
   },
 )
-CardDescription.displayName = 'CardDescription'
 
 /**
  * CardContent -- main body content area of a card.
  */
 export const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
+  function CardContent({ className, ...props }, ref) {
     const api = createCardContent()
     return (
       <div
@@ -104,13 +100,12 @@ export const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes
     )
   },
 )
-CardContent.displayName = 'CardContent'
 
 /**
  * CardFooter -- bottom section of a card, typically contains actions.
  */
 export const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
+  function CardFooter({ className, ...props }, ref) {
     const api = createCardFooter()
     return (
       <div
@@ -122,4 +117,3 @@ export const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
     )
   },
 )
-CardFooter.displayName = 'CardFooter'

@@ -41,7 +41,7 @@ export interface MarqueeStripProps
  * data attributes come from the headless `@refraction-ui/marquee-strip` core.
  */
 export const MarqueeStrip = React.forwardRef<HTMLDivElement, MarqueeStripProps>(
-  ({ label, items, scroll = false, className, ...props }, ref) => {
+  function MarqueeStrip({ label, items, scroll = false, className, ...props }, ref) {
     const api = createMarqueeStrip({ scroll })
 
     return (
@@ -78,5 +78,3 @@ export const MarqueeStrip = React.forwardRef<HTMLDivElement, MarqueeStripProps>(
     )
   },
 )
-
-MarqueeStrip.displayName = 'MarqueeStrip'

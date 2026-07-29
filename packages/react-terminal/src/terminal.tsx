@@ -45,7 +45,7 @@ export interface TerminalProps extends React.HTMLAttributes<HTMLDivElement> {
  * handle keyboard input (v1). Pass new lines from the parent to stream output.
  */
 export const Terminal = React.forwardRef<HTMLDivElement, TerminalProps>(
-  (
+  function Terminal(
     {
       lines,
       promptSymbol = '$',
@@ -55,7 +55,7 @@ export const Terminal = React.forwardRef<HTMLDivElement, TerminalProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const api = createTerminal({ label: ariaLabel })
 
     return (
@@ -85,5 +85,3 @@ export const Terminal = React.forwardRef<HTMLDivElement, TerminalProps>(
     )
   },
 )
-
-Terminal.displayName = 'Terminal'

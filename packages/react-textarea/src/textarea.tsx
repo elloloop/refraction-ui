@@ -17,7 +17,7 @@ export interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
  * Styling via Tailwind utility classes (no external CSS-in-JS).
  */
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ size, className, disabled, readOnly, required, rows, maxRows, 'aria-invalid': ariaInvalid, ...props }, ref) => {
+  function Textarea({ size, className, disabled, readOnly, required, rows, maxRows, 'aria-invalid': ariaInvalid, ...props }, ref) {
     const api = createTextarea({
       disabled,
       readOnly,
@@ -44,5 +44,3 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     )
   },
 )
-
-Textarea.displayName = 'Textarea'

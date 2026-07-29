@@ -46,7 +46,7 @@ export interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
-  ({ value: controlledValue, defaultValue = '', onValueChange, orientation = 'horizontal', className, children, ...props }: TabsProps, ref) => {
+  function Tabs({ value: controlledValue, defaultValue = '', onValueChange, orientation = 'horizontal', className, children, ...props }: TabsProps, ref) {
   const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue)
   const isControlled = controlledValue !== undefined
   const value = isControlled ? controlledValue : uncontrolledValue
@@ -86,8 +86,6 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
   },
 )
 
-Tabs.displayName = 'Tabs'
-
 // ---------------------------------------------------------------------------
 // TabsList
 // ---------------------------------------------------------------------------
@@ -95,7 +93,7 @@ Tabs.displayName = 'Tabs'
 export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
-  ({ className, ...props }, ref) => {
+  function TabsList({ className, ...props }, ref) {
     const { orientation } = useTabsContext()
 
     return React.createElement('div', {
@@ -108,8 +106,6 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
   },
 )
 
-TabsList.displayName = 'TabsList'
-
 // ---------------------------------------------------------------------------
 // TabsTrigger
 // ---------------------------------------------------------------------------
@@ -119,7 +115,7 @@ export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonE
 }
 
 export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
-  ({ value, className, onClick, onKeyDown, children, ...props }, ref) => {
+  function TabsTrigger({ value, className, onClick, onKeyDown, children, ...props }, ref) {
     const { value: activeValue, onValueChange, orientation, idPrefix } = useTabsContext()
 
     const isSelected = activeValue === value
@@ -158,8 +154,6 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
   },
 )
 
-TabsTrigger.displayName = 'TabsTrigger'
-
 // ---------------------------------------------------------------------------
 // TabsContent
 // ---------------------------------------------------------------------------
@@ -169,7 +163,7 @@ export interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
-  ({ value, className, children, ...props }, ref) => {
+  function TabsContent({ value, className, children, ...props }, ref) {
     const { value: activeValue, idPrefix } = useTabsContext()
 
     const isSelected = activeValue === value
@@ -194,5 +188,3 @@ export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
     )
   },
 )
-
-TabsContent.displayName = 'TabsContent'

@@ -38,7 +38,7 @@ export interface KanbanCardProps
  * an `onClick` handler for interaction. Children define the card content.
  */
 export const KanbanCard = React.forwardRef<HTMLDivElement, KanbanCardProps>(
-  ({ accent, clickable = false, className, style, children, ...props }, ref) => {
+  function KanbanCard({ accent, clickable = false, className, style, children, ...props }, ref) {
     const accentStyle: React.CSSProperties = accent
       ? { borderTopColor: accent, borderTopWidth: '2px', ...style }
       : (style ?? {})
@@ -58,7 +58,6 @@ export const KanbanCard = React.forwardRef<HTMLDivElement, KanbanCardProps>(
     )
   },
 )
-KanbanCard.displayName = 'KanbanCard'
 
 // ---------------------------------------------------------------------------
 // KanbanColumn
@@ -79,7 +78,7 @@ export interface KanbanColumnProps
  * `React.Children.count(children)` when `count` is not provided.
  */
 export const KanbanColumn = React.forwardRef<HTMLDivElement, KanbanColumnProps>(
-  ({ def, count, className, children, style, ...props }, ref) => {
+  function KanbanColumn({ def, count, className, children, style, ...props }, ref) {
     const derivedCount =
       count !== undefined ? count : React.Children.count(children)
 
@@ -122,7 +121,6 @@ export const KanbanColumn = React.forwardRef<HTMLDivElement, KanbanColumnProps>(
     )
   },
 )
-KanbanColumn.displayName = 'KanbanColumn'
 
 // ---------------------------------------------------------------------------
 // KanbanBoard

@@ -39,7 +39,7 @@ export interface PageShellProps {
   className?: string
 }
 
-function PageShellRoot({ config, children, className }: PageShellProps) {
+const PageShellRoot = function PageShell({ config, children, className }: PageShellProps) {
   const apiRef = React.useRef<PageShellAPI | null>(null)
   if (apiRef.current === null) {
     apiRef.current = createPageShell(config)
@@ -67,8 +67,6 @@ function PageShellRoot({ config, children, className }: PageShellProps) {
     ),
   )
 }
-
-PageShellRoot.displayName = 'PageShell'
 
 // ---------------------------------------------------------------------------
 // PageShell.Nav
@@ -100,8 +98,6 @@ function Nav({ children, className }: PageShellNavProps) {
   )
 }
 
-Nav.displayName = 'PageShell.Nav'
-
 // ---------------------------------------------------------------------------
 // PageShell.Section
 // ---------------------------------------------------------------------------
@@ -131,8 +127,6 @@ function Section({
     children,
   )
 }
-
-Section.displayName = 'PageShell.Section'
 
 // ---------------------------------------------------------------------------
 // PageShell.Footer
@@ -169,8 +163,6 @@ function Footer({ children, className, columns }: PageShellFooterProps) {
     ),
   )
 }
-
-Footer.displayName = 'PageShell.Footer'
 
 // ---------------------------------------------------------------------------
 // Compound export

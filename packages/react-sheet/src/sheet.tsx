@@ -127,8 +127,6 @@ export function Sheet({
   return React.createElement(SheetContext.Provider, { value: ctx }, children)
 }
 
-Sheet.displayName = 'Sheet'
-
 // ---------------------------------------------------------------------------
 // SheetTrigger
 // ---------------------------------------------------------------------------
@@ -136,7 +134,7 @@ Sheet.displayName = 'Sheet'
 export interface SheetTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export const SheetTrigger = React.forwardRef<HTMLButtonElement, SheetTriggerProps>(
-  ({ onClick, children, ...props }, ref) => {
+  function SheetTrigger({ onClick, children, ...props }, ref) {
     const { open, onOpenChange, contentId, triggerRef } = useSheetContext()
 
     const setRefs = React.useCallback(
@@ -172,8 +170,6 @@ export const SheetTrigger = React.forwardRef<HTMLButtonElement, SheetTriggerProp
   },
 )
 
-SheetTrigger.displayName = 'SheetTrigger'
-
 // ---------------------------------------------------------------------------
 // SheetOverlay
 // ---------------------------------------------------------------------------
@@ -181,7 +177,7 @@ SheetTrigger.displayName = 'SheetTrigger'
 export interface SheetOverlayProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const SheetOverlay = React.forwardRef<HTMLDivElement, SheetOverlayProps>(
-  ({ className, onClick, ...props }, ref) => {
+  function SheetOverlay({ className, onClick, ...props }, ref) {
     const { open, onOpenChange } = useSheetContext()
 
     if (!open) return null
@@ -203,8 +199,6 @@ export const SheetOverlay = React.forwardRef<HTMLDivElement, SheetOverlayProps>(
   },
 )
 
-SheetOverlay.displayName = 'SheetOverlay'
-
 // ---------------------------------------------------------------------------
 // SheetContent
 // ---------------------------------------------------------------------------
@@ -223,7 +217,7 @@ export interface SheetContentProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 export const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
-  (
+  function SheetContent(
     {
       className,
       children,
@@ -233,7 +227,7 @@ export const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const {
       open,
       onOpenChange,
@@ -339,8 +333,6 @@ export const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
   },
 )
 
-SheetContent.displayName = 'SheetContent'
-
 // ---------------------------------------------------------------------------
 // SheetHeader
 // ---------------------------------------------------------------------------
@@ -348,7 +340,7 @@ SheetContent.displayName = 'SheetContent'
 export interface SheetHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const SheetHeader = React.forwardRef<HTMLDivElement, SheetHeaderProps>(
-  ({ className, ...props }, ref) => {
+  function SheetHeader({ className, ...props }, ref) {
     return React.createElement('div', {
       ref,
       className: cn('flex flex-col space-y-2 text-center sm:text-left', className),
@@ -357,8 +349,6 @@ export const SheetHeader = React.forwardRef<HTMLDivElement, SheetHeaderProps>(
   },
 )
 
-SheetHeader.displayName = 'SheetHeader'
-
 // ---------------------------------------------------------------------------
 // SheetFooter
 // ---------------------------------------------------------------------------
@@ -366,7 +356,7 @@ SheetHeader.displayName = 'SheetHeader'
 export interface SheetFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const SheetFooter = React.forwardRef<HTMLDivElement, SheetFooterProps>(
-  ({ className, ...props }, ref) => {
+  function SheetFooter({ className, ...props }, ref) {
     return React.createElement('div', {
       ref,
       className: cn(
@@ -378,8 +368,6 @@ export const SheetFooter = React.forwardRef<HTMLDivElement, SheetFooterProps>(
   },
 )
 
-SheetFooter.displayName = 'SheetFooter'
-
 // ---------------------------------------------------------------------------
 // SheetTitle
 // ---------------------------------------------------------------------------
@@ -387,7 +375,7 @@ SheetFooter.displayName = 'SheetFooter'
 export interface SheetTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
 
 export const SheetTitle = React.forwardRef<HTMLHeadingElement, SheetTitleProps>(
-  ({ className, ...props }, ref) => {
+  function SheetTitle({ className, ...props }, ref) {
     const { titleId } = useSheetContext()
     return React.createElement('h2', {
       ref,
@@ -397,8 +385,6 @@ export const SheetTitle = React.forwardRef<HTMLHeadingElement, SheetTitleProps>(
     })
   },
 )
-
-SheetTitle.displayName = 'SheetTitle'
 
 // ---------------------------------------------------------------------------
 // SheetDescription
@@ -410,7 +396,7 @@ export interface SheetDescriptionProps
 export const SheetDescription = React.forwardRef<
   HTMLParagraphElement,
   SheetDescriptionProps
->(({ className, ...props }, ref) => {
+>(function SheetDescription({ className, ...props }, ref) {
   const { descriptionId } = useSheetContext()
   return React.createElement('p', {
     ref,
@@ -420,8 +406,6 @@ export const SheetDescription = React.forwardRef<
   })
 })
 
-SheetDescription.displayName = 'SheetDescription'
-
 // ---------------------------------------------------------------------------
 // SheetClose
 // ---------------------------------------------------------------------------
@@ -429,7 +413,7 @@ SheetDescription.displayName = 'SheetDescription'
 export interface SheetCloseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export const SheetClose = React.forwardRef<HTMLButtonElement, SheetCloseProps>(
-  ({ onClick, children, ...props }, ref) => {
+  function SheetClose({ onClick, children, ...props }, ref) {
     const { onOpenChange } = useSheetContext()
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -449,5 +433,3 @@ export const SheetClose = React.forwardRef<HTMLButtonElement, SheetCloseProps>(
     )
   },
 )
-
-SheetClose.displayName = 'SheetClose'

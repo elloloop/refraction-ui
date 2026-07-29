@@ -22,7 +22,7 @@ export interface VoicePillProps
 }
 
 export const VoicePill = React.forwardRef<HTMLDivElement, VoicePillProps>(
-  (
+  function VoicePill(
     {
       speaker,
       label,
@@ -37,7 +37,7 @@ export const VoicePill = React.forwardRef<HTMLDivElement, VoicePillProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const api = createVoicePill({
       speaker,
       label,
@@ -121,8 +121,6 @@ export const VoicePill = React.forwardRef<HTMLDivElement, VoicePillProps>(
     )
   },
 )
-
-VoicePill.displayName = 'VoicePill'
 
 function renderMuteIcon(muted: boolean): React.ReactElement {
   return React.createElement(

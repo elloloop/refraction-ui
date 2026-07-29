@@ -21,7 +21,7 @@ export interface StatsGridProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const StatsGrid = React.forwardRef<HTMLDivElement, StatsGridProps>(
-  ({ stats, badges = [], className, ...props }, ref) => {
+  function StatsGrid({ stats, badges = [], className, ...props }, ref) {
     const api = createProgressDisplay({ stats, badges })
 
     return (
@@ -48,8 +48,6 @@ export const StatsGrid = React.forwardRef<HTMLDivElement, StatsGridProps>(
   },
 )
 
-StatsGrid.displayName = 'StatsGrid'
-
 /* ------------------------------------------------------------------ */
 /*  ProgressBar                                                        */
 /* ------------------------------------------------------------------ */
@@ -61,7 +59,7 @@ export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
-  ({ value, max = 100, size, className, ...props }, ref) => {
+  function ProgressBar({ value, max = 100, size, className, ...props }, ref) {
     const percent = Math.min(100, Math.max(0, (value / max) * 100))
 
     return (
@@ -83,8 +81,6 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
   },
 )
 
-ProgressBar.displayName = 'ProgressBar'
-
 /* ------------------------------------------------------------------ */
 /*  BadgeDisplay                                                       */
 /* ------------------------------------------------------------------ */
@@ -94,7 +90,7 @@ export interface BadgeDisplayProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 export const BadgeDisplay = React.forwardRef<HTMLDivElement, BadgeDisplayProps>(
-  ({ badges, className, ...props }, ref) => {
+  function BadgeDisplay({ badges, className, ...props }, ref) {
     const api = createProgressDisplay({ stats: [], badges })
 
     return (
@@ -122,5 +118,3 @@ export const BadgeDisplay = React.forwardRef<HTMLDivElement, BadgeDisplayProps>(
     )
   },
 )
-
-BadgeDisplay.displayName = 'BadgeDisplay'

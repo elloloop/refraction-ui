@@ -64,7 +64,7 @@ export const SegmentedControl = React.forwardRef<
   HTMLDivElement,
   SegmentedControlProps
 >(
-  (
+  function SegmentedControl(
     {
       value: valueProp,
       defaultValue,
@@ -75,7 +75,7 @@ export const SegmentedControl = React.forwardRef<
       ...props
     },
     ref,
-  ) => {
+  ) {
     const isControlled = valueProp !== undefined
     const [internalValue, setInternalValue] = React.useState<
       string | undefined
@@ -140,8 +140,6 @@ export const SegmentedControl = React.forwardRef<
   },
 )
 
-SegmentedControl.displayName = 'SegmentedControl'
-
 export interface SegmentedControlItemProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'value'> {
   /** Value identifying this item; selected when it matches the group value. */
@@ -158,7 +156,7 @@ export interface SegmentedControlItemProps
 export const SegmentedControlItem = React.forwardRef<
   HTMLButtonElement,
   SegmentedControlItemProps
->(({ value, className, children, onKeyDown, onClick, ...props }, ref) => {
+>(function SegmentedControlItem({ value, className, children, onKeyDown, onClick, ...props }, ref) {
   const ctx = useSegmentedControlContext('SegmentedControlItem')
   const selected = ctx.value === value
 
@@ -227,5 +225,3 @@ export const SegmentedControlItem = React.forwardRef<
     </button>
   )
 })
-
-SegmentedControlItem.displayName = 'SegmentedControlItem'

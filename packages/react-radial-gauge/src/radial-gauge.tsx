@@ -60,7 +60,7 @@ export interface RadialGaugeProps extends React.SVGAttributes<SVGSVGElement> {
  * Accessibility: `role="meter"` with `aria-valuenow/min/max` on the SVG.
  */
 export const RadialGauge = React.forwardRef<SVGSVGElement, RadialGaugeProps>(
-  (
+  function RadialGauge(
     {
       value,
       min = 0,
@@ -75,7 +75,7 @@ export const RadialGauge = React.forwardRef<SVGSVGElement, RadialGaugeProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const diameter = GAUGE_SIZE_PX[size]
     const cx = diameter / 2
     const cy = diameter / 2
@@ -169,5 +169,3 @@ export const RadialGauge = React.forwardRef<SVGSVGElement, RadialGaugeProps>(
     )
   },
 )
-
-RadialGauge.displayName = 'RadialGauge'

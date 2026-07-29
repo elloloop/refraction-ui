@@ -36,7 +36,7 @@ export interface MascotProps extends Omit<React.SVGProps<SVGSVGElement>, 'size'>
  * States and theme styling are driven by the headless core `@refraction-ui/mascot`.
  */
 export const Mascot = React.forwardRef<SVGSVGElement, MascotProps>(
-  (
+  function Mascot(
     {
       mood = 'happy',
       animation = 'none',
@@ -50,7 +50,7 @@ export const Mascot = React.forwardRef<SVGSVGElement, MascotProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const [isBlinking, setIsBlinking] = React.useState(false)
 
     const shouldBob = animateBobbing ?? animate
@@ -339,5 +339,3 @@ export const Mascot = React.forwardRef<SVGSVGElement, MascotProps>(
     )
   },
 )
-
-Mascot.displayName = 'Mascot'

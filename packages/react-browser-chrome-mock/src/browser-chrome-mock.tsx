@@ -37,7 +37,7 @@ const TRAFFIC_DOTS = ['bg-red-400', 'bg-yellow-400', 'bg-green-400'] as const
 export const BrowserChromeMock = React.forwardRef<
   HTMLDivElement,
   BrowserChromeMockProps
->(({ url, status, className, children, ...props }, ref) => {
+>(function BrowserChromeMock({ url, status, className, children, ...props }, ref) {
   const { ariaProps, dataAttributes } = createBrowserChromeMock({ status })
   const { domain, path } = splitUrl(url)
 
@@ -80,5 +80,3 @@ export const BrowserChromeMock = React.forwardRef<
     </div>
   )
 })
-
-BrowserChromeMock.displayName = 'BrowserChromeMock'

@@ -17,7 +17,7 @@ export interface InputGroupProps extends React.HTMLAttributes<HTMLDivElement> {
  * Handles border-radius clipping on first/last children.
  */
 export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
-  ({ orientation = 'horizontal', className, children, ...props }, ref) => {
+  function InputGroup({ orientation = 'horizontal', className, children, ...props }, ref) {
     const api = createInputGroup({
       orientation,
       id: props.id,
@@ -39,8 +39,6 @@ export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
   },
 )
 
-InputGroup.displayName = 'InputGroup'
-
 export interface InputGroupAddonProps extends React.HTMLAttributes<HTMLDivElement> {
   orientation?: InputGroupOrientation
 }
@@ -49,7 +47,7 @@ export interface InputGroupAddonProps extends React.HTMLAttributes<HTMLDivElemen
  * InputGroupAddon — decorative text or icon addon (e.g., "$", "@", icons).
  */
 export const InputGroupAddon = React.forwardRef<HTMLDivElement, InputGroupAddonProps>(
-  ({ orientation = 'horizontal', className, children, ...props }, ref) => {
+  function InputGroupAddon({ orientation = 'horizontal', className, children, ...props }, ref) {
     return (
       <div
         ref={ref}
@@ -62,15 +60,13 @@ export const InputGroupAddon = React.forwardRef<HTMLDivElement, InputGroupAddonP
   },
 )
 
-InputGroupAddon.displayName = 'InputGroupAddon'
-
 export interface InputGroupTextProps extends React.HTMLAttributes<HTMLSpanElement> {}
 
 /**
  * InputGroupText — inline text label within an input group.
  */
 export const InputGroupText = React.forwardRef<HTMLSpanElement, InputGroupTextProps>(
-  ({ className, children, ...props }, ref) => {
+  function InputGroupText({ className, children, ...props }, ref) {
     return (
       <span
         ref={ref}
@@ -83,8 +79,6 @@ export const InputGroupText = React.forwardRef<HTMLSpanElement, InputGroupTextPr
   },
 )
 
-InputGroupText.displayName = 'InputGroupText'
-
 export interface InputGroupButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   orientation?: InputGroupOrientation
 }
@@ -93,7 +87,7 @@ export interface InputGroupButtonProps extends React.ButtonHTMLAttributes<HTMLBu
  * InputGroupButton — a button styled to sit flush inside an input group.
  */
 export const InputGroupButton = React.forwardRef<HTMLButtonElement, InputGroupButtonProps>(
-  ({ orientation = 'horizontal', className, children, ...props }, ref) => {
+  function InputGroupButton({ orientation = 'horizontal', className, children, ...props }, ref) {
     return (
       <button
         ref={ref}
@@ -106,5 +100,3 @@ export const InputGroupButton = React.forwardRef<HTMLButtonElement, InputGroupBu
     )
   },
 )
-
-InputGroupButton.displayName = 'InputGroupButton'
