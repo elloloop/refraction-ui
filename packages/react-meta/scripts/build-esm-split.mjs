@@ -82,6 +82,7 @@ const result = await esbuild.build({
   external: ['react', 'react-dom', 'react/jsx-runtime', 'react-hook-form'],
   sourcemap: true,
   target: 'es2022',
+  metafile: true,
   logLevel: 'warning',
 })
 if (result.errors.length > 0) {
