@@ -68,12 +68,12 @@ describe('badgeVariants', () => {
 
   it('returns success variant classes', () => {
     const classes = badgeVariants({ variant: 'success' })
-    expect(classes).toContain('bg-green-500')
+    expect(classes).toContain('bg-success')
   })
 
   it('returns warning variant classes', () => {
     const classes = badgeVariants({ variant: 'warning' })
-    expect(classes).toContain('bg-yellow-500')
+    expect(classes).toContain('bg-warning')
   })
 
   it('returns sm size classes', () => {

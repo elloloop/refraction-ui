@@ -26,7 +26,7 @@ describe('Badge (React)', () => {
     const html = renderToString(
       React.createElement(Badge, { variant: 'success' }, 'Active'),
     )
-    expect(html).toContain('bg-green-500')
+    expect(html).toContain('bg-success')
     expect(html).toContain('role="status"')
   })
 
@@ -34,7 +34,7 @@ describe('Badge (React)', () => {
     const html = renderToString(
       React.createElement(Badge, { variant: 'warning' }, 'Warning'),
     )
-    expect(html).toContain('bg-yellow-500')
+    expect(html).toContain('bg-warning')
     expect(html).toContain('role="status"')
   })
 
@@ -117,7 +117,7 @@ describe('Badge – custom className appended', () => {
       React.createElement(Badge, { variant: 'success', className: 'extra-class' }, 'Test'),
     )
     expect(html).toContain('extra-class')
-    expect(html).toContain('bg-green-500')
+    expect(html).toContain('bg-success')
   })
 })
 
