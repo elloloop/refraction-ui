@@ -1,5 +1,11 @@
 # @refraction-ui/astro
 
+## 0.17.4
+
+### Patch Changes
+
+- cdd92bc: Badge and Callout `success`/`warning` variants now use the theme token utilities (`bg-success`, `text-success-foreground`, `bg-success/10`, …) instead of hardcoded `green-500`/`yellow-500` palette classes, so they follow the active theme's `--success`/`--warning` variables. Rendered hues shift slightly from the old fixed palette values.
+
 ## 0.17.3
 
 ### Patch Changes
