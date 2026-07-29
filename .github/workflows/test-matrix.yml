@@ -31,7 +31,12 @@ jobs:
         with:
           path: .turbo
           key: turbo-${{ runner.os }}-${{ github.job }}-${{ github.sha }}
+          # Restore this job's own most recent cache first. The bare
+          # `turbo-<os>-` prefix alone matched EVERY job's cache (react,
+          # astro, browser-tests — whichever saved last), so jobs routinely
+          # restored a foreign, near-useless snapshot.
           restore-keys: |
+            turbo-${{ runner.os }}-${{ github.job }}-
             turbo-${{ runner.os }}-
       - name: Install dependencies
         run: make install
@@ -63,7 +68,12 @@ jobs:
         with:
           path: .turbo
           key: turbo-${{ runner.os }}-${{ github.job }}-${{ github.sha }}
+          # Restore this job's own most recent cache first. The bare
+          # `turbo-<os>-` prefix alone matched EVERY job's cache (react,
+          # astro, browser-tests — whichever saved last), so jobs routinely
+          # restored a foreign, near-useless snapshot.
           restore-keys: |
+            turbo-${{ runner.os }}-${{ github.job }}-
             turbo-${{ runner.os }}-
       - name: Install dependencies
         run: make install
@@ -109,7 +119,12 @@ jobs:
         with:
           path: .turbo
           key: turbo-${{ runner.os }}-${{ github.job }}-${{ github.sha }}
+          # Restore this job's own most recent cache first. The bare
+          # `turbo-<os>-` prefix alone matched EVERY job's cache (react,
+          # astro, browser-tests — whichever saved last), so jobs routinely
+          # restored a foreign, near-useless snapshot.
           restore-keys: |
+            turbo-${{ runner.os }}-${{ github.job }}-
             turbo-${{ runner.os }}-
       - name: Install dependencies
         run: make install
