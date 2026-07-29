@@ -162,7 +162,7 @@ export const DiffViewer = React.forwardRef<HTMLDivElement, DiffViewerProps>(
           {sidebarOpen && (
             <div className={sidebarVariants({ theme })} style={{ width: sidebarWidth }}>
               <div className="px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                Files ({files.length})
+                {`Files (${files.length})`}
               </div>
               {files.map((f, i) => {
                 const active = i === activeIdx
@@ -181,8 +181,8 @@ export const DiffViewer = React.forwardRef<HTMLDivElement, DiffViewerProps>(
                       <span className="text-[10px]">{api.getFileStatusIcon(f.status)}</span>
                       <span className={active ? '' : 'opacity-70'}>{fname}</span>
                       <span className="ml-auto text-[10px]">
-                        <span className="text-green-500">+{f.additions}</span>
-                        {f.deletions > 0 && <span className="text-red-500">-{f.deletions}</span>}
+                        <span className="text-green-500">{`+${f.additions}`}</span>
+                        {f.deletions > 0 && <span className="text-red-500">{`-${f.deletions}`}</span>}
                       </span>
                     </div>
                     {dir && (
