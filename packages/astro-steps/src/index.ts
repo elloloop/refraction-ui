@@ -1,1 +1,6 @@
-export { default as Steps } from './Steps.astro';
+export { default as Steps } from './Steps.astro'
+export { default as Step } from './Step.astro'
+export { default as StepIndicator } from './StepIndicator.astro'
+export { default as StepContent } from './StepContent.astro'
+export { default as StepTitle } from './StepTitle.astro'
+export { default as StepDescription } from './StepDescription.astro'

@@ -5,5 +5,12 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@refraction-ui/file-tree": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "astro": ">=4.0.0"
+  }
 }

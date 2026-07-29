@@ -1,0 +1,17 @@
+---
+import { createStepDescription, stepDescriptionVariants } from '@refraction-ui/steps'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...props } = Astro.props
+const api = createStepDescription()
+---
+
+<p
+  class={cn(stepDescriptionVariants(), className)}
+  {...api.dataAttributes}
+  {...props}
+>
+  <slot />
+</p>

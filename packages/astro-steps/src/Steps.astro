@@ -1,3 +1,19 @@
 ---
+import { createSteps, stepsVariants } from '@refraction-ui/steps'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  orientation?: 'vertical' | 'horizontal'
+}
+
+const { orientation, class: className, ...props } = Astro.props
+const api = createSteps()
 ---
-<div></div>
+
+<div
+  class={cn(stepsVariants({ orientation }), className)}
+  {...api.dataAttributes}
+  {...props}
+>
+  <slot />
+</div>

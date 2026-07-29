@@ -1,0 +1,86 @@
+---
+import {
+  createFileTree,
+  fileTreeVariants,
+  type FileTreeNode,
+} from '@refraction-ui/file-tree'
+import { cn } from '@refraction-ui/shared'
+import FileTreeItems from './FileTreeItems.astro'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Root-level nodes of the tree. */
+  nodes?: FileTreeNode[]
+  /** Expanded node ids (static SSR expansion state). */
+  expandedIds?: string[]
+  /** Initial expanded node ids (alias of `expandedIds` for uncontrolled usage). */
+  defaultExpandedIds?: string[]
+  /** Selected node id (`null` = none). */
+  selectedId?: string | null
+  /** Initial selected node id (alias of `selectedId` for uncontrolled usage). */
+  defaultSelectedId?: string | null
+  /** Accessible label for the tree (default `'File tree'`). */
+  'aria-label'?: string
+}
+
+const {
+  nodes = [],
+  expandedIds,
+  defaultExpandedIds,
+  selectedId,
+  defaultSelectedId,
+  class: className,
+  'aria-label': ariaLabel,
+  ...props
+} = Astro.props
+
+// The headless core resolves the node model, expansion, selection, and the
+// treeview ARIA objects; SSR renders the resulting visible rows statically.
+const api = createFileTree({
+  nodes,
+  expandedIds: expandedIds ?? defaultExpandedIds,
+  selectedId: selectedId ?? defaultSelectedId,
+  'aria-label': ariaLabel,
+})
+
+const state = api.getState()
+const firstVisibleId = api.getVisibleItems()[0]?.node.id
+---
+
+<div class={cn(fileTreeVariants(), className)} {...props}>
+  <ul {...api.getTreeAria()} class="m-0 p-0" data-rfr-file-tree>
+    <FileTreeItems
+      nodes={state.nodes}
+      depth={1}
+      api={api}
+      expandedIds={state.expandedIds}
+      selectedId={state.selectedId}
+      firstVisibleId={firstVisibleId}
+    />
+  </ul>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rfr-file-tree]').forEach((root) => {
+    if (root.hasAttribute('data-rfr-file-tree-init')) return
+    root.setAttribute('data-rfr-file-tree-init', '')
+
+    // SSR-static component: expansion/selection are props. Activation is
+    // delivered as bubbling CustomEvents (`rfr-file-tree-select` /
+    // `rfr-file-tree-toggle`); the consumer re-renders with the new state.
+    root.addEventListener('click', (e) => {
+      const item = (e.target as HTMLElement).closest<HTMLElement>('[data-rfr-file-tree-item]')
+      if (!item || item.getAttribute('data-disabled') === 'true') return
+      const id = item.getAttribute('data-rfr-node-id')
+      if (!id) return
+      root.dispatchEvent(new CustomEvent('rfr-file-tree-select', { detail: { id }, bubbles: true }))
+      if (item.getAttribute('data-rfr-has-children') === 'true') {
+        root.dispatchEvent(
+          new CustomEvent('rfr-file-tree-toggle', {
+            detail: { id, expanded: item.getAttribute('aria-expanded') !== 'true' },
+            bubbles: true,
+          }),
+        )
+      }
+    })
+  })
+</script>

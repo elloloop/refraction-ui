@@ -1,0 +1,77 @@
+---
+import {
+  fileTreeItemVariants,
+  fileTreeGlyphClass,
+  type FileTreeAPI,
+  type FileTreeNode,
+  type VisibleTreeItem,
+} from '@refraction-ui/file-tree'
+import FileTreeItems from './FileTreeItems.astro'
+
+/**
+ * Recursive partial for `<FileTree>` — renders one depth level of the tree
+ * (`role="none"` list items wrapping `role="treeitem"` rows) and nests
+ * `role="group"` lists for expanded parents, mirroring the React adapter's
+ * markup. Not exported from the package entry; use `<FileTree>`.
+ */
+
+interface Props {
+  nodes: FileTreeNode[]
+  /** 1-based nesting depth (ARIA `aria-level`). */
+  depth: number
+  api: FileTreeAPI
+  expandedIds: string[]
+  selectedId: string | null
+  firstVisibleId: string | undefined
+}
+
+const { nodes, depth, api, expandedIds, selectedId, firstVisibleId } = Astro.props
+---
+
+{nodes.map((node) => {
+  const hasChildren = Boolean(node.children && node.children.length > 0)
+  const isExpanded = hasChildren && expandedIds.includes(node.id)
+  const isSelected = selectedId === node.id
+  const item: VisibleTreeItem = {
+    node,
+    parentId: null, // unused by getItemAria; the core tracks real parents
+    depth,
+    hasChildren,
+    isExpanded,
+    isSelected,
+    isFocused: false, // SSR has no roving focus; the first visible item tabs in
+  }
+  const tabbable = node.id === firstVisibleId
+
+  return (
+    <li role="none" class="list-none">
+      <div
+        {...api.getItemAria(item)}
+        tabindex={tabbable ? 0 : -1}
+        data-disabled={node.disabled ? 'true' : undefined}
+        data-rfr-file-tree-item
+        data-rfr-node-id={node.id}
+        data-rfr-has-children={hasChildren ? 'true' : undefined}
+        style={`padding-left: ${(depth - 1) * 12}px`}
+        class={fileTreeItemVariants({ selected: isSelected ? 'true' : 'false' })}
+      >
+        <span aria-hidden="true" class={fileTreeGlyphClass}>
+          {hasChildren ? (isExpanded ? '▾' : '▸') : '·'}
+        </span>
+        <span class="truncate">{node.label}</span>
+      </div>
+      {hasChildren && isExpanded && (
+        <ul role="group" class="m-0 p-0">
+          <FileTreeItems
+            nodes={node.children!}
+            depth={depth + 1}
+            api={api}
+            expandedIds={expandedIds}
+            selectedId={selectedId}
+            firstVisibleId={firstVisibleId}
+          />
+        </ul>
+      )}
+    </li>
+  )
+})}
