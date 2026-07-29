@@ -33,6 +33,31 @@ export class HttpError extends Error {
   }
 }
 
+/**
+ * Normalize the three `HeadersInit` forms (plain object, `Headers`, tuple
+ * array) into a plain object so per-request headers actually participate in
+ * the merge — a `Headers` instance or tuple array used to be silently dropped
+ * by the object spread.
+ */
+function normalizeHeaders(headers: HeadersInit | undefined): Record<string, string> {
+  if (!headers) return {};
+  if (headers instanceof Headers) {
+    const out: Record<string, string> = {};
+    headers.forEach((value, key) => {
+      out[key] = value;
+    });
+    return out;
+  }
+  if (Array.isArray(headers)) {
+    const out: Record<string, string> = {};
+    for (const [key, value] of headers) {
+      out[key] = value;
+    }
+    return out;
+  }
+  return { ...headers };
+}
+
 export class HttpClient {
   private config: HttpConfig;
 
@@ -86,13 +111,19 @@ export class HttpClient {
     const isFormDataOrSearchParams =
       options.body instanceof FormData || options.body instanceof URLSearchParams;
 
-    const baseHeaders = {
+    const baseHeaders: Record<string, string> = {
       ...this.config.headers,
       ...authHeaders,
-      ...(options.headers as Record<string, string>),
+      ...normalizeHeaders(options.headers),
     };
 
-    if (!isFormDataOrSearchParams && !baseHeaders['Content-Type']) {
+    // Header names are case-insensitive — a caller's `content-type` (or a
+    // `Headers` instance, whose keys are lowercase) must suppress the default.
+    const hasContentType = Object.keys(baseHeaders).some(
+      (key) => key.toLowerCase() === 'content-type',
+    );
+
+    if (!isFormDataOrSearchParams && !hasContentType) {
       baseHeaders['Content-Type'] = 'application/json';
     }
 

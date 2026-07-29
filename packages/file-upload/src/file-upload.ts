@@ -208,7 +208,6 @@ export function createFileUpload(props: FileUploadProps = {}): FileUploadAPI {
   const dropZoneProps: Partial<AccessibilityProps> & Record<string, unknown> = {
     role: 'button',
     'aria-label': 'Drop files here or click to upload',
-    'aria-describedby': labelId,
     id: dropZoneId,
     tabIndex: 0,
   }

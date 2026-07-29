@@ -1,4 +1,4 @@
-import { COUNTRIES, LANGUAGES, detectCountry, detectLanguage } from '@refraction-ui/i18n'
+import { COUNTRIES, LANGUAGES } from '@refraction-ui/i18n'
 import { generateId } from '@refraction-ui/shared'
 
 export interface LocationSelectorState {
@@ -21,7 +21,7 @@ export function createLocationSelector(options: LocationSelectorOptions = {}) {
     onLanguageChange,
   } = options
 
-  let state: LocationSelectorState = {
+  const state: LocationSelectorState = {
     country: defaultCountry,
     language: defaultLanguage,
   }

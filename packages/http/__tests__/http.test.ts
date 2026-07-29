@@ -104,6 +104,70 @@ describe('HttpClient — request building', () => {
   })
 })
 
+describe('HttpClient — per-request header forms', () => {
+  it('merges headers passed as a Headers instance', async () => {
+    // Regression guard: a Headers instance used to be silently dropped by the
+    // plain-object spread.
+    const fetchMock = mockFetch(() => Promise.resolve(jsonResponse({})))
+    const client = new HttpClient({ headers: { 'X-App': 'demo' } })
+    await client.get('/x', { headers: new Headers({ 'X-Request': 'yes' }) })
+    const headers = fetchMock.mock.calls[0][1].headers as Record<string, string>
+    expect(headers['x-request']).toBe('yes')
+    expect(headers['X-App']).toBe('demo')
+  })
+
+  it('merges headers passed as a tuple array', async () => {
+    // Regression guard: a tuple array used to be silently dropped too.
+    const fetchMock = mockFetch(() => Promise.resolve(jsonResponse({})))
+    const client = new HttpClient({ headers: { 'X-App': 'demo' } })
+    await client.get('/x', {
+      headers: [
+        ['X-Request', 'yes'],
+        ['X-Extra', '1'],
+      ],
+    })
+    const headers = fetchMock.mock.calls[0][1].headers as Record<string, string>
+    expect(headers['X-Request']).toBe('yes')
+    expect(headers['X-Extra']).toBe('1')
+    expect(headers['X-App']).toBe('demo')
+  })
+
+  it('lets a Headers instance override config headers and suppress the default Content-Type', async () => {
+    const fetchMock = mockFetch(() => Promise.resolve(jsonResponse({})))
+    const client = new HttpClient({ headers: { 'X-Shared': 'config' } })
+    // Headers normalizes keys to lowercase — this also exercises the
+    // case-insensitive Content-Type dedup.
+    await client.post('/x', 'a=1', {
+      headers: new Headers({ 'X-Shared': 'request', 'Content-Type': 'text/csv' }),
+    })
+    const headers = fetchMock.mock.calls[0][1].headers as Record<string, string>
+    expect(headers['x-shared']).toBe('request')
+    expect(headers['content-type']).toBe('text/csv')
+    expect(headers['Content-Type']).toBeUndefined()
+  })
+
+  it('does not add a duplicate Content-Type when the caller passes lowercase content-type', async () => {
+    // Regression guard: the dedup check used to be case-sensitive, producing
+    // both `content-type` and `Content-Type` on the same request.
+    const fetchMock = mockFetch(() => Promise.resolve(jsonResponse({})))
+    const client = new HttpClient()
+    await client.post('/items', 'a=1', { headers: { 'content-type': 'text/plain' } })
+    const headers = fetchMock.mock.calls[0][1].headers as Record<string, string>
+    expect(headers['content-type']).toBe('text/plain')
+    expect(headers['Content-Type']).toBeUndefined()
+    const contentTypeKeys = Object.keys(headers).filter((k) => k.toLowerCase() === 'content-type')
+    expect(contentTypeKeys).toHaveLength(1)
+  })
+
+  it('still defaults Content-Type to application/json alongside other header forms', async () => {
+    const fetchMock = mockFetch(() => Promise.resolve(jsonResponse({})))
+    const client = new HttpClient()
+    await client.post('/items', {}, { headers: new Headers({ 'X-Request': 'yes' }) })
+    const headers = fetchMock.mock.calls[0][1].headers as Record<string, string>
+    expect(headers['Content-Type']).toBe('application/json')
+  })
+})
+
 describe('HttpClient — auth header', () => {
   it('adds a Bearer token from a sync getToken', async () => {
     const fetchMock = mockFetch(() => Promise.resolve(jsonResponse({})))

@@ -88,7 +88,7 @@ export const CommandInput = forwardRef<HTMLDivElement, CommandInputProps>(
             coreRef.current?.handleInput(e.currentTarget.textContent || '', 0);
           }}
           onKeyDown={(e) => {
-            coreRef.current?.handleKeyDown(e.key, e as any);
+            coreRef.current?.handleKeyDown(e.key, e);
           }}
           {...props}
         />

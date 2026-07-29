@@ -49,6 +49,38 @@ describe('DatePicker (React)', () => {
     expect(html).toContain('max="2024-12-31"')
   })
 
+  it('renders the selected date in a custom display format', () => {
+    // Regression guard: the `format` prop used to be accepted but ignored.
+    const html = renderToString(
+      React.createElement(DatePicker, { value: new Date(2024, 2, 15), format: 'DD/MM/YYYY' }),
+    )
+    expect(html).toContain('15/03/2024')
+    // The native input keeps its ISO value.
+    expect(html).toContain('value="2024-03-15"')
+  })
+
+  it('applies the custom format with time when showTime is set', () => {
+    const html = renderToString(
+      React.createElement(DatePicker, {
+        value: new Date(2024, 2, 15, 9, 30),
+        showTime: true,
+        format: 'DD/MM/YYYY HH:mm',
+      }),
+    )
+    expect(html).toContain('15/03/2024 09:30')
+    expect(html).toContain('value="2024-03-15T09:30"')
+  })
+
+  it('renders no extra display text without a format prop', () => {
+    const html = renderToString(React.createElement(DatePicker, { value: new Date(2024, 2, 15) }))
+    expect(html).not.toContain('<span')
+  })
+
+  it('renders no display text when a format is given but no date is selected', () => {
+    const html = renderToString(React.createElement(DatePicker, { format: 'DD/MM/YYYY' }))
+    expect(html).not.toContain('<span')
+  })
+
   it('sets the disabled attribute', () => {
     const html = renderToString(React.createElement(DatePicker, { disabled: true }))
     expect(html).toContain('disabled')

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { datePickerTriggerStyles } from '@refraction-ui/date-picker'
+import { datePickerTriggerStyles, formatDate } from '@refraction-ui/date-picker'
 import { cn } from '@refraction-ui/shared'
 
 export interface DatePickerProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'type'> {
@@ -8,13 +8,14 @@ export interface DatePickerProps extends Omit<React.InputHTMLAttributes<HTMLInpu
   minDate?: Date
   maxDate?: Date
   showTime?: boolean
+  /** Display format for the selected-date text shown next to the input (e.g. 'DD/MM/YYYY'). The native input value itself stays ISO (`YYYY-MM-DD`). */
   format?: string
   placeholder?: string
 }
 
 export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
   ({ value, onChange, minDate, maxDate, showTime = false, format, placeholder, className, disabled = false, ...props }, ref) => {
-    
+
     // Native date inputs expect YYYY-MM-DD or YYYY-MM-DDTHH:mm
     const dateToString = (date?: Date) => {
       if (!date) return ''
@@ -32,7 +33,7 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
       }
     }
 
-    return (
+    const input = (
       <input
         ref={ref}
         type={showTime ? 'datetime-local' : 'date'}
@@ -45,6 +46,20 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
         placeholder={placeholder}
         {...props}
       />
+    )
+
+    // A custom display format cannot be honored by the native input itself
+    // (the browser locale controls its presentation), so the formatted date
+    // renders as adjacent text via the core's formatter.
+    if (!format || !value) {
+      return input
+    }
+
+    return (
+      <>
+        {input}
+        <span className="text-sm text-muted-foreground">{formatDate(value, format, showTime)}</span>
+      </>
     )
   }
 )

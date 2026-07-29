@@ -55,6 +55,14 @@ describe('DiffViewer (React)', () => {
     expect(html).not.toContain('1 files')
   })
 
+  it('renders the sidebar heading count as a contiguous string', () => {
+    const html = renderViewer()
+    // Regression guard: `Files ({files.length})` used to SSR as
+    // `Files (<!-- -->3<!-- -->)`; it is now a single template literal.
+    expect(html).toContain('Files (3)')
+    expect(html).not.toContain('Files (<!-- -->')
+  })
+
   it('renders the sidebar with every file name and per-file stats', () => {
     const html = renderViewer()
     expect(html).toContain('alpha.ts')
@@ -63,11 +71,20 @@ describe('DiffViewer (React)', () => {
     // Directory shown for nested paths.
     expect(html).toContain('src/deep')
     // Per-file stat spans: additions for all 3 files, deletions only where > 0.
-    // NOTE: the sidebar composes these as adjacent expressions (`+{n}`), which
-    // SSR splits with `<!-- -->` comments — the same bug class the status-bar
-    // template literals fixed. Known residual issue; not asserted contiguously.
     expect(html.match(/text-green-500/g)?.length).toBe(3)
     expect(html.match(/text-red-500/g)?.length).toBe(2)
+  })
+
+  it('renders per-file stats as contiguous strings', () => {
+    const html = renderViewer()
+    // Regression guard: `+{f.additions}` / `-{f.deletions}` used to SSR as
+    // `+<!-- -->3`; they are now single template literals.
+    expect(html).toContain('>+3</span>')
+    expect(html).toContain('>+2</span>')
+    expect(html).toContain('>+0</span>')
+    expect(html.match(/-1<\/span>/g)?.length).toBe(2)
+    expect(html).not.toContain('+<!-- -->')
+    expect(html).not.toContain('-<!-- -->')
   })
 
   it('hides the sidebar when showSidebar is false', () => {

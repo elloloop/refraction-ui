@@ -5,6 +5,7 @@ import { InstallCommand } from '@/components/install-command'
 const datePickerProps = [
   { name: 'value', type: 'Date', description: 'Selected date/time.' },
   { name: 'onChange', type: '(date: Date) => void', description: 'Callback when date changes.' },
+  { name: 'format', type: 'string', description: "Display format for the selected-date text shown next to the input (e.g. 'DD/MM/YYYY'). The native input value stays ISO." },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
 const usageCode = `import { DatePicker } from '@refraction-ui/react'

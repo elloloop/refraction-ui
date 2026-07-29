@@ -32,6 +32,15 @@ export interface CommandInputOptions {
   onCommandCancel?: () => void;
 }
 
+/**
+ * Minimal keyboard-event surface {@link CommandInput.handleKeyDown} needs.
+ * DOM `KeyboardEvent`s and framework synthetic events (e.g. React's) both
+ * satisfy this structurally, so adapters can pass their events without casts.
+ */
+export interface CommandKeyEvent {
+  preventDefault(): void;
+}
+
 export class CommandInput {
   private state: CommandInputState = {
     nodes: [],
@@ -54,7 +63,7 @@ export class CommandInput {
     this.notifyStateChange();
   }
 
-  public handleKeyDown(key: string, event?: Event): void {
+  public handleKeyDown(key: string, event?: CommandKeyEvent): void {
     if (this.state.activeTrigger) {
       if (key === 'Escape') {
         if (event) event.preventDefault();

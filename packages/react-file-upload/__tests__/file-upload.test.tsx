@@ -24,6 +24,18 @@ describe('FileUpload (React)', () => {
     expect(html).toContain('tabindex="0"')
   })
 
+  it('emits no dangling aria-describedby on the drop zone', () => {
+    const html = renderToString(React.createElement(FileUpload, null))
+    // Regression guard: dropZoneProps used to reference a generated label id
+    // (rfr-file-upload-label-N) that nothing renders. Any describedby that is
+    // emitted must point at an element that exists in the markup.
+    const describedby = html.match(/aria-describedby="([^"]+)"/)
+    if (describedby) {
+      expect(html).toContain(`id="${describedby[1]}"`)
+    }
+    expect(html).not.toContain('rfr-file-upload-label')
+  })
+
   it('renders the default drop-zone content', () => {
     const html = renderToString(React.createElement(FileUpload, null))
     expect(html).toContain('📁')
