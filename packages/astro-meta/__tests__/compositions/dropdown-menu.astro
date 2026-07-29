@@ -1,0 +1,14 @@
+---
+import DropdownMenu from '../../dist/astro-dropdown-menu/DropdownMenu.astro'
+import DropdownMenuTrigger from '../../dist/astro-dropdown-menu/DropdownMenuTrigger.astro'
+import DropdownMenuContent from '../../dist/astro-dropdown-menu/DropdownMenuContent.astro'
+import DropdownMenuItem from '../../dist/astro-dropdown-menu/DropdownMenuItem.astro'
+---
+
+<DropdownMenu>
+  <DropdownMenuTrigger>Actions</DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem>Rename</DropdownMenuItem>
+    <DropdownMenuItem disabled>Archive</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>

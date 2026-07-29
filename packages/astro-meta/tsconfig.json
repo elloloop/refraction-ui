@@ -2,9 +2,10 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     // The meta is built by build.mjs (copies + rewrites adapter sources);
-    // tsc only typechecks the hand-maintained meta entry.
+    // tsc only typechecks the hand-maintained meta entry and the test harness.
     "noEmit": true,
-    "rootDir": "src"
+    "rootDir": ".",
+    "types": ["node"]
   },
-  "include": ["src"]
+  "include": ["src", "__tests__", "vitest.config.ts"]
 }
