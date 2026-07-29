@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // The meta is built by build.mjs (copies + rewrites adapter sources);
+    // tsc only typechecks the hand-maintained meta entry.
+    "noEmit": true,
+    "rootDir": "src"
+  },
+  "include": ["src"]
+}

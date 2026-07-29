@@ -67,6 +67,25 @@ for (const folderName of copiedPackages) {
 }
 
 // 4. Rewrite imports in all copied files
+
+// Resolve a `@refraction-ui/<pkg>[/<subpath>]` specifier to the copied
+// source. A bare specifier maps to the package's `index.ts`; a subpath
+// (e.g. `@refraction-ui/analytics-sink-posthog/replay`) maps to the
+// same-named source file (`replay.ts`) so optional entry points stay
+// embedded instead of leaking a private package reference.
+// `relativeToDist` is the importing file's relative path back to dist/.
+function resolveSpecifier(relativeToDist, spec) {
+  const slash = spec.indexOf('/');
+  const folder = slash === -1 ? spec : spec.slice(0, slash);
+  if (!copiedPackages.includes(folder)) return null;
+  const subpath = slash === -1 ? 'index' : spec.slice(slash + 1);
+  const rel =
+    relativeToDist === ''
+      ? `./${folder}/${subpath}.ts`
+      : `${relativeToDist}/${folder}/${subpath}.ts`;
+  return rel;
+}
+
 function rewriteImports(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
 
@@ -76,36 +95,19 @@ function rewriteImports(dir) {
       rewriteImports(fullPath);
     } else if (fullPath.endsWith('.ts') || fullPath.endsWith('.tsx') || fullPath.endsWith('.astro')) {
       let content = fs.readFileSync(fullPath, 'utf-8');
-      
+
       // Calculate relative depth to the base dist directory
       const relativeToDist = path.relative(path.dirname(fullPath), distDir);
-      
-      // Resolve a `@refraction-ui/<pkg>[/<subpath>]` specifier to the copied
-      // source. A bare specifier maps to the package's `index.ts`; a subpath
-      // (e.g. `@refraction-ui/analytics-sink-posthog/replay`) maps to the
-      // same-named source file (`replay.ts`) so optional entry points stay
-      // embedded instead of leaking a private package reference.
-      const resolveSpecifier = (spec) => {
-        const slash = spec.indexOf('/');
-        const folder = slash === -1 ? spec : spec.slice(0, slash);
-        if (!copiedPackages.includes(folder)) return null;
-        const subpath = slash === -1 ? 'index' : spec.slice(slash + 1);
-        const rel =
-          relativeToDist === ''
-            ? `./${folder}/${subpath}.ts`
-            : `${relativeToDist}/${folder}/${subpath}.ts`;
-        return rel;
-      };
 
       // Rewrite static imports
       content = content.replace(/from\s+['"]@refraction-ui\/([^'"]+)['"]/g, (match, pkgName) => {
-        const rel = resolveSpecifier(pkgName);
+        const rel = resolveSpecifier(relativeToDist, pkgName);
         return rel ? `from '${rel}'` : match;
       });
 
       // Rewrite dynamic imports
       content = content.replace(/import\s*\(\s*['"]@refraction-ui\/([^'"]+)['"]\s*\)/g, (match, pkgName) => {
-        const rel = resolveSpecifier(pkgName);
+        const rel = resolveSpecifier(relativeToDist, pkgName);
         return rel ? `import('${rel}')` : match;
       });
 
@@ -143,14 +145,18 @@ function rewriteImports(dir) {
 
 rewriteImports(distDir);
 
-// 5. Generate index.ts for the meta-package
-let indexContent = '// Auto-generated meta-package index\n';
-for (const folderName of copiedPackages) {
-  // Only re-export astro-* components and core shared components directly expected by users
-  if (folderName.startsWith('astro-') || folderName === 'shared') {
-     indexContent += `export * from './${folderName}/index.ts';\n`;
-  }
-}
+// 5. Generate index.ts for the meta-package from the hand-maintained source
+//    entry. src/index.ts is the single source of truth for the meta's public
+//    surface — including the selective re-exports that resolve cross-package
+//    name collisions (TS2308) — so the shipped entry mirrors it with every
+//    `@refraction-ui/*` specifier rewritten to the embedded copy.
+const srcIndex = fs.readFileSync(path.join(__dirname, 'src', 'index.ts'), 'utf-8');
+const indexContent =
+  '// Auto-generated meta-package index (from src/index.ts — edit that file, not this one)\n' +
+  srcIndex.replace(/from\s+['"]@refraction-ui\/([^'"]+)['"]/g, (match, pkgName) => {
+    const rel = resolveSpecifier('', pkgName);
+    return rel ? `from '${rel}'` : match;
+  });
 fs.writeFileSync(path.join(distDir, 'index.ts'), indexContent);
 
 // 6. Verify all re-exports resolve

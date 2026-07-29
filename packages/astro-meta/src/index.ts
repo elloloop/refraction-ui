@@ -1,11 +1,14 @@
 /**
  * @refraction-ui/astro
  *
- * Meta package that re-exports all @refraction-ui/astro-* component packages.
- * Allows consumers to install everything from a single package:
- *
- *   import { Button, Dialog, ThemeProvider } from '@refraction-ui/astro'
+ * Meta package that re-exports all @refraction-ui/astro-* component packages,
+ * so consumers install a single package and import every component from it.
  */
+
+// Embedded shared utilities — `@refraction-ui/shared` is private and copied
+// into the shipped artifact by the meta build, so the meta re-exports it
+// directly instead of referencing the package.
+export * from '@refraction-ui/shared'
 
 // Core / theme
 export * from '@refraction-ui/astro-theme'
@@ -99,7 +102,84 @@ export * from '@refraction-ui/astro-payment'
 
 export * from '@refraction-ui/astro-command-input'
 export * from '@refraction-ui/astro-logger'
-export * from '@refraction-ui/astro-analytics'
+
+// astro-analytics: selective re-export, not `export *` — astro-logger (above)
+// already surfaces `createConsoleSink`, `createMockSink` and the
+// `ConsoleSinkOptions` type from its own headless core, so a wildcard here
+// collides (TS2308) and, worse, makes all three names unreachable at runtime
+// (ambiguous star exports are dropped from the ESM namespace). Keep the
+// pre-existing logger names stable — the same canonical surface react-meta
+// exposes — and ship the analytics variants under aliases instead.
+export {
+  AnalyticsScript,
+  createAnalytics,
+  createHttpSink,
+  createConsoleSink as createAnalyticsConsoleSink,
+  createMockSink as createAnalyticsMockSink,
+  createSession,
+  createIdentity,
+  createConsent,
+  createRedactor,
+  createMemoryStorage,
+  createLocalStorageAdapter,
+  createCookieAdapter,
+  resolveStorage,
+  campaignFingerprint,
+  uuidv4,
+  isUuidV4,
+  UUID_V4_RE,
+  PII_DENY_LIST,
+  PII_EXACT_KEYS,
+  REDACTED,
+  SCHEMA_VERSION,
+  DEFAULT_SESSION_TIMEOUT_MS,
+  createGA4Sink,
+  createGA4HttpSink,
+  createGA4ClientSdkSink,
+  createAppInsightsSink,
+  createPostHogSink,
+  createPostHogHttpSink,
+  createPostHogClientSdkSink,
+  startSessionReplay,
+  type Analytics,
+  type AnalyticsConfig,
+  type AnalyticsEvent,
+  type AnalyticsEventType,
+  type AnalyticsProperties,
+  type AnalyticsContext,
+  type AnalyticsSink,
+  type AnalyticsStorage,
+  type SinkInitContext,
+  type SinkDeliverContext,
+  type SessionConfig,
+  type SessionAPI,
+  type IdentityConfig,
+  type ConsentConfig,
+  type ConsentAPI,
+  type HttpSinkOptions,
+  type CallOptions,
+  type ConsoleSinkOptions as AnalyticsConsoleSinkOptions,
+  type MockSink,
+  type CreateMockSinkOptions,
+  type Redactor,
+  type GA4SinkOptions,
+  type GA4HttpOptions,
+  type GA4ClientSdkOptions,
+  type GA4ConsentBridge,
+  type ConsentState,
+  type GtagFn,
+  type AppInsightsSinkOptions,
+  type AppInsightsSinkMode,
+  type ClientSdkOptions,
+  type HttpOptions,
+  type AppInsightsLike,
+  type PostHogSinkMode,
+  type PostHogSinkOptions,
+  type PostHogHttpSinkOptions,
+  type PostHogClientSdkSinkOptions,
+  type SessionReplayOptions,
+  type SessionReplayHandle,
+} from '@refraction-ui/astro-analytics'
 
 // Voice primitives — siblings of @refraction-ui/react-voice-pill / -waveform.
 // Issues #191, #192.
