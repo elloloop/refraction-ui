@@ -1,0 +1,15 @@
+---
+import Dialog from '../../dist/astro-dialog/Dialog.astro'
+import DialogTrigger from '../../dist/astro-dialog/DialogTrigger.astro'
+import DialogContent from '../../dist/astro-dialog/DialogContent.astro'
+import DialogTitle from '../../dist/astro-dialog/DialogTitle.astro'
+import DialogDescription from '../../dist/astro-dialog/DialogDescription.astro'
+---
+
+<Dialog defaultOpen modal>
+  <DialogTrigger>Open settings</DialogTrigger>
+  <DialogContent modal>
+    <DialogTitle>Settings</DialogTitle>
+    <DialogDescription>Adjust your preferences.</DialogDescription>
+  </DialogContent>
+</Dialog>

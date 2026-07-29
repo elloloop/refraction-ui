@@ -1,0 +1,15 @@
+---
+import Tabs from '../../dist/astro-tabs/Tabs.astro'
+import TabsList from '../../dist/astro-tabs/TabsList.astro'
+import TabsTrigger from '../../dist/astro-tabs/TabsTrigger.astro'
+import TabsContent from '../../dist/astro-tabs/TabsContent.astro'
+---
+
+<Tabs defaultValue="account" orientation="horizontal">
+  <TabsList>
+    <TabsTrigger value="account" isActive>Account</TabsTrigger>
+    <TabsTrigger value="profile">Profile</TabsTrigger>
+  </TabsList>
+  <TabsContent value="account" isActive>Account panel content</TabsContent>
+  <TabsContent value="profile">Profile panel content</TabsContent>
+</Tabs>
