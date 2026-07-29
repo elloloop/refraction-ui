@@ -48,7 +48,7 @@ export interface SearchBarProps extends Omit<React.InputHTMLAttributes<HTMLInput
 }
 
 export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
-  ({ value: controlledValue, defaultValue = '', onValueChange, onSearch, debounceMs = 300, loading = false, placeholder, className, children, ...inputProps }, ref) => {
+  function SearchBar({ value: controlledValue, defaultValue = '', onValueChange, onSearch, debounceMs = 300, loading = false, placeholder, className, children, ...inputProps }, ref) {
   const [internalValue, setInternalValue] = React.useState(controlledValue ?? defaultValue)
   const isControlled = controlledValue !== undefined
   const currentValue = isControlled ? controlledValue : internalValue
@@ -175,8 +175,6 @@ export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
   },
 )
 
-SearchBar.displayName = 'SearchBar'
-
 /* ------------------------------------------------------------------ */
 /*  SearchResults (dropdown list)                                      */
 /* ------------------------------------------------------------------ */
@@ -184,7 +182,7 @@ SearchBar.displayName = 'SearchBar'
 export interface SearchResultsProps extends React.HTMLAttributes<HTMLUListElement> {}
 
 export const SearchResults = React.forwardRef<HTMLUListElement, SearchResultsProps>(
-  ({ className, children, ...props }, ref) => {
+  function SearchResults({ className, children, ...props }, ref) {
     const { api, value } = useSearchBarContext()
 
     if (value.length === 0) return null
@@ -203,8 +201,6 @@ export const SearchResults = React.forwardRef<HTMLUListElement, SearchResultsPro
   },
 )
 
-SearchResults.displayName = 'SearchResults'
-
 /* ------------------------------------------------------------------ */
 /*  SearchResultItem                                                   */
 /* ------------------------------------------------------------------ */
@@ -212,7 +208,7 @@ SearchResults.displayName = 'SearchResults'
 export interface SearchResultItemProps extends React.LiHTMLAttributes<HTMLLIElement> {}
 
 export const SearchResultItem = React.forwardRef<HTMLLIElement, SearchResultItemProps>(
-  ({ className, children, ...props }, ref) => {
+  function SearchResultItem({ className, children, ...props }, ref) {
     return React.createElement(
       'li',
       {
@@ -225,5 +221,3 @@ export const SearchResultItem = React.forwardRef<HTMLLIElement, SearchResultItem
     )
   },
 )
-
-SearchResultItem.displayName = 'SearchResultItem'

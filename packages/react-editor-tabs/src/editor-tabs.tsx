@@ -34,7 +34,7 @@ export interface EditorTabsProps
  * headless `@refraction-ui/editor-tabs` core helper.
  */
 export const EditorTabs = React.forwardRef<HTMLDivElement, EditorTabsProps>(
-  ({ tabs, activeId, onSelect, onClose, className, ...props }, ref) => {
+  function EditorTabs({ tabs, activeId, onSelect, onClose, className, ...props }, ref) {
     const tabRefs = React.useRef<(HTMLButtonElement | null)[]>([])
 
     const activeIndex = tabs.findIndex((t) => t.id === activeId)
@@ -122,5 +122,3 @@ export const EditorTabs = React.forwardRef<HTMLDivElement, EditorTabsProps>(
     )
   },
 )
-
-EditorTabs.displayName = 'EditorTabs'

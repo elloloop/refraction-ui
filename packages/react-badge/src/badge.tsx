@@ -19,7 +19,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
  * Styling via Tailwind utility classes (no external CSS-in-JS).
  */
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
-  ({ variant, size, className, children, ...props }, ref) => {
+  function Badge({ variant, size, className, children, ...props }, ref) {
     const api = createBadge({ variant, size })
     const classes = cn(badgeVariants({ variant, size }), className)
 
@@ -36,5 +36,3 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     )
   },
 )
-
-Badge.displayName = 'Badge'

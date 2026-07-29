@@ -53,7 +53,7 @@ export interface PricingCardProps
  * the headless `@refraction-ui/pricing-card` core.
  */
 export const PricingCard = React.forwardRef<HTMLDivElement, PricingCardProps>(
-  (
+  function PricingCard(
     {
       badge,
       name,
@@ -70,7 +70,7 @@ export const PricingCard = React.forwardRef<HTMLDivElement, PricingCardProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const { ariaProps, dataAttributes } = createPricingCard({ featured })
 
     return (
@@ -142,5 +142,3 @@ export const PricingCard = React.forwardRef<HTMLDivElement, PricingCardProps>(
     )
   },
 )
-
-PricingCard.displayName = 'PricingCard'

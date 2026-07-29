@@ -25,7 +25,7 @@ export interface FileUploadProps {
 }
 
 export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
-  ({ accept, maxSize, maxFiles, multiple = false, onFilesSelected, onError, className, children }, ref) => {
+  function FileUpload({ accept, maxSize, maxFiles, multiple = false, onFilesSelected, onError, className, children }, ref) {
   const [files, setFiles] = React.useState<FileEntry[]>([])
   const [isDragging, setIsDragging] = React.useState(false)
   const inputRef = React.useRef<HTMLInputElement>(null)
@@ -207,5 +207,3 @@ export const FileUpload = React.forwardRef<HTMLDivElement, FileUploadProps>(
   )
   },
 )
-
-FileUpload.displayName = 'FileUpload'

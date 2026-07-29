@@ -20,7 +20,7 @@ export interface DeviceFrameProps {
 }
 
 export const DeviceFrame = React.forwardRef<HTMLDivElement, DeviceFrameProps>(
-  ({ device, orientation = 'portrait', className, children }, ref) => {
+  function DeviceFrame({ device, orientation = 'portrait', className, children }, ref) {
   const api = createDeviceFrame({ device, orientation })
 
   return React.createElement(
@@ -63,5 +63,3 @@ export const DeviceFrame = React.forwardRef<HTMLDivElement, DeviceFrameProps>(
   )
   },
 )
-
-DeviceFrame.displayName = 'DeviceFrame'

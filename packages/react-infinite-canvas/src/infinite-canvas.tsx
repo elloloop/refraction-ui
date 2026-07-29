@@ -51,7 +51,7 @@ export interface InfiniteCanvasProps
  * pointer handlers are registered after mount so they are SSR-safe.
  */
 export const InfiniteCanvas = React.forwardRef<HTMLDivElement, InfiniteCanvasProps>(
-  (
+  function InfiniteCanvas(
     {
       zoom: zoomProp,
       x: xProp,
@@ -68,7 +68,7 @@ export const InfiniteCanvas = React.forwardRef<HTMLDivElement, InfiniteCanvasPro
       ...props
     },
     ref,
-  ) => {
+  ) {
     const isControlled =
       zoomProp !== undefined || xProp !== undefined || yProp !== undefined
 
@@ -241,5 +241,3 @@ export const InfiniteCanvas = React.forwardRef<HTMLDivElement, InfiniteCanvasPro
     )
   },
 )
-
-InfiniteCanvas.displayName = 'InfiniteCanvas'

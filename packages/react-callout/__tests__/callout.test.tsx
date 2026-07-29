@@ -39,8 +39,8 @@ describe('Callout (React)', () => {
   })
 
   it('applies variant-specific classes', () => {
-    expect(renderToString(React.createElement(Callout, { variant: 'success' }, 'x'))).toContain('bg-green-500/10')
-    expect(renderToString(React.createElement(Callout, { variant: 'warning' }, 'x'))).toContain('bg-yellow-500/10')
+    expect(renderToString(React.createElement(Callout, { variant: 'success' }, 'x'))).toContain('bg-success/10')
+    expect(renderToString(React.createElement(Callout, { variant: 'warning' }, 'x'))).toContain('bg-warning/10')
     expect(renderToString(React.createElement(Callout, { variant: 'info' }, 'x'))).toContain('bg-blue-500/10')
   })
 

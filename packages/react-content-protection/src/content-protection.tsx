@@ -25,7 +25,7 @@ export interface ContentProtectionProps extends React.HTMLAttributes<HTMLDivElem
  * Uses the headless @refraction-ui/content-protection core for event handlers.
  */
 export const ContentProtection = React.forwardRef<HTMLDivElement, ContentProtectionProps>(
-  (
+  function ContentProtection(
     {
       enabled,
       disableCopy,
@@ -36,7 +36,7 @@ export const ContentProtection = React.forwardRef<HTMLDivElement, ContentProtect
       ...props
     },
     ref,
-  ) => {
+  ) {
     const api = createContentProtection({
       enabled,
       disableCopy,
@@ -104,5 +104,3 @@ export const ContentProtection = React.forwardRef<HTMLDivElement, ContentProtect
     )
   },
 )
-
-ContentProtection.displayName = 'ContentProtection'

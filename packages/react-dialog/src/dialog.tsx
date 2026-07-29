@@ -90,8 +90,6 @@ export function Dialog({
   return React.createElement(DialogContext.Provider, { value: ctx }, children)
 }
 
-Dialog.displayName = 'Dialog'
-
 // ---------------------------------------------------------------------------
 // DialogTrigger
 // ---------------------------------------------------------------------------
@@ -101,7 +99,7 @@ export interface DialogTriggerProps extends React.ButtonHTMLAttributes<HTMLButto
 }
 
 export const DialogTrigger = React.forwardRef<HTMLButtonElement, DialogTriggerProps>(
-  ({ onClick, children, ...props }, ref) => {
+  function DialogTrigger({ onClick, children, ...props }, ref) {
     const { open, onOpenChange, contentId } = useDialogContext()
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -125,8 +123,6 @@ export const DialogTrigger = React.forwardRef<HTMLButtonElement, DialogTriggerPr
   },
 )
 
-DialogTrigger.displayName = 'DialogTrigger'
-
 // ---------------------------------------------------------------------------
 // DialogOverlay
 // ---------------------------------------------------------------------------
@@ -134,7 +130,7 @@ DialogTrigger.displayName = 'DialogTrigger'
 export interface DialogOverlayProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const DialogOverlay = React.forwardRef<HTMLDivElement, DialogOverlayProps>(
-  ({ className, onClick, ...props }, ref) => {
+  function DialogOverlay({ className, onClick, ...props }, ref) {
     const { open, onOpenChange } = useDialogContext()
 
     if (!open) return null
@@ -157,8 +153,6 @@ export const DialogOverlay = React.forwardRef<HTMLDivElement, DialogOverlayProps
   },
 )
 
-DialogOverlay.displayName = 'DialogOverlay'
-
 // ---------------------------------------------------------------------------
 // DialogContent
 // ---------------------------------------------------------------------------
@@ -166,7 +160,7 @@ DialogOverlay.displayName = 'DialogOverlay'
 export interface DialogContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
-  ({ className, children, onKeyDown, ...props }, ref) => {
+  function DialogContent({ className, children, onKeyDown, ...props }, ref) {
     const { open, onOpenChange, modal, contentId, titleId, descriptionId } =
       useDialogContext()
 
@@ -215,8 +209,6 @@ export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps
   },
 )
 
-DialogContent.displayName = 'DialogContent'
-
 // ---------------------------------------------------------------------------
 // DialogHeader
 // ---------------------------------------------------------------------------
@@ -224,7 +216,7 @@ DialogContent.displayName = 'DialogContent'
 export interface DialogHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const DialogHeader = React.forwardRef<HTMLDivElement, DialogHeaderProps>(
-  ({ className, ...props }, ref) => {
+  function DialogHeader({ className, ...props }, ref) {
     return React.createElement('div', {
       ref,
       className: cn('flex flex-col space-y-1.5 text-center sm:text-left', className),
@@ -233,8 +225,6 @@ export const DialogHeader = React.forwardRef<HTMLDivElement, DialogHeaderProps>(
   },
 )
 
-DialogHeader.displayName = 'DialogHeader'
-
 // ---------------------------------------------------------------------------
 // DialogFooter
 // ---------------------------------------------------------------------------
@@ -242,7 +232,7 @@ DialogHeader.displayName = 'DialogHeader'
 export interface DialogFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const DialogFooter = React.forwardRef<HTMLDivElement, DialogFooterProps>(
-  ({ className, ...props }, ref) => {
+  function DialogFooter({ className, ...props }, ref) {
     return React.createElement('div', {
       ref,
       className: cn(
@@ -254,8 +244,6 @@ export const DialogFooter = React.forwardRef<HTMLDivElement, DialogFooterProps>(
   },
 )
 
-DialogFooter.displayName = 'DialogFooter'
-
 // ---------------------------------------------------------------------------
 // DialogTitle
 // ---------------------------------------------------------------------------
@@ -263,7 +251,7 @@ DialogFooter.displayName = 'DialogFooter'
 export interface DialogTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
 
 export const DialogTitle = React.forwardRef<HTMLHeadingElement, DialogTitleProps>(
-  ({ className, ...props }, ref) => {
+  function DialogTitle({ className, ...props }, ref) {
     const { titleId } = useDialogContext()
 
     return React.createElement('h2', {
@@ -275,8 +263,6 @@ export const DialogTitle = React.forwardRef<HTMLHeadingElement, DialogTitleProps
   },
 )
 
-DialogTitle.displayName = 'DialogTitle'
-
 // ---------------------------------------------------------------------------
 // DialogDescription
 // ---------------------------------------------------------------------------
@@ -286,7 +272,7 @@ export interface DialogDescriptionProps extends React.HTMLAttributes<HTMLParagra
 export const DialogDescription = React.forwardRef<
   HTMLParagraphElement,
   DialogDescriptionProps
->(({ className, ...props }, ref) => {
+>(function DialogDescription({ className, ...props }, ref) {
   const { descriptionId } = useDialogContext()
 
   return React.createElement('p', {
@@ -297,8 +283,6 @@ export const DialogDescription = React.forwardRef<
   })
 })
 
-DialogDescription.displayName = 'DialogDescription'
-
 // ---------------------------------------------------------------------------
 // DialogClose
 // ---------------------------------------------------------------------------
@@ -306,7 +290,7 @@ DialogDescription.displayName = 'DialogDescription'
 export interface DialogCloseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export const DialogClose = React.forwardRef<HTMLButtonElement, DialogCloseProps>(
-  ({ onClick, children, ...props }, ref) => {
+  function DialogClose({ onClick, children, ...props }, ref) {
     const { onOpenChange } = useDialogContext()
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -326,5 +310,3 @@ export const DialogClose = React.forwardRef<HTMLButtonElement, DialogCloseProps>
     )
   },
 )
-
-DialogClose.displayName = 'DialogClose'

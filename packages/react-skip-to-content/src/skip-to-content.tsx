@@ -11,7 +11,7 @@ export interface SkipToContentProps extends React.AnchorHTMLAttributes<HTMLAncho
 }
 
 export const SkipToContent = React.forwardRef<HTMLAnchorElement, SkipToContentProps>(
-  ({ className, targetId = 'main-content', children = 'Skip to content', ...props }, ref) => {
+  function SkipToContent({ className, targetId = 'main-content', children = 'Skip to content', ...props }, ref) {
     const api = createSkipToContent()
     return (
       <a
@@ -26,4 +26,3 @@ export const SkipToContent = React.forwardRef<HTMLAnchorElement, SkipToContentPr
     )
   },
 )
-SkipToContent.displayName = 'SkipToContent'

@@ -25,7 +25,7 @@ const MONTH_NAMES = [
 const DAY_HEADERS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 
 export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
-  ({ className, value, defaultValue, onSelect, month, onMonthChange, minDate, maxDate, disabledDates }: CalendarProps, ref) => {
+  function Calendar({ className, value, defaultValue, onSelect, month, onMonthChange, minDate, maxDate, disabledDates }: CalendarProps, ref) {
   const [uncontrolledValue, setUncontrolledValue] = React.useState<Date | undefined>(defaultValue)
   const [uncontrolledMonth, setUncontrolledMonth] = React.useState<Date>(
     () => month ?? value ?? defaultValue ?? new Date(),
@@ -139,8 +139,6 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
   },
 )
 
-Calendar.displayName = 'Calendar'
-
 // ---------------------------------------------------------------------------
 // CalendarHeader
 // ---------------------------------------------------------------------------
@@ -154,7 +152,7 @@ export interface CalendarHeaderProps {
 }
 
 export const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
-  ({ label, labelId, onPrevMonth, onNextMonth, className }, ref) => {
+  function CalendarHeader({ label, labelId, onPrevMonth, onNextMonth, className }, ref) {
   return React.createElement(
     'div',
     {
@@ -193,5 +191,3 @@ export const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderPro
   )
   },
 )
-
-CalendarHeader.displayName = 'CalendarHeader'

@@ -59,7 +59,7 @@ const EyeOffIcon = (
  * to the underlying element, including the `ref`.
  */
 export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
-  ({ revealLabel = 'Show password', hideLabel = 'Hide password', className, ...props }, ref) => {
+  function PasswordInput({ revealLabel = 'Show password', hideLabel = 'Hide password', className, ...props }, ref) {
     const [revealed, setRevealed] = React.useState(false)
 
     // The core owns the type/label/pressed derivation; React owns the toggle state.
@@ -90,5 +90,3 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
     )
   },
 )
-
-PasswordInput.displayName = 'PasswordInput'

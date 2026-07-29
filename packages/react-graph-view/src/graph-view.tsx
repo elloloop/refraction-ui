@@ -50,7 +50,7 @@ export interface GraphViewProps
  * but never mutates the `nodes` array — the caller owns the data.
  */
 export const GraphView = React.forwardRef<HTMLDivElement, GraphViewProps>(
-  ({ nodes, edges, onNodeClick, showLegend = false, className, ...props }, ref) => {
+  function GraphView({ nodes, edges, onNodeClick, showLegend = false, className, ...props }, ref) {
     const api = createGraphView()
     const summary = React.useMemo(() => summarizeStates(nodes), [nodes])
 
@@ -143,5 +143,3 @@ export const GraphView = React.forwardRef<HTMLDivElement, GraphViewProps>(
     )
   },
 )
-
-GraphView.displayName = 'GraphView'

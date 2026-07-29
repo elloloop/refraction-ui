@@ -31,7 +31,7 @@ export interface AudienceFeatureCardProps
 export const AudienceFeatureCard = React.forwardRef<
   HTMLDivElement,
   AudienceFeatureCardProps
->(({ kicker, title, body, footer, className, ...props }, ref) => {
+>(function AudienceFeatureCard({ kicker, title, body, footer, className, ...props }, ref) {
   const { ariaProps, dataAttributes } = createAudienceFeatureCard()
 
   return (
@@ -53,5 +53,3 @@ export const AudienceFeatureCard = React.forwardRef<
     </div>
   )
 })
-
-AudienceFeatureCard.displayName = 'AudienceFeatureCard'

@@ -19,7 +19,7 @@ export interface StepsProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Steps = React.forwardRef<HTMLDivElement, StepsProps>(
-  ({ className, orientation, ...props }, ref) => {
+  function Steps({ className, orientation, ...props }, ref) {
     const api = createSteps()
     return (
       <div
@@ -31,14 +31,13 @@ export const Steps = React.forwardRef<HTMLDivElement, StepsProps>(
     )
   },
 )
-Steps.displayName = 'Steps'
 
 export interface StepProps extends React.HTMLAttributes<HTMLDivElement> {
   status?: 'completed' | 'active' | 'upcoming'
 }
 
 export const Step = React.forwardRef<HTMLDivElement, StepProps>(
-  ({ className, status, ...props }, ref) => {
+  function Step({ className, status, ...props }, ref) {
     const api = createStep()
     return (
       <div
@@ -50,14 +49,13 @@ export const Step = React.forwardRef<HTMLDivElement, StepProps>(
     )
   },
 )
-Step.displayName = 'Step'
 
 export interface StepIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {
   status?: 'completed' | 'active' | 'upcoming'
 }
 
 export const StepIndicator = React.forwardRef<HTMLDivElement, StepIndicatorProps>(
-  ({ className, status, ...props }, ref) => {
+  function StepIndicator({ className, status, ...props }, ref) {
     const api = createStepIndicator()
     return (
       <div
@@ -69,10 +67,9 @@ export const StepIndicator = React.forwardRef<HTMLDivElement, StepIndicatorProps
     )
   },
 )
-StepIndicator.displayName = 'StepIndicator'
 
 export const StepContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => {
+  function StepContent({ className, ...props }, ref) {
     const api = createStepContent()
     return (
       <div
@@ -84,10 +81,9 @@ export const StepContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes
     )
   },
 )
-StepContent.displayName = 'StepContent'
 
 export const StepTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
-  ({ className, ...props }, ref) => {
+  function StepTitle({ className, ...props }, ref) {
     const api = createStepTitle()
     return (
       <h4
@@ -99,10 +95,9 @@ export const StepTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttribut
     )
   },
 )
-StepTitle.displayName = 'StepTitle'
 
 export const StepDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
-  ({ className, ...props }, ref) => {
+  function StepDescription({ className, ...props }, ref) {
     const api = createStepDescription()
     return (
       <p
@@ -114,4 +109,3 @@ export const StepDescription = React.forwardRef<HTMLParagraphElement, React.HTML
     )
   },
 )
-StepDescription.displayName = 'StepDescription'

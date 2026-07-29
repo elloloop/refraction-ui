@@ -9,8 +9,8 @@ export const badgeVariants = cva({
       secondary: 'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',
       destructive: 'border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80 font-semibold',
       outline: 'text-foreground',
-      success: 'border-transparent bg-green-500 text-white shadow hover:bg-green-500/80 font-semibold',
-      warning: 'border-transparent bg-yellow-500 text-white shadow hover:bg-yellow-500/80 font-semibold',
+      success: 'border-transparent bg-success text-success-foreground shadow hover:bg-success/80 font-semibold',
+      warning: 'border-transparent bg-warning text-warning-foreground shadow hover:bg-warning/80 font-semibold',
     },
     size: {
       sm: 'px-2 py-0 text-[10px]',

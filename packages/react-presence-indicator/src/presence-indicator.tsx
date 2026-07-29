@@ -17,7 +17,7 @@ export interface PresenceIndicatorProps {
 }
 
 export const PresenceIndicator = React.forwardRef<HTMLSpanElement, PresenceIndicatorProps>(
-  ({ status, showLabel = false, label, size = 'md', className }, ref) => {
+  function PresenceIndicator({ status, showLabel = false, label, size = 'md', className }, ref) {
   const api = createPresence({ status, showLabel, label })
 
   return React.createElement(
@@ -31,5 +31,3 @@ export const PresenceIndicator = React.forwardRef<HTMLSpanElement, PresenceIndic
   )
   },
 )
-
-PresenceIndicator.displayName = 'PresenceIndicator'

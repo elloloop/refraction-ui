@@ -41,7 +41,7 @@ export interface FloatingReactionsProps
 export const FloatingReactions = React.forwardRef<
   HTMLDivElement,
   FloatingReactionsProps
->(({ reactions, lanes = 5, className, ...props }, ref) => {
+>(function FloatingReactions({ reactions, lanes = 5, className, ...props }, ref) {
   const { ariaProps, dataAttributes } = createFloatingReactions()
 
   return (
@@ -69,8 +69,6 @@ export const FloatingReactions = React.forwardRef<
     </div>
   )
 })
-
-FloatingReactions.displayName = 'FloatingReactions'
 
 // ---------------------------------------------------------------------------
 // ReactionBurst — convenience alias for a single burst item (for story use).

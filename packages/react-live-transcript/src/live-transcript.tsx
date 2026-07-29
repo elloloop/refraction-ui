@@ -34,7 +34,7 @@ export interface LiveTranscriptProps
 export const LiveTranscript = React.forwardRef<
   HTMLDivElement,
   LiveTranscriptProps
->(({ entries, compact = false, className, ...props }, ref) => {
+>(function LiveTranscript({ entries, compact = false, className, ...props }, ref) {
   const api = createLiveTranscript()
   const blocks = React.useMemo(
     () => groupConsecutiveBySpeaker(entries),
@@ -79,5 +79,3 @@ export const LiveTranscript = React.forwardRef<
     </div>
   )
 })
-
-LiveTranscript.displayName = 'LiveTranscript'

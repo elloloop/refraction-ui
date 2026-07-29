@@ -11,7 +11,7 @@ export interface LocationSelectorProps {
 }
 
 export const LocationSelector = React.forwardRef<HTMLDivElement, LocationSelectorProps>(
-  ({ defaultCountry = 'US', defaultLanguage = 'en', onCountryChange, onLanguageChange, className }, ref) => {
+  function LocationSelector({ defaultCountry = 'US', defaultLanguage = 'en', onCountryChange, onLanguageChange, className }, ref) {
   const [country, setCountry] = React.useState(defaultCountry)
   const [language, setLanguage] = React.useState(defaultLanguage)
 
@@ -84,5 +84,3 @@ export const LocationSelector = React.forwardRef<HTMLDivElement, LocationSelecto
   )
   },
 )
-
-LocationSelector.displayName = 'LocationSelector'

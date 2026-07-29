@@ -52,7 +52,7 @@ export interface VideoTileProps
  * Logic and styles come from the headless `@refraction-ui/video-tile` core.
  */
 export const VideoTile = React.forwardRef<HTMLDivElement, VideoTileProps>(
-  (
+  function VideoTile(
     {
       name,
       micState = 'on',
@@ -65,7 +65,7 @@ export const VideoTile = React.forwardRef<HTMLDivElement, VideoTileProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const api = createVideoTile({ speaking, pinned })
     const initials = getInitials(name)
     const isMuted = micState === 'muted'
@@ -146,5 +146,3 @@ export const VideoTile = React.forwardRef<HTMLDivElement, VideoTileProps>(
     )
   },
 )
-
-VideoTile.displayName = 'VideoTile'

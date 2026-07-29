@@ -31,7 +31,7 @@ export interface TimelineItemProps {
 
 /** A single event entry inside a Timeline. */
 export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
-  ({ item, orientation, isLast }, ref) => {
+  function TimelineItem({ item, orientation, isLast }, ref) {
     const itemAria = getTimelineItemAria()
     return (
       <li
@@ -63,8 +63,6 @@ export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
   },
 )
 
-TimelineItem.displayName = 'TimelineItem'
-
 export interface TimelineProps
   extends Omit<React.HTMLAttributes<HTMLUListElement>, 'children'> {
   /** Ordered list of events to render. */
@@ -90,7 +88,7 @@ export interface TimelineProps
  * Pass `renderItem` to take full control of individual entries.
  */
 export const Timeline = React.forwardRef<HTMLUListElement, TimelineProps>(
-  ({ items, orientation = 'vertical', renderItem, className, ...props }, ref) => {
+  function Timeline({ items, orientation = 'vertical', renderItem, className, ...props }, ref) {
     const resolved = React.useMemo(() => resolveTimelineItems(items), [items])
     const api = createTimeline({ orientation })
 
@@ -124,5 +122,3 @@ export const Timeline = React.forwardRef<HTMLUListElement, TimelineProps>(
     )
   },
 )
-
-Timeline.displayName = 'Timeline'

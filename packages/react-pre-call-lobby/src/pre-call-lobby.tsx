@@ -64,7 +64,7 @@ export interface PreCallLobbyProps
  * All device controls are plain HTML elements — no external component deps.
  */
 export const PreCallLobby = React.forwardRef<HTMLDivElement, PreCallLobbyProps>(
-  (
+  function PreCallLobby(
     {
       cameraOn,
       micOn,
@@ -85,7 +85,7 @@ export const PreCallLobby = React.forwardRef<HTMLDivElement, PreCallLobbyProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const api = createPreCallLobby({ cameraOn, micOn })
     const litBars = micLevelToBars(micLevel, MIC_BAR_COUNT)
 
@@ -300,5 +300,3 @@ export const PreCallLobby = React.forwardRef<HTMLDivElement, PreCallLobbyProps>(
     )
   },
 )
-
-PreCallLobby.displayName = 'PreCallLobby'

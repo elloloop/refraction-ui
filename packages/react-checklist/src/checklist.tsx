@@ -40,7 +40,7 @@ export interface ChecklistProps
  * Logic and styles come from the headless `@refraction-ui/checklist` core.
  */
 export const Checklist = React.forwardRef<HTMLDivElement, ChecklistProps>(
-  (
+  function Checklist(
     {
       items: itemsProp,
       defaultItems,
@@ -51,7 +51,7 @@ export const Checklist = React.forwardRef<HTMLDivElement, ChecklistProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const isControlled = itemsProp !== undefined
     const [internal, setInternal] = React.useState<ChecklistItemData[]>(
       defaultItems ?? [],
@@ -136,5 +136,3 @@ export const Checklist = React.forwardRef<HTMLDivElement, ChecklistProps>(
     )
   },
 )
-
-Checklist.displayName = 'Checklist'

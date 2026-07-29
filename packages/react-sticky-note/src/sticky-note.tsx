@@ -42,7 +42,7 @@ export interface StickyNoteProps
  * - Forwards the ref to the outer `<div>`.
  */
 export const StickyNote = React.forwardRef<HTMLDivElement, StickyNoteProps>(
-  (
+  function StickyNote(
     {
       color = 'yellow',
       text,
@@ -58,7 +58,7 @@ export const StickyNote = React.forwardRef<HTMLDivElement, StickyNoteProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const { ariaProps, dataAttributes } = createStickyNote({ color })
 
     // Drag state — kept in refs to avoid re-renders during drag.
@@ -128,5 +128,3 @@ export const StickyNote = React.forwardRef<HTMLDivElement, StickyNoteProps>(
     )
   },
 )
-
-StickyNote.displayName = 'StickyNote'

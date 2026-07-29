@@ -21,7 +21,7 @@ export interface CheckboxProps extends Omit<React.ButtonHTMLAttributes<HTMLButto
  * Uses the headless @refraction-ui/checkbox core for state, ARIA, and keyboard handling.
  */
 export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
-  ({ checked = false, onCheckedChange, disabled = false, size = 'default', className, ...props }, ref) => {
+  function Checkbox({ checked = false, onCheckedChange, disabled = false, size = 'default', className, ...props }, ref) {
     const api = createCheckbox({ checked, disabled })
 
     const checkedVariant = checked === 'indeterminate' ? 'indeterminate' : checked ? 'true' : 'false'
@@ -93,5 +93,3 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(
     )
   },
 )
-
-Checkbox.displayName = 'Checkbox'

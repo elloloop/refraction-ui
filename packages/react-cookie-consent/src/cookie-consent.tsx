@@ -76,7 +76,7 @@ function CookieIcon() {
  * Renders nothing once the user has consented.
  */
 export const CookieConsent = React.forwardRef<HTMLDivElement, CookieConsentProps>(
-  ({
+  function CookieConsent({
     consent,
     position = 'bottom',
     title = 'We use cookies',
@@ -84,7 +84,7 @@ export const CookieConsent = React.forwardRef<HTMLDivElement, CookieConsentProps
     policyUrl,
     policyLabel = 'Cookie policy',
     className,
-  }: CookieConsentProps, ref) => {
+  }: CookieConsentProps, ref) {
   const { state, acceptAll, rejectAll, savePreferences, setPreference } = consent
   const [settings, setSettings] = React.useState(false)
 
@@ -175,5 +175,3 @@ export const CookieConsent = React.forwardRef<HTMLDivElement, CookieConsentProps
   )
   },
 )
-
-CookieConsent.displayName = 'CookieConsent'

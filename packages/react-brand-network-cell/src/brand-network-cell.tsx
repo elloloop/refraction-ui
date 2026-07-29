@@ -41,7 +41,7 @@ export const BrandNetworkCell = React.forwardRef<
   HTMLDivElement,
   BrandNetworkCellProps
 >(
-  (
+  function BrandNetworkCell(
     {
       glyph,
       glyphBg,
@@ -55,7 +55,7 @@ export const BrandNetworkCell = React.forwardRef<
       ...props
     },
     ref,
-  ) => {
+  ) {
     const api = createBrandNetworkCell({ current })
 
     return (
@@ -101,5 +101,3 @@ export const BrandNetworkCell = React.forwardRef<
     )
   },
 )
-
-BrandNetworkCell.displayName = 'BrandNetworkCell'

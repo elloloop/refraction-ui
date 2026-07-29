@@ -34,7 +34,7 @@ function deriveAriaLabel(
 }
 
 export const StatusIndicator = React.forwardRef<HTMLSpanElement, StatusIndicatorProps>(
-  ({ type, label, children, pulse, showLabel = true, className }, ref) => {
+  function StatusIndicator({ type, label, children, pulse, showLabel = true, className }, ref) {
   const api = createStatusIndicator({ type, label, pulse })
   const ariaLabel = deriveAriaLabel(label, children, api.label)
   const visibleLabel: React.ReactNode = label ?? children ?? api.label
@@ -56,5 +56,3 @@ export const StatusIndicator = React.forwardRef<HTMLSpanElement, StatusIndicator
   )
   },
 )
-
-StatusIndicator.displayName = 'StatusIndicator'

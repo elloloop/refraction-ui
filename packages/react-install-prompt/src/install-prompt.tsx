@@ -46,7 +46,7 @@ function createLocalStorage(): StorageAdapter {
  * Listens for the `beforeinstallprompt` browser event.
  */
 export const InstallPrompt = React.forwardRef<HTMLDivElement, InstallPromptProps>(
-  (
+  function InstallPrompt(
     {
       delay = 3000,
       storageKey,
@@ -57,7 +57,7 @@ export const InstallPrompt = React.forwardRef<HTMLDivElement, InstallPromptProps
       ...props
     },
     ref,
-  ) => {
+  ) {
     const storageRef = React.useRef<StorageAdapter | undefined>(undefined)
     if (typeof window !== 'undefined' && !storageRef.current) {
       storageRef.current = createLocalStorage()
@@ -121,5 +121,3 @@ export const InstallPrompt = React.forwardRef<HTMLDivElement, InstallPromptProps
     )
   },
 )
-
-InstallPrompt.displayName = 'InstallPrompt'

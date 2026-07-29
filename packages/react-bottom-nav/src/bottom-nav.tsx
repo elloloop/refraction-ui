@@ -21,7 +21,7 @@ export interface BottomNavProps extends React.HTMLAttributes<HTMLElement> {
  * Visible on mobile only (md:hidden via styles).
  */
 export const BottomNav = React.forwardRef<HTMLElement, BottomNavProps>(
-  ({ tabs = [], currentPath, className, ...props }, ref) => {
+  function BottomNav({ tabs = [], currentPath, className, ...props }, ref) {
     const api = createBottomNav({ tabs, currentPath })
     const classes = cn(bottomNavVariants(), className)
 
@@ -47,5 +47,3 @@ export const BottomNav = React.forwardRef<HTMLElement, BottomNavProps>(
     )
   },
 )
-
-BottomNav.displayName = 'BottomNav'

@@ -120,7 +120,7 @@ export interface SelectTriggerProps extends React.ButtonHTMLAttributes<HTMLButto
 }
 
 export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
-  ({ className, children, size = 'default', ...props }, ref) => {
+  function SelectTrigger({ className, children, size = 'default', ...props }, ref) {
     const { open, setOpen, disabled, triggerId, contentId } = useSelectContext('SelectTrigger')
 
     const api = createSelect({ disabled, open })
@@ -177,13 +177,12 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerPr
     )
   },
 )
-SelectTrigger.displayName = 'SelectTrigger'
 
 /* ─── SelectContent ────────────────────────────────────────────── */
 export interface SelectContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
-  ({ className, children, ...props }, forwardedRef) => {
+  function SelectContent({ className, children, ...props }, forwardedRef) {
     const { open, contentId, triggerId, setOpen } = useSelectContext('SelectContent')
     const containerRef = React.useRef<HTMLDivElement>(null)
 
@@ -254,7 +253,6 @@ export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps
     )
   },
 )
-SelectContent.displayName = 'SelectContent'
 
 /* ─── SelectItem ───────────────────────────────────────────────── */
 export interface SelectItemProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -263,7 +261,7 @@ export interface SelectItemProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
-  ({ className, children, value: itemValue, disabled: itemDisabled = false, ...props }, ref) => {
+  function SelectItem({ className, children, value: itemValue, disabled: itemDisabled = false, ...props }, ref) {
     const { value, onValueChange, setOpen, triggerId } = useSelectContext('SelectItem')
     const isSelected = value === itemValue
 
@@ -322,4 +320,3 @@ export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
     )
   },
 )
-SelectItem.displayName = 'SelectItem'

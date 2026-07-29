@@ -53,8 +53,6 @@ export function ToastProvider({ children }: ToastProviderProps) {
   return React.createElement(ToastContext.Provider, { value: ctx }, children)
 }
 
-ToastProvider.displayName = 'ToastProvider'
-
 // ---------------------------------------------------------------------------
 // useToast hook
 // ---------------------------------------------------------------------------
@@ -96,7 +94,7 @@ export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
-  ({ entry, onDismiss, className, children, onMouseEnter, onMouseLeave, ...props }, ref) => {
+  function Toast({ entry, onDismiss, className, children, onMouseEnter, onMouseLeave, ...props }, ref) {
     const api = React.useMemo(
       () => createToast({ variant: entry.variant, duration: entry.duration }),
       [entry.variant, entry.duration],
@@ -145,8 +143,6 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
   },
 )
 
-Toast.displayName = 'Toast'
-
 // ---------------------------------------------------------------------------
 // Toaster (container that renders all active toasts)
 // ---------------------------------------------------------------------------
@@ -154,7 +150,7 @@ Toast.displayName = 'Toast'
 export interface ToasterProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const Toaster = React.forwardRef<HTMLDivElement, ToasterProps>(
-  ({ className, ...props }, ref) => {
+  function Toaster({ className, ...props }, ref) {
     const { toasts, dismiss } = useToast()
 
     return React.createElement(
@@ -177,5 +173,3 @@ export const Toaster = React.forwardRef<HTMLDivElement, ToasterProps>(
     )
   },
 )
-
-Toaster.displayName = 'Toaster'

@@ -21,7 +21,7 @@ export interface CarouselProps extends Omit<React.HTMLAttributes<HTMLDivElement>
 }
 
 export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
-  ({ className, type = 'single', collapsible, value: controlledValue, defaultValue, onValueChange, ...props }, ref) => {
+  function Carousel({ className, type = 'single', collapsible, value: controlledValue, defaultValue, onValueChange, ...props }, ref) {
     // The headless core owns the open/closed state machine; it is created once
     // and props are synced into it below.
     const apiRef = React.useRef<CarouselAPI | null>(null)
@@ -46,7 +46,6 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     )
   }
 )
-Carousel.displayName = 'Carousel'
 
 const CarouselItemContext = React.createContext<{ value: string; isOpen: boolean } | null>(null)
 
@@ -55,7 +54,7 @@ export interface CarouselItemProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 export const CarouselItem = React.forwardRef<HTMLDivElement, CarouselItemProps>(
-  ({ className, value, ...props }, ref) => {
+  function CarouselItem({ className, value, ...props }, ref) {
     const context = React.useContext(CarouselContext)
     if (!context) {
       devWarn(
@@ -74,12 +73,11 @@ export const CarouselItem = React.forwardRef<HTMLDivElement, CarouselItemProps>(
     )
   }
 )
-CarouselItem.displayName = 'CarouselItem'
 
 export interface CarouselTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export const CarouselTrigger = React.forwardRef<HTMLButtonElement, CarouselTriggerProps>(
-  ({ className, children, ...props }, ref) => {
+  function CarouselTrigger({ className, children, ...props }, ref) {
     const carouselContext = React.useContext(CarouselContext)
     const itemContext = React.useContext(CarouselItemContext)
 
@@ -125,12 +123,11 @@ export const CarouselTrigger = React.forwardRef<HTMLButtonElement, CarouselTrigg
     )
   }
 )
-CarouselTrigger.displayName = 'CarouselTrigger'
 
 export interface CarouselContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const CarouselContent = React.forwardRef<HTMLDivElement, CarouselContentProps>(
-  ({ className, children, ...props }, ref) => {
+  function CarouselContent({ className, children, ...props }, ref) {
     const itemContext = React.useContext(CarouselItemContext)
     if (!itemContext) {
       devWarn(
@@ -156,4 +153,3 @@ export const CarouselContent = React.forwardRef<HTMLDivElement, CarouselContentP
     )
   }
 )
-CarouselContent.displayName = 'CarouselContent'

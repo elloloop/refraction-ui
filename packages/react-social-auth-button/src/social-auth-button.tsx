@@ -49,7 +49,7 @@ export interface SocialAuthButtonProps
 export const SocialAuthButton = React.forwardRef<
   HTMLButtonElement,
   SocialAuthButtonProps
->(({ provider, lastUsed, loading, disabled, className, ...props }, ref) => {
+>(function SocialAuthButton({ provider, lastUsed, loading, disabled, className, ...props }, ref) {
   const { label, mono, dataAttributes } = createSocialAuthButton({ provider })
   const Icon = PROVIDER_ICONS[provider]
 
@@ -72,8 +72,6 @@ export const SocialAuthButton = React.forwardRef<
   )
 })
 
-SocialAuthButton.displayName = 'SocialAuthButton'
-
 export interface SocialAuthRowProps
   extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode
@@ -84,15 +82,15 @@ export interface SocialAuthRowProps
  * columns from the `sm` breakpoint up.
  */
 export const SocialAuthRow = React.forwardRef<HTMLDivElement, SocialAuthRowProps>(
-  ({ className, children, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(socialAuthRowVariants(), className)}
-      {...props}
-    >
-      {children}
-    </div>
-  ),
+  function SocialAuthRow({ className, children, ...props }, ref) {
+    return (
+      <div
+        ref={ref}
+        className={cn(socialAuthRowVariants(), className)}
+        {...props}
+      >
+        {children}
+      </div>
+    )
+  },
 )
-
-SocialAuthRow.displayName = 'SocialAuthRow'

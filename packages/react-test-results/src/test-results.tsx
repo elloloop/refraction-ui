@@ -34,7 +34,7 @@ export interface TestResultsProps
  * Logic and styles come from the headless `@refraction-ui/test-results` core.
  */
 export const TestResults = React.forwardRef<HTMLDivElement, TestResultsProps>(
-  ({ results, showSummary = true, className, ...props }, ref) => {
+  function TestResults({ results, showSummary = true, className, ...props }, ref) {
     const summary = React.useMemo(() => summarizeTests(results), [results])
     const { ariaProps, dataAttributes } = createTestResults()
 
@@ -100,5 +100,3 @@ export const TestResults = React.forwardRef<HTMLDivElement, TestResultsProps>(
     )
   },
 )
-
-TestResults.displayName = 'TestResults'

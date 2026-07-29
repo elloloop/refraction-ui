@@ -100,7 +100,7 @@ export const EditorStatusBar = React.forwardRef<
   HTMLDivElement,
   EditorStatusBarProps
 >(
-  (
+  function EditorStatusBar(
     {
       segments: segmentsProp,
       line,
@@ -114,7 +114,7 @@ export const EditorStatusBar = React.forwardRef<
       ...props
     },
     ref,
-  ) => {
+  ) {
     const segments = segmentsProp ?? buildSegmentsFromConvenienceProps({
       line,
       col,
@@ -160,5 +160,3 @@ export const EditorStatusBar = React.forwardRef<
     )
   },
 )
-
-EditorStatusBar.displayName = 'EditorStatusBar'

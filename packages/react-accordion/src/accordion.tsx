@@ -21,7 +21,7 @@ export interface AccordionProps extends Omit<React.HTMLAttributes<HTMLDivElement
 }
 
 export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
-  ({ className, type = 'single', collapsible, value: controlledValue, defaultValue, onValueChange, ...props }, ref) => {
+  function Accordion({ className, type = 'single', collapsible, value: controlledValue, defaultValue, onValueChange, ...props }, ref) {
     // The headless core owns the open/closed state machine; it is created once
     // and props are synced into it below.
     const apiRef = React.useRef<AccordionAPI | null>(null)
@@ -46,7 +46,6 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
     )
   }
 )
-Accordion.displayName = 'Accordion'
 
 const AccordionItemContext = React.createContext<{ value: string; isOpen: boolean } | null>(null)
 
@@ -55,7 +54,7 @@ export interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement>
 }
 
 export const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(
-  ({ className, value, ...props }, ref) => {
+  function AccordionItem({ className, value, ...props }, ref) {
     const context = React.useContext(AccordionContext)
     if (!context) {
       devWarn(
@@ -74,12 +73,11 @@ export const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps
     )
   }
 )
-AccordionItem.displayName = 'AccordionItem'
 
 export interface AccordionTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export const AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTriggerProps>(
-  ({ className, children, ...props }, ref) => {
+  function AccordionTrigger({ className, children, ...props }, ref) {
     const accordionContext = React.useContext(AccordionContext)
     const itemContext = React.useContext(AccordionItemContext)
 
@@ -125,12 +123,11 @@ export const AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTri
     )
   }
 )
-AccordionTrigger.displayName = 'AccordionTrigger'
 
 export interface AccordionContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const AccordionContent = React.forwardRef<HTMLDivElement, AccordionContentProps>(
-  ({ className, children, ...props }, ref) => {
+  function AccordionContent({ className, children, ...props }, ref) {
     const itemContext = React.useContext(AccordionItemContext)
     if (!itemContext) {
       devWarn(
@@ -156,4 +153,3 @@ export const AccordionContent = React.forwardRef<HTMLDivElement, AccordionConten
     )
   }
 )
-AccordionContent.displayName = 'AccordionContent'

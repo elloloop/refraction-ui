@@ -347,8 +347,6 @@ export function Combobox({
   )
 }
 
-Combobox.displayName = 'Combobox'
-
 /* ─── ComboboxTrigger ──────────────────────────────────────────── */
 
 export interface ComboboxTriggerProps
@@ -360,7 +358,7 @@ export interface ComboboxTriggerProps
 export const ComboboxTrigger = React.forwardRef<
   HTMLButtonElement,
   ComboboxTriggerProps
->(({ className, children, size = 'default', placeholder = 'Select…', ...props }, forwardedRef) => {
+>(function ComboboxTrigger({ className, children, size = 'default', placeholder = 'Select…', ...props }, forwardedRef) {
   const ctx = useComboboxContext()
   const { open, setOpen, disabled, ids, selectedLabel, triggerRef } = ctx
 
@@ -436,7 +434,6 @@ export const ComboboxTrigger = React.forwardRef<
     </button>
   )
 })
-ComboboxTrigger.displayName = 'ComboboxTrigger'
 
 /* ─── ComboboxContent ──────────────────────────────────────────── */
 
@@ -446,7 +443,7 @@ export interface ComboboxContentProps extends React.HTMLAttributes<HTMLDivElemen
 }
 
 export const ComboboxContent = React.forwardRef<HTMLDivElement, ComboboxContentProps>(
-  ({ className, children, portal = true, ...props }, forwardedRef) => {
+  function ComboboxContent({ className, children, portal = true, ...props }, forwardedRef) {
     const ctx = useComboboxContext()
     const { open, ids, contentRef, hasOptions, options, inputRef } = ctx
 
@@ -506,14 +503,13 @@ export const ComboboxContent = React.forwardRef<HTMLDivElement, ComboboxContentP
     return content
   },
 )
-ComboboxContent.displayName = 'ComboboxContent'
 
 /* ─── ComboboxInput ────────────────────────────────────────────── */
 
 export interface ComboboxInputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 export const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputProps>(
-  ({ className, onChange, onKeyDown, placeholder = 'Search…', ...props }, forwardedRef) => {
+  function ComboboxInput({ className, onChange, onKeyDown, placeholder = 'Search…', ...props }, forwardedRef) {
     const ctx = useComboboxContext()
     const {
       query,
@@ -633,14 +629,13 @@ export const ComboboxInput = React.forwardRef<HTMLInputElement, ComboboxInputPro
     )
   },
 )
-ComboboxInput.displayName = 'ComboboxInput'
 
 /* ─── ComboboxList ─────────────────────────────────────────────── */
 
 export interface ComboboxListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const ComboboxList = React.forwardRef<HTMLDivElement, ComboboxListProps>(
-  ({ className, children, ...props }, ref) => {
+  function ComboboxList({ className, children, ...props }, ref) {
     const { ids } = useComboboxContext()
     return (
       <div
@@ -655,7 +650,6 @@ export const ComboboxList = React.forwardRef<HTMLDivElement, ComboboxListProps>(
     )
   },
 )
-ComboboxList.displayName = 'ComboboxList'
 
 /* ─── ComboboxItem ─────────────────────────────────────────────── */
 
@@ -667,10 +661,10 @@ export interface ComboboxItemProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 export const ComboboxItem = React.forwardRef<HTMLDivElement, ComboboxItemProps>(
-  (
+  function ComboboxItem(
     { className, children, value: itemValue, disabled: itemDisabled = false, label, ...props },
     ref,
-  ) => {
+  ) {
     const ctx = useComboboxContext()
     const {
       value,
@@ -749,14 +743,13 @@ export const ComboboxItem = React.forwardRef<HTMLDivElement, ComboboxItemProps>(
     )
   },
 )
-ComboboxItem.displayName = 'ComboboxItem'
 
 /* ─── ComboboxEmpty ────────────────────────────────────────────── */
 
 export interface ComboboxEmptyProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const ComboboxEmpty = React.forwardRef<HTMLDivElement, ComboboxEmptyProps>(
-  ({ className, children, ...props }, ref) => {
+  function ComboboxEmpty({ className, children, ...props }, ref) {
     const ctx = useComboboxContext()
     const { contentRef, query, options, hasOptions, filter } = ctx
 
@@ -796,4 +789,3 @@ export const ComboboxEmpty = React.forwardRef<HTMLDivElement, ComboboxEmptyProps
     )
   },
 )
-ComboboxEmpty.displayName = 'ComboboxEmpty'

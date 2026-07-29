@@ -181,5 +181,3 @@ export function DataTable<T = Record<string, unknown>>({
     )
   )
 }
-
-DataTable.displayName = 'DataTable'

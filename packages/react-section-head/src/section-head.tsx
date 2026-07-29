@@ -34,7 +34,7 @@ export interface SectionHeadProps
  * `@refraction-ui/section-head` core.
  */
 export const SectionHead = React.forwardRef<HTMLDivElement, SectionHeadProps>(
-  (
+  function SectionHead(
     {
       kicker,
       title,
@@ -45,7 +45,7 @@ export const SectionHead = React.forwardRef<HTMLDivElement, SectionHeadProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const { dataAttributes } = createSectionHead({ align })
 
     return (
@@ -66,5 +66,3 @@ export const SectionHead = React.forwardRef<HTMLDivElement, SectionHeadProps>(
     )
   },
 )
-
-SectionHead.displayName = 'SectionHead'

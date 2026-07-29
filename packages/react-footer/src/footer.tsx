@@ -22,7 +22,7 @@ export interface FooterProps extends React.HTMLAttributes<HTMLElement> {
  * Uses the headless @refraction-ui/footer core for state and ARIA attributes.
  */
 export const Footer = React.forwardRef<HTMLElement, FooterProps>(
-  (
+  function Footer(
     {
       copyright,
       socialLinks = [],
@@ -31,7 +31,7 @@ export const Footer = React.forwardRef<HTMLElement, FooterProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const api = createFooter({ copyright, socialLinks, columns })
     const classes = cn(footerVariants(), className)
 
@@ -81,5 +81,3 @@ export const Footer = React.forwardRef<HTMLElement, FooterProps>(
     )
   },
 )
-
-Footer.displayName = 'Footer'

@@ -30,7 +30,7 @@ export interface SlideViewerProps {
  * Uses the headless @refraction-ui/slide-viewer core for state and navigation.
  */
 export const SlideViewer = React.forwardRef<HTMLDivElement, SlideViewerProps>(
-  (
+  function SlideViewer(
     {
       slides,
       initialSlide,
@@ -41,7 +41,7 @@ export const SlideViewer = React.forwardRef<HTMLDivElement, SlideViewerProps>(
       renderSlide,
     },
     ref,
-  ) => {
+  ) {
     const [, setTick] = React.useState(0)
     const rerender = () => setTick((t) => t + 1)
 
@@ -159,5 +159,3 @@ export const SlideViewer = React.forwardRef<HTMLDivElement, SlideViewerProps>(
     )
   },
 )
-
-SlideViewer.displayName = 'SlideViewer'

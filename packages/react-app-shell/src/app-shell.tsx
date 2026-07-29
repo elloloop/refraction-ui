@@ -42,7 +42,7 @@ export interface AppShellProps {
 }
 
 const AppShellRoot = React.forwardRef<HTMLDivElement, AppShellProps>(
-  ({ config, children, className }, ref) => {
+  function AppShell({ config, children, className }, ref) {
   // Create the headless API once
   const apiRef = React.useRef<AppShellAPI | null>(null)
   if (apiRef.current === null) {
@@ -112,8 +112,6 @@ const AppShellRoot = React.forwardRef<HTMLDivElement, AppShellProps>(
   },
 )
 
-AppShellRoot.displayName = 'AppShell'
-
 // ---------------------------------------------------------------------------
 // AppShell.Sidebar
 // ---------------------------------------------------------------------------
@@ -124,7 +122,7 @@ export interface AppShellSidebarProps {
 }
 
 const Sidebar = React.forwardRef<HTMLElement, AppShellSidebarProps>(
-  ({ children, className }, ref) => {
+  function Sidebar({ children, className }, ref) {
   const { api, state } = useAppShell()
   const isRight = api.config.sidebarPosition === 'right'
 
@@ -168,8 +166,6 @@ const Sidebar = React.forwardRef<HTMLElement, AppShellSidebarProps>(
   },
 )
 
-Sidebar.displayName = 'AppShell.Sidebar'
-
 // ---------------------------------------------------------------------------
 // AppShell.Main
 // ---------------------------------------------------------------------------
@@ -180,7 +176,7 @@ export interface AppShellMainProps {
 }
 
 const Main = React.forwardRef<HTMLDivElement, AppShellMainProps>(
-  ({ children, className }, ref) => {
+  function Main({ children, className }, ref) {
   return React.createElement(
     'div',
     {
@@ -192,8 +188,6 @@ const Main = React.forwardRef<HTMLDivElement, AppShellMainProps>(
   },
 )
 
-Main.displayName = 'AppShell.Main'
-
 // ---------------------------------------------------------------------------
 // AppShell.Header
 // ---------------------------------------------------------------------------
@@ -204,7 +198,7 @@ export interface AppShellHeaderProps {
 }
 
 const Header = React.forwardRef<HTMLElement, AppShellHeaderProps>(
-  ({ children, className }, ref) => {
+  function Header({ children, className }, ref) {
   const { api, state } = useAppShell()
 
   const hamburger = state.isMobile
@@ -257,8 +251,6 @@ const Header = React.forwardRef<HTMLElement, AppShellHeaderProps>(
   },
 )
 
-Header.displayName = 'AppShell.Header'
-
 // ---------------------------------------------------------------------------
 // AppShell.Content
 // ---------------------------------------------------------------------------
@@ -271,7 +263,7 @@ export interface AppShellContentProps {
 }
 
 const Content = React.forwardRef<HTMLElement, AppShellContentProps>(
-  ({ children, className, maxWidth }, ref) => {
+  function Content({ children, className, maxWidth }, ref) {
   const { api } = useAppShell()
   const mwClass = maxWidth ? `max-w-${maxWidth}` : ''
 
@@ -292,8 +284,6 @@ const Content = React.forwardRef<HTMLElement, AppShellContentProps>(
   },
 )
 
-Content.displayName = 'AppShell.Content'
-
 // ---------------------------------------------------------------------------
 // AppShell.MobileNav
 // ---------------------------------------------------------------------------
@@ -304,7 +294,7 @@ export interface AppShellMobileNavProps {
 }
 
 const MobileNav = React.forwardRef<HTMLElement, AppShellMobileNavProps>(
-  ({ children, className }, ref) => {
+  function MobileNav({ children, className }, ref) {
   const { api, state } = useAppShell()
 
   if (!state.isMobile) return null
@@ -328,8 +318,6 @@ const MobileNav = React.forwardRef<HTMLElement, AppShellMobileNavProps>(
   },
 )
 
-MobileNav.displayName = 'AppShell.MobileNav'
-
 // ---------------------------------------------------------------------------
 // AppShell.Overlay
 // ---------------------------------------------------------------------------
@@ -339,7 +327,7 @@ export interface AppShellOverlayProps {
 }
 
 const Overlay = React.forwardRef<HTMLDivElement, AppShellOverlayProps>(
-  ({ className }, ref) => {
+  function Overlay({ className }, ref) {
   const { api, state } = useAppShell()
 
   if (!state.isMobile || !state.sidebarOpen) return null
@@ -356,8 +344,6 @@ const Overlay = React.forwardRef<HTMLDivElement, AppShellOverlayProps>(
   })
   },
 )
-
-Overlay.displayName = 'AppShell.Overlay'
 
 // ---------------------------------------------------------------------------
 // Compound export

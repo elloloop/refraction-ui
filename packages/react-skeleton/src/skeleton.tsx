@@ -21,7 +21,7 @@ export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
  * Styling via Tailwind utility classes (no external CSS-in-JS).
  */
 export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
-  ({ shape, width, height, animate, className, style, ...props }, ref) => {
+  function Skeleton({ shape, width, height, animate, className, style, ...props }, ref) {
     const api = createSkeleton({ shape, animate })
     const classes = cn(skeletonVariants({ shape }), className)
 
@@ -42,8 +42,6 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
   },
 )
 
-Skeleton.displayName = 'Skeleton'
-
 // ---------------------------------------------------------------------------
 // SkeletonText
 // ---------------------------------------------------------------------------
@@ -63,7 +61,7 @@ const lineWidths = ['100%', '92%', '85%', '96%', '78%', '88%', '94%', '82%']
  * slight width variations for a natural loading appearance.
  */
 export const SkeletonText = React.forwardRef<HTMLDivElement, SkeletonTextProps>(
-  ({ lines = 3, animate, className, ...props }, ref) => {
+  function SkeletonText({ lines = 3, animate, className, ...props }, ref) {
     const children: React.ReactElement[] = []
 
     for (let i = 0; i < lines; i++) {
@@ -89,5 +87,3 @@ export const SkeletonText = React.forwardRef<HTMLDivElement, SkeletonTextProps>(
     )
   },
 )
-
-SkeletonText.displayName = 'SkeletonText'

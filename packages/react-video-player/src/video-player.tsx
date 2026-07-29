@@ -13,7 +13,7 @@ export interface VideoPlayerProps
     CoreVideoPlayerProps {}
 
 export const VideoPlayer = React.forwardRef<HTMLDivElement, VideoPlayerProps>(
-  (
+  function VideoPlayer(
     {
       src,
       poster,
@@ -24,7 +24,7 @@ export const VideoPlayer = React.forwardRef<HTMLDivElement, VideoPlayerProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const [, setTick] = React.useState(0)
     const rerender = React.useCallback(() => setTick((t) => t + 1), [])
 
@@ -120,5 +120,3 @@ export const VideoPlayer = React.forwardRef<HTMLDivElement, VideoPlayerProps>(
     )
   },
 )
-
-VideoPlayer.displayName = 'VideoPlayer'

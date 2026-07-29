@@ -38,7 +38,7 @@ export interface StatGridProps
  * accessible enumeration.
  */
 export const StatGrid = React.forwardRef<HTMLDivElement, StatGridProps>(
-  ({ items, columns, className, ...props }, ref) => {
+  function StatGrid({ items, columns, className, ...props }, ref) {
     const cols = columns ?? statColumns(items.length)
     const { ariaProps, dataAttributes } = createStatGrid()
 
@@ -64,5 +64,3 @@ export const StatGrid = React.forwardRef<HTMLDivElement, StatGridProps>(
     )
   },
 )
-
-StatGrid.displayName = 'StatGrid'

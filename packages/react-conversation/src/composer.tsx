@@ -160,7 +160,7 @@ function detectTrigger(text: string, caret: number): TriggerState | null {
  * and `/` command, `@` mention, and `:` emoji autocomplete menus.
  */
 export const Composer = React.forwardRef<HTMLDivElement, ComposerProps>(
-  ({ placeholder = 'Send a message…', busy = false, slashCommands = [], mentions, toolbar = true, emoji = true, attachments = true, error, onRetry, onSubmit, onStop, onSlashCommand, autoFocus }: ComposerProps, ref) => {
+  function Composer({ placeholder = 'Send a message…', busy = false, slashCommands = [], mentions, toolbar = true, emoji = true, attachments = true, error, onRetry, onSubmit, onStop, onSlashCommand, autoFocus }: ComposerProps, ref) {
   const [value, setValue] = React.useState('')
   const [pending, setPending] = React.useState<MessageAttachment[]>([])
   const [trigger, setTrigger] = React.useState<TriggerState | null>(null)
@@ -489,5 +489,3 @@ export const Composer = React.forwardRef<HTMLDivElement, ComposerProps>(
   )
   },
 )
-
-Composer.displayName = 'Composer'

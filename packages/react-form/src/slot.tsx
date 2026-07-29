@@ -54,8 +54,6 @@ export const Slot = React.forwardRef<HTMLElement, SlotProps>(function Slot(
   )
 })
 
-Slot.displayName = 'Slot'
-
 function mergeProps(
   slotProps: Record<string, unknown>,
   childProps: Record<string, unknown>,

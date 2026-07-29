@@ -419,7 +419,7 @@ function ModeToggle({ conversation }: { conversation: UseConversationResult }) {
  * with `/` commands, `@` mentions, `:` emoji, and a formatting toolbar.
  */
 export const Chat = React.forwardRef<HTMLDivElement, ChatProps>(
-  ({ conversation, showConversationList = true, showModeToggle = true, placeholder, currentUserId, emptyState, className, slashCommands, mentions, onSlashCommand, composerToolbar = true }: ChatProps, ref) => {
+  function Chat({ conversation, showConversationList = true, showModeToggle = true, placeholder, currentUserId, emptyState, className, slashCommands, mentions, onSlashCommand, composerToolbar = true }: ChatProps, ref) {
   const { state, sendMessage } = conversation
   const timeline = selectMainTimeline(state.messages, state.threadingMode)
   const activeConv = state.conversations.find((c) => c.id === state.activeConversationId)
@@ -496,5 +496,3 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>(
   )
   },
 )
-
-Chat.displayName = 'Chat'

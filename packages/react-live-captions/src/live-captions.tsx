@@ -36,7 +36,7 @@ export interface LiveCaptionsProps
  * Logic and styles come from the headless `@refraction-ui/live-captions` core.
  */
 export const LiveCaptions = React.forwardRef<HTMLDivElement, LiveCaptionsProps>(
-  ({ cues, maxLines = 2, position = 'static', className, ...props }, ref) => {
+  function LiveCaptions({ cues, maxLines = 2, position = 'static', className, ...props }, ref) {
     const { ariaProps, dataAttributes } = createLiveCaptions()
     const shown = visibleCues(cues, maxLines)
 
@@ -69,5 +69,3 @@ export const LiveCaptions = React.forwardRef<HTMLDivElement, LiveCaptionsProps>(
     )
   },
 )
-
-LiveCaptions.displayName = 'LiveCaptions'

@@ -23,7 +23,7 @@ export interface RadioGroupProps extends CoreRadioGroupProps {
 }
 
 export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
-  ({ children, className, value: controlledValue, defaultValue, onValueChange, name, disabled = false, orientation = 'vertical' }: RadioGroupProps, ref) => {
+  function RadioGroup({ children, className, value: controlledValue, defaultValue, onValueChange, name, disabled = false, orientation = 'vertical' }: RadioGroupProps, ref) {
   const [internalValue, setInternalValue] = React.useState(defaultValue)
   const isControlled = controlledValue !== undefined
   const currentValue = isControlled ? controlledValue : internalValue
@@ -63,7 +63,7 @@ export interface RadioItemProps {
 }
 
 export const RadioItem = React.forwardRef<HTMLLabelElement, RadioItemProps>(
-  ({ value, children, disabled = false, className }, ref) => {
+  function RadioItem({ value, children, disabled = false, className }, ref) {
   const ctx = React.useContext(RadioContext)
   if (!ctx) {
     devWarn(
@@ -105,6 +105,3 @@ export const RadioItem = React.forwardRef<HTMLLabelElement, RadioItemProps>(
   )
   },
 )
-
-RadioGroup.displayName = 'RadioGroup'
-RadioItem.displayName = 'RadioItem'

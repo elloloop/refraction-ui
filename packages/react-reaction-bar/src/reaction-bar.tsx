@@ -19,7 +19,7 @@ export interface ReactionBarProps {
 }
 
 export const ReactionBar = React.forwardRef<HTMLDivElement, ReactionBarProps>(
-  ({ reactions, onToggle, onAdd, showAddButton = true, className }, ref) => {
+  function ReactionBar({ reactions, onToggle, onAdd, showAddButton = true, className }, ref) {
   const api = createReactionBar({ reactions, onToggle, onAdd })
 
   return React.createElement(
@@ -55,5 +55,3 @@ export const ReactionBar = React.forwardRef<HTMLDivElement, ReactionBarProps>(
   )
   },
 )
-
-ReactionBar.displayName = 'ReactionBar'

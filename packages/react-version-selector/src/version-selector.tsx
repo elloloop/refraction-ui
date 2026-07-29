@@ -48,7 +48,7 @@ export interface VersionSelectorProps {
 }
 
 export const VersionSelector = React.forwardRef<HTMLDivElement, VersionSelectorProps>(
-  ({ value: controlledValue, onValueChange, versions, placeholder = 'Select version...', className }: VersionSelectorProps, ref) => {
+  function VersionSelector({ value: controlledValue, onValueChange, versions, placeholder = 'Select version...', className }: VersionSelectorProps, ref) {
   const [selectedVersion, setSelectedVersion] = React.useState(controlledValue ?? '')
   const [isOpen, setIsOpen] = React.useState(false)
   const containerRef = React.useRef<HTMLDivElement>(null)
@@ -197,5 +197,3 @@ export const VersionSelector = React.forwardRef<HTMLDivElement, VersionSelectorP
   )
   },
 )
-
-VersionSelector.displayName = 'VersionSelector'

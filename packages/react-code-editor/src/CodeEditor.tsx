@@ -26,7 +26,7 @@ export interface CodeEditorProps {
  * label and optional action buttons. Syntax highlighting is a future enhancement.
  */
 export const CodeEditor = React.forwardRef<HTMLDivElement, CodeEditorProps>(
-  (
+  function CodeEditor(
     {
       value = '',
       onChange,
@@ -38,7 +38,7 @@ export const CodeEditor = React.forwardRef<HTMLDivElement, CodeEditorProps>(
       actions,
     },
     ref,
-  ) => {
+  ) {
     const api = createCodeEditor({ value, onChange, language, readOnly, theme })
     const containerClasses = cn(codeEditorVariants({ theme }), className)
 
@@ -81,5 +81,3 @@ export const CodeEditor = React.forwardRef<HTMLDivElement, CodeEditorProps>(
     )
   },
 )
-
-CodeEditor.displayName = 'CodeEditor'

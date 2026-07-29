@@ -40,7 +40,7 @@ export interface SpeakingOrbProps
  * `aria-label` set to the participant's name.
  */
 export const SpeakingOrb = React.forwardRef<HTMLDivElement, SpeakingOrbProps>(
-  (
+  function SpeakingOrb(
     {
       name,
       avatarUrl,
@@ -51,7 +51,7 @@ export const SpeakingOrb = React.forwardRef<HTMLDivElement, SpeakingOrbProps>(
       ...props
     },
     ref,
-  ) => {
+  ) {
     const initials = getInitials(name)
 
     return (
@@ -97,8 +97,6 @@ export const SpeakingOrb = React.forwardRef<HTMLDivElement, SpeakingOrbProps>(
   },
 )
 
-SpeakingOrb.displayName = 'SpeakingOrb'
-
 // ── AudioRoom ─────────────────────────────────────────────────────────────────
 
 export interface AudioRoomProps
@@ -115,7 +113,7 @@ export interface AudioRoomProps
  * `gridTemplateColumns` because the column count is dynamic.
  */
 export const AudioRoom = React.forwardRef<HTMLDivElement, AudioRoomProps>(
-  ({ participants, className, ...props }, ref) => {
+  function AudioRoom({ participants, className, ...props }, ref) {
     const cols = orbColumns(participants.length)
     const { ariaProps, dataAttributes } = createAudioRoom()
 
@@ -144,5 +142,3 @@ export const AudioRoom = React.forwardRef<HTMLDivElement, AudioRoomProps>(
     )
   },
 )
-
-AudioRoom.displayName = 'AudioRoom'

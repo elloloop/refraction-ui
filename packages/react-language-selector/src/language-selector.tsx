@@ -49,7 +49,7 @@ export interface LanguageSelectorProps {
 }
 
 export const LanguageSelector = React.forwardRef<HTMLDivElement, LanguageSelectorProps>(
-  ({ value: controlledValue, onValueChange, options, multiple = false, placeholder = 'Select language...', className }: LanguageSelectorProps, ref) => {
+  function LanguageSelector({ value: controlledValue, onValueChange, options, multiple = false, placeholder = 'Select language...', className }: LanguageSelectorProps, ref) {
   const initialValues = Array.isArray(controlledValue)
     ? controlledValue
     : controlledValue
@@ -258,5 +258,3 @@ export const LanguageSelector = React.forwardRef<HTMLDivElement, LanguageSelecto
   )
   },
 )
-
-LanguageSelector.displayName = 'LanguageSelector'

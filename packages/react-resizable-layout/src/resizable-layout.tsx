@@ -53,7 +53,7 @@ export interface ResizableLayoutProps extends Omit<React.HTMLAttributes<HTMLDivE
  * Uses pointer events for cross-platform drag support.
  */
 export const ResizableLayout = React.forwardRef<HTMLDivElement, ResizableLayoutProps>(
-  (
+  function ResizableLayout(
     {
       orientation = 'horizontal',
       defaultSizes = [50, 50],
@@ -67,7 +67,7 @@ export const ResizableLayout = React.forwardRef<HTMLDivElement, ResizableLayoutP
       ...props
     },
     ref,
-  ) => {
+  ) {
     const apiRef = React.useRef<ResizableLayoutAPI | null>(null)
 
     if (!apiRef.current) {
@@ -120,8 +120,6 @@ export const ResizableLayout = React.forwardRef<HTMLDivElement, ResizableLayoutP
   },
 )
 
-ResizableLayout.displayName = 'ResizableLayout'
-
 /* ------------------------------------------------------------------ */
 /*  ResizablePane                                                      */
 /* ------------------------------------------------------------------ */
@@ -135,7 +133,7 @@ export interface ResizablePaneProps extends React.HTMLAttributes<HTMLDivElement>
  * ResizablePane — a single pane whose size is driven by CSS custom properties.
  */
 export const ResizablePane = React.forwardRef<HTMLDivElement, ResizablePaneProps>(
-  ({ index, className, style, children, ...props }, ref) => {
+  function ResizablePane({ index, className, style, children, ...props }, ref) {
     const { orientation, sizes } = useResizableLayoutContext()
     const size = sizes[index] ?? 50
 
@@ -160,8 +158,6 @@ export const ResizablePane = React.forwardRef<HTMLDivElement, ResizablePaneProps
   },
 )
 
-ResizablePane.displayName = 'ResizablePane'
-
 /* ------------------------------------------------------------------ */
 /*  ResizableDivider                                                   */
 /* ------------------------------------------------------------------ */
@@ -176,7 +172,7 @@ export interface ResizableDividerProps extends React.HTMLAttributes<HTMLDivEleme
  * Uses pointer events for cross-platform drag support (mouse + touch).
  */
 export const ResizableDivider = React.forwardRef<HTMLDivElement, ResizableDividerProps>(
-  ({ index, className, ...props }, ref) => {
+  function ResizableDivider({ index, className, ...props }, ref) {
     const { api, orientation, setSizes } = useResizableLayoutContext()
     const startPosRef = React.useRef<number>(0)
     const containerSizeRef = React.useRef<number>(0)
@@ -242,5 +238,3 @@ export const ResizableDivider = React.forwardRef<HTMLDivElement, ResizableDivide
     )
   },
 )
-
-ResizableDivider.displayName = 'ResizableDivider'

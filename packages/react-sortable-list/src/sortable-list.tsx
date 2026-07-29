@@ -185,5 +185,3 @@ function SortableListInner<T>(
 export const SortableList = React.forwardRef(SortableListInner) as <T>(
   props: SortableListProps<T> & { ref?: React.ForwardedRef<HTMLDivElement> },
 ) => React.ReactElement | null
-
-;(SortableList as { displayName?: string }).displayName = 'SortableList'
