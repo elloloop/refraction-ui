@@ -140,6 +140,16 @@ describe('colors', () => {
     expect(colors.destructive.foreground).toBe('hsl(var(--destructive-foreground))')
   })
 
+  it('success DEFAULT and foreground are defined', () => {
+    expect(colors.success.DEFAULT).toBe('hsl(var(--success))')
+    expect(colors.success.foreground).toBe('hsl(var(--success-foreground))')
+  })
+
+  it('warning DEFAULT and foreground are defined', () => {
+    expect(colors.warning.DEFAULT).toBe('hsl(var(--warning))')
+    expect(colors.warning.foreground).toBe('hsl(var(--warning-foreground))')
+  })
+
   it('sidebar colors all defined', () => {
     expect(colors.sidebar.DEFAULT).toBe('hsl(var(--sidebar-background))')
     expect(colors.sidebar.foreground).toBe('hsl(var(--sidebar-foreground))')
@@ -239,11 +249,15 @@ describe('utilitiesPlugin', () => {
 // ---------------------------------------------------------------------------
 
 describe('borderRadius', () => {
-  it('all border radius values reference --radius CSS variable', () => {
+  it('lg and md reference the --radius CSS variable', () => {
     const br = refractionPreset.theme.extend.borderRadius
     expect(br.lg).toContain('var(--radius)')
     expect(br.md).toContain('var(--radius)')
-    expect(br.sm).toContain('var(--radius)')
+  })
+
+  it('sm is a fixed absolute so small elements keep their shape at large --radius', () => {
+    const br = refractionPreset.theme.extend.borderRadius
+    expect(br.sm).toBe('2px')
   })
 })
 

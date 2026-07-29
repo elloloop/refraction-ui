@@ -30,7 +30,11 @@ export const refractionPreset = {
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        // Fixed absolute, not calc(var(--radius) - 4px): on small elements
+        // (e.g. a 16px checkbox) a relative sm collapses toward a circle at
+        // large --radius (1rem → 12px ≈ radio button). 2px keeps the default
+        // theme pixel-identical (--radius: 0.375rem → calc(6px - 4px) = 2px).
+        sm: '2px',
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', '-apple-system', 'sans-serif'],
