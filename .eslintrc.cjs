@@ -6,21 +6,18 @@ module.exports = {
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: ['./packages/*/tsconfig.json', './tsconfig.json'],
-    tsconfigRootDir: __dirname,
+    // Deliberately NO `project` here: the enabled rules (eslint:recommended +
+    // @typescript-eslint/recommended) contain no type-aware rules, so building
+    // a TypeScript program per lint task was pure cost. With the old
+    // `project: ['./packages/*/tsconfig.json']` glob, every one of the ~260
+    // per-package lint tasks constructed programs spanning the whole monorepo
+    // (~390 tsconfigs) — O(packages²) work that dominated the CI react job
+    // (≈37 CPU-min of ≈84 total, ~14s median per tiny package).
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint'],
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
   ignorePatterns: ['dist', 'node_modules'],
-  overrides: [
-    {
-      files: ['packages/*/vitest.config.ts', 'packages/*/tsup.config.ts'],
-      parserOptions: {
-        project: null,
-      },
-    },
-  ],
   rules: {
     '@typescript-eslint/no-unused-vars': [
       'warn',
