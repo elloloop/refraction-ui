@@ -8,6 +8,10 @@ import RadioComposition from './compositions/radio.astro'
 import DropdownMenuComposition from './compositions/dropdown-menu.astro'
 import ToasterComposition from './compositions/toaster.astro'
 import Switch from '../dist/astro-switch/Switch.astro'
+import Pagination from '../dist/astro-pagination/Pagination.astro'
+import FileTree from '../dist/astro-file-tree/FileTree.astro'
+import Slider from '../dist/astro-slider/Slider.astro'
+import SkipToContent from '../dist/astro-skip-to-content/SkipToContent.astro'
 
 /**
  * Deep render tests for the stateful / ARIA-heavy adapters. Multi-part
@@ -195,5 +199,156 @@ describe('astro-switch', () => {
     const html = await render(Switch)
 
     expect(html).toMatch(/<button[^>]*role="switch"[^>]*aria-checked="false"[^>]*data-state="unchecked"/)
+  })
+})
+
+describe('astro-pagination', () => {
+  it('renders the navigation landmark with windowed range, ellipses and current-page ARIA', async () => {
+    const html = await render(Pagination, {
+      props: { page: 5, totalPages: 20, siblingCount: 1 },
+    })
+
+    // Nav landmark + the state hooks the client script drives.
+    expect(html).toMatch(/<div[^>]*role="navigation"[^>]*aria-label="Pagination"/)
+    expect(html).toContain('data-rfr-pagination')
+    expect(html).toContain('data-page="5"')
+    expect(html).toContain('data-total-pages="20"')
+
+    // Prev/next controls carry their target page and labels.
+    expect(html).toMatch(/<button[^>]*aria-label="Previous page"[^>]*data-rfr-page="4"/)
+    expect(html).toMatch(/<button[^>]*aria-label="Next page"[^>]*data-rfr-page="6"/)
+
+    // Windowed range 1 … 4 5 6 … 20: two ellipses, five page buttons.
+    expect(count(html, '>…</span>')).toBe(2)
+    for (const p of [1, 4, 5, 6, 20]) {
+      expect(html).toMatch(new RegExp(`<button[^>]*data-rfr-page="${p}"[^>]*>\\s*${p}\\s*</button>`))
+    }
+
+    // Current page gets aria-current + the current state hook; others do not.
+    expect(html).toMatch(
+      /<button[^>]*aria-current="page"[^>]*data-state="current"[^>]*data-rfr-page="5"[^>]*>\s*5\s*<\/button>/
+    )
+    expect(count(html, 'aria-current="page"')).toBe(1)
+    expect(html).toMatch(/<button[^>]*data-state="default"[^>]*data-rfr-page="4"/)
+  })
+
+  it('disables previous on the first page and next on the last', async () => {
+    // SSR attribute order is deterministic: the `disabled` attribute follows
+    // the aria-label when present (the class list also contains the word
+    // "disabled" in utilities, so attribute-order pinning is required).
+    const first = await render(Pagination, { props: { page: 1, totalPages: 3 } })
+    expect(first).toContain('aria-label="Previous page" disabled')
+    expect(first).not.toContain('aria-label="Next page" disabled')
+
+    const last = await render(Pagination, { props: { page: 3, totalPages: 3 } })
+    expect(last).toContain('aria-label="Next page" disabled')
+    expect(last).not.toContain('aria-label="Previous page" disabled')
+  })
+})
+
+describe('astro-file-tree', () => {
+  const NODES = [
+    {
+      id: 'src',
+      label: 'src',
+      children: [
+        {
+          id: 'src-components',
+          label: 'components',
+          children: [
+            { id: 'src-components-button', label: 'Button.tsx' },
+            { id: 'src-components-input', label: 'Input.tsx' },
+          ],
+        },
+        { id: 'src-index', label: 'index.ts' },
+      ],
+    },
+    { id: 'package-json', label: 'package.json' },
+  ]
+
+  it('renders tree/treeitem/group roles with expansion, selection and level ARIA', async () => {
+    const html = await render(FileTree, {
+      props: {
+        nodes: NODES,
+        expandedIds: ['src', 'src-components'],
+        selectedId: 'src-components-button',
+      },
+    })
+
+    // Tree container.
+    expect(html).toMatch(/<ul[^>]*role="tree"[^>]*aria-label="File tree"/)
+    expect(html).toContain('data-rfr-file-tree')
+
+    // All six rows visible; two expanded parents nest role="group" lists.
+    expect(count(html, 'role="treeitem"')).toBe(6)
+    expect(count(html, 'role="group"')).toBe(2)
+
+    // Expanded parent at depth 1 and 2.
+    expect(html).toMatch(
+      /role="treeitem"[^>]*aria-level="1"[^>]*aria-expanded="true"[^>]*data-rfr-node-id="src"/
+    )
+    expect(html).toMatch(
+      /role="treeitem"[^>]*aria-level="2"[^>]*aria-expanded="true"[^>]*data-rfr-node-id="src-components"/
+    )
+
+    // Selected leaf at depth 3.
+    expect(html).toMatch(
+      /role="treeitem"[^>]*aria-level="3"[^>]*aria-selected="true"[^>]*data-rfr-node-id="src-components-button"/
+    )
+    expect(count(html, 'aria-selected="true"')).toBe(1)
+
+    // Roving-tabindex seed: only the first visible row is tabbable in SSR.
+    expect(count(html, 'tabindex="0"')).toBe(1)
+    expect(html).toMatch(/tabindex="0"[^>]*data-rfr-node-id="src"/)
+
+    // Labels render.
+    expect(html).toContain('Button.tsx')
+    expect(html).toContain('package.json')
+  })
+
+  it('collapses parents by default (only root rows visible)', async () => {
+    const html = await render(FileTree, { props: { nodes: NODES } })
+
+    expect(count(html, 'role="treeitem"')).toBe(2)
+    expect(count(html, 'role="group"')).toBe(0)
+    expect(html).toMatch(/aria-expanded="false"[^>]*data-rfr-node-id="src"/)
+    expect(html).not.toContain('Button.tsx')
+  })
+})
+
+describe('astro-slider', () => {
+  it('renders the slider role with core-normalized value ARIA', async () => {
+    const html = await render(Slider, {
+      props: { value: 43, min: 0, max: 100, step: 5 },
+    })
+
+    // 43 rounds to the nearest step (45) via the headless core.
+    expect(html).toMatch(/<input[^>]*type="range"[^>]*data-rfr-slider[^>]*role="slider"/)
+    expect(html).toContain('aria-valuemin="0"')
+    expect(html).toContain('aria-valuemax="100"')
+    expect(html).toContain('aria-valuenow="45"')
+    expect(html).toContain('value="45"')
+    expect(html).toContain('data-value="45"')
+  })
+
+  it('clamps out-of-range values and forwards aria-label', async () => {
+    const html = await render(Slider, {
+      props: { value: 250, max: 100, 'aria-label': 'Volume' },
+    })
+
+    expect(html).toContain('aria-valuenow="100"')
+    expect(html).toContain('aria-label="Volume"')
+  })
+})
+
+describe('astro-skip-to-content', () => {
+  it('renders a visually-hidden-until-focused skip link to the target', async () => {
+    const html = await render(SkipToContent, { props: { targetId: 'content' } })
+
+    expect(html).toMatch(/<a[^>]*href="#content"[^>]*data-slot="skip-to-content"/)
+    // Off-screen until focused (the core's variant classes carry the behavior).
+    expect(html).toContain('-translate-y-16')
+    expect(html).toContain('focus:translate-y-0')
+    expect(html).toContain('Skip to content')
   })
 })
