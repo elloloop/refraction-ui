@@ -1,20 +1,12 @@
 import { describe, it, expect } from 'vitest'
 import { experimental_AstroContainer as AstroContainer } from 'astro/container'
-// @ts-expect-error -- .astro modules are compiled by the Astro vite plugin
 import TabsComposition from './compositions/tabs.astro'
-// @ts-expect-error -- .astro modules are compiled by the Astro vite plugin
 import SelectComposition from './compositions/select.astro'
-// @ts-expect-error -- .astro modules are compiled by the Astro vite plugin
 import DialogComposition from './compositions/dialog.astro'
-// @ts-expect-error -- .astro modules are compiled by the Astro vite plugin
 import CommandComposition from './compositions/command.astro'
-// @ts-expect-error -- .astro modules are compiled by the Astro vite plugin
 import RadioComposition from './compositions/radio.astro'
-// @ts-expect-error -- .astro modules are compiled by the Astro vite plugin
 import DropdownMenuComposition from './compositions/dropdown-menu.astro'
-// @ts-expect-error -- .astro modules are compiled by the Astro vite plugin
 import ToasterComposition from './compositions/toaster.astro'
-// @ts-expect-error -- .astro modules are compiled by the Astro vite plugin
 import Switch from '../dist/astro-switch/Switch.astro'
 
 /**
