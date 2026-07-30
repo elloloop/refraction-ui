@@ -97,8 +97,8 @@ describe('StatusIndicator (React) – status variants', () => {
     ['error', 'Error', 'bg-destructive'],
     ['warning', 'Warning', 'bg-warning'],
     ['info', 'Info', 'bg-info'],
-    ['pending', 'Pending', 'bg-orange-500'],
-    ['neutral', 'Neutral', 'bg-gray-400'],
+    ['pending', 'Pending', 'bg-pending'],
+    ['neutral', 'Neutral', 'bg-neutral'],
   ] as const)(
     'type "%s" renders label "%s" with dot color "%s"',
     (type, label, colorClass) => {
@@ -166,7 +166,7 @@ describe('StatusIndicator (React) – pulse', () => {
       React.createElement(StatusIndicator, { type: 'pending', pulse: false }),
     )
     expect(html).not.toContain('animate-pulse')
-    expect(html).toContain('bg-orange-500')
+    expect(html).toContain('bg-pending')
   })
 })
 

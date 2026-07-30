@@ -5,7 +5,7 @@ export const presenceDotVariants = cva({
   variants: {
     status: {
       online: 'bg-success',
-      offline: 'bg-gray-400',
+      offline: 'bg-neutral',
       away: 'bg-warning',
       busy: 'bg-destructive',
       dnd: 'bg-destructive',

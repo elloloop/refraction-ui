@@ -92,7 +92,7 @@ describe('PresenceIndicator (React)', () => {
 describe('PresenceIndicator (React) – status variants', () => {
   it.each([
     ['online', 'Online', 'bg-success'],
-    ['offline', 'Offline', 'bg-gray-400'],
+    ['offline', 'Offline', 'bg-neutral'],
     ['away', 'Away', 'bg-warning'],
     ['busy', 'Busy', 'bg-destructive'],
     ['dnd', 'Do Not Disturb', 'bg-destructive'],
