@@ -297,7 +297,7 @@ values, a test covers it, and the analyzer/formatter are clean.
 
 > Keep these current as the repo evolves; only write what you've confirmed.
 
-- **Setup command:** `make install` (`pnpm install --frozen-lockfile`; pnpm@10.13.1, Node 20)
+- **Setup command:** `make install` (`pnpm install --frozen-lockfile`; pnpm@10.13.1, Node 22)
 - **Analyze/lint command:** `make lint` (`pnpm turbo run lint` → `eslint src --ext .ts,.tsx`); also `make typecheck` (`tsc --noEmit`)
 - **Test command (all):** `make test` (`pnpm turbo run test` → `vitest run --passWithNoTests` per package)
 - **Test command (single file/test):** `pnpm --filter <pkg> exec vitest run <file>` or scope by name with `vitest run -t "<name>"`
