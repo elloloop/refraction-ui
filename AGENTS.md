@@ -81,9 +81,9 @@ ones that bite every time:
 
 Publishing is CI-only (Changesets → Version PR → OIDC). Key gating facts in
 `CLAUDE.md` → "CI gating facts": only `commit-lint` is required; the
-`validation`/`dependencies` **audit** step fails on a pre-existing esbuild
-advisory and does **not** gate publishing (but confirm the validation **"Run CI"**
-step is green); the `Release` workflow fires on **Test Matrix** success on `main`,
+`validation` **audit** step fails on a pre-existing esbuild
+advisory and does **not** gate publishing (but confirm the **Test Matrix**
+jobs — the full lint/typecheck/test/build graph — are green); the `Release` workflow fires on **Test Matrix** success on `main`,
 then a `chore: release packages` Version PR must be merged to publish. Flutter
 publishes to pub.dev via the `flutter-publish` tag (golden tests excluded from
 the gate).

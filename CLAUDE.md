@@ -220,20 +220,28 @@ reason new feature packages must stay private and ride the metas.
 
 - **Only `commit-lint` is a required status check.** Everything else is
   informational at the branch-protection level.
-- The **`dependencies` / `validation` "Audit dependencies"** step fails on a
+- The **`validation` "Audit dependencies"** step fails on a
   **pre-existing transitive esbuild advisory** that is present on `main` and
   unrelated to component work. It does **not** gate the release pipeline. Do not
-  treat it as your failure — but **do** confirm the `validation` job's **"Run CI"
-  step** (the full `make ci`: lint + typecheck + test + build) **succeeded**;
-  that is the real green signal. Verify by step conclusion, never assume.
+  treat it as your failure — but **do** confirm the **Test Matrix** jobs
+  (`test-matrix-react` / `test-matrix-astro` — the full lint + typecheck +
+  test + build graph, run on every PR) **succeeded**; that is the real green
+  signal. Verify by job conclusion, never assume.
+- **Workflow division of labor on PRs:** `PR Validation` = PR-meta checks
+  (title/description/branch/commit-lint/summary) + the audit; `Test Matrix` =
+  the full lint/typecheck/test/build graph + `browser-tests`; `CI` =
+  `commit-lint` + CodeQL only (its `coverage` job — the one remaining
+  full-graph run with `test:coverage` + codecov — is main-push-only);
+  `Visual Regression Tests` = Playwright + Lost Pixel. The graph intentionally
+  runs once per PR — don't re-add it to `CI` or `PR Validation`.
 - The **`Release` workflow is `workflow_run` on _"Test Matrix"_ success** (not on
   the "CI" workflow). So the publish pipeline is gated by **Test Matrix passing
   on `main`**, regardless of the audit red. Sequence after merging a feature PR:
   Test Matrix (main) → Release opens the **`chore: release packages` Version PR**
   → merge it → Test Matrix again → Release sees no changesets → `publish-oidc`
   publishes via OIDC. Each Test Matrix run is ~25–35 min; poll, don't assume.
-- Admin-merging past the audit red is acceptable **only after** the validation
-  "Run CI" step is confirmed green and `commit-lint` passes. Surface that you did
+- Admin-merging past the audit red is acceptable **only after** the Test Matrix
+  jobs are confirmed green and `commit-lint` passes. Surface that you did
   so and why.
 - The recurring esbuild audit failure is tracked separately; if asked to fix CI
   reds, that audit advisory — not your component — is usually the culprit.
