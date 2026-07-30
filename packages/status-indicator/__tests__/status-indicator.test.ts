@@ -137,7 +137,7 @@ describe('styles', () => {
   it('exports pending pulse variant', () => {
     const classes = statusPulseVariants({ type: 'pending' })
     expect(classes).toContain('animate-pulse')
-    expect(classes).toContain('bg-orange-500')
+    expect(classes).toContain('bg-pending')
   })
 
   it('exports warning dot variant', () => {

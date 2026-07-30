@@ -135,7 +135,7 @@ describe('styles', () => {
 
   it('exports offline dot variant', () => {
     const classes = presenceDotVariants({ status: 'offline' })
-    expect(classes).toContain('bg-gray-400')
+    expect(classes).toContain('bg-neutral')
   })
 
   it('exports away dot variant', () => {

@@ -65,6 +65,10 @@
      (Material blue) — a deliberate small cross-framework delta. */
   --info: 217 91% 60%;
   --info-foreground: 0 0% 100%;
+  --pending: 25 95% 53%;
+  --pending-foreground: 0 0% 100%;
+  --neutral: 220 9% 64%;
+  --neutral-foreground: 240 10% 10%;
 
   --border: 240 6% 92%;
   --input: 240 6% 92%;
@@ -276,6 +280,10 @@
   /* Lightened from 60% (light) to 65% lightness for contrast on dark surfaces */
   --info: 217 91% 65%;
   --info-foreground: 0 0% 98%;
+  --pending: 25 95% 53%;
+  --pending-foreground: 0 0% 100%;
+  --neutral: 220 9% 64%;
+  --neutral-foreground: 240 10% 10%;
 
   --border: 240 5% 16%;
   --input: 240 5% 16%;

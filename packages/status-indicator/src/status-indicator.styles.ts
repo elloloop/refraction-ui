@@ -11,8 +11,8 @@ export const statusDotVariants = cva({
       error: 'bg-destructive',
       warning: 'bg-warning',
       info: 'bg-info',
-      pending: 'bg-orange-500',
-      neutral: 'bg-gray-400',
+      pending: 'bg-pending',
+      neutral: 'bg-neutral',
     },
   },
   defaultVariants: {
@@ -28,8 +28,8 @@ export const statusPulseVariants = cva({
       error: 'bg-destructive',
       warning: 'bg-warning',
       info: 'bg-info',
-      pending: 'bg-orange-500',
-      neutral: 'bg-gray-400',
+      pending: 'bg-pending',
+      neutral: 'bg-neutral',
     },
   },
   defaultVariants: {
