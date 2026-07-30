@@ -144,7 +144,18 @@ describe('@refraction-ui/astro tree-shaking', () => {
     expect(offenders).toEqual([])
   })
 
-  describe('consumer probe (real astro build, optional peers NOT installed)', () => {
+  // The probe spawns the real astro CLI, which astro 6.4.8 restricts to
+  // Node >=22.12 — the repo's CI still runs Node 20 (engines floor is a
+  // pending maintainer decision), so the subprocess probe runs only where
+  // the CLI is supported. The static guards above run everywhere.
+  const astroCliSupported = (() => {
+    const [major, minor] = process.versions.node.split('.').map(Number)
+    return major > 22 || (major === 22 && minor >= 12)
+  })()
+
+  describe.skipIf(!astroCliSupported)(
+    'consumer probe (real astro build, optional peers NOT installed)',
+    () => {
     let siteDir: string
 
     beforeAll(() => {
