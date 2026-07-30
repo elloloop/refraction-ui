@@ -61,6 +61,10 @@
   --success-foreground: 0 0% 100%;
   --warning: 38 92% 50%;
   --warning-foreground: 240 10% 10%;
+  /* #3B82F6 (Tailwind blue-500). The Flutter package's info token is #2196F3
+     (Material blue) — a deliberate small cross-framework delta. */
+  --info: 217 91% 60%;
+  --info-foreground: 0 0% 100%;
 
   --border: 240 6% 92%;
   --input: 240 6% 92%;
@@ -269,6 +273,9 @@
   --success-foreground: 0 0% 98%;
   --warning: 38 92% 50%;
   --warning-foreground: 240 10% 4%;
+  /* Lightened from 60% (light) to 65% lightness for contrast on dark surfaces */
+  --info: 217 91% 65%;
+  --info-foreground: 0 0% 98%;
 
   --border: 240 5% 16%;
   --input: 240 5% 16%;

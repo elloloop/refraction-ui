@@ -50,7 +50,7 @@ const CheckIcon = (
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-green-500"
+    className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-success"
   >
     <polyline points="20 6 9 17 4 12" />
   </svg>

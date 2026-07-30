@@ -163,6 +163,6 @@ describe('styles', () => {
 
   it('exports presence dot variants', () => {
     const online = avatarPresenceDotVariants({ status: 'online' })
-    expect(online).toContain('bg-green-500')
+    expect(online).toContain('bg-success')
   })
 })

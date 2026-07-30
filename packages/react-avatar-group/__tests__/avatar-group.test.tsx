@@ -46,7 +46,7 @@ describe('AvatarGroup (React)', () => {
 
   it('renders a presence dot with the status class when status is set', () => {
     const html = renderToString(React.createElement(AvatarGroup, { users, max: 1 }))
-    expect(html).toContain('bg-green-500')
+    expect(html).toContain('bg-success')
   })
 
   it('caps visible avatars at max and renders an overflow badge', () => {

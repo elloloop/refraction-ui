@@ -93,10 +93,10 @@ describe('StatusIndicator (React)', () => {
 
 describe('StatusIndicator (React) – status variants', () => {
   it.each([
-    ['success', 'Success', 'bg-green-500'],
-    ['error', 'Error', 'bg-red-500'],
-    ['warning', 'Warning', 'bg-yellow-500'],
-    ['info', 'Info', 'bg-blue-500'],
+    ['success', 'Success', 'bg-success'],
+    ['error', 'Error', 'bg-destructive'],
+    ['warning', 'Warning', 'bg-warning'],
+    ['info', 'Info', 'bg-info'],
     ['pending', 'Pending', 'bg-orange-500'],
     ['neutral', 'Neutral', 'bg-gray-400'],
   ] as const)(
@@ -158,7 +158,7 @@ describe('StatusIndicator (React) – pulse', () => {
     )
     expect(html).toContain('animate-pulse')
     // The type color is kept on the pulsing dot
-    expect(html).toContain('bg-red-500')
+    expect(html).toContain('bg-destructive')
   })
 
   it('pulse can be disabled explicitly on pending', () => {

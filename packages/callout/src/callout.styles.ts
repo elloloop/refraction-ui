@@ -8,7 +8,7 @@ export const calloutVariants = cva({
       destructive: 'bg-destructive/10 border-destructive/20 text-destructive',
       success: 'bg-success/10 border-success/20 text-success',
       warning: 'bg-warning/10 border-warning/20 text-warning',
-      info: 'bg-blue-500/10 border-blue-500/20 text-blue-700 dark:text-blue-400',
+      info: 'bg-info/10 border-info/20 text-info',
     },
   },
   defaultVariants: {

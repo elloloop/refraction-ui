@@ -91,11 +91,11 @@ describe('PresenceIndicator (React)', () => {
 
 describe('PresenceIndicator (React) – status variants', () => {
   it.each([
-    ['online', 'Online', 'bg-green-500'],
+    ['online', 'Online', 'bg-success'],
     ['offline', 'Offline', 'bg-gray-400'],
-    ['away', 'Away', 'bg-yellow-500'],
-    ['busy', 'Busy', 'bg-red-500'],
-    ['dnd', 'Do Not Disturb', 'bg-red-500'],
+    ['away', 'Away', 'bg-warning'],
+    ['busy', 'Busy', 'bg-destructive'],
+    ['dnd', 'Do Not Disturb', 'bg-destructive'],
   ] as const)('status "%s" has label "%s" and dot class "%s"', (status, label, dotClass) => {
     const html = renderToString(
       React.createElement(PresenceIndicator, { status }),
@@ -104,15 +104,15 @@ describe('PresenceIndicator (React) – status variants', () => {
     expect(html).toContain(dotClass)
   })
 
-  it('busy and dnd share the red dot color', () => {
+  it('busy and dnd share the destructive dot color', () => {
     const busy = renderToString(
       React.createElement(PresenceIndicator, { status: 'busy' }),
     )
     const dnd = renderToString(
       React.createElement(PresenceIndicator, { status: 'dnd' }),
     )
-    expect(busy).toContain('bg-red-500')
-    expect(dnd).toContain('bg-red-500')
+    expect(busy).toContain('bg-destructive')
+    expect(dnd).toContain('bg-destructive')
   })
 })
 

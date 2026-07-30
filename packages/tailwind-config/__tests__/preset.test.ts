@@ -150,6 +150,11 @@ describe('colors', () => {
     expect(colors.warning.foreground).toBe('hsl(var(--warning-foreground))')
   })
 
+  it('info DEFAULT and foreground are defined', () => {
+    expect(colors.info.DEFAULT).toBe('hsl(var(--info))')
+    expect(colors.info.foreground).toBe('hsl(var(--info-foreground))')
+  })
+
   it('sidebar colors all defined', () => {
     expect(colors.sidebar.DEFAULT).toBe('hsl(var(--sidebar-background))')
     expect(colors.sidebar.foreground).toBe('hsl(var(--sidebar-foreground))')

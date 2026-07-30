@@ -105,8 +105,8 @@ describe('Toast (React SSR)', () => {
         React.createElement(Toast, { entry }),
       ),
     )
-    expect(html).toContain('border-green-500/50')
-    expect(html).toContain('bg-green-50')
+    expect(html).toContain('border-success/50')
+    expect(html).toContain('bg-success/10')
   })
 
   it('renders error variant classes', () => {
@@ -125,8 +125,8 @@ describe('Toast (React SSR)', () => {
         React.createElement(Toast, { entry }),
       ),
     )
-    expect(html).toContain('border-red-500/50')
-    expect(html).toContain('bg-red-50')
+    expect(html).toContain('border-destructive/50')
+    expect(html).toContain('bg-destructive/10')
   })
 
   it('renders warning variant classes', () => {
@@ -145,8 +145,8 @@ describe('Toast (React SSR)', () => {
         React.createElement(Toast, { entry }),
       ),
     )
-    expect(html).toContain('border-amber-500/50')
-    expect(html).toContain('bg-amber-50')
+    expect(html).toContain('border-warning/50')
+    expect(html).toContain('bg-warning/10')
   })
 
   it('renders dismiss button when onDismiss provided', () => {
@@ -431,7 +431,7 @@ describe('Toast – structure (SSR)', () => {
     expect(html).toContain('text-foreground')
   })
 
-  it('renders dark-mode classes for the success variant', () => {
+  it('renders token classes for the success variant', () => {
     const html = renderToString(
       React.createElement(
         ToastProvider,
@@ -439,11 +439,11 @@ describe('Toast – structure (SSR)', () => {
         React.createElement(Toast, { entry: makeEntry({ variant: 'success' }) }),
       ),
     )
-    expect(html).toContain('dark:bg-green-950')
-    expect(html).toContain('text-green-900')
+    expect(html).toContain('bg-success/10')
+    expect(html).toContain('text-success')
   })
 
-  it('renders dark-mode classes for the error variant', () => {
+  it('renders token classes for the error variant', () => {
     const html = renderToString(
       React.createElement(
         ToastProvider,
@@ -451,11 +451,11 @@ describe('Toast – structure (SSR)', () => {
         React.createElement(Toast, { entry: makeEntry({ variant: 'error' }) }),
       ),
     )
-    expect(html).toContain('dark:bg-red-950')
-    expect(html).toContain('text-red-900')
+    expect(html).toContain('bg-destructive/10')
+    expect(html).toContain('text-destructive')
   })
 
-  it('renders dark-mode classes for the warning variant', () => {
+  it('renders token classes for the warning variant', () => {
     const html = renderToString(
       React.createElement(
         ToastProvider,
@@ -463,8 +463,8 @@ describe('Toast – structure (SSR)', () => {
         React.createElement(Toast, { entry: makeEntry({ variant: 'warning' }) }),
       ),
     )
-    expect(html).toContain('dark:bg-amber-950')
-    expect(html).toContain('text-amber-900')
+    expect(html).toContain('bg-warning/10')
+    expect(html).toContain('text-warning')
   })
 
   it('dismiss button is type="button" and shows the × glyph', () => {

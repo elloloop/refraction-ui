@@ -20,8 +20,8 @@ describe('createEmptyState', () => {
 describe('emptyStateIconChipVariants', () => {
   it.each([
     ['neutral', 'bg-muted'],
-    ['success', 'bg-green-500/10'],
-    ['warning', 'bg-yellow-500/10'],
+    ['success', 'bg-success/10'],
+    ['warning', 'bg-warning/10'],
     ['danger', 'bg-destructive/10'],
   ] as const)('applies %s tone chip class', (tone, klass) => {
     expect(emptyStateIconChipVariants({ tone })).toContain(klass)

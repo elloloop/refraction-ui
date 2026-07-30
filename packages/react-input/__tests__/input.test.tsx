@@ -129,16 +129,16 @@ describe('Input (React) - custom className', () => {
 })
 
 describe('Input (React) - validationState', () => {
-  it('valid → green border and aria-invalid="false"', () => {
+  it('valid → success border and aria-invalid="false"', () => {
     const html = renderToString(React.createElement(Input, { validationState: 'valid' }))
-    expect(html).toContain('border-green-500')
+    expect(html).toContain('border-success')
     expect(html).toContain('aria-invalid="false"')
   })
 
   it('valid renders a trailing check icon inside a wrapper', () => {
     const html = renderToString(React.createElement(Input, { validationState: 'valid' }))
     expect(html).toContain('<svg')
-    expect(html).toContain('text-green-500')
+    expect(html).toContain('text-success')
   })
 
   it('invalid → destructive border and aria-invalid="true"', () => {

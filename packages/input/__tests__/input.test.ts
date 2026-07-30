@@ -130,10 +130,10 @@ describe('createInput - validationState', () => {
 })
 
 describe('inputVariants - validationState', () => {
-  it('valid applies green border classes', () => {
+  it('valid applies success border classes', () => {
     const classes = inputVariants({ validationState: 'valid' })
-    expect(classes).toContain('border-green-500')
-    expect(classes).toContain('focus-visible:ring-green-500')
+    expect(classes).toContain('border-success')
+    expect(classes).toContain('focus-visible:ring-success')
   })
 
   it('invalid applies destructive border classes', () => {
@@ -144,7 +144,7 @@ describe('inputVariants - validationState', () => {
 
   it('omitting validationState produces no validation border classes', () => {
     const classes = inputVariants()
-    expect(classes).not.toContain('border-green-500')
+    expect(classes).not.toContain('border-success')
     expect(classes).not.toContain('border-destructive')
   })
 })

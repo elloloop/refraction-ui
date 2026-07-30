@@ -24,11 +24,11 @@ describe('PasswordInput (React)', () => {
     expect(html).toContain('aria-label="Reveal"')
   })
 
-  it('passes validationState through to the input (valid → green border)', () => {
+  it('passes validationState through to the input (valid → success border)', () => {
     const html = renderToString(
       React.createElement(PasswordInput, { validationState: 'valid' }),
     )
-    expect(html).toContain('border-green-500')
+    expect(html).toContain('border-success')
     expect(html).toContain('aria-invalid="false"')
   })
 

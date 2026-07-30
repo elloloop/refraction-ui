@@ -154,6 +154,8 @@ export const refractionTheme: ThemeDefinition = {
       '--success-foreground': '0 0% 100%',
       '--warning': '38 92% 50%',
       '--warning-foreground': '240 10% 10%',
+      '--info': '217 91% 60%',
+      '--info-foreground': '0 0% 100%',
 
       '--border': '240 6% 92%',
       '--input': '240 6% 92%',
@@ -202,6 +204,8 @@ export const refractionTheme: ThemeDefinition = {
       '--success-foreground': '0 0% 98%',
       '--warning': '38 92% 50%',
       '--warning-foreground': '240 10% 4%',
+      '--info': '217 91% 65%',
+      '--info-foreground': '0 0% 98%',
 
       '--border': '240 5% 16%',
       '--input': '240 5% 16%',
@@ -321,6 +325,8 @@ export const luxeTheme: ThemeDefinition = {
       '--success-foreground': '0 0% 100%',
       '--warning': '38 92% 50%',
       '--warning-foreground': '0 0% 12%',
+      '--info': '217 91% 60%',
+      '--info-foreground': '0 0% 100%',
 
       '--border': '220 6% 93%',
       '--input': '220 6% 93%',
@@ -367,6 +373,8 @@ export const luxeTheme: ThemeDefinition = {
       '--success-foreground': '0 0% 98%',
       '--warning': '38 92% 50%',
       '--warning-foreground': '0 0% 7%',
+      '--info': '217 91% 65%',
+      '--info-foreground': '0 0% 98%',
 
       '--border': '220 5% 16%',
       '--input': '220 5% 16%',
@@ -489,6 +497,8 @@ export const warmTheme: ThemeDefinition = {
       '--success-foreground': '0 0% 100%',
       '--warning': '38 92% 50%',
       '--warning-foreground': '15 20% 12%',
+      '--info': '217 91% 60%',
+      '--info-foreground': '0 0% 100%',
 
       '--border': '30 12% 90%',
       '--input': '30 12% 90%',
@@ -535,6 +545,8 @@ export const warmTheme: ThemeDefinition = {
       '--success-foreground': '0 0% 98%',
       '--warning': '38 92% 50%',
       '--warning-foreground': '15 15% 5%',
+      '--info': '217 91% 65%',
+      '--info-foreground': '0 0% 98%',
 
       '--border': '20 10% 16%',
       '--input': '20 10% 16%',
@@ -656,6 +668,8 @@ export const signalTheme: ThemeDefinition = {
       '--success-foreground': '0 0% 100%',
       '--warning': '38 92% 50%',
       '--warning-foreground': '210 15% 12%',
+      '--info': '217 91% 60%',
+      '--info-foreground': '0 0% 100%',
 
       '--border': '210 10% 90%',
       '--input': '210 10% 90%',
@@ -702,6 +716,8 @@ export const signalTheme: ThemeDefinition = {
       '--success-foreground': '0 0% 98%',
       '--warning': '38 92% 50%',
       '--warning-foreground': '210 15% 5%',
+      '--info': '217 91% 65%',
+      '--info-foreground': '0 0% 98%',
 
       '--border': '210 10% 16%',
       '--input': '210 10% 16%',
@@ -823,6 +839,8 @@ export const pulseTheme: ThemeDefinition = {
       '--success-foreground': '0 0% 100%',
       '--warning': '38 92% 50%',
       '--warning-foreground': '240 10% 10%',
+      '--info': '217 91% 60%',
+      '--info-foreground': '0 0% 100%',
 
       '--border': '240 8% 90%',
       '--input': '240 8% 90%',
@@ -869,6 +887,8 @@ export const pulseTheme: ThemeDefinition = {
       '--success-foreground': '0 0% 98%',
       '--warning': '38 92% 50%',
       '--warning-foreground': '260 15% 5%',
+      '--info': '217 91% 65%',
+      '--info-foreground': '0 0% 98%',
 
       '--border': '260 6% 16%',
       '--input': '260 6% 16%',
@@ -990,6 +1010,8 @@ export const monoTheme: ThemeDefinition = {
       '--success-foreground': '0 0% 100%',
       '--warning': '38 92% 50%',
       '--warning-foreground': '210 15% 20%',
+      '--info': '217 91% 60%',
+      '--info-foreground': '0 0% 100%',
 
       '--border': '210 14% 89%',
       '--input': '210 14% 89%',
@@ -1036,6 +1058,8 @@ export const monoTheme: ThemeDefinition = {
       '--success-foreground': '0 0% 98%',
       '--warning': '38 92% 50%',
       '--warning-foreground': '210 15% 5%',
+      '--info': '217 91% 65%',
+      '--info-foreground': '0 0% 98%',
 
       '--border': '210 8% 16%',
       '--input': '210 8% 16%',
