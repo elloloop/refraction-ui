@@ -74,7 +74,7 @@ jobs:
           version: 10.13.1
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
       # Persist Turborepo's local cache across runs (free, GitHub Actions cache
       # backed). A PR that touches a few packages then replays everything else

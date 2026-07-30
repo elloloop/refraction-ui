@@ -30,7 +30,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'pnpm'
       - name: Setup Turborepo Caching
         uses: dtinth/setup-github-actions-caching-for-turbo@v1
@@ -54,7 +54,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'pnpm'
       - name: Setup Turborepo Caching
         uses: dtinth/setup-github-actions-caching-for-turbo@v1
@@ -78,7 +78,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'pnpm'
       - name: Setup Turborepo Caching
         uses: dtinth/setup-github-actions-caching-for-turbo@v1
