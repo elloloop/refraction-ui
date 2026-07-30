@@ -30,6 +30,8 @@
   --success-foreground: 0 0% 100%;
   --warning: 38 92% 50%;
   --warning-foreground: 240 10% 10%;
+  --info: 217 91% 60%;
+  --info-foreground: 0 0% 100%;
   --border: 240 6% 92%;
   --input: 240 6% 92%;
   --ring: 250 50% 50%;
@@ -206,6 +208,8 @@
   --success-foreground: 0 0% 98%;
   --warning: 38 92% 50%;
   --warning-foreground: 240 10% 4%;
+  --info: 217 91% 65%;
+  --info-foreground: 0 0% 98%;
   --border: 240 5% 16%;
   --input: 240 5% 16%;
   --ring: 250 50% 65%;
