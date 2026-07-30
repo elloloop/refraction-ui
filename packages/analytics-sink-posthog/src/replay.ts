@@ -68,8 +68,17 @@ export interface SessionReplayHandle {
   stop(): void
 }
 
+// `posthog-js` is an OPTIONAL peer — installed only by consumers who opt into
+// session replay. The specifier must stay non-statically-analyzable: the meta
+// packages (`@refraction-ui/astro`, `@refraction-ui/react`) re-export this
+// module from their entry, so a literal `import('posthog-js')` makes consumer
+// bundlers (vite/rollup) fail the whole build trying to resolve a package that
+// is not installed — long before tree-shaking can drop the module. Routing the
+// specifier through a const keeps the import runtime-only.
+const posthogJsSpecifier = 'posthog-js'
+
 async function defaultLoad(): Promise<PostHogReplay> {
-  const mod = (await import('posthog-js')) as unknown as
+  const mod = (await import(posthogJsSpecifier)) as unknown as
     | { default: PostHogReplay }
     | PostHogReplay
   return 'default' in mod ? mod.default : mod
