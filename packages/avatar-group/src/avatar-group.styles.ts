@@ -49,11 +49,11 @@ export const avatarPresenceDotVariants = cva({
       xl: 'h-4 w-4',
     },
     status: {
-      online: 'bg-green-500',
+      online: 'bg-success',
       offline: 'bg-gray-400',
-      away: 'bg-yellow-500',
-      busy: 'bg-red-500',
-      dnd: 'bg-red-500',
+      away: 'bg-warning',
+      busy: 'bg-destructive',
+      dnd: 'bg-destructive',
     },
   },
   defaultVariants: {

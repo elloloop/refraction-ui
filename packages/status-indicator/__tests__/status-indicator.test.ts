@@ -126,12 +126,12 @@ describe('styles', () => {
 
   it('exports success dot variant', () => {
     const classes = statusDotVariants({ type: 'success' })
-    expect(classes).toContain('bg-green-500')
+    expect(classes).toContain('bg-success')
   })
 
   it('exports error dot variant', () => {
     const classes = statusDotVariants({ type: 'error' })
-    expect(classes).toContain('bg-red-500')
+    expect(classes).toContain('bg-destructive')
   })
 
   it('exports pending pulse variant', () => {
@@ -142,11 +142,11 @@ describe('styles', () => {
 
   it('exports warning dot variant', () => {
     const classes = statusDotVariants({ type: 'warning' })
-    expect(classes).toContain('bg-yellow-500')
+    expect(classes).toContain('bg-warning')
   })
 
   it('exports info dot variant', () => {
     const classes = statusDotVariants({ type: 'info' })
-    expect(classes).toContain('bg-blue-500')
+    expect(classes).toContain('bg-info')
   })
 })

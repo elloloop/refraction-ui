@@ -79,7 +79,7 @@ describe('progress-display styles', () => {
 
   it('statCardVariants returns success color classes', () => {
     const classes = statCardVariants({ color: 'success' })
-    expect(classes).toContain('bg-green-500/10')
+    expect(classes).toContain('bg-success/10')
   })
 
   it('badgeGridVariants returns grid classes', () => {

@@ -192,20 +192,20 @@ describe('toast styles', () => {
 
   it('returns success variant classes', () => {
     const classes = toastVariants({ variant: 'success' })
-    expect(classes).toContain('border-green-500/50')
-    expect(classes).toContain('bg-green-50')
+    expect(classes).toContain('border-success/50')
+    expect(classes).toContain('bg-success/10')
   })
 
   it('returns error variant classes', () => {
     const classes = toastVariants({ variant: 'error' })
-    expect(classes).toContain('border-red-500/50')
-    expect(classes).toContain('bg-red-50')
+    expect(classes).toContain('border-destructive/50')
+    expect(classes).toContain('bg-destructive/10')
   })
 
   it('returns warning variant classes', () => {
     const classes = toastVariants({ variant: 'warning' })
-    expect(classes).toContain('border-amber-500/50')
-    expect(classes).toContain('bg-amber-50')
+    expect(classes).toContain('border-warning/50')
+    expect(classes).toContain('bg-warning/10')
   })
 
   it('appends custom className', () => {

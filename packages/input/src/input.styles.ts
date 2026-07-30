@@ -9,7 +9,7 @@ export const inputVariants = cva({
       lg: 'h-10 text-base',
     },
     validationState: {
-      valid: 'border-green-500 focus-visible:ring-green-500',
+      valid: 'border-success focus-visible:ring-success',
       invalid: 'border-destructive focus-visible:ring-destructive',
     },
   },

@@ -29,9 +29,9 @@ describe('toast variants — color-blind safe patterns', () => {
     const warning = toastVariants({ variant: 'warning' })
 
     // Each should have a unique color in its border class
-    expect(success).toContain('border-green')
-    expect(error).toContain('border-red')
-    expect(warning).toContain('border-amber')
+    expect(success).toContain('border-success')
+    expect(error).toContain('border-destructive')
+    expect(warning).toContain('border-warning')
   })
 })
 

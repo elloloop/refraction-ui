@@ -40,7 +40,7 @@ describe('StatsGrid (React)', () => {
 
   it('applies color variant to stat cards', () => {
     const html = renderToString(React.createElement(StatsGrid, { stats }))
-    expect(html).toContain('bg-green-500/10')
+    expect(html).toContain('bg-success/10')
   })
 })
 

@@ -7,10 +7,10 @@ export const statusDotVariants = cva({
   base: 'inline-block h-2 w-2 rounded-full',
   variants: {
     type: {
-      success: 'bg-green-500',
-      error: 'bg-red-500',
-      warning: 'bg-yellow-500',
-      info: 'bg-blue-500',
+      success: 'bg-success',
+      error: 'bg-destructive',
+      warning: 'bg-warning',
+      info: 'bg-info',
       pending: 'bg-orange-500',
       neutral: 'bg-gray-400',
     },
@@ -24,10 +24,10 @@ export const statusPulseVariants = cva({
   base: 'animate-pulse inline-block h-2 w-2 rounded-full',
   variants: {
     type: {
-      success: 'bg-green-500',
-      error: 'bg-red-500',
-      warning: 'bg-yellow-500',
-      info: 'bg-blue-500',
+      success: 'bg-success',
+      error: 'bg-destructive',
+      warning: 'bg-warning',
+      info: 'bg-info',
       pending: 'bg-orange-500',
       neutral: 'bg-gray-400',
     },
