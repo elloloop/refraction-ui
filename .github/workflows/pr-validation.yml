@@ -76,24 +76,11 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-      # Persist Turborepo's local cache across runs (free, GitHub Actions cache
-      # backed). A PR that touches a few packages then replays everything else
-      # from cache instead of re-running lint/typecheck/test/build for all ~250
-      # packages. PR branches restore from main's cache via the restore-keys
-      # prefix; keyed by sha so each run also saves a fresh snapshot.
-      - name: Cache Turborepo
-        uses: actions/cache@v4
-        with:
-          path: .turbo
-          key: turbo-${{ runner.os }}-validation-${{ github.sha }}
-          # Restore the validation job's own most recent cache first; the
-          # bare `turbo-<os>-` prefix stays as a cross-job fallback only.
-          restore-keys: |
-            turbo-${{ runner.os }}-validation-
-            turbo-${{ runner.os }}-
+      # The full lint+typecheck+test+build graph no longer runs here — that
+      # coverage lives in "Test Matrix" (test-matrix.yml), which runs the same
+      # graph on every PR. This job keeps only the dependency audit (known-red
+      # on a pre-existing esbuild advisory; tolerated, not gating).
       - run: make install
-      - name: Run CI
-        run: make ci
       - name: Audit dependencies
         run: make audit
 
