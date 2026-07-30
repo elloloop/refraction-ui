@@ -98,6 +98,18 @@ const DEFAULT_INGEST_ENDPOINT = 'https://dc.services.visualstudio.com'
 const NO_RETRY = new Set([400, 401, 403, 413])
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms))
 
+// `@microsoft/applicationinsights-web` is an OPTIONAL peer — installed only by
+// consumers who opt into client-sdk mode. The specifier must stay
+// non-statically-analyzable: the meta packages (`@refraction-ui/astro`,
+// `@refraction-ui/react`) re-export this module from their entry, so a literal
+// `import('@microsoft/applicationinsights-web')` makes consumer bundlers
+// (vite/rollup) fail the whole build trying to resolve a package that is not
+// installed — long before tree-shaking can drop the module. Routing the
+// specifier through a const keeps the import runtime-only. (The previous
+// `/* @vite-ignore */` annotation did NOT suffice — vite still resolves
+// literal dynamic-import specifiers in SSR builds.)
+const appInsightsWebSpecifier = '@microsoft/applicationinsights-web'
+
 /* ------------------------------------------------------------------ */
 /*  client-sdk mode                                                    */
 /* ------------------------------------------------------------------ */
@@ -119,9 +131,7 @@ function createClientSdkSink(opts: ClientSdkOptions): AnalyticsSink {
         return instance
       }
       // Lazy, dynamic, optional — never a static/hard dependency.
-      const mod = (await import(
-        /* @vite-ignore */ '@microsoft/applicationinsights-web'
-      )) as {
+      const mod = (await import(appInsightsWebSpecifier)) as {
         ApplicationInsights: new (cfg: {
           config: {
             connectionString?: string

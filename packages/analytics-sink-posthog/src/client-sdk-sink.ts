@@ -55,9 +55,20 @@ export interface PostHogClientSdkSinkOptions {
   loadPostHog?: () => Promise<{ default: PostHogJs } | PostHogJs>
 }
 
+// `posthog-js` is an OPTIONAL peer — installed only by consumers who opt into
+// client-sdk mode. The specifier must stay non-statically-analyzable: the meta
+// packages (`@refraction-ui/astro`, `@refraction-ui/react`) re-export this
+// module from their entry, so a literal `import('posthog-js')` makes consumer
+// bundlers (vite/rollup) fail the whole build trying to resolve a package that
+// is not installed — long before tree-shaking can drop the module. Routing the
+// specifier through a const keeps the import runtime-only. (A `/* @vite-ignore */`
+// annotation does NOT suffice — vite still resolves literal dynamic-import
+// specifiers in SSR builds.)
+const posthogJsSpecifier = 'posthog-js'
+
 async function defaultLoad(): Promise<PostHogJs> {
   // Dynamic import keeps `posthog-js` out of the graph until first delivery.
-  const mod = (await import('posthog-js')) as unknown as
+  const mod = (await import(posthogJsSpecifier)) as unknown as
     | { default: PostHogJs }
     | PostHogJs
   return 'default' in mod ? mod.default : mod
