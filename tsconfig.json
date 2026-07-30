@@ -17,7 +17,7 @@
     "vitest.config.ts",
     "packages/**/*",
     "docs/**/*",
-    ".eslintrc.cjs"
+    "eslint.config.mjs"
   ],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.js"]
 }
