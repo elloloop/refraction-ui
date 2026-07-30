@@ -9,7 +9,7 @@ import {
   type FieldValues,
 } from 'react-hook-form'
 import { cn, cva, devWarn } from '@refraction-ui/shared'
-import { Slot } from './slot.js'
+import { Slot } from '@refraction-ui/react-slot'
 
 /**
  * Form — RHF FormProvider wrapper.

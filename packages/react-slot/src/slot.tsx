@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 /**
- * Minimal Slot implementation.
+ * Minimal Slot implementation — the shared `asChild` primitive.
  *
  * Why not @radix-ui/react-slot? Per package policy, no external runtime deps
  * are allowed in @refraction-ui/* packages. This Slot does the small amount
@@ -12,8 +12,8 @@ import * as React from 'react'
  *   - Merges refs (callback refs and ref objects)
  *
  * It is intentionally simpler than Radix Slot — no <Slottable/>, no asChild
- * recursion. FormControl renders exactly one child input/textarea/etc., which
- * is all we need here.
+ * recursion. `asChild` components render exactly one child element, which is
+ * all we need here. Non-element children (text, arrays, null) render nothing.
  */
 export interface SlotProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode

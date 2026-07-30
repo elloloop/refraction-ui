@@ -1,7 +1,7 @@
 {
-  "name": "@refraction-ui/react-card",
+  "name": "@refraction-ui/react-slot",
   "private": true,
-  "version": "0.1.6",
+  "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -26,11 +26,6 @@
     "lint": "eslint src --ext .ts,.tsx",
     "clean": "rm -rf dist"
   },
-  "dependencies": {
-    "@refraction-ui/card": "workspace:*",
-    "@refraction-ui/react-slot": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
-  },
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18"
@@ -46,7 +41,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/elloloop/refraction-ui.git",
-    "directory": "packages/react-card"
+    "directory": "packages/react-slot"
   },
   "homepage": "https://elloloop.github.io/refraction-ui/"
 }

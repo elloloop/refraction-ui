@@ -16,7 +16,7 @@ export {
   type FormMessageProps,
 } from './form.js'
 
-export { Slot, type SlotProps } from './slot.js'
+export { Slot, type SlotProps } from '@refraction-ui/react-slot'
 
 // Re-export the most commonly used react-hook-form bits for convenience so
 // consumers don't need a second import. react-hook-form is a peer dep — these

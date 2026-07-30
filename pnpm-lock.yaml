@@ -3485,6 +3485,9 @@ importers:
       '@refraction-ui/badge':
         specifier: workspace:*
         version: link:../badge
+      '@refraction-ui/react-slot':
+        specifier: workspace:*
+        version: link:../react-slot
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -3664,6 +3667,9 @@ importers:
       '@refraction-ui/callout':
         specifier: workspace:*
         version: link:../callout
+      '@refraction-ui/react-slot':
+        specifier: workspace:*
+        version: link:../react-slot
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -3686,6 +3692,9 @@ importers:
       '@refraction-ui/card':
         specifier: workspace:*
         version: link:../card
+      '@refraction-ui/react-slot':
+        specifier: workspace:*
+        version: link:../react-slot
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -4411,6 +4420,9 @@ importers:
 
   packages/react-form:
     dependencies:
+      '@refraction-ui/react-slot':
+        specifier: workspace:*
+        version: link:../react-slot
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -4655,6 +4667,9 @@ importers:
       '@refraction-ui/link-card':
         specifier: workspace:*
         version: link:../link-card
+      '@refraction-ui/react-slot':
+        specifier: workspace:*
+        version: link:../react-slot
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -5185,6 +5200,9 @@ importers:
       '@refraction-ui/react-slider':
         specifier: workspace:*
         version: link:../react-slider
+      '@refraction-ui/react-slot':
+        specifier: workspace:*
+        version: link:../react-slot
       '@refraction-ui/react-slot-picker':
         specifier: workspace:*
         version: link:../react-slot-picker
@@ -5949,6 +5967,21 @@ importers:
       '@refraction-ui/slider':
         specifier: workspace:*
         version: link:../slider
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-slot:
     devDependencies:
       '@types/react':
         specifier: 19.0.0

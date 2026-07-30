@@ -43,3 +43,38 @@ describe('LinkCard (React SSR)', () => {
     expect(html).toContain('class="my-card"')
   })
 })
+
+describe('LinkCard asChild (React SSR)', () => {
+  it('renders the child element with the link-card data-slot and merged classes', () => {
+    const html = renderToString(
+      React.createElement(
+        LinkCard,
+        { asChild: true, className: 'my-card' },
+        React.createElement('a', { href: '/docs', className: 'router-link' }, 'Read the docs'),
+      ),
+    )
+    expect(html).toContain('<a')
+    expect(html).toContain('href="/docs"')
+    expect(html).toContain('Read the docs')
+    expect(html).toContain('data-slot="link-card"')
+    expect(html).toContain('my-card')
+    expect(html).toContain('router-link')
+  })
+
+  it('forwards remaining props onto the child', () => {
+    const html = renderToString(
+      React.createElement(
+        LinkCard,
+        { asChild: true, 'aria-label': 'Docs' } as React.ComponentProps<typeof LinkCard>,
+        React.createElement('a', { href: '/docs' }, 'Docs'),
+      ),
+    )
+    expect(html).toContain('aria-label="Docs"')
+  })
+
+  it('keeps the default anchor render when asChild is absent', () => {
+    const html = renderToString(React.createElement(LinkCard, { href: 'https://example.com' }))
+    expect(html).toContain('<a')
+    expect(html).toContain('data-slot="link-card"')
+  })
+})

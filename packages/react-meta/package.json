@@ -151,6 +151,7 @@
     "@refraction-ui/react-skip-to-content": "workspace:*",
     "@refraction-ui/react-slide-viewer": "workspace:*",
     "@refraction-ui/react-slider": "workspace:*",
+    "@refraction-ui/react-slot": "workspace:*",
     "@refraction-ui/react-slot-picker": "workspace:*",
     "@refraction-ui/react-social-auth-button": "workspace:*",
     "@refraction-ui/react-sortable-list": "workspace:*",

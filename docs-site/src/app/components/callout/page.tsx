@@ -16,6 +16,12 @@ const calloutProps = [
     type: 'string',
     description: 'Additional CSS classes to apply to the root element.',
   },
+  {
+    name: 'asChild',
+    type: 'boolean',
+    default: 'false',
+    description: 'Render as child element (e.g. wrap a <section> tag).',
+  },
 ]
 
 const subComponentProps = [
@@ -61,7 +67,9 @@ export function MyComponent() {
       </CalloutContent>
     </Callout>
   )
-}`
+}
+
+// Render as your own element: <Callout asChild><section>…</section></Callout>`
 
 export default function CalloutPage() {
   return (

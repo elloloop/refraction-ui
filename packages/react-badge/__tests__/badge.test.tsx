@@ -182,3 +182,41 @@ describe('Badge – data-variant attribute present', () => {
     expect(html).toContain(`data-variant="${variant}"`)
   })
 })
+
+describe('Badge asChild (React)', () => {
+  it('renders the child element with badge classes and forwarded props', () => {
+    const html = renderToString(
+      React.createElement(
+        Badge,
+        { asChild: true, variant: 'success' },
+        React.createElement('a', { href: '/status' }, 'Active'),
+      ),
+    )
+    expect(html).toContain('<a')
+    expect(html).toContain('href="/status"')
+    expect(html).toContain('Active')
+    expect(html).toContain('bg-success')
+    expect(html).toContain('data-variant="success"')
+    expect(html).toContain('role="status"')
+    expect(html).not.toContain('<div')
+  })
+
+  it('merges the child className with badge classes', () => {
+    const html = renderToString(
+      React.createElement(
+        Badge,
+        { asChild: true, className: 'my-badge' },
+        React.createElement('a', { href: '/x', className: 'child-class' }, 'x'),
+      ),
+    )
+    expect(html).toContain('bg-primary')
+    expect(html).toContain('my-badge')
+    expect(html).toContain('child-class')
+  })
+
+  it('keeps the default render when asChild is absent', () => {
+    const html = renderToString(React.createElement(Badge, null, 'Badge'))
+    expect(html).toContain('<div')
+    expect(html).not.toContain('<a')
+  })
+})

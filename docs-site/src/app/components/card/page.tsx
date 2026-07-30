@@ -6,6 +6,7 @@ import { InstallCommand } from '@/components/install-command'
 const cardProps = [
   { name: 'className', type: 'string', description: 'Additional CSS classes for the card container.' },
   { name: 'children', type: 'ReactNode', description: 'CardHeader, CardContent, CardFooter compound components.' },
+  { name: 'asChild', type: 'boolean', default: 'false', description: 'Render as child element (e.g. wrap an <a> tag for a clickable card).' },
 ]
 
 const usageCode = `import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@refraction-ui/react'
@@ -25,7 +26,9 @@ export function MyComponent() {
       </CardFooter>
     </Card>
   )
-}`
+}
+
+// Clickable card: <Card asChild><a href="/settings">…</a></Card>`
 
 export default function CardPage() {
   return (

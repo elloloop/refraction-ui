@@ -20,6 +20,12 @@ const linkCardProps = [
     description:
       'All standard anchor attributes (target, rel, onClick, children, etc.) are forwarded to the rendered <a>.',
   },
+  {
+    name: 'asChild',
+    type: 'boolean',
+    default: 'false',
+    description: 'Render as child element (e.g. compose with a router <Link>).',
+  },
 ]
 
 const usageCode = `import { LinkCard } from '@refraction-ui/react'
@@ -36,7 +42,9 @@ export function MyComponent() {
       </span>
     </LinkCard>
   )
-}`
+}
+
+// Router link: <LinkCard asChild><Link href="/docs">…</Link></LinkCard>`
 
 export default function LinkCardPage() {
   return (
