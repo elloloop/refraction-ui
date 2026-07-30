@@ -14,6 +14,8 @@ export const stickyNoteVariants = cva({
     'min-w-[160px] min-h-[120px]',
   ].join(' '),
   variants: {
+    // Named paper colors are product semantics (physical sticky notes),
+    // not status tones — deliberately not routed through the theme tokens.
     color: {
       yellow: 'bg-yellow-100 text-yellow-900',
       pink: 'bg-pink-100 text-pink-900',

@@ -45,6 +45,8 @@ export { slideViewerProgressBarVariants as progressBarVariants }
 export const slideTypeBadgeVariants = cva({
   base: 'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
   variants: {
+    // Slide-type accents are a content-category palette (lesson/quiz/exercise…),
+    // not status tones — deliberately not routed through the theme tokens.
     type: {
       lesson: 'bg-blue-100 text-blue-800',
       quiz: 'bg-purple-100 text-purple-800',

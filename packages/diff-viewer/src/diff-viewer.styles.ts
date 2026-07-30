@@ -9,6 +9,9 @@ export const diffViewerTokens: TokenContract = {
     sidebarBg: { variable: '--rfr-diff-sidebar-bg', fallback: 'hsl(var(--muted))' },
     headerBg: { variable: '--rfr-diff-header-bg', fallback: 'hsl(var(--muted))' },
     border: { variable: '--rfr-diff-border', fallback: 'hsl(var(--border))' },
+    // Diff add/del colors are syntax semantics (like code highlighting), not
+    // theme status tones — deliberately NOT routed through the success/
+    // destructive tokens. The --rfr-diff-* variables are the theming seam.
     addBg: { variable: '--rfr-diff-add-bg', fallback: 'rgba(46, 160, 67, 0.15)' },
     delBg: { variable: '--rfr-diff-del-bg', fallback: 'rgba(248, 81, 73, 0.15)' },
     addFg: { variable: '--rfr-diff-add-fg', fallback: '#3fb950' },

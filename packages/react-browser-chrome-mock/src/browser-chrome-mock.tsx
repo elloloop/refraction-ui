@@ -24,6 +24,7 @@ export interface BrowserChromeMockProps
 }
 
 /** Three traffic-light dots rendered in the chrome bar. */
+// macOS window-chrome realism, not status tones — deliberately not tokenized.
 const TRAFFIC_DOTS = ['bg-red-400', 'bg-yellow-400', 'bg-green-400'] as const
 
 /**
