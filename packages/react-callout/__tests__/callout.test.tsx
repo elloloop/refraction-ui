@@ -93,3 +93,52 @@ describe('Callout composition (React)', () => {
     expect(html).toContain('opacity-90')
   })
 })
+
+describe('Callout asChild (React)', () => {
+  it('renders the child element with callout classes, role, and data-slot', () => {
+    const html = renderToString(
+      React.createElement(
+        Callout,
+        { asChild: true },
+        React.createElement('section', null, 'Body'),
+      ),
+    )
+    expect(html).toContain('<section')
+    expect(html).toContain('role="region"')
+    expect(html).toContain('data-slot="callout"')
+    expect(html).toContain('rounded-lg border p-4')
+    expect(html).toContain('Body')
+    expect(html).not.toContain('<div')
+  })
+
+  it('destructive variant forwards role="alert" to the child', () => {
+    const html = renderToString(
+      React.createElement(
+        Callout,
+        { asChild: true, variant: 'destructive' },
+        React.createElement('section', null, 'Boom'),
+      ),
+    )
+    expect(html).toContain('role="alert"')
+    expect(html).toContain('bg-destructive/10')
+  })
+
+  it('merges the child className with callout classes', () => {
+    const html = renderToString(
+      React.createElement(
+        Callout,
+        { asChild: true, className: 'my-callout' },
+        React.createElement('section', { className: 'child-class' }, 'x'),
+      ),
+    )
+    expect(html).toContain('rounded-lg')
+    expect(html).toContain('my-callout')
+    expect(html).toContain('child-class')
+  })
+
+  it('keeps the default render when asChild is absent', () => {
+    const html = renderToString(React.createElement(Callout, null, 'Body'))
+    expect(html).toContain('<div')
+    expect(html).toContain('data-slot="callout"')
+  })
+})

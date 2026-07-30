@@ -7,6 +7,7 @@ const badgeProps = [
   { name: 'variant', type: "'default' | 'primary' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning'", default: "'default'", description: 'Visual style of the badge.' },
   { name: 'size', type: "'sm' | 'md'", default: "'md'", description: 'Size of the badge.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes to apply.' },
+  { name: 'asChild', type: 'boolean', default: 'false', description: 'Render as child element (e.g. wrap an <a> tag for a linked badge).' },
 ]
 
 const usageCode = `import { Badge } from '@refraction-ui/react'
@@ -20,7 +21,9 @@ export function StatusIndicators() {
       <Badge variant="outline">Draft</Badge>
     </div>
   )
-}`
+}
+
+// Linked badge: <Badge asChild><a href="/status">…</a></Badge>`
 
 export default function BadgePage() {
   return (

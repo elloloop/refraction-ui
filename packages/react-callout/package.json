@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@refraction-ui/callout": "workspace:*",
+    "@refraction-ui/react-slot": "workspace:*",
     "@refraction-ui/shared": "workspace:*"
   },
   "peerDependencies": {

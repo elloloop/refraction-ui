@@ -10,18 +10,37 @@ import {
   calloutDescriptionVariants,
 } from '@refraction-ui/callout'
 import { cn } from '@refraction-ui/shared'
+import { Slot } from '@refraction-ui/react-slot'
 
 export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'default' | 'destructive' | 'success' | 'warning' | 'info'
+  /** Merge the callout's classes/props onto the single child element instead
+   * of rendering a `<div>` (Radix-style `asChild`). Expects exactly one React
+   * element child. */
+  asChild?: boolean
 }
 
 export const Callout = React.forwardRef<HTMLDivElement, CalloutProps>(
-  function Callout({ className, variant, ...props }, ref) {
+  function Callout({ className, variant, asChild = false, ...props }, ref) {
     const api = createCallout({ role: variant === 'destructive' ? 'alert' : 'region' })
+    const classes = cn(calloutVariants({ variant }), className)
+
+    if (asChild) {
+      return (
+        <Slot
+          ref={ref as React.Ref<HTMLElement>}
+          className={classes}
+          {...api.ariaProps}
+          {...api.dataAttributes}
+          {...props}
+        />
+      )
+    }
+
     return (
       <div
         ref={ref}
-        className={cn(calloutVariants({ variant }), className)}
+        className={classes}
         {...api.ariaProps}
         {...api.dataAttributes}
         {...props}

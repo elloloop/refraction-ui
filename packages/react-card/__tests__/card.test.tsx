@@ -188,3 +188,41 @@ describe('Card compound components', () => {
     expect(html).toContain('data-slot="card-footer"')
   })
 })
+
+describe('Card asChild (React)', () => {
+  it('renders the child element with card classes, data-slot, and forwarded props', () => {
+    const html = renderToString(
+      React.createElement(
+        Card,
+        { asChild: true },
+        React.createElement('a', { href: '/settings' }, 'Open settings'),
+      ),
+    )
+    expect(html).toContain('<a')
+    expect(html).toContain('href="/settings"')
+    expect(html).toContain('Open settings')
+    expect(html).toContain('data-slot="card"')
+    expect(html).toContain('rounded-lg')
+    expect(html).not.toContain('<div')
+  })
+
+  it('merges the child className with card classes', () => {
+    const html = renderToString(
+      React.createElement(
+        Card,
+        { asChild: true, className: 'my-card' },
+        React.createElement('a', { href: '/x', className: 'child-class' }, 'x'),
+      ),
+    )
+    expect(html).toContain('rounded-lg')
+    expect(html).toContain('my-card')
+    expect(html).toContain('child-class')
+  })
+
+  it('keeps the default render when asChild is absent', () => {
+    const html = renderToString(React.createElement(Card, null, 'Content'))
+    expect(html).toContain('<div')
+    expect(html).toContain('data-slot="card"')
+    expect(html).not.toContain('<a')
+  })
+})

@@ -14,17 +14,40 @@ import {
   cardFooterVariants,
 } from '@refraction-ui/card'
 import { cn } from '@refraction-ui/shared'
+import { Slot } from '@refraction-ui/react-slot'
+
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Merge the card's classes/props onto the single child element instead of
+   * rendering a `<div>` (Radix-style `asChild`) — e.g.
+   * `<Card asChild><a href="/x">…</a></Card>` for a clickable card. Expects
+   * exactly one React element child. */
+  asChild?: boolean
+}
 
 /**
  * Card -- a container with rounded corners, border, and shadow.
  */
-export const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  function Card({ className, ...props }, ref) {
+export const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  function Card({ className, asChild = false, ...props }, ref) {
     const api = createCard()
+    const classes = cn(cardVariants(), className)
+
+    if (asChild) {
+      return (
+        <Slot
+          ref={ref as React.Ref<HTMLElement>}
+          className={classes}
+          {...api.ariaProps}
+          {...api.dataAttributes}
+          {...props}
+        />
+      )
+    }
+
     return (
       <div
         ref={ref}
-        className={cn(cardVariants(), className)}
+        className={classes}
         {...api.ariaProps}
         {...api.dataAttributes}
         {...props}
