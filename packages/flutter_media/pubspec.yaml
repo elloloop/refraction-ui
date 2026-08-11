@@ -1,0 +1,53 @@
+name: refraction_ui_media
+description: "Opt-in media and video-conferencing components for Refraction UI — carries the native video_player plugin so the core stays plugin-free."
+version: 0.1.0
+homepage: https://elloloop.github.io/refraction-ui
+repository: https://github.com/elloloop/refraction-ui
+issue_tracker: https://github.com/elloloop/refraction-ui/issues
+documentation: https://elloloop.github.io/refraction-ui/flutter/
+
+topics:
+  - ui
+  - widgets
+  - video
+  - media
+  - components
+
+environment:
+  sdk: ^3.10.1
+  flutter: ">=3.27.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # The native playback plugin (ExoPlayer/AVFoundation). It lives here — and
+  # not in refraction_ui core — so apps that never render video do not pull a
+  # native plugin into their registrant.
+  video_player: ^2.11.1
+  # Themes, tokens and the RefractionTheme surface come from the core package.
+  # Hosted constraint keeps this package publishable; the path override below
+  # resolves it against the in-repo core during local development.
+  refraction_ui: ^0.48.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: 6.0.0
+  golden_toolkit: ^0.15.0
+  # Imported directly by video_player_test.dart (mock platform interface);
+  # declared explicitly so pub publish validation passes. Both are already
+  # transitive deps of video_player.
+  video_player_platform_interface: ^6.7.0
+  plugin_platform_interface: ^2.1.8
+
+# Local development override: resolve the core package from the sibling
+# directory in this monorepo instead of pub.dev. Ignored by `pub publish`.
+dependency_overrides:
+  refraction_ui:
+    path: ../flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:

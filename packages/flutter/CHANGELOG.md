@@ -1,3 +1,17 @@
+## 0.48.0
+
+- **BREAKING — Media components moved out of core.** The media/conferencing
+  components `RefractionVideoPlayer`, `RefractionVideoTile`, and
+  `RefractionVideoGrid` (with `RefractionVideoState`, `RefractionVideoTileData`,
+  `RefractionVideoTileMicState`, and `RefractionVideoGridLayout`) have moved to a
+  new sibling package, **`refraction_ui_media`**. As a result, `refraction_ui`
+  core no longer depends on the native `video_player` plugin (ExoPlayer /
+  AVFoundation) — apps that never render video no longer pull it into their
+  plugin registrant. **Migration:** if you use any of these widgets, add
+  `refraction_ui_media` to your `pubspec.yaml` and import
+  `package:refraction_ui_media/refraction_ui_media.dart`; the widget APIs are
+  unchanged. All other core components are unaffected.
+
 ## 0.47.1
 
 - **Theme**: Add `success`, `warning`, and `info` status tokens to `RefractionColors` (wired through `copyWith`/`lerp` and every curated palette) and route the previously hardcoded status hues through them: `RefractionCallout` success/warning/info variants, `RefractionEmptyState` tones, the `RefractionInput` valid state, the `RefractionAudioRoom` raised-hand badge, `RefractionLogger` warning level, and the `RefractionBrowserChromeMock` live badge. One token swap now re-skins every status surface. Note: the callout success/warning variants and the browser-chrome live badge adopt the shared token hues (green-500 `0xFF22C55E`, amber-500 `0xFFF59E0B`), replacing their slightly different ad-hoc greens/oranges; every other routed surface is pixel-identical.

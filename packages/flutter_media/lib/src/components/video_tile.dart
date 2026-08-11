@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/refraction_theme.dart';
-import '../theme/refraction_theme_data.dart';
+import 'package:refraction_ui/refraction_ui.dart';
 
 /// Microphone states for a participant in a [RefractionVideoTile].
 enum RefractionVideoTileMicState {

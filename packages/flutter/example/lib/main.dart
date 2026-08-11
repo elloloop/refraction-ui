@@ -35,7 +35,6 @@ import 'pages/pagination_page.dart';
 import 'pages/steps_page.dart';
 import 'pages/resizable_layout_page.dart';
 import 'pages/table_of_contents_page.dart';
-import 'pages/video_player_page.dart';
 import 'pages/waveform_page.dart';
 import 'pages/animated_text_page.dart';
 import 'pages/markdown_renderer_page.dart';
@@ -155,7 +154,6 @@ class RefractionDemoApp extends ConsumerWidget {
     'Pagination',
     'Resizable Layout',
     'Table of Contents',
-    'Video Player',
     'Slide Viewer',
     'Waveform',
     'Animated Text',
@@ -814,8 +812,6 @@ class _AppShell extends ConsumerWidget {
         return const ResizableLayoutPage();
       case '/docs/table-of-contents':
         return const TableOfContentsPage();
-      case '/docs/video-player':
-        return const VideoPlayerPage();
       case '/docs/waveform':
         return const WaveformPage();
       case '/docs/charts':

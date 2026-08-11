@@ -101,7 +101,6 @@ export 'src/components/steps.dart';
 export 'src/components/resizable_layout.dart';
 export 'src/components/app_shell.dart';
 export 'src/components/table_of_contents.dart';
-export 'src/components/video_player.dart';
 export 'src/components/markdown_renderer.dart';
 export 'src/components/animated_text.dart';
 export 'src/components/slide_viewer.dart';
@@ -161,9 +160,10 @@ export 'src/components/editor_status_bar.dart';
 export 'src/components/terminal.dart';
 export 'src/components/test_results.dart';
 
-// Video Conferencing & Media components
-export 'src/components/video_tile.dart';
-export 'src/components/video_grid.dart';
+// Video Conferencing & Media components.
+// The video player/tile/grid components moved to the sibling package
+// `refraction_ui_media` so the core no longer bundles the native
+// `video_player` plugin.
 export 'src/components/call_controls.dart';
 export 'src/components/live_captions.dart';
 export 'src/components/live_transcript.dart';

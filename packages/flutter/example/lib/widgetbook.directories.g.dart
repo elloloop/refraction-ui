@@ -156,12 +156,6 @@ import 'package:example/use_cases/tooltip_use_cases.dart'
     as _example_use_cases_tooltip_use_cases;
 import 'package:example/use_cases/version_selector_use_cases.dart'
     as _example_use_cases_version_selector_use_cases;
-import 'package:example/use_cases/video_grid_use_cases.dart'
-    as _example_use_cases_video_grid_use_cases;
-import 'package:example/use_cases/video_player_use_cases.dart'
-    as _example_use_cases_video_player_use_cases;
-import 'package:example/use_cases/video_tile_use_cases.dart'
-    as _example_use_cases_video_tile_use_cases;
 import 'package:example/use_cases/voice_pill_use_cases.dart'
     as _example_use_cases_voice_pill_use_cases;
 import 'package:example/use_cases/waveform_use_cases.dart'
@@ -1331,51 +1325,6 @@ final directories = <_widgetbook.WidgetbookNode>[
             name: 'Disabled',
             builder: _example_use_cases_version_selector_use_cases
                 .disabledVersionSelector,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'RefractionVideoGrid',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Grid Layout',
-            builder:
-                _example_use_cases_video_grid_use_cases.videoGridDefaultUseCase,
-          ),
-          _widgetbook.WidgetbookUseCase(
-            name: 'Speaker Layout',
-            builder:
-                _example_use_cases_video_grid_use_cases.videoGridSpeakerUseCase,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'RefractionVideoPlayer',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Default',
-            builder:
-                _example_use_cases_video_player_use_cases.defaultVideoPlayer,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'RefractionVideoTile',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Default',
-            builder:
-                _example_use_cases_video_tile_use_cases.videoTileDefaultUseCase,
-          ),
-          _widgetbook.WidgetbookUseCase(
-            name: 'Muted with Reaction',
-            builder: _example_use_cases_video_tile_use_cases
-                .videoTileMutedReactionUseCase,
-          ),
-          _widgetbook.WidgetbookUseCase(
-            name: 'Speaking & Pinned',
-            builder: _example_use_cases_video_tile_use_cases
-                .videoTileSpeakingPinnedUseCase,
           ),
         ],
       ),

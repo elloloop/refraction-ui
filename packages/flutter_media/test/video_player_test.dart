@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:video_player/video_player.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 import 'package:refraction_ui/refraction_ui.dart';
+import 'package:refraction_ui_media/refraction_ui_media.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class FakeVideoPlayerPlatform extends VideoPlayerPlatform
