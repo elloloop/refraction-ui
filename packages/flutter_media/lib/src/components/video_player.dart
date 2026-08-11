@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import '../theme/refraction_theme.dart';
+import 'package:refraction_ui/refraction_ui.dart';
 
 /// The playback state of the video.
 enum RefractionVideoState { idle, loading, playing, paused, ended }
