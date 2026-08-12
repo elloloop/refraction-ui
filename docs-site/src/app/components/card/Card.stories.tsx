@@ -30,6 +30,32 @@ export const Basic: Story = {
   ),
 }
 
+// Issue #485 — subtle surface + tinted second-accent tones.
+export const Tones: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <Card variant="default" className="max-w-[14rem]">
+        <CardHeader>
+          <CardTitle>Default</CardTitle>
+          <CardDescription>Standard surface.</CardDescription>
+        </CardHeader>
+      </Card>
+      <Card variant="subtle" className="max-w-[14rem]">
+        <CardHeader>
+          <CardTitle>Subtle</CardTitle>
+          <CardDescription>Lower-emphasis surface.</CardDescription>
+        </CardHeader>
+      </Card>
+      <Card variant="tertiary" className="max-w-[14rem]">
+        <CardHeader>
+          <CardTitle>Tertiary</CardTitle>
+          <CardDescription>Tinted second accent.</CardDescription>
+        </CardHeader>
+      </Card>
+    </div>
+  ),
+}
+
 export const Notifications: Story = {
   render: (args) => (
     <Card {...args} className="max-w-md">

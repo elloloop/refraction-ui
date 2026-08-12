@@ -38,6 +38,25 @@
   --sidebar-border: 240 6% 92%;
   --sidebar-ring: 250 50% 50%;
 
+  /* Extended semantic roles (issue #485) — additive, optional */
+  --primary-hover: 250 50% 44%;
+  --primary-active: 250 50% 38%;
+  --primary-soft: 250 30% 95%;
+  --primary-soft-foreground: 250 50% 40%;
+  --primary-gradient: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-active)));
+  --tertiary: 173 75% 29%;
+  --tertiary-foreground: 0 0% 100%;
+  --tertiary-soft: 173 35% 92%;
+  --tertiary-soft-foreground: 173 60% 26%;
+  --placeholder: 240 4% 52%;
+  --surface-subtle: 240 5% 97%;
+  --border-subtle: 240 6% 95%;
+  --positive: 142 71% 35%;
+  --positive-foreground: 0 0% 100%;
+  --caution: 38 92% 50%;
+  --caution-foreground: 240 10% 10%;
+  --done: 217 91% 60%;
+
   /* Typography */
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-heading: 'Inter', system-ui, sans-serif;
@@ -50,6 +69,8 @@
 
   /* Layout */
   --radius: 0.375rem;
+  --radius-pill: 9999px;
+  --radius-sheet: 1.5rem;
   --avatar-radius: 9999px;
   --badge-radius: 9999px;
   --button-radius: 0.375rem;
@@ -124,4 +145,23 @@
   --sidebar-accent-foreground: 250 60% 80%;
   --sidebar-border: 240 5% 16%;
   --sidebar-ring: 250 50% 65%;
+
+  /* Extended semantic roles (issue #485) — dark mode */
+  --primary-hover: 250 50% 71%;
+  --primary-active: 250 50% 77%;
+  --primary-soft: 250 30% 20%;
+  --primary-soft-foreground: 250 60% 80%;
+  --primary-gradient: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-active)));
+  --tertiary: 173 60% 55%;
+  --tertiary-foreground: 240 10% 4%;
+  --tertiary-soft: 173 30% 18%;
+  --tertiary-soft-foreground: 173 55% 70%;
+  --placeholder: 240 5% 48%;
+  --surface-subtle: 240 10% 6%;
+  --border-subtle: 240 5% 13%;
+  --positive: 142 71% 45%;
+  --positive-foreground: 0 0% 98%;
+  --caution: 38 92% 50%;
+  --caution-foreground: 240 10% 4%;
+  --done: 217 91% 65%;
 }

@@ -74,6 +74,32 @@
   --input: 240 6% 92%;
   --ring: 250 50% 50%;
 
+  /* ─────────────────────────────────────────────────────────────────────
+     Extended semantic roles (issue #485) — additive, optional
+     ───────────────────────────────────────────────────────────────────── */
+  /* Brand depth: hover/active steps + a soft tinted brand fill */
+  --primary-hover: 250 50% 44%;
+  --primary-active: 250 50% 38%;
+  --primary-soft: 250 30% 95%;
+  --primary-soft-foreground: 250 50% 40%;
+  /* Convention: brand gradient from the primary → primary-active steps */
+  --primary-gradient: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-active)));
+  /* Second brand accent */
+  --tertiary: 173 75% 29%;
+  --tertiary-foreground: 0 0% 100%;
+  --tertiary-soft: 173 35% 92%;
+  --tertiary-soft-foreground: 173 60% 26%;
+  /* Ink / surface */
+  --placeholder: 240 4% 52%;
+  --surface-subtle: 240 5% 97%;
+  --border-subtle: 240 6% 95%;
+  /* Extended status: resting/positive, caution, done */
+  --positive: 142 71% 35%;
+  --positive-foreground: 0 0% 100%;
+  --caution: 38 92% 50%;
+  --caution-foreground: 240 10% 10%;
+  --done: 217 91% 60%;
+
   /* Charts (colorblind-safe spread) */
   --chart-1: 250 50% 50%;
   --chart-2: 173 80% 36%;
@@ -102,6 +128,9 @@
   --radius-xl: 0.75rem;
   --radius-2xl: 1rem;
   --radius-full: 9999px;
+  /* Semantic shape roles (issue #485): pill track + large sheet/drawer corner */
+  --radius-pill: 9999px;
+  --radius-sheet: 1.5rem;
 
   --avatar-radius: 9999px;
   --badge-radius: 9999px;
@@ -288,6 +317,25 @@
   --border: 240 5% 16%;
   --input: 240 5% 16%;
   --ring: 250 50% 65%;
+
+  /* Extended semantic roles (issue #485) — dark mode */
+  --primary-hover: 250 50% 71%;
+  --primary-active: 250 50% 77%;
+  --primary-soft: 250 30% 20%;
+  --primary-soft-foreground: 250 60% 80%;
+  --primary-gradient: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-active)));
+  --tertiary: 173 60% 55%;
+  --tertiary-foreground: 240 10% 4%;
+  --tertiary-soft: 173 30% 18%;
+  --tertiary-soft-foreground: 173 55% 70%;
+  --placeholder: 240 5% 48%;
+  --surface-subtle: 240 10% 6%;
+  --border-subtle: 240 5% 13%;
+  --positive: 142 71% 45%;
+  --positive-foreground: 0 0% 98%;
+  --caution: 38 92% 50%;
+  --caution-foreground: 240 10% 4%;
+  --done: 217 91% 65%;
 
   --chart-1: 250 50% 65%;
   --chart-2: 173 70% 50%;

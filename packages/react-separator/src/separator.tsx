@@ -3,14 +3,21 @@ import {
   createSeparator,
   separatorVariants,
   separatorLineClass,
+  separatorSubtleLineClass,
   separatorLabelClass,
   type SeparatorOrientation,
+  type SeparatorTone,
 } from '@refraction-ui/separator'
 import { cn } from '@refraction-ui/shared'
 
 export interface SeparatorProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Orientation of the separator. Defaults to `'horizontal'`. */
   orientation?: SeparatorOrientation
+  /**
+   * Line tone. `'default'` uses the standard border token; `'subtle'` uses the
+   * hairline `border-subtle` token for a lighter rule (issue #485).
+   */
+  tone?: SeparatorTone
   /**
    * Optional centered label. Only meaningful for horizontal separators —
    * renders a line on each side of the label (a "labeled divider").
@@ -36,6 +43,7 @@ export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
   function Separator(
     {
       orientation = 'horizontal',
+      tone = 'default',
       label,
       decorative = true,
       className,
@@ -45,16 +53,17 @@ export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
   ) {
     // Labeled divider — decorative chrome wrapping a centered label.
     if (orientation === 'horizontal' && label != null) {
+      const lineClass = tone === 'subtle' ? separatorSubtleLineClass : separatorLineClass
       return (
         <div
           ref={ref}
           role="none"
-          className={cn(separatorVariants({ labeled: 'true' }), className)}
+          className={cn(separatorVariants({ labeled: 'true', tone }), className)}
           {...props}
         >
-          <span className={separatorLineClass} />
+          <span className={lineClass} />
           <span className={separatorLabelClass}>{label}</span>
-          <span className={separatorLineClass} />
+          <span className={lineClass} />
         </div>
       )
     }
@@ -67,7 +76,7 @@ export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
     return (
       <div
         ref={ref}
-        className={cn(separatorVariants({ orientation }), className)}
+        className={cn(separatorVariants({ orientation, tone }), className)}
         {...ariaProps}
         {...dataAttributes}
         {...props}

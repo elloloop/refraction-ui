@@ -3,10 +3,36 @@
 import { Badge } from '@refraction-ui/react-badge'
 
 interface BadgeExamplesProps {
-  section: 'variants' | 'sizes'
+  section: 'variants' | 'sizes' | 'semantic'
 }
 
 export function BadgeExamples({ section }: BadgeExamplesProps) {
+  // Issue #485 — second brand accent + extended status roles.
+  if (section === 'semantic') {
+    return (
+      <div className="rounded-xl border border-border bg-card p-8">
+        <div className="flex flex-wrap items-start gap-5">
+          <div className="flex flex-col items-center gap-2.5">
+            <Badge variant="tertiary">Tertiary</Badge>
+            <span className="text-xs text-muted-foreground font-medium">tertiary</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Badge variant="positive">Positive</Badge>
+            <span className="text-xs text-muted-foreground font-medium">positive</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Badge variant="caution">Caution</Badge>
+            <span className="text-xs text-muted-foreground font-medium">caution</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Badge variant="done">Done</Badge>
+            <span className="text-xs text-muted-foreground font-medium">done</span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   if (section === 'variants') {
     return (
       <div className="rounded-xl border border-border bg-card p-8">

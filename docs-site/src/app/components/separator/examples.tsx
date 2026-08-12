@@ -3,10 +3,25 @@
 import { Separator } from '@refraction-ui/react-separator'
 
 interface SeparatorExamplesProps {
-  section: 'basic' | 'labeled' | 'vertical'
+  section: 'basic' | 'labeled' | 'vertical' | 'subtle'
 }
 
 export function SeparatorExamples({ section }: SeparatorExamplesProps) {
+  // Issue #485 — hairline rule using the border-subtle token.
+  if (section === 'subtle') {
+    return (
+      <div className="rounded-xl border border-border bg-card p-8">
+        <div className="space-y-4">
+          <p className="text-sm text-foreground">Default rule.</p>
+          <Separator />
+          <p className="text-sm text-foreground">Hairline (subtle) rule.</p>
+          <Separator tone="subtle" />
+          <p className="text-sm text-foreground">Below the subtle rule.</p>
+        </div>
+      </div>
+    )
+  }
+
   if (section === 'basic') {
     return (
       <div className="rounded-xl border border-border bg-card p-8">

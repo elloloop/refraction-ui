@@ -4,10 +4,38 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from '@refraction-ui/react-button'
 
 interface CardExamplesProps {
-  section: 'basic'
+  section: 'basic' | 'tones'
 }
 
 export function CardExamples({ section }: CardExamplesProps) {
+  // Issue #485 — subtle surface + tinted second-accent tones.
+  if (section === 'tones') {
+    return (
+      <div className="rounded-xl border border-border bg-card p-8">
+        <div className="grid gap-6 sm:grid-cols-3">
+          <Card variant="default">
+            <CardHeader>
+              <CardTitle>Default</CardTitle>
+              <CardDescription>Standard card surface.</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card variant="subtle">
+            <CardHeader>
+              <CardTitle>Subtle</CardTitle>
+              <CardDescription>Lower-emphasis surface token.</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card variant="tertiary">
+            <CardHeader>
+              <CardTitle>Tertiary</CardTitle>
+              <CardDescription>Tinted second-accent card.</CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
+      </div>
+    )
+  }
+
   if (section === 'basic') {
     return (
       <div className="rounded-xl border border-border bg-card p-8">

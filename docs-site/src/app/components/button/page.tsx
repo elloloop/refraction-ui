@@ -6,10 +6,10 @@ import { InstallCommand } from '@/components/install-command'
 const buttonProps = [
   {
     name: 'variant',
-    type: "'default' | 'primary' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'",
+    type: "'default' | 'primary' | 'destructive' | 'outline' | 'secondary' | 'soft' | 'tertiary' | 'ghost' | 'link'",
     default: "'default'",
     description:
-      "Visual style. `primary` is a typed alias of `default` so muscle-memory from MUI/Chakra/Mantine works (issue #201).",
+      "Visual style. `primary` is a typed alias of `default` so muscle-memory from MUI/Chakra/Mantine works (issue #201). `soft` (tinted brand fill) and `tertiary` (second brand accent) were added in issue #485.",
   },
   {
     name: 'size',
@@ -104,6 +104,17 @@ export default function ButtonPage() {
           base. Use whichever name reads better in your codebase.
         </p>
         <ButtonExamples section="primary-alias" />
+      </section>
+
+      {/* Issue #485 — brand depth variants */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Brand variants</h2>
+        <p className="text-sm text-muted-foreground">
+          <code className="text-xs bg-muted px-1 rounded">soft</code> is a low-emphasis tinted brand
+          fill; <code className="text-xs bg-muted px-1 rounded">tertiary</code> is a real second brand
+          accent. Both read from the semantic tokens added in issue #485.
+        </p>
+        <ButtonExamples section="brand" />
       </section>
 
       {/* Install */}
