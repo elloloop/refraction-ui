@@ -1,6 +1,6 @@
 name: refraction_ui_media
 description: "Opt-in media and video-conferencing components for Refraction UI — carries the native video_player plugin so the core stays plugin-free."
-version: 0.1.0
+version: 0.1.1
 homepage: https://elloloop.github.io/refraction-ui
 repository: https://github.com/elloloop/refraction-ui
 issue_tracker: https://github.com/elloloop/refraction-ui/issues
@@ -27,7 +27,7 @@ dependencies:
   # Themes, tokens and the RefractionTheme surface come from the core package.
   # Hosted constraint keeps this package publishable; the path override below
   # resolves it against the in-repo core during local development.
-  refraction_ui: ^0.48.0
+  refraction_ui: ^0.49.0
 
 dev_dependencies:
   flutter_test:
