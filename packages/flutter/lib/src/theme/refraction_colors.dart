@@ -103,12 +103,149 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
   /// highlights that should not read as the brand [primary].
   final Color info;
 
+  // ---------------------------------------------------------------------------
+  // Extended semantic roles (all optional).
+  //
+  // Every field below is stored as a nullable "override" and exposed through a
+  // same-named getter that derives a sensible default from the base tokens
+  // when the override is null. A palette that sets only the original tokens
+  // therefore still exposes the whole extended vocabulary, and no existing
+  // construction has to change. Supply an override to break away from the
+  // derived default for one role without touching the rest.
+  // ---------------------------------------------------------------------------
+
+  final Color? _primaryHover;
+  final Color? _primaryActive;
+  final Color? _primarySoft;
+  final Color? _primarySoftForeground;
+  final List<Color>? _primaryGradient;
+  final Color? _tertiary;
+  final Color? _tertiaryForeground;
+  final Color? _tertiarySoft;
+  final Color? _tertiarySoftForeground;
+  final Color? _placeholder;
+  final Color? _surfaceSubtle;
+  final Color? _borderSubtle;
+  final Color? _positive;
+  final Color? _positiveForeground;
+  final Color? _caution;
+  final Color? _cautionForeground;
+  final Color? _done;
+  final Color? _neutral;
+  final Color? _neutralForeground;
+  final Color? _pending;
+  final Color? _pendingForeground;
+  final Color? _chart1;
+  final Color? _chart2;
+  final Color? _chart3;
+  final Color? _chart4;
+  final Color? _chart5;
+
+  /// White, used as the default foreground for filled status surfaces
+  /// ([positive], [caution], [pending]) whose base hue is dark enough to
+  /// carry white text/icons.
+  static const Color _statusForeground = Color(0xFFFFFFFF);
+
+  /// Hover step for [primary] surfaces. Defaults to [primary] darkened ~6%.
+  Color get primaryHover => _primaryHover ?? ColorMath.darken(primary, 0.06);
+
+  /// Pressed/active step for [primary] surfaces. Defaults to [primary]
+  /// darkened ~12%.
+  Color get primaryActive => _primaryActive ?? ColorMath.darken(primary, 0.12);
+
+  /// Soft, tinted brand fill (e.g. selected rows, highlighted chips).
+  /// Defaults to [primary] blended ~12% over [background].
+  Color get primarySoft =>
+      _primarySoft ?? ColorMath.mix(background, primary, 0.12);
+
+  /// Foreground for text/icons drawn on [primarySoft]. Defaults to [primary].
+  Color get primarySoftForeground => _primarySoftForeground ?? primary;
+
+  /// Gradient stops for a brand-gradient fill. Defaults to a flat
+  /// `[primary, primary]` so a gradient paint is visually identical to a solid
+  /// [primary] until a real ramp is supplied.
+  List<Color> get primaryGradient =>
+      _primaryGradient ?? <Color>[primary, primary];
+
+  /// A second brand accent hue, distinct from [primary]. Defaults to
+  /// [secondary].
+  Color get tertiary => _tertiary ?? secondary;
+
+  /// Foreground for content on [tertiary]. Defaults to [secondaryForeground].
+  Color get tertiaryForeground => _tertiaryForeground ?? secondaryForeground;
+
+  /// Soft, tinted second-accent fill. Defaults to [tertiary] blended ~12%
+  /// over [background].
+  Color get tertiarySoft =>
+      _tertiarySoft ?? ColorMath.mix(background, tertiary, 0.12);
+
+  /// Foreground for content on [tertiarySoft]. Defaults to [tertiary].
+  Color get tertiarySoftForeground => _tertiarySoftForeground ?? tertiary;
+
+  /// Placeholder text color for empty inputs. Defaults to [mutedForeground].
+  Color get placeholder => _placeholder ?? mutedForeground;
+
+  /// A quieter surface than [card]/[background] for subtle grouping.
+  /// Defaults to [muted].
+  Color get surfaceSubtle => _surfaceSubtle ?? muted;
+
+  /// A hairline border, lighter than [border]. Defaults to [border] pulled
+  /// ~50% toward [background].
+  Color get borderSubtle =>
+      _borderSubtle ?? ColorMath.mix(border, background, 0.5);
+
+  /// Positive/confirmation status color. Defaults to [success].
+  Color get positive => _positive ?? success;
+
+  /// Foreground for content on [positive]. Defaults to white.
+  Color get positiveForeground => _positiveForeground ?? _statusForeground;
+
+  /// Caution status color (softer than [destructive]). Defaults to [warning].
+  Color get caution => _caution ?? warning;
+
+  /// Foreground for content on [caution]. Defaults to white.
+  Color get cautionForeground => _cautionForeground ?? _statusForeground;
+
+  /// "Completed"/done status color. Defaults to [success].
+  Color get done => _done ?? success;
+
+  /// Neutral status color (inactive/offline dots, muted chips). Defaults to
+  /// [mutedForeground] — a mid gray independent of the brand hue.
+  Color get neutral => _neutral ?? mutedForeground;
+
+  /// Foreground for content on [neutral]. Defaults to [foreground].
+  Color get neutralForeground => _neutralForeground ?? foreground;
+
+  /// Pending/in-progress status color. Defaults to [warning].
+  Color get pending => _pending ?? warning;
+
+  /// Foreground for content on [pending]. Defaults to white.
+  Color get pendingForeground => _pendingForeground ?? _statusForeground;
+
+  /// First categorical chart color. Defaults to [primary].
+  Color get chart1 => _chart1 ?? primary;
+
+  /// Second categorical chart color. Defaults to [primary] hue-rotated 45°.
+  Color get chart2 => _chart2 ?? ColorMath.rotateHue(primary, 45);
+
+  /// Third categorical chart color. Defaults to [primary] hue-rotated 135°.
+  Color get chart3 => _chart3 ?? ColorMath.rotateHue(primary, 135);
+
+  /// Fourth categorical chart color. Defaults to [primary] hue-rotated 215°.
+  Color get chart4 => _chart4 ?? ColorMath.rotateHue(primary, 215);
+
+  /// Fifth categorical chart color. Defaults to [primary] hue-rotated 300°.
+  Color get chart5 => _chart5 ?? ColorMath.rotateHue(primary, 300);
+
   /// Creates a [RefractionColors] palette.
   ///
-  /// All tokens are required — there are no implicit fallbacks, so a
-  /// custom palette must explicitly opt into every semantic role. For most
-  /// apps, prefer one of the curated constants ([minimalLight],
-  /// [fintechDark], [wellnessLight], …) and use [copyWith] to tweak.
+  /// The base tokens (`primary`, `background`, …) are required — there are no
+  /// implicit fallbacks for them, so a custom palette must explicitly opt into
+  /// every base semantic role. The extended roles ([primaryHover],
+  /// [tertiary], [borderSubtle], [chart1]…) are all optional: leave one out
+  /// and its getter derives a sensible default from the base tokens. For most
+  /// apps, prefer one of the curated constants ([minimalLight], [fintechDark],
+  /// [wellnessLight], …) and use [copyWith] to tweak.
   const RefractionColors({
     required this.primary,
     required this.primaryForeground,
@@ -132,7 +269,58 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     required this.success,
     required this.warning,
     required this.info,
-  });
+    Color? primaryHover,
+    Color? primaryActive,
+    Color? primarySoft,
+    Color? primarySoftForeground,
+    List<Color>? primaryGradient,
+    Color? tertiary,
+    Color? tertiaryForeground,
+    Color? tertiarySoft,
+    Color? tertiarySoftForeground,
+    Color? placeholder,
+    Color? surfaceSubtle,
+    Color? borderSubtle,
+    Color? positive,
+    Color? positiveForeground,
+    Color? caution,
+    Color? cautionForeground,
+    Color? done,
+    Color? neutral,
+    Color? neutralForeground,
+    Color? pending,
+    Color? pendingForeground,
+    Color? chart1,
+    Color? chart2,
+    Color? chart3,
+    Color? chart4,
+    Color? chart5,
+  }) : _primaryHover = primaryHover,
+       _primaryActive = primaryActive,
+       _primarySoft = primarySoft,
+       _primarySoftForeground = primarySoftForeground,
+       _primaryGradient = primaryGradient,
+       _tertiary = tertiary,
+       _tertiaryForeground = tertiaryForeground,
+       _tertiarySoft = tertiarySoft,
+       _tertiarySoftForeground = tertiarySoftForeground,
+       _placeholder = placeholder,
+       _surfaceSubtle = surfaceSubtle,
+       _borderSubtle = borderSubtle,
+       _positive = positive,
+       _positiveForeground = positiveForeground,
+       _caution = caution,
+       _cautionForeground = cautionForeground,
+       _done = done,
+       _neutral = neutral,
+       _neutralForeground = neutralForeground,
+       _pending = pending,
+       _pendingForeground = pendingForeground,
+       _chart1 = chart1,
+       _chart2 = chart2,
+       _chart3 = chart3,
+       _chart4 = chart4,
+       _chart5 = chart5;
 
   /// Minimal palette, light mode. Pure monochrome — Apple/Nike aesthetic
   /// with deepest blacks, pure whites, and soft neutral grays.
@@ -744,6 +932,32 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     Color? success,
     Color? warning,
     Color? info,
+    Color? primaryHover,
+    Color? primaryActive,
+    Color? primarySoft,
+    Color? primarySoftForeground,
+    List<Color>? primaryGradient,
+    Color? tertiary,
+    Color? tertiaryForeground,
+    Color? tertiarySoft,
+    Color? tertiarySoftForeground,
+    Color? placeholder,
+    Color? surfaceSubtle,
+    Color? borderSubtle,
+    Color? positive,
+    Color? positiveForeground,
+    Color? caution,
+    Color? cautionForeground,
+    Color? done,
+    Color? neutral,
+    Color? neutralForeground,
+    Color? pending,
+    Color? pendingForeground,
+    Color? chart1,
+    Color? chart2,
+    Color? chart3,
+    Color? chart4,
+    Color? chart5,
   }) {
     return RefractionColors(
       primary: primary ?? this.primary,
@@ -769,6 +983,34 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
       success: success ?? this.success,
       warning: warning ?? this.warning,
       info: info ?? this.info,
+      // Extended roles preserve their raw override state: passing nothing keeps
+      // a role deriving from the base tokens rather than freezing its default.
+      primaryHover: primaryHover ?? _primaryHover,
+      primaryActive: primaryActive ?? _primaryActive,
+      primarySoft: primarySoft ?? _primarySoft,
+      primarySoftForeground: primarySoftForeground ?? _primarySoftForeground,
+      primaryGradient: primaryGradient ?? _primaryGradient,
+      tertiary: tertiary ?? _tertiary,
+      tertiaryForeground: tertiaryForeground ?? _tertiaryForeground,
+      tertiarySoft: tertiarySoft ?? _tertiarySoft,
+      tertiarySoftForeground: tertiarySoftForeground ?? _tertiarySoftForeground,
+      placeholder: placeholder ?? _placeholder,
+      surfaceSubtle: surfaceSubtle ?? _surfaceSubtle,
+      borderSubtle: borderSubtle ?? _borderSubtle,
+      positive: positive ?? _positive,
+      positiveForeground: positiveForeground ?? _positiveForeground,
+      caution: caution ?? _caution,
+      cautionForeground: cautionForeground ?? _cautionForeground,
+      done: done ?? _done,
+      neutral: neutral ?? _neutral,
+      neutralForeground: neutralForeground ?? _neutralForeground,
+      pending: pending ?? _pending,
+      pendingForeground: pendingForeground ?? _pendingForeground,
+      chart1: chart1 ?? _chart1,
+      chart2: chart2 ?? _chart2,
+      chart3: chart3 ?? _chart3,
+      chart4: chart4 ?? _chart4,
+      chart5: chart5 ?? _chart5,
     );
   }
 
@@ -830,6 +1072,78 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
       success: Color.lerp(success, other.success, t)!,
       warning: Color.lerp(warning, other.warning, t)!,
       info: Color.lerp(info, other.info, t)!,
+      // Interpolate the resolved (derived-or-overridden) values so animations
+      // stay smooth whether or not a palette overrides an extended role.
+      primaryHover: Color.lerp(primaryHover, other.primaryHover, t),
+      primaryActive: Color.lerp(primaryActive, other.primaryActive, t),
+      primarySoft: Color.lerp(primarySoft, other.primarySoft, t),
+      primarySoftForeground: Color.lerp(
+        primarySoftForeground,
+        other.primarySoftForeground,
+        t,
+      ),
+      primaryGradient: _lerpColorList(
+        primaryGradient,
+        other.primaryGradient,
+        t,
+      ),
+      tertiary: Color.lerp(tertiary, other.tertiary, t),
+      tertiaryForeground: Color.lerp(
+        tertiaryForeground,
+        other.tertiaryForeground,
+        t,
+      ),
+      tertiarySoft: Color.lerp(tertiarySoft, other.tertiarySoft, t),
+      tertiarySoftForeground: Color.lerp(
+        tertiarySoftForeground,
+        other.tertiarySoftForeground,
+        t,
+      ),
+      placeholder: Color.lerp(placeholder, other.placeholder, t),
+      surfaceSubtle: Color.lerp(surfaceSubtle, other.surfaceSubtle, t),
+      borderSubtle: Color.lerp(borderSubtle, other.borderSubtle, t),
+      positive: Color.lerp(positive, other.positive, t),
+      positiveForeground: Color.lerp(
+        positiveForeground,
+        other.positiveForeground,
+        t,
+      ),
+      caution: Color.lerp(caution, other.caution, t),
+      cautionForeground: Color.lerp(
+        cautionForeground,
+        other.cautionForeground,
+        t,
+      ),
+      done: Color.lerp(done, other.done, t),
+      neutral: Color.lerp(neutral, other.neutral, t),
+      neutralForeground: Color.lerp(
+        neutralForeground,
+        other.neutralForeground,
+        t,
+      ),
+      pending: Color.lerp(pending, other.pending, t),
+      pendingForeground: Color.lerp(
+        pendingForeground,
+        other.pendingForeground,
+        t,
+      ),
+      chart1: Color.lerp(chart1, other.chart1, t),
+      chart2: Color.lerp(chart2, other.chart2, t),
+      chart3: Color.lerp(chart3, other.chart3, t),
+      chart4: Color.lerp(chart4, other.chart4, t),
+      chart5: Color.lerp(chart5, other.chart5, t),
     );
+  }
+
+  /// Interpolates two gradient stop lists. When the lists share a length the
+  /// stops are lerped pairwise; otherwise the whole list snaps at the
+  /// midpoint (nothing sensible interpolates a 2-stop ramp into a 5-stop one).
+  static List<Color> _lerpColorList(List<Color> a, List<Color> b, double t) {
+    if (a.length == b.length) {
+      return <Color>[
+        for (var i = 0; i < a.length; i++) Color.lerp(a[i], b[i], t)!,
+      ];
+    }
+    return t < 0.5 ? a : b;
   }
 }
