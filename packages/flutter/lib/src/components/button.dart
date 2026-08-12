@@ -130,6 +130,7 @@ class _RefractionButtonState extends State<RefractionButton> {
   @override
   Widget build(BuildContext context) {
     final theme = RefractionTheme.of(context);
+    final data = theme.data;
     final colors = theme.colors;
 
     Color backgroundColor;
@@ -185,32 +186,46 @@ class _RefractionButtonState extends State<RefractionButton> {
     double? minWidth;
     double? minHeight;
 
+    // Padding and control heights read the theme's spacing/control-height
+    // scales; the derived defaults equal the historical literals, so sizing is
+    // unchanged. The off-scale values (default's 10px vertical inset and lg's
+    // 32px horizontal inset) stay literal as they never sat on the 4/8/12/16
+    // spacing steps.
     switch (widget.size) {
       case RefractionButtonSize.sm:
-        padding = const EdgeInsets.symmetric(horizontal: 12, vertical: 8);
+        padding = EdgeInsets.symmetric(
+          horizontal: data.spacingMd,
+          vertical: data.spacingSm,
+        );
         fontSize = 12.0;
-        minHeight = 32.0;
+        minHeight = data.controlHeightSm;
         break;
       case RefractionButtonSize.lg:
-        padding = const EdgeInsets.symmetric(horizontal: 32, vertical: 12);
+        padding = EdgeInsets.symmetric(
+          horizontal: 32,
+          vertical: data.spacingMd,
+        );
         fontSize = 16.0;
-        minHeight = 44.0;
+        minHeight = data.controlHeightLg;
         break;
       case RefractionButtonSize.icon:
         padding = EdgeInsets.zero;
         fontSize = 16.0;
-        minWidth = 36.0;
-        minHeight = 36.0;
+        minWidth = data.controlHeightMd;
+        minHeight = data.controlHeightMd;
         break;
       case RefractionButtonSize.defaultSize:
-        padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 10);
+        padding = EdgeInsets.symmetric(
+          horizontal: data.spacingLg,
+          vertical: 10,
+        );
         fontSize = 14.0;
-        minHeight = 36.0;
+        minHeight = data.controlHeightMd;
         break;
     }
 
     Widget content = DefaultTextStyle(
-      style: theme.data.textStyle.copyWith(
+      style: data.textStyle.copyWith(
         color: foregroundColor,
         fontSize: fontSize,
         fontWeight: FontWeight.w500,
@@ -252,7 +267,10 @@ class _RefractionButtonState extends State<RefractionButton> {
             padding: padding,
             decoration: BoxDecoration(
               color: backgroundColor,
-              borderRadius: BorderRadius.circular(theme.borderRadius),
+              // radiusMd defaults to the base borderRadius, so corners are
+              // unchanged; a consumer can now round controls independently of
+              // cards via the radius scale.
+              borderRadius: BorderRadius.circular(data.radiusMd),
               border: borderColor != null
                   ? Border.all(color: borderColor)
                   : null,

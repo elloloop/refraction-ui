@@ -68,9 +68,12 @@ class RefractionCard extends StatelessWidget {
       padding: padding,
       decoration: BoxDecoration(
         color: colors.card,
-        borderRadius: BorderRadius.circular(theme.borderRadius),
+        // radiusLg/elevationSm default to the base borderRadius and the soft
+        // shadow stack respectively, so cards are unchanged; a consumer can
+        // now round or elevate cards independently of controls.
+        borderRadius: BorderRadius.circular(theme.radiusLg),
         border: Border.all(color: colors.border),
-        boxShadow: theme.softShadow,
+        boxShadow: theme.elevationSm,
       ),
       child: DefaultTextStyle(style: theme.textStyle, child: child),
     );
@@ -86,19 +89,17 @@ class RefractionCardHeader extends StatelessWidget {
   /// [RefractionCardDescription].
   final Widget child;
 
-  /// Padding around the header. Defaults to 24 logical pixels on every side.
-  final EdgeInsetsGeometry padding;
+  /// Padding around the header. When null, defaults to the theme's
+  /// [RefractionThemeData.spacingXl] (24 logical pixels) on every side.
+  final EdgeInsetsGeometry? padding;
 
   /// Creates a [RefractionCardHeader].
-  const RefractionCardHeader({
-    super.key,
-    required this.child,
-    this.padding = const EdgeInsets.all(24),
-  });
+  const RefractionCardHeader({super.key, required this.child, this.padding});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: padding, child: child);
+    final spacing = context.refractionTheme.spacingXl;
+    return Padding(padding: padding ?? EdgeInsets.all(spacing), child: child);
   }
 }
 
@@ -163,20 +164,23 @@ class RefractionCardContent extends StatelessWidget {
   /// The body content of the card.
   final Widget child;
 
-  /// Padding around the body. Defaults to 24 pixels on the left, right, and
+  /// Padding around the body. When null, defaults to the theme's
+  /// [RefractionThemeData.spacingXl] (24 pixels) on the left, right, and
   /// bottom — leaving the top tight against [RefractionCardHeader].
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   /// Creates a [RefractionCardContent].
-  const RefractionCardContent({
-    super.key,
-    required this.child,
-    this.padding = const EdgeInsets.only(left: 24, right: 24, bottom: 24),
-  });
+  const RefractionCardContent({super.key, required this.child, this.padding});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: padding, child: child);
+    final spacing = context.refractionTheme.spacingXl;
+    return Padding(
+      padding:
+          padding ??
+          EdgeInsets.only(left: spacing, right: spacing, bottom: spacing),
+      child: child,
+    );
   }
 }
 
@@ -188,9 +192,10 @@ class RefractionCardFooter extends StatelessWidget {
   /// Footer content, typically a [RefractionButton] or a small group of them.
   final Widget child;
 
-  /// Padding around the footer. Defaults to 24 pixels on the left, right,
-  /// and bottom.
-  final EdgeInsetsGeometry padding;
+  /// Padding around the footer. When null, defaults to the theme's
+  /// [RefractionThemeData.spacingXl] (24 pixels) on the left, right, and
+  /// bottom.
+  final EdgeInsetsGeometry? padding;
 
   /// Horizontal alignment of the footer row. Defaults to
   /// [MainAxisAlignment.start].
@@ -200,14 +205,17 @@ class RefractionCardFooter extends StatelessWidget {
   const RefractionCardFooter({
     super.key,
     required this.child,
-    this.padding = const EdgeInsets.only(left: 24, right: 24, bottom: 24),
+    this.padding,
     this.mainAxisAlignment = MainAxisAlignment.start,
   });
 
   @override
   Widget build(BuildContext context) {
+    final spacing = context.refractionTheme.spacingXl;
     return Padding(
-      padding: padding,
+      padding:
+          padding ??
+          EdgeInsets.only(left: spacing, right: spacing, bottom: spacing),
       // Wrap footer content in a Row as it's typically action buttons laid out horizontally
       child: Row(mainAxisAlignment: mainAxisAlignment, children: [child]),
     );

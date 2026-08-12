@@ -1,3 +1,19 @@
+## 0.49.0
+
+- **Theme (additive, non-breaking): a much richer, semantic-role token vocabulary so a product's whole look is token-driven.** Every new token is **optional** with a getter that **derives a sensible default from the existing tokens**, so all curated palettes, the six named-theme statics, and every existing `RefractionColors`/`RefractionThemeData` construction keep compiling and rendering **pixel-identically** — nothing new is required.
+  - **`RefractionColors` — new color roles** (each a nullable field + default-deriving getter, all wired through `copyWith`/`lerp`):
+    - Brand depth: `primaryHover` (primary darkened ~6%), `primaryActive` (primary darkened ~12%), `primarySoft` (primary blended ~12% over `background`), `primarySoftForeground` (→ `primary`), `primaryGradient` (`List<Color>`, → `[primary, primary]`).
+    - Second brand hue: `tertiary` (→ `secondary`), `tertiaryForeground` (→ `secondaryForeground`), `tertiarySoft` (tertiary blended ~12% over `background`), `tertiarySoftForeground` (→ `tertiary`).
+    - Ink/surface: `placeholder` (→ `mutedForeground`), `surfaceSubtle` (→ `muted`), `borderSubtle` (`border` pulled ~50% toward `background`).
+    - Status: `positive` (→ `success`), `positiveForeground` (→ white), `caution` (→ `warning`), `cautionForeground` (→ white), `done` (→ `success`), `neutral` (→ `mutedForeground`), `neutralForeground` (→ `foreground`), `pending` (→ `warning`), `pendingForeground` (→ white).
+    - Charts: `chart1`–`chart5` — a categorical ramp seeded from `primary` (`chart1` = `primary`; the rest are hue-rotations of it).
+  - **`RefractionThemeData` — new non-color scales** (nullable + default-deriving getters, all wired through `copyWith`):
+    - Radius scale: `radiusSm`/`radiusMd`/`radiusLg` (→ base `borderRadius`), `radiusPill` (999), `radiusSheet` (`borderRadius * 3.5`).
+    - Elevation scale: `elevationSm`/`elevationMd`/`elevationLg` + `shadowTint` (→ `colors.foreground`). `softShadow`/`heavyShadow` are now back-compat aliases of `elevationSm`/`elevationLg` (resolved both directions).
+    - Spacing scale: `spacingXs`/`spacingSm`/`spacingMd`/`spacingLg`/`spacingXl` (4/8/12/16/24) + `gutter` (16); control sizing `controlHeightSm`/`controlHeightMd`/`controlHeightLg` (32/36/44).
+    - Typography: a new `RefractionTypography` token type — fonts-by-role (`fontDisplay`/`fontBody`/`fontMono`/`fontSerif`, defaulting to the theme `fontFamily`), a role-based type scale (`display`/`headline`/`title`/`body`/`label`/`caption`/`kicker`), optional variable-font weight (`FontVariation`), and a `textScale` factor (default 1.0) — wired as an optional `typography` field with a default instance and a `resolvedTypography` getter.
+  - **Components**: `RefractionButton` now reads `radiusMd`, `controlHeight*`, and the `spacing*` scale; `RefractionCard` reads `radiusLg`/`elevationSm` and its header/content/footer paddings read `spacingXl`. Every derived default equals the value these components used before, so appearance is unchanged.
+
 ## 0.48.0
 
 - **BREAKING — Media components moved out of core.** The media/conferencing

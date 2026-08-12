@@ -33,6 +33,7 @@ library;
 export 'src/theme/refraction_colors.dart';
 export 'src/theme/refraction_theme.dart';
 export 'src/theme/refraction_theme_data.dart';
+export 'src/theme/refraction_typography.dart';
 export 'src/components/accordion.dart';
 export 'src/components/diff_viewer.dart';
 export 'src/components/dropdown_menu.dart';
@@ -186,5 +187,3 @@ export 'src/components/radial_gauge.dart';
 export 'src/components/timeline.dart';
 export 'src/components/mascot.dart';
 export 'src/components/checklist.dart';
-
-
