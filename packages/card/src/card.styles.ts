@@ -11,8 +11,16 @@ export const cardTokens: TokenContract = {
 }
 
 export const cardVariants = cva({
-  base: 'rounded-lg border bg-card text-card-foreground shadow',
+  base: 'rounded-lg border shadow',
   variants: {
+    variant: {
+      // Default — unchanged surface (bg-card + border via the global token).
+      default: 'bg-card text-card-foreground',
+      // Lower-emphasis container on the subtle surface token (issue #485).
+      subtle: 'bg-surface-subtle text-card-foreground',
+      // Tinted second-accent card (issue #485).
+      tertiary: 'border-transparent bg-tertiary-soft text-tertiary-soft-foreground',
+    },
     padding: {
       none: '',
       default: 'p-6',
@@ -20,6 +28,7 @@ export const cardVariants = cva({
     },
   },
   defaultVariants: {
+    variant: 'default',
     padding: 'none',
   },
 })

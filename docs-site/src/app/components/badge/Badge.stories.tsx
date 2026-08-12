@@ -7,7 +7,7 @@ const meta: Meta<typeof Badge> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'primary', 'secondary', 'destructive', 'outline', 'success', 'warning'],
+      options: ['default', 'primary', 'secondary', 'destructive', 'outline', 'success', 'warning', 'tertiary', 'positive', 'caution', 'done'],
     },
     size: {
       control: 'select',
@@ -26,4 +26,20 @@ export const Default: Story = {
     children: 'Badge Label',
   },
   render: (args) => <Badge {...args} />
+}
+
+// Issue #485 — second brand accent + extended status roles.
+export const Tertiary: Story = {
+  args: { variant: 'tertiary', size: 'md', children: 'Tertiary' },
+  render: (args) => <Badge {...args} />,
+}
+
+export const Positive: Story = {
+  args: { variant: 'positive', size: 'md', children: 'Positive' },
+  render: (args) => <Badge {...args} />,
+}
+
+export const Done: Story = {
+  args: { variant: 'done', size: 'md', children: 'Done' },
+  render: (args) => <Badge {...args} />,
 }

@@ -17,6 +17,13 @@ const separatorProps = [
       'Optional centered label (the "labeled divider" variant). Only meaningful for horizontal separators.',
   },
   {
+    name: 'tone',
+    type: "'default' | 'subtle'",
+    default: "'default'",
+    description:
+      'Line color. `subtle` uses the hairline `border-subtle` token for a lighter rule (issue #485).',
+  },
+  {
     name: 'decorative',
     type: 'boolean',
     default: 'true',
@@ -96,6 +103,17 @@ export default function SeparatorPage() {
           to divide inline content. The parent needs a defined height.
         </p>
         <SeparatorExamples section="vertical" />
+      </section>
+
+      {/* Issue #485 — subtle hairline */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Subtle</h2>
+        <p className="text-sm text-muted-foreground">
+          Set <code className="text-xs bg-muted px-1 rounded">tone=&quot;subtle&quot;</code> for a
+          hairline rule using the <code className="text-xs bg-muted px-1 rounded">border-subtle</code>{' '}
+          token (issue #485).
+        </p>
+        <SeparatorExamples section="subtle" />
       </section>
 
       {/* Install */}

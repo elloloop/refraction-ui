@@ -7,6 +7,7 @@ export {
   createCardFooter,
   type CardProps,
   type CardAPI,
+  type CardVariant,
 } from './card.js'
 
 export {

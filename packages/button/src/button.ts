@@ -14,6 +14,9 @@ export type ButtonVariant =
   | 'secondary'
   | 'ghost'
   | 'link'
+  // Issue #485 — soft tinted brand fill + a real second brand accent.
+  | 'soft'
+  | 'tertiary'
 
 /** Variants that map to the same visual style as `default`. */
 export const BUTTON_VARIANT_ALIASES: Partial<Record<ButtonVariant, ButtonVariant>> = {

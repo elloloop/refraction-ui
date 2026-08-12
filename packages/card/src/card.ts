@@ -1,5 +1,13 @@
 import type { AccessibilityProps } from '@refraction-ui/shared'
 
+/**
+ * Visual tone of a card (issue #485).
+ * - `default` — the standard surface (activates the `--rfr-card-*` contract).
+ * - `subtle` — a lower-emphasis container on the subtle surface token.
+ * - `tertiary` — a tinted second-brand-accent card.
+ */
+export type CardVariant = 'default' | 'subtle' | 'tertiary'
+
 export interface CardProps {
   /** Optional accessible role override */
   role?: string

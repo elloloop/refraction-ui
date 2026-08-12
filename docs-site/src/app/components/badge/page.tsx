@@ -4,7 +4,7 @@ import { CodeBlock } from '@/components/code-block'
 import { InstallCommand } from '@/components/install-command'
 
 const badgeProps = [
-  { name: 'variant', type: "'default' | 'primary' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning'", default: "'default'", description: 'Visual style of the badge.' },
+  { name: 'variant', type: "'default' | 'primary' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'tertiary' | 'positive' | 'caution' | 'done'", default: "'default'", description: 'Visual style of the badge. `tertiary`, `positive`, `caution`, and `done` were added in issue #485.' },
   { name: 'size', type: "'sm' | 'md'", default: "'md'", description: 'Size of the badge.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes to apply.' },
   { name: 'asChild', type: 'boolean', default: 'false', description: 'Render as child element (e.g. wrap an <a> tag for a linked badge).' },
@@ -43,6 +43,19 @@ export default function BadgePage() {
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Variants</h2>
         <p className="text-sm text-muted-foreground">Seven visual variants for different semantic meanings.</p>
         <BadgeExamples section="variants" />
+      </section>
+
+      {/* Issue #485 — second brand accent + extended status roles */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Accent &amp; status roles</h2>
+        <p className="text-sm text-muted-foreground">
+          <code className="text-xs bg-muted px-1 rounded">tertiary</code> is a second brand accent;{' '}
+          <code className="text-xs bg-muted px-1 rounded">positive</code>,{' '}
+          <code className="text-xs bg-muted px-1 rounded">caution</code>, and{' '}
+          <code className="text-xs bg-muted px-1 rounded">done</code> are themeable status roles added
+          in issue #485.
+        </p>
+        <BadgeExamples section="semantic" />
       </section>
 
       {/* Install */}

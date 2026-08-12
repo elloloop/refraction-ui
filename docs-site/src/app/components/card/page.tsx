@@ -4,6 +4,7 @@ import { CodeBlock } from '@/components/code-block'
 import { InstallCommand } from '@/components/install-command'
 
 const cardProps = [
+  { name: 'variant', type: "'default' | 'subtle' | 'tertiary'", default: "'default'", description: 'Visual tone: subtle surface or tinted second-accent card (issue #485).' },
   { name: 'className', type: 'string', description: 'Additional CSS classes for the card container.' },
   { name: 'children', type: 'ReactNode', description: 'CardHeader, CardContent, CardFooter compound components.' },
   { name: 'asChild', type: 'boolean', default: 'false', description: 'Render as child element (e.g. wrap an <a> tag for a clickable card).' },
@@ -47,6 +48,17 @@ export default function CardPage() {
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Examples</h2>
         <p className="text-sm text-muted-foreground">Cards with header, content, and footer sections.</p>
         <CardExamples section="basic" />
+      </section>
+
+      {/* Issue #485 — tone variants */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Tones</h2>
+        <p className="text-sm text-muted-foreground">
+          <code className="text-xs bg-muted px-1 rounded">subtle</code> uses the subtle surface token;{' '}
+          <code className="text-xs bg-muted px-1 rounded">tertiary</code> is a tinted second-accent
+          card. Both were added in issue #485.
+        </p>
+        <CardExamples section="tones" />
       </section>
       {/* Install */}
       <section className="space-y-3">

@@ -11,3 +11,7 @@ export const Labeled = {
 export const Vertical = {
   render: () => <SeparatorExamples section="vertical" />,
 }
+// Issue #485 — hairline rule using the border-subtle token.
+export const Subtle = {
+  render: () => <SeparatorExamples section="subtle" />,
+}

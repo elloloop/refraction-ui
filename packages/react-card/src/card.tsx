@@ -12,11 +12,14 @@ import {
   cardDescriptionVariants,
   cardContentVariants,
   cardFooterVariants,
+  type CardVariant,
 } from '@refraction-ui/card'
 import { cn } from '@refraction-ui/shared'
 import { Slot } from '@refraction-ui/react-slot'
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Visual tone of the card. Defaults to `'default'` (issue #485). */
+  variant?: CardVariant
   /** Merge the card's classes/props onto the single child element instead of
    * rendering a `<div>` (Radix-style `asChild`) — e.g.
    * `<Card asChild><a href="/x">…</a></Card>` for a clickable card. Expects
@@ -28,9 +31,9 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
  * Card -- a container with rounded corners, border, and shadow.
  */
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  function Card({ className, asChild = false, ...props }, ref) {
+  function Card({ className, variant, asChild = false, ...props }, ref) {
     const api = createCard()
-    const classes = cn(cardVariants(), className)
+    const classes = cn(cardVariants({ variant }), className)
 
     if (asChild) {
       return (

@@ -3,10 +3,28 @@
 import { Button } from '@refraction-ui/react-button'
 
 interface ButtonExamplesProps {
-  section: 'variants' | 'sizes' | 'states' | 'primary-alias'
+  section: 'variants' | 'sizes' | 'states' | 'primary-alias' | 'brand'
 }
 
 export function ButtonExamples({ section }: ButtonExamplesProps) {
+  // Issue #485 — soft tinted brand fill + a real second brand accent.
+  if (section === 'brand') {
+    return (
+      <div className="rounded-xl border border-border bg-card p-8">
+        <div className="flex flex-wrap items-start gap-6">
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="soft">Soft</Button>
+            <span className="text-xs text-muted-foreground font-medium">soft</span>
+          </div>
+          <div className="flex flex-col items-center gap-2.5">
+            <Button variant="tertiary">Tertiary</Button>
+            <span className="text-xs text-muted-foreground font-medium">tertiary</span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   if (section === 'variants') {
     return (
       <div className="rounded-xl border border-border bg-card p-8">

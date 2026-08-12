@@ -165,6 +165,27 @@ export const refractionTheme: ThemeDefinition = {
       '--input': '240 6% 92%',
       '--ring': '250 50% 50%',
 
+      // Brand depth (issue #485) — hover/active steps + soft tinted fill
+      '--primary-hover': '250 50% 44%',
+      '--primary-active': '250 50% 38%',
+      '--primary-soft': '250 30% 95%',
+      '--primary-soft-foreground': '250 50% 40%',
+      // Second brand accent
+      '--tertiary': '173 75% 29%',
+      '--tertiary-foreground': '0 0% 100%',
+      '--tertiary-soft': '173 35% 92%',
+      '--tertiary-soft-foreground': '173 60% 26%',
+      // Ink / surface
+      '--placeholder': '240 4% 52%',
+      '--surface-subtle': '240 5% 97%',
+      '--border-subtle': '240 6% 95%',
+      // Extended status roles
+      '--positive': '142 71% 35%',
+      '--positive-foreground': '0 0% 100%',
+      '--caution': '38 92% 50%',
+      '--caution-foreground': '240 10% 10%',
+      '--done': '217 91% 60%',
+
       '--radius': '0.375rem',
 
       // Charts — colorblind-safe, spread across spectrum
@@ -218,6 +239,27 @@ export const refractionTheme: ThemeDefinition = {
       '--border': '240 5% 16%',
       '--input': '240 5% 16%',
       '--ring': '250 50% 65%',
+
+      // Brand depth (issue #485) — hover/active steps + soft tinted fill
+      '--primary-hover': '250 50% 71%',
+      '--primary-active': '250 50% 77%',
+      '--primary-soft': '250 30% 20%',
+      '--primary-soft-foreground': '250 60% 80%',
+      // Second brand accent
+      '--tertiary': '173 60% 55%',
+      '--tertiary-foreground': '240 10% 4%',
+      '--tertiary-soft': '173 30% 18%',
+      '--tertiary-soft-foreground': '173 55% 70%',
+      // Ink / surface
+      '--placeholder': '240 5% 48%',
+      '--surface-subtle': '240 10% 6%',
+      '--border-subtle': '240 5% 13%',
+      // Extended status roles
+      '--positive': '142 71% 45%',
+      '--positive-foreground': '0 0% 98%',
+      '--caution': '38 92% 50%',
+      '--caution-foreground': '240 10% 4%',
+      '--done': '217 91% 65%',
 
       '--radius': '0.375rem',
 
@@ -344,6 +386,27 @@ export const luxeTheme: ThemeDefinition = {
       '--input': '220 6% 93%',
       '--ring': '220 90% 45%',
 
+      // Brand depth (issue #485) — hover/active steps + soft tinted fill
+      '--primary-hover': '220 90% 39%',
+      '--primary-active': '220 90% 33%',
+      '--primary-soft': '220 30% 95%',
+      '--primary-soft-foreground': '220 60% 35%',
+      // Second brand accent
+      '--tertiary': '160 65% 29%',
+      '--tertiary-foreground': '0 0% 100%',
+      '--tertiary-soft': '160 35% 92%',
+      '--tertiary-soft-foreground': '160 55% 26%',
+      // Ink / surface
+      '--placeholder': '220 5% 50%',
+      '--surface-subtle': '220 5% 97%',
+      '--border-subtle': '220 6% 96%',
+      // Extended status roles
+      '--positive': '142 71% 35%',
+      '--positive-foreground': '0 0% 100%',
+      '--caution': '38 92% 50%',
+      '--caution-foreground': '0 0% 12%',
+      '--done': '217 91% 60%',
+
       '--radius': '0.75rem',
 
       '--chart-1': '220 90% 45%',
@@ -395,6 +458,27 @@ export const luxeTheme: ThemeDefinition = {
       '--border': '220 5% 16%',
       '--input': '220 5% 16%',
       '--ring': '220 85% 60%',
+
+      // Brand depth (issue #485) — hover/active steps + soft tinted fill
+      '--primary-hover': '220 85% 66%',
+      '--primary-active': '220 85% 72%',
+      '--primary-soft': '220 25% 18%',
+      '--primary-soft-foreground': '220 60% 75%',
+      // Second brand accent
+      '--tertiary': '160 50% 55%',
+      '--tertiary-foreground': '0 0% 7%',
+      '--tertiary-soft': '160 30% 18%',
+      '--tertiary-soft-foreground': '160 50% 70%',
+      // Ink / surface
+      '--placeholder': '220 5% 46%',
+      '--surface-subtle': '0 0% 9%',
+      '--border-subtle': '220 5% 13%',
+      // Extended status roles
+      '--positive': '142 71% 45%',
+      '--positive-foreground': '0 0% 98%',
+      '--caution': '38 92% 50%',
+      '--caution-foreground': '0 0% 7%',
+      '--done': '217 91% 65%',
 
       '--radius': '0.75rem',
 
@@ -524,6 +608,27 @@ export const warmTheme: ThemeDefinition = {
       '--input': '30 12% 90%',
       '--ring': '350 85% 46%',
 
+      // Brand depth (issue #485) — hover/active steps + soft tinted fill
+      '--primary-hover': '350 85% 40%',
+      '--primary-active': '350 85% 34%',
+      '--primary-soft': '350 30% 94%',
+      '--primary-soft-foreground': '350 60% 38%',
+      // Second brand accent
+      '--tertiary': '195 70% 36%',
+      '--tertiary-foreground': '0 0% 100%',
+      '--tertiary-soft': '195 40% 92%',
+      '--tertiary-soft-foreground': '195 60% 28%',
+      // Ink / surface
+      '--placeholder': '25 8% 50%',
+      '--surface-subtle': '33 24% 97%',
+      '--border-subtle': '30 12% 93%',
+      // Extended status roles
+      '--positive': '142 71% 35%',
+      '--positive-foreground': '0 0% 100%',
+      '--caution': '38 92% 50%',
+      '--caution-foreground': '15 20% 12%',
+      '--done': '217 91% 60%',
+
       '--radius': '0.75rem',
 
       '--chart-1': '350 85% 46%',
@@ -575,6 +680,27 @@ export const warmTheme: ThemeDefinition = {
       '--border': '20 10% 16%',
       '--input': '20 10% 16%',
       '--ring': '350 80% 65%',
+
+      // Brand depth (issue #485) — hover/active steps + soft tinted fill
+      '--primary-hover': '350 80% 71%',
+      '--primary-active': '350 80% 77%',
+      '--primary-soft': '350 25% 18%',
+      '--primary-soft-foreground': '350 50% 70%',
+      // Second brand accent
+      '--tertiary': '195 60% 55%',
+      '--tertiary-foreground': '15 15% 5%',
+      '--tertiary-soft': '195 30% 18%',
+      '--tertiary-soft-foreground': '195 55% 70%',
+      // Ink / surface
+      '--placeholder': '30 8% 46%',
+      '--surface-subtle': '15 15% 7%',
+      '--border-subtle': '20 10% 13%',
+      // Extended status roles
+      '--positive': '142 71% 45%',
+      '--positive-foreground': '0 0% 98%',
+      '--caution': '38 92% 50%',
+      '--caution-foreground': '15 15% 5%',
+      '--done': '217 91% 65%',
 
       '--radius': '0.75rem',
 
@@ -703,6 +829,27 @@ export const signalTheme: ThemeDefinition = {
       '--input': '210 10% 90%',
       '--ring': '190 80% 32%',
 
+      // Brand depth (issue #485) — hover/active steps + soft tinted fill
+      '--primary-hover': '190 80% 26%',
+      '--primary-active': '190 80% 20%',
+      '--primary-soft': '190 25% 93%',
+      '--primary-soft-foreground': '190 60% 28%',
+      // Second brand accent
+      '--tertiary': '252 60% 52%',
+      '--tertiary-foreground': '0 0% 100%',
+      '--tertiary-soft': '252 40% 94%',
+      '--tertiary-soft-foreground': '252 55% 40%',
+      // Ink / surface
+      '--placeholder': '210 8% 50%',
+      '--surface-subtle': '200 8% 97%',
+      '--border-subtle': '210 10% 93%',
+      // Extended status roles
+      '--positive': '142 71% 35%',
+      '--positive-foreground': '0 0% 100%',
+      '--caution': '38 92% 50%',
+      '--caution-foreground': '210 15% 12%',
+      '--done': '217 91% 60%',
+
       '--radius': '0.375rem',
 
       '--chart-1': '190 80% 32%',
@@ -754,6 +901,27 @@ export const signalTheme: ThemeDefinition = {
       '--border': '210 10% 16%',
       '--input': '210 10% 16%',
       '--ring': '190 70% 50%',
+
+      // Brand depth (issue #485) — hover/active steps + soft tinted fill
+      '--primary-hover': '190 70% 56%',
+      '--primary-active': '190 70% 62%',
+      '--primary-soft': '190 20% 18%',
+      '--primary-soft-foreground': '190 50% 65%',
+      // Second brand accent
+      '--tertiary': '252 55% 66%',
+      '--tertiary-foreground': '210 15% 5%',
+      '--tertiary-soft': '252 30% 20%',
+      '--tertiary-soft-foreground': '252 55% 76%',
+      // Ink / surface
+      '--placeholder': '210 8% 46%',
+      '--surface-subtle': '210 14% 7%',
+      '--border-subtle': '210 10% 13%',
+      // Extended status roles
+      '--positive': '142 71% 45%',
+      '--positive-foreground': '0 0% 98%',
+      '--caution': '38 92% 50%',
+      '--caution-foreground': '210 15% 5%',
+      '--done': '217 91% 65%',
 
       '--radius': '0.375rem',
 
@@ -882,6 +1050,27 @@ export const pulseTheme: ThemeDefinition = {
       '--input': '240 8% 90%',
       '--ring': '265 80% 55%',
 
+      // Brand depth (issue #485) — hover/active steps + soft tinted fill
+      '--primary-hover': '265 80% 49%',
+      '--primary-active': '265 80% 43%',
+      '--primary-soft': '265 30% 94%',
+      '--primary-soft-foreground': '265 60% 40%',
+      // Second brand accent
+      '--tertiary': '190 80% 30%',
+      '--tertiary-foreground': '0 0% 100%',
+      '--tertiary-soft': '190 40% 92%',
+      '--tertiary-soft-foreground': '190 65% 28%',
+      // Ink / surface
+      '--placeholder': '240 6% 50%',
+      '--surface-subtle': '240 9% 95%',
+      '--border-subtle': '240 8% 93%',
+      // Extended status roles
+      '--positive': '142 71% 35%',
+      '--positive-foreground': '0 0% 100%',
+      '--caution': '38 92% 50%',
+      '--caution-foreground': '240 10% 10%',
+      '--done': '217 91% 60%',
+
       '--radius': '1rem',
 
       '--chart-1': '265 80% 55%',
@@ -933,6 +1122,27 @@ export const pulseTheme: ThemeDefinition = {
       '--border': '260 6% 16%',
       '--input': '260 6% 16%',
       '--ring': '265 75% 65%',
+
+      // Brand depth (issue #485) — hover/active steps + soft tinted fill
+      '--primary-hover': '265 75% 71%',
+      '--primary-active': '265 75% 77%',
+      '--primary-soft': '265 25% 18%',
+      '--primary-soft-foreground': '265 55% 75%',
+      // Second brand accent
+      '--tertiary': '190 70% 55%',
+      '--tertiary-foreground': '260 15% 5%',
+      '--tertiary-soft': '190 30% 18%',
+      '--tertiary-soft-foreground': '190 60% 68%',
+      // Ink / surface
+      '--placeholder': '260 6% 46%',
+      '--surface-subtle': '260 13% 7%',
+      '--border-subtle': '260 6% 13%',
+      // Extended status roles
+      '--positive': '142 71% 45%',
+      '--positive-foreground': '0 0% 98%',
+      '--caution': '38 92% 50%',
+      '--caution-foreground': '260 15% 5%',
+      '--done': '217 91% 65%',
 
       '--radius': '1rem',
 
@@ -1061,6 +1271,27 @@ export const monoTheme: ThemeDefinition = {
       '--input': '210 14% 89%',
       '--ring': '210 10% 23%',
 
+      // Brand depth (issue #485) — hover/active steps + soft tinted fill
+      '--primary-hover': '210 10% 17%',
+      '--primary-active': '210 10% 11%',
+      '--primary-soft': '210 15% 93%',
+      '--primary-soft-foreground': '210 10% 20%',
+      // Second brand accent
+      '--tertiary': '210 45% 42%',
+      '--tertiary-foreground': '0 0% 100%',
+      '--tertiary-soft': '210 25% 92%',
+      '--tertiary-soft-foreground': '210 30% 30%',
+      // Ink / surface
+      '--placeholder': '210 10% 50%',
+      '--surface-subtle': '210 16% 96%',
+      '--border-subtle': '210 14% 93%',
+      // Extended status roles
+      '--positive': '142 71% 35%',
+      '--positive-foreground': '0 0% 100%',
+      '--caution': '38 92% 50%',
+      '--caution-foreground': '210 15% 20%',
+      '--done': '217 91% 60%',
+
       '--radius': '0.25rem',
 
       '--chart-1': '210 10% 23%',
@@ -1112,6 +1343,27 @@ export const monoTheme: ThemeDefinition = {
       '--border': '210 8% 16%',
       '--input': '210 8% 16%',
       '--ring': '210 10% 80%',
+
+      // Brand depth (issue #485) — hover/active steps + soft tinted fill
+      '--primary-hover': '210 10% 86%',
+      '--primary-active': '210 10% 92%',
+      '--primary-soft': '210 10% 18%',
+      '--primary-soft-foreground': '210 10% 80%',
+      // Second brand accent
+      '--tertiary': '210 45% 62%',
+      '--tertiary-foreground': '210 15% 5%',
+      '--tertiary-soft': '210 20% 18%',
+      '--tertiary-soft-foreground': '210 25% 74%',
+      // Ink / surface
+      '--placeholder': '210 8% 46%',
+      '--surface-subtle': '210 14% 7%',
+      '--border-subtle': '210 8% 13%',
+      // Extended status roles
+      '--positive': '142 71% 45%',
+      '--positive-foreground': '0 0% 98%',
+      '--caution': '38 92% 50%',
+      '--caution-foreground': '210 15% 5%',
+      '--done': '217 91% 65%',
 
       '--radius': '0.25rem',
 

@@ -11,6 +11,11 @@ export const badgeVariants = cva({
       outline: 'text-foreground',
       success: 'border-transparent bg-success text-success-foreground shadow hover:bg-success/80 font-semibold',
       warning: 'border-transparent bg-warning text-warning-foreground shadow hover:bg-warning/80 font-semibold',
+      // Second brand accent + extended status roles (issue #485).
+      tertiary: 'border-transparent bg-tertiary text-tertiary-foreground shadow hover:bg-tertiary/80 font-semibold',
+      positive: 'border-transparent bg-positive text-positive-foreground shadow hover:bg-positive/80 font-semibold',
+      caution: 'border-transparent bg-caution text-caution-foreground shadow hover:bg-caution/80 font-semibold',
+      done: 'border-transparent bg-done text-info-foreground shadow hover:bg-done/80 font-semibold',
     },
     size: {
       sm: 'px-2 py-0 text-[10px]',

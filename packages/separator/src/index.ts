@@ -8,5 +8,7 @@ export {
 export {
   separatorVariants,
   separatorLineClass,
+  separatorSubtleLineClass,
   separatorLabelClass,
+  type SeparatorTone,
 } from './separator.styles.js'

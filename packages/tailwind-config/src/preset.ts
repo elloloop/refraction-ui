@@ -35,6 +35,17 @@ export const refractionPreset = {
         // large --radius (1rem → 12px ≈ radio button). 2px keeps the default
         // theme pixel-identical (--radius: 0.375rem → calc(6px - 4px) = 2px).
         sm: '2px',
+        // Semantic shape roles (issue #485). `pill` is a fully-rounded track
+        // (chips, toggles); `sheet` is the large corner for drawers/bottom
+        // sheets. Both fall back so consumers on older stylesheets don't break.
+        pill: 'var(--radius-pill, 9999px)',
+        sheet: 'var(--radius-sheet, 1.5rem)',
+      },
+      backgroundImage: {
+        // Brand gradient (issue #485) — a documented convention built from the
+        // per-theme primary/primary-active steps, so it re-skins with the theme.
+        'primary-gradient':
+          'var(--primary-gradient, linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-active, var(--primary)))))',
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', '-apple-system', 'sans-serif'],

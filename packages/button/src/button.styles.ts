@@ -24,6 +24,10 @@ export const buttonVariants = cva({
       destructive: 'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
       outline: 'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
       secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
+      // Soft tinted brand fill — lower-emphasis primary action (issue #485).
+      soft: 'bg-primary-soft text-primary-soft-foreground shadow-sm hover:bg-primary-soft/80',
+      // Second brand accent (issue #485).
+      tertiary: 'bg-tertiary text-tertiary-foreground shadow-sm hover:bg-tertiary/90',
       ghost: 'hover:bg-accent hover:text-accent-foreground',
       link: 'text-primary underline-offset-4 hover:underline',
     },

@@ -1,6 +1,18 @@
 import type { AccessibilityProps } from '@refraction-ui/shared'
 
-export type BadgeVariant = 'default' | 'primary' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning'
+export type BadgeVariant =
+  | 'default'
+  | 'primary'
+  | 'secondary'
+  | 'destructive'
+  | 'outline'
+  | 'success'
+  | 'warning'
+  // Issue #485 — second brand accent + extended status roles.
+  | 'tertiary'
+  | 'positive'
+  | 'caution'
+  | 'done'
 export type BadgeSize = 'sm' | 'md'
 
 export interface BadgeProps {
@@ -15,13 +27,23 @@ export interface BadgeAPI {
   dataAttributes: Record<string, string>
 }
 
-const statusVariants: BadgeVariant[] = ['success', 'warning', 'destructive']
+const statusVariants: BadgeVariant[] = [
+  'success',
+  'warning',
+  'destructive',
+  'positive',
+  'caution',
+  'done',
+]
 
 /** Icon name for status badge variants — non-color indicator for colorblind safety */
 const BADGE_ICONS: Partial<Record<BadgeVariant, string>> = {
   success: 'check',
   warning: 'alert',
   destructive: 'x',
+  positive: 'check',
+  caution: 'alert',
+  done: 'check',
 }
 
 /** Get the icon name for a badge variant (undefined for non-status variants) */
