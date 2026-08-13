@@ -1,5 +1,12 @@
 # @refraction-ui/astro-badge
 
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [cf18f7e]
+  - @refraction-ui/badge@0.2.0
+
 ## 0.2.5
 
 ### Patch Changes

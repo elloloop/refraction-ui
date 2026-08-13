@@ -1,5 +1,12 @@
 # @refraction-ui/react-button
 
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [cf18f7e]
+  - @refraction-ui/button@0.2.0
+
 ## 0.1.6
 
 ### Patch Changes
