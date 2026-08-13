@@ -1,4 +1,4 @@
-# @refraction-ui/card
+# @refraction-ui/separator
 
 ## 0.2.0
 
@@ -26,45 +26,3 @@
   …) and into components as new variants: Button (`soft`, `tertiary`), Badge
   (`tertiary`, `positive`, `caution`, `done`), Card (`subtle`, `tertiary` tones),
   and Separator (`tone="subtle"` hairline).
-
-## 0.1.6
-
-### Patch Changes
-
-- Updated dependencies [cf1d82e]
-- Updated dependencies [bfeeb83]
-  - @refraction-ui/shared@0.2.0
-
-## 0.1.5
-
-### Patch Changes
-
-- Updated dependencies [6319dc8]
-  - @refraction-ui/shared@0.1.4
-
-## 0.1.4
-
-### Patch Changes
-
-- f98992f: fix: update component configurations and dependencies
-
-## 0.1.3
-
-### Patch Changes
-
-- Updated dependencies [dabcbd6]
-  - @refraction-ui/shared@0.1.3
-
-## 0.1.2
-
-### Patch Changes
-
-- Updated dependencies [c083c7d]
-  - @refraction-ui/shared@0.1.2
-
-## 0.1.1
-
-### Patch Changes
-
-- Updated dependencies [30d38ee]
-  - @refraction-ui/shared@0.1.1

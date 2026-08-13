@@ -1,5 +1,12 @@
 # @refraction-ui/react-badge
 
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [cf18f7e]
+  - @refraction-ui/badge@0.2.0
+
 ## 0.1.6
 
 ### Patch Changes
