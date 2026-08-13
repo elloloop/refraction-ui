@@ -68,6 +68,11 @@ jobs:
             echo "No baseline changes — nothing to commit."
           else
             git add e2e/snapshots
-            git commit -m "chore(visual): refresh Playwright baselines [skip ci]"
+            # No [skip ci] here on purpose: a head-commit message containing
+            # [skip ci] makes GitHub skip ALL workflows for the push — and if
+            # a squash-merge body later quotes this message, it silently skips
+            # the entire main pipeline (Test Matrix → Release) as happened
+            # after #487. Baseline commits must run CI like any other.
+            git commit -m "chore(visual): refresh Playwright baselines"
             git push origin HEAD:${{ github.head_ref || github.ref_name }}
           fi
