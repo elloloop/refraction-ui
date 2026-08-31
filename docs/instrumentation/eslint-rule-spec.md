@@ -89,13 +89,13 @@ A logging call is *guarded* if it is statically inside one of:
 
 ## 5. Config wiring (Wave 4)
 
-Add to root `.eslintrc.cjs` `overrides`:
+Add an entry to the root `eslint.config.mjs` array:
 
 ```js
 {
   files: ['packages/*/src/**/*.{ts,tsx}'],
-  plugins: ['@refraction-ui/instrumentation'],
-  extends: ['plugin:@refraction-ui/instrumentation/recommended'],
+  plugins: { '@refraction-ui/instrumentation': instrumentationPlugin },
+  extends: [instrumentationPlugin.configs.recommended],
 }
 ```
 
