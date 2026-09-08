@@ -3,12 +3,21 @@ import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Spinner, LoadingBar, LoadingOverlay } from '../src/index.js'
 
-/** Markup without the hoisted stylesheet, so selectors in the CSS don't match. */
-const withoutStyles = (html: string) => html.replace(/<style[\s\S]*?<\/style>/g, '')
+/**
+ * The rendered markup with React's hoisted stylesheet dropped, so CSS text
+ * never satisfies an assertion about the element. The sheet is emitted exactly
+ * once, ahead of the markup, so this slices at that known boundary instead of
+ * pattern-matching tags — it reads test output, it is not a sanitizer.
+ */
+const STYLE_END = '</style>'
+const markupOnly = (html: string) => {
+  const end = html.lastIndexOf(STYLE_END)
+  return end === -1 ? html : html.slice(end + STYLE_END.length)
+}
 
 describe('Spinner (SSR)', () => {
   it('renders a status region with the variant parts', () => {
-    const html = withoutStyles(renderToString(<Spinner variant="dots" size="lg" label="Saving" />))
+    const html = markupOnly(renderToString(<Spinner variant="dots" size="lg" label="Saving" />))
     expect(html).toContain('role="status"')
     expect(html).toContain('aria-label="Saving"')
     expect(html).toContain('data-variant="dots"')
@@ -61,7 +70,7 @@ describe('LoadingOverlay (SSR)', () => {
   })
 
   it('accepts a custom indicator', () => {
-    const html = withoutStyles(
+    const html = markupOnly(
       renderToString(
         <LoadingOverlay label="Loading lesson">
           <Spinner variant="dots" decorative />
