@@ -1,0 +1,53 @@
+---
+import {
+  patternForDirection,
+  pageTransitionClass,
+  createMotion,
+  motionStyles,
+  type MotionAxis,
+  type MotionDirection,
+  type MotionSpeed,
+} from '@refraction-ui/motion'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Current step index (exposed as data for client scripts). */
+  step?: number
+  /** Which way the page arrived. Defaults to `forward`. */
+  direction?: MotionDirection
+  /** Vertical (parent wizards) or horizontal filmstrip (kid lessons). */
+  axis?: MotionAxis
+  /** Skip the animation. */
+  disabled?: boolean
+  /** Playback speed: a named step or a multiplier. Defaults to `'default'`. */
+  speed?: MotionSpeed
+}
+
+const {
+  step = 0,
+  direction = 'forward',
+  axis = 'vertical',
+  disabled,
+  speed,
+  class: className,
+  ...rest
+} = Astro.props
+
+const pattern = patternForDirection(direction, axis)
+const api = createMotion({ pattern, disabled, speed })
+---
+
+<style is:inline set:html={motionStyles}></style>
+<div
+  class={cn(pageTransitionClass, className)}
+  data-slot="page-transition"
+  data-step={String(step)}
+  data-direction={direction}
+  data-axis={axis}
+  {...rest}
+>
+  <div
+    style={Object.entries(api.style).map(([k, v]) => `${k}:${v}`).join(';') || undefined}
+    {...api.dataAttributes}
+  ><slot /></div>
+</div>

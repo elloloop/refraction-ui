@@ -123,6 +123,7 @@
     "@refraction-ui/react-mastery-bar": "workspace:*",
     "@refraction-ui/react-mini-map": "workspace:*",
     "@refraction-ui/react-mobile-nav": "workspace:*",
+    "@refraction-ui/react-motion": "workspace:*",
     "@refraction-ui/react-navbar": "workspace:*",
     "@refraction-ui/react-numbered-steps": "workspace:*",
     "@refraction-ui/react-otp-input": "workspace:*",
