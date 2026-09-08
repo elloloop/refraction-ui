@@ -1,0 +1,60 @@
+---
+import {
+  createLoadingBar,
+  loadingBarVariants,
+  loaderStyles,
+  type LoadingBarPlacement,
+  type LoaderTone,
+} from '@refraction-ui/loader'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Percentage complete. Omit for an indeterminate sweep. */
+  value?: number
+  /** Accessible name. Defaults to "Loading page". */
+  label?: string
+  /** Pin to the top of the viewport, or sit in flow. */
+  placement?: LoadingBarPlacement
+  /** Colour role. */
+  tone?: LoaderTone
+  /** Track thickness. Defaults to 3px. */
+  thickness?: number | string
+  /** Playback speed multiplier for the indeterminate sweep. */
+  speed?: number
+}
+
+const {
+  value,
+  label,
+  placement = 'inline',
+  tone = 'primary',
+  thickness,
+  speed,
+  class: className,
+  style,
+  ...rest
+} = Astro.props
+
+const api = createLoadingBar({ value, label, placement })
+const styleString = [
+  Object.entries(api.style).map(([k, v]) => `${k}:${v}`).join(';'),
+  thickness !== undefined
+    ? `--rfr-loader-bar-height:${typeof thickness === 'number' ? `${thickness}px` : thickness}`
+    : '',
+  speed !== undefined ? `--rfr-loader-speed:${speed}` : '',
+  style,
+]
+  .filter(Boolean)
+  .join(';')
+---
+
+<style is:inline set:html={loaderStyles} data-rfr-loader-styles></style>
+<div
+  class={cn(loadingBarVariants({ tone, placement }), className)}
+  style={styleString}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...rest}
+>
+  <span data-part="fill"></span>
+</div>

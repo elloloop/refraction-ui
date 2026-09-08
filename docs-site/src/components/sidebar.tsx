@@ -20,6 +20,7 @@ const componentGroups = [
       { name: 'Slot Picker', href: '/components/slot-picker' },
       { name: 'Badge', href: '/components/badge' },
       { name: 'Skeleton', href: '/components/skeleton' },
+      { name: 'Loader', href: '/components/loader' },
       { name: 'Avatar', href: '/components/avatar' },
       { name: 'Calendar', href: '/components/calendar' },
       { name: 'Tooltip', href: '/components/tooltip' },

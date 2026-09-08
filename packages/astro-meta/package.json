@@ -81,6 +81,7 @@
     "@refraction-ui/astro-kanban-board": "workspace:*",
     "@refraction-ui/astro-keyboard-shortcut": "workspace:*",
     "@refraction-ui/astro-language-selector": "workspace:*",
+    "@refraction-ui/astro-loader": "workspace:*",
     "@refraction-ui/astro-link-card": "workspace:*",
     "@refraction-ui/astro-live-captions": "workspace:*",
     "@refraction-ui/astro-live-cursors": "workspace:*",

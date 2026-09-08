@@ -1,0 +1,55 @@
+---
+import {
+  createLoader,
+  spinnerVariants,
+  loaderStyles,
+  type LoaderVariant,
+  type LoaderSize,
+  type LoaderTone,
+} from '@refraction-ui/loader'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Spinner shape. */
+  variant?: LoaderVariant
+  /** Visual size. */
+  size?: LoaderSize
+  /** Colour role; `current` inherits the surrounding text colour. */
+  tone?: LoaderTone
+  /** Accessible name. Defaults to "Loading". */
+  label?: string
+  /** Hide from assistive tech when a parent already announces busy state. */
+  decorative?: boolean
+  /** Playback speed multiplier. */
+  speed?: number
+}
+
+const {
+  variant = 'ring',
+  size = 'md',
+  tone = 'primary',
+  label,
+  decorative = false,
+  speed,
+  class: className,
+  style,
+  ...rest
+} = Astro.props
+
+const api = createLoader({ variant, size, tone, label, decorative })
+const styleString = [speed !== undefined ? `--rfr-loader-speed:${speed}` : '', style]
+  .filter(Boolean)
+  .join(';')
+const parts = Array.from({ length: api.partCount }, (_, i) => i)
+---
+
+<style is:inline set:html={loaderStyles} data-rfr-loader-styles></style>
+<span
+  class={cn(spinnerVariants({ tone }), className)}
+  style={styleString || undefined}
+  {...api.ariaProps}
+  {...api.dataAttributes}
+  {...rest}
+>
+  {parts.map((i) => <span data-part={String(i)} />)}
+</span>

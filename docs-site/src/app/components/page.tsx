@@ -14,6 +14,7 @@ const components = [
   { name: 'OTP Input', href: '/components/otp-input', description: 'One-time password input with auto-advance and paste support.', category: 'Core UI' },
   { name: 'Badge', href: '/components/badge', description: 'Status badge with 7 variants including semantic success, warning, and destructive.', category: 'Core UI' },
   { name: 'Skeleton', href: '/components/skeleton', description: 'Placeholder loading elements with rectangle, circle, and text shapes.', category: 'Core UI' },
+  { name: 'Loader', href: '/components/loader', description: 'Spinners, top-of-page loading bar, overlay scrim, and anti-flicker loading hooks.', category: 'Core UI' },
   { name: 'Avatar', href: '/components/avatar', description: 'Circular avatar with image support and fallback initials in 5 sizes.', category: 'Core UI' },
   { name: 'Calendar', href: '/components/calendar', description: 'Month-view calendar with date selection and navigation.', category: 'Core UI' },
   { name: 'Tooltip', href: '/components/tooltip', description: 'Hover-triggered tooltip with configurable delay and placement.', category: 'Core UI' },
