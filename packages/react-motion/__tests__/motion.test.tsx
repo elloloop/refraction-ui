@@ -97,12 +97,21 @@ describe('CheckDraw (SSR)', () => {
   })
 })
 
-/** Markup without the hoisted stylesheet, which defines the speed property. */
-const withoutStyles = (html: string) => html.replace(/<style[\s\S]*?<\/style>/g, '')
+/**
+ * The rendered markup with React's hoisted stylesheet dropped, since the sheet
+ * itself declares the speed property. It is emitted exactly once, ahead of the
+ * markup, so this slices at that known boundary instead of pattern-matching
+ * tags — it reads test output, it is not a sanitizer.
+ */
+const STYLE_END = '</style>'
+const markupOnly = (html: string) => {
+  const end = html.lastIndexOf(STYLE_END)
+  return end === -1 ? html : html.slice(end + STYLE_END.length)
+}
 
 describe('speed (SSR)', () => {
   it('leaves the markup clean at the default tempo', () => {
-    const html = withoutStyles(renderToString(<Reveal pattern="page-in">x</Reveal>))
+    const html = markupOnly(renderToString(<Reveal pattern="page-in">x</Reveal>))
     expect(html).not.toContain('--rfr-motion-speed')
   })
 
