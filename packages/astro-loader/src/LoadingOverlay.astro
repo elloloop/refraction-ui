@@ -1,0 +1,56 @@
+---
+import {
+  createLoadingOverlay,
+  loadingOverlayVariants,
+  loaderMessageClass,
+  loaderStyles,
+  type LoadingOverlayScope,
+} from '@refraction-ui/loader'
+import { cn } from '@refraction-ui/shared'
+import Spinner from './Spinner.astro'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Whether the overlay is shown. Renders nothing when false. */
+  open?: boolean
+  /** Cover the viewport, or the nearest positioned ancestor. */
+  scope?: LoadingOverlayScope
+  /** Blur the content behind the scrim. */
+  blur?: boolean
+  /** Visible message under the indicator. */
+  message?: string
+  /** Accessible name when no message is given. */
+  label?: string
+}
+
+const {
+  open = true,
+  scope = 'fullscreen',
+  blur = true,
+  message,
+  label,
+  class: className,
+  ...rest
+} = Astro.props
+
+const api = createLoadingOverlay({ open, scope, blur, label: label ?? message })
+const hasIndicator = Astro.slots.has('default')
+---
+
+{
+  open && (
+    <>
+      <style is:inline set:html={loaderStyles} data-rfr-loader-styles></style>
+      <div
+        class={cn(loadingOverlayVariants({ scope }), className)}
+        {...api.ariaProps}
+        {...api.dataAttributes}
+        {...rest}
+      >
+        <div data-part="panel">
+          {hasIndicator ? <slot /> : <Spinner size="lg" decorative />}
+          {message && <p class={loaderMessageClass}>{message}</p>}
+        </div>
+      </div>
+    </>
+  )
+}
