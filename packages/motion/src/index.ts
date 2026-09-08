@@ -1,0 +1,25 @@
+export {
+  MOTION_DURATIONS,
+  MOTION_EASINGS,
+  MOTION_PATTERNS,
+  MOTION_SPEEDS,
+  MOTION_SPEED_NAMES,
+  MIN_MOTION_SPEED,
+  MAX_MOTION_SPEED,
+  STAGGER_CAP,
+  createMotion,
+  resolveMotionSpeed,
+  resolveDirection,
+  patternForDirection,
+  resolvePageDirection,
+  staggerDelay,
+  type MotionPattern,
+  type MotionSpeed,
+  type MotionSpeedName,
+  type MotionAxis,
+  type MotionDirection,
+  type MotionProps,
+  type MotionAPI,
+} from './motion.js'
+
+export { staggerVariants, pageTransitionClass, motionStyles } from './motion.styles.js'

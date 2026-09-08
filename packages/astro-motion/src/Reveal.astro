@@ -1,0 +1,27 @@
+---
+import { createMotion, motionStyles, type MotionPattern, type MotionSpeed } from '@refraction-ui/motion'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Named choreography to arrive with. */
+  pattern: MotionPattern
+  /** Extra delay before the animation starts. */
+  delayMs?: number
+  /** Skip the animation (content just appears). */
+  disabled?: boolean
+  /** Playback speed: `'slow' | 'relaxed' | 'default' | 'brisk' | 'fast'`, or a multiplier. */
+  speed?: MotionSpeed
+  /** Element to render. Defaults to `div`. */
+  as?: string
+}
+
+const { pattern, delayMs, disabled, speed, as = 'div', style, ...rest } = Astro.props
+const api = createMotion({ pattern, delayMs, disabled, speed })
+const styleString = [
+  Object.entries(api.style).map(([k, v]) => `${k}:${v}`).join(';'),
+  typeof style === 'string' ? style : '',
+].filter(Boolean).join(';')
+const Tag = as
+---
+
+<style is:inline set:html={motionStyles}></style>
+<Tag style={styleString || undefined} {...api.dataAttributes} {...rest}><slot /></Tag>

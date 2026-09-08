@@ -1,0 +1,70 @@
+---
+import {
+  staggerVariants,
+  staggerDelay,
+  motionStyles,
+  MOTION_DURATIONS,
+  MOTION_SPEEDS,
+  STAGGER_CAP,
+  resolveMotionSpeed,
+  type MotionSpeed,
+} from '@refraction-ui/motion'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Milliseconds between children. Defaults to 45. */
+  stepMs?: number
+  /** Children beyond this index share the last delay. Defaults to 8. */
+  cap?: number
+  /** Arrival pattern for each child. */
+  pattern?: 'page-in' | 'side-next' | 'handoff' | 'celebrate'
+  /** Optional layout for the group. */
+  layout?: 'stack' | 'grid' | 'inline' | 'none'
+  /** Skip the animation. */
+  disabled?: boolean
+  /** Playback speed for the whole group: a named step or a multiplier. */
+  speed?: MotionSpeed
+}
+
+const {
+  stepMs = MOTION_DURATIONS.staggerStep,
+  cap = STAGGER_CAP,
+  pattern = 'page-in',
+  layout = 'none',
+  disabled,
+  speed,
+  class: className,
+  style,
+  ...rest
+} = Astro.props
+
+// Custom properties inherit, so one value on the group re-times every child.
+const resolvedSpeed = resolveMotionSpeed(speed)
+const styleString = [
+  resolvedSpeed === MOTION_SPEEDS.default ? '' : `--rfr-motion-speed:${resolvedSpeed}`,
+  typeof style === 'string' ? style : '',
+].filter(Boolean).join(';')
+
+// Slotted children can't be cloned server-side, so the delays are written as
+// per-index rules on the group; the values come from the same `staggerDelay`.
+const delayRules = Array.from({ length: cap }, (_, i) =>
+  `[data-rfr-motion="stagger"][data-stagger-scope="${stepMs}-${cap}"]>*:nth-child(${i + 1}){--rfr-motion-delay:${staggerDelay(i, stepMs, cap)}ms}`,
+)
+delayRules.push(
+  `[data-rfr-motion="stagger"][data-stagger-scope="${stepMs}-${cap}"]>*:nth-child(n+${cap + 1}){--rfr-motion-delay:${staggerDelay(cap, stepMs, cap)}ms}`,
+)
+---
+
+<style is:inline set:html={motionStyles}></style>
+<style is:inline set:html={delayRules.join('')}></style>
+<div
+  class={cn(staggerVariants({ layout }), className)}
+  style={styleString || undefined}
+  data-rfr-motion="stagger"
+  data-pattern={pattern}
+  data-stagger-scope={`${stepMs}-${cap}`}
+  data-disabled={disabled ? 'true' : undefined}
+  {...rest}
+>
+  <slot />
+</div>
