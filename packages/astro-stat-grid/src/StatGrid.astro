@@ -2,44 +2,48 @@
 import {
   createStatGrid,
   statColumns,
+  statColumnsKey,
   statGridVariants,
-  statItemClass,
-  statValueClass,
-  statLabelClass,
+  statItemVariants,
+  statValueVariants,
+  statLabelVariants,
+  statDescriptionClass,
   type StatItem,
+  type StatGridVariant,
+  type StatGridLayout,
+  type StatGridColumns,
 } from '@refraction-ui/stat-grid'
 import { cn } from '@refraction-ui/shared'
 
 interface Props extends astroHTML.JSX.HTMLAttributes {
-  /** The stat items to display in the grid (value and label as strings). */
+  /** The stat items to display in the grid. */
   items: StatItem[]
-  /**
-   * Number of columns. Defaults to statColumns(items.length):
-   * 1 item → 1, 2 items → 2, 3+ items → 3.
-   */
-  columns?: number
+  /** Maximum columns (reflows on narrow screens) or `auto`. Defaults to statColumns(items.length). */
+  columns?: StatGridColumns
+  variant?: StatGridVariant
+  layout?: StatGridLayout
 }
 
-const { items, columns, class: className, ...rest } = Astro.props
-
-const cols = columns ?? statColumns(items.length)
-const colsKey = String(cols) as '1' | '2' | '3'
+const { items, columns, variant = 'plain', layout = 'value-first', class: className, ...rest } = Astro.props
+const cols = statColumnsKey(columns ?? statColumns(items.length))
 const { ariaProps, dataAttributes } = createStatGrid()
-const gridStyle = `grid-template-columns:repeat(${cols}, 1fr)`
 ---
 
 <div
-  class={cn(statGridVariants({ columns: colsKey }), className)}
-  style={gridStyle}
+  class={cn(statGridVariants({ columns: cols, variant }), className)}
+  data-variant={variant}
+  data-layout={layout}
   {...ariaProps}
   {...dataAttributes}
   {...rest}
 >
   {
     items.map((item) => (
-      <div role="listitem" class={statItemClass}>
-        <span class={statValueClass}>{item.value}</span>
-        <span class={statLabelClass}>{item.label}</span>
+      <div role="listitem" class={statItemVariants({ variant })} data-tone={item.tone ?? 'default'}>
+        {layout === 'label-first' && <span class={statLabelVariants({ layout })}>{item.label}</span>}
+        <span class={statValueVariants({ variant, tone: item.tone ?? 'default' })}>{item.value}</span>
+        {layout === 'value-first' && <span class={statLabelVariants({ layout })}>{item.label}</span>}
+        {item.description && <span class={statDescriptionClass}>{item.description}</span>}
       </div>
     ))
   }

@@ -6,14 +6,26 @@ import { InstallCommand } from '@/components/install-command'
 const statGridProps = [
   {
     name: 'items',
-    type: '{ value: React.ReactNode; label: React.ReactNode }[]',
-    description: 'The stat callouts to display. Each item has a value (large, bold) and a label (small, muted).',
+    type: '{ value: ReactNode; label: ReactNode; id?: string; description?: ReactNode; tone?: "default" | "positive" | "negative" | "caution"; props?: HTMLAttributes<HTMLDivElement> }[]',
+    description: 'The stats. Optional description (how the figure was computed), tone (value colour on the status roles) and props (attributes for the item element).',
   },
   {
     name: 'columns',
-    type: 'number',
+    type: "1 | 2 | 3 | 4 | 'auto'",
     description:
-      'Override the number of grid columns. Defaults to statColumns(items.length): 1 → 1, 2 → 2, 3+ → 3.',
+      'Maximum columns; reflows to fewer on narrow screens. auto fits as many ~12rem items as the width allows. Defaults to statColumns(items.length): 1 → 1, 2 → 2, 3+ → 3.',
+  },
+  {
+    name: 'variant',
+    type: "'plain' | 'card'",
+    default: "'plain'",
+    description: 'plain = marketing callouts; card = bordered dashboard KPI cards.',
+  },
+  {
+    name: 'layout',
+    type: "'value-first' | 'label-first'",
+    default: "'value-first'",
+    description: 'label-first puts a small caption above the value (dashboard order).',
   },
   {
     name: 'className',
@@ -76,6 +88,14 @@ export default function StatGridPage() {
           auto-computed column count — here four items in two columns.
         </p>
         <StatGridExamples section="custom-columns" />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">KPI cards</h2>
+        <p className="text-sm text-muted-foreground">
+          variant="card" with layout="label-first", columns="auto", per-item tone and description.
+        </p>
+        <StatGridExamples section="kpi-cards" />
       </section>
 
       <section className="space-y-3">

@@ -7,3 +7,4 @@ export default meta
 export const ThreeStats = { render: () => <StatGridExamples section="three-stats" /> }
 export const TwoStats = { render: () => <StatGridExamples section="two-stats" /> }
 export const CustomColumns = { render: () => <StatGridExamples section="custom-columns" /> }
+export const KpiCards = { render: () => <StatGridExamples section="kpi-cards" /> }

@@ -4,7 +4,7 @@ import * as React from 'react'
 import { StatGrid } from '@refraction-ui/react-stat-grid'
 
 interface StatGridExamplesProps {
-  section: 'three-stats' | 'two-stats' | 'custom-columns'
+  section: 'three-stats' | 'two-stats' | 'custom-columns' | 'kpi-cards'
 }
 
 export function StatGridExamples({ section }: StatGridExamplesProps) {
@@ -45,6 +45,24 @@ export function StatGridExamples({ section }: StatGridExamplesProps) {
             { value: '<50ms', label: 'Median response time' },
             { value: '150+', label: 'Countries served' },
             { value: '99.99%', label: 'Error-free requests' },
+          ]}
+        />
+      </div>
+    )
+  }
+
+  if (section === 'kpi-cards') {
+    return (
+      <div className="rounded-xl border border-border bg-card p-8">
+        <StatGrid
+          variant="card"
+          layout="label-first"
+          columns="auto"
+          items={[
+            { id: 'revenue', value: '$48.2k', label: 'Revenue', tone: 'positive', description: '+12% vs last month' },
+            { id: 'orders', value: '1,284', label: 'Orders', description: 'Completed checkouts' },
+            { id: 'refunds', value: '23', label: 'Refunds', tone: 'negative', description: '1.8% of orders' },
+            { id: 'pending', value: '7', label: 'Pending review', tone: 'caution', description: 'Older than 48h' },
           ]}
         />
       </div>
