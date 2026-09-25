@@ -42,13 +42,13 @@ export default function NativeSelectPage() {
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Native Select</h1>
         <p className="mt-3 text-lg text-muted-foreground leading-relaxed">
-          A native <select> with the input look and a chevron: the platform picker on mobile, type-to-select, form submission and change events for free. Use Select when you need a custom listbox.
+          A native {'<select>'} with the input look and a chevron: the platform picker on mobile, type-to-select, form submission and change events for free. Use Select when you need a custom listbox.
         </p>
       </div>
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Basic</h2>
-        <p className="text-sm text-muted-foreground">Options are ordinary <option> elements; every native attribute passes through.</p>
+        <p className="text-sm text-muted-foreground">Options are ordinary {'<option>'} elements; every native attribute passes through.</p>
         <NativeSelectExamples section="basic" />
       </section>
 
