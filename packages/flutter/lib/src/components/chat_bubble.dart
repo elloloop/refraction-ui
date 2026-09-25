@@ -1,9 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
-import '../data/animated_emoji_manifest.dart';
 import '../data/emoji_data.dart';
 import '../theme/refraction_theme.dart';
 
@@ -89,29 +87,15 @@ double? _jumboEmojiSize(String text) {
   return switch (clusters.length) { 1 => 56.0, 2 => 44.0, _ => 36.0 };
 }
 
-/// The bundled-asset key for [cluster] (`1f525` for 🔥), or null when
-/// Google's animated set has no animation for it.
-String? _animatedEmojiKey(String cluster) {
-  final key = cluster.runes
-      .where((rune) => rune != 0xFE0F)
-      .map((rune) => rune.toRadixString(16))
-      .join('_');
-  return kAnimatedEmojiAssets.contains(key) ? key : null;
-}
-
 /// One jumbo glyph: the animated Noto Lottie when bundled, the static
 /// glyph otherwise (Telegram-style motion with a graceful fallback).
 Widget _jumboGlyph(BuildContext context, String cluster, double size) {
-  final key = _animatedEmojiKey(cluster);
+  final key = animatedEmojiKey(cluster);
   if (key != null) {
-    return Lottie.asset(
-      'assets/emoji_animated/$key.json',
-      package: 'refraction_ui',
-      width: size,
-      height: size,
-      repeat: true,
-      errorBuilder: (context, error, stackTrace) =>
-          _staticJumboGlyph(context, cluster, size),
+    return animatedEmojiLottie(
+      key,
+      size: size,
+      fallback: _staticJumboGlyph(context, cluster, size),
     );
   }
   return _staticJumboGlyph(context, cluster, size);

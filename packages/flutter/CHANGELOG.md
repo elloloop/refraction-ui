@@ -1,3 +1,14 @@
+## Unreleased
+
+- **Feature — `RefractionReactionBar` is now a work-chat reaction row** (non-breaking; existing `icon:` reactions still work):
+  - `RefractionReaction.emoji` renders through the bar's `emojiRenderer`, which defaults to the bundled Twemoji. It no longer goes through a platform emoji font. On Flutter web that font is fetched from `fonts.gstatic.com`, so under a strict Content-Security-Policy a plain `Text('👍')` rendered as tofu.
+  - When a reaction becomes yours, its chip pops and, where Google's Noto set has an animation, plays it once before going back to still. Reduced motion (`MediaQuery.disableAnimations`) skips this; set `animateOnReact: false` to turn it off.
+  - Who reacted: `RefractionReaction.reactors` shows a tooltip on hover or long-press ("Ana, Dev, Sam and 2 others reacted with thumbs up").
+  - `onAddReaction` shows a trailing add-reaction button. `maxVisible` collapses extra reactions into a "+N" chip that expands and collapses.
+  - Accessibility: every chip is a keyboard stop (Tab, Enter/Space) and a toggle button for screen readers ("thumbs up: 3 reactions, including you"). Labels come from `RefractionReaction.label`, then the emoji's Unicode name, so no hand-written label map is needed. All strings are in `RefractionReactionBarStrings`.
+  - Look: compact pills (`radiusPill`, 24 px on the default scale). Your own reactions use `primarySoft` and `primary`; the rest use `surfaceSubtle`; counts use tabular figures. Everything comes from tokens. The default inactive fill changed from `background` to `surfaceSubtle`.
+- **API:** `EmojiData.lookup(glyph)` returns the dataset entry for a glyph and tolerates U+FE0F. `animatedEmojiKey(glyph)` and `animatedEmojiLottie(...)` are now public; `RefractionChatBubble` uses the same helpers.
+
 ## 0.49.0
 
 - **Theme (additive, non-breaking): a much richer, semantic-role token vocabulary so a product's whole look is token-driven.** Every new token is **optional** with a getter that **derives a sensible default from the existing tokens**, so all curated palettes, the six named-theme statics, and every existing `RefractionColors`/`RefractionThemeData` construction keep compiling and rendering **pixel-identically** — nothing new is required.
