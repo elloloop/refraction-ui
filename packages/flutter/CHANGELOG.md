@@ -1,3 +1,18 @@
+## Unreleased
+
+- **Theme (additive, non-breaking): accessible feedback, highlight, surface and focus roles.** New optional `RefractionColors` roles, each a nullable override with a derived default (wired through `copyWith`/`lerp`); no existing token, palette or component changes appearance.
+  - Status on-colors: `successForeground`, `warningForeground`, `infoForeground` — default to whichever of white / near-black ink has the higher contrast on the hue (dark ink on the default green and amber).
+  - Soft status pairs: `successSoft`/`successSoftForeground`, `warningSoft`/`warningSoftForeground`, `infoSoft`/`infoSoftForeground`, `destructiveSoft`/`destructiveSoftForeground` — a ~14% tint over `background` plus the nearest shade of the hue that meets WCAG AA (4.5:1) on it. Use these for status text instead of the raw hue (the raw hues measure 2.0–3.1:1 on white, and dark-mode `destructive` 1.9–2.3:1 on the page).
+  - Chat highlights: `mention`/`mentionForeground` (an @mention of someone else, → `primarySoft`), `mentionSelf`/`mentionSelfForeground` (an @mention of the viewer — a warm tint), `highlight`/`highlightForeground` (jump-to / search-hit wash), `selection`/`selectionForeground` (selected rows and text).
+  - Surface elevation ladder: `surfaceSunken` (→ `surfaceSubtle`), `surfaceRaised` (→ `card`), `surfaceOverlay` (→ `popover`), and `scrim` (black ~54% on light palettes, ~70% on dark).
+  - `focusRing` — `ring` adjusted to meet WCAG 1.4.11 (3:1) against `background`.
+  - `RefractionColors.curated` — every curated palette by name.
+- **Theme: `RefractionThemeData` focus + motion tokens** — `focusRingWidth` (2), `focusRingOffset` (2), `motionFast` (120 ms), `motionMedium` (200 ms), `motionSlow` (300 ms).
+- **New: `RefractionContrast`** — WCAG contrast math (`ratio`, `meets`, `onColor`, `ensure`, plus the `aaText`/`aaLargeText`/`aaNonText` thresholds) behind the derived defaults, exported for app-level checks.
+- **New: `RefractionMotion`** — `reduced(context)` / `duration(context, base)`: durations collapse to zero when the platform requests reduced motion.
+- **New: `RefractionFocusRing`** — paints the theme focus ring outside a control (no layout shift) for keyboard focus.
+- **Tests:** every derived text role is asserted to meet AA on every curated palette.
+
 ## 0.49.0
 
 - **Theme (additive, non-breaking): a much richer, semantic-role token vocabulary so a product's whole look is token-driven.** Every new token is **optional** with a getter that **derives a sensible default from the existing tokens**, so all curated palettes, the six named-theme statics, and every existing `RefractionColors`/`RefractionThemeData` construction keep compiling and rendering **pixel-identically** — nothing new is required.

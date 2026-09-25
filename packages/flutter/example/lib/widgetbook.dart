@@ -90,8 +90,12 @@ class WidgetbookApp extends StatelessWidget {
         ),
         ViewportAddon([
           IosViewports.iPhone13,
+          IosViewports.iPadPro11Inches,
           MacosViewports.macbookPro,
           WindowsViewports.desktop,
+          // Fills the window — lets screenshot runs size the preview with
+          // the browser viewport (e.g. 390 / 1024 / 1440 wide).
+          Viewports.none,
         ]),
       ],
     );
