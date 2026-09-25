@@ -50,7 +50,7 @@ export default function TabsPage() {
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Tabs</h1>
         <p className="mt-3 text-lg text-muted-foreground leading-relaxed">
-          A tabbed interface with compound components, ARIA support, and keyboard navigation.
+          A tabbed interface with compound components, ARIA support, and roving keyboard focus: Tab reaches the selected tab, Arrow keys (Left/Right, or Up/Down when vertical) and Home/End move between tabs and select them, skipping disabled tabs.
           Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/tabs</code> core.
         </p>
       </div>

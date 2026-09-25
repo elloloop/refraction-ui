@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { resetIdCounter } from '@refraction-ui/shared'
-import { createTabs } from '../src/tabs.js'
+import { createTabs, getNextTabIndex } from '../src/tabs.js'
 import { tabsListVariants, tabsTriggerVariants } from '../src/tabs.styles.js'
 
 beforeEach(() => {
@@ -311,5 +311,27 @@ describe('tabs styles', () => {
     expect(classes).toContain('rounded-md')
     expect(classes).toContain('text-sm')
     expect(classes).toContain('font-medium')
+  })
+})
+
+describe('getNextTabIndex', () => {
+  it('wraps arrows horizontally and ignores the other axis', () => {
+    expect(getNextTabIndex(0, 'ArrowRight', 3)).toBe(1)
+    expect(getNextTabIndex(2, 'ArrowRight', 3)).toBe(0)
+    expect(getNextTabIndex(0, 'ArrowLeft', 3)).toBe(2)
+    expect(getNextTabIndex(0, 'ArrowDown', 3)).toBeNull()
+  })
+
+  it('uses up/down vertically', () => {
+    expect(getNextTabIndex(0, 'ArrowDown', 3, 'vertical')).toBe(1)
+    expect(getNextTabIndex(0, 'ArrowUp', 3, 'vertical')).toBe(2)
+    expect(getNextTabIndex(0, 'ArrowRight', 3, 'vertical')).toBeNull()
+  })
+
+  it('jumps with Home/End and handles empty lists', () => {
+    expect(getNextTabIndex(1, 'Home', 3)).toBe(0)
+    expect(getNextTabIndex(1, 'End', 3)).toBe(2)
+    expect(getNextTabIndex(0, 'ArrowRight', 0)).toBeNull()
+    expect(getNextTabIndex(0, 'Enter', 3)).toBeNull()
   })
 })
