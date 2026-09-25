@@ -17,6 +17,8 @@ interface DropdownMenuContextValue {
   open: boolean
   onOpenChange: (open: boolean) => void
   contentId: string
+  /** The trigger element, so the portalled content can anchor to it. */
+  triggerRef: React.MutableRefObject<HTMLElement | null>
 }
 
 const DropdownMenuContext = React.createContext<DropdownMenuContextValue | null>(null)
@@ -71,11 +73,14 @@ export function DropdownMenu({
   }
   const api = apiRef.current
 
+  const triggerRef = React.useRef<HTMLElement | null>(null)
+
   const ctx = React.useMemo<DropdownMenuContextValue>(
     () => ({
       open,
       onOpenChange: handleOpenChange,
       contentId: api.ids.content,
+      triggerRef,
     }),
     [open, handleOpenChange, api.ids.content],
   )
@@ -97,7 +102,12 @@ export interface DropdownMenuTriggerProps extends React.ButtonHTMLAttributes<HTM
 
 export const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, DropdownMenuTriggerProps>(
   function DropdownMenuTrigger({ asChild = false, onClick, children, ...props }, ref) {
-    const { open, onOpenChange, contentId } = useDropdownMenuContext()
+    const { open, onOpenChange, contentId, triggerRef } = useDropdownMenuContext()
+    const setRefs = (node: HTMLButtonElement | null) => {
+      triggerRef.current = node
+      if (typeof ref === 'function') ref(node)
+      else if (ref) ref.current = node
+    }
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       onOpenChange(!open)
@@ -135,8 +145,7 @@ export const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, DropdownM
           if (!e.defaultPrevented) handleClick(e)
         },
         ref: (node: HTMLButtonElement | null) => {
-          if (typeof ref === 'function') ref(node)
-          else if (ref) ref.current = node
+          setRefs(node)
           if (typeof childRef === 'function') childRef(node)
           else if (childRef) childRef.current = node
         },
@@ -145,19 +154,99 @@ export const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, DropdownM
       return React.cloneElement(child, mergedProps as any)
     }
 
-    return React.createElement('button', { ref, ...triggerProps }, children)
+    return React.createElement('button', { ref: setRefs, ...triggerProps }, children)
   },
 )
+
+// ---------------------------------------------------------------------------
+// Positioning
+// ---------------------------------------------------------------------------
+
+export type DropdownMenuAlign = 'start' | 'center' | 'end'
+
+const DEFAULT_SIDE_OFFSET = 4
+
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect
+
+/**
+ * Fixed-position coordinates that place a menu under its trigger, aligned to
+ * the trigger's start, centre or end edge. Pure, so it is unit-testable.
+ */
+export function computeMenuPosition(
+  trigger: { top: number; bottom: number; left: number; right: number; width: number },
+  contentWidth: number,
+  align: DropdownMenuAlign,
+  sideOffset: number,
+): React.CSSProperties {
+  const left =
+    align === 'end'
+      ? trigger.right - contentWidth
+      : align === 'center'
+        ? trigger.left + trigger.width / 2 - contentWidth / 2
+        : trigger.left
+  return { position: 'fixed', top: trigger.bottom + sideOffset, left: Math.max(0, left), minWidth: trigger.width }
+}
 
 // ---------------------------------------------------------------------------
 // DropdownMenuContent
 // ---------------------------------------------------------------------------
 
-export interface DropdownMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface DropdownMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Horizontal alignment to the trigger. Defaults to `start`. */
+  align?: DropdownMenuAlign
+  /** Gap between trigger and menu in px. Defaults to 4. */
+  sideOffset?: number
+}
 
 export const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenuContentProps>(
-  function DropdownMenuContent({ className, children, onKeyDown, ...props }, ref) {
-    const { open, onOpenChange, contentId } = useDropdownMenuContext()
+  function DropdownMenuContent(
+    { className, children, onKeyDown, align = 'start', sideOffset = DEFAULT_SIDE_OFFSET, style, ...props },
+    forwardedRef,
+  ) {
+    const { open, onOpenChange, contentId, triggerRef } = useDropdownMenuContext()
+    const contentRef = React.useRef<HTMLDivElement | null>(null)
+    const ref = React.useCallback(
+      (node: HTMLDivElement | null) => {
+        contentRef.current = node
+        if (typeof forwardedRef === 'function') forwardedRef(node)
+        else if (forwardedRef) forwardedRef.current = node
+      },
+      [forwardedRef],
+    )
+    const [position, setPosition] = React.useState<React.CSSProperties | null>(null)
+
+    // The content is portalled to <body>, so anchor it to the trigger with
+    // fixed coordinates, and follow the trigger on scroll / resize.
+    useIsomorphicLayoutEffect(() => {
+      if (!open) return
+      const update = () => {
+        const trigger = triggerRef.current
+        const content = contentRef.current
+        if (!trigger) return
+        setPosition(
+          computeMenuPosition(trigger.getBoundingClientRect(), content?.offsetWidth ?? 0, align, sideOffset),
+        )
+      }
+      update()
+      window.addEventListener('resize', update)
+      window.addEventListener('scroll', update, true)
+      return () => {
+        window.removeEventListener('resize', update)
+        window.removeEventListener('scroll', update, true)
+      }
+    }, [open, align, sideOffset, triggerRef])
+
+    // Close on a pointer press outside the menu and its trigger.
+    React.useEffect(() => {
+      if (!open) return
+      const onPointerDown = (event: PointerEvent) => {
+        const target = event.target as Node
+        if (contentRef.current?.contains(target) || triggerRef.current?.contains(target)) return
+        onOpenChange(false)
+      }
+      document.addEventListener('pointerdown', onPointerDown)
+      return () => document.removeEventListener('pointerdown', onPointerDown)
+    }, [open, onOpenChange, triggerRef])
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
       const handler = createKeyboardHandler({
@@ -180,6 +269,8 @@ export const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenu
         id: contentId,
         'data-state': open ? 'open' : 'closed',
         className: cn(menuContentVariants(), className),
+        style: position ? { ...position, ...style } : style,
+        'data-align': align,
         onKeyDown: handleKeyDown,
         tabIndex: -1,
         ...props,
