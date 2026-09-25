@@ -10,9 +10,9 @@ import {
 } from '../src/callout.js'
 
 describe('Callout (React)', () => {
-  it('renders a region with the callout data-slot and base classes', () => {
+  it('renders the callout data-slot and base classes with no unnamed landmark', () => {
     const html = renderToString(React.createElement(Callout, null, 'Body'))
-    expect(html).toContain('role="region"')
+    expect(html).not.toContain('role="region"')
     expect(html).toContain('data-slot="callout"')
     expect(html).toContain('rounded-lg border p-4')
     expect(html).toContain('Body')
@@ -31,11 +31,20 @@ describe('Callout (React)', () => {
     expect(html).toContain('text-destructive')
   })
 
-  it('non-destructive variants keep role="region"', () => {
+  it('non-destructive variants have no landmark role unless labelled', () => {
     for (const variant of ['success', 'warning', 'info'] as const) {
       const html = renderToString(React.createElement(Callout, { variant }, 'x'))
-      expect(html).toContain('role="region"')
+      expect(html).not.toContain('role=')
+      const named = renderToString(
+        React.createElement(Callout, { variant, 'aria-label': 'Heads up' }, 'x'),
+      )
+      expect(named).toContain('role="region"')
     }
+  })
+
+  it('a caller role wins', () => {
+    const html = renderToString(React.createElement(Callout, { role: 'note' }, 'x'))
+    expect(html).toContain('role="note"')
   })
 
   it('applies variant-specific classes', () => {
@@ -104,7 +113,7 @@ describe('Callout asChild (React)', () => {
       ),
     )
     expect(html).toContain('<section')
-    expect(html).toContain('role="region"')
+    expect(html).not.toContain('role="region"')
     expect(html).toContain('data-slot="callout"')
     expect(html).toContain('rounded-lg border p-4')
     expect(html).toContain('Body')

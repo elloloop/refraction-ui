@@ -9,7 +9,7 @@ const calloutProps = [
     type: "'default' | 'destructive' | 'success' | 'warning' | 'info'",
     default: "'default'",
     description:
-      'Visual tone of the callout. `destructive` also sets `role="alert"` for assistive tech; the others use `role="region"`.',
+      'Visual tone of the callout. `destructive` also sets `role="alert"` for assistive tech; the others get no landmark role unless you name the callout with `aria-label`/`aria-labelledby` (then `role="region"`). An explicit `role` always wins.',
   },
   {
     name: 'className',
