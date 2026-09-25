@@ -47,8 +47,11 @@ const components = [
 
   // Data
   { name: 'Data Table', href: '/components/data-table', description: 'Sortable, filterable data table with column definitions.', category: 'Data' },
+  { name: 'Action List', href: '/components/action-list', description: 'Vertical list whose rows are each one keyboard-reachable action.', category: 'Data' },
   { name: 'Progress Display', href: '/components/progress-display', description: 'Stats grid, progress bar, and badge display components.', category: 'Data' },
   { name: 'Charts', href: '/components/charts', description: 'Composable SVG chart primitives for data visualization.', category: 'Data' },
+  { name: 'Line Chart', href: '/components/line-chart', description: 'Responsive multi-series line chart on a shared scale with tooltip and legend.', category: 'Data' },
+  { name: 'Funnel Chart', href: '/components/funnel-chart', description: 'Stepped conversion funnel with share, continue-rate and drop-off.', category: 'Data' },
 
   // Forms
   { name: 'Search Bar', href: '/components/search-bar', description: 'Search input with debounced search and suggestions dropdown.', category: 'Forms' },
@@ -108,6 +111,7 @@ const components = [
   { name: 'Empty State', href: '/components/empty-state', description: 'Centered column for empty and zero-result states with inline confirmations.', category: 'Other' },
 
   { name: 'Section Head', href: '/components/section-head', description: 'Section header with title, subtitle, and action buttons.', category: 'Layout' },
+  { name: 'Page Header', href: '/components/page-header', description: 'App page heading with kicker, title, description and trailing actions.', category: 'Layout' },
   { name: 'Stat Grid', href: '/components/stat-grid', description: 'Grid display for key metrics, growth rates, and trends.', category: 'Data' },
   { name: 'Numbered Steps', href: '/components/numbered-steps', description: 'Sequential guide list with status indicators.', category: 'Layout' },
   { name: 'Pricing Card', href: '/components/pricing-card', description: 'Feature lists and tier details for subscriptions.', category: 'Other' },

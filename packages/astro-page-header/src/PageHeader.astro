@@ -1,0 +1,46 @@
+---
+import {
+  createPageHeader,
+  pageHeaderClass,
+  pageHeaderTextClass,
+  pageHeaderKickerClass,
+  pageHeaderTitleClass,
+  pageHeaderDescriptionClass,
+  pageHeaderActionsClass,
+  type PageHeaderTitleLevel,
+} from '@refraction-ui/page-header'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Optional eyebrow rendered above the title. */
+  kicker?: string
+  /** The page title. */
+  title: string
+  /** Optional supporting copy under the title (or use the `description` slot). */
+  description?: string
+  /** Heading element for the title. Defaults to `h1`. */
+  as?: PageHeaderTitleLevel
+}
+
+const { kicker, title, description, as: Title = 'h1', class: className, ...rest } = Astro.props
+const hasActions = Astro.slots.has('actions')
+const hasDescription = description != null || Astro.slots.has('description')
+const { dataAttributes } = createPageHeader({ hasActions })
+---
+
+<header class={cn(pageHeaderClass, className)} {...dataAttributes} {...rest}>
+  <div class={pageHeaderTextClass}>
+    {kicker && <p class={pageHeaderKickerClass}>{kicker}</p>}
+    <Title class={pageHeaderTitleClass}>{title}</Title>
+    {hasDescription && (
+      <div class={pageHeaderDescriptionClass}>
+        <slot name="description">{description}</slot>
+      </div>
+    )}
+  </div>
+  {hasActions && (
+    <div class={pageHeaderActionsClass}>
+      <slot name="actions" />
+    </div>
+  )}
+</header>

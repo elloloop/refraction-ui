@@ -1,0 +1,62 @@
+---
+import {
+  createActionListItem,
+  actionListItemVariants,
+  actionListItemBodyClass,
+  actionListItemTitleClass,
+  actionListItemDescriptionClass,
+  actionListItemMetaClass,
+  actionListItemTrailingClass,
+  type ActionListDensity,
+} from '@refraction-ui/action-list'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.ButtonHTMLAttributes {
+  /** Primary line. */
+  title: string
+  /** Optional supporting line under the title. */
+  description?: string
+  /** Optional tertiary line. */
+  meta?: string
+  /** Optional trailing column (or use the `trailing` slot). */
+  trailing?: string
+  /** Row padding. */
+  density?: ActionListDensity
+  disabled?: boolean
+}
+
+const {
+  title,
+  description,
+  meta,
+  trailing,
+  density = 'default',
+  disabled = false,
+  class: className,
+  ...rest
+} = Astro.props
+const api = createActionListItem({ disabled, density })
+const hasTrailing = trailing != null || Astro.slots.has('trailing')
+---
+
+<li>
+  <button
+    type="button"
+    disabled={disabled}
+    class={cn(actionListItemVariants({ density }), className)}
+    {...api.ariaProps}
+    {...api.dataAttributes}
+    {...rest}
+  >
+    <span class={actionListItemBodyClass}>
+      <span class={actionListItemTitleClass}>{title}</span>
+      {description && <span class={actionListItemDescriptionClass}>{description}</span>}
+      {meta && <span class={actionListItemMetaClass}>{meta}</span>}
+    </span>
+    {hasTrailing && (
+      <span class={actionListItemTrailingClass}>
+        <slot name="trailing">{trailing}</slot>
+      </span>
+    )}
+  </button>
+</li>

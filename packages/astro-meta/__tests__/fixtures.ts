@@ -37,6 +37,18 @@ export const PROPS: Record<string, Record<string, unknown>> = {
       { path: 'src/a.js', status: 'modified', additions: 1, deletions: 1 },
     ],
   },
+  'astro-funnel-chart': {
+    steps: [
+      { id: 'a', label: 'Visitors', value: 100 },
+      { id: 'b', label: 'Sign-ups', value: 25 },
+    ],
+  },
+  'astro-line-chart': {
+    ariaLabel: 'Revenue',
+    labels: ['Jan', 'Feb'],
+    series: [{ id: 'r', name: 'Revenue', data: [1, 2] }],
+  },
+  'astro-page-header': { title: 'Projects' },
   'astro-editor-tabs': {
     tabs: [{ id: '1', label: 'index.ts' }],
     activeId: '1',
@@ -117,6 +129,7 @@ export const EXPECT_SLOT_CONTENT = new Set([
   'astro-auth',
   'astro-avatar',
   'astro-badge',
+  'astro-action-list',
   'astro-button',
   'astro-call-controls',
   'astro-callout',

@@ -1,0 +1,12 @@
+---
+import { actionListClass } from '@refraction-ui/action-list'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<ul class={cn(actionListClass, className)} data-slot="action-list" {...rest}>
+  <slot />
+</ul>

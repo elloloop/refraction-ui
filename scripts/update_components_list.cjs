@@ -8,6 +8,7 @@ const pagePaths = [
 
 const newComponents = [
   { name: 'Section Head', href: '/components/section-head', description: 'Section header with title, subtitle, and action buttons.', category: 'Layout' },
+  { name: 'Page Header', href: '/components/page-header', description: 'App page heading with kicker, title, description and trailing actions.', category: 'Layout' },
   { name: 'Stat Grid', href: '/components/stat-grid', description: 'Grid display for key metrics, growth rates, and trends.', category: 'Data' },
   { name: 'Numbered Steps', href: '/components/numbered-steps', description: 'Sequential guide list with status indicators.', category: 'Layout' },
   { name: 'Pricing Card', href: '/components/pricing-card', description: 'Feature lists and tier details for subscriptions.', category: 'Other' },
