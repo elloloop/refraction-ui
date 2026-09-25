@@ -1,5 +1,6 @@
 export {
   computeLineChart,
+  niceScale,
   tooltipLeftPercent,
   nextLineChartIndex,
   lineChartColor,

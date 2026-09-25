@@ -27,11 +27,14 @@ export interface LineChartOptions {
   /** viewBox height. */
   height: number
   padding?: Partial<LineChartPadding>
-  /** Number of gridline intervals on the y-axis. */
+  /** Target number of gridline intervals on the y-axis (the nice scale may use fewer). */
   tickCount?: number
   /** Headroom multiplier above the largest value. */
   headroom?: number
-  /** Show every n-th x label (the last label is always shown). */
+  /**
+   * Show every n-th x label (the last label is always shown). Defaults to
+   * thinning so labels are at least ~48 viewBox units apart.
+   */
   labelEvery?: number
 }
 
@@ -91,13 +94,36 @@ export const DEFAULT_LINE_CHART_WIDTH = 760
 export const DEFAULT_LINE_CHART_HEIGHT = 230
 const DEFAULT_TICK_COUNT = 4
 const DEFAULT_HEADROOM = 1.08
-const DEFAULT_LABEL_EVERY = 2
+/** Minimum horizontal room per x label when thinning automatically. */
+const MIN_LABEL_SPACING = 48
 /** Number of `--chart-N` tokens the theme defines. */
 const CHART_TOKEN_COUNT = 5
 
 /** The theme chart colour for the series at `index` (wraps around). */
 export function lineChartColor(index: number): string {
   return `hsl(var(--chart-${(index % CHART_TOKEN_COUNT) + 1}))`
+}
+
+const NICE_STEPS = [1, 2, 5, 10]
+
+/**
+ * A "nice" y-scale: a 1-2-5 × 10^k step so there are at most `tickCount`
+ * intervals up to `rawMax`, and the max rounded up to a whole step. Tick
+ * values are therefore round numbers by construction (0, 2000, 4000, …) —
+ * never 5999.9999 — so any tick formatter prints clean labels.
+ */
+export function niceScale(rawMax: number, tickCount: number): { max: number; step: number; ticks: number[] } {
+  const intervals = Math.max(1, Math.floor(tickCount))
+  if (!(rawMax > 0)) return { max: 1, step: 1 / intervals, ticks: Array.from({ length: intervals + 1 }, (_, i) => i / intervals) }
+  const target = rawMax / intervals
+  const magnitude = 10 ** Math.floor(Math.log10(target))
+  const step = NICE_STEPS.map((m) => m * magnitude).find((candidate) => candidate >= target) ?? 10 * magnitude
+  const count = Math.ceil(rawMax / step - 1e-9)
+  // Strip binary floating-point noise (e.g. 0.1 * 3) to the step's precision.
+  const decimals = Math.max(0, -Math.floor(Math.log10(step)))
+  const clean = (value: number) => Number(value.toFixed(decimals))
+  const ticks = Array.from({ length: count + 1 }, (_, i) => clean(i * step))
+  return { max: ticks[ticks.length - 1], step: clean(step), ticks }
 }
 
 function pathFrom(points: Array<[number, number]>): string {
@@ -117,25 +143,26 @@ export function computeLineChart(options: LineChartOptions): LineChartGeometry {
     height,
     tickCount = DEFAULT_TICK_COUNT,
     headroom = DEFAULT_HEADROOM,
-    labelEvery = DEFAULT_LABEL_EVERY,
   } = options
   const padding = { ...DEFAULT_LINE_CHART_PADDING, ...options.padding }
   const n = labels.length
   const values = series.flatMap((s) => s.data)
   const peak = values.length ? Math.max(...values) : 0
-  const max = peak > 0 ? peak * headroom : 1
+  const scale = niceScale(peak > 0 ? peak * headroom : 0, tickCount)
+  const max = scale.max
   const plotW = width - padding.left - padding.right
   const plotTop = padding.top
   const plotBottom = height - padding.bottom
   const plotH = plotBottom - plotTop
 
+  const labelEvery =
+    options.labelEvery ??
+    Math.max(1, Math.ceil(n / Math.max(1, Math.floor(plotW / MIN_LABEL_SPACING))))
+
   const x = (index: number) => padding.left + (n > 1 ? (index / (n - 1)) * plotW : plotW / 2)
   const y = (value: number) => plotTop + (1 - value / max) * plotH
 
-  const ticks: LineChartTick[] = Array.from({ length: tickCount + 1 }, (_, t) => {
-    const value = (max / tickCount) * t
-    return { value, y: y(value) }
-  })
+  const ticks: LineChartTick[] = scale.ticks.map((value) => ({ value, y: y(value) }))
 
   const xLabels: LineChartXLabel[] = labels
     .map((label, index) => ({ index, label, x: x(index) }))
