@@ -68,7 +68,7 @@ const posthogJsSpecifier = 'posthog-js'
 
 async function defaultLoad(): Promise<PostHogJs> {
   // Dynamic import keeps `posthog-js` out of the graph until first delivery.
-  const mod = (await import(posthogJsSpecifier)) as unknown as
+  const mod = (await import(/* webpackIgnore: true */ /* @vite-ignore */ posthogJsSpecifier)) as unknown as
     | { default: PostHogJs }
     | PostHogJs
   return 'default' in mod ? mod.default : mod

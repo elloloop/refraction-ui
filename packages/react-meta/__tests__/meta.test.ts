@@ -192,4 +192,20 @@ describe('@refraction-ui/react (meta package)', () => {
       /^﻿?\s*(['"])use client\1\s*;?\s*(['"])use client\2\s*;?/,
     )
   })
+
+  it('marks every expression dynamic import as bundler-ignored (no "Critical dependency" warning)', () => {
+    // Optional peers (analytics/telemetry SDKs) are loaded with import(variable).
+    // Without a webpackIgnore hint, webpack/Next warn "Critical dependency: the
+    // request of a dependency is an expression" for every consumer that imports
+    // anything from the meta.
+    const distDir = join(testDir, '..', 'dist')
+    const offenders: string[] = []
+    for (const file of readdirSync(distDir).filter((f) => f.endsWith('.js'))) {
+      const js = readFileSync(join(distDir, file), 'utf8')
+      for (const m of js.matchAll(/import\(((?:\s*\/\*[\s\S]*?\*\/)*)\s*([A-Za-z_$][\w$]*)\s*\)/g)) {
+        if (!m[1].includes('webpackIgnore: true')) offenders.push(`${file}: import(${m[2]})`)
+      }
+    }
+    expect(offenders).toEqual([])
+  })
 })
