@@ -130,6 +130,8 @@ import 'package:example/use_cases/stat_grid_use_cases.dart'
     as _example_use_cases_stat_grid_use_cases;
 import 'package:example/use_cases/status_indicator_use_cases.dart'
     as _example_use_cases_status_indicator_use_cases;
+import 'package:example/use_cases/status_pill_use_cases.dart'
+    as _example_use_cases_status_pill_use_cases;
 import 'package:example/use_cases/steps_use_cases.dart'
     as _example_use_cases_steps_use_cases;
 import 'package:example/use_cases/sticky_note_use_cases.dart'
@@ -1128,6 +1130,21 @@ final directories = <_widgetbook.WidgetbookNode>[
             name: 'Default',
             builder: _example_use_cases_status_indicator_use_cases
                 .defaultStatusIndicator,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'RefractionStatusPill',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Interactive',
+            builder: _example_use_cases_status_pill_use_cases
+                .statusPillInteractiveUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Variants',
+            builder: _example_use_cases_status_pill_use_cases
+                .statusPillVariantsUseCase,
           ),
         ],
       ),

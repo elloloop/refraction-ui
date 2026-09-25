@@ -1,8 +1,36 @@
 import 'package:flutter/widgets.dart';
+import '../internal/a11y_support.dart';
+import '../theme/refraction_colors.dart';
 import '../theme/refraction_theme.dart';
 
 /// The status type for the status indicator.
 enum RefractionStatusType { success, error, warning, info, pending, neutral }
+
+/// Maps a [RefractionStatusType] to the theme's status tokens — the single
+/// place the status → colour decision lives, shared by
+/// [RefractionStatusIndicator] and `RefractionStatusPill`, so re-skinning a
+/// status is one token change.
+extension RefractionStatusTypeColors on RefractionStatusType {
+  /// The status hue in [colors]: success → `positive`, error →
+  /// `destructive`, warning → `caution`, info → `info`, pending →
+  /// `pending`, neutral → `neutral`.
+  Color colorIn(RefractionColors colors) {
+    switch (this) {
+      case RefractionStatusType.success:
+        return colors.positive;
+      case RefractionStatusType.error:
+        return colors.destructive;
+      case RefractionStatusType.warning:
+        return colors.caution;
+      case RefractionStatusType.info:
+        return colors.info;
+      case RefractionStatusType.pending:
+        return colors.pending;
+      case RefractionStatusType.neutral:
+        return colors.neutral;
+    }
+  }
+}
 
 /// A status indicator widget that displays a colored dot with an optional label.
 class RefractionStatusIndicator extends StatelessWidget {
@@ -38,7 +66,8 @@ class RefractionStatusIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = _getColor(type);
+    final theme = RefractionTheme.of(context);
+    final color = type.colorIn(theme.colors);
     final String defaultLabel = _getDefaultLabel(type);
 
     // Derive the aria label
@@ -61,8 +90,6 @@ class RefractionStatusIndicator extends StatelessWidget {
       dot = _PulseAnimator(child: dot);
     }
 
-    final theme = RefractionTheme.of(context);
-
     Widget labelWidget = const SizedBox.shrink();
     if (showLabel) {
       if (child != null && label == null) {
@@ -73,7 +100,7 @@ class RefractionStatusIndicator extends StatelessWidget {
           style:
               textStyle ??
               theme.data.textStyle.copyWith(
-                color: theme.colors.mutedForeground,
+                color: RefractionA11y.metaText(theme.colors),
                 fontSize: 14.0,
                 height: 1.4,
               ),
@@ -97,23 +124,6 @@ class RefractionStatusIndicator extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Color _getColor(RefractionStatusType type) {
-    switch (type) {
-      case RefractionStatusType.success:
-        return const Color(0xFF22C55E); // green-500
-      case RefractionStatusType.error:
-        return const Color(0xFFEF4444); // red-500
-      case RefractionStatusType.warning:
-        return const Color(0xFFEAB308); // yellow-500
-      case RefractionStatusType.info:
-        return const Color(0xFF3B82F6); // blue-500
-      case RefractionStatusType.pending:
-        return const Color(0xFFF97316); // orange-500
-      case RefractionStatusType.neutral:
-        return const Color(0xFF9CA3AF); // gray-400
-    }
   }
 
   String _getDefaultLabel(RefractionStatusType type) {
