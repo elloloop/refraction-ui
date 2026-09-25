@@ -121,6 +121,10 @@ class RefractionFocusOutline extends StatelessWidget {
   /// The focused control.
   final Widget child;
 
+  /// Paint the ring just inside the child's bounds instead of outside —
+  /// for edge-to-edge rows whose neighbours would paint over an outer ring.
+  final bool inside;
+
   /// Stroke width of the ring.
   static const double width = 2.0;
 
@@ -133,13 +137,14 @@ class RefractionFocusOutline extends StatelessWidget {
     required this.color,
     required this.child,
     this.borderRadius = BorderRadius.zero,
+    this.inside = false,
   });
 
   @override
   Widget build(BuildContext context) {
     if (!visible) return child;
     return CustomPaint(
-      foregroundPainter: _OutlinePainter(color, borderRadius),
+      foregroundPainter: _OutlinePainter(color, borderRadius, inside),
       child: child,
     );
   }
@@ -148,14 +153,19 @@ class RefractionFocusOutline extends StatelessWidget {
 class _OutlinePainter extends CustomPainter {
   final Color color;
   final BorderRadius borderRadius;
+  final bool inside;
 
-  _OutlinePainter(this.color, this.borderRadius);
+  _OutlinePainter(this.color, this.borderRadius, this.inside);
 
   @override
   void paint(Canvas canvas, Size size) {
-    const grow = RefractionFocusOutline.gap + RefractionFocusOutline.width / 2;
+    final grow = inside
+        ? -RefractionFocusOutline.width / 2
+        : RefractionFocusOutline.gap + RefractionFocusOutline.width / 2;
     final rect = (Offset.zero & size).inflate(grow);
-    final r = borderRadius + BorderRadius.circular(grow);
+    final r = inside
+        ? borderRadius
+        : borderRadius + BorderRadius.circular(grow);
     canvas.drawRRect(
       r.toRRect(rect),
       Paint()
@@ -167,5 +177,7 @@ class _OutlinePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_OutlinePainter old) =>
-      old.color != color || old.borderRadius != borderRadius;
+      old.color != color ||
+      old.borderRadius != borderRadius ||
+      old.inside != inside;
 }

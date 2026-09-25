@@ -56,6 +56,7 @@ import 'pages/conversation_page.dart';
 import 'pages/presence_indicator_page.dart';
 import 'pages/status_indicator_page.dart';
 import 'use_cases/status_pill_use_cases.dart';
+import 'use_cases/task_list_use_cases.dart';
 import 'pages/keyboard_shortcut_page.dart';
 import 'pages/logger_page.dart';
 import 'pages/version_selector_page.dart';
@@ -174,6 +175,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Presence Indicator',
     'Status Indicator',
     'Status Pill',
+    'Task List',
     'Keyboard Shortcut',
     'Logger',
     'Version Selector',
@@ -510,6 +512,14 @@ class _AppShell extends ConsumerWidget {
           description:
               'Colour-coded work status (solid, soft, small, interactive).',
           child: Builder(builder: statusPillVariantsUseCase),
+        );
+      case '/docs/task-list':
+        return PreviewCanvas(
+          title: 'Task List',
+          description:
+              'Grouped to-dos: collapsible groups, status pills, owners, '
+              'due dates, animated completion and keyboard navigation.',
+          child: Builder(builder: groupedTaskListUseCase),
         );
       case '/docs/keyboard-shortcut':
         return const KeyboardShortcutPage();

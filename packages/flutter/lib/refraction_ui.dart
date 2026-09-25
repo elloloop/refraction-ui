@@ -120,6 +120,7 @@ export 'src/components/conversation.dart';
 export 'src/components/presence_indicator.dart';
 export 'src/components/status_indicator.dart';
 export 'src/components/status_pill.dart';
+export 'src/components/task_list.dart';
 export 'src/components/keyboard_shortcut.dart';
 export 'src/components/logger.dart';
 export 'src/components/version_selector.dart';

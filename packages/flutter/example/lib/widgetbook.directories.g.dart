@@ -142,6 +142,8 @@ import 'package:example/use_cases/table_of_contents_use_cases.dart'
     as _example_use_cases_table_of_contents_use_cases;
 import 'package:example/use_cases/tabs_use_cases.dart'
     as _example_use_cases_tabs_use_cases;
+import 'package:example/use_cases/task_list_use_cases.dart'
+    as _example_use_cases_task_list_use_cases;
 import 'package:example/use_cases/terminal_use_cases.dart'
     as _example_use_cases_terminal_use_cases;
 import 'package:example/use_cases/test_results_use_cases.dart'
@@ -1234,6 +1236,16 @@ final directories = <_widgetbook.WidgetbookNode>[
           _widgetbook.WidgetbookUseCase(
             name: 'Preselected Index',
             builder: _example_use_cases_tabs_use_cases.preselectedTabs,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'RefractionTaskList',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Grouped to-dos',
+            builder:
+                _example_use_cases_task_list_use_cases.groupedTaskListUseCase,
           ),
         ],
       ),
