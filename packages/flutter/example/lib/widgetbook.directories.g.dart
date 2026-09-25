@@ -1308,8 +1308,21 @@ final directories = <_widgetbook.WidgetbookNode>[
             builder: _example_use_cases_toast_use_cases.defaultToast,
           ),
           _widgetbook.WidgetbookUseCase(
+            name: 'Undo and retry',
+            builder: _example_use_cases_toast_use_cases.actionToasts,
+          ),
+          _widgetbook.WidgetbookUseCase(
             name: 'With Description',
             builder: _example_use_cases_toast_use_cases.descriptionToast,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'RefractionToaster',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'All variants',
+            builder: _example_use_cases_toast_use_cases.toastShowcase,
           ),
         ],
       ),
