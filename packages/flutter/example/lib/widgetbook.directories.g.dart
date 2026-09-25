@@ -76,6 +76,8 @@ import 'package:example/use_cases/mascot_use_cases.dart'
     as _example_use_cases_mascot_use_cases;
 import 'package:example/use_cases/mastery_bar_use_cases.dart'
     as _example_use_cases_mastery_bar_use_cases;
+import 'package:example/use_cases/message_row_use_cases.dart'
+    as _example_use_cases_message_row_use_cases;
 import 'package:example/use_cases/mini_map_use_cases.dart'
     as _example_use_cases_mini_map_use_cases;
 import 'package:example/use_cases/numbered_steps_use_cases.dart'
@@ -708,6 +710,30 @@ final directories = <_widgetbook.WidgetbookNode>[
             name: 'Muted Large',
             builder: _example_use_cases_mastery_bar_use_cases
                 .masteryBarMutedLargeUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'RefractionMessageQuote',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Reply quote',
+            builder: _example_use_cases_message_row_use_cases.replyQuoteUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'RefractionMessageRow',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Hover toolbar',
+            builder: _example_use_cases_message_row_use_cases
+                .toolbarMessageRowUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Thread',
+            builder: _example_use_cases_message_row_use_cases
+                .threadMessageRowUseCase,
           ),
         ],
       ),
