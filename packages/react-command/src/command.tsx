@@ -14,6 +14,13 @@ import { cn, createKeyboardHandler, Keys, devWarn } from '@refraction-ui/shared'
 // Context
 // ---------------------------------------------------------------------------
 
+/** What a mounted CommandItem tells the root about itself. */
+interface RegisteredItem {
+  domId: string
+  disabled: boolean
+  select: () => void
+}
+
 interface CommandContextValue {
   search: string
   onSearch: (query: string) => void
@@ -21,8 +28,12 @@ interface CommandContextValue {
   onSelect: (index: number) => void
   items: CommandItemData[]
   filteredItems: CommandItemData[]
-  registerItem: (item: CommandItemData) => void
-  unregisterItem: (id: string) => void
+  /** Whether a value passes the current search. */
+  matches: (value: string) => boolean
+  registerItem: (value: string, item: RegisteredItem) => void
+  unregisterItem: (value: string) => void
+  /** DOM id of the highlighted item, for aria-activedescendant. */
+  activeDescendant: string | undefined
   listId: string
   inputId: string
 }
@@ -41,6 +52,34 @@ function useCommandContext(): CommandContextValue {
   return ctx
 }
 
+/** An item's searchable value: its `value` prop, else its text children. */
+function itemValueOf(value: string | undefined, children: React.ReactNode): string {
+  if (value !== undefined) return value
+  if (typeof children === 'string' || typeof children === 'number') return String(children)
+  return ''
+}
+
+/**
+ * Collect the CommandItems present in the element tree, in order, so the
+ * root knows its items on the first (and server) render. Items inside custom
+ * components are not visible here; they are added when they mount.
+ */
+function collectItems(node: React.ReactNode, into: CommandItemData[]): CommandItemData[] {
+  React.Children.forEach(node, (child) => {
+    if (!React.isValidElement<{ value?: string; disabled?: boolean; children?: React.ReactNode }>(child)) return
+    if (child.type === CommandItem) {
+      const value = itemValueOf(child.props.value, child.props.children)
+      into.push({ id: value, value, label: value, disabled: child.props.disabled })
+      return
+    }
+    collectItems(child.props.children, into)
+  })
+  return into
+}
+
+const defaultFilter = (value: string, search: string) =>
+  value.toLowerCase().includes(search.toLowerCase())
+
 // ---------------------------------------------------------------------------
 // Command (root provider)
 // ---------------------------------------------------------------------------
@@ -48,6 +87,7 @@ function useCommandContext(): CommandContextValue {
 export interface CommandProps {
   open?: boolean
   onOpenChange?: (open: boolean) => void
+  /** Custom filter — receives an item value and the search, returns true to keep it. */
   filter?: (value: string, search: string) => boolean
   className?: string
   children?: React.ReactNode
@@ -56,27 +96,32 @@ export interface CommandProps {
 export function Command({
   open,
   onOpenChange,
-  filter,
+  filter = defaultFilter,
   className,
   children,
 }: CommandProps) {
-  const [items, setItems] = React.useState<CommandItemData[]>([])
+  const [registered, setRegistered] = React.useState<ReadonlyMap<string, RegisteredItem>>(() => new Map())
   const [search, setSearch] = React.useState('')
   const [selectedIndex, setSelectedIndex] = React.useState(0)
 
-  const apiRef = React.useRef<ReturnType<typeof createCommand> | null>(null)
+  // Stable across renders and SSR-safe; keeps the rfr-cmd-* prefixes.
+  const uid = React.useId().replace(/:/g, '')
+  const listId = `rfr-cmd-list-${uid}`
+  const inputId = `rfr-cmd-input-${uid}`
+  const api = React.useMemo(() => createCommand({ open, onOpenChange, filter }), [open, onOpenChange, filter])
 
-  // Recompute the API when items or search change
-  const api = React.useMemo(() => {
-    const instance = createCommand({ open, onOpenChange, filter }, items)
-    if (search) {
-      instance.search(search)
+  const items = React.useMemo(() => {
+    const all = collectItems(children, [])
+    const known = new Set(all.map((i) => i.value))
+    for (const [value, item] of registered) {
+      if (!known.has(value)) all.push({ id: value, value, label: value, disabled: item.disabled })
     }
-    apiRef.current = instance
-    return instance
-  }, [open, onOpenChange, filter, items, search])
+    return all
+  }, [children, registered])
 
-  const filteredItems = api.state.filteredItems
+  const matches = React.useCallback((value: string) => !search || filter(value, search), [filter, search])
+  const filteredItems = React.useMemo(() => items.filter((i) => matches(i.value)), [items, matches])
+  const highlighted = filteredItems[selectedIndex]
 
   const handleSearch = React.useCallback((query: string) => {
     setSearch(query)
@@ -87,60 +132,62 @@ export function Command({
     setSelectedIndex(index)
   }, [])
 
-  const registerItem = React.useCallback((item: CommandItemData) => {
-    setItems((prev) => {
-      if (prev.some((i) => i.id === item.id)) return prev
-      return [...prev, item]
+  const registerItem = React.useCallback((value: string, item: RegisteredItem) => {
+    setRegistered((prev) => {
+      const current = prev.get(value)
+      if (current && current.domId === item.domId && current.disabled === item.disabled) return prev
+      const next = new Map(prev)
+      next.set(value, item)
+      return next
     })
   }, [])
 
-  const unregisterItem = React.useCallback((id: string) => {
-    setItems((prev) => prev.filter((i) => i.id !== id))
+  const unregisterItem = React.useCallback((value: string) => {
+    setRegistered((prev) => {
+      if (!prev.has(value)) return prev
+      const next = new Map(prev)
+      next.delete(value)
+      return next
+    })
   }, [])
 
-  const handleKeyDown = React.useCallback(
-    (e: React.KeyboardEvent) => {
-      const handler = createKeyboardHandler({
-        [Keys.ArrowDown]: (ev) => {
-          ev.preventDefault()
-          if (filteredItems.length > 0) {
-            setSelectedIndex((prev) => (prev + 1) % filteredItems.length)
-          }
-        },
-        [Keys.ArrowUp]: (ev) => {
-          ev.preventDefault()
-          if (filteredItems.length > 0) {
-            setSelectedIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length)
-          }
-        },
-        [Keys.Enter]: (ev) => {
-          ev.preventDefault()
-        },
-        [Keys.Escape]: (ev) => {
-          ev.preventDefault()
-          onOpenChange?.(false)
-        },
-      })
-      handler(e.nativeEvent)
-    },
-    [filteredItems.length, onOpenChange],
-  )
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    const count = filteredItems.length
+    const handler = createKeyboardHandler({
+      [Keys.ArrowDown]: (ev) => {
+        ev.preventDefault()
+        if (count > 0) setSelectedIndex((prev) => (prev + 1) % count)
+      },
+      [Keys.ArrowUp]: (ev) => {
+        ev.preventDefault()
+        if (count > 0) setSelectedIndex((prev) => (prev - 1 + count) % count)
+      },
+      [Keys.Enter]: (ev) => {
+        ev.preventDefault()
+        if (highlighted && !highlighted.disabled) registered.get(highlighted.value)?.select()
+      },
+      [Keys.Escape]: (ev) => {
+        ev.preventDefault()
+        onOpenChange?.(false)
+      },
+    })
+    handler(e.nativeEvent)
+  }
 
-  const ctx = React.useMemo<CommandContextValue>(
-    () => ({
-      search,
-      onSearch: handleSearch,
-      selectedIndex,
-      onSelect: handleSelect,
-      items,
-      filteredItems,
-      registerItem,
-      unregisterItem,
-      listId: api.ids.list,
-      inputId: api.ids.input,
-    }),
-    [search, handleSearch, selectedIndex, handleSelect, items, filteredItems, registerItem, unregisterItem, api.ids.list, api.ids.input],
-  )
+  const ctx: CommandContextValue = {
+    search,
+    onSearch: handleSearch,
+    selectedIndex,
+    onSelect: handleSelect,
+    items,
+    filteredItems,
+    matches,
+    registerItem,
+    unregisterItem,
+    activeDescendant: highlighted ? registered.get(highlighted.value)?.domId : undefined,
+    listId,
+    inputId,
+  }
 
   return React.createElement(
     CommandContext.Provider,
@@ -150,6 +197,8 @@ export function Command({
       {
         className: cn(commandVariants(), className),
         ...api.ariaProps,
+        'aria-owns': listId,
+        id: `rfr-cmd-${uid}`,
         onKeyDown: handleKeyDown,
       },
       children,
@@ -165,7 +214,7 @@ export interface CommandInputProps extends React.InputHTMLAttributes<HTMLInputEl
 
 export const CommandInput = React.forwardRef<HTMLInputElement, CommandInputProps>(
   function CommandInput({ className, onChange, ...props }, ref) {
-    const { search, onSearch, inputId, listId } = useCommandContext()
+    const { search, onSearch, inputId, listId, activeDescendant } = useCommandContext()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       onSearch(e.target.value)
@@ -179,6 +228,7 @@ export const CommandInput = React.forwardRef<HTMLInputElement, CommandInputProps
       role: 'searchbox',
       'aria-autocomplete': 'list',
       'aria-controls': listId,
+      'aria-activedescendant': activeDescendant,
       value: search,
       onChange: handleChange,
       className: cn(commandInputVariants(), className),
@@ -279,22 +329,48 @@ export interface CommandItemProps extends Omit<React.HTMLAttributes<HTMLDivEleme
 }
 
 export const CommandItem = React.forwardRef<HTMLDivElement, CommandItemProps>(
-  function CommandItem({ className, value, disabled, onSelect: onItemSelect, children, ...props }, ref) {
-    const state = disabled ? 'disabled' : 'default'
+  function CommandItem(
+    { className, value, disabled = false, onSelect: onItemSelect, onClick, onMouseMove, children, ...props },
+    ref,
+  ) {
+    const { matches, filteredItems, selectedIndex, onSelect, registerItem, unregisterItem } =
+      useCommandContext()
+    const itemValue = itemValueOf(value, children)
+    const domId = `rfr-cmd-item-${React.useId().replace(/:/g, '')}`
+
+    // Latest onSelect without re-registering on every render.
+    const onSelectRef = React.useRef(onItemSelect)
+    onSelectRef.current = onItemSelect
+
+    React.useEffect(() => {
+      registerItem(itemValue, { domId, disabled, select: () => onSelectRef.current?.() })
+    }, [registerItem, itemValue, domId, disabled])
+    React.useEffect(() => () => unregisterItem(itemValue), [unregisterItem, itemValue])
+
+    if (!matches(itemValue)) return null
+
+    const index = filteredItems.findIndex((i) => i.value === itemValue)
+    const isSelected = index !== -1 && index === selectedIndex
+    const state = disabled ? 'disabled' : isSelected ? 'selected' : 'default'
 
     return React.createElement(
       'div',
       {
         ref,
+        id: domId,
         role: 'option',
-        'aria-selected': false,
-        'aria-disabled': disabled ?? false,
-        'data-value': value,
+        'aria-selected': isSelected,
+        'aria-disabled': disabled,
+        'data-value': itemValue,
+        'data-selected': isSelected ? '' : undefined,
         className: cn(commandItemVariants({ state }), className),
-        onClick: () => {
-          if (!disabled) {
-            onItemSelect?.()
-          }
+        onClick: (e: React.MouseEvent<HTMLDivElement>) => {
+          onClick?.(e)
+          if (!disabled && !e.defaultPrevented) onItemSelect?.()
+        },
+        onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => {
+          onMouseMove?.(e)
+          if (index !== -1 && index !== selectedIndex) onSelect(index)
         },
         ...props,
       },
