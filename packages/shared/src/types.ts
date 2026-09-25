@@ -12,6 +12,16 @@ export interface BaseProps {
   [dataAttr: `data-${string}`]: string | undefined
 }
 
+/**
+ * `data-*` attributes, for props that take element attributes as an object
+ * (e.g. DataTable `getRowProps`, StatGrid item `props`). React's
+ * HTMLAttributes declares no `data-*` key, so without this an object of only
+ * data attributes fails TypeScript's weak-type check.
+ */
+export type DataAttributes = {
+  [dataAttr: `data-${string}`]: string | number | boolean | undefined
+}
+
 /** Accessibility props */
 export interface AccessibilityProps {
   role?: string

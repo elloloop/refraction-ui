@@ -179,7 +179,7 @@ describe('DataTable cell renderers, alignment and row actions (SSR)', () => {
 
   it('makes rows focusable only with a row action, and passes row props', () => {
     expect(render()).not.toContain('tabindex="0"')
-    const html = render({ onRowClick: () => {}, getRowProps: (r) => ({ 'data-order': r.id } as React.HTMLAttributes<HTMLTableRowElement>) })
+    const html = render({ onRowClick: () => {}, getRowProps: (r) => ({ 'data-order': r.id }) })
     expect((html.match(/tabindex="0"/g) ?? []).length).toBe(2)
     expect(html).toContain('data-order="o-2"')
     expect(html).toContain('cursor-pointer')

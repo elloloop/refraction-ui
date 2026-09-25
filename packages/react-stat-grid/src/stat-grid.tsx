@@ -13,7 +13,7 @@ import {
   type StatGridLayout,
   type StatGridColumns,
 } from '@refraction-ui/stat-grid'
-import { cn } from '@refraction-ui/shared'
+import { cn, type DataAttributes } from '@refraction-ui/shared'
 
 export type { StatItem, StatTone, StatGridVariant, StatGridLayout, StatGridColumns } from '@refraction-ui/stat-grid'
 
@@ -29,7 +29,7 @@ export interface StatGridItem {
   /** Colour of the value. Defaults to `default`. */
   tone?: StatTone
   /** Extra attributes for this item's element (`data-*`, `aria-*`, `title`, className). */
-  props?: React.HTMLAttributes<HTMLDivElement>
+  props?: React.HTMLAttributes<HTMLDivElement> & DataAttributes
 }
 
 export interface StatGridProps

@@ -75,7 +75,7 @@ describe('StatGrid (SSR)', () => {
   it('supports auto columns, card variant, label-first layout, tone, description and item props', () => {
     const html = render({
       items: [
-        { id: 'rev', value: '$12k', label: 'Revenue', tone: 'positive', description: 'Last 30 days', props: { 'data-stat': 'revenue' } as React.HTMLAttributes<HTMLDivElement> },
+        { id: 'rev', value: '$12k', label: 'Revenue', tone: 'positive', description: 'Last 30 days', props: { 'data-stat': 'revenue' } },
         { value: '3', label: 'Refunds', tone: 'negative' },
       ],
       columns: 'auto',
