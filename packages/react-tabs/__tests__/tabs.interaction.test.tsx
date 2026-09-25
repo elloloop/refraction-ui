@@ -156,10 +156,22 @@ describe('Tabs interaction — ARIA wiring after selection', () => {
     expect(activePanel!.getAttribute('aria-labelledby')).toBe(activeTab.id)
   })
 
-  it('inactive tabs keep aria-controls pointing at their (unrendered) panel id', () => {
+  it('only the selected tab references a panel, and that panel exists', () => {
     render(React.createElement(BasicTabs))
-    const [a] = tabs()
-    expect(a.getAttribute('aria-controls')).toContain('-panel-a')
+    const [a, b] = tabs()
+    expect(document.getElementById(a.getAttribute('aria-controls')!)).not.toBeNull()
+    expect(b.hasAttribute('aria-controls')).toBe(false)
+  })
+
+  it('tabs without any TabsContent (navigation use) reference nothing', () => {
+    render(
+      React.createElement(
+        Tabs,
+        { defaultValue: 'a' },
+        React.createElement(TabsList, null, React.createElement(TabsTrigger, { value: 'a' }, 'A')),
+      ),
+    )
+    expect(tabs()[0].hasAttribute('aria-controls')).toBe(false)
   })
 })
 

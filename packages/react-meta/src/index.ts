@@ -33,6 +33,9 @@
 // package does not force every consumer to resolve react-hook-form.
 // Import via: `import { Form, useForm } from '@refraction-ui/react/form'`
 
+// Class-name helpers, so consumers compose variants the same way components do.
+export { cn, cva } from '@refraction-ui/shared'
+
 // Components (alphabetical)
 export * from '@refraction-ui/react-accordion'
 export * from '@refraction-ui/react-ai'

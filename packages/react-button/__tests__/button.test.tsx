@@ -191,3 +191,20 @@ describe('Button (React) - type attribute', () => {
     expect(html).toContain('type="button"')
   })
 })
+
+describe('Button asChild type attribute', () => {
+  it('does not force type onto a non-button child', () => {
+    const html = renderToString(
+      React.createElement(Button, { asChild: true }, React.createElement('a', { href: '/docs' }, 'Docs')),
+    )
+    expect(html).toContain('<a')
+    expect(html).not.toContain('type=')
+  })
+
+  it('keeps type="button" on a button child', () => {
+    const html = renderToString(
+      React.createElement(Button, { asChild: true }, React.createElement('button', null, 'Go')),
+    )
+    expect(html).toContain('type="button"')
+  })
+})
