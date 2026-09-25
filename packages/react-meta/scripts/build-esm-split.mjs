@@ -52,11 +52,16 @@ let jsText = ts.transpileModule(srcText, {
   },
 }).outputText
 
-// 2. Collect every adapter specifier (`export … from '@refraction-ui/react-x'`).
-const SPECIFIER = /from\s+['"]@refraction-ui\/(react-[a-z0-9-]+)['"]/g
+// 2. Collect every workspace specifier the entry re-exports from — the
+//    adapters (`@refraction-ui/react-x`) and any headless core re-exported
+//    directly (`@refraction-ui/shared` for cn/cva). None of them is published
+//    (see CLAUDE.md), so each must become a local module; a specifier left
+//    as-is ships an import no consumer can resolve.
+const SPECIFIER = /from\s+['"]@refraction-ui\/([a-z0-9-]+)['"]/g
 const shortNames = [...new Set([...jsText.matchAll(SPECIFIER)].map((m) => m[1]))].sort()
-if (shortNames.length < 100) {
-  throw new Error(`expected 100+ adapter specifiers in src/index.ts, found ${shortNames.length}`)
+const adapterCount = shortNames.filter((short) => short.startsWith('react-')).length
+if (adapterCount < 100) {
+  throw new Error(`expected 100+ adapter specifiers in src/index.ts, found ${adapterCount}`)
 }
 
 // 3. Bundle each adapter dist as an entry; shared deps split into chunks.
@@ -96,6 +101,17 @@ if (result.errors.length > 0) {
 //    output is unchanged); its now-stale sourcemap is removed.
 jsText = jsText.replace(SPECIFIER, (match, short) => match.replace(`@refraction-ui/${short}`, `./${short}.js`))
 writeFileSync(join(distDir, 'index.js'), jsText.endsWith('\n') ? jsText : jsText + '\n')
+
+// 5. Refuse to ship an unresolvable import: no emitted ESM file may still
+//    name a workspace package (0.23.0 shipped `from '@refraction-ui/shared'`
+//    because this script only rewrote `react-*` specifiers).
+const LEAK = /(?:from|import)\s*\(?\s*['"]@refraction-ui\//
+const leaks = Object.keys(result.metafile?.outputs ?? {})
+  .concat(join(distDir, 'index.js'))
+  .filter((file) => file.endsWith('.js') && LEAK.test(readFileSync(resolve(file), 'utf8')))
+if (leaks.length > 0) {
+  throw new Error(`[build-esm-split] unpublished @refraction-ui/* import left in: ${leaks.join(', ')}`)
+}
 if (existsSync(join(distDir, 'index.js.map'))) {
   rmSync(join(distDir, 'index.js.map'))
 }
