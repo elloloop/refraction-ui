@@ -1,0 +1,21 @@
+---
+import { createTable, tableContainerClass, tableRootVariants, type TableDensity, type TableHeadTone } from '@refraction-ui/table'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.TableHTMLAttributes {
+  /** Recorded as data-density; pass the same density to TableHead/TableCell. */
+  density?: TableDensity
+  headTone?: TableHeadTone
+  fixed?: boolean
+  containerClass?: string
+}
+
+const { density = 'default', headTone = 'default', fixed = false, containerClass, class: className, ...rest } = Astro.props
+const { dataAttributes } = createTable({ density, headTone })
+---
+
+<div class={cn(tableContainerClass, containerClass)} data-slot="table-container">
+  <table class={cn(tableRootVariants({ fixed: fixed ? 'true' : 'false' }), className)} {...dataAttributes} {...rest}>
+    <slot />
+  </table>
+</div>

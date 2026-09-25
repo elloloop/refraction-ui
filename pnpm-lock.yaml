@@ -460,6 +460,9 @@ importers:
       '@refraction-ui/react-switch':
         specifier: workspace:*
         version: link:../packages/react-switch
+      '@refraction-ui/react-table':
+        specifier: workspace:*
+        version: link:../packages/react-table
       '@refraction-ui/react-table-of-contents':
         specifier: workspace:*
         version: link:../packages/react-table-of-contents
@@ -1852,6 +1855,9 @@ importers:
       '@refraction-ui/astro-switch':
         specifier: workspace:*
         version: link:../astro-switch
+      '@refraction-ui/astro-table':
+        specifier: workspace:*
+        version: link:../astro-table
       '@refraction-ui/astro-table-of-contents':
         specifier: workspace:*
         version: link:../astro-table-of-contents
@@ -2368,6 +2374,18 @@ importers:
       '@refraction-ui/switch':
         specifier: workspace:*
         version: link:../switch
+      astro:
+        specifier: 6.4.8
+        version: 6.4.8(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
+  packages/astro-table:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/table':
+        specifier: workspace:*
+        version: link:../table
       astro:
         specifier: 6.4.8
         version: 6.4.8(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
@@ -5401,6 +5419,9 @@ importers:
       '@refraction-ui/react-switch':
         specifier: workspace:*
         version: link:../react-switch
+      '@refraction-ui/react-table':
+        specifier: workspace:*
+        version: link:../react-table
       '@refraction-ui/react-table-of-contents':
         specifier: workspace:*
         version: link:../react-table-of-contents
@@ -6377,6 +6398,28 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-table:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/table':
+        specifier: workspace:*
+        version: link:../table
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-table-of-contents:
     dependencies:
       '@refraction-ui/shared':
@@ -6913,6 +6956,12 @@ importers:
         version: link:../shared
 
   packages/switch:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/table:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*

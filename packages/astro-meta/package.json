@@ -132,6 +132,7 @@
     "@refraction-ui/astro-steps": "workspace:*",
     "@refraction-ui/astro-sticky-note": "workspace:*",
     "@refraction-ui/astro-switch": "workspace:*",
+    "@refraction-ui/astro-table": "workspace:*",
     "@refraction-ui/astro-table-of-contents": "workspace:*",
     "@refraction-ui/astro-tabs": "workspace:*",
     "@refraction-ui/astro-terminal": "workspace:*",

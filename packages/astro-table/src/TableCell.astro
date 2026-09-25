@@ -1,0 +1,13 @@
+---
+import { tableCellVariants, type TableAlign, type TableDensity } from '@refraction-ui/table'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends Omit<astroHTML.JSX.TdHTMLAttributes, 'align'> {
+  align?: TableAlign
+  density?: TableDensity
+  numeric?: boolean
+}
+const { align, density, numeric = false, class: className, ...rest } = Astro.props
+---
+
+<td class={cn(tableCellVariants({ align, density, numeric: numeric ? 'true' : 'false' }), className)} data-slot="table-cell" {...rest}><slot /></td>

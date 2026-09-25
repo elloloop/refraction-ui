@@ -1,0 +1,13 @@
+---
+import { tableHeadVariants, type TableAlign, type TableDensity, type TableHeadTone } from '@refraction-ui/table'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends Omit<astroHTML.JSX.ThHTMLAttributes, 'align'> {
+  align?: TableAlign
+  density?: TableDensity
+  tone?: TableHeadTone
+}
+const { align, density, tone, scope = 'col', class: className, ...rest } = Astro.props
+---
+
+<th scope={scope} class={cn(tableHeadVariants({ align, density, tone }), className)} data-slot="table-head" {...rest}><slot /></th>

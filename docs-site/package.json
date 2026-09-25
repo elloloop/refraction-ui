@@ -115,6 +115,7 @@
     "@refraction-ui/react-status-indicator": "workspace:*",
     "@refraction-ui/react-steps": "workspace:*",
     "@refraction-ui/react-switch": "workspace:*",
+    "@refraction-ui/react-table": "workspace:*",
     "@refraction-ui/react-table-of-contents": "workspace:*",
     "@refraction-ui/react-tabs": "workspace:*",
     "@refraction-ui/react-terminal": "workspace:*",
