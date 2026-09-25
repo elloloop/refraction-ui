@@ -1,10 +1,17 @@
 import 'package:flutter/widgets.dart';
+import '../theme/refraction_colors.dart';
 import '../theme/refraction_theme.dart';
 
 /// The status type for the status indicator.
 enum RefractionStatusType { success, error, warning, info, pending, neutral }
 
 /// A status indicator widget that displays a colored dot with an optional label.
+///
+/// The dot color comes from the active palette's status tokens
+/// ([RefractionColors.success], [RefractionColors.destructive],
+/// [RefractionColors.warning], [RefractionColors.info],
+/// [RefractionColors.pending], [RefractionColors.neutral]) so a palette swap
+/// re-skins it with every other status surface.
 class RefractionStatusIndicator extends StatelessWidget {
   /// The type of the status.
   final RefractionStatusType type;
@@ -38,7 +45,8 @@ class RefractionStatusIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = _getColor(type);
+    final theme = RefractionTheme.of(context);
+    final color = colorFor(type, theme.colors);
     final String defaultLabel = _getDefaultLabel(type);
 
     // Derive the aria label
@@ -60,8 +68,6 @@ class RefractionStatusIndicator extends StatelessWidget {
     if (shouldPulse) {
       dot = _PulseAnimator(child: dot);
     }
-
-    final theme = RefractionTheme.of(context);
 
     Widget labelWidget = const SizedBox.shrink();
     if (showLabel) {
@@ -99,21 +105,16 @@ class RefractionStatusIndicator extends StatelessWidget {
     );
   }
 
-  Color _getColor(RefractionStatusType type) {
-    switch (type) {
-      case RefractionStatusType.success:
-        return const Color(0xFF22C55E); // green-500
-      case RefractionStatusType.error:
-        return const Color(0xFFEF4444); // red-500
-      case RefractionStatusType.warning:
-        return const Color(0xFFEAB308); // yellow-500
-      case RefractionStatusType.info:
-        return const Color(0xFF3B82F6); // blue-500
-      case RefractionStatusType.pending:
-        return const Color(0xFFF97316); // orange-500
-      case RefractionStatusType.neutral:
-        return const Color(0xFF9CA3AF); // gray-400
-    }
+  /// The status token [type] paints with in [colors].
+  static Color colorFor(RefractionStatusType type, RefractionColors colors) {
+    return switch (type) {
+      RefractionStatusType.success => colors.success,
+      RefractionStatusType.error => colors.destructive,
+      RefractionStatusType.warning => colors.warning,
+      RefractionStatusType.info => colors.info,
+      RefractionStatusType.pending => colors.pending,
+      RefractionStatusType.neutral => colors.neutral,
+    };
   }
 
   String _getDefaultLabel(RefractionStatusType type) {

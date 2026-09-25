@@ -66,4 +66,51 @@ class ColorMath {
     final hue = (hsl.hue + degrees) % 360.0;
     return hsl.withHue(hue < 0 ? hue + 360.0 : hue).toColor();
   }
+
+  /// WCAG 2.x minimum contrast for normal-size text (level AA).
+  static const double wcagAaText = 4.5;
+
+  /// Pure black and white — the last-resort text colors [readableOn] falls
+  /// back to when no candidate token reaches [wcagAaText] on a mid-tone fill.
+  static const Color _black = Color(0xFF000000);
+  static const Color _white = Color(0xFFFFFFFF);
+
+  /// The WCAG 2.x contrast ratio between two opaque colors (1.0–21.0).
+  static double contrastRatio(Color a, Color b) {
+    final la = a.computeLuminance();
+    final lb = b.computeLuminance();
+    final lighter = la > lb ? la : lb;
+    final darker = la > lb ? lb : la;
+    return (lighter + 0.05) / (darker + 0.05);
+  }
+
+  /// Picks a text color that reads on [background] at WCAG AA.
+  ///
+  /// Returns [preferred] when it already reaches [minContrast]; otherwise
+  /// the highest-contrast of [candidates] (typically the palette's
+  /// `foreground`/`background` tokens) that does; otherwise black or white,
+  /// whichever contrasts more. Status fills such as amber or green sit at a
+  /// luminance where the palette's white "on-status" token fails AA, so a
+  /// component painting text on a token fill must not trust the pair blindly.
+  static Color readableOn(
+    Color background, {
+    required Color preferred,
+    List<Color> candidates = const [],
+    double minContrast = wcagAaText,
+  }) {
+    if (contrastRatio(preferred, background) >= minContrast) return preferred;
+    Color? best;
+    var bestRatio = 0.0;
+    for (final candidate in candidates) {
+      final ratio = contrastRatio(candidate, background);
+      if (ratio > bestRatio) {
+        best = candidate;
+        bestRatio = ratio;
+      }
+    }
+    if (best != null && bestRatio >= minContrast) return best;
+    return contrastRatio(_black, background) >= contrastRatio(_white, background)
+        ? _black
+        : _white;
+  }
 }

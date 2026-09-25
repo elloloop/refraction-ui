@@ -33,7 +33,7 @@ void main() {
             .first,
       );
       final decoration = container.decoration as BoxDecoration;
-      expect(decoration.color, const Color(0xFF9CA3AF));
+      expect(decoration.color, RefractionThemeData.light().colors.neutral);
     });
 
     testWidgets('renders success indicator', (WidgetTester tester) async {
@@ -60,7 +60,7 @@ void main() {
             .first,
       );
       final decoration = container.decoration as BoxDecoration;
-      expect(decoration.color, const Color(0xFF22C55E));
+      expect(decoration.color, RefractionThemeData.light().colors.success);
     });
 
     testWidgets('renders error indicator', (WidgetTester tester) async {
@@ -85,7 +85,7 @@ void main() {
             .first,
       );
       final decoration = container.decoration as BoxDecoration;
-      expect(decoration.color, const Color(0xFFEF4444));
+      expect(decoration.color, RefractionThemeData.light().colors.destructive);
     });
 
     testWidgets('renders warning indicator', (WidgetTester tester) async {
@@ -112,7 +112,7 @@ void main() {
             .first,
       );
       final decoration = container.decoration as BoxDecoration;
-      expect(decoration.color, const Color(0xFFEAB308));
+      expect(decoration.color, RefractionThemeData.light().colors.warning);
     });
 
     testWidgets('renders info indicator', (WidgetTester tester) async {
@@ -137,7 +137,7 @@ void main() {
             .first,
       );
       final decoration = container.decoration as BoxDecoration;
-      expect(decoration.color, const Color(0xFF3B82F6));
+      expect(decoration.color, RefractionThemeData.light().colors.info);
     });
 
     testWidgets('renders pending indicator with pulse by default', (
@@ -176,7 +176,7 @@ void main() {
             .first,
       );
       final decoration = container.decoration as BoxDecoration;
-      expect(decoration.color, const Color(0xFFF97316));
+      expect(decoration.color, RefractionThemeData.light().colors.pending);
     });
 
     testWidgets('can disable pulse on pending', (WidgetTester tester) async {
