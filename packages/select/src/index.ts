@@ -8,6 +8,8 @@ export {
 export {
   selectTriggerVariants,
   selectContentVariants,
+  selectRootClass,
+  selectValueClass,
   selectItemVariants,
   selectTokens,
 } from './select.styles.js'

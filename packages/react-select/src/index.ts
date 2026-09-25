@@ -3,10 +3,12 @@ export {
   SelectTrigger,
   SelectContent,
   SelectItem,
+  SelectValue,
   type SelectProps,
   type SelectTriggerProps,
   type SelectContentProps,
   type SelectItemProps,
+  type SelectValueProps,
 } from './select.js'
 
 // Re-export headless types for convenience

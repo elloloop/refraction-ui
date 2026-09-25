@@ -4,7 +4,7 @@ import * as React from 'react'
 import { act } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { resetIdCounter } from '@refraction-ui/shared'
-import { Select, SelectTrigger, SelectContent, SelectItem } from '../src/select.js'
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '../src/select.js'
 
 // Interaction suite for the react-select adapter. Asserts real DOM behaviour
 // (open/close, focus management, keyboard) — complementing the SSR suite in
@@ -556,5 +556,76 @@ describe('Select interaction — edge cases', () => {
     // accepts the prop without crashing and still renders the trigger.
     render(React.createElement(FruitSelect, { placeholder: 'Choose wisely' }))
     expect(trigger()).toBeTruthy()
+  })
+})
+
+describe('Select interaction — ids, naming and SelectValue', () => {
+  it('trigger ids are stable across renders and aria-controls matches the listbox', () => {
+    render(React.createElement(FruitSelect))
+    const id = trigger().id
+    click(trigger())
+    expect(trigger().id).toBe(id)
+    expect(trigger().getAttribute('aria-controls')).toBe(listbox()!.id)
+    expect(listbox()!.getAttribute('aria-labelledby')).toBe(id)
+  })
+
+  it('does not label the trigger by itself, so a caller aria-label is the name', () => {
+    render(
+      React.createElement(
+        Select,
+        null,
+        React.createElement(SelectTrigger, { 'aria-label': 'Fruit' }, 'Pick'),
+      ),
+    )
+    expect(trigger().getAttribute('aria-label')).toBe('Fruit')
+    expect(trigger().hasAttribute('aria-labelledby')).toBe(false)
+  })
+
+  function ValueSelect(props: React.ComponentProps<typeof Select> = {}) {
+    return React.createElement(
+      Select,
+      { placeholder: 'Pick a fruit', ...props },
+      React.createElement(SelectTrigger, null, React.createElement(SelectValue)),
+      React.createElement(
+        SelectContent,
+        null,
+        FRUITS.map(([value, label]) => React.createElement(SelectItem, { key: value, value }, label)),
+      ),
+    )
+  }
+
+  it('SelectValue shows the placeholder, then the selected label (uncontrolled)', async () => {
+    render(React.createElement(ValueSelect))
+    expect(trigger().textContent).toBe('Pick a fruit')
+    expect(trigger().querySelector('[data-placeholder]')).not.toBeNull()
+    click(trigger())
+    await flushFocus()
+    click(options()[1])
+    expect(listbox()).toBeNull()
+    expect(trigger().textContent).toBe('Banana')
+    expect(trigger().querySelector('[data-placeholder]')).toBeNull()
+  })
+
+  it('SelectValue shows a controlled value label while closed', () => {
+    render(React.createElement(ValueSelect, { value: 'cherry' }))
+    expect(trigger().textContent).toBe('Cherry')
+  })
+
+  it('SelectValue honours defaultValue', () => {
+    render(React.createElement(ValueSelect, { defaultValue: 'apple' }))
+    expect(trigger().textContent).toBe('Apple')
+  })
+
+  it('a pointer press outside closes the listbox; inside does not', () => {
+    render(React.createElement(FruitSelect))
+    click(trigger())
+    act(() => {
+      listbox()!.dispatchEvent(new Event('pointerdown', { bubbles: true }))
+    })
+    expect(listbox()).not.toBeNull()
+    act(() => {
+      document.body.dispatchEvent(new Event('pointerdown', { bubbles: true }))
+    })
+    expect(listbox()).toBeNull()
   })
 })

@@ -14,6 +14,12 @@ export interface SelectProps {
   disabled?: boolean
   open?: boolean
   name?: string
+  /**
+   * Element ids to link trigger and listbox. Adapters should pass ids that
+   * are stable across renders (e.g. React `useId`); when omitted, fresh ids
+   * are generated on every call.
+   */
+  ids?: { trigger: string; content: string }
 }
 
 export interface SelectAPI {
@@ -63,14 +69,16 @@ export function createSelect(props: SelectProps = {}): SelectAPI {
   const isInteractive = !disabled
   const selectedOption = options.find((o) => o.value === value)
 
-  const triggerId = generateId('select-trigger')
-  const contentId = generateId('select-content')
+  const triggerId = props.ids?.trigger ?? generateId('select-trigger')
+  const contentId = props.ids?.content ?? generateId('select-content')
 
+  // No aria-labelledby on the trigger: pointing a combobox at itself would
+  // override a caller's aria-label / <label for> and leave the accessible
+  // name as the displayed value.
   const triggerAriaProps: Partial<AccessibilityProps> = {
     role: 'combobox',
     'aria-expanded': open,
     'aria-controls': contentId,
-    'aria-labelledby': triggerId,
   }
   if (disabled) {
     triggerAriaProps['aria-disabled'] = true
