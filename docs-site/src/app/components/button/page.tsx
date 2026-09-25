@@ -13,7 +13,7 @@ const buttonProps = [
   },
   {
     name: 'size',
-    type: "'xs' | 'sm' | 'default' | 'lg' | 'icon'",
+    type: "'xs' | 'sm' | 'default' | 'lg' | 'icon' | 'icon-sm' | 'icon-xs'",
     default: "'default'",
     description: 'Size of the button.',
   },

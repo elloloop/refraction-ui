@@ -3,9 +3,12 @@
  * Handles conditional classes, arrays, and falsy values.
  * No external dependencies (no clsx, no tailwind-merge).
  *
- * For Tailwind class conflict resolution (e.g., 'p-2 p-4' → 'p-4'),
- * consumers can use @refraction-ui/tailwind-config which provides
- * a tw-merge-aware variant of this function.
+ * It does NOT resolve Tailwind conflicts: `cn('p-2', 'p-4')` keeps both and
+ * the stylesheet order decides. Components therefore keep size-owned
+ * utilities (height, text size, padding) out of their cva `base` and only in
+ * the matching variant, so a variant prop always wins; a consumer `className`
+ * that must beat a component utility can use Tailwind's `!` important
+ * modifier (e.g. `!h-7`).
  */
 
 type ClassValue = string | number | boolean | undefined | null | ClassValue[]

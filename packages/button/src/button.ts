@@ -28,7 +28,7 @@ export function resolveButtonVariant(variant: ButtonVariant | undefined): Button
   if (!variant) return variant
   return BUTTON_VARIANT_ALIASES[variant] ?? variant
 }
-export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'icon'
+export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'icon' | 'icon-sm' | 'icon-xs'
 
 export interface ButtonProps {
   variant?: ButtonVariant
