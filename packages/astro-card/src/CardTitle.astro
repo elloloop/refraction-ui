@@ -1,15 +1,17 @@
 ---
-import { createCardTitle, cardTitleVariants } from '@refraction-ui/card'
+import { createCardTitle, cardTitleVariants, type CardTitleLevel } from '@refraction-ui/card'
 import { cn } from '@refraction-ui/shared'
 
 interface Props extends astroHTML.JSX.HTMLAttributes {
   size?: 'sm' | 'default' | 'lg'
+  /** Heading element. Defaults to `h3`. */
+  as?: CardTitleLevel
 }
 
-const { size, class: className, ...props } = Astro.props
+const { size, as: Heading = 'h3', class: className, ...props } = Astro.props
 const api = createCardTitle()
 ---
 
-<h3 class={cn(cardTitleVariants({ size }), className)} {...api.dataAttributes} {...props}>
+<Heading class={cn(cardTitleVariants({ size }), className)} {...api.dataAttributes} {...props}>
   <slot />
-</h3>
+</Heading>

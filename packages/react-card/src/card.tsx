@@ -13,6 +13,8 @@ import {
   cardContentVariants,
   cardFooterVariants,
   type CardVariant,
+  type CardPadding,
+  type CardTitleLevel,
 } from '@refraction-ui/card'
 import { cn } from '@refraction-ui/shared'
 import { Slot } from '@refraction-ui/react-slot'
@@ -20,6 +22,8 @@ import { Slot } from '@refraction-ui/react-slot'
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Visual tone of the card. Defaults to `'default'` (issue #485). */
   variant?: CardVariant
+  /** Built-in inner padding. Defaults to `'none'` (compose CardHeader/CardContent for spacing). */
+  padding?: CardPadding
   /** Merge the card's classes/props onto the single child element instead of
    * rendering a `<div>` (Radix-style `asChild`) — e.g.
    * `<Card asChild><a href="/x">…</a></Card>` for a clickable card. Expects
@@ -31,9 +35,9 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
  * Card -- a container with rounded corners, border, and shadow.
  */
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  function Card({ className, variant, asChild = false, ...props }, ref) {
+  function Card({ className, variant, padding, asChild = false, ...props }, ref) {
     const api = createCard()
-    const classes = cn(cardVariants({ variant }), className)
+    const classes = cn(cardVariants({ variant, padding }), className)
 
     if (asChild) {
       return (
@@ -79,11 +83,16 @@ export const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
 /**
  * CardTitle -- heading within a card header.
  */
-export const CardTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
-  function CardTitle({ className, ...props }, ref) {
+export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
+  /** Heading element. Defaults to `h3`; pick the level that fits the page outline. */
+  as?: CardTitleLevel
+}
+
+export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
+  function CardTitle({ className, as: Heading = 'h3', ...props }, ref) {
     const api = createCardTitle()
     return (
-      <h3
+      <Heading
         ref={ref}
         className={cn(cardTitleVariants(), className)}
         {...api.dataAttributes}

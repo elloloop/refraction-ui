@@ -5,6 +5,8 @@ import { InstallCommand } from '@/components/install-command'
 
 const cardProps = [
   { name: 'variant', type: "'default' | 'subtle' | 'tertiary'", default: "'default'", description: 'Visual tone: subtle surface or tinted second-accent card (issue #485).' },
+  { name: 'padding', type: "'none' | 'default' | 'compact'", default: "'none'", description: 'Built-in inner padding (p-6 / p-4). Leave as none when composing CardHeader/CardContent/CardFooter, which carry their own padding.' },
+  { name: 'CardTitle as', type: "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'", default: "'h3'", description: 'Heading level of CardTitle, to fit the page outline.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes for the card container.' },
   { name: 'children', type: 'ReactNode', description: 'CardHeader, CardContent, CardFooter compound components.' },
   { name: 'asChild', type: 'boolean', default: 'false', description: 'Render as child element (e.g. wrap an <a> tag for a clickable card).' },
