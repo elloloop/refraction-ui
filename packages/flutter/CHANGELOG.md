@@ -1,3 +1,7 @@
+## Unreleased
+
+- **Feature — Slack-style message rows for work chat.** `RefractionMessageRow` renders one message the way team chat reads best: every message left-aligned, avatar + name + time at the start of a run, continuations (`continuation: true`) tucked under it with their time in the gutter on hover/focus. On hover **and on keyboard focus** it shows a floating `RefractionMessageToolbar` of `RefractionMessageAction`s (tooltip, screen-reader label, focus ring, Enter/Space on every button). The toolbar is rendered in the overlay, so the half that straddles the row's top edge is hit-testable. Touch long-press, secondary click and Shift+F10/context-menu key call `onLongPress`; every action is also exposed as a custom semantics action, so nothing depends on hovering. Slots: `quote`, `footer` (reactions, delivery state), `editedLabel`, `highlighted`. Companions: `RefractionMessageQuote` (reply quote, optional `onTap` to jump to the original) and `RefractionMessageTombstone` (deleted message). Tokens only (spacing/radius/type scales, `primarySoft`, `surfaceSubtle`, `ring`).
+
 ## 0.49.0
 
 - **Theme (additive, non-breaking): a much richer, semantic-role token vocabulary so a product's whole look is token-driven.** Every new token is **optional** with a getter that **derives a sensible default from the existing tokens**, so all curated palettes, the six named-theme statics, and every existing `RefractionColors`/`RefractionThemeData` construction keep compiling and rendering **pixel-identically** — nothing new is required.
