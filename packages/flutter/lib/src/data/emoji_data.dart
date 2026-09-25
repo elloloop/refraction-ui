@@ -28,6 +28,21 @@ class EmojiData {
   static const List<EmojiEntry> all = kRefractionEmojiDataset;
 
   static Map<EmojiCategory, List<EmojiEntry>>? _grouped;
+  static Map<String, EmojiEntry>? _byGlyph;
+
+  /// The dataset entry for [glyph], tolerating a missing or extra U+FE0F
+  /// (`❤` and `❤️` both resolve). Null for text that is not a known emoji.
+  /// Gives reactions and other glyph-only UI a human name for screen
+  /// readers ("thumbs up") without a hand-written label map.
+  static EmojiEntry? lookup(String glyph) {
+    final index = _byGlyph ??= {
+      for (final entry in kRefractionEmojiDataset)
+        _stripVariation(entry.emoji): entry,
+    };
+    return index[_stripVariation(glyph)];
+  }
+
+  static String _stripVariation(String glyph) => glyph.replaceAll('\uFE0F', '');
 
   /// The dataset grouped by category (lazily computed once, then cached).
   static Map<EmojiCategory, List<EmojiEntry>> get data {

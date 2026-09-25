@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
+import 'animated_emoji_manifest.dart';
 import 'emoji_types.dart';
 import 'twemoji_index.g.dart';
 
@@ -16,6 +17,41 @@ String twemojiCodepoint(String emoji) {
   const vs16 = '️';
   final source = emoji.contains(zwj) ? emoji : emoji.replaceAll(vs16, '');
   return source.runes.map((r) => r.toRadixString(16)).join('-');
+}
+
+/// The bundled animated Noto asset key for [glyph] (`1f525` for 🔥): its
+/// code points as lowercase hex joined by `_`, U+FE0F dropped. Null when
+/// Google's animated set has no animation for it (the glyph stays static).
+String? animatedEmojiKey(String glyph) {
+  final key = glyph.runes
+      .where((rune) => rune != 0xFE0F)
+      .map((rune) => rune.toRadixString(16))
+      .join('_');
+  return kAnimatedEmojiAssets.contains(key) ? key : null;
+}
+
+/// The bundled animated Noto emoji (Lottie) for [key] — see
+/// [animatedEmojiKey]. Plays once when [repeat] is false; [onLoaded] reports
+/// the animation's length so a caller can swap back to a still glyph.
+/// [fallback] renders if the asset fails to load.
+Widget animatedEmojiLottie(
+  String key, {
+  required double size,
+  required Widget fallback,
+  bool repeat = true,
+  ValueChanged<Duration>? onLoaded,
+}) {
+  return Lottie.asset(
+    'assets/emoji_animated/$key.json',
+    package: _package,
+    width: size,
+    height: size,
+    repeat: repeat,
+    onLoaded: onLoaded == null
+        ? null
+        : (composition) => onLoaded(composition.duration),
+    errorBuilder: (context, error, stackTrace) => fallback,
+  );
 }
 
 /// Whether a bundled uniform Twemoji glyph exists for [entry].

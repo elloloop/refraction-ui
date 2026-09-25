@@ -104,6 +104,8 @@ import 'package:example/use_cases/radio_use_cases.dart'
     as _example_use_cases_radio_use_cases;
 import 'package:example/use_cases/rating_scale_use_cases.dart'
     as _example_use_cases_rating_scale_use_cases;
+import 'package:example/use_cases/reaction_bar_use_cases.dart'
+    as _example_use_cases_reaction_bar_use_cases;
 import 'package:example/use_cases/search_bar_use_cases.dart'
     as _example_use_cases_search_bar_use_cases;
 import 'package:example/use_cases/section_head_use_cases.dart'
@@ -928,6 +930,21 @@ final directories = <_widgetbook.WidgetbookNode>[
           _widgetbook.WidgetbookUseCase(
             name: 'Small Size',
             builder: _example_use_cases_rating_scale_use_cases.smallRatingScale,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'RefractionReactionBar',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Overflow',
+            builder: _example_use_cases_reaction_bar_use_cases
+                .overflowReactionBarUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Work chat',
+            builder: _example_use_cases_reaction_bar_use_cases
+                .workChatReactionBarUseCase,
           ),
         ],
       ),

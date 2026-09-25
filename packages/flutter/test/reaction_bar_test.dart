@@ -240,7 +240,7 @@ void main() {
       expect(decoration.color!.a, greaterThan(0));
     });
 
-    testWidgets('uses muted background when inactive and not hovered', (
+    testWidgets('uses the subtle surface when inactive and not hovered', (
       tester,
     ) async {
       await tester.pumpWidget(
@@ -259,7 +259,7 @@ void main() {
       final decoration = container.decoration as BoxDecoration;
       expect(
         decoration.color,
-        RefractionThemeData.minimalLight().colors.background,
+        RefractionThemeData.minimalLight().colors.surfaceSubtle,
       );
     });
 
