@@ -21,7 +21,11 @@ export interface LineChartProps extends Omit<React.HTMLAttributes<HTMLDivElement
   ariaLabel: string
   /** Rendered height in px (also the viewBox height). Defaults to 230. */
   height?: number
-  /** viewBox width; the chart always stretches to its container. Defaults to 760. */
+  /**
+   * Fallback width, used for the server render and before the container is
+   * measured. On the client the chart measures its container and draws at that
+   * width, so text and strokes stay at their authored size. Defaults to 760.
+   */
   width?: number
   /** Formats a value in the tooltip. */
   formatValue?: (value: number) => string
@@ -38,10 +42,34 @@ const MARKER_RADIUS = 3.5
 const STROKE_WIDTH = 2.2
 const TOOLTIP_TOP_PX = 8
 
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect
+
+/**
+ * Width of `ref`'s element in CSS px, tracked with a ResizeObserver; `null`
+ * until measured (server render, or no ResizeObserver).
+ */
+function useMeasuredWidth(ref: React.RefObject<HTMLElement | null>): number | null {
+  const [measured, setMeasured] = React.useState<number | null>(null)
+  useIsomorphicLayoutEffect(() => {
+    const node = ref.current
+    if (!node || typeof ResizeObserver === 'undefined') return
+    const apply = (w: number) => {
+      const rounded = Math.round(w)
+      if (rounded > 0) setMeasured((prev) => (prev === rounded ? prev : rounded))
+    }
+    apply(node.getBoundingClientRect().width)
+    const observer = new ResizeObserver((entries) => apply(entries[0]?.contentRect.width ?? 0))
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [ref])
+  return measured
+}
+
 /**
  * LineChart — a responsive multi-series line chart on one shared y-scale, with
  * gridlines, category x-labels, a hover/keyboard crosshair + tooltip and a
- * legend. The SVG uses a viewBox, so it stretches to its container's width.
+ * legend. It measures its container and draws at that width (1:1 viewBox), so
+ * axis text keeps its authored size in narrow panels.
  * Keyboard: focus the chart, then ←/→/Home/End move between categories.
  */
 export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(function LineChart(
@@ -50,7 +78,7 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(functi
     labels,
     ariaLabel,
     height = DEFAULT_LINE_CHART_HEIGHT,
-    width = DEFAULT_LINE_CHART_WIDTH,
+    width: fallbackWidth = DEFAULT_LINE_CHART_WIDTH,
     formatValue = defaultFormat,
     formatTick,
     area,
@@ -58,8 +86,20 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(functi
     className,
     ...rest
   },
-  ref,
+  forwardedRef,
 ) {
+  const rootRef = React.useRef<HTMLDivElement | null>(null)
+  const ref = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      rootRef.current = node
+      if (typeof forwardedRef === 'function') forwardedRef(node)
+      else if (forwardedRef) forwardedRef.current = node
+    },
+    [forwardedRef],
+  )
+  // Draw at the container's real width: a fixed viewBox stretched to a narrow
+  // panel would shrink the axis text and the chart height with it.
+  const width = useMeasuredWidth(rootRef) ?? fallbackWidth
   const [active, setActive] = React.useState<number | null>(null)
   const gradientBase = React.useId().replace(/:/g, '')
   const geo = React.useMemo(

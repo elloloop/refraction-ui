@@ -29,7 +29,7 @@ const props = [
     name: "width",
     type: "number",
     default: "760",
-    description: "viewBox width; the chart always stretches to its container.",
+    description: "Fallback width for the server render / before measuring. On the client the chart measures its container and draws at that width, so axis text keeps its size. (Astro renders statically at this width.)",
   },
   {
     name: "formatValue",
@@ -40,7 +40,7 @@ const props = [
   {
     name: "formatTick",
     type: "(value: number) => string",
-    description: "Formats y-axis ticks. Defaults to formatValue.",
+    description: "Formats y-axis ticks. Defaults to formatValue. Ticks are round 1-2-5 steps on a nice max, so they format cleanly.",
   },
   {
     name: "area",
