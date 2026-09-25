@@ -8,6 +8,12 @@ import type { AccessibilityProps } from '@refraction-ui/shared'
  */
 export type CardVariant = 'default' | 'subtle' | 'tertiary'
 
+/** Built-in inner padding of the Card container. */
+export type CardPadding = 'none' | 'default' | 'compact'
+
+/** Heading element for CardTitle. */
+export type CardTitleLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+
 export interface CardProps {
   /** Optional accessible role override */
   role?: string

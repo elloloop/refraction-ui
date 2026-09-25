@@ -8,6 +8,8 @@ export {
   type CardProps,
   type CardAPI,
   type CardVariant,
+  type CardPadding,
+  type CardTitleLevel,
 } from './card.js'
 
 export {

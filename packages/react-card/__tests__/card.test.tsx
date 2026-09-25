@@ -226,3 +226,16 @@ describe('Card asChild (React)', () => {
     expect(html).not.toContain('<a')
   })
 })
+
+describe('Card padding + CardTitle level (React)', () => {
+  it('applies the padding variant', () => {
+    expect(renderToString(React.createElement(Card, { padding: 'default' }, 'x'))).toContain('p-6')
+    expect(renderToString(React.createElement(Card, { padding: 'compact' }, 'x'))).toContain('p-4')
+    expect(renderToString(React.createElement(Card, null, 'x'))).not.toMatch(/\bp-[46]\b/)
+  })
+
+  it('renders CardTitle as h3 by default and honours as', () => {
+    expect(renderToString(React.createElement(CardTitle, null, 'T'))).toMatch(/^<h3/)
+    expect(renderToString(React.createElement(CardTitle, { as: 'h2' }, 'T'))).toMatch(/^<h2/)
+  })
+})

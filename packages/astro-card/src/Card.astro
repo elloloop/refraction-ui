@@ -3,15 +3,16 @@ import { createCard, cardVariants } from '@refraction-ui/card'
 import { cn } from '@refraction-ui/shared'
 
 interface Props extends astroHTML.JSX.HTMLAttributes {
+  variant?: 'default' | 'subtle' | 'tertiary'
   padding?: 'none' | 'default' | 'compact'
 }
 
-const { padding, class: className, ...props } = Astro.props
+const { variant, padding, class: className, ...props } = Astro.props
 const api = createCard(props)
 ---
 
 <div
-  class={cn(cardVariants({ padding }), className)}
+  class={cn(cardVariants({ variant, padding }), className)}
   {...api.ariaProps}
   {...api.dataAttributes}
   {...props}
