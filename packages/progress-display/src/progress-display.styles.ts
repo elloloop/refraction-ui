@@ -58,7 +58,7 @@ export const badgeItemVariants = cva({
 })
 
 export const progressBarVariants = cva({
-  base: 'h-2 w-full overflow-hidden rounded-full bg-secondary',
+  base: 'w-full overflow-hidden rounded-full bg-secondary',
   variants: {
     size: {
       sm: 'h-1',

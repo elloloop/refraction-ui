@@ -264,3 +264,18 @@ describe('createButton - keyboardHandlers preventDefault', () => {
     expect(called).toBe(true)
   })
 })
+
+describe('buttonVariants sizes own their text size and radius', () => {
+  const tokens = (s: string) => s.split(/\s+/)
+  it('sm/xs are not overridden by a base text-sm', () => {
+    for (const size of ['xs', 'sm', 'icon-sm', 'icon-xs'] as const) {
+      const cls = tokens(buttonVariants({ size }))
+      expect(cls).toContain('text-xs')
+      expect(cls).not.toContain('text-sm')
+    }
+  })
+  it('default keeps text-sm and has icon sizes', () => {
+    expect(tokens(buttonVariants())).toContain('text-sm')
+    expect(tokens(buttonVariants({ size: 'icon-xs' }))).toContain('w-7')
+  })
+})

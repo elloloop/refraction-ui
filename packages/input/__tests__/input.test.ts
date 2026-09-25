@@ -222,3 +222,13 @@ describe('getInputAriaProps - all combinations', () => {
     expect(props).toEqual({})
   })
 })
+
+describe('inputVariants sizes are not overridden by the base', () => {
+  const tokens = (s: string) => s.split(/\s+/)
+  it('sm has h-8 text-xs and no default h-9/text-sm', () => {
+    const cls = tokens(inputVariants({ size: 'sm' }))
+    expect(cls).toEqual(expect.arrayContaining(['h-8', 'text-xs']))
+    expect(cls).not.toContain('h-9')
+    expect(cls).not.toContain('text-sm')
+  })
+})
