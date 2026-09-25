@@ -47,6 +47,7 @@ const componentGroups = [
     title: 'Data',
     items: [
       { name: 'Data Table', href: '/components/data-table' },
+      { name: 'Action List', href: '/components/action-list' },
       { name: 'Progress Display', href: '/components/progress-display' },
       { name: 'Kanban Board', href: '/components/kanban-board' },
       { name: 'Sortable List', href: '/components/sortable-list' },
@@ -146,6 +147,8 @@ const componentGroups = [
       { name: 'Location Selector', href: '/components/location-selector' },
       { name: 'Form', href: '/components/form' },
       { name: 'Charts', href: '/components/charts' },
+      { name: 'Line Chart', href: '/components/line-chart' },
+      { name: 'Funnel Chart', href: '/components/funnel-chart' },
     ],
   },
   {
@@ -214,6 +217,7 @@ const componentGroups = [
       { name: 'Numbered Steps', href: '/components/numbered-steps' },
       { name: 'Pricing Card', href: '/components/pricing-card' },
       { name: 'Section Head', href: '/components/section-head' },
+      { name: 'Page Header', href: '/components/page-header' },
       { name: 'Stat Grid', href: '/components/stat-grid' },
     ],
   },

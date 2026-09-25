@@ -1,0 +1,82 @@
+---
+import {
+  computeLineChart,
+  lineChartClasses as c,
+  DEFAULT_LINE_CHART_WIDTH,
+  DEFAULT_LINE_CHART_HEIGHT,
+  type LineChartSeries,
+} from '@refraction-ui/line-chart'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** The series to plot, all on one shared y-scale. */
+  series: LineChartSeries[]
+  /** One category label per data point. */
+  labels: string[]
+  /** Accessible name of the chart image. */
+  ariaLabel: string
+  height?: number
+  width?: number
+  /** Formats a y-axis tick. */
+  formatTick?: (value: number) => string
+  /** Fill the area under each line. Defaults to on for a single series only. */
+  area?: boolean
+  showLegend?: boolean
+}
+
+const {
+  series,
+  labels,
+  ariaLabel,
+  height = DEFAULT_LINE_CHART_HEIGHT,
+  width = DEFAULT_LINE_CHART_WIDTH,
+  formatTick = (value: number) => String(Math.round(value)),
+  area,
+  showLegend = true,
+  class: className,
+  ...rest
+} = Astro.props
+const geo = computeLineChart({ series, labels, width, height })
+const fillArea = area ?? series.length === 1
+const gradientBase = `line-chart-${ariaLabel.replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase()}`
+---
+
+<div class={cn(c.root, className)} data-slot="line-chart" {...rest}>
+  <svg class={c.svg} viewBox={`0 0 ${width} ${height}`} style={`height:${height}px`} role="img" aria-label={ariaLabel}>
+    {geo.ticks.map((t) => (
+      <g>
+        <line class={c.gridline} x1={geo.padding.left} y1={t.y} x2={width - geo.padding.right} y2={t.y} />
+        <text class={c.axis} x={geo.padding.left - 8} y={t.y + 3} text-anchor="end">{formatTick(t.value)}</text>
+      </g>
+    ))}
+    {geo.xLabels.map((l) => (
+      <text class={c.axis} x={l.x} y={height - 6} text-anchor="middle">{l.label}</text>
+    ))}
+    {geo.paths.map((p, si) => (
+      <g>
+        {fillArea && (
+          <Fragment>
+            <defs>
+              <linearGradient id={`${gradientBase}-${si}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color={p.color} stop-opacity="0.22" />
+                <stop offset="100%" stop-color={p.color} stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <path d={p.area} fill={`url(#${gradientBase}-${si})`} />
+          </Fragment>
+        )}
+        <path d={p.line} fill="none" stroke={p.color} stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+      </g>
+    ))}
+  </svg>
+  {showLegend && (
+    <div class={c.legend}>
+      {series.map((s, si) => (
+        <span class={c.legendItem}>
+          <i class={c.legendSwatch} style={`background:${geo.paths[si].color}`} aria-hidden="true" />
+          {s.name}
+        </span>
+      ))}
+    </div>
+  )}
+</div>

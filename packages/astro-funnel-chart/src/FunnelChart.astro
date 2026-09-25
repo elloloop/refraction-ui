@@ -1,0 +1,64 @@
+---
+import {
+  computeFunnel,
+  funnelChartClasses as c,
+  funnelChartDefaults,
+  DEFAULT_FUNNEL_MIN_BAR_PERCENT,
+  type FunnelChartStep,
+} from '@refraction-ui/funnel-chart'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** The funnel steps, top first. */
+  steps: FunnelChartStep[]
+  formatValue?: (value: number) => string
+  formatPercent?: (percent: number) => string
+  minBarPercent?: number
+  shareLabel?: (share: string) => string
+  conversionLabel?: (percent: string) => string
+  droppedLabel?: (count: string) => string
+}
+
+const {
+  steps,
+  formatValue = funnelChartDefaults.formatValue,
+  formatPercent = funnelChartDefaults.formatPercent,
+  minBarPercent = DEFAULT_FUNNEL_MIN_BAR_PERCENT,
+  shareLabel = funnelChartDefaults.shareLabel,
+  conversionLabel = funnelChartDefaults.conversionLabel,
+  droppedLabel = funnelChartDefaults.droppedLabel,
+  class: className,
+  ...rest
+} = Astro.props
+const rows = computeFunnel(steps, minBarPercent)
+---
+
+<ol class={cn(c.root, className)} data-slot="funnel-chart" {...rest}>
+  {
+    rows.map((row) => (
+      <li>
+        <div class={c.bar}>
+          <div class={c.fill} style={`width:${row.barPercent}%`} aria-hidden="true" />
+          <svg class={c.chevron} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+          <div class={c.text}>
+            <b class={c.label}>{row.step.label}</b>
+            {row.step.description && <span class={c.description}>{row.step.description}</span>}
+          </div>
+          <div class={c.figure}>
+            <b class={c.value}>{formatValue(row.step.value)}</b>
+            <span class={c.share}>{shareLabel(formatPercent(row.shareOfTop))}</span>
+          </div>
+        </div>
+        {row.next && (
+          <div class={c.transition}>
+            <span class={c.conversion}>{conversionLabel(formatPercent(row.next.conversion))}</span>
+            <span aria-hidden="true">·</span>
+            <span class={c.dropped}>{droppedLabel(formatValue(row.next.dropped))}</span>
+          </div>
+        )}
+      </li>
+    ))
+  }
+</ol>
