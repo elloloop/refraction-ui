@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:refraction_ui/refraction_ui.dart';
 
+/// A filled status paints its color; a hollow one paints it as the ring.
+Color? dotColorOf(BoxDecoration decoration, RefractionPresenceStatus status) {
+  if (RefractionPresenceIndicator.isHollow(status)) {
+    return (decoration.border! as Border).top.color;
+  }
+  return decoration.color;
+}
+
 void main() {
   Widget buildTestApp(Widget child) {
     return MaterialApp(
@@ -41,8 +49,11 @@ void main() {
         final container = tester.widget<Container>(containerFinder);
         final decoration = container.decoration as BoxDecoration;
         expect(
-          decoration.color,
-          RefractionPresenceIndicator.defaultColors[status],
+          dotColorOf(decoration, status),
+          RefractionPresenceIndicator.colorFor(
+            status,
+            RefractionThemeData.minimalLight().colors,
+          ),
         );
         expect(decoration.shape, BoxShape.circle);
       });
@@ -148,7 +159,7 @@ void main() {
         final container = tester.widget<Container>(containerFinder);
         final decoration = container.decoration as BoxDecoration;
 
-        expect(decoration.color, customColor);
+        expect(dotColorOf(decoration, status), customColor);
       });
 
       testWidgets('respects custom label for status $status', (tester) async {
@@ -285,6 +296,113 @@ void main() {
         }
       }
       expect(hasGap, isTrue);
+    });
+  });
+
+  group('RefractionPresenceIndicator - tokens and shape cues', () {
+    testWidgets('colors come from the theme status tokens', (tester) async {
+      final colors = RefractionThemeData.minimalLight().colors;
+      expect(
+        RefractionPresenceIndicator.colorFor(
+          RefractionPresenceStatus.online,
+          colors,
+        ),
+        colors.positive,
+      );
+      expect(
+        RefractionPresenceIndicator.colorFor(
+          RefractionPresenceStatus.away,
+          colors,
+        ),
+        colors.caution,
+      );
+      expect(
+        RefractionPresenceIndicator.colorFor(
+          RefractionPresenceStatus.dnd,
+          colors,
+        ),
+        colors.destructive,
+      );
+      expect(
+        RefractionPresenceIndicator.colorFor(
+          RefractionPresenceStatus.offline,
+          colors,
+        ),
+        colors.neutral,
+      );
+    });
+
+    testWidgets('away and offline are hollow, not just a different hue', (
+      tester,
+    ) async {
+      expect(
+        RefractionPresenceIndicator.isHollow(RefractionPresenceStatus.away),
+        isTrue,
+      );
+      expect(
+        RefractionPresenceIndicator.isHollow(RefractionPresenceStatus.offline),
+        isTrue,
+      );
+      expect(
+        RefractionPresenceIndicator.isHollow(RefractionPresenceStatus.online),
+        isFalse,
+      );
+    });
+
+    testWidgets('dnd draws a bar through the dot; busy does not', (
+      tester,
+    ) async {
+      Finder bar() => find.descendant(
+        of: find.byType(RefractionPresenceIndicator),
+        matching: find.byType(FractionallySizedBox),
+      );
+      await tester.pumpWidget(
+        buildTestApp(
+          const RefractionPresenceIndicator(
+            status: RefractionPresenceStatus.dnd,
+          ),
+        ),
+      );
+      expect(bar(), findsOneWidget);
+      await tester.pumpWidget(
+        buildTestApp(
+          const RefractionPresenceIndicator(
+            status: RefractionPresenceStatus.busy,
+          ),
+        ),
+      );
+      expect(bar(), findsNothing);
+    });
+
+    testWidgets('diameter overrides size and ringColor rings the dot', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        buildTestApp(
+          const RefractionPresenceIndicator(
+            status: RefractionPresenceStatus.online,
+            diameter: 14,
+            ringColor: Colors.white,
+          ),
+        ),
+      );
+      final dot = tester.widget<Container>(
+        find.descendant(
+          of: find.byType(RefractionPresenceIndicator),
+          matching: find.byType(Container),
+        ),
+      );
+      expect(dot.constraints?.maxWidth, 14);
+      final ring = tester.widget<DecoratedBox>(
+        find
+            .descendant(
+              of: find.byType(RefractionPresenceIndicator),
+              matching: find.byType(DecoratedBox),
+            )
+            .first,
+      );
+      final border = (ring.decoration as BoxDecoration).border! as Border;
+      expect(border.top.color, Colors.white);
     });
   });
 }
