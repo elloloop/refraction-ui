@@ -77,6 +77,7 @@
     "@refraction-ui/react-marquee-strip": "workspace:*",
     "@refraction-ui/react-mini-map": "workspace:*",
     "@refraction-ui/react-mobile-nav": "workspace:*",
+    "@refraction-ui/react-native-select": "workspace:*",
     "@refraction-ui/react-navbar": "workspace:*",
     "@refraction-ui/react-numbered-steps": "workspace:*",
     "@refraction-ui/react-otp-input": "workspace:*",

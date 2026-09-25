@@ -352,6 +352,9 @@ importers:
       '@refraction-ui/react-mobile-nav':
         specifier: workspace:*
         version: link:../packages/react-mobile-nav
+      '@refraction-ui/react-native-select':
+        specifier: workspace:*
+        version: link:../packages/react-native-select
       '@refraction-ui/react-navbar':
         specifier: workspace:*
         version: link:../packages/react-navbar
@@ -1747,6 +1750,9 @@ importers:
       '@refraction-ui/astro-mobile-nav':
         specifier: workspace:*
         version: link:../astro-mobile-nav
+      '@refraction-ui/astro-native-select':
+        specifier: workspace:*
+        version: link:../astro-native-select
       '@refraction-ui/astro-navbar':
         specifier: workspace:*
         version: link:../astro-navbar
@@ -1933,6 +1939,18 @@ importers:
       '@refraction-ui/mobile-nav':
         specifier: workspace:*
         version: link:../mobile-nav
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 6.4.8
+        version: 6.4.8(@types/node@24.1.0)(jiti@2.6.1)(lightningcss@1.32.0)(rollup@4.59.0)(yaml@2.8.3)
+
+  packages/astro-native-select:
+    dependencies:
+      '@refraction-ui/native-select':
+        specifier: workspace:*
+        version: link:../native-select
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -3270,6 +3288,12 @@ importers:
         version: link:../shared
 
   packages/mobile-nav:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/native-select:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -5305,6 +5329,9 @@ importers:
       '@refraction-ui/react-mobile-nav':
         specifier: workspace:*
         version: link:../react-mobile-nav
+      '@refraction-ui/react-native-select':
+        specifier: workspace:*
+        version: link:../react-native-select
       '@refraction-ui/react-navbar':
         specifier: workspace:*
         version: link:../react-navbar
@@ -5531,6 +5558,28 @@ importers:
         version: 19.0.0
       react-dom:
         specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-native-select:
+    dependencies:
+      '@refraction-ui/native-select':
+        specifier: workspace:*
+        version: link:../native-select
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
   packages/react-navbar:
