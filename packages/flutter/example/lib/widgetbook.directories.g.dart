@@ -10,6 +10,8 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:example/use_cases/accessible_tokens_use_cases.dart'
+    as _example_use_cases_accessible_tokens_use_cases;
 import 'package:example/use_cases/audience_feature_card_use_cases.dart'
     as _example_use_cases_audience_feature_card_use_cases;
 import 'package:example/use_cases/audio_room_use_cases.dart'
@@ -1368,6 +1370,21 @@ final directories = <_widgetbook.WidgetbookNode>[
           _widgetbook.WidgetbookUseCase(
             name: 'Horizontal',
             builder: _example_use_cases_wizard_use_cases.horizontalWizard,
+          ),
+        ],
+      ),
+    ],
+  ),
+  _widgetbook.WidgetbookFolder(
+    name: 'use_cases',
+    children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'AccessibleTokensPreview',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Accessible roles',
+            builder:
+                _example_use_cases_accessible_tokens_use_cases.accessibleTokens,
           ),
         ],
       ),

@@ -24,10 +24,32 @@ export const colors = {
   secondary: { DEFAULT: 'hsl(var(--secondary))', foreground: 'hsl(var(--secondary-foreground))' },
   muted: { DEFAULT: 'hsl(var(--muted))', foreground: 'hsl(var(--muted-foreground))' },
   accent: { DEFAULT: 'hsl(var(--accent))', foreground: 'hsl(var(--accent-foreground))' },
-  destructive: { DEFAULT: 'hsl(var(--destructive))', foreground: 'hsl(var(--destructive-foreground))' },
-  success: { DEFAULT: 'hsl(var(--success))', foreground: 'hsl(var(--success-foreground))' },
-  warning: { DEFAULT: 'hsl(var(--warning))', foreground: 'hsl(var(--warning-foreground))' },
-  info: { DEFAULT: 'hsl(var(--info))', foreground: 'hsl(var(--info-foreground))' },
+  destructive: {
+    DEFAULT: 'hsl(var(--destructive))',
+    foreground: 'hsl(var(--destructive-foreground))',
+    // Soft tint + AA text on it (Flutter parity) — falls back to the
+    // existing muted surface and the status hue.
+    soft: 'hsl(var(--destructive-soft, var(--muted)))',
+    'soft-foreground': 'hsl(var(--destructive-soft-foreground, var(--destructive)))',
+  },
+  success: {
+    DEFAULT: 'hsl(var(--success))',
+    foreground: 'hsl(var(--success-foreground))',
+    soft: 'hsl(var(--success-soft, var(--muted)))',
+    'soft-foreground': 'hsl(var(--success-soft-foreground, var(--success)))',
+  },
+  warning: {
+    DEFAULT: 'hsl(var(--warning))',
+    foreground: 'hsl(var(--warning-foreground))',
+    soft: 'hsl(var(--warning-soft, var(--muted)))',
+    'soft-foreground': 'hsl(var(--warning-soft-foreground, var(--warning)))',
+  },
+  info: {
+    DEFAULT: 'hsl(var(--info))',
+    foreground: 'hsl(var(--info-foreground))',
+    soft: 'hsl(var(--info-soft, var(--muted)))',
+    'soft-foreground': 'hsl(var(--info-soft-foreground, var(--info)))',
+  },
   pending: { DEFAULT: 'hsl(var(--pending))', foreground: 'hsl(var(--pending-foreground))' },
   neutral: { DEFAULT: 'hsl(var(--neutral))', foreground: 'hsl(var(--neutral-foreground))' },
   // Extended status roles (issue #485) — default to the existing status hues
@@ -43,6 +65,30 @@ export const colors = {
   // Ink / surface (issue #485)
   placeholder: 'hsl(var(--placeholder, var(--muted-foreground)))',
   'surface-subtle': 'hsl(var(--surface-subtle, var(--muted)))',
+  // Chat highlights (Flutter parity): an @mention of someone else, an
+  // @mention of the viewer, a transient jump/search highlight, and selected
+  // rows/text. Each falls back to an existing role so older stylesheets keep
+  // their look.
+  mention: {
+    DEFAULT: 'hsl(var(--mention, var(--primary-soft, var(--accent))))',
+    foreground: 'hsl(var(--mention-foreground, var(--primary-soft-foreground, var(--accent-foreground))))',
+    self: 'hsl(var(--mention-self, var(--accent)))',
+    'self-foreground': 'hsl(var(--mention-self-foreground, var(--foreground)))',
+  },
+  highlight: {
+    DEFAULT: 'hsl(var(--highlight, var(--accent)))',
+    foreground: 'hsl(var(--highlight-foreground, var(--foreground)))',
+  },
+  selection: {
+    DEFAULT: 'hsl(var(--selection, var(--accent)))',
+    foreground: 'hsl(var(--selection-foreground, var(--foreground)))',
+  },
+  // Surface elevation ladder (Flutter parity).
+  'surface-sunken': 'hsl(var(--surface-sunken, var(--surface-subtle, var(--muted))))',
+  'surface-raised': 'hsl(var(--surface-raised, var(--card)))',
+  'surface-overlay': 'hsl(var(--surface-overlay, var(--popover)))',
+  scrim: 'hsl(var(--scrim, 0 0% 0%) / var(--scrim-opacity, 0.54))',
+  'focus-ring': 'hsl(var(--focus-ring, var(--ring)))',
   border: 'hsl(var(--border))',
   'border-subtle': 'hsl(var(--border-subtle, var(--border)))',
   input: 'hsl(var(--input))',

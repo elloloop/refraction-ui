@@ -41,6 +41,19 @@ describe('refractionPreset', () => {
     expect(refractionPreset.theme.extend.colors.destructive).toBeDefined()
   })
 
+  it('exposes the accessible feedback roles with backward-compatible fallbacks', () => {
+    const c = refractionPreset.theme.extend.colors as Record<string, any>
+    expect(c.success.soft).toBe('hsl(var(--success-soft, var(--muted)))')
+    expect(c.destructive['soft-foreground']).toBe(
+      'hsl(var(--destructive-soft-foreground, var(--destructive)))',
+    )
+    expect(c.mention.self).toBe('hsl(var(--mention-self, var(--accent)))')
+    expect(c.selection.DEFAULT).toBe('hsl(var(--selection, var(--accent)))')
+    expect(c['surface-overlay']).toBe('hsl(var(--surface-overlay, var(--popover)))')
+    expect(c['focus-ring']).toBe('hsl(var(--focus-ring, var(--ring)))')
+    expect(c.scrim).toBe('hsl(var(--scrim, 0 0% 0%) / var(--scrim-opacity, 0.54))')
+  })
+
   it('extends border radius with CSS variables', () => {
     expect(refractionPreset.theme.extend.borderRadius.lg).toBe('var(--radius)')
   })

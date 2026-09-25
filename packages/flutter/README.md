@@ -212,6 +212,39 @@ RefractionColors.light().copyWith(
 )
 ```
 
+### Accessible color roles
+
+Paint status text with the `*SoftForeground` roles, not the raw hue — the default green/amber/blue measure 2.0–3.1:1 on white. Every text-bearing role derives a default that meets WCAG AA on the surface it is meant for, on every curated palette (asserted in `test/accessible_tokens_test.dart`):
+
+| Surface | Text/icon on it | Use for |
+|---|---|---|
+| `success` / `warning` / `info` / `destructive` | `successForeground` … | filled chips, pills, badges |
+| `successSoft` / `warningSoft` / `infoSoft` / `destructiveSoft` | `*SoftForeground` | banners, toasts, failed-send rows, error text |
+| `mention` | `mentionForeground` | an @mention of someone else |
+| `mentionSelf` | `mentionSelfForeground` | an @mention of the viewer |
+| `highlight` | `highlightForeground` | jump-to message, search hit |
+| `selection` | `selectionForeground` | selected rows / text |
+| `surfaceSunken` · `surfaceRaised` · `surfaceOverlay` · `scrim` | — | the elevation ladder and modal barrier |
+| `focusRing` (3:1 on `background`) | — | keyboard focus, via `RefractionFocusRing` |
+
+`RefractionContrast` (`ratio`, `ensure`, `onColor`) is exported for app-level checks, and `RefractionMotion.duration(context, theme.motionMedium)` collapses animations to zero when the platform asks for reduced motion.
+
+### Strict CSP / offline web builds
+
+The package never fetches fonts or assets at runtime — every glyph and asset it uses ships in the package. The **Flutter web engine** does, by default: it downloads CanvasKit from `www.gstatic.com` and its fallback font (Roboto, plus Noto for missing glyphs) from `fonts.gstatic.com`. Under a CSP without those origins, self-host both:
+
+1. Bundle your UI font in the app (`flutter: fonts:` in `pubspec.yaml`) and pass it as `RefractionThemeData(fontFamily: …)` **and** your `MaterialApp` theme, so no text falls back to Roboto.
+2. Serve CanvasKit from your own origin — it is already in `build/web/canvaskit/` — and point the engine at it and at a self-hosted fallback-font mirror in `web/flutter_bootstrap.js`:
+
+```js
+_flutter.loader.load({
+  config: {
+    canvasKitBaseUrl: "canvaskit/",
+    fontFallbackBaseUrl: "/assets/font-fallback/", // or omit fallback glyphs you never render
+  },
+});
+```
+
 ---
 
 ## Recipes

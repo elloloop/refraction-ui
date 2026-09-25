@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'contrast.dart';
 import 'hsl_color.dart';
 
 /// Semantic color tokens used by every Refraction UI widget.
@@ -13,10 +14,11 @@ import 'hsl_color.dart';
 /// Each "thing" token is paired with a `Foreground` token that is
 /// guaranteed to read accessibly on top of it — for example, draw text in
 /// [primaryForeground] when the surface beneath it is filled with
-/// [primary]. The status tokens ([success], [warning], [info]) stand
-/// alone: components paint them both as low-alpha tints and as the
-/// text/icon color on top of those tints, and they currently share one
-/// fixed hue across every curated palette.
+/// [primary]. The status hues ([success], [warning], [info],
+/// [destructive]) each come with a filled on-color ([successForeground], …)
+/// and a soft tint pair ([successSoft] / [successSoftForeground], …) whose
+/// defaults are derived through [RefractionContrast] to meet WCAG AA —
+/// paint status text with the `*SoftForeground` role, never the raw hue.
 ///
 /// Implements [ThemeExtension] so it can also be plugged into a Material
 /// `ThemeData.extensions` list when interoperating with Material widgets.
@@ -140,6 +142,30 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
   final Color? _chart3;
   final Color? _chart4;
   final Color? _chart5;
+  final Color? _successForeground;
+  final Color? _warningForeground;
+  final Color? _infoForeground;
+  final Color? _successSoft;
+  final Color? _successSoftForeground;
+  final Color? _warningSoft;
+  final Color? _warningSoftForeground;
+  final Color? _infoSoft;
+  final Color? _infoSoftForeground;
+  final Color? _destructiveSoft;
+  final Color? _destructiveSoftForeground;
+  final Color? _mention;
+  final Color? _mentionForeground;
+  final Color? _mentionSelf;
+  final Color? _mentionSelfForeground;
+  final Color? _highlight;
+  final Color? _highlightForeground;
+  final Color? _selection;
+  final Color? _selectionForeground;
+  final Color? _surfaceSunken;
+  final Color? _surfaceRaised;
+  final Color? _surfaceOverlay;
+  final Color? _scrim;
+  final Color? _focusRing;
 
   /// White, used as the default foreground for filled status surfaces
   /// ([positive], [caution], [pending]) whose base hue is dark enough to
@@ -237,6 +263,181 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
   /// Fifth categorical chart color. Defaults to [primary] hue-rotated 300°.
   Color get chart5 => _chart5 ?? ColorMath.rotateHue(primary, 300);
 
+  // ---------------------------------------------------------------------------
+  // Accessible status, highlight, surface and focus roles (all optional).
+  //
+  // Same contract as the extended roles above: nullable override + derived
+  // getter. Every role that carries text or icons derives through
+  // [RefractionContrast] so the default meets WCAG AA on the surface it is
+  // painted on, whatever the palette.
+  // ---------------------------------------------------------------------------
+
+  /// Tint strength for the `*Soft` status fills and [highlight].
+  static const double _softTint = 0.14;
+
+  /// Tint strength for [selection].
+  static const double _selectionTint = 0.18;
+
+  /// Tint strength for [mentionSelf].
+  static const double _mentionSelfTint = 0.22;
+
+  /// [scrim] default on light palettes (black ~54%, the Material barrier).
+  static const Color _lightScrim = Color(0x8A000000);
+
+  /// [scrim] default on dark palettes (black ~70%).
+  static const Color _darkScrim = Color(0xB3000000);
+
+  /// Whether this palette's [background] is dark (below the luminance where
+  /// white and black ink contrast equally).
+  bool get _isDark => RefractionContrast.luminance(background) < 0.18;
+
+  /// [hue] adjusted to be a visible (3:1) mark on [background] — the seed
+  /// for tints and text so a deep fill color (e.g. dark-mode `destructive`)
+  /// still yields a readable tint and text shade.
+  Color _legible(Color hue) => RefractionContrast.ensure(
+    hue,
+    background,
+    minRatio: RefractionContrast.aaNonText,
+  );
+
+  /// Foreground (text/icons) for content drawn on a filled [success] surface.
+  /// Defaults to whichever of white or near-black ink has the higher
+  /// contrast on [success] (see [RefractionContrast.onColor]) — dark ink on
+  /// the default bright green.
+  Color get successForeground =>
+      _successForeground ?? RefractionContrast.onColor(success);
+
+  /// Foreground for content on a filled [warning] surface. Defaults to the
+  /// higher-contrast ink on [warning] — dark ink on the default amber.
+  Color get warningForeground =>
+      _warningForeground ?? RefractionContrast.onColor(warning);
+
+  /// Foreground for content on a filled [info] surface. Defaults to the
+  /// higher-contrast ink on [info].
+  Color get infoForeground =>
+      _infoForeground ?? RefractionContrast.onColor(info);
+
+  /// Soft, tinted success fill for banners, toasts and chips. Defaults to a
+  /// legible shade of [success] blended ~14% over [background].
+  Color get successSoft =>
+      _successSoft ?? ColorMath.mix(background, _legible(success), _softTint);
+
+  /// Text/icon color on [successSoft]. Defaults to the nearest shade of
+  /// [success] that meets WCAG AA (4.5:1) on [successSoft].
+  Color get successSoftForeground =>
+      _successSoftForeground ??
+      RefractionContrast.ensure(_legible(success), successSoft);
+
+  /// Soft, tinted warning fill. Defaults to a legible shade of [warning]
+  /// blended ~14% over [background].
+  Color get warningSoft =>
+      _warningSoft ?? ColorMath.mix(background, _legible(warning), _softTint);
+
+  /// Text/icon color on [warningSoft]. Defaults to the nearest shade of
+  /// [warning] that meets WCAG AA on [warningSoft].
+  Color get warningSoftForeground =>
+      _warningSoftForeground ??
+      RefractionContrast.ensure(_legible(warning), warningSoft);
+
+  /// Soft, tinted info fill. Defaults to a legible shade of [info] blended
+  /// ~14% over [background].
+  Color get infoSoft =>
+      _infoSoft ?? ColorMath.mix(background, _legible(info), _softTint);
+
+  /// Text/icon color on [infoSoft]. Defaults to the nearest shade of [info]
+  /// that meets WCAG AA on [infoSoft].
+  Color get infoSoftForeground =>
+      _infoSoftForeground ??
+      RefractionContrast.ensure(_legible(info), infoSoft);
+
+  /// Soft, tinted danger fill for error banners, failed-send rows and
+  /// validation chips. Defaults to a legible shade of [destructive] blended
+  /// ~14% over [background] (dark palettes use a deep red [destructive] fill
+  /// that would otherwise vanish as a tint).
+  Color get destructiveSoft =>
+      _destructiveSoft ??
+      ColorMath.mix(background, _legible(destructive), _softTint);
+
+  /// Text/icon color on [destructiveSoft] — and the color to use for error
+  /// text on [background]. Defaults to the nearest shade of [destructive]
+  /// that meets WCAG AA on [destructiveSoft].
+  Color get destructiveSoftForeground =>
+      _destructiveSoftForeground ??
+      RefractionContrast.ensure(_legible(destructive), destructiveSoft);
+
+  /// Background of an @mention of someone else (and of channel/group
+  /// mentions). Defaults to [primarySoft].
+  Color get mention => _mention ?? primarySoft;
+
+  /// Text color of an @mention on [mention]. Defaults to the nearest shade
+  /// of [primary] meeting WCAG AA on [mention].
+  Color get mentionForeground =>
+      _mentionForeground ?? RefractionContrast.ensure(primary, mention);
+
+  /// Background of an @mention of the current user, and of a message row
+  /// that mentions them — the warm highlight chat apps use to say "this is
+  /// for you". Defaults to a legible shade of [warning] blended ~22% over
+  /// [background].
+  Color get mentionSelf =>
+      _mentionSelf ??
+      ColorMath.mix(background, _legible(warning), _mentionSelfTint);
+
+  /// Text color on [mentionSelf]. Defaults to [foreground], adjusted to
+  /// meet WCAG AA on [mentionSelf].
+  Color get mentionSelfForeground =>
+      _mentionSelfForeground ??
+      RefractionContrast.ensure(foreground, mentionSelf);
+
+  /// Transient emphasis wash — the row a deep link jumped to, a search
+  /// match, a newly arrived item. Defaults to a legible shade of [warning]
+  /// blended ~14% over [background].
+  Color get highlight =>
+      _highlight ?? ColorMath.mix(background, _legible(warning), _softTint);
+
+  /// Text color on [highlight]. Defaults to [foreground], adjusted to meet
+  /// WCAG AA on [highlight].
+  Color get highlightForeground =>
+      _highlightForeground ?? RefractionContrast.ensure(foreground, highlight);
+
+  /// Background of selected rows/items and of selected text. Defaults to
+  /// [primary] blended ~18% over [background] — one step stronger than
+  /// [primarySoft] so a selected row reads over a hovered one.
+  Color get selection =>
+      _selection ?? ColorMath.mix(background, primary, _selectionTint);
+
+  /// Text color on [selection]. Defaults to [foreground], adjusted to meet
+  /// WCAG AA on [selection].
+  Color get selectionForeground =>
+      _selectionForeground ?? RefractionContrast.ensure(foreground, selection);
+
+  /// Inset surface below [background] — wells, input trays, code blocks,
+  /// the track behind a list. Defaults to [surfaceSubtle].
+  Color get surfaceSunken => _surfaceSunken ?? surfaceSubtle;
+
+  /// Resting raised surface — cards, list panes, message rows that float
+  /// above [background]. Defaults to [card].
+  Color get surfaceRaised => _surfaceRaised ?? card;
+
+  /// Floating surface above everything in the page — popovers, menus,
+  /// toasts, dialogs, sheets. Defaults to [popover].
+  Color get surfaceOverlay => _surfaceOverlay ?? popover;
+
+  /// Barrier painted behind modal dialogs and sheets. Defaults to black at
+  /// ~54% on light palettes and ~70% on dark palettes (a lighter scrim
+  /// barely separates a dark sheet from a dark page).
+  Color get scrim => _scrim ?? (_isDark ? _darkScrim : _lightScrim);
+
+  /// Keyboard focus indicator color. Defaults to [ring], adjusted to meet
+  /// WCAG 1.4.11 (3:1) against [background] — the palette [ring] is often a
+  /// soft brand tint that is too faint to be the only focus cue.
+  Color get focusRing =>
+      _focusRing ??
+      RefractionContrast.ensure(
+        ring,
+        background,
+        minRatio: RefractionContrast.aaNonText,
+      );
+
   /// Creates a [RefractionColors] palette.
   ///
   /// The base tokens (`primary`, `background`, …) are required — there are no
@@ -295,6 +496,30 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     Color? chart3,
     Color? chart4,
     Color? chart5,
+    Color? successForeground,
+    Color? warningForeground,
+    Color? infoForeground,
+    Color? successSoft,
+    Color? successSoftForeground,
+    Color? warningSoft,
+    Color? warningSoftForeground,
+    Color? infoSoft,
+    Color? infoSoftForeground,
+    Color? destructiveSoft,
+    Color? destructiveSoftForeground,
+    Color? mention,
+    Color? mentionForeground,
+    Color? mentionSelf,
+    Color? mentionSelfForeground,
+    Color? highlight,
+    Color? highlightForeground,
+    Color? selection,
+    Color? selectionForeground,
+    Color? surfaceSunken,
+    Color? surfaceRaised,
+    Color? surfaceOverlay,
+    Color? scrim,
+    Color? focusRing,
   }) : _primaryHover = primaryHover,
        _primaryActive = primaryActive,
        _primarySoft = primarySoft,
@@ -320,7 +545,31 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
        _chart2 = chart2,
        _chart3 = chart3,
        _chart4 = chart4,
-       _chart5 = chart5;
+       _chart5 = chart5,
+       _successForeground = successForeground,
+       _warningForeground = warningForeground,
+       _infoForeground = infoForeground,
+       _successSoft = successSoft,
+       _successSoftForeground = successSoftForeground,
+       _warningSoft = warningSoft,
+       _warningSoftForeground = warningSoftForeground,
+       _infoSoft = infoSoft,
+       _infoSoftForeground = infoSoftForeground,
+       _destructiveSoft = destructiveSoft,
+       _destructiveSoftForeground = destructiveSoftForeground,
+       _mention = mention,
+       _mentionForeground = mentionForeground,
+       _mentionSelf = mentionSelf,
+       _mentionSelfForeground = mentionSelfForeground,
+       _highlight = highlight,
+       _highlightForeground = highlightForeground,
+       _selection = selection,
+       _selectionForeground = selectionForeground,
+       _surfaceSunken = surfaceSunken,
+       _surfaceRaised = surfaceRaised,
+       _surfaceOverlay = surfaceOverlay,
+       _scrim = scrim,
+       _focusRing = focusRing;
 
   /// Minimal palette, light mode. Pure monochrome — Apple/Nike aesthetic
   /// with deepest blacks, pure whites, and soft neutral grays.
@@ -898,6 +1147,34 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
   /// Default dark palette. Currently aliases [minimalDark].
   static const RefractionColors dark = minimalDark;
 
+  /// Every curated palette by name, in light/dark pairs — for theme pickers,
+  /// galleries, and palette-wide checks such as contrast tests.
+  static Map<String, RefractionColors> get curated =>
+      <String, RefractionColors>{
+        'minimalLight': minimalLight,
+        'minimalDark': minimalDark,
+        'fintechLight': fintechLight,
+        'fintechDark': fintechDark,
+        'wellnessLight': wellnessLight,
+        'wellnessDark': wellnessDark,
+        'creativeLight': creativeLight,
+        'creativeDark': creativeDark,
+        'productivityLight': productivityLight,
+        'productivityDark': productivityDark,
+        'refractionLight': refractionLight,
+        'refractionDark': refractionDark,
+        'luxeLight': luxeLight,
+        'luxeDark': luxeDark,
+        'warmLight': warmLight,
+        'warmDark': warmDark,
+        'signalLight': signalLight,
+        'signalDark': signalDark,
+        'pulseLight': pulseLight,
+        'pulseDark': pulseDark,
+        'monoLight': monoLight,
+        'monoDark': monoDark,
+      };
+
   /// Returns a copy of this palette with the given tokens replaced.
   ///
   /// Pass only the colors you want to change; everything else is carried
@@ -958,6 +1235,30 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     Color? chart3,
     Color? chart4,
     Color? chart5,
+    Color? successForeground,
+    Color? warningForeground,
+    Color? infoForeground,
+    Color? successSoft,
+    Color? successSoftForeground,
+    Color? warningSoft,
+    Color? warningSoftForeground,
+    Color? infoSoft,
+    Color? infoSoftForeground,
+    Color? destructiveSoft,
+    Color? destructiveSoftForeground,
+    Color? mention,
+    Color? mentionForeground,
+    Color? mentionSelf,
+    Color? mentionSelfForeground,
+    Color? highlight,
+    Color? highlightForeground,
+    Color? selection,
+    Color? selectionForeground,
+    Color? surfaceSunken,
+    Color? surfaceRaised,
+    Color? surfaceOverlay,
+    Color? scrim,
+    Color? focusRing,
   }) {
     return RefractionColors(
       primary: primary ?? this.primary,
@@ -1011,6 +1312,31 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
       chart3: chart3 ?? _chart3,
       chart4: chart4 ?? _chart4,
       chart5: chart5 ?? _chart5,
+      successForeground: successForeground ?? _successForeground,
+      warningForeground: warningForeground ?? _warningForeground,
+      infoForeground: infoForeground ?? _infoForeground,
+      successSoft: successSoft ?? _successSoft,
+      successSoftForeground: successSoftForeground ?? _successSoftForeground,
+      warningSoft: warningSoft ?? _warningSoft,
+      warningSoftForeground: warningSoftForeground ?? _warningSoftForeground,
+      infoSoft: infoSoft ?? _infoSoft,
+      infoSoftForeground: infoSoftForeground ?? _infoSoftForeground,
+      destructiveSoft: destructiveSoft ?? _destructiveSoft,
+      destructiveSoftForeground:
+          destructiveSoftForeground ?? _destructiveSoftForeground,
+      mention: mention ?? _mention,
+      mentionForeground: mentionForeground ?? _mentionForeground,
+      mentionSelf: mentionSelf ?? _mentionSelf,
+      mentionSelfForeground: mentionSelfForeground ?? _mentionSelfForeground,
+      highlight: highlight ?? _highlight,
+      highlightForeground: highlightForeground ?? _highlightForeground,
+      selection: selection ?? _selection,
+      selectionForeground: selectionForeground ?? _selectionForeground,
+      surfaceSunken: surfaceSunken ?? _surfaceSunken,
+      surfaceRaised: surfaceRaised ?? _surfaceRaised,
+      surfaceOverlay: surfaceOverlay ?? _surfaceOverlay,
+      scrim: scrim ?? _scrim,
+      focusRing: focusRing ?? _focusRing,
     );
   }
 
@@ -1132,6 +1458,70 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
       chart3: Color.lerp(chart3, other.chart3, t),
       chart4: Color.lerp(chart4, other.chart4, t),
       chart5: Color.lerp(chart5, other.chart5, t),
+      successForeground: Color.lerp(
+        successForeground,
+        other.successForeground,
+        t,
+      ),
+      warningForeground: Color.lerp(
+        warningForeground,
+        other.warningForeground,
+        t,
+      ),
+      infoForeground: Color.lerp(infoForeground, other.infoForeground, t),
+      successSoft: Color.lerp(successSoft, other.successSoft, t),
+      successSoftForeground: Color.lerp(
+        successSoftForeground,
+        other.successSoftForeground,
+        t,
+      ),
+      warningSoft: Color.lerp(warningSoft, other.warningSoft, t),
+      warningSoftForeground: Color.lerp(
+        warningSoftForeground,
+        other.warningSoftForeground,
+        t,
+      ),
+      infoSoft: Color.lerp(infoSoft, other.infoSoft, t),
+      infoSoftForeground: Color.lerp(
+        infoSoftForeground,
+        other.infoSoftForeground,
+        t,
+      ),
+      destructiveSoft: Color.lerp(destructiveSoft, other.destructiveSoft, t),
+      destructiveSoftForeground: Color.lerp(
+        destructiveSoftForeground,
+        other.destructiveSoftForeground,
+        t,
+      ),
+      mention: Color.lerp(mention, other.mention, t),
+      mentionForeground: Color.lerp(
+        mentionForeground,
+        other.mentionForeground,
+        t,
+      ),
+      mentionSelf: Color.lerp(mentionSelf, other.mentionSelf, t),
+      mentionSelfForeground: Color.lerp(
+        mentionSelfForeground,
+        other.mentionSelfForeground,
+        t,
+      ),
+      highlight: Color.lerp(highlight, other.highlight, t),
+      highlightForeground: Color.lerp(
+        highlightForeground,
+        other.highlightForeground,
+        t,
+      ),
+      selection: Color.lerp(selection, other.selection, t),
+      selectionForeground: Color.lerp(
+        selectionForeground,
+        other.selectionForeground,
+        t,
+      ),
+      surfaceSunken: Color.lerp(surfaceSunken, other.surfaceSunken, t),
+      surfaceRaised: Color.lerp(surfaceRaised, other.surfaceRaised, t),
+      surfaceOverlay: Color.lerp(surfaceOverlay, other.surfaceOverlay, t),
+      scrim: Color.lerp(scrim, other.scrim, t),
+      focusRing: Color.lerp(focusRing, other.focusRing, t),
     );
   }
 

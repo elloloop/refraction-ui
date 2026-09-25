@@ -76,6 +76,11 @@ class RefractionThemeData {
   final double? _controlHeightSm;
   final double? _controlHeightMd;
   final double? _controlHeightLg;
+  final double? _focusRingWidth;
+  final double? _focusRingOffset;
+  final Duration? _motionFast;
+  final Duration? _motionMedium;
+  final Duration? _motionSlow;
 
   /// Soft, low-opacity shadow stack used for resting elevation — cards,
   /// quiet popovers, subtle floating panels. Back-compat alias for
@@ -150,6 +155,27 @@ class RefractionThemeData {
   /// Minimum height for large controls. Defaults to `44`.
   double get controlHeightLg => _controlHeightLg ?? 44.0;
 
+  /// Stroke width of the keyboard focus ring. Defaults to `2`.
+  double get focusRingWidth => _focusRingWidth ?? 2.0;
+
+  /// Gap between a control and its focus ring, so the ring never sits on
+  /// the control's own border. Defaults to `2`.
+  double get focusRingOffset => _focusRingOffset ?? 2.0;
+
+  /// Micro-interaction duration — hover, press, toggles, tooltips.
+  /// Defaults to 120 ms. Resolve through [RefractionMotion.duration] so it
+  /// collapses to zero when the platform asks for reduced motion.
+  Duration get motionFast => _motionFast ?? const Duration(milliseconds: 120);
+
+  /// Standard transition duration — popovers, toasts, dialogs entering.
+  /// Defaults to 200 ms.
+  Duration get motionMedium =>
+      _motionMedium ?? const Duration(milliseconds: 200);
+
+  /// Large-surface transition duration — sheets, page-level panels.
+  /// Defaults to 300 ms.
+  Duration get motionSlow => _motionSlow ?? const Duration(milliseconds: 300);
+
   /// The [typography] scale with this theme's [fontFamily] folded in as the
   /// fallback family for every role, so the scale defaults to the theme font.
   RefractionTypography get resolvedTypography =>
@@ -187,6 +213,11 @@ class RefractionThemeData {
     double? controlHeightSm,
     double? controlHeightMd,
     double? controlHeightLg,
+    double? focusRingWidth,
+    double? focusRingOffset,
+    Duration? motionFast,
+    Duration? motionMedium,
+    Duration? motionSlow,
   }) : _softShadow = softShadow,
        _heavyShadow = heavyShadow,
        _elevationSm = elevationSm,
@@ -206,7 +237,12 @@ class RefractionThemeData {
        _gutter = gutter,
        _controlHeightSm = controlHeightSm,
        _controlHeightMd = controlHeightMd,
-       _controlHeightLg = controlHeightLg;
+       _controlHeightLg = controlHeightLg,
+       _focusRingWidth = focusRingWidth,
+       _focusRingOffset = focusRingOffset,
+       _motionFast = motionFast,
+       _motionMedium = motionMedium,
+       _motionSlow = motionSlow;
 
   /// Minimal palette in light mode — pure monochrome, Apple/Nike feel.
   factory RefractionThemeData.minimalLight() => RefractionThemeData(
@@ -428,6 +464,11 @@ class RefractionThemeData {
     double? controlHeightSm,
     double? controlHeightMd,
     double? controlHeightLg,
+    double? focusRingWidth,
+    double? focusRingOffset,
+    Duration? motionFast,
+    Duration? motionMedium,
+    Duration? motionSlow,
   }) {
     return RefractionThemeData(
       colors: colors ?? this.colors,
@@ -456,6 +497,11 @@ class RefractionThemeData {
       controlHeightSm: controlHeightSm ?? _controlHeightSm,
       controlHeightMd: controlHeightMd ?? _controlHeightMd,
       controlHeightLg: controlHeightLg ?? _controlHeightLg,
+      focusRingWidth: focusRingWidth ?? _focusRingWidth,
+      focusRingOffset: focusRingOffset ?? _focusRingOffset,
+      motionFast: motionFast ?? _motionFast,
+      motionMedium: motionMedium ?? _motionMedium,
+      motionSlow: motionSlow ?? _motionSlow,
     );
   }
 
