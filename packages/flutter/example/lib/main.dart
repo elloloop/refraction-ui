@@ -55,6 +55,7 @@ import 'pages/thread_view_page.dart';
 import 'pages/conversation_page.dart';
 import 'pages/presence_indicator_page.dart';
 import 'pages/status_indicator_page.dart';
+import 'use_cases/status_pill_use_cases.dart';
 import 'pages/keyboard_shortcut_page.dart';
 import 'pages/logger_page.dart';
 import 'pages/version_selector_page.dart';
@@ -172,6 +173,7 @@ class RefractionDemoApp extends ConsumerWidget {
     'Conversation',
     'Presence Indicator',
     'Status Indicator',
+    'Status Pill',
     'Keyboard Shortcut',
     'Logger',
     'Version Selector',
@@ -502,6 +504,13 @@ class _AppShell extends ConsumerWidget {
         return const PresenceIndicatorPage();
       case '/docs/status-indicator':
         return const StatusIndicatorPage();
+      case '/docs/status-pill':
+        return PreviewCanvas(
+          title: 'Status Pill',
+          description:
+              'Colour-coded work status (solid, soft, small, interactive).',
+          child: Builder(builder: statusPillVariantsUseCase),
+        );
       case '/docs/keyboard-shortcut':
         return const KeyboardShortcutPage();
       case '/docs/logger':
