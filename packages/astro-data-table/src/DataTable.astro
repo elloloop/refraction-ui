@@ -5,6 +5,10 @@ import {
   headerVariants,
   cellVariants,
   rowVariants,
+  getColumnValue,
+  resolveColumnAlign,
+  dataTableAlignClass,
+  dataTableNumericClass,
   type ColumnDef,
   type SortDirection,
 } from '@refraction-ui/data-table'
@@ -41,7 +45,7 @@ const hasFilterable = columns.some((c: ColumnDef) => c.filterable)
           const hProps = api.getHeaderProps(col)
           return (
             <th
-              class={headerVariants({ sortable: col.sortable ? 'true' : 'false' })}
+              class={cn(headerVariants({ sortable: col.sortable ? 'true' : 'false' }), dataTableAlignClass[resolveColumnAlign(col)], col.headerClassName)}
               role={hProps.role as string}
               aria-sort={hProps['aria-sort'] as any}
               data-rfr-data-table-header={col.id}
@@ -94,10 +98,10 @@ const hasFilterable = columns.some((c: ColumnDef) => c.filterable)
             {columns.map((col: ColumnDef) => (
               <td
                 role="cell"
-                class={cellVariants()}
+                class={cn(cellVariants(), dataTableAlignClass[resolveColumnAlign(col)], col.numeric && dataTableNumericClass, col.className)}
                 data-column={col.id}
               >
-                {String(col.accessor(row) ?? '')}
+                {String(getColumnValue(col, row) ?? '')}
               </td>
             ))}
           </tr>

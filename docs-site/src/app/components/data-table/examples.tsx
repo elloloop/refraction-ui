@@ -1,9 +1,39 @@
 'use client'
 
+import * as React from 'react'
 import { DataTable } from '@refraction-ui/react-data-table'
 
 interface DataTableExamplesProps {
-  section: 'basic'
+  section: 'basic' | 'rich'
+}
+
+const orders = [
+  { id: 'o-1001', customer: 'Ada Lovelace', items: 3, total: 1200 },
+  { id: 'o-1002', customer: 'Alan Turing', items: 1, total: 84.5 },
+  { id: 'o-1003', customer: 'Grace Hopper', items: 7, total: 312 },
+]
+
+function RichExample() {
+  const [opened, setOpened] = React.useState<string | null>(null)
+  return (
+    <div className="rounded-xl border border-border bg-card p-8 space-y-3">
+      <DataTable
+        aria-label="Orders"
+        caption="Click a row, or focus it and press Enter."
+        getRowKey={(row) => row.id}
+        onRowClick={(row) => setOpened(row.customer)}
+        columns={[
+          { id: 'customer', header: 'Customer', accessor: (row) => row.customer, sortable: true,
+            cell: (row) => <span className="font-medium">{row.customer}</span> },
+          { id: 'items', header: 'Items', accessor: (row) => row.items, numeric: true, sortable: true },
+          { id: 'total', header: 'Total', accessor: (row) => row.total, numeric: true, sortable: true,
+            cell: (row) => `$${row.total.toFixed(2)}` },
+        ]}
+        data={orders}
+      />
+      <p className="text-sm text-muted-foreground">Opened: {opened ?? 'none'}</p>
+    </div>
+  )
 }
 
 const sampleData = [
@@ -28,6 +58,8 @@ export function DataTableExamples({ section }: DataTableExamplesProps) {
       </div>
     )
   }
+
+  if (section === 'rich') return <RichExample />
 
   return null
 }

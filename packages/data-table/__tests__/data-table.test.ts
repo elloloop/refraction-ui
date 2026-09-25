@@ -1,6 +1,9 @@
 import { describe, it, expect, vi } from 'vitest'
 import {
   createDataTable,
+  resolveColumnAlign,
+  resolveRowKey,
+  getColumnValue,
   tableVariants,
   headerVariants,
   cellVariants,
@@ -356,5 +359,29 @@ describe('state - filters tracking', () => {
     expect(api.state.sortBy).toBeNull()
     api.sort('name')
     expect(api.state.sortBy).toBe('name')
+  })
+})
+
+describe('column helpers', () => {
+  it('resolves alignment: explicit, numeric → end, else start', () => {
+    expect(resolveColumnAlign({ align: 'center', numeric: true })).toBe('center')
+    expect(resolveColumnAlign({ numeric: true })).toBe('end')
+    expect(resolveColumnAlign({})).toBe('start')
+  })
+
+  it('resolves row keys from getRowKey or the index', () => {
+    expect(resolveRowKey({ id: 'a' }, 3, (r) => r.id)).toBe('a')
+    expect(resolveRowKey({ id: 'a' }, 3)).toBe(3)
+  })
+
+  it('skips sorting and filtering on display-only columns without an accessor', () => {
+    const api = createDataTable({
+      columns: [{ id: 'actions', header: 'Actions', sortable: true, filterable: true }],
+      data: [{ n: 2 }, { n: 1 }],
+      sortBy: 'actions',
+      filters: { actions: 'x' },
+    })
+    expect(api.state.sortedData).toEqual([{ n: 2 }, { n: 1 }])
+    expect(getColumnValue({}, { n: 1 })).toBeUndefined()
   })
 })
