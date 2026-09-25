@@ -4,6 +4,7 @@ export type {
   AccessibilityProps,
   ThemeProps,
   CompositionProps,
+  DataAttributes,
 } from './types.js'
 
 export type {

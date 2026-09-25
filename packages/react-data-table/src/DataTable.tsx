@@ -15,7 +15,7 @@ import {
   type ColumnDef,
   type SortDirection,
 } from '@refraction-ui/data-table'
-import { cn } from '@refraction-ui/shared'
+import { cn, type DataAttributes } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Column definition (React): header and cell may be any ReactNode
@@ -45,7 +45,7 @@ export interface DataTableProps<T = Record<string, unknown>>
   /** Stable key per row. Defaults to the row index — pass one when rows can reorder. */
   getRowKey?: (row: T, index: number) => string | number
   /** Extra attributes for a row (`data-*`, `aria-*`, className, handlers). */
-  getRowProps?: (row: T, index: number) => React.HTMLAttributes<HTMLTableRowElement>
+  getRowProps?: (row: T, index: number) => React.HTMLAttributes<HTMLTableRowElement> & DataAttributes
   /**
    * Row action. Makes each row focusable (Tab) and activatable with click,
    * Enter or Space. Keep a real link/button in the row too when the action
@@ -115,7 +115,10 @@ export function DataTable<T = Record<string, unknown>>({
   const rows = api.state.sortedData
   const hasFilterable = columns.some((c) => c.filterable)
 
-  const rowElementProps = (row: T, index: number): React.HTMLAttributes<HTMLTableRowElement> => {
+  const rowElementProps = (
+    row: T,
+    index: number,
+  ): React.HTMLAttributes<HTMLTableRowElement> & DataAttributes => {
     const extra = getRowProps?.(row, index) ?? {}
     if (!onRowClick) return extra
     return {
