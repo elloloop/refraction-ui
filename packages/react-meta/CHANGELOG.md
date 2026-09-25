@@ -1,5 +1,11 @@
 # @refraction-ui/react
 
+## 0.23.2
+
+### Patch Changes
+
+- 3fad3b0: DataTable `getRowProps` and StatGrid item `props` accept `data-*` attributes without a cast (new shared `DataAttributes` type). An object of only data attributes previously failed TypeScript's weak-type check against `HTMLAttributes`.
+
 ## 0.23.1
 
 ### Patch Changes
