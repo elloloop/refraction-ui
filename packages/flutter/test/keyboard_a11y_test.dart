@@ -118,6 +118,47 @@ void main() {
     });
   });
 
+  group('RefractionButton layout', () {
+    testWidgets('hugs its content instead of stretching', (tester) async {
+      await tester.pumpWidget(
+        _host(
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RefractionButton(onPressed: () {}, child: const Text('Send')),
+            ],
+          ),
+        ),
+      );
+      expect(
+        tester.getSize(find.byType(RefractionButton)).width,
+        lessThan(200),
+      );
+    });
+
+    testWidgets('an icon child is painted in the variant foreground', (
+      tester,
+    ) async {
+      final theme = RefractionThemeData.dark();
+      await tester.pumpWidget(
+        _host(
+          theme: theme,
+          RefractionButton(
+            variant: RefractionButtonVariant.ghost,
+            size: RefractionButtonSize.icon,
+            semanticLabel: 'Delete',
+            onPressed: () {},
+            child: const Icon(Icons.delete_outline),
+          ),
+        ),
+      );
+      final icon = tester.widget<RichText>(
+        find.descendant(of: find.byType(Icon), matching: find.byType(RichText)),
+      );
+      expect(icon.text.style!.color, theme.colors.foreground);
+    });
+  });
+
   group('checkbox / radio / switch keyboard + semantics', () {
     testWidgets('checkbox toggles with Space and announces its label', (
       tester,

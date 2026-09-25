@@ -286,7 +286,13 @@ class _RefractionButtonState extends State<RefractionButton> {
                 valueColor: AlwaysStoppedAnimation<Color>(foregroundColor),
               ),
             )
-          : widget.child,
+          : IconTheme.merge(
+              // Icons read IconTheme, not DefaultTextStyle: without this an
+              // icon child keeps the ambient (Material) icon color and is
+              // near-invisible on dark variants.
+              data: IconThemeData(color: foregroundColor, size: fontSize + 2),
+              child: widget.child,
+            ),
     );
 
     final radius = BorderRadius.circular(data.radiusMd);
@@ -306,12 +312,18 @@ class _RefractionButtonState extends State<RefractionButton> {
         borderRadius: radius,
         border: borderColor != null ? Border.all(color: borderColor) : null,
       ),
-      alignment: Alignment.center,
+      // Center with factors 1 hugs the content (a Container `alignment`
+      // would stretch the button to the full available width) while still
+      // centering it inside the min width/height.
       // A semanticLabel replaces the child's text/icon semantics rather than
       // concatenating with them; the button node keeps its focus state.
-      child: ExcludeSemantics(
-        excluding: widget.semanticLabel != null,
-        child: content,
+      child: Center(
+        widthFactor: 1,
+        heightFactor: 1,
+        child: ExcludeSemantics(
+          excluding: widget.semanticLabel != null,
+          child: content,
+        ),
       ),
     );
 
