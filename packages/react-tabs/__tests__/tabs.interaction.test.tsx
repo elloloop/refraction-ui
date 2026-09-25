@@ -10,10 +10,9 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '../src/tabs.js'
 // (selection, roving tabindex, ARIA wiring) — complementing the SSR suite in
 // tabs.test.tsx, which covers structure only.
 //
-// Known scope limit (no false coverage): the adapter does NOT implement
-// arrow-key / Home / End navigation between tabs. TabsTrigger only forwards
-// keydown to a consumer-supplied onKeyDown. That is asserted as-is below;
-// keyboard navigation tests would require an adapter change.
+// Keyboard: TabsList implements WAI-ARIA roving focus — Arrow keys (per
+// orientation, wrapping) and Home/End move focus AND select (automatic
+// activation); disabled tabs are skipped.
 
 // React 19 expects this flag when running outside a browser bundler.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -233,11 +232,8 @@ describe('Tabs interaction — disabled tab', () => {
   })
 })
 
-describe('Tabs interaction — keydown forwarding', () => {
+describe('Tabs interaction — keyboard navigation', () => {
   it('forwards keydown events to a consumer-supplied onKeyDown', () => {
-    // The adapter intentionally leaves arrow/Home/End navigation to the
-    // consumer; the only guarantee it makes today is that the handler prop
-    // receives the event. Arrow navigation is NOT implemented (see header).
     const onKeyDown = vi.fn()
     render(
       React.createElement(
@@ -255,18 +251,76 @@ describe('Tabs interaction — keydown forwarding', () => {
     expect(event.key).toBe('ArrowRight')
   })
 
-  it('arrow/Home/End keys do NOT change the selection by default', () => {
+  it('ArrowRight/ArrowLeft move focus and selection, wrapping at the ends', () => {
     render(React.createElement(BasicTabs))
-    for (const key of ['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Home', 'End']) {
-      keyDown(tabs()[0], key)
-    }
+    keyDown(tabs()[0], 'ArrowRight')
+    expect(document.activeElement).toBe(tabs()[1])
+    expect(panel()?.textContent).toBe('Panel B')
+    expect(tabs()[1].tabIndex).toBe(0)
+    expect(tabs()[0].tabIndex).toBe(-1)
+    keyDown(tabs()[1], 'ArrowLeft')
+    keyDown(tabs()[0], 'ArrowLeft')
+    expect(document.activeElement).toBe(tabs()[2])
+    expect(panel()?.textContent).toBe('Panel C')
+  })
+
+  it('Home/End jump to the first/last tab', () => {
+    render(React.createElement(BasicTabs))
+    keyDown(tabs()[0], 'End')
+    expect(panel()?.textContent).toBe('Panel C')
+    keyDown(tabs()[2], 'Home')
     expect(panel()?.textContent).toBe('Panel A')
-    expect(tabs()[0].getAttribute('aria-selected')).toBe('true')
+  })
+
+  it('uses ArrowUp/ArrowDown in vertical orientation and ignores ArrowRight', () => {
+    render(React.createElement(BasicTabs, { orientation: 'vertical' }))
+    keyDown(tabs()[0], 'ArrowRight')
+    expect(panel()?.textContent).toBe('Panel A')
+    keyDown(tabs()[0], 'ArrowDown')
+    expect(panel()?.textContent).toBe('Panel B')
+  })
+
+  it('skips disabled tabs', () => {
+    render(
+      React.createElement(
+        Tabs,
+        { defaultValue: 'a' },
+        React.createElement(
+          TabsList,
+          null,
+          React.createElement(TabsTrigger, { value: 'a' }, 'Tab A'),
+          React.createElement(TabsTrigger, { value: 'b', disabled: true }, 'Tab B'),
+          React.createElement(TabsTrigger, { value: 'c' }, 'Tab C'),
+        ),
+        React.createElement(TabsContent, { value: 'c' }, 'Panel C'),
+      ),
+    )
+    keyDown(tabs()[0], 'ArrowRight')
+    expect(document.activeElement).toBe(tabs()[2])
+    expect(panel()?.textContent).toBe('Panel C')
+  })
+
+  it('a consumer onKeyDown can preventDefault to opt out', () => {
+    render(
+      React.createElement(
+        Tabs,
+        { defaultValue: 'a' },
+        React.createElement(
+          TabsList,
+          { onKeyDown: (e: React.KeyboardEvent) => e.preventDefault() },
+          React.createElement(TabsTrigger, { value: 'a' }, 'Tab A'),
+          React.createElement(TabsTrigger, { value: 'b' }, 'Tab B'),
+        ),
+        React.createElement(TabsContent, { value: 'a' }, 'Panel A'),
+      ),
+    )
+    keyDown(tabs()[0], 'ArrowRight')
+    expect(panel()?.textContent).toBe('Panel A')
   })
 })
 
 describe('Tabs interaction — edge cases', () => {
-  it('renders with no defaultValue: no tab selected, no panel, all tabindex -1', () => {
+  it('renders with no defaultValue: no tab selected, no panel, first tab is the tab stop', () => {
     render(
       React.createElement(
         Tabs,
@@ -282,7 +336,7 @@ describe('Tabs interaction — edge cases', () => {
     )
     expect(panel()).toBeNull()
     expect(container.querySelector('[aria-selected="true"]')).toBeNull()
-    for (const tab of tabs()) expect(tab.tabIndex).toBe(-1)
+    expect(tabs().map((tab) => tab.tabIndex)).toEqual([0, -1])
     // Clicking still selects from the empty state.
     click(tabs()[0])
     expect(panel()?.textContent).toBe('Panel A')

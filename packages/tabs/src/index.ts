@@ -1,5 +1,6 @@
 export {
   createTabs,
+  getNextTabIndex,
   type TabsProps,
   type TabsAPI,
   type TabsState,

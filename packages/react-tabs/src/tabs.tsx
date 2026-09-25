@@ -1,6 +1,7 @@
 import * as React from 'react'
 import {
   createTabs,
+  getNextTabIndex,
   tabsListVariants,
   tabsTriggerVariants,
   type TabsProps as CoreTabsProps,
@@ -93,18 +94,60 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
 export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
-  function TabsList({ className, ...props }, ref) {
+  function TabsList({ className, onKeyDown, ...props }, forwardedRef) {
     const { orientation } = useTabsContext()
+    const listRef = React.useRef<HTMLDivElement | null>(null)
+    const ref = React.useCallback(
+      (node: HTMLDivElement | null) => {
+        listRef.current = node
+        if (typeof forwardedRef === 'function') forwardedRef(node)
+        else if (forwardedRef) forwardedRef.current = node
+      },
+      [forwardedRef],
+    )
+
+    // Roving tabindex needs exactly one tab stop. A trigger only knows whether
+    // IT is selected, so when no enabled trigger matches the value (no
+    // defaultValue, or the selected tab is disabled) nothing would be
+    // tabbable; make the first enabled tab the stop in that case.
+    // This effect owns the final tabindex of every trigger (React leaves a
+    // DOM value alone while its prop is unchanged, so patching only the
+    // fallback would leave two tab stops after the next selection).
+    React.useEffect(() => {
+      const tabs = enabledTabs(listRef.current)
+      const stop = tabs.find((tab) => tab.getAttribute('aria-selected') === 'true') ?? tabs[0]
+      for (const tab of tabs) tab.tabIndex = tab === stop ? 0 : -1
+    })
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      onKeyDown?.(e)
+      if (e.defaultPrevented) return
+      const tabs = enabledTabs(listRef.current)
+      const current = tabs.indexOf(e.target as HTMLButtonElement)
+      if (current === -1) return
+      const next = getNextTabIndex(current, e.key, tabs.length, orientation)
+      if (next === null) return
+      e.preventDefault()
+      tabs[next].focus()
+      // Automatic activation: moving focus selects the tab.
+      tabs[next].click()
+    }
 
     return React.createElement('div', {
       ref,
       role: 'tablist',
       'aria-orientation': orientation,
       className: cn(tabsListVariants(), className),
+      onKeyDown: handleKeyDown,
       ...props,
     })
   },
 )
+
+function enabledTabs(list: HTMLElement | null): HTMLButtonElement[] {
+  if (!list) return []
+  return Array.from(list.querySelectorAll<HTMLButtonElement>('[role="tab"]:not([disabled])'))
+}
 
 // ---------------------------------------------------------------------------
 // TabsTrigger
@@ -127,9 +170,9 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
       onClick?.(e)
     }
 
+    // Arrow / Home / End navigation is handled by TabsList (roving focus);
+    // a consumer onKeyDown runs first and can preventDefault to opt out.
     const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-      // Navigation keys are handled at the list level by convention,
-      // but we expose them here for convenience in SSR-only scenarios
       onKeyDown?.(e)
     }
 

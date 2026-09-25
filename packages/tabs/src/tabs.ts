@@ -131,3 +131,32 @@ export function createTabs(props: TabsProps = {}): TabsAPI {
     idPrefix,
   }
 }
+
+/**
+ * Roving-focus target for a key press inside a tab list (WAI-ARIA Tabs
+ * pattern). Given the index of the focused tab among the ENABLED tabs, returns
+ * the index to move to, or `null` when the key is not a navigation key for this
+ * orientation. Arrow keys wrap; Home/End jump to the ends.
+ */
+export function getNextTabIndex(
+  current: number,
+  key: string,
+  count: number,
+  orientation: 'horizontal' | 'vertical' = 'horizontal',
+): number | null {
+  if (count === 0) return null
+  const prev = orientation === 'horizontal' ? 'ArrowLeft' : 'ArrowUp'
+  const next = orientation === 'horizontal' ? 'ArrowRight' : 'ArrowDown'
+  switch (key) {
+    case next:
+      return current < 0 ? 0 : (current + 1) % count
+    case prev:
+      return current < 0 ? count - 1 : (current - 1 + count) % count
+    case 'Home':
+      return 0
+    case 'End':
+      return count - 1
+    default:
+      return null
+  }
+}
