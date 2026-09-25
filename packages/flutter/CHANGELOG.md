@@ -1,3 +1,8 @@
+## Unreleased
+
+- **Badge: count and dot badges.** `RefractionBadge.count(count:)` shows an unread/pending number capped at `max` (default 99) as `"99+"`, renders nothing at zero (unless `showZero`), is never narrower than it is tall, and uses tabular numerals. `RefractionBadge.dot()` is a numberless "something new" marker. Both take `size` (`RefractionBadgeSize.sm`/`md`), an optional `ringColor` (a ring in the surface color, for badges that overlap an icon or avatar) and a `semanticLabel` (a count announces its number by default; an unlabelled dot is decorative). `RefractionBadge.formatCount` / `isCountVisible` expose the display rule so a parent's semantics say exactly what is drawn. Count numerals are kept at WCAG AA: when a variant's token pair falls short (the minimal palette's `#FF3B30` with white is ~3.5:1) the fill is darkened in lightness only, keeping its hue. The default label constructor is unchanged apart from an optional `semanticLabel`; `child` is now nullable on the class (it is still required by that constructor).
+- **Theme (internal):** `ColorMath.contrastRatio` and `ColorMath.ensureContrast` (WCAG 2.x), used by the badge above.
+
 ## 0.49.0
 
 - **Theme (additive, non-breaking): a much richer, semantic-role token vocabulary so a product's whole look is token-driven.** Every new token is **optional** with a getter that **derives a sensible default from the existing tokens**, so all curated palettes, the six named-theme statics, and every existing `RefractionColors`/`RefractionThemeData` construction keep compiling and rendering **pixel-identically** — nothing new is required.

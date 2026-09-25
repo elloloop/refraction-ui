@@ -66,4 +66,48 @@ class ColorMath {
     final hue = (hsl.hue + degrees) % 360.0;
     return hsl.withHue(hue < 0 ? hue + 360.0 : hue).toColor();
   }
+
+  /// WCAG 2.x minimum contrast for body-size text (SC 1.4.3, level AA).
+  static const double aaTextContrast = 4.5;
+
+  /// The HSL lightness step [ensureContrast] moves by per iteration.
+  static const double _contrastStep = 0.02;
+
+  /// The WCAG 2.x contrast ratio between two opaque colors (1.0–21.0).
+  static double contrastRatio(Color a, Color b) {
+    final la = a.computeLuminance();
+    final lb = b.computeLuminance();
+    final lighter = la > lb ? la : lb;
+    final darker = la > lb ? lb : la;
+    return (lighter + 0.05) / (darker + 0.05);
+  }
+
+  /// Returns [background], darkened or lightened in small HSL steps (away
+  /// from [foreground]) until [foreground] reads on it at [minRatio].
+  ///
+  /// Small, dense surfaces — a count badge, an initials avatar — pair a
+  /// saturated token with a light glyph; many brand hues (a pure red, a
+  /// bright green) miss AA at 11–13 px. This keeps the hue and nudges only
+  /// the lightness, so the surface still reads as the token it came from.
+  /// Returns [background] unchanged when it already passes.
+  static Color ensureContrast(
+    Color background,
+    Color foreground, {
+    double minRatio = aaTextContrast,
+  }) {
+    if (contrastRatio(background, foreground) >= minRatio) return background;
+    final towardDark =
+        foreground.computeLuminance() > background.computeLuminance();
+    var hsl = HSLColor.fromColor(background);
+    while (contrastRatio(hsl.toColor(), foreground) < minRatio) {
+      final next = towardDark
+          ? hsl.lightness - _contrastStep
+          : hsl.lightness + _contrastStep;
+      if (next <= 0.0 || next >= 1.0) {
+        return hsl.withLightness(next.clamp(0.0, 1.0)).toColor();
+      }
+      hsl = hsl.withLightness(next);
+    }
+    return hsl.toColor();
+  }
 }

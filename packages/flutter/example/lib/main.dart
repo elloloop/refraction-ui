@@ -19,6 +19,7 @@ import 'pages/progress_slider_page.dart';
 import 'pages/alert_page.dart';
 import 'pages/callout_page.dart';
 import 'pages/avatar_page.dart';
+import 'pages/badge_page.dart';
 import 'pages/date_picker_page.dart';
 import 'pages/file_upload_page.dart';
 import 'pages/emoji_picker_page.dart';
@@ -81,13 +82,17 @@ class _RouteNotifier extends Notifier<String> {
     } else {
       initial = WidgetsBinding.instance.platformDispatcher.defaultRouteName;
     }
-    
+
+    // A `?theme=light|dark` query only picks the theme (see
+    // [_DarkModeNotifier]); it is not part of the route.
+    initial = initial.split('?').first;
     if (initial.isNotEmpty && initial != '/') {
       // Ensure leading slash
       return initial.startsWith('/') ? initial : '/$initial';
     }
     return '/';
   }
+
   void update(String val) => state = val;
 }
 
@@ -95,9 +100,19 @@ final appRouteProvider = NotifierProvider<_RouteNotifier, String>(
   _RouteNotifier.new,
 );
 
+/// The `theme` query of the launch URL's fragment (`#/docs/x?theme=light`),
+/// so a screenshot run can open any page in either theme.
+String? _launchThemeQuery() {
+  if (!kIsWeb) return null;
+  final fragment = Uri.base.fragment;
+  final queryStart = fragment.indexOf('?');
+  if (queryStart < 0) return null;
+  return Uri.splitQueryString(fragment.substring(queryStart + 1))['theme'];
+}
+
 class _DarkModeNotifier extends Notifier<bool> {
   @override
-  bool build() => true;
+  bool build() => _launchThemeQuery() != 'light';
   void toggle() => state = !state;
 }
 
@@ -230,6 +245,9 @@ class RefractionDemoApp extends ConsumerWidget {
   }
 }
 
+/// `#/preview/<slug>` renders the `/docs/<slug>` page on its own.
+const String _previewPrefix = '/preview/';
+
 class _AppShell extends ConsumerWidget {
   final List<String> components;
 
@@ -253,6 +271,16 @@ class _AppShell extends ConsumerWidget {
         onNavigate: (r) => ref.read(appRouteProvider.notifier).update(r),
         components: components,
         child: _buildDocsContent(currentRoute, context),
+      );
+    } else if (currentRoute.startsWith(_previewPrefix)) {
+      // Bare preview: one docs page filling the window, with no site header
+      // or docs sidebar — for responsive screenshots at phone widths.
+      return Scaffold(
+        backgroundColor: colors.background,
+        body: _buildDocsContent(
+          '/docs/${currentRoute.substring(_previewPrefix.length)}',
+          context,
+        ),
       );
     } else {
       body = const Center(child: Text('404 Not Found'));
@@ -571,30 +599,7 @@ class _AppShell extends ConsumerWidget {
           ),
         );
       case '/docs/badges':
-        return PreviewCanvas(
-          title: "Badges",
-          description: "Small status indicators and labels.",
-          child: Center(
-            child: Wrap(
-              spacing: 16,
-              children: const [
-                RefractionBadge(child: Text("Primary")),
-                RefractionBadge(
-                  variant: RefractionBadgeVariant.secondary,
-                  child: Text("Secondary"),
-                ),
-                RefractionBadge(
-                  variant: RefractionBadgeVariant.outline,
-                  child: Text("Outline"),
-                ),
-                RefractionBadge(
-                  variant: RefractionBadgeVariant.destructive,
-                  child: Text("Destructive"),
-                ),
-              ],
-            ),
-          ),
-        );
+        return const BadgePage();
       case '/docs/inputs-&-forms':
         return PreviewCanvas(
           title: "Inputs & Forms",
