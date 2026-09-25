@@ -12,7 +12,7 @@ export const selectTokens: TokenContract = {
 }
 
 export const selectTriggerVariants = cva({
-  base: 'flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
+  base: 'flex w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
   variants: {
     size: {
       sm: 'h-8 text-xs',
@@ -26,10 +26,10 @@ export const selectTriggerVariants = cva({
 })
 
 export const selectContentVariants = cva({
-  base: 'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95',
+  base: 'absolute left-0 top-full z-50 mt-1 max-h-96 w-full min-w-[8rem] overflow-y-auto rounded-md border bg-popover text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95',
   variants: {
     position: {
-      popper: 'translate-y-1',
+      popper: '',
       'item-aligned': '',
     },
   },
@@ -50,3 +50,9 @@ export const selectItemVariants = cva({
     selected: 'false',
   },
 })
+
+/** Positioning context: the listbox floats under the trigger. */
+export const selectRootClass = 'relative'
+
+/** The selected label inside the trigger; truncates, dims the placeholder. */
+export const selectValueClass = 'truncate text-left data-[placeholder]:text-muted-foreground'

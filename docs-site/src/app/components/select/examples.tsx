@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Select, SelectTrigger, SelectContent, SelectItem } from '@refraction-ui/react-select'
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@refraction-ui/react-select'
 
 interface SelectExamplesProps {
   section: 'basic' | 'states'
@@ -18,8 +18,8 @@ export function SelectExamples({ section }: SelectExamplesProps) {
           <div className="flex flex-col gap-2.5 w-64">
             <span className="text-xs text-muted-foreground font-medium">With Placeholder</span>
             <Select value={value} onValueChange={setValue} placeholder="Choose a fruit...">
-              <SelectTrigger>
-                {value || 'Choose a fruit...'}
+              <SelectTrigger aria-label="Fruit">
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="apple">Apple</SelectItem>
@@ -32,8 +32,8 @@ export function SelectExamples({ section }: SelectExamplesProps) {
           <div className="flex flex-col gap-2.5 w-64">
             <span className="text-xs text-muted-foreground font-medium">Pre-selected</span>
             <Select value={value2} onValueChange={setValue2}>
-              <SelectTrigger>
-                {value2}
+              <SelectTrigger aria-label="Framework">
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="react">React</SelectItem>

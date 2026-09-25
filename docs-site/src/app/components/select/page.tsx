@@ -5,19 +5,24 @@ import { InstallCommand } from '@/components/install-command'
 
 const selectProps = [
   { name: 'value', type: 'string', description: 'Controlled selected value.' },
+  { name: 'defaultValue', type: 'string', description: 'Initially selected value (uncontrolled).' },
   { name: 'onValueChange', type: '(value: string) => void', description: 'Callback when selection changes.' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the select.' },
-  { name: 'placeholder', type: 'string', default: "'Select an option'", description: 'Placeholder text.' },
+  { name: 'placeholder', type: 'string', default: "'Select an option'", description: 'Shown by SelectValue while nothing is selected.' },
+  { name: 'className', type: 'string', description: 'Class for the relative wrapper the listbox floats in.' },
+  { name: 'SelectValue', type: '{ placeholder?: ReactNode; children?: ReactNode }', description: 'Place inside SelectTrigger: shows the selected SelectItem label, or the placeholder. Give the trigger an aria-label (or a <label for>) for its accessible name.' },
   { name: 'children', type: 'ReactNode', description: 'SelectTrigger + SelectContent.' },
 ]
 
-const usageCode = `import { Select, SelectTrigger, SelectContent, SelectItem } from '@refraction-ui/react'
+const usageCode = `import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@refraction-ui/react'
 
 export function MyComponent() {
   const [value, setValue] = useState<string>()
   return (
     <Select value={value} onValueChange={setValue} placeholder="Pick a fruit...">
-      <SelectTrigger>{value || 'Pick a fruit...'}</SelectTrigger>
+      <SelectTrigger aria-label="Fruit">
+        <SelectValue />
+      </SelectTrigger>
       <SelectContent>
         <SelectItem value="apple">Apple</SelectItem>
         <SelectItem value="banana">Banana</SelectItem>

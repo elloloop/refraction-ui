@@ -4,6 +4,8 @@ import {
   selectTriggerVariants,
   selectContentVariants,
   selectItemVariants,
+  selectRootClass,
+  selectValueClass,
   type SelectOption,
 } from '@refraction-ui/select'
 import { cn, devWarn } from '@refraction-ui/shared'
@@ -19,6 +21,10 @@ interface SelectContextValue {
   placeholder: string
   triggerId: string
   contentId: string
+  /** Label of each item by value, for `SelectValue`. */
+  labels: ReadonlyMap<string, React.ReactNode>
+  /** Mounted items report their label so `SelectValue` can show it. */
+  registerLabel: (value: string, label: React.ReactNode) => void
   /**
    * Internal marker: `true` only on the context *default* (i.e. no `<Select>`
    * provider above this part). `<Select>` always supplies a value without
@@ -41,6 +47,8 @@ const SelectContext = React.createContext<SelectContextValue>({
   placeholder: 'Select an option',
   triggerId: '',
   contentId: '',
+  labels: new Map(),
+  registerLabel: () => {},
 })
 
 /**
@@ -71,33 +79,104 @@ function useSelectContext(part: string): SelectContextValue {
 
 /* ─── Select (root) ────────────────────────────────────────────── */
 export interface SelectProps {
+  /** Selected value (controlled). */
   value?: string
+  /** Initially selected value (uncontrolled). */
+  defaultValue?: string
   onValueChange?: (value: string) => void
   disabled?: boolean
   children?: React.ReactNode
+  /** Shown by `SelectValue` while nothing is selected. */
   placeholder?: string
+  /** Class for the positioning wrapper the select renders around its parts. */
+  className?: string
+}
+
+/**
+ * Collect `value → label` for every `SelectItem` in the element tree, so the
+ * trigger can show the selected label while the list is closed (items only
+ * mount while open). Items nested inside custom components are not visible
+ * here; those register their label when they first mount.
+ */
+function collectItemLabels(
+  node: React.ReactNode,
+  into: Map<string, React.ReactNode>,
+): Map<string, React.ReactNode> {
+  React.Children.forEach(node, (child) => {
+    if (!React.isValidElement<{ value?: unknown; children?: React.ReactNode }>(child)) return
+    if (child.type === SelectItem && typeof child.props.value === 'string') {
+      into.set(child.props.value, child.props.children)
+      return
+    }
+    collectItemLabels(child.props.children, into)
+  })
+  return into
 }
 
 /**
  * Select -- dropdown select with accessible keyboard and ARIA support.
- * Compound component: Select > SelectTrigger + SelectContent > SelectItem.
+ * Compound component: Select > SelectTrigger (> SelectValue) + SelectContent > SelectItem.
+ * Renders a `relative` wrapper so the listbox floats under the trigger, and
+ * closes on a pointer press outside it.
  */
 export function Select({
-  value,
+  value: controlledValue,
+  defaultValue,
   onValueChange,
   disabled = false,
   children,
   placeholder = 'Select an option',
+  className,
 }: SelectProps) {
   const [open, setOpen] = React.useState(false)
+  const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue)
+  const isControlled = controlledValue !== undefined
+  const value = isControlled ? controlledValue : uncontrolledValue
+  const rootRef = React.useRef<HTMLDivElement>(null)
 
-  const api = createSelect({ value, disabled, open, placeholder })
+  // Stable across renders and SSR-safe (the core's generateId is per-call).
+  const baseId = React.useId()
+  const triggerId = `${baseId}-trigger`
+  const contentId = `${baseId}-content`
+
+  const [registered, setRegistered] = React.useState<ReadonlyMap<string, React.ReactNode>>(
+    () => new Map(),
+  )
+  const registerLabel = React.useCallback((itemValue: string, label: React.ReactNode) => {
+    setRegistered((prev) => {
+      if (prev.get(itemValue) === label) return prev
+      const next = new Map(prev)
+      next.set(itemValue, label)
+      return next
+    })
+  }, [])
+  const labels = React.useMemo(
+    () => collectItemLabels(children, new Map(registered)),
+    [children, registered],
+  )
+
+  React.useEffect(() => {
+    if (!open) return
+    const onPointerDown = (event: PointerEvent) => {
+      if (rootRef.current && !rootRef.current.contains(event.target as Node)) setOpen(false)
+    }
+    document.addEventListener('pointerdown', onPointerDown)
+    return () => document.removeEventListener('pointerdown', onPointerDown)
+  }, [open])
+
+  const handleValueChange = React.useCallback(
+    (next: string) => {
+      if (!isControlled) setUncontrolledValue(next)
+      onValueChange?.(next)
+    },
+    [isControlled, onValueChange],
+  )
 
   return (
     <SelectContext.Provider
       value={{
         value,
-        onValueChange: onValueChange ?? (() => {}),
+        onValueChange: handleValueChange,
         open,
         setOpen: (v) => {
           if (!disabled) setOpen(v)
@@ -105,11 +184,15 @@ export function Select({
         options: [],
         disabled,
         placeholder,
-        triggerId: api.ids.trigger,
-        contentId: api.ids.content,
+        triggerId,
+        contentId,
+        labels,
+        registerLabel,
       }}
     >
-      {children}
+      <div ref={rootRef} className={cn(selectRootClass, className)} data-slot="select">
+        {children}
+      </div>
     </SelectContext.Provider>
   )
 }
@@ -123,7 +206,7 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerPr
   function SelectTrigger({ className, children, size = 'default', ...props }, ref) {
     const { open, setOpen, disabled, triggerId, contentId } = useSelectContext('SelectTrigger')
 
-    const api = createSelect({ disabled, open })
+    const api = createSelect({ disabled, open, ids: { trigger: triggerId, content: contentId } })
 
     const handleClick = () => {
       if (!disabled) {
@@ -156,7 +239,6 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerPr
         disabled={disabled}
         {...api.triggerProps.ariaProps}
         {...api.triggerProps.dataAttributes}
-        aria-controls={contentId}
         {...props}
       >
         {children}
@@ -262,8 +344,12 @@ export interface SelectItemProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
   function SelectItem({ className, children, value: itemValue, disabled: itemDisabled = false, ...props }, ref) {
-    const { value, onValueChange, setOpen, triggerId } = useSelectContext('SelectItem')
+    const { value, onValueChange, setOpen, triggerId, registerLabel } = useSelectContext('SelectItem')
     const isSelected = value === itemValue
+
+    React.useEffect(() => {
+      registerLabel(itemValue, children)
+    }, [registerLabel, itemValue, children])
 
     const handleClick = () => {
       if (!itemDisabled) {
@@ -317,6 +403,35 @@ export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
         )}
         {children}
       </div>
+    )
+  },
+)
+
+/* ─── SelectValue ──────────────────────────────────────────────── */
+export interface SelectValueProps extends React.HTMLAttributes<HTMLSpanElement> {
+  /** Shown while nothing is selected. Defaults to the `Select` placeholder. */
+  placeholder?: React.ReactNode
+}
+
+/**
+ * SelectValue -- place inside `SelectTrigger` to show the selected item's
+ * label (its `SelectItem` children), or the placeholder when nothing is
+ * selected. Pass `children` to render the value yourself.
+ */
+export const SelectValue = React.forwardRef<HTMLSpanElement, SelectValueProps>(
+  function SelectValue({ placeholder, className, children, ...props }, ref) {
+    const ctx = useSelectContext('SelectValue')
+    const label = ctx.value !== undefined ? ctx.labels.get(ctx.value) : undefined
+    const showPlaceholder = children == null && label === undefined
+    return (
+      <span
+        ref={ref}
+        className={cn(selectValueClass, className)}
+        data-placeholder={showPlaceholder ? '' : undefined}
+        {...props}
+      >
+        {children ?? (showPlaceholder ? (placeholder ?? ctx.placeholder) : label)}
+      </span>
     )
   },
 )
