@@ -4,6 +4,7 @@ export {
   type AvatarProps,
   type AvatarAPI,
   type AvatarSize,
+  type AvatarShape,
   type AvatarLoadingStatus,
 } from './avatar.js'
 

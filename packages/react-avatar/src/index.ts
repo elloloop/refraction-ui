@@ -11,6 +11,7 @@ export {
 export {
   type AvatarAPI,
   type AvatarSize,
+  type AvatarShape,
   type AvatarLoadingStatus,
   getInitials,
   avatarVariants,

@@ -9,9 +9,22 @@ describe('Avatar (React)', () => {
     expect(html).toContain('<span')
   })
 
-  it('has role img', () => {
+  it('has no role without a name, so the inner image/fallback stays exposed', () => {
     const html = renderToString(React.createElement(Avatar))
+    expect(html).not.toContain('role="img"')
+  })
+
+  it('is a named img when given an aria-label', () => {
+    const html = renderToString(React.createElement(Avatar, { 'aria-label': 'Ada Lovelace' }))
     expect(html).toContain('role="img"')
+    expect(html).toContain('aria-label="Ada Lovelace"')
+  })
+
+  it('is circular by default and square with shape="square"', () => {
+    expect(renderToString(React.createElement(Avatar))).toContain('rounded-full')
+    const square = renderToString(React.createElement(Avatar, { shape: 'square' }))
+    expect(square).toContain('rounded-md')
+    expect(square).not.toContain('rounded-full')
   })
 
   it('has data-slot avatar', () => {
@@ -176,6 +189,6 @@ describe('Avatar compound rendering', () => {
     )
     expect(html).toContain('<img')
     expect(html).toContain('JD')
-    expect(html).toContain('role="img"')
+    expect(html).not.toContain('role="img"')
   })
 })

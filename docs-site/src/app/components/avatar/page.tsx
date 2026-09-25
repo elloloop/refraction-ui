@@ -5,6 +5,8 @@ import { InstallCommand } from '@/components/install-command'
 
 const avatarProps = [
   { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Size of the avatar.' },
+  { name: 'shape', type: "'circle' | 'square'", default: "'circle'", description: 'Outline: circle, or square with rounded corners (teams, organisations).' },
+  { name: 'aria-label', type: 'string', description: 'Names the avatar and gives it role="img". Without it the avatar has no role and the inner image alt / fallback text is what assistive tech reads.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
   { name: 'children', type: 'ReactNode', description: 'AvatarImage and/or AvatarFallback.' },
 ]

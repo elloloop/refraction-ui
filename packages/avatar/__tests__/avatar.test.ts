@@ -33,9 +33,14 @@ describe('getInitials', () => {
 })
 
 describe('createAvatar', () => {
-  it('returns role img', () => {
-    const api = createAvatar()
+  it('has no role without alt (children stay exposed)', () => {
+    expect(createAvatar().ariaProps.role).toBeUndefined()
+  })
+
+  it('returns role img with a label when alt is given', () => {
+    const api = createAvatar({ alt: 'Ada' })
     expect(api.ariaProps.role).toBe('img')
+    expect(api.ariaProps['aria-label']).toBe('Ada')
   })
 
   it('sets aria-label from alt', () => {
