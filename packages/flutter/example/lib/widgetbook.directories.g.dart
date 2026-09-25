@@ -96,6 +96,8 @@ import 'package:example/use_cases/pre_call_lobby_use_cases.dart'
     as _example_use_cases_pre_call_lobby_use_cases;
 import 'package:example/use_cases/presence_indicator_use_cases.dart'
     as _example_use_cases_presence_indicator_use_cases;
+import 'package:example/use_cases/pressable_use_cases.dart'
+    as _example_use_cases_pressable_use_cases;
 import 'package:example/use_cases/pricing_card_use_cases.dart'
     as _example_use_cases_pricing_card_use_cases;
 import 'package:example/use_cases/progress_display_use_cases.dart'
@@ -836,6 +838,15 @@ final directories = <_widgetbook.WidgetbookNode>[
             name: 'Online',
             builder:
                 _example_use_cases_presence_indicator_use_cases.onlinePresence,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'RefractionPressable',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Keyboard focus',
+            builder: _example_use_cases_pressable_use_cases.keyboardFocus,
           ),
         ],
       ),

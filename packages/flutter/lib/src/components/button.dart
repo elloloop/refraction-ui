@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../theme/motion.dart';
 import '../theme/refraction_theme.dart';
+import 'pressable.dart';
 
 /// Visual style of a [RefractionButton].
 ///
@@ -110,6 +112,22 @@ class RefractionButton extends StatefulWidget {
   /// When true, the [child] is replaced by a spinner and taps are ignored.
   final bool isLoading;
 
+  /// Accessible name announced by screen readers and exposed to web
+  /// automation (Flutter web's semantics tree / Playwright `getByRole`).
+  ///
+  /// **Required in practice for icon-only buttons** ([RefractionButtonSize.icon])
+  /// — an [Icon] has no text, so without a label the button is announced as
+  /// just "button". Text buttons get their name from the child and can leave
+  /// this null.
+  final String? semanticLabel;
+
+  /// Optional focus node, e.g. to move focus to the button programmatically.
+  final FocusNode? focusNode;
+
+  /// Whether the button takes focus when first built (e.g. the safe action
+  /// of a confirm dialog).
+  final bool autofocus;
+
   /// Creates a [RefractionButton].
   const RefractionButton({
     super.key,
@@ -118,6 +136,9 @@ class RefractionButton extends StatefulWidget {
     this.variant = RefractionButtonVariant.primary,
     this.size = RefractionButtonSize.defaultSize,
     this.isLoading = false,
+    this.semanticLabel,
+    this.focusNode,
+    this.autofocus = false,
   });
 
   @override
@@ -125,10 +146,33 @@ class RefractionButton extends StatefulWidget {
 }
 
 class _RefractionButtonState extends State<RefractionButton> {
-  bool _isHovered = false;
+  bool get _enabled => widget.onPressed != null && !widget.isLoading;
+
+  void _activate() {
+    if (_enabled) widget.onPressed!();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final radius = BorderRadius.circular(
+      RefractionTheme.of(context).data.radiusMd,
+    );
+    return Semantics(
+      button: true,
+      enabled: widget.onPressed != null,
+      label: widget.semanticLabel,
+      onTap: _enabled ? _activate : null,
+      child: RefractionPressable(
+        onPressed: _enabled ? _activate : null,
+        focusNode: widget.focusNode,
+        autofocus: widget.autofocus,
+        borderRadius: radius,
+        builder: (context, state) => _buildSurface(context, state.hovered),
+      ),
+    );
+  }
+
+  Widget _buildSurface(BuildContext context, bool isHovered) {
     final theme = RefractionTheme.of(context);
     final data = theme.data;
     final colors = theme.colors;
@@ -139,27 +183,27 @@ class _RefractionButtonState extends State<RefractionButton> {
 
     switch (widget.variant) {
       case RefractionButtonVariant.destructive:
-        backgroundColor = _isHovered
+        backgroundColor = isHovered
             ? colors.destructive.withValues(alpha: 0.9)
             : colors.destructive;
         foregroundColor = colors.destructiveForeground;
         break;
       case RefractionButtonVariant.outline:
-        backgroundColor = _isHovered ? colors.accent : Colors.transparent;
-        foregroundColor = _isHovered
+        backgroundColor = isHovered ? colors.accent : Colors.transparent;
+        foregroundColor = isHovered
             ? colors.accentForeground
             : colors.foreground;
         borderColor = colors.input;
         break;
       case RefractionButtonVariant.secondary:
-        backgroundColor = _isHovered
+        backgroundColor = isHovered
             ? colors.secondary.withValues(alpha: 0.8)
             : colors.secondary;
         foregroundColor = colors.secondaryForeground;
         break;
       case RefractionButtonVariant.ghost:
-        backgroundColor = _isHovered ? colors.accent : Colors.transparent;
-        foregroundColor = _isHovered
+        backgroundColor = isHovered ? colors.accent : Colors.transparent;
+        foregroundColor = isHovered
             ? colors.accentForeground
             : colors.foreground;
         break;
@@ -168,7 +212,7 @@ class _RefractionButtonState extends State<RefractionButton> {
         foregroundColor = colors.primary;
         break;
       case RefractionButtonVariant.primary:
-        backgroundColor = _isHovered
+        backgroundColor = isHovered
             ? colors.primary.withValues(alpha: 0.9)
             : colors.primary;
         foregroundColor = colors.primaryForeground;
@@ -229,7 +273,7 @@ class _RefractionButtonState extends State<RefractionButton> {
         color: foregroundColor,
         fontSize: fontSize,
         fontWeight: FontWeight.w500,
-        decoration: widget.variant == RefractionButtonVariant.link && _isHovered
+        decoration: widget.variant == RefractionButtonVariant.link && isHovered
             ? TextDecoration.underline
             : TextDecoration.none,
       ),
@@ -245,41 +289,32 @@ class _RefractionButtonState extends State<RefractionButton> {
           : widget.child,
     );
 
-    return Semantics(
-      button: true,
-      enabled: widget.onPressed != null,
-      child: MouseRegion(
-        onEnter: (_) => setState(() => _isHovered = true),
-        onExit: (_) => setState(() => _isHovered = false),
-        cursor: widget.onPressed == null
-            ? SystemMouseCursors.forbidden
-            : SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: widget.isLoading ? null : widget.onPressed,
-          behavior: HitTestBehavior.opaque,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeInOut,
-            constraints: BoxConstraints(
-              minWidth: minWidth ?? 0.0,
-              minHeight: minHeight,
-            ),
-            padding: padding,
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              // radiusMd defaults to the base borderRadius, so corners are
-              // unchanged; a consumer can now round controls independently of
-              // cards via the radius scale.
-              borderRadius: BorderRadius.circular(data.radiusMd),
-              border: borderColor != null
-                  ? Border.all(color: borderColor)
-                  : null,
-            ),
-            alignment: Alignment.center,
-            child: content,
-          ),
-        ),
+    final radius = BorderRadius.circular(data.radiusMd);
+    final surface = AnimatedContainer(
+      duration: RefractionMotion.duration(context, data.motionMedium),
+      curve: Curves.easeInOut,
+      constraints: BoxConstraints(
+        minWidth: minWidth ?? 0.0,
+        minHeight: minHeight,
+      ),
+      padding: padding,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        // radiusMd defaults to the base borderRadius, so corners are
+        // unchanged; a consumer can now round controls independently of
+        // cards via the radius scale.
+        borderRadius: radius,
+        border: borderColor != null ? Border.all(color: borderColor) : null,
+      ),
+      alignment: Alignment.center,
+      // A semanticLabel replaces the child's text/icon semantics rather than
+      // concatenating with them; the button node keeps its focus state.
+      child: ExcludeSemantics(
+        excluding: widget.semanticLabel != null,
+        child: content,
       ),
     );
+
+    return surface;
   }
 }

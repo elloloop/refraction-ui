@@ -55,15 +55,19 @@ void main() {
       );
     });
 
-    test('status roles derive from success/warning with white foregrounds', () {
-      const white = Color(0xFFFFFFFF);
+    test('status roles derive from success/warning with AA-safe inks', () {
       expect(_bare.positive, _bare.success);
-      expect(_bare.positiveForeground, white);
+      expect(_bare.positiveForeground, _bare.successForeground);
       expect(_bare.caution, _bare.warning);
-      expect(_bare.cautionForeground, white);
+      expect(_bare.cautionForeground, _bare.warningForeground);
       expect(_bare.done, _bare.success);
       expect(_bare.pending, _bare.warning);
-      expect(_bare.pendingForeground, white);
+      expect(_bare.pendingForeground, _bare.warningForeground);
+      // White on the default amber was 2.15:1; the derived ink passes AA.
+      expect(
+        RefractionContrast.meets(_bare.cautionForeground, _bare.caution),
+        isTrue,
+      );
     });
 
     test('neutral role derives a hue-independent gray', () {

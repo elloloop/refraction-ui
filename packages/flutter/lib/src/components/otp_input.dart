@@ -27,7 +27,7 @@ import '../theme/refraction_theme.dart';
 /// ```
 ///
 /// The borders animate between [RefractionColors.input], [RefractionColors.border]
-/// and [RefractionColors.ring] depending on focus and fill state.
+/// and [RefractionColors.focusRing] depending on focus and fill state.
 class RefractionOtpInput extends StatefulWidget {
   /// Number of digit boxes rendered. Defaults to `6`.
   final int length;
@@ -138,7 +138,7 @@ class _RefractionOtpInputState extends State<RefractionOtpInput> {
         final isFocused = _focusedIndex == index;
         final isFilled = _controllers[index].text.isNotEmpty;
         final borderColor = isFocused
-            ? colors.ring
+            ? colors.focusRing
             : (isFilled ? colors.border : colors.input);
 
         return Container(

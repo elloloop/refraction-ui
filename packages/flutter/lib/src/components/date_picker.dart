@@ -609,7 +609,7 @@ class _DatePickerDropdownState extends State<_DatePickerDropdown> {
             borderRadius: BorderRadius.circular(theme.borderRadius),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: colors.ring, width: 2),
+            borderSide: BorderSide(color: colors.focusRing, width: 2),
             borderRadius: BorderRadius.circular(theme.borderRadius),
           ),
         ),

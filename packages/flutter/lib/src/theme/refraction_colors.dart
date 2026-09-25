@@ -167,11 +167,6 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
   final Color? _scrim;
   final Color? _focusRing;
 
-  /// White, used as the default foreground for filled status surfaces
-  /// ([positive], [caution], [pending]) whose base hue is dark enough to
-  /// carry white text/icons.
-  static const Color _statusForeground = Color(0xFFFFFFFF);
-
   /// Hover step for [primary] surfaces. Defaults to [primary] darkened ~6%.
   Color get primaryHover => _primaryHover ?? ColorMath.darken(primary, 0.06);
 
@@ -223,14 +218,15 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
   /// Positive/confirmation status color. Defaults to [success].
   Color get positive => _positive ?? success;
 
-  /// Foreground for content on [positive]. Defaults to white.
-  Color get positiveForeground => _positiveForeground ?? _statusForeground;
+  /// Foreground for content on [positive]. Defaults to
+  /// [successForeground] (the higher-contrast ink on the hue).
+  Color get positiveForeground => _positiveForeground ?? successForeground;
 
   /// Caution status color (softer than [destructive]). Defaults to [warning].
   Color get caution => _caution ?? warning;
 
-  /// Foreground for content on [caution]. Defaults to white.
-  Color get cautionForeground => _cautionForeground ?? _statusForeground;
+  /// Foreground for content on [caution]. Defaults to [warningForeground].
+  Color get cautionForeground => _cautionForeground ?? warningForeground;
 
   /// "Completed"/done status color. Defaults to [success].
   Color get done => _done ?? success;
@@ -245,8 +241,8 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
   /// Pending/in-progress status color. Defaults to [warning].
   Color get pending => _pending ?? warning;
 
-  /// Foreground for content on [pending]. Defaults to white.
-  Color get pendingForeground => _pendingForeground ?? _statusForeground;
+  /// Foreground for content on [pending]. Defaults to [warningForeground].
+  Color get pendingForeground => _pendingForeground ?? warningForeground;
 
   /// First categorical chart color. Defaults to [primary].
   Color get chart1 => _chart1 ?? primary;
@@ -578,10 +574,10 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     primaryForeground: Color(0xFFFFFFFF),
     secondary: Color(0xFFF5F5F7),
     secondaryForeground: Color(0xFF000000),
-    destructive: Color(0xFFFF3B30),
+    destructive: Color(0xFFDC2626),
     destructiveForeground: Color(0xFFFFFFFF),
     muted: Color(0xFFF5F5F7),
-    mutedForeground: Color(0xFF8E8E93),
+    mutedForeground: Color(0xFF6E6E73),
     accent: Color(0xFFF5F5F7),
     accentForeground: Color(0xFF000000),
     background: Color(0xFFFFFFFF),
@@ -605,7 +601,7 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     primaryForeground: Color(0xFF000000),
     secondary: Color(0xFF1C1C1E),
     secondaryForeground: Color(0xFFFFFFFF),
-    destructive: Color(0xFFFF453A),
+    destructive: Color(0xFFDC2626),
     destructiveForeground: Color(0xFFFFFFFF),
     muted: Color(0xFF1C1C1E),
     mutedForeground: Color(0xFF8E8E93),
@@ -629,13 +625,13 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
   /// a crisp neutral surface for high-confidence financial UI.
   static const RefractionColors fintechLight = RefractionColors(
     primary: Color(0xFF00D632),
-    primaryForeground: Color(0xFFFFFFFF),
+    primaryForeground: Color(0xFF051810),
     secondary: Color(0xFFE9F2EB),
     secondaryForeground: Color(0xFF051810),
-    destructive: Color(0xFFE43A45),
+    destructive: Color(0xFFDC2626),
     destructiveForeground: Color(0xFFFFFFFF),
     muted: Color(0xFFF1F4F7),
-    mutedForeground: Color(0xFF758394),
+    mutedForeground: Color(0xFF5F6B7A),
     accent: Color(0xFFF1F4F7),
     accentForeground: Color(0xFF051810),
     background: Color(0xFFF6F8FA),
@@ -659,7 +655,7 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     primaryForeground: Color(0xFF051810),
     secondary: Color(0xFF18382A),
     secondaryForeground: Color(0xFF05FF3E),
-    destructive: Color(0xFFFF4D5A),
+    destructive: Color(0xFFDC2626),
     destructiveForeground: Color(0xFFFFFFFF),
     muted: Color(0xFF161920),
     mutedForeground: Color(0xFF8193A7),
@@ -683,13 +679,13 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
   /// soft coral accents — Flo/Headspace inspired.
   static const RefractionColors wellnessLight = RefractionColors(
     primary: Color(0xFFFF6E66),
-    primaryForeground: Color(0xFFFFFFFF),
+    primaryForeground: Color(0xFF2A2320),
     secondary: Color(0xFFF2EFE9),
     secondaryForeground: Color(0xFF4A443C),
-    destructive: Color(0xFFE0423A),
+    destructive: Color(0xFFC8372F),
     destructiveForeground: Color(0xFFFFFFFF),
     muted: Color(0xFFF2EFE9),
-    mutedForeground: Color(0xFF918D88),
+    mutedForeground: Color(0xFF6E6A65),
     accent: Color(0xFFF2EFE9),
     accentForeground: Color(0xFF4A443C),
     background: Color(0xFFFCFBF8),
@@ -712,11 +708,11 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     primary: Color(0xFFFF837D),
     primaryForeground: Color(0xFF2A2320),
     secondary: Color(0xFF4D4139),
-    secondaryForeground: Color(0xFFFF837D),
-    destructive: Color(0xFFFF524A),
+    secondaryForeground: Color(0xFFFF928C),
+    destructive: Color(0xFFC8372F),
     destructiveForeground: Color(0xFFFFFFFF),
     muted: Color(0xFF3A3029),
-    mutedForeground: Color(0xFF998A82),
+    mutedForeground: Color(0xFFA89B94),
     accent: Color(0xFF3A3029),
     accentForeground: Color(0xFFE8E5DF),
     background: Color(0xFF201B18),
@@ -740,10 +736,10 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
     primaryForeground: Color(0xFFFFFFFF),
     secondary: Color(0xFFE6E5FC),
     secondaryForeground: Color(0xFF1E177A),
-    destructive: Color(0xFFEF4444),
+    destructive: Color(0xFFDC2626),
     destructiveForeground: Color(0xFFFFFFFF),
     muted: Color(0xFFF3F4F6),
-    mutedForeground: Color(0xFF6B7280),
+    mutedForeground: Color(0xFF656B78),
     accent: Color(0xFFF3F4F6),
     accentForeground: Color(0xFF111827),
     background: Color(0xFFFFFFFF),
@@ -763,10 +759,10 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
   /// Creative palette, dark mode. Indigo primaries on near-black surfaces
   /// for an OLED-friendly creative-tool aesthetic.
   static const RefractionColors creativeDark = RefractionColors(
-    primary: Color(0xFF6366F1),
+    primary: Color(0xFF5A5DF0),
     primaryForeground: Color(0xFFFFFFFF),
     secondary: Color(0xFF1A1A40),
-    secondaryForeground: Color(0xFF6366F1),
+    secondaryForeground: Color(0xFF8083F4),
     destructive: Color(0xFF7F1D1D),
     destructiveForeground: Color(0xFFFFFFFF),
     muted: Color(0xFF27272A),
@@ -790,14 +786,14 @@ class RefractionColors extends ThemeExtension<RefractionColors> {
   /// Productivity palette, light mode. Linear-style subdued blues on crisp
   /// clean grays — designed for long-session task and tracking apps.
   static const RefractionColors productivityLight = RefractionColors(
-    primary: Color(0xFF3B82F6),
+    primary: Color(0xFF2563EB),
     primaryForeground: Color(0xFFFFFFFF),
     secondary: Color(0xFFEFF6FF),
     secondaryForeground: Color(0xFF153F77),
     destructive: Color(0xFFDC2626),
     destructiveForeground: Color(0xFFFFFFFF),
     muted: Color(0xFFF4F4F5),
-    mutedForeground: Color(0xFF71717A),
+    mutedForeground: Color(0xFF6B6B74),
     accent: Color(0xFFF4F4F5),
     accentForeground: Color(0xFF18181B),
     background: Color(0xFFFAFAFA),

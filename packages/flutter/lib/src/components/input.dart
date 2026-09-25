@@ -17,7 +17,7 @@ enum RefractionInputValidationState {
 /// A single-line (or, with [maxLines] > 1, multi-line) text input field.
 ///
 /// The border animates between [RefractionColors.input] and
-/// [RefractionColors.ring] as focus changes; setting [disabled] dims the
+/// [RefractionColors.focusRing] as focus changes; setting [disabled] dims the
 /// field and renders it read-only. Use [prefix] and [suffix] to embed icons
 /// or affordances on either side of the text.
 ///
@@ -183,7 +183,7 @@ class _RefractionInputState extends State<RefractionInput> {
         borderColor = colors.success;
         break;
       case null:
-        borderColor = _isFocused ? colors.ring : colors.input;
+        borderColor = _isFocused ? colors.focusRing : colors.input;
         break;
     }
     final backgroundColor = widget.disabled ? colors.muted : colors.background;

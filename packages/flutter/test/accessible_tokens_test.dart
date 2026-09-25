@@ -130,6 +130,41 @@ void main() {
     }
   });
 
+  group('curated palettes: base text pairs meet WCAG AA', () {
+    for (final entry in RefractionColors.curated.entries) {
+      test(entry.key, () {
+        final c = entry.value;
+        final pairs = <(String, Color, Color)>[
+          ('foreground/background', c.foreground, c.background),
+          ('cardForeground/card', c.cardForeground, c.card),
+          ('popoverForeground/popover', c.popoverForeground, c.popover),
+          ('primaryForeground/primary', c.primaryForeground, c.primary),
+          ('secondaryForeground/secondary', c.secondaryForeground, c.secondary),
+          (
+            'destructiveForeground/destructive',
+            c.destructiveForeground,
+            c.destructive,
+          ),
+          ('accentForeground/accent', c.accentForeground, c.accent),
+          ('mutedForeground/background', c.mutedForeground, c.background),
+          ('mutedForeground/muted', c.mutedForeground, c.muted),
+          ('mutedForeground/card', c.mutedForeground, c.card),
+          ('positiveForeground/positive', c.positiveForeground, c.positive),
+          ('cautionForeground/caution', c.cautionForeground, c.caution),
+          ('pendingForeground/pending', c.pendingForeground, c.pending),
+        ];
+        for (final (name, fg, bg) in pairs) {
+          final ratio = RefractionContrast.ratio(fg, bg);
+          expect(
+            ratio,
+            greaterThanOrEqualTo(RefractionContrast.aaText),
+            reason: '${entry.key} $name = ${ratio.toStringAsFixed(2)}',
+          );
+        }
+      });
+    }
+  });
+
   group('accessible roles — derivation and overrides', () {
     final base = RefractionColors.productivityLight;
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../theme/motion.dart';
 import '../theme/refraction_theme.dart';
+import 'pressable.dart';
 
 /// A square checkbox styled with Refraction tokens.
 ///
@@ -35,12 +37,17 @@ class RefractionCheckbox extends StatefulWidget {
   /// When true, the checkbox is rendered at half opacity and ignores taps.
   final bool disabled;
 
+  /// Accessible name announced by screen readers and exposed to web
+  /// automation. Set it when no adjacent text labels the control.
+  final String? semanticLabel;
+
   /// Creates a [RefractionCheckbox].
   const RefractionCheckbox({
     super.key,
     required this.value,
     this.onChanged,
     this.disabled = false,
+    this.semanticLabel,
   });
 
   @override
@@ -48,55 +55,48 @@ class RefractionCheckbox extends StatefulWidget {
 }
 
 class _RefractionCheckboxState extends State<RefractionCheckbox> {
-  bool _isHovered = false;
+  VoidCallback? get _onPressed => widget.disabled || widget.onChanged == null
+      ? null
+      : () => widget.onChanged!(!widget.value);
 
   @override
   Widget build(BuildContext context) {
     final theme = RefractionTheme.of(context);
     final colors = theme.colors;
-
-    final borderColor = _isHovered && !widget.disabled
-        ? colors.ring
-        : colors.input;
-    final backgroundColor = widget.value ? colors.primary : Colors.transparent;
-    final checkColor = colors.primaryForeground;
+    const radius = BorderRadius.all(Radius.circular(4));
 
     return Semantics(
       checked: widget.value,
       enabled: !widget.disabled,
-      child: MouseRegion(
-        onEnter: (_) => setState(() => _isHovered = true),
-        onExit: (_) => setState(() => _isHovered = false),
-        cursor: widget.disabled
-            ? SystemMouseCursors.forbidden
-            : SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: widget.disabled
-              ? null
-              : () {
-                  if (widget.onChanged != null) {
-                    widget.onChanged!(!widget.value);
-                  }
-                },
-          child: Opacity(
+      label: widget.semanticLabel,
+      onTap: _onPressed,
+      child: RefractionPressable(
+        onPressed: _onPressed,
+        borderRadius: radius,
+        builder: (context, state) {
+          final borderColor = state.hovered ? colors.ring : colors.input;
+          return Opacity(
             opacity: widget.disabled ? 0.5 : 1.0,
             child: AnimatedContainer(
-              duration: const Duration(milliseconds: 150),
+              duration: RefractionMotion.duration(
+                context,
+                theme.data.motionFast,
+              ),
               width: 16,
               height: 16,
               decoration: BoxDecoration(
-                color: backgroundColor,
+                color: widget.value ? colors.primary : Colors.transparent,
                 border: Border.all(
                   color: widget.value ? colors.primary : borderColor,
                 ),
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: radius,
               ),
               child: widget.value
-                  ? Icon(Icons.check, size: 14, color: checkColor)
+                  ? Icon(Icons.check, size: 14, color: colors.primaryForeground)
                   : null,
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

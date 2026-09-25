@@ -4,7 +4,7 @@ import '../theme/refraction_theme.dart';
 /// A multi-line text area for longer free-form input.
 ///
 /// The border animates between [RefractionColors.input] and
-/// [RefractionColors.ring] as focus changes; setting [disabled] dims the
+/// [RefractionColors.focusRing] as focus changes; setting [disabled] dims the
 /// field and renders it read-only.
 ///
 /// Mirrors the shadcn-ui `Textarea` primitive shipped in the React and
@@ -136,7 +136,7 @@ class _RefractionTextareaState extends State<RefractionTextarea> {
     final theme = RefractionTheme.of(context);
     final colors = theme.colors;
 
-    final borderColor = _isFocused ? colors.ring : colors.input;
+    final borderColor = _isFocused ? colors.focusRing : colors.input;
     final backgroundColor = widget.disabled ? colors.muted : colors.background;
 
     return Opacity(

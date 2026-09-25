@@ -37,6 +37,7 @@ export 'src/theme/refraction_typography.dart';
 export 'src/theme/contrast.dart';
 export 'src/theme/motion.dart';
 export 'src/theme/focus_ring.dart';
+export 'src/components/pressable.dart';
 export 'src/components/accordion.dart';
 export 'src/components/diff_viewer.dart';
 export 'src/components/dropdown_menu.dart';

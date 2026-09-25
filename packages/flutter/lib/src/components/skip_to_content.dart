@@ -136,7 +136,7 @@ class _RefractionSkipToContentState extends State<RefractionSkipToContent>
                             ...?theme.data.heavyShadow,
                             if (_isFocused)
                               BoxShadow(
-                                color: theme.colors.ring,
+                                color: theme.colors.focusRing,
                                 spreadRadius: 2,
                               ),
                           ],
