@@ -140,6 +140,20 @@ describe('@refraction-ui/react (meta package)', () => {
     expect(rootTypes).not.toMatch(/from ['"]@refraction-ui\//)
   })
 
+  it('ships no JS import of an unpublished @refraction-ui/* package', () => {
+    // Only the metas are on npm; every other workspace package is private,
+    // so a built module that still imports one fails to resolve for every
+    // consumer (0.23.0 shipped `export { cn, cva } from '@refraction-ui/shared'`).
+    const distDir = join(testDir, '..', 'dist')
+    const jsFiles = readdirSync(distDir).filter((f) => /\.(c?js)$/.test(f))
+    const leaking = jsFiles.filter((f) =>
+      /(?:from|import|require)\s*\(?\s*['"]@refraction-ui\//.test(readFileSync(join(distDir, f), 'utf8'))
+    )
+
+    expect(jsFiles.length).toBeGreaterThan(100)
+    expect(leaking).toEqual([])
+  })
+
   it('keeps react-hook-form isolated to the built form subpath', () => {
     const distDir = join(testDir, '..', 'dist')
     const formJs = readFileSync(join(distDir, 'form.js'), 'utf8')
