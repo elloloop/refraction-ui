@@ -1,5 +1,26 @@
 # @refraction-ui/react
 
+## 0.23.0
+
+### Minor Changes
+
+- e6f567a: `Avatar` gains `shape` (`circle` default, `square`). The root no longer has an unnamed `role="img"` (which hid the inner image's alt and fallback text); it becomes `role="img"` only when given an `aria-label`.
+- 397f6ba: `DataTable` renders real content: columns take `cell` (`(row, index) => ReactNode`), a ReactNode `header`, `align` (`start | center | end`), `numeric` (tabular figures, end-aligned), `className` and `headerClassName`; `accessor` is now optional for display-only columns. New table props `getRowKey`, `getRowProps`, `onRowClick` (rows become focusable and activate with click/Enter/Space), `caption`, `wrapperClassName`, and table attributes pass through. Sortable headers are now buttons, so sorting works from the keyboard. New core helpers `resolveColumnAlign`, `resolveRowKey`, `getColumnValue`; new type `DataTableColumn`.
+- 0a74513: Add `NativeSelect`: a styled native `<select>` (`size` `sm | default | lg`, `containerClassName`, every native attribute, ref to the select) for forms and filter bars that want platform pickers and native `change` semantics.
+- 076b89f: `StatGrid` reflows: columns are responsive classes (1 on phones, up to the requested count) instead of a fixed inline `grid-template-columns`, and `columns="auto"` fits as many ~12rem items as the width allows. New `variant` (`plain` callouts | `card` KPI cards), `layout` (`value-first` | `label-first`), and per-item `id`, `description`, `tone` (`default | positive | negative | caution`) and `props` (item attributes).
+- 5bdf4fb: Add composable `Table` primitives — `Table`, `TableHeader`, `TableBody`, `TableRow`, `TableHead`, `TableCell`, `TableCaption` — mapping one-to-one to the HTML table elements so cells can hold components. `Table` takes `density` (`compact | default`), `headTone` (`default | eyebrow`), `fixed` and `containerClassName` (horizontal scroll container); `TableHead`/`TableCell` take `align` (`start | center | end`), `TableCell` takes `numeric`, and `TableHead` defaults `scope="col"`.
+
+### Patch Changes
+
+- 672c3ec: Importing anything from `@refraction-ui/react` no longer makes webpack / Next.js warn "Critical dependency: the request of a dependency is an expression". The optional analytics and telemetry SDKs are loaded with `import(/* webpackIgnore: true */ …)`, so bundlers leave those runtime-optional imports alone.
+- 3584e35: Fix `Command`: items never registered with the root, so `CommandEmpty` always rendered, no item was ever `aria-selected`, typing did not filter and Enter did nothing. Items are now known from the element tree (so the first and server render are correct) plus registration on mount; the search filters them (custom `filter` honoured), Arrow keys move the highlight, Enter and click run the item's `onSelect`, hovering highlights, and the input's `aria-activedescendant` follows the highlight. Ids are stable (`useId`). An item's value is its `value` prop, else its text.
+- 18b1d70: `DialogContent` only sets `aria-labelledby` / `aria-describedby` when a `DialogTitle` / `DialogDescription` is actually rendered. Previously both always pointed at ids that might not exist, leaving an unnamed dialog that looked labelled; without a title, name the dialog with `aria-label`.
+- 11d5dcb: `DropdownMenuContent` is anchored under its trigger: it was portalled to `<body>` with no positioning. It now uses fixed coordinates from the trigger (following scroll and resize), gains `align` (`start | center | end`) and `sideOffset`, and closes on a pointer press outside the menu and trigger. `computeMenuPosition` is exported for reuse.
+- 19fb58d: `LineChart` fixes: y-axis ticks are now round numbers on a "nice" 1-2-5 scale (e.g. 0, 2000, 4000, 6000) instead of fractions of `max × headroom` (e.g. 5999.9999), so tick formatters print clean labels; `niceScale` is exported. In React the chart measures its container (ResizeObserver, SSR falls back to `width`) and draws at that width, so axis text and `height` stay at their authored size in narrow panels instead of being scaled down; x labels thin automatically to fit.
+- 38dd5ca: - `cn` and `cva` are now exported from `@refraction-ui/react` (the meta's docs already said so).
+  - `Button asChild` no longer forces `type="button"` onto a non-button child such as a link.
+  - `TabsTrigger` sets `aria-controls` only when its panel is actually rendered (the selected tab with a `TabsContent`), instead of pointing at missing elements.
+
 ## 0.22.0
 
 ### Minor Changes
