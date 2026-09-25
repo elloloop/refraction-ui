@@ -96,6 +96,7 @@
     "@refraction-ui/astro-mastery-bar": "workspace:*",
     "@refraction-ui/astro-mini-map": "workspace:*",
     "@refraction-ui/astro-mobile-nav": "workspace:*",
+    "@refraction-ui/astro-native-select": "workspace:*",
     "@refraction-ui/astro-navbar": "workspace:*",
     "@refraction-ui/astro-numbered-steps": "workspace:*",
     "@refraction-ui/astro-otp-input": "workspace:*",

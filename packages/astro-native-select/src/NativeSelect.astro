@@ -1,0 +1,26 @@
+---
+import {
+  nativeSelectChevronPath,
+  nativeSelectIconClass,
+  nativeSelectVariants,
+  nativeSelectWrapperClass,
+  type NativeSelectSize,
+} from '@refraction-ui/native-select'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends Omit<astroHTML.JSX.SelectHTMLAttributes, 'size'> {
+  size?: NativeSelectSize
+  containerClass?: string
+}
+
+const { size = 'default', class: className, containerClass, ...rest } = Astro.props
+---
+
+<span class={cn(nativeSelectWrapperClass, containerClass)} data-slot="native-select">
+  <select class={cn(nativeSelectVariants({ size }), className)} {...rest}>
+    <slot />
+  </select>
+  <svg class={nativeSelectIconClass} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d={nativeSelectChevronPath} />
+  </svg>
+</span>

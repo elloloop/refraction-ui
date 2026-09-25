@@ -14,6 +14,7 @@ const componentGroups = [
       { name: 'Input', href: '/components/input' },
       { name: 'Textarea', href: '/components/textarea' },
       { name: 'Select', href: '/components/select' },
+      { name: 'Native Select', href: '/components/native-select' },
       { name: 'Checkbox', href: '/components/checkbox' },
       { name: 'Switch', href: '/components/switch' },
       { name: 'OTP Input', href: '/components/otp-input' },

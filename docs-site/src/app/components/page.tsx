@@ -9,6 +9,7 @@ const components = [
   { name: 'Input', href: '/components/input', description: 'Text input with size variants, validation states, and multiple input types.', category: 'Core UI' },
   { name: 'Textarea', href: '/components/textarea', description: 'Multi-line text input with size variants, placeholder, and disabled states.', category: 'Core UI' },
   { name: 'Select', href: '/components/select', description: 'Dropdown select with compound component pattern and keyboard navigation.', category: 'Core UI' },
+  { name: 'Native Select', href: '/components/native-select', description: 'Styled native select with platform pickers and form semantics.', category: 'Forms' },
   { name: 'Checkbox', href: '/components/checkbox', description: 'Checkbox with checked, unchecked, and indeterminate states.', category: 'Core UI' },
   { name: 'Switch', href: '/components/switch', description: 'Toggle switch with three sizes and disabled state.', category: 'Core UI' },
   { name: 'OTP Input', href: '/components/otp-input', description: 'One-time password input with auto-advance and paste support.', category: 'Core UI' },
