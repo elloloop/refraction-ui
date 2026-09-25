@@ -1,5 +1,19 @@
 # @refraction-ui/astro
 
+## 0.20.0
+
+### Minor Changes
+
+- e6f567a: `Avatar` gains `shape` (`circle` default, `square`). The root no longer has an unnamed `role="img"` (which hid the inner image's alt and fallback text); it becomes `role="img"` only when given an `aria-label`.
+- 397f6ba: `DataTable` renders real content: columns take `cell` (`(row, index) => ReactNode`), a ReactNode `header`, `align` (`start | center | end`), `numeric` (tabular figures, end-aligned), `className` and `headerClassName`; `accessor` is now optional for display-only columns. New table props `getRowKey`, `getRowProps`, `onRowClick` (rows become focusable and activate with click/Enter/Space), `caption`, `wrapperClassName`, and table attributes pass through. Sortable headers are now buttons, so sorting works from the keyboard. New core helpers `resolveColumnAlign`, `resolveRowKey`, `getColumnValue`; new type `DataTableColumn`.
+- 0a74513: Add `NativeSelect`: a styled native `<select>` (`size` `sm | default | lg`, `containerClassName`, every native attribute, ref to the select) for forms and filter bars that want platform pickers and native `change` semantics.
+- 076b89f: `StatGrid` reflows: columns are responsive classes (1 on phones, up to the requested count) instead of a fixed inline `grid-template-columns`, and `columns="auto"` fits as many ~12rem items as the width allows. New `variant` (`plain` callouts | `card` KPI cards), `layout` (`value-first` | `label-first`), and per-item `id`, `description`, `tone` (`default | positive | negative | caution`) and `props` (item attributes).
+- 5bdf4fb: Add composable `Table` primitives — `Table`, `TableHeader`, `TableBody`, `TableRow`, `TableHead`, `TableCell`, `TableCaption` — mapping one-to-one to the HTML table elements so cells can hold components. `Table` takes `density` (`compact | default`), `headTone` (`default | eyebrow`), `fixed` and `containerClassName` (horizontal scroll container); `TableHead`/`TableCell` take `align` (`start | center | end`), `TableCell` takes `numeric`, and `TableHead` defaults `scope="col"`.
+
+### Patch Changes
+
+- 19fb58d: `LineChart` fixes: y-axis ticks are now round numbers on a "nice" 1-2-5 scale (e.g. 0, 2000, 4000, 6000) instead of fractions of `max × headroom` (e.g. 5999.9999), so tick formatters print clean labels; `niceScale` is exported. In React the chart measures its container (ResizeObserver, SSR falls back to `width`) and draws at that width, so axis text and `height` stay at their authored size in narrow panels instead of being scaled down; x labels thin automatically to fit.
+
 ## 0.19.0
 
 ### Minor Changes
