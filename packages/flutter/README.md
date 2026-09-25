@@ -386,6 +386,17 @@ static and animated render paths. Hosts add their own packs via
 > If you switch the renderer away from Twemoji, that attribution requirement no
 > longer applies to your build.
 
+Jumbo emoji-only chat messages (`RefractionChatBubble`) animate with bundled
+**[Noto Animated Emoji](https://googlefonts.github.io/noto-emoji-animation/)**
+Lottie files (`assets/emoji_animated/`, listed in `tool/animated_emoji.txt`,
+fetched by `dart run tool/fetch_animated_emoji.dart`). Glyphs without a Noto
+animation stay static.
+
+> **"Noto Animated Emoji" by Google is licensed under
+> [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)** (unmodified).
+> Apps that display these animations must carry this credit in their own
+> attribution/licence screen. See [`NOTICE`](NOTICE).
+
 ## License
 
 MIT © [elloloop](https://github.com/elloloop). See [`LICENSE`](LICENSE).
