@@ -19,6 +19,11 @@ interface DialogContextValue {
   contentId: string
   titleId: string
   descriptionId: string
+  /** Whether a DialogTitle / DialogDescription is mounted — only then is it referenced. */
+  hasTitle: boolean
+  hasDescription: boolean
+  setHasTitle: (present: boolean) => void
+  setHasDescription: (present: boolean) => void
 }
 
 const DialogContext = React.createContext<DialogContextValue | null>(null)
@@ -74,6 +79,8 @@ export function Dialog({
     apiRef.current = createDialog({ open, modal })
   }
   const api = apiRef.current
+  const [hasTitle, setHasTitle] = React.useState(false)
+  const [hasDescription, setHasDescription] = React.useState(false)
 
   const ctx = React.useMemo<DialogContextValue>(
     () => ({
@@ -83,8 +90,12 @@ export function Dialog({
       contentId: api.ids.content,
       titleId: api.ids.title,
       descriptionId: api.ids.description,
+      hasTitle,
+      hasDescription,
+      setHasTitle,
+      setHasDescription,
     }),
-    [open, handleOpenChange, modal, api.ids.content, api.ids.title, api.ids.description],
+    [open, handleOpenChange, modal, api.ids.content, api.ids.title, api.ids.description, hasTitle, hasDescription],
   )
 
   return React.createElement(DialogContext.Provider, { value: ctx }, children)
@@ -159,9 +170,23 @@ export const DialogOverlay = React.forwardRef<HTMLDivElement, DialogOverlayProps
 
 export interface DialogContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
+/**
+ * Whether `type` appears in the element tree — covers the first and server
+ * render, before a mounted DialogTitle/DialogDescription has registered.
+ * Parts nested inside custom components are found once they mount.
+ */
+function containsElement(node: React.ReactNode, type: React.ElementType): boolean {
+  let found = false
+  React.Children.forEach(node, (child) => {
+    if (found || !React.isValidElement<{ children?: React.ReactNode }>(child)) return
+    found = child.type === type || containsElement(child.props.children, type)
+  })
+  return found
+}
+
 export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
   function DialogContent({ className, children, onKeyDown, ...props }, ref) {
-    const { open, onOpenChange, modal, contentId, titleId, descriptionId } =
+    const { open, onOpenChange, modal, contentId, titleId, descriptionId, hasTitle, hasDescription } =
       useDialogContext()
 
     const api = React.useMemo(
@@ -188,8 +213,11 @@ export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps
         ref,
         role: 'dialog',
         'aria-modal': modal,
-        'aria-labelledby': titleId,
-        'aria-describedby': descriptionId,
+        // Reference only parts that exist: an id pointing at nothing leaves the
+        // dialog unnamed while looking labelled.
+        'aria-labelledby': hasTitle || containsElement(children, DialogTitle) ? titleId : undefined,
+        'aria-describedby':
+          hasDescription || containsElement(children, DialogDescription) ? descriptionId : undefined,
         id: contentId,
         className: cn(dialogContentVariants(), className),
         onKeyDown: handleKeyDown,
@@ -252,7 +280,11 @@ export interface DialogTitleProps extends React.HTMLAttributes<HTMLHeadingElemen
 
 export const DialogTitle = React.forwardRef<HTMLHeadingElement, DialogTitleProps>(
   function DialogTitle({ className, ...props }, ref) {
-    const { titleId } = useDialogContext()
+    const { titleId, setHasTitle } = useDialogContext()
+    React.useEffect(() => {
+      setHasTitle(true)
+      return () => setHasTitle(false)
+    }, [setHasTitle])
 
     return React.createElement('h2', {
       ref,
@@ -273,7 +305,11 @@ export const DialogDescription = React.forwardRef<
   HTMLParagraphElement,
   DialogDescriptionProps
 >(function DialogDescription({ className, ...props }, ref) {
-  const { descriptionId } = useDialogContext()
+  const { descriptionId, setHasDescription } = useDialogContext()
+  React.useEffect(() => {
+    setHasDescription(true)
+    return () => setHasDescription(false)
+  }, [setHasDescription])
 
   return React.createElement('p', {
     ref,
