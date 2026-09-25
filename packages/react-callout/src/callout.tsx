@@ -22,7 +22,10 @@ export interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Callout = React.forwardRef<HTMLDivElement, CalloutProps>(
   function Callout({ className, variant, asChild = false, ...props }, ref) {
-    const api = createCallout({ role: variant === 'destructive' ? 'alert' : 'region' })
+    const api = createCallout({
+      destructive: variant === 'destructive',
+      labelled: Boolean(props['aria-label'] || props['aria-labelledby']),
+    })
     const classes = cn(calloutVariants({ variant }), className)
 
     if (asChild) {

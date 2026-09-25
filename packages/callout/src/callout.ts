@@ -1,8 +1,16 @@
 import type { AccessibilityProps } from '@refraction-ui/shared'
 
 export interface CalloutProps {
-  /** Optional accessible role override */
+  /** Explicit role; always wins. */
   role?: string
+  /** Destructive callouts are announced (`role="alert"`). */
+  destructive?: boolean
+  /**
+   * Whether the callout has an accessible name (`aria-label` /
+   * `aria-labelledby`). Only a named callout becomes a `region` landmark — an
+   * unnamed region is an axe violation and landmark noise.
+   */
+  labelled?: boolean
 }
 
 export interface CalloutAPI {
@@ -13,10 +21,11 @@ export interface CalloutAPI {
 export function createCallout(props: CalloutProps = {}): CalloutAPI {
   const ariaProps: Partial<AccessibilityProps> = {}
   
-  // Callouts are usually alert or region depending on severity
   if (props.role) {
     ariaProps.role = props.role
-  } else {
+  } else if (props.destructive) {
+    ariaProps.role = 'alert'
+  } else if (props.labelled) {
     ariaProps.role = 'region'
   }
 
