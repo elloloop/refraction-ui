@@ -5,6 +5,7 @@ import {
   avatarImageVariants,
   avatarFallbackVariants,
   type AvatarSize,
+  type AvatarShape,
 } from '@refraction-ui/avatar'
 import { cn } from '@refraction-ui/shared'
 
@@ -28,6 +29,8 @@ const AvatarContext = React.createContext<AvatarContextValue>({
 /* ─── Avatar (root) ────────────────────────────────────────────── */
 export interface AvatarProps extends React.HTMLAttributes<HTMLSpanElement> {
   size?: AvatarSize
+  /** `circle` (default) or `square` (rounded corners) — e.g. for teams and organisations. */
+  shape?: AvatarShape
 }
 
 /**
@@ -35,17 +38,17 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLSpanElement> {
  * Compound component: use Avatar > AvatarImage + AvatarFallback.
  */
 export const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
-  function Avatar({ size = 'md', className, children, ...props }, ref) {
+  function Avatar({ size = 'md', shape = 'circle', className, children, ...props }, ref) {
     const [imageLoaded, setImageLoaded] = React.useState(false)
     const [imageError, setImageError] = React.useState(false)
 
-    const api = createAvatar({ size })
+    const api = createAvatar({ size, alt: props['aria-label'] })
 
     return (
       <AvatarContext.Provider value={{ size, imageLoaded, imageError, setImageLoaded, setImageError }}>
         <span
           ref={ref}
-          className={cn(avatarVariants({ size }), className)}
+          className={cn(avatarVariants({ size, shape }), className)}
           {...api.ariaProps}
           {...api.dataAttributes}
           {...props}

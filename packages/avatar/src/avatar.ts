@@ -2,6 +2,9 @@ import type { AccessibilityProps } from '@refraction-ui/shared'
 
 export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
+/** Outline of the avatar. */
+export type AvatarShape = 'circle' | 'square'
+
 export type AvatarLoadingStatus = 'idle' | 'loading' | 'loaded' | 'error'
 
 export interface AvatarProps {
@@ -44,10 +47,12 @@ export function getInitials(name: string): string {
 export function createAvatar(props: AvatarProps = {}): AvatarAPI {
   const { src, alt = '', fallback = '', size = 'md' } = props
 
-  const ariaProps: Partial<AccessibilityProps> = {
-    role: 'img',
-  }
+  // role="img" makes its children presentational, so it is only applied when
+  // the avatar itself has a name; otherwise the inner <img alt> / fallback
+  // text stays exposed.
+  const ariaProps: Partial<AccessibilityProps> = {}
   if (alt) {
+    ariaProps.role = 'img'
     ariaProps['aria-label'] = alt
   }
 

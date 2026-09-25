@@ -11,8 +11,12 @@ export const avatarTokens: TokenContract = {
 }
 
 export const avatarVariants = cva({
-  base: 'relative flex shrink-0 overflow-hidden rounded-full',
+  base: 'relative flex shrink-0 overflow-hidden',
   variants: {
+    shape: {
+      circle: 'rounded-full',
+      square: 'rounded-md',
+    },
     size: {
       xs: 'h-6 w-6',
       sm: 'h-8 w-8',
@@ -22,6 +26,7 @@ export const avatarVariants = cva({
     },
   },
   defaultVariants: {
+    shape: 'circle',
     size: 'md',
   },
 })
@@ -31,7 +36,7 @@ export const avatarImageVariants = cva({
 })
 
 export const avatarFallbackVariants = cva({
-  base: 'flex h-full w-full items-center justify-center rounded-full bg-muted text-muted-foreground',
+  base: 'flex h-full w-full items-center justify-center rounded-[inherit] bg-muted text-muted-foreground',
   variants: {
     size: {
       xs: 'text-xs',
