@@ -1,5 +1,6 @@
 /// Generated: codepoint keys of the bundled animated Noto emoji (Lottie),
-/// one per file in assets/emoji_animated/. Regenerate with the fetch tool.
+/// one per file in assets/emoji_animated/. Regenerate with
+/// `dart run tool/fetch_animated_emoji.dart`.
 const Set<String> kAnimatedEmojiAssets = {
   '1f308',
   '1f31f',
@@ -27,6 +28,7 @@ const Set<String> kAnimatedEmojiAssets = {
   '1f438',
   '1f43b',
   '1f43c',
+  '1f440',
   '1f446',
   '1f447',
   '1f448',
@@ -53,6 +55,7 @@ const Set<String> kAnimatedEmojiAssets = {
   '1f49c',
   '1f49d',
   '1f49e',
+  '1f4a1',
   '1f4a9',
   '1f4aa',
   '1f4ab',
@@ -123,6 +126,7 @@ const Set<String> kAnimatedEmojiAssets = {
   '1f64a',
   '1f64c',
   '1f64f',
+  '1f680',
   '1f90c',
   '1f90d',
   '1f90e',
@@ -177,17 +181,21 @@ const Set<String> kAnimatedEmojiAssets = {
   '1faf0',
   '1faf5',
   '1faf6',
+  '23f3',
   '2615',
   '261d',
   '26a1',
   '26bd',
   '26c4',
+  '2705',
   '270a',
   '270b',
   '270c',
   '2728',
   '2744',
+  '2753',
   '2763',
   '2764',
+  '2795',
   '2b50',
 };

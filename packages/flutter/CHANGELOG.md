@@ -1,3 +1,9 @@
+## Unreleased
+
+- **Feature — 7 more animated reaction emoji.** ✅ `2705`, 👀 `1f440`, ➕ `2795`, 💡 `1f4a1`, ❓ `2753`, 🚀 `1f680`, ⏳ `23f3` now animate as jumbo emoji-only messages in `RefractionChatBubble` (Google Noto Animated Emoji, Lottie, unmodified; +261 KB, 196 animations total). Every common work-chat reaction now animates.
+- **Tooling:** new `tool/fetch_animated_emoji.dart` + `tool/animated_emoji.txt`. The manifest comment pointed at "the fetch tool", but no such tool was committed. Now the key list is the source of truth: the tool fetches missing animations from the official Noto catalogue, reports any key without a Noto animation (those stay static, and no other art style is substituted), and regenerates `animated_emoji_manifest.dart` from the assets on disk.
+- **Licence fix (compliance):** the animated emoji are **CC BY 4.0**, not SIL OFL 1.1 / Apache 2.0 as `NOTICE` claimed. `NOTICE` and the README now carry the correct attribution. New `registerRefractionUiLicenses()` adds the Noto Animated Emoji and Twemoji CC BY 4.0 credits to Flutter's `LicenseRegistry`, so an app's `showLicensePage` includes them (package `LICENSE` files alone only list MIT). Apps that display these animations should call it at startup.
+
 ## 0.49.0
 
 - **Theme (additive, non-breaking): a much richer, semantic-role token vocabulary so a product's whole look is token-driven.** Every new token is **optional** with a getter that **derives a sensible default from the existing tokens**, so all curated palettes, the six named-theme statics, and every existing `RefractionColors`/`RefractionThemeData` construction keep compiling and rendering **pixel-identically** — nothing new is required.

@@ -34,6 +34,7 @@ export 'src/theme/refraction_colors.dart';
 export 'src/theme/refraction_theme.dart';
 export 'src/theme/refraction_theme_data.dart';
 export 'src/theme/refraction_typography.dart';
+export 'src/data/third_party_licenses.dart';
 export 'src/components/accordion.dart';
 export 'src/components/diff_viewer.dart';
 export 'src/components/dropdown_menu.dart';

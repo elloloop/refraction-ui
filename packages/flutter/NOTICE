@@ -31,12 +31,24 @@ License. These are a small starter pack; hosts supply their own via the
 
 Animated Noto emoji (assets/emoji_animated/*.json)
 ---------------------------------------------------
-The Lottie animations bundled under `assets/emoji_animated/` are from
-Google's Noto animated emoji project, fetched from the official emoji CDN
-(fonts.gstatic.com/s/e/notoemoji/). Noto emoji are licensed under the
-SIL Open Font License 1.1 (https://openfontlicense.org); image assets and
-tools in the project are under the Apache License 2.0.
+The Lottie animations bundled under `assets/emoji_animated/` (one file per
+key in `tool/animated_emoji.txt`) are Google's animated Noto emoji, fetched
+unmodified from the official catalogue's CDN
+(fonts.gstatic.com/s/e/notoemoji/latest/<codepoint>/lottie.json) by
+`tool/fetch_animated_emoji.dart`.
 
-  Copyright Google Inc. and other contributors
+  "Noto Animated Emoji" by Google, licensed under CC BY 4.0:
+  https://creativecommons.org/licenses/by/4.0/
   Source: https://googlefonts.github.io/noto-emoji-animation/
-          https://github.com/googlefonts/noto-emoji
+  No changes were made to the animations.
+
+CC BY 4.0 requires attribution. This NOTICE, together with the credit in the
+README, provides it. An app that ships `refraction_ui` and displays these
+animations (jumbo emoji-only chat messages in `RefractionChatBubble`) must keep
+an equivalent credit in its own licence/attribution screen; Flutter's
+`LicenseRegistry` does not pick up asset licences automatically.
+
+Note: the animated set is licensed separately from the static Noto Color Emoji
+font (SIL OFL 1.1) and the noto-emoji repository's tooling (Apache 2.0). An
+earlier version of this NOTICE cited those licences for these files; that was
+wrong. CC BY 4.0 is the licence that applies to the animations.
