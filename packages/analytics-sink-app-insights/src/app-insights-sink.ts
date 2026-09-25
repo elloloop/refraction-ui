@@ -131,7 +131,7 @@ function createClientSdkSink(opts: ClientSdkOptions): AnalyticsSink {
         return instance
       }
       // Lazy, dynamic, optional — never a static/hard dependency.
-      const mod = (await import(appInsightsWebSpecifier)) as {
+      const mod = (await import(/* webpackIgnore: true */ /* @vite-ignore */ appInsightsWebSpecifier)) as {
         ApplicationInsights: new (cfg: {
           config: {
             connectionString?: string

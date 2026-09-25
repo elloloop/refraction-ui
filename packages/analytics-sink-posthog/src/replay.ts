@@ -78,7 +78,7 @@ export interface SessionReplayHandle {
 const posthogJsSpecifier = 'posthog-js'
 
 async function defaultLoad(): Promise<PostHogReplay> {
-  const mod = (await import(posthogJsSpecifier)) as unknown as
+  const mod = (await import(/* webpackIgnore: true */ /* @vite-ignore */ posthogJsSpecifier)) as unknown as
     | { default: PostHogReplay }
     | PostHogReplay
   return 'default' in mod ? mod.default : mod

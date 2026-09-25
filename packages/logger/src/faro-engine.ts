@@ -74,11 +74,11 @@ async function loadFaroTransport(
     // Indirected so bundlers keep these as runtime-optional dynamic imports.
     const sdkName = '@grafana/faro-web-sdk'
     const tracingName = '@grafana/faro-web-tracing'
-    const sdk = (await import(/* @vite-ignore */ sdkName)) as {
+    const sdk = (await import(/* webpackIgnore: true */ /* @vite-ignore */ sdkName)) as {
       initializeFaro: (cfg: unknown) => unknown
       getWebInstrumentations: () => unknown[]
     }
-    const tracing = (await import(/* @vite-ignore */ tracingName)) as {
+    const tracing = (await import(/* webpackIgnore: true */ /* @vite-ignore */ tracingName)) as {
       TracingInstrumentation: new () => unknown
     }
 
