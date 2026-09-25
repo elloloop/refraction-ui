@@ -4,14 +4,19 @@ import { CodeBlock } from '@/components/code-block'
 import { InstallCommand } from '@/components/install-command'
 
 const dataTableProps = [
-  { name: 'columns', type: 'ColumnDef<T>[]', description: 'Column definitions with id, header, accessor, sortable, filterable.' },
+  { name: 'columns', type: 'DataTableColumn<T>[]', description: 'Columns: id, header (ReactNode), accessor (sort/filter value), cell ((row, index) => ReactNode), align (start | center | end), numeric (tabular, end-aligned), sortable, filterable, className, headerClassName.' },
   { name: 'data', type: 'T[]', description: 'Array of data rows.' },
   { name: 'sortBy', type: 'string', description: 'Controlled sort column.' },
   { name: 'sortDir', type: "'asc' | 'desc'", default: "'asc'", description: 'Sort direction.' },
   { name: 'onSort', type: '(columnId: string, direction: SortDirection) => void', description: 'Callback on sort change.' },
   { name: 'filters', type: 'Record<string, string>', description: 'Controlled filter values.' },
   { name: 'emptyMessage', type: 'string', default: "'No data available'", description: 'Message when table is empty.' },
-  { name: 'className', type: 'string', description: 'Additional CSS classes.' },
+  { name: 'className', type: 'string', description: 'Additional CSS classes for the <table>; other table attributes (aria-label, …) pass through.' },
+  { name: 'getRowKey', type: '(row: T, index: number) => string | number', description: 'Stable row key. Defaults to the index — pass one when rows can reorder.' },
+  { name: 'getRowProps', type: '(row: T, index: number) => HTMLAttributes<HTMLTableRowElement>', description: 'Extra attributes/handlers per row.' },
+  { name: 'onRowClick', type: '(row: T, index: number) => void', description: 'Row action: rows become focusable and activate on click, Enter or Space.' },
+  { name: 'caption', type: 'ReactNode', description: 'Table caption.' },
+  { name: 'wrapperClassName', type: 'string', description: 'Class for the horizontal scroll wrapper.' },
 ]
 
 const usageCode = `import { DataTable } from '@refraction-ui/react'
@@ -45,6 +50,14 @@ export default function DataTablePage() {
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Examples</h2>
         <p className="text-sm text-muted-foreground">Click column headers to sort. Use the filter row to search.</p>
         <DataTableExamples section="basic" />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Custom cells and row actions</h2>
+        <p className="text-sm text-muted-foreground">
+          <code className="text-xs bg-muted px-1 rounded">cell</code> renders any ReactNode; <code className="text-xs bg-muted px-1 rounded">numeric</code> columns align to the end with tabular figures; <code className="text-xs bg-muted px-1 rounded">onRowClick</code> makes rows keyboard-activatable. For fully custom markup use the Table primitives.
+        </p>
+        <DataTableExamples section="rich" />
       </section>
       {/* Install */}
       <section className="space-y-3">

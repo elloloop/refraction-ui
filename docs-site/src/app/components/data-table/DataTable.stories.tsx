@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { DataTable } from '@refraction-ui/react-data-table'
+import { DataTableExamples } from './examples'
 
 const sampleData = [
   { id: 1, name: 'Alice Johnson', role: 'Engineer', status: 'Active' },
@@ -30,4 +31,8 @@ export const Default: Story = {
   render: (args) => (
     <DataTable {...args} />
   ),
+}
+
+export const RichCellsAndRowActions: Story = {
+  render: () => <DataTableExamples section="rich" />,
 }

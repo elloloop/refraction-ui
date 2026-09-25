@@ -53,3 +53,21 @@ export const rowVariants = cva({
     selected: 'false',
   },
 })
+
+/** Logical text alignment per column alignment. */
+export const dataTableAlignClass = {
+  start: 'text-start',
+  center: 'text-center',
+  end: 'text-end',
+} as const
+
+/** Numeric cells: tabular figures, no wrapping. */
+export const dataTableNumericClass = 'tabular-nums whitespace-nowrap'
+
+/** Button inside a sortable header: the keyboard-reachable sort control. */
+export const dataTableSortButtonClass =
+  'inline-flex items-center gap-1 rounded-sm font-inherit text-inherit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
+
+/** Rows with a row action: pointer + keyboard focus ring. */
+export const dataTableActionRowClass =
+  'cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring'

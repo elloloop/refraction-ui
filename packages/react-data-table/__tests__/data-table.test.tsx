@@ -138,3 +138,56 @@ describe('DataTable (React SSR)', () => {
     expect(html).not.toContain('Bob')
   })
 })
+
+describe('DataTable cell renderers, alignment and row actions (SSR)', () => {
+  interface Order { id: string; customer: string; total: number }
+  const orders: Order[] = [
+    { id: 'o-1', customer: 'Ada', total: 1200 },
+    { id: 'o-2', customer: 'Alan', total: 84 },
+  ]
+  const render = (props: Partial<React.ComponentProps<typeof DataTable<Order>>> = {}) =>
+    renderToString(
+      React.createElement(DataTable<Order>, {
+        columns: [
+          { id: 'customer', header: 'Customer', accessor: (r) => r.customer, sortable: true, cell: (r) => React.createElement('a', { href: `/c/${r.id}` }, r.customer) },
+          { id: 'total', header: 'Total', accessor: (r) => r.total, numeric: true, cell: (r) => `$${r.total}` },
+          { id: 'actions', header: React.createElement('span', { className: 'sr-only' }, 'Actions'), cell: () => React.createElement('button', { type: 'button' }, 'View'), align: 'center' },
+        ],
+        data: orders,
+        ...props,
+      }),
+    )
+
+  it('renders ReactNode cells and headers', () => {
+    const html = render()
+    expect(html).toContain('<a href="/c/o-1">Ada</a>')
+    expect(html).toContain('$1200')
+    expect(html).toContain('<span class="sr-only">Actions</span>')
+    expect(html).toContain('>View</button>')
+  })
+
+  it('aligns numeric columns to the end with tabular figures, and honours align', () => {
+    const html = render()
+    expect(html).toContain('text-end')
+    expect(html).toContain('tabular-nums')
+    expect(html).toContain('text-center')
+  })
+
+  it('makes sortable headers keyboard-reachable buttons', () => {
+    expect(render()).toMatch(/<th[^>]*><button type="button"[^>]*>Customer/)
+  })
+
+  it('makes rows focusable only with a row action, and passes row props', () => {
+    expect(render()).not.toContain('tabindex="0"')
+    const html = render({ onRowClick: () => {}, getRowProps: (r) => ({ 'data-order': r.id } as React.HTMLAttributes<HTMLTableRowElement>) })
+    expect((html.match(/tabindex="0"/g) ?? []).length).toBe(2)
+    expect(html).toContain('data-order="o-2"')
+    expect(html).toContain('cursor-pointer')
+  })
+
+  it('renders a caption and passes table attributes', () => {
+    const html = render({ caption: 'Recent orders', 'aria-label': 'Orders' })
+    expect(html).toContain('Recent orders</caption>')
+    expect(html).toContain('aria-label="Orders"')
+  })
+})

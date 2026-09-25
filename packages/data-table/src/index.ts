@@ -1,6 +1,10 @@
 export {
   createDataTable,
+  resolveColumnAlign,
+  getColumnValue,
+  resolveRowKey,
   type ColumnDef,
+  type DataTableAlign,
   type SortDirection,
   type DataTableProps,
   type DataTableState,
@@ -12,4 +16,8 @@ export {
   headerVariants,
   cellVariants,
   rowVariants,
+  dataTableAlignClass,
+  dataTableNumericClass,
+  dataTableSortButtonClass,
+  dataTableActionRowClass,
 } from './data-table.styles.js'
