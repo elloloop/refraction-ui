@@ -5,6 +5,8 @@ export {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuLabel,
+  computeMenuPosition,
+  type DropdownMenuAlign,
   type DropdownMenuProps,
   type DropdownMenuTriggerProps,
   type DropdownMenuContentProps,

@@ -8,6 +8,8 @@ const dropdownProps = [
   { name: 'defaultOpen', type: 'boolean', default: 'false', description: 'Initial open state.' },
   { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Callback on open change.' },
   { name: 'children', type: 'ReactNode', description: 'Trigger + Content with items.' },
+  { name: 'DropdownMenuContent align', type: "'start' | 'center' | 'end'", default: "'start'", description: 'The menu is portalled to <body> and anchored under the trigger (following scroll/resize); align picks which trigger edge it lines up with. A pointer press outside closes it.' },
+  { name: 'DropdownMenuContent sideOffset', type: 'number', default: '4', description: 'Gap in px between trigger and menu.' },
 ]
 
 const triggerProps = [
