@@ -48,6 +48,7 @@ const components = [
   // Data
   { name: 'Data Table', href: '/components/data-table', description: 'Sortable, filterable data table with column definitions.', category: 'Data' },
   { name: 'Action List', href: '/components/action-list', description: 'Vertical list whose rows are each one keyboard-reachable action.', category: 'Data' },
+  { name: 'Table', href: '/components/table', description: 'Composable semantic table primitives for cells that hold components.', category: 'Data' },
   { name: 'Progress Display', href: '/components/progress-display', description: 'Stats grid, progress bar, and badge display components.', category: 'Data' },
   { name: 'Charts', href: '/components/charts', description: 'Composable SVG chart primitives for data visualization.', category: 'Data' },
   { name: 'Line Chart', href: '/components/line-chart', description: 'Responsive multi-series line chart on a shared scale with tooltip and legend.', category: 'Data' },

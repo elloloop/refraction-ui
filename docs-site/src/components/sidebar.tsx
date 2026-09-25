@@ -48,6 +48,7 @@ const componentGroups = [
     items: [
       { name: 'Data Table', href: '/components/data-table' },
       { name: 'Action List', href: '/components/action-list' },
+      { name: 'Table', href: '/components/table' },
       { name: 'Progress Display', href: '/components/progress-display' },
       { name: 'Kanban Board', href: '/components/kanban-board' },
       { name: 'Sortable List', href: '/components/sortable-list' },

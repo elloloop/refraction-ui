@@ -161,6 +161,7 @@ export const EXPECT_SLOT_CONTENT = new Set([
   'astro-skip-to-content',
   'astro-steps',
   'astro-sticky-note',
+  'astro-table',
   'astro-tabs',
   'astro-toast',
   'astro-tooltip',

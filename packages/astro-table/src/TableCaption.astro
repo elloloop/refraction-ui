@@ -1,0 +1,9 @@
+---
+import { tableCaptionClass } from '@refraction-ui/table'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+const { class: className, ...rest } = Astro.props
+---
+
+<caption class={cn(tableCaptionClass, className)} data-slot="table-caption" {...rest}><slot /></caption>

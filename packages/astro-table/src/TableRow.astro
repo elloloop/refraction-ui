@@ -1,0 +1,9 @@
+---
+import { tableRowClass } from '@refraction-ui/table'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+const { class: className, ...rest } = Astro.props
+---
+
+<tr class={cn(tableRowClass, className)} data-slot="table-row" {...rest}><slot /></tr>
