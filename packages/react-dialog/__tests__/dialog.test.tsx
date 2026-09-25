@@ -69,8 +69,9 @@ describe('Dialog (React SSR)', () => {
     expect(html).toContain('role="dialog"')
     expect(html).toContain('aria-modal="true"')
     expect(html).toContain('Hello Dialog')
-    expect(html).toContain('aria-labelledby')
-    expect(html).toContain('aria-describedby')
+    // No title/description parts → nothing to reference.
+    expect(html).not.toContain('aria-labelledby')
+    expect(html).not.toContain('aria-describedby')
   })
 
   it('renders non-modal content', () => {
@@ -386,5 +387,32 @@ describe('Dialog (React) - custom className on DialogContent', () => {
     expect(html).toContain('my-custom-dialog')
     // Also has base styles
     expect(html).toContain('z-50')
+  })
+})
+
+describe('Dialog aria references follow the parts that exist', () => {
+  it('references the title and description only when rendered', () => {
+    const withTitle = renderToString(
+      React.createElement(Dialog, { open: true },
+        React.createElement(DialogContent, null,
+          React.createElement('div', null, React.createElement(DialogTitle, null, 'Delete file?')),
+        ),
+      ),
+    )
+    const labelledby = withTitle.match(/aria-labelledby="([^"]+)"/)?.[1]
+    expect(labelledby).toBeTruthy()
+    expect(withTitle).toContain(`id="${labelledby}"`)
+    expect(withTitle).not.toContain('aria-describedby')
+
+    const withBoth = renderToString(
+      React.createElement(Dialog, { open: true },
+        React.createElement(DialogContent, null,
+          React.createElement(DialogTitle, null, 'Delete file?'),
+          React.createElement(DialogDescription, null, 'This cannot be undone.'),
+        ),
+      ),
+    )
+    const describedby = withBoth.match(/aria-describedby="([^"]+)"/)?.[1]
+    expect(withBoth).toContain(`id="${describedby}"`)
   })
 })
