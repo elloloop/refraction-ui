@@ -1,5 +1,31 @@
 # @refraction-ui/react
 
+## 0.22.0
+
+### Minor Changes
+
+- b1a5348: Add four app-surface components:
+
+  - `PageHeader` — heading cluster for an application page: `kicker`, `title`, `description`, trailing `actions`, `as` (`h1`–`h3`). App-sized, never centred (use `SectionHead` for marketing sections).
+  - `ActionList` + `ActionListItem` — a vertical list whose rows are each one keyboard-reachable action (a full-width native button with `title`, `description`, `meta`, `trailing`, `density`, `disabled`).
+  - `LineChart` — responsive multi-series line chart on one shared y-scale with gridlines, category labels, hover/keyboard crosshair + tooltip, legend and optional area fill; series colours default to the `--chart-N` tokens.
+  - `FunnelChart` — stepped conversion funnel with each step's share of the top step, continue-rate and drop-off, all copy and number formatting overridable.
+
+- c243df1: `Card` gains a `padding` prop in React (`'none' | 'default' | 'compact'`, already in the core and Astro) and `variant` in Astro; `CardTitle` gains `as` (`h1`–`h6`, default `h3`) in both. New types `CardPadding`, `CardTitleLevel`, `CardTitleProps`.
+- 85a8a6b: `Select` fixes and `SelectValue`:
+
+  - Trigger/listbox ids are now stable (`useId`), so `aria-controls` / `aria-labelledby` resolve. The trigger no longer labels itself (`aria-labelledby` pointed at an id from a different render and overrode a caller's `aria-label`); name it with `aria-label` or a `<label for>`.
+  - New `SelectValue` shows the selected item's label (or the placeholder) inside `SelectTrigger`, even while the list is closed.
+  - New uncontrolled `defaultValue`.
+  - The listbox now floats under the trigger (the root renders a `relative` wrapper, `className` applies to it) and closes on a pointer press outside.
+  - `SelectTrigger` `size="sm"` / `"lg"` now apply: the base classes no longer hard-code the default height and text size.
+
+### Patch Changes
+
+- 2e9d116: `Callout` no longer defaults to an unnamed `role="region"` landmark (an axe violation). Non-destructive callouts get no role unless named with `aria-label`/`aria-labelledby` (then `region`); `destructive` stays `alert`; an explicit `role` always wins.
+- 9a70dc4: Size variants now actually apply. `cn` does not merge Tailwind conflicts, so size-owned utilities in a cva `base` (e.g. `h-9 text-sm`) beat the variant (`h-8 text-xs`) by stylesheet order. Moved them into the variants for `Input`, `Textarea`, `Button`, `Badge` and `ProgressBar`. `Button` also gains `icon-sm` and `icon-xs` sizes.
+- 26ae862: Fix `Tabs` keyboard access: `TabsList` now implements WAI-ARIA roving focus — Arrow keys (Left/Right, or Up/Down when `orientation="vertical"`) and Home/End move focus between tabs and select them, skipping disabled tabs. When no tab is selected the first enabled tab is the tab stop, so the list is always reachable with Tab. A consumer `onKeyDown` that calls `preventDefault()` opts out.
+
 ## 0.21.0
 
 ### Minor Changes
