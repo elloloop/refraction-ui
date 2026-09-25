@@ -17,6 +17,9 @@ interface TabsContextValue {
   onValueChange: (value: string) => void
   orientation: 'horizontal' | 'vertical'
   idPrefix: string
+  /** Values that have a TabsContent, so triggers only reference real panels. */
+  panels: ReadonlySet<string>
+  registerPanel: (value: string) => () => void
 }
 
 const TabsContext = React.createContext<TabsContextValue | null>(null)
@@ -69,14 +72,36 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
   }
   const api = apiRef.current
 
+  const [panels, setPanels] = React.useState<ReadonlySet<string>>(() => new Set())
+  const registerPanel = React.useCallback((panelValue: string) => {
+    setPanels((prev) => (prev.has(panelValue) ? prev : new Set(prev).add(panelValue)))
+    return () =>
+      setPanels((prev) => {
+        if (!prev.has(panelValue)) return prev
+        const next = new Set(prev)
+        next.delete(panelValue)
+        return next
+      })
+  }, [])
+
+  // Panels found in the element tree cover the first/server render; mounted
+  // panels (possibly nested in custom components) register themselves.
+  const allPanels = React.useMemo(() => {
+    const found = new Set(panels)
+    collectPanelValues(children, found)
+    return found
+  }, [children, panels])
+
   const ctx = React.useMemo<TabsContextValue>(
     () => ({
       value,
       onValueChange: handleValueChange,
       orientation,
       idPrefix: api.idPrefix,
+      panels: allPanels,
+      registerPanel,
     }),
-    [value, handleValueChange, orientation, api.idPrefix],
+    [value, handleValueChange, orientation, api.idPrefix, allPanels, registerPanel],
   )
 
   return React.createElement(
@@ -86,6 +111,17 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
   )
   },
 )
+
+function collectPanelValues(node: React.ReactNode, into: Set<string>): void {
+  React.Children.forEach(node, (child) => {
+    if (!React.isValidElement<{ value?: unknown; children?: React.ReactNode }>(child)) return
+    if (child.type === TabsContent && typeof child.props.value === 'string') {
+      into.add(child.props.value)
+      return
+    }
+    collectPanelValues(child.props.children, into)
+  })
+}
 
 // ---------------------------------------------------------------------------
 // TabsList
@@ -159,7 +195,7 @@ export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonE
 
 export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
   function TabsTrigger({ value, className, onClick, onKeyDown, children, ...props }, ref) {
-    const { value: activeValue, onValueChange, orientation, idPrefix } = useTabsContext()
+    const { value: activeValue, onValueChange, idPrefix, panels } = useTabsContext()
 
     const isSelected = activeValue === value
     const tabId = `${idPrefix}-tab-${value}`
@@ -183,7 +219,8 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
         type: 'button',
         role: 'tab',
         'aria-selected': isSelected,
-        'aria-controls': panelId,
+        // Only the selected panel is rendered; never reference a missing element.
+        'aria-controls': isSelected && panels.has(value) ? panelId : undefined,
         tabIndex: isSelected ? 0 : -1,
         id: tabId,
         'data-state': isSelected ? 'active' : 'inactive',
@@ -207,7 +244,8 @@ export interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
   function TabsContent({ value, className, children, ...props }, ref) {
-    const { value: activeValue, idPrefix } = useTabsContext()
+    const { value: activeValue, idPrefix, registerPanel } = useTabsContext()
+    React.useEffect(() => registerPanel(value), [registerPanel, value])
 
     const isSelected = activeValue === value
     const tabId = `${idPrefix}-tab-${value}`

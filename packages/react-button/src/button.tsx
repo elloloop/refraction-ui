@@ -59,7 +59,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       return React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
         ref: mergedRef,
         className: cn(classes, (children.props as Record<string, unknown>).className as string, 'relative'),
-        type: getButtonType({ type: props.type }),
+        // `type` is only meaningful on a <button>; forcing type="button" onto
+        // an <a> changes its semantics (it becomes a MIME-type hint).
+        ...(children.type === 'button' || props.type ? { type: getButtonType({ type: props.type }) } : {}),
         ...api.ariaProps,
         ...api.dataAttributes,
         ...props,
