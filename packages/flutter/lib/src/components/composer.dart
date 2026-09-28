@@ -820,6 +820,9 @@ class _RefractionComposerState extends State<RefractionComposer>
   UndoHistoryController _undoController = UndoHistoryController();
   final LayerLink _layerLink = LayerLink();
   final GlobalKey _pillKey = GlobalKey();
+  // Reparent the editor when snap sizing adds/removes AnimatedSize. Recreating
+  // it disconnects the platform input client during autocorrect or paste.
+  final GlobalKey _textFieldKey = GlobalKey();
   OverlayEntry? _overlayEntry;
   // Shared tap-region id covering the pill/dock and the suggestion overlay
   // (which lives in a separate OverlayEntry) — taps on either count as
@@ -1474,6 +1477,7 @@ class _RefractionComposerState extends State<RefractionComposer>
     );
 
     final textField = TextField(
+      key: _textFieldKey,
       controller: _textController,
       focusNode: _focusNode,
       undoController: _undoController,
@@ -1522,7 +1526,13 @@ class _RefractionComposerState extends State<RefractionComposer>
       );
     }
     final textArea = MergeSemantics(
-      child: Semantics(label: strings.fieldLabel, child: sizedField),
+      child: Semantics(
+        // Keep reading order stable as the bottom-aligned field grows. On web,
+        // geometric reordering moves the focused DOM input and blurs it.
+        sortKey: const OrdinalSortKey(1),
+        label: strings.fieldLabel,
+        child: sizedField,
+      ),
     );
 
     final leading =
@@ -1531,6 +1541,7 @@ class _RefractionComposerState extends State<RefractionComposer>
             ? _ComposerActionSlot(
                 tokens: tokens,
                 semanticLabel: strings.attachLabel,
+                sortKey: const OrdinalSortKey(0),
                 onPressed: widget.disabled ? null : widget.onAttachRequested,
                 icon: Icon(Icons.attach_file, color: colors.mutedForeground),
               )
@@ -1602,11 +1613,32 @@ class _RefractionComposerState extends State<RefractionComposer>
           // never grow with it — no layout branching on line count.
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            if (leading != null) ...[leading, SizedBox(width: tokens.gutter)],
+            if (leading != null) ...[
+              if (widget.leadingBuilder == null)
+                leading
+              else
+                Semantics(
+                  container: true,
+                  sortKey: const OrdinalSortKey(0),
+                  child: leading,
+                ),
+              SizedBox(width: tokens.gutter),
+            ],
             Expanded(child: textArea),
-            if (trailing != null) ...[SizedBox(width: tokens.gutter), trailing],
+            if (trailing != null) ...[
+              SizedBox(width: tokens.gutter),
+              Semantics(
+                container: true,
+                sortKey: const OrdinalSortKey(2),
+                child: trailing,
+              ),
+            ],
             SizedBox(width: tokens.gutter),
-            primary,
+            Semantics(
+              container: true,
+              sortKey: const OrdinalSortKey(3),
+              child: primary,
+            ),
           ],
         ),
       ),
@@ -1800,6 +1832,7 @@ class _ComposerActionSlot extends StatelessWidget {
   final Widget icon;
   final VoidCallback? onPressed;
   final String? semanticLabel;
+  final SemanticsSortKey? sortKey;
 
   const _ComposerActionSlot({
     super.key,
@@ -1807,6 +1840,7 @@ class _ComposerActionSlot extends StatelessWidget {
     required this.icon,
     required this.onPressed,
     this.semanticLabel,
+    this.sortKey,
   });
 
   @override
@@ -1817,6 +1851,7 @@ class _ComposerActionSlot extends StatelessWidget {
       hitSize: tokens.hitTargetSize,
       child: Semantics(
         container: true,
+        sortKey: sortKey,
         button: true,
         enabled: onPressed != null,
         label: semanticLabel,

@@ -243,6 +243,47 @@ void main() {
     expect(snapped, h5, reason: 'non-incremental change bypasses animation');
   });
 
+  testWidgets(
+    'input client survives switching between animated and snap sizing',
+    (tester) async {
+      await tester.pumpWidget(buildApp(RefractionComposer(onSubmit: (_) {})));
+      await focusField(tester);
+      final editor = tester.state<EditableTextState>(find.byType(EditableText));
+      for (final text in [
+        'h',
+        'he',
+        'hello',
+        'hello!',
+        'hello!\nlong pasted line',
+        'h',
+        'hi',
+      ]) {
+        tester.testTextInput.updateEditingValue(
+          TextEditingValue(
+            text: text,
+            selection: TextSelection.collapsed(offset: text.length),
+            composing: TextRange(start: 0, end: text.length),
+          ),
+        );
+        await tester.pumpAndSettle();
+        expect(
+          tester.state<EditableTextState>(find.byType(EditableText)),
+          same(editor),
+        );
+        expect(tester.testTextInput.hasAnyClients, isTrue, reason: text);
+        expect(tester.testTextInput.isVisible, isTrue, reason: text);
+        final field = tester.widget<TextField>(find.byType(TextField));
+        expect(field.focusNode!.hasFocus, isTrue);
+        expect(field.controller!.value.text, text);
+        expect(field.controller!.selection.baseOffset, text.length);
+        expect(
+          field.controller!.value.composing,
+          TextRange(start: 0, end: text.length),
+        );
+      }
+    },
+  );
+
   testWidgets('J7 pixel ceiling respects the 40% viewport cap at '
       'textScaleFactor 3.0', (tester) async {
     await tester.pumpWidget(
@@ -985,8 +1026,9 @@ void main() {
     expect(find.text('PANEL-CONTENT'), findsNothing);
   });
 
-  testWidgets('tapping a suggestion row does not resign the field',
-      (tester) async {
+  testWidgets('tapping a suggestion row does not resign the field', (
+    tester,
+  ) async {
     final controller = mentionController();
     addTearDown(controller.dispose);
     final focus = FocusNode();

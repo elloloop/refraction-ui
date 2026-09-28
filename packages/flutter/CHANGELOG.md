@@ -1,3 +1,10 @@
+## Unreleased
+
+- Preserve the composer's editor and input connection when autocorrect, paste,
+  or deletion switches between animated and immediate resizing. Keep composer
+  accessibility ordering stable as lines wrap so Flutter web does not move
+  and blur the focused browser input.
+
 ## 0.49.0
 
 - **Theme (additive, non-breaking): a much richer, semantic-role token vocabulary so a product's whole look is token-driven.** Every new token is **optional** with a getter that **derives a sensible default from the existing tokens**, so all curated palettes, the six named-theme statics, and every existing `RefractionColors`/`RefractionThemeData` construction keep compiling and rendering **pixel-identically** — nothing new is required.
