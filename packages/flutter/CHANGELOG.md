@@ -1,4 +1,4 @@
-## Unreleased
+## 0.49.1
 
 - Preserve the composer's editor and input connection when autocorrect, paste,
   or deletion switches between animated and immediate resizing. Keep composer
