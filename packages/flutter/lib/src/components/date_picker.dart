@@ -441,11 +441,14 @@ class _DatePickerDropdownState extends State<_DatePickerDropdown> {
                   ),
                 ),
               ),
-              Text(
-                monthLabel,
-                style: theme.data.textStyle.copyWith(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
+              Flexible(
+                child: Text(
+                  monthLabel,
+                  textAlign: TextAlign.center,
+                  style: theme.data.textStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
               GestureDetector(

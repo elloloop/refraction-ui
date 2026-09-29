@@ -1,5 +1,7 @@
 ## 0.49.1
 
+- Constrain long date-picker month headers between navigation buttons so September does not overflow.
+
 - Preserve the composer's editor and input connection when autocorrect, paste,
   or deletion switches between animated and immediate resizing. Keep composer
   accessibility ordering stable as lines wrap so Flutter web does not move
