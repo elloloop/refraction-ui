@@ -79,7 +79,9 @@ The `flutter-publish` workflow runs analyzer + tests + dry-run before doing the 
   are failures, not permission to accept the captured rendering without review.
   Keep Lost Pixel's local comparison mode (`generateOnly: true`) and
   `failOnDifference: true` in CI: with the installed 3.x runner, disabling local
-  comparison mode can make image differences exit successfully.
+  comparison mode can make image differences exit successfully. Captures run serially
+  and wait for the Next development badge to become idle, so another route build
+  cannot animate it during capture. The badge remains visible and reported errors fail the capture.
 
 ## Docs
 - Update the docs-site page and story under `docs-site/src/app/components/<slug>/` (page + story + live examples) — keep the component triple in sync (see `CLAUDE.md`).
