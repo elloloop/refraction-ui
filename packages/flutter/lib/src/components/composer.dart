@@ -308,6 +308,8 @@ class RefractionComposerController extends ChangeNotifier {
 
   late final void Function() _unsubscribe;
   bool _disposed = false;
+  bool _coreNotificationPending = false;
+  bool _syncingWidgetFlags = false;
   bool _accessoryPanelOpen = false;
 
   /// Creates a controller and its core.
@@ -340,7 +342,37 @@ class RefractionComposerController extends ChangeNotifier {
          now: now,
          generateId: generateId,
        ) {
-    _unsubscribe = core.subscribe((_) => notifyListeners());
+    _unsubscribe = core.subscribe(_handleCoreChanged);
+  }
+
+  void _syncWidgetFlags({bool? disabled, bool? readOnly}) {
+    // Only the mounted widget uses this seam. Standalone controller operations
+    // remain synchronous and must not require a Flutter binding.
+    _syncingWidgetFlags = true;
+    try {
+      if (disabled != null) core.setDisabled(disabled);
+      if (readOnly != null) core.setReadOnly(readOnly);
+    } finally {
+      _syncingWidgetFlags = false;
+    }
+  }
+
+  void _handleCoreChanged(ComposerState _) {
+    // Widget flag synchronization updates the core during build. The new state
+    // must be immediately readable, but notifying a host ListenableBuilder now
+    // would dirty an ancestor while its composer descendant is building.
+    if (_syncingWidgetFlags &&
+        SchedulerBinding.instance.schedulerPhase ==
+            SchedulerPhase.persistentCallbacks) {
+      if (_coreNotificationPending) return;
+      _coreNotificationPending = true;
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        _coreNotificationPending = false;
+        if (!_disposed) notifyListeners();
+      });
+      return;
+    }
+    notifyListeners();
   }
 
   /// Point-in-time snapshot of the composer state.
@@ -535,13 +567,19 @@ class _RefractionComposerTextEditingController extends TextEditingController {
     if (value.composing.isValid) return; // IME owns the buffer right now
     _applyingCoreValue = true;
     final length = state.value.length;
-    value = TextEditingValue(
-      text: state.value,
-      selection: TextSelection(
-        baseOffset: state.selection.start.clamp(0, length),
-        extentOffset: state.selection.end.clamp(0, length),
-      ),
-    );
+    final start = state.selection.start.clamp(0, length);
+    final end = state.selection.end.clamp(0, length);
+    final previousSelection = value.selection;
+    // The core stores an ordered range; Flutter also needs the anchor and
+    // extent direction. Rebuilding an unchanged backward range as forward
+    // makes repeated Shift+Left oscillate instead of extending the selection.
+    final selection =
+        previousSelection.isValid &&
+            previousSelection.start == start &&
+            previousSelection.end == end
+        ? previousSelection
+        : TextSelection(baseOffset: start, extentOffset: end);
+    value = TextEditingValue(text: state.value, selection: selection);
     _applyingCoreValue = false;
   }
 
@@ -654,6 +692,13 @@ class RefractionComposer extends StatefulWidget {
   /// Capitalization behavior; defaults to sentences.
   final TextCapitalization textCapitalization;
 
+  /// Flutter formatters applied to platform text edits, in order.
+  ///
+  /// Forwarded to [TextField.inputFormatters]. Programmatic controller changes
+  /// bypass formatters. A host can temporarily return the previous value to
+  /// hold input without changing focus or disconnecting the input client.
+  final List<TextInputFormatter>? inputFormatters;
+
   /// Sizing rhythm; defaults to [ComposerDensity.comfortable].
   final ComposerDensity density;
 
@@ -761,6 +806,7 @@ class RefractionComposer extends StatefulWidget {
     this.readOnly = false,
     this.autofocus = false,
     this.textCapitalization = TextCapitalization.sentences,
+    this.inputFormatters,
     this.density = ComposerDensity.comfortable,
     this.surface = ComposerSurface.filled,
     this.focusNode,
@@ -842,8 +888,10 @@ class _RefractionComposerState extends State<RefractionComposer>
     _ownsController = widget.controller == null;
     // Flags are synced before wiring listeners so the initial transitions
     // never call setState during initState.
-    _controller.core.setDisabled(widget.disabled);
-    _controller.core.setReadOnly(widget.readOnly);
+    _controller._syncWidgetFlags(
+      disabled: widget.disabled,
+      readOnly: widget.readOnly,
+    );
     _wire(_controller);
     _textController = _RefractionComposerTextEditingController(
       _controller.core,
@@ -901,11 +949,11 @@ class _RefractionComposerState extends State<RefractionComposer>
       _lastValue = _controller.state.value;
     }
     if (widget.disabled != oldWidget.disabled) {
-      _controller.core.setDisabled(widget.disabled);
+      _controller._syncWidgetFlags(disabled: widget.disabled);
       if (widget.disabled) _removeOverlay();
     }
     if (widget.readOnly != oldWidget.readOnly) {
-      _controller.core.setReadOnly(widget.readOnly);
+      _controller._syncWidgetFlags(readOnly: widget.readOnly);
     }
     if (widget.focusNode != oldWidget.focusNode) {
       // Focus-node swap: move our listener, and dispose only a node we owned.
@@ -1491,6 +1539,7 @@ class _RefractionComposerState extends State<RefractionComposer>
       // send is the tappable affordance plus the physical-Enter handler.
       textInputAction: TextInputAction.newline,
       textCapitalization: widget.textCapitalization,
+      inputFormatters: widget.inputFormatters,
       cursorColor: colors.primary,
       style: textStyle,
       decoration: InputDecoration(

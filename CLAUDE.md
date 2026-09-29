@@ -243,6 +243,13 @@ reason new feature packages must stay private and ride the metas.
   approving code-owner review and dismissed stale reviews. Do not bypass a
   missing approval without the developer's explicit authorization.
 
+### Flutter composer interaction gate
+
+`test-matrix-flutter` runs `flutter test --exclude-tags golden` and the isolated
+composer Playwright harness on PRs and main. Never swallow widget failures to
+accommodate golden-image differences. See `packages/flutter/COMPOSER_TESTING.md`
+for the coverage matrix, commands, native keyboard exercise and platform limits.
+
 ### Flutter releases (separate ecosystem)
 
 `refraction_ui` publishes to **pub.dev** via the **`flutter-publish` tag

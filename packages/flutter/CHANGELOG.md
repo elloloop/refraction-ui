@@ -1,5 +1,16 @@
 ## 0.49.1
 
+- Expose optional Flutter `inputFormatters` for host-controlled platform edits
+  without disconnecting the focused editor.
+
+- Defer composer controller notifications during widget flag synchronization so
+  external ListenableBuilder hosts can toggle disabled/read-only safely.
+
+- Preserve backward text-selection direction in the composer when synchronizing
+  the Flutter editor with the core; Shift+Arrow selection can extend normally.
+- Gate composer interactions and real-browser input retention on PRs; exclude
+  only golden baselines rather than swallowing every Flutter test failure.
+
 - Constrain long date-picker month headers between navigation buttons so September does not overflow.
 
 - Preserve the composer's editor and input connection when autocorrect, paste,

@@ -24,7 +24,7 @@ overrides:
   devalue: 5.8.1
   '@nevware21/ts-utils': 0.14.0
   vitest: 3.2.6
-  undici: 7.29.0
+  undici: 7.29.1
   ws: 8.21.1
   js-yaml@3: 3.15.2
   js-yaml@4: 4.3.2
@@ -11482,8 +11482,8 @@ packages:
   undici-types@7.8.0:
     resolution: {integrity: sha512-9UJ2xGDvQ43tYyVMpuHlsgApydB8ZKfVYTsLDhXkFL/6gfkp+U8xTGdh8pMJv1SpZna0zxG1DwsKZsreLbXBxw==}
 
-  undici@7.29.0:
-    resolution: {integrity: sha512-IDxfleLmmbSskfWSUATiN1nfn2rDuvnMOqb5CWR92iIfojA0Ud+ulOAAEQ57LPr9rWmsreUyf5lwyao+7GNNVw==}
+  undici@7.29.1:
+    resolution: {integrity: sha512-RYONW2MeafgYlkVOKYKkA/Ag7BmXqgIWCa8t1m0JcxrQg9pI9lEqRhAOruOBCbAohOa/gkCF+iPi9hrgvTzu6Q==}
     engines: {node: '>=20.18.1'}
 
   unified@11.0.5:
@@ -15334,7 +15334,7 @@ snapshots:
       saxes: 6.0.0
       symbol-tree: 3.2.4
       tough-cookie: 6.0.1
-      undici: 7.29.0
+      undici: 7.29.1
       w3c-xmlserializer: 5.0.0
       webidl-conversions: 8.0.1
       whatwg-mimetype: 5.0.0
@@ -16805,7 +16805,7 @@ snapshots:
 
   undici-types@7.8.0: {}
 
-  undici@7.29.0: {}
+  undici@7.29.1: {}
 
   unified@11.0.5:
     dependencies:
@@ -16821,7 +16821,7 @@ snapshots:
     dependencies:
       css-tree: 3.2.1
       ohash: 2.0.11
-      undici: 7.29.0
+      undici: 7.29.1
 
   unist-util-is@6.0.1:
     dependencies:

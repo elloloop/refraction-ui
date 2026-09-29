@@ -448,6 +448,11 @@ final directories = <_widgetbook.WidgetbookNode>[
                 .highContrastComposerUseCase,
           ),
           _widgetbook.WidgetbookUseCase(
+            name: 'Input formatter lock',
+            builder: _example_use_cases_composer_use_cases
+                .inputFormatterComposerUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
             name: 'Multiline',
             builder:
                 _example_use_cases_composer_use_cases.multilineComposerUseCase,
