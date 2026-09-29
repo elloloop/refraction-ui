@@ -1,4 +1,7 @@
 import { CustomShot, PageScreenshotParameter } from 'lost-pixel'
+import { checkVisualFonts } from './scripts/check-visual-fonts.mjs'
+
+checkVisualFonts()
 
 export const config = {
   pageShots: {
@@ -27,7 +30,9 @@ export const config = {
       { path: '/examples/vitalink', name: 'example-vitalink' },
       { path: '/examples/learnhub', name: 'example-learnhub' },
       { path: '/examples/clearbank', name: 'example-clearbank' },
-      { path: '/examples/studiox', name: 'example-studiox' },
+      // A breakpoint emits a full-page shot without expanding viewport height.
+      // Lost Pixel 3.22 drops page.viewport from its generated shot item.
+      { path: '/examples/studiox', name: 'example-studiox', breakpoints: [1280] },
       // Theme page
       { path: '/theme', name: 'theme-playground' },
       { path: '/theme/editor', name: 'theme-editor' },
@@ -35,8 +40,9 @@ export const config = {
     ],
     baseUrl: 'http://localhost:3000',
   },
-  // Store baselines in repo
-  generateOnly: process.env.CI !== 'true',
+  // Local baseline comparison must stay enabled in CI: Lost Pixel 3.x
+  // only exits nonzero for differences when generateOnly is true.
+  generateOnly: true,
   failOnDifference: true,
   // Threshold
   threshold: 0.1,

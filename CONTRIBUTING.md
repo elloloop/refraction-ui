@@ -66,9 +66,20 @@ The `flutter-publish` workflow runs analyzer + tests + dry-run before doing the 
 
 ## Tests
 - Unit: Vitest (headless cores, node env).
-- React adapters: SSR `renderToString` tests asserting rendered structure + ARIA (no Testing Library).
+- React adapters: SSR `renderToString` tests for structure and ARIA, plus jsdom hydration tests where server/client identity or pre-hydration browser state matters.
 - Accessibility: ARIA assertions in the adapter SSR tests.
 - Visual: Playwright screenshot diffs + Lost Pixel (`lostpixel.config.ts`).
+  Generate and verify reference images in the matching Linux browser environment,
+  including fonts; the official Playwright Noble image needs DejaVu Core/Extra
+  and Lato to match the Ubuntu runner. Both visual configs check the packaged
+  font versions and resolved families before capture (`scripts/check-visual-fonts.mjs`).
+  On Ubuntu 24.04 install `fonts-dejavu-core=2.37-8 fonts-dejavu-extra=2.37-8 fonts-lato=2.015-1`.
+  Teamspace intentionally requests Lato; its missing-font fallback is not an accepted reference. Inspect each difference
+  against the intended behavior before accepting a reference. Missing references
+  are failures, not permission to accept the captured rendering without review.
+  Keep Lost Pixel's local comparison mode (`generateOnly: true`) and
+  `failOnDifference: true` in CI: with the installed 3.x runner, disabling local
+  comparison mode can make image differences exit successfully.
 
 ## Docs
 - Update the docs-site page and story under `docs-site/src/app/components/<slug>/` (page + story + live examples) — keep the component triple in sync (see `CLAUDE.md`).

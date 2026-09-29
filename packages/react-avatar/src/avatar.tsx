@@ -67,9 +67,26 @@ export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
   function AvatarImage({ className, src, alt = '', onLoad, onError, ...props }, ref) {
     const { imageError, setImageLoaded, setImageError } = React.useContext(AvatarContext)
 
+    const imageRef = React.useRef<HTMLImageElement | null>(null)
+    const mergedRef = React.useCallback((node: HTMLImageElement | null) => {
+      imageRef.current = node
+      if (typeof ref === 'function') {
+        const cleanup: unknown = ref(node)
+        if (typeof cleanup === 'function') {
+          return () => {
+            imageRef.current = null
+            cleanup()
+          }
+        }
+      } else if (ref) ref.current = node
+    }, [ref])
+
     React.useEffect(() => {
-      setImageLoaded(false)
-      setImageError(false)
+      // SSR images may finish before hydration installs event handlers. Read
+      // the native result instead of erasing a cached success or failure.
+      const image = imageRef.current
+      setImageLoaded(!!image?.complete && image.naturalWidth > 0)
+      setImageError(!!image?.complete && image.naturalWidth === 0)
     }, [src, setImageLoaded, setImageError])
 
     const handleLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
@@ -86,7 +103,7 @@ export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
 
     return (
       <img
-        ref={ref}
+        ref={mergedRef}
         className={cn(avatarImageVariants(), className)}
         src={src}
         alt={alt}

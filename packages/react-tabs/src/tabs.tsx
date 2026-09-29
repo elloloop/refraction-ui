@@ -1,6 +1,5 @@
 import * as React from 'react'
 import {
-  createTabs,
   getNextTabIndex,
   tabsListVariants,
   tabsTriggerVariants,
@@ -65,12 +64,8 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
     [isControlled, onValueChange],
   )
 
-  // Use the headless core to get stable IDs
-  const apiRef = React.useRef<ReturnType<typeof createTabs> | null>(null)
-  if (apiRef.current === null) {
-    apiRef.current = createTabs({ value, orientation })
-  }
-  const api = apiRef.current
+  // React IDs agree across SSR and hydration, unlike the core's process counter.
+  const idPrefix = `rfr-tabs-${React.useId()}`
 
   const [panels, setPanels] = React.useState<ReadonlySet<string>>(() => new Set())
   const registerPanel = React.useCallback((panelValue: string) => {
@@ -97,11 +92,11 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
       value,
       onValueChange: handleValueChange,
       orientation,
-      idPrefix: api.idPrefix,
+      idPrefix,
       panels: allPanels,
       registerPanel,
     }),
-    [value, handleValueChange, orientation, api.idPrefix, allPanels, registerPanel],
+    [value, handleValueChange, orientation, idPrefix, allPanels, registerPanel],
   )
 
   return React.createElement(

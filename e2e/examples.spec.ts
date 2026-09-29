@@ -58,6 +58,12 @@ for (const example of examples) {
     test(testName, async ({ page }) => {
       await page.goto(`/examples/${example.name}${pagePath}`)
       await page.waitForLoadState('networkidle')
+      // The theme applies its font stack after hydration; network idle alone
+      // does not prove that effect has run. Then await any font loads it starts.
+      await page.waitForFunction(() =>
+        document.documentElement.style.getPropertyValue('--font-sans').trim().length > 0,
+      )
+      await page.evaluate(() => document.fonts.ready.then(() => undefined))
       await hideNextDevTools(page)
       await expect(page).toHaveScreenshot(
         `example-${example.name}${pagePath.replace(/\//g, '-') || '-landing'}.png`,
