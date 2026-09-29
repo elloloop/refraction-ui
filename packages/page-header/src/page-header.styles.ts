@@ -4,8 +4,8 @@
  */
 export const pageHeaderClass = 'flex flex-wrap items-start justify-between gap-4'
 
-/** Text cluster (kicker, title, description). */
-export const pageHeaderTextClass = 'flex min-w-0 flex-1 flex-col gap-1'
+/** Give text a preferred width so actions wrap before squeezing the heading. */
+export const pageHeaderTextClass = 'flex min-w-0 basis-64 grow flex-col gap-1'
 
 /** Small uppercase eyebrow above the title. */
 export const pageHeaderKickerClass =

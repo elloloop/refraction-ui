@@ -95,3 +95,12 @@ export const FormDialog: Story = {
     </Dialog>
   ),
 }
+
+export const ChildTrigger = {
+  render: () => (
+    <Dialog>
+      <DialogTrigger asChild><button type="button">Open child trigger</button></DialogTrigger>
+      <DialogContent><DialogTitle>Child trigger dialog</DialogTitle></DialogContent>
+    </Dialog>
+  ),
+}

@@ -1,10 +1,8 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import {
-  createDialog,
   overlayStyles,
   dialogContentVariants,
-  type DialogProps as CoreDialogProps,
 } from '@refraction-ui/dialog'
 import { cn, createKeyboardHandler, devWarn } from '@refraction-ui/shared'
 
@@ -73,12 +71,11 @@ export function Dialog({
     [isControlled, onOpenChange],
   )
 
-  // Use the headless core to get stable IDs
-  const apiRef = React.useRef<ReturnType<typeof createDialog> | null>(null)
-  if (apiRef.current === null) {
-    apiRef.current = createDialog({ open, modal })
-  }
-  const api = apiRef.current
+  // React's tree-derived IDs survive SSR requests and client hydration.
+  const id = React.useId()
+  const contentId = `rfr-dialog-content-${id}`
+  const titleId = `rfr-dialog-title-${id}`
+  const descriptionId = `rfr-dialog-desc-${id}`
   const [hasTitle, setHasTitle] = React.useState(false)
   const [hasDescription, setHasDescription] = React.useState(false)
 
@@ -87,15 +84,15 @@ export function Dialog({
       open,
       onOpenChange: handleOpenChange,
       modal,
-      contentId: api.ids.content,
-      titleId: api.ids.title,
-      descriptionId: api.ids.description,
+      contentId,
+      titleId,
+      descriptionId,
       hasTitle,
       hasDescription,
       setHasTitle,
       setHasDescription,
     }),
-    [open, handleOpenChange, modal, api.ids.content, api.ids.title, api.ids.description, hasTitle, hasDescription],
+    [open, handleOpenChange, modal, contentId, titleId, descriptionId, hasTitle, hasDescription],
   )
 
   return React.createElement(DialogContext.Provider, { value: ctx }, children)
@@ -110,27 +107,59 @@ export interface DialogTriggerProps extends React.ButtonHTMLAttributes<HTMLButto
 }
 
 export const DialogTrigger = React.forwardRef<HTMLButtonElement, DialogTriggerProps>(
-  function DialogTrigger({ onClick, children, ...props }, ref) {
+  function DialogTrigger({ asChild = false, onClick, children, ...props }, ref) {
     const { open, onOpenChange, contentId } = useDialogContext()
 
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      onOpenChange(!open)
-      onClick?.(e)
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      onClick?.(event)
+      if (!event.defaultPrevented) onOpenChange(!open)
+    }
+    const triggerProps = {
+      type: 'button' as const,
+      'aria-expanded': open,
+      'aria-controls': contentId,
+      'aria-haspopup': 'dialog' as const,
+      ...props,
+      onClick: handleClick,
     }
 
-    return React.createElement(
-      'button',
-      {
-        ref,
-        type: 'button',
-        'aria-expanded': open,
-        'aria-controls': contentId,
-        'aria-haspopup': 'dialog',
-        onClick: handleClick,
-        ...props,
-      },
-      children,
-    )
+    if (asChild) {
+      if (!React.isValidElement(children)) {
+        devWarn('dialog-trigger-asChild-child', 'DialogTrigger: `asChild` expects a single React element child; rendering nothing.')
+        return null
+      }
+      const child = children as React.ReactElement<React.ButtonHTMLAttributes<HTMLButtonElement> & {
+        ref?: React.Ref<HTMLButtonElement>
+      }> & { ref?: React.Ref<HTMLButtonElement> }
+      // React 19 moved ref into props; reading element.ref there emits a warning.
+      const childRef = React.version.startsWith('18.') ? child.ref : child.props.ref
+      return React.cloneElement(child, {
+        ...triggerProps,
+        className: cn(props.className, child.props.className),
+        onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
+          child.props.onClick?.(event)
+          if (!event.defaultPrevented) handleClick(event)
+        },
+        ref: (node: HTMLButtonElement | null) => {
+          const outerCleanup: unknown = typeof ref === 'function' ? ref(node) : undefined
+          if (ref && typeof ref !== 'function') ref.current = node
+          const childCleanup: unknown = typeof childRef === 'function' ? childRef(node) : undefined
+          if (childRef && typeof childRef !== 'function') childRef.current = node
+          if (typeof outerCleanup === 'function' || typeof childCleanup === 'function') {
+            return () => {
+              if (typeof outerCleanup === 'function') outerCleanup()
+              else if (typeof ref === 'function') ref(null)
+              else if (ref) ref.current = null
+              if (typeof childCleanup === 'function') childCleanup()
+              else if (typeof childRef === 'function') childRef(null)
+              else if (childRef) childRef.current = null
+            }
+          }
+        },
+      })
+    }
+
+    return React.createElement('button', { ref, ...triggerProps }, children)
   },
 )
 
@@ -188,11 +217,6 @@ export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps
   function DialogContent({ className, children, onKeyDown, ...props }, ref) {
     const { open, onOpenChange, modal, contentId, titleId, descriptionId, hasTitle, hasDescription } =
       useDialogContext()
-
-    const api = React.useMemo(
-      () => createDialog({ open, modal }),
-      [open, modal],
-    )
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
       const handler = createKeyboardHandler({

@@ -28,3 +28,13 @@ export const Default: Story = {
     </div>
   )
 }
+
+export const FailedImage: Story = {
+  args: { size: 'md' },
+  render: (args) => (
+    <Avatar {...args}>
+      <AvatarImage src="data:image/png;base64,invalid" alt="User avatar" />
+      <AvatarFallback>JD</AvatarFallback>
+    </Avatar>
+  ),
+}

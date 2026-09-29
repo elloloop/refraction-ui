@@ -1,7 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import {
-  createDropdownMenu,
   menuContentVariants,
   menuItemVariants,
   type DropdownMenuProps as CoreDropdownMenuProps,
@@ -66,12 +65,8 @@ export function DropdownMenu({
     [isControlled, onOpenChange],
   )
 
-  // Use the headless core to get stable IDs
-  const apiRef = React.useRef<ReturnType<typeof createDropdownMenu> | null>(null)
-  if (apiRef.current === null) {
-    apiRef.current = createDropdownMenu({ open })
-  }
-  const api = apiRef.current
+  // React IDs agree across SSR and hydration, unlike the core's process counter.
+  const contentId = `rfr-dropdown-menu-${React.useId()}`
 
   const triggerRef = React.useRef<HTMLElement | null>(null)
 
@@ -79,10 +74,10 @@ export function DropdownMenu({
     () => ({
       open,
       onOpenChange: handleOpenChange,
-      contentId: api.ids.content,
+      contentId,
       triggerRef,
     }),
-    [open, handleOpenChange, api.ids.content],
+    [open, handleOpenChange, contentId],
   )
 
   return React.createElement(DropdownMenuContext.Provider, { value: ctx }, children)

@@ -220,13 +220,12 @@ reason new feature packages must stay private and ride the metas.
 
 - **Only `commit-lint` is a required status check.** Everything else is
   informational at the branch-protection level.
-- The **`validation` "Audit dependencies"** step fails on a
-  **pre-existing transitive esbuild advisory** that is present on `main` and
-  unrelated to component work. It does **not** gate the release pipeline. Do not
-  treat it as your failure — but **do** confirm the **Test Matrix** jobs
-  (`test-matrix-react` / `test-matrix-astro` — the full lint + typecheck +
-  test + build graph, run on every PR) **succeeded**; that is the real green
-  signal. Verify by job conclusion, never assume.
+- **`validation` includes `make audit` (`pnpm audit --audit-level high`).**
+  Run it locally before pushing and fix high/critical advisories instead of
+  assuming a historical failure is harmless. On 2026-09-29 the old esbuild-only
+  description was stale: affected Next.js, Astro and transitive tool packages
+  required patched versions. Confirm the **Test Matrix** jobs as well; an audit
+  pass does not prove lint/typecheck/test/build correctness.
 - **Workflow division of labor on PRs:** `PR Validation` = PR-meta checks
   (title/description/branch/commit-lint/summary) + the audit; `Test Matrix` =
   the full lint/typecheck/test/build graph + `browser-tests`; `CI` =
@@ -236,15 +235,13 @@ reason new feature packages must stay private and ride the metas.
   runs once per PR — don't re-add it to `CI` or `PR Validation`.
 - The **`Release` workflow is `workflow_run` on _"Test Matrix"_ success** (not on
   the "CI" workflow). So the publish pipeline is gated by **Test Matrix passing
-  on `main`**, regardless of the audit red. Sequence after merging a feature PR:
+  on `main`**. Sequence after merging a feature PR:
   Test Matrix (main) → Release opens the **`chore: release packages` Version PR**
   → merge it → Test Matrix again → Release sees no changesets → `publish-oidc`
   publishes via OIDC. Each Test Matrix run is ~25–35 min; poll, don't assume.
-- Admin-merging past the audit red is acceptable **only after** the Test Matrix
-  jobs are confirmed green and `commit-lint` passes. Surface that you did
-  so and why.
-- The recurring esbuild audit failure is tracked separately; if asked to fix CI
-  reds, that audit advisory — not your component — is usually the culprit.
+- Live branch protection is authoritative: on 2026-09-29 it also required one
+  approving code-owner review and dismissed stale reviews. Do not bypass a
+  missing approval without the developer's explicit authorization.
 
 ### Flutter releases (separate ecosystem)
 

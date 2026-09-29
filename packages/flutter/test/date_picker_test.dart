@@ -66,6 +66,22 @@ void main() {
       expect(find.text('Su'), findsOneWidget); // Days header
     });
 
+    testWidgets('long month headers fit between navigation buttons', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        buildTestApp(child: RefractionDatePicker(value: DateTime(2026, 9, 15))),
+      );
+      await tester.tap(find.byIcon(Icons.calendar_today));
+      await tester.pumpAndSettle();
+      expect(find.text('September 2026'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+      await tester.tap(find.byIcon(Icons.chevron_right));
+      await tester.pumpAndSettle();
+      expect(find.text('October 2026'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
     testWidgets('can select a date and it calls onChanged', (
       WidgetTester tester,
     ) async {

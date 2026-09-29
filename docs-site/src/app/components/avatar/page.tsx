@@ -43,6 +43,7 @@ export default function AvatarPage() {
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Image & Fallback</h2>
         <p className="text-sm text-muted-foreground">Shows image when available, falls back to initials on error.</p>
+        {/* Settled image loads/errors also select the correct fallback during hydration. */}
         <AvatarExamples section="fallback" />
       </section>
       {/* Install */}

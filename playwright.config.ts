@@ -1,4 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
+import { checkVisualFonts } from './scripts/check-visual-fonts.mjs'
+
+checkVisualFonts()
 
 export default defineConfig({
   testDir: './e2e',
