@@ -98,7 +98,24 @@ jobs:
         run: dart analyze lib
       - name: Run Tests
         working-directory: packages/flutter
-        run: flutter test || echo "Flutter tests failed (likely due to CI OS golden mismatches), ignoring for now"
+        # Only OS-specific visual baselines are excluded; behavior gates PRs.
+        run: flutter test --exclude-tags golden
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 10.13.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: pnpm
+      - name: Install browser test dependencies
+        run: make install
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Build composer input harness
+        working-directory: packages/flutter/example
+        run: flutter build web --release --target lib/composer_input_harness.dart
+      - name: Exercise real browser input and accessibility DOM
+        run: pnpm exec playwright test --config playwright.flutter.config.ts
 
   browser-tests:
     runs-on: ubuntu-latest

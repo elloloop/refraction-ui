@@ -1,3 +1,13 @@
+## Unreleased
+
+- Defer composer controller notifications during widget flag synchronization so
+  external ListenableBuilder hosts can toggle disabled/read-only safely.
+
+- Preserve backward text-selection direction in the composer when synchronizing
+  the Flutter editor with the core; Shift+Arrow selection can extend normally.
+- Gate composer interactions and real-browser input retention on PRs; exclude
+  only golden baselines rather than swallowing every Flutter test failure.
+
 ## 0.49.1
 
 - Constrain long date-picker month headers between navigation buttons so September does not overflow.
