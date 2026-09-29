@@ -55,17 +55,14 @@ const hasDefaultSlot = Astro.slots.has('default')
   {...rest}
 >
   {hasDefaultSlot ? (
-    <!-- Media slot fills the tile -->
     <div class="absolute inset-0 h-full w-full">
       <slot />
     </div>
   ) : avatarUrl ? (
-    <!-- Avatar image fallback -->
     <div class={videoTileAvatarFallbackClass}>
       <img src={avatarUrl} alt={name} class={videoTileAvatarCircleClass} />
     </div>
   ) : (
-    <!-- Initials fallback -->
     <div class={videoTileAvatarFallbackClass}>
       <div class={videoTileAvatarCircleClass} aria-hidden="true">{initials}</div>
     </div>

@@ -79,14 +79,13 @@ ones that bite every time:
 
 ## Releasing & CI (read before merging)
 
-Publishing is CI-only (Changesets → Version PR → OIDC). Key gating facts in
-`CLAUDE.md` → "CI gating facts": only `commit-lint` is required; the
-`validation` **audit** step fails on a pre-existing esbuild
-advisory and does **not** gate publishing (but confirm the **Test Matrix**
-jobs — the full lint/typecheck/test/build graph — are green); the `Release` workflow fires on **Test Matrix** success on `main`,
-then a `chore: release packages` Version PR must be merged to publish. Flutter
-publishes to pub.dev via the `flutter-publish` tag (golden tests excluded from
-the gate).
+Publishing is CI-only (Changesets → Version PR → OIDC). See `CLAUDE.md` →
+"CI gating facts": run `make audit` and fix high/critical dependency advisories,
+confirm the full Test Matrix, and inspect live branch protection for required
+checks and code-owner approval. Do not assume historical audit failures are
+harmless. The `Release` workflow fires on Test Matrix success on `main`, then
+merging the Changesets Version PR publishes npm packages. Flutter publishes
+through the `flutter-publish` tag workflow, whose gate excludes only golden tests.
 
 ## Before pushing
 
