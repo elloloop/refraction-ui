@@ -1,5 +1,8 @@
 ## Unreleased
 
+- Expose optional Flutter `inputFormatters` for host-controlled platform edits
+  without disconnecting the focused editor.
+
 - Defer composer controller notifications during widget flag synchronization so
   external ListenableBuilder hosts can toggle disabled/read-only safely.
 

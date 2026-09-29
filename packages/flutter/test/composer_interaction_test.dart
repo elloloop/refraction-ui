@@ -55,6 +55,56 @@ Future<void> mount(WidgetTester tester, RefractionComposer composer) async {
 }
 
 void main() {
+  testWidgets(
+    'temporary input formatter lock retains editor and resumes typing',
+    (tester) async {
+      var locked = false;
+      final formatter = TextInputFormatter.withFunction(
+        (oldValue, newValue) => locked ? oldValue : newValue,
+      );
+      await mount(
+        tester,
+        RefractionComposer(inputFormatters: [formatter], onSubmit: (_) {}),
+      );
+      await edit(tester, 'draft');
+      final editor = tester.state<EditableTextState>(find.byType(EditableText));
+      final connections = tester.testTextInput.log
+          .where((call) => call.method == 'TextInput.setClient')
+          .length;
+      locked = true;
+      await edit(tester, 'draft rejected paste');
+      expect(text(tester).text, 'draft');
+      expect(text(tester).selection, const TextSelection.collapsed(offset: 5));
+      expect(
+        tester.state<EditableTextState>(find.byType(EditableText)),
+        same(editor),
+      );
+      expectSession(tester);
+      expect(
+        tester.testTextInput.log
+            .where((call) => call.method == 'TextInput.setClient')
+            .length,
+        connections,
+        reason: 'the platform client was never replaced',
+      );
+      locked = false;
+      await edit(tester, 'draft continued');
+      expect(text(tester).text, 'draft continued');
+      expect(
+        tester.state<EditableTextState>(find.byType(EditableText)),
+        same(editor),
+      );
+      expectSession(tester);
+      expect(
+        tester.testTextInput.log
+            .where((call) => call.method == 'TextInput.setClient')
+            .length,
+        connections,
+        reason: 'the platform client was never replaced',
+      );
+    },
+  );
+
   for (final flag in ['disabled', 'readOnly']) {
     testWidgets(
       'external controller listeners can rebuild while $flag changes',

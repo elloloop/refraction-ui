@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:refraction_ui/refraction_ui.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
@@ -262,4 +263,40 @@ class _ControllerScopeState extends State<_ControllerScope> {
 
   @override
   Widget build(BuildContext context) => widget.builder(_controller);
+}
+
+/// A host can hold platform edits during brief local acceptance without blur.
+@widgetbook.UseCase(name: 'Input formatter lock', type: RefractionComposer)
+Widget inputFormatterComposerUseCase(BuildContext context) =>
+    const _InputFormatterDemo();
+
+class _InputFormatterDemo extends StatefulWidget {
+  const _InputFormatterDemo();
+
+  @override
+  State<_InputFormatterDemo> createState() => _InputFormatterDemoState();
+}
+
+class _InputFormatterDemoState extends State<_InputFormatterDemo> {
+  bool _locked = false;
+  late final _formatter = TextInputFormatter.withFunction(
+    (oldValue, newValue) => _locked ? oldValue : newValue,
+  );
+
+  @override
+  Widget build(BuildContext context) => TextFieldTapRegion(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ExcludeFocus(
+          child: SwitchListTile(
+            title: const Text('Hold keyboard edits'),
+            value: _locked,
+            onChanged: (value) => setState(() => _locked = value),
+          ),
+        ),
+        RefractionComposer(inputFormatters: [_formatter], onSubmit: (_) {}),
+      ],
+    ),
+  );
 }

@@ -692,6 +692,13 @@ class RefractionComposer extends StatefulWidget {
   /// Capitalization behavior; defaults to sentences.
   final TextCapitalization textCapitalization;
 
+  /// Flutter formatters applied to platform text edits, in order.
+  ///
+  /// Forwarded to [TextField.inputFormatters]. Programmatic controller changes
+  /// bypass formatters. A host can temporarily return the previous value to
+  /// hold input without changing focus or disconnecting the input client.
+  final List<TextInputFormatter>? inputFormatters;
+
   /// Sizing rhythm; defaults to [ComposerDensity.comfortable].
   final ComposerDensity density;
 
@@ -799,6 +806,7 @@ class RefractionComposer extends StatefulWidget {
     this.readOnly = false,
     this.autofocus = false,
     this.textCapitalization = TextCapitalization.sentences,
+    this.inputFormatters,
     this.density = ComposerDensity.comfortable,
     this.surface = ComposerSurface.filled,
     this.focusNode,
@@ -1531,6 +1539,7 @@ class _RefractionComposerState extends State<RefractionComposer>
       // send is the tappable affordance plus the physical-Enter handler.
       textInputAction: TextInputAction.newline,
       textCapitalization: widget.textCapitalization,
+      inputFormatters: widget.inputFormatters,
       cursorColor: colors.primary,
       style: textStyle,
       decoration: InputDecoration(
