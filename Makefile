@@ -1,7 +1,7 @@
 .PHONY: ci ci-coverage install build test typecheck lint audit storybook build-packages test-coverage
 
 # Run all core checks sequentially/parallel optimally
-ci:
+ci: test-visual-evidence
 	pnpm turbo run lint typecheck test build
 
 ci-coverage:
@@ -34,3 +34,7 @@ audit:
 storybook:
 	pnpm build-storybook
 	pnpm build-storybook:astro
+
+.PHONY: test-visual-evidence
+test-visual-evidence:
+	python3 scripts/visual-evidence.test.py

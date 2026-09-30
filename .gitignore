@@ -159,3 +159,6 @@ local-serve/
 # Storybook
 storybook-static/
 storybook-static-astro/
+
+# Standard-library Python PR gate tests create local bytecode caches.
+__pycache__/
