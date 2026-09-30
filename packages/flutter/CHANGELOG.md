@@ -1,4 +1,13 @@
-## Unreleased
+## 0.50.0
+
+- Support keyboard focus and Enter/Space activation for buttons, with a visible
+  focus indicator and inactive controls excluded from activation.
+
+- Add `ComposerLayoutBuilder`, `RefractionComposerStackedLayout` and
+  `RefractionComposerToolbar` for a full-width editor above compact actions,
+  retaining the composer's editor, validation and default submit behavior.
+- Give icon-only buttons an optional accessible `semanticLabel` and dropdown
+  menus an interactive `triggerBuilder` whose button owns the menu toggle.
 
 - Paint supported keyboard/pasted Unicode emoji over the composer's original
   grapheme boxes while preserving canonical text, selection, IME and undo.
