@@ -5,6 +5,57 @@ import 'package:refraction_ui/refraction_ui.dart';
 import 'composer_test.dart' show buildApp;
 
 void main() {
+  testWidgets('icon actions stay square and share the toolbar row', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      buildApp(
+        SizedBox(
+          width: 320,
+          child: RefractionComposerToolbar(
+            actions: [
+              RefractionButton(
+                size: RefractionButtonSize.icon,
+                semanticLabel: 'Dictate',
+                onPressed: () {},
+                child: const Icon(Icons.mic_none),
+              ),
+              RefractionDropdownMenu(
+                triggerBuilder: (context, toggle) => RefractionButton(
+                  size: RefractionButtonSize.icon,
+                  semanticLabel: 'Dictation language',
+                  onPressed: toggle,
+                  child: const Icon(Icons.keyboard_arrow_down),
+                ),
+                items: [
+                  RefractionDropdownItem(label: 'English', onSelected: () {}),
+                ],
+              ),
+            ],
+            primary: RefractionButton(
+              size: RefractionButtonSize.icon,
+              semanticLabel: 'Send',
+              onPressed: () {},
+              child: const Icon(Icons.send),
+            ),
+          ),
+        ),
+      ),
+    );
+    final mic = tester.getRect(find.bySemanticsLabel('Dictate'));
+    final language = tester.getRect(
+      find.bySemanticsLabel('Dictation language'),
+    );
+    expect(mic.width, mic.height);
+    expect(language.width, language.height);
+    expect(mic.top, language.top);
+    expect(
+      tester.getRect(find.bySemanticsLabel('Send')).left,
+      greaterThan(language.right),
+    );
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('keyboard reaches icon menu and Enter and Space toggle it', (
     tester,
   ) async {

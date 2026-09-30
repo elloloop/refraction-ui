@@ -288,6 +288,7 @@ class _RefractionButtonState extends State<RefractionButton> {
                 minWidth: minWidth ?? 0.0,
                 minHeight: minHeight,
               ),
+              width: minWidth,
               padding: padding,
               decoration: BoxDecoration(
                 color: backgroundColor,
