@@ -389,3 +389,14 @@ static and animated render paths. Hosts add their own packs via
 ## License
 
 MIT © [elloloop](https://github.com/elloloop). See [`LICENSE`](LICENSE).
+
+### Clipboard images in Flutter composers
+
+Set `onImagesPasted` to stage PNG/JPEG clipboard items in your application's
+existing attachment workflow. Each `ComposerClipboardImage` has `name`,
+`contentType`, and `bytes`; add the upload's chip through `controller.addAttachment`
+and update its status/progress as usual. Image paste never submits automatically.
+Use `onPasteError` for diagnostics; the composer also shows `pasteFailedNotice`.
+The Flutter gallery Composer example and isolated input harness demonstrate the
+public callback. See [COMPOSER_TESTING.md](COMPOSER_TESTING.md#opt-in-clipboard-images)
+for platform boundaries, reader injection, privacy, limits and the dependency rationale.

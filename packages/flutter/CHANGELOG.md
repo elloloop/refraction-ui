@@ -1,3 +1,7 @@
+## Unreleased
+
+- Opt-in composer PNG/JPEG image paste, native shortcuts/context Paste and user browser paste events. Hosts stage attachments with `onImagesPasted`; mixed text preserves editor selection/undo, failures are visible and stale reads are dropped.
+
 ## 0.50.0
 
 - Support keyboard focus and Enter/Space activation for buttons, with a visible

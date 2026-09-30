@@ -102,6 +102,45 @@ RefractionComposer(
           acknowledgments to the composer.
         </p>
       </section>
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Clipboard images</h2>
+        <p>
+          Set <code>onImagesPasted</code> to stage clipboard PNG/JPEG items in your
+          existing attachment upload flow. Each <code>ComposerClipboardImage</code>
+          supplies a name, MIME contentType and bytes. Paste never submits a message.
+          Mixed text uses the editor&apos;s selection, formatters and undo history.
+        </p>
+        <CodeBlock language="dart" code={`RefractionComposer(
+  controller: controller,
+  onImagesPasted: (images) {
+    for (final image in images) {
+      // Your host starts an upload, stages its chip, then updates progress/status.
+      stageUpload(image.name, image.contentType, image.bytes);
+    }
+  },
+  onPasteError: reportClipboardError,
+  onSubmit: handleSubmission,
+)`} />
+        <p>
+          Desktop uses Cmd+V/Ctrl+V; Flutter context Paste also supports image-only
+          clipboards. Web reads the user&apos;s browser paste event, without polling
+          or requesting background clipboard access. Each item contributes PNG,
+          otherwise JPEG. A read/size failure keeps the draft and shows
+          <code> strings.pasteFailedNotice</code>; late results after editing,
+          controller replacement or unmount are ignored. Images are bounded at
+          100 MiB during reading; hosts still apply their upload limits and errors.
+        </p>
+        <p>
+          <code>clipboardReader</code> injects a deterministic native test reader.
+          Flutter&apos;s text-only Clipboard API requires the Superlist
+          <code> super_clipboard</code> adapter for image formats and native
+          TIFF/DIB conversion. macOS, iOS context Paste and Chromium have executable integration
+          coverage. Windows, Linux, Android and mobile Safari remain unverified;
+          software keyboards and multiple clipboard items have OS-specific limits.
+          HTML image URLs, HEIC and Android keyboard content insertion are outside
+          this clipboard API. Without the callback, existing text paste is unchanged.
+        </p>
+      </section>
     </div>
   )
 }
