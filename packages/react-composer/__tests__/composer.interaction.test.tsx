@@ -305,7 +305,7 @@ describe('RefractionComposer (interaction, jsdom)', () => {
     expect(onAttachmentAdd).toHaveBeenCalledTimes(1)
     expect(onAttachmentAdd.mock.calls[0][0]).toMatchObject({ kind: 'image', name: 'pic.png' })
     expect(container.textContent).toContain('pic.png')
-    // File paste wins over text: the value is unchanged.
+    // An image-only paste leaves text and selection unchanged.
     expect(el.value).toBe('this is fa')
   })
 
@@ -498,5 +498,72 @@ describe('RefractionComposer (interaction, jsdom)', () => {
     root = createRoot(container)
     render(<RefractionComposer defaultValue="hello" />)
     expect(textarea().value).toBe('hello')
+  })
+})
+
+
+describe('clipboard image handoff', () => {
+  it('delivers original PNG/JPEG files in order, replaces selected mixed text once, and never submits', () => {
+    const images = vi.fn()
+    const submit = vi.fn()
+    const change = vi.fn()
+    render(<RefractionComposer defaultValue="before selected after" onImagesPasted={images} onSubmit={submit} onChange={change} />)
+    const el = textarea()
+    act(() => { el.focus(); el.setSelectionRange(7, 15) })
+    const png = new File(['png'], 'fixture.png', { type: 'image/png' })
+    const jpeg = new File(['jpeg'], 'fixture.jpg', { type: 'image/jpeg' })
+    firePaste(el, { text: 'mixed', files: [png, new File(['gif'], 'skip.gif', { type: 'image/gif' }), jpeg] })
+    expect(el.value).toBe('before mixed after')
+    expect(el.selectionStart).toBe(12)
+    expect(el.selectionEnd).toBe(12)
+    expect(change).toHaveBeenCalledExactlyOnceWith('before mixed after')
+    expect(images).toHaveBeenCalledExactlyOnceWith([png, jpeg])
+    expect(images.mock.calls[0][0][0]).toBe(png)
+    expect(submit).not.toHaveBeenCalled()
+    expect(container.textContent).not.toContain('fixture.png')
+  })
+
+  it('preserves selection for image-only paste and ignores unsupported images', () => {
+    const images = vi.fn()
+    render(<RefractionComposer defaultValue="draft" onImagesPasted={images} />)
+    const el = textarea()
+    act(() => { el.focus(); el.setSelectionRange(1, 4) })
+    firePaste(el, { files: [new File(['png'], 'fixture.png', { type: 'image/png' })] })
+    expect(el.value).toBe('draft')
+    expect([el.selectionStart, el.selectionEnd]).toEqual([1, 4])
+    firePaste(el, { files: [new File(['gif'], 'skip.gif', { type: 'image/gif' })] })
+    expect(images).toHaveBeenCalledTimes(1)
+  })
+
+  it('rejects invalid batches atomically with visible, localized feedback', () => {
+    const images = vi.fn()
+    const error = vi.fn()
+    render(<RefractionComposer defaultValue="draft" onImagesPasted={images} maxAttachmentSizeBytes={3} onPasteError={error} strings={{ pasteFailedNotice: 'Fixture paste failed' }} />)
+    const el = textarea()
+    act(() => { el.focus(); el.setSelectionRange(1, 4) })
+    firePaste(el, { text: 'replacement', files: [new File(['ok'], 'ok.png', { type: 'image/png' }), new File(['large'], 'large.png', { type: 'image/png' })] })
+    expect(el.value).toBe('draft')
+    expect([el.selectionStart, el.selectionEnd]).toEqual([1, 4])
+    expect(images).not.toHaveBeenCalled()
+    expect(error).toHaveBeenCalledTimes(1)
+    expect(container.querySelector('[role="alert"]')?.textContent).toBe('Fixture paste failed')
+  })
+
+  it.each(['disabled', 'readOnly', 'busy'] as const)('does not process clipboard while %s', flag => {
+    const images = vi.fn()
+    render(<RefractionComposer defaultValue="draft" {...{ [flag]: true }} onImagesPasted={images} />)
+    firePaste(textarea(), { text: 'replacement', files: [new File(['png'], 'fixture.png', { type: 'image/png' })] })
+    expect(textarea().value).toBe('draft')
+    expect(images).not.toHaveBeenCalled()
+  })
+
+  it('legacy staging preserves mixed text and exposes the raw file to uploaders', () => {
+    const add = vi.fn()
+    render(<RefractionComposer onAttachmentAdd={add} />)
+    const file = new File(['png'], 'fixture.png', { type: 'image/png' })
+    firePaste(textarea(), { text: 'caption', files: [file] })
+    expect(textarea().value).toBe('caption')
+    expect(add.mock.calls[0][1]).toBe(file)
+    expect(container.textContent).toContain('fixture.png')
   })
 })

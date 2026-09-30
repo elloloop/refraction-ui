@@ -1,5 +1,7 @@
 import * as React from 'react'
 import {
+  composerClipboardImages,
+  pasteComposerField,
   composerAccessoryPanelClass,
   composerAccessoryToggleVariants,
   composerAttachmentChipVariants,
@@ -65,6 +67,7 @@ export interface RefractionComposerStrings {
   noMatchesLabel: (query: string) => string
   loadingLabel: string
   retryLabel: string
+  pasteFailedNotice: string
   trimmedNotice: string
   counterLabel: (remaining: number) => string
   editingLabel: string
@@ -86,6 +89,7 @@ export const DEFAULT_COMPOSER_STRINGS: RefractionComposerStrings = {
   noMatchesLabel: (query) => `No matches for "${query}"`,
   loadingLabel: 'Loading suggestions…',
   retryLabel: 'Retry',
+  pasteFailedNotice: 'Could not paste images. Try attaching the file instead.',
   trimmedNotice: 'Pasted text was trimmed to fit the length limit',
   counterLabel: (remaining) => `${remaining} characters remaining`,
   editingLabel: 'Editing message',
@@ -129,6 +133,8 @@ export interface RefractionComposerProps
   maxLines?: number
   /** Grapheme-cluster budget (not UTF-16 units). Fixed at mount. */
   maxLength?: number
+  maxAttachmentSizeBytes?: number
+  acceptAttachment?: ComposerConfig['acceptAttachment']
   maxAttachments?: number
   disabled?: boolean
   readOnly?: boolean
@@ -186,7 +192,12 @@ export interface RefractionComposerProps
   onEditCancel?: () => void
   /** Throttled typing signal (core-owned leading-edge throttle). */
   onTypingActivity?: () => void
-  onAttachmentAdd?: (attachment: ComposerAttachment) => void
+  /** Original File is retained for the host's uploader (picker/drop/paste). */
+  onAttachmentAdd?: (attachment: ComposerAttachment, file: File) => void
+  /** Opt-in PNG/JPEG clipboard handoff. The host stages/uploads; never sends. */
+  onImagesPasted?: (images: File[]) => void
+  /** Clipboard read/size errors; the draft and image batch stay unchanged. */
+  onPasteError?: (error: unknown) => void
   onAttachmentRejected?: (event: Extract<ComposerEvent, { type: 'attachment-rejected' }>) => void
   /** Raw core notice channel ('paste-trimmed', 'insert-rejected', …). */
   onEvent?: (event: ComposerEvent) => void
@@ -299,6 +310,8 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
       maxLines = 6,
       maxLength,
       maxAttachments,
+      maxAttachmentSizeBytes,
+      acceptAttachment,
       disabled = false,
       readOnly = false,
       busy = false,
@@ -327,6 +340,8 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
       onEditCancel,
       onTypingActivity,
       onAttachmentAdd,
+      onImagesPasted,
+      onPasteError,
       onAttachmentRejected,
       onEvent,
       apiRef,
@@ -347,6 +362,9 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
     const onStopRef = useLatestRef(onStop)
     const onEventRef = useLatestRef(onEvent)
     const onTypingActivityRef = useLatestRef(onTypingActivity)
+    const onImagesPastedRef = useLatestRef(onImagesPasted)
+    const onPasteErrorRef = useLatestRef(onPasteError)
+    const [pasteFailed, setPasteFailed] = React.useState(false)
     const onAttachmentAddRef = useLatestRef(onAttachmentAdd)
     const onAttachmentRejectedRef = useLatestRef(onAttachmentRejected)
     const onEditLastRequestedRef = useLatestRef(onEditLastRequested)
@@ -401,6 +419,8 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
     }
     configRef.current.maxLength = maxLength
     configRef.current.maxAttachments = maxAttachments
+    configRef.current.maxAttachmentSizeBytes = maxAttachmentSizeBytes
+    configRef.current.acceptAttachment = acceptAttachment
     configRef.current.validator = validator
     configRef.current.replyToMessageId = replyToMessageId
     configRef.current.draftStore = draftStore
@@ -426,6 +446,7 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
 
     // ---- refs / ids -------------------------------------------------------
 
+    const pastingRef = React.useRef(false)
     const textareaRef = React.useRef<HTMLTextAreaElement | null>(null)
     const highlightRef = React.useRef<HTMLDivElement | null>(null)
     const rootRef = React.useRef<HTMLDivElement | null>(null)
@@ -533,11 +554,13 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
     })
 
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      if (pastingRef.current) return
       const el = event.currentTarget
       withValueChange(() => api.setValue(el.value, readSelection(el)))
     }
 
     const handleSelect = (event: React.SyntheticEvent<HTMLTextAreaElement>) => {
+      if (pastingRef.current) return
       const el = event.currentTarget
       const next = readSelection(el)
       const current = api.getState().selection
@@ -655,7 +678,7 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
             continue
           }
           const added = api.getState().attachments.find((a) => a.id === attachmentId)
-          if (added) onAttachmentAddRef.current?.(added)
+          if (added) onAttachmentAddRef.current?.(added, file)
         }
       },
       [api, onAttachmentAddRef],
@@ -697,15 +720,36 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
     )
 
     const handlePaste = (event: React.ClipboardEvent<HTMLTextAreaElement>) => {
-      const files = event.clipboardData?.files
-      if (files && files.length > 0) {
-        // Mixed clipboard: files/images win over text (R23).
-        event.preventDefault()
-        addFiles(files)
+      event.preventDefault()
+      const current = api.getState()
+      if (current.disabled || current.readOnly || current.isBusy || current.isComposing) return
+      setPasteFailed(false)
+      // Read/validate before changing the draft or delivering any images.
+      let files: File[]
+      let images: File[] | undefined
+      let text: string
+      try {
+        files = Array.from(event.clipboardData?.files ?? [])
+        text = event.clipboardData?.getData('text/plain') ?? ''
+        if (onImagesPastedRef.current) images = composerClipboardImages(files, maxAttachmentSizeBytes)
+      } catch (error) {
+        setPasteFailed(true)
+        onPasteErrorRef.current?.(error)
         return
       }
-      event.preventDefault()
-      withValueChange(() => api.pasteText(event.clipboardData?.getData('text/plain') ?? ''))
+      pastingRef.current = true
+      try {
+        withValueChange(() => pasteComposerField(api, event.currentTarget, text,
+          inserted => typeof document.execCommand === 'function' && document.execCommand('insertText', false, inserted)))
+      } finally {
+        pastingRef.current = false
+      }
+      if (images !== undefined) {
+        if (images.length > 0) onImagesPastedRef.current?.(images)
+      } else {
+        // Preserve the existing general-file staging path for hosts without opt-in.
+        addFiles(files)
+      }
     }
 
     const [dragActive, setDragActive] = React.useState(false)
@@ -941,6 +985,10 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
                 {strings.cancelEditLabel}
               </button>
             </div>
+          )}
+
+          {pasteFailed && (
+            <div role="alert" className="px-3 pt-2 text-xs text-destructive">{strings.pasteFailedNotice}</div>
           )}
 
           {trimmedNoticeVisible && (

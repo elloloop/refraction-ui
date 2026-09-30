@@ -11,6 +11,7 @@ import Switch from '../dist/astro-switch/Switch.astro'
 import Pagination from '../dist/astro-pagination/Pagination.astro'
 import FileTree from '../dist/astro-file-tree/FileTree.astro'
 import Slider from '../dist/astro-slider/Slider.astro'
+import InteractiveComposer from '../dist/astro-composer/InteractiveComposer.astro'
 import SkipToContent from '../dist/astro-skip-to-content/SkipToContent.astro'
 
 /**
@@ -350,5 +351,23 @@ describe('astro-skip-to-content', () => {
     expect(html).toContain('-translate-y-16')
     expect(html).toContain('focus:translate-y-0')
     expect(html).toContain('Skip to content')
+  })
+})
+
+
+describe('astro interactive composer (meta dist)', () => {
+  it('renders an accessible editable field, localizable notices and an initially disabled send action', async () => {
+    const html = await render(InteractiveComposer, { props: {
+      defaultValue: 'Fixture draft', messageLabel: 'Fixture message', readOnly: true,
+      maxLength: 20, maxAttachments: 2, maxAttachmentSizeBytes: 1024,
+      pasteFailedNotice: 'Fixture error',
+    } })
+    expect(html).toContain('refraction-interactive-composer')
+    expect(html).toContain('aria-label="Fixture message"')
+    expect(html).toContain('Fixture draft')
+    expect(html).toMatch(/<textarea[^>]*readonly/)
+    expect(html).toMatch(/<button[^>]*data-send[^>]*disabled/)
+    expect(html).toContain('max-image-bytes="1024"')
+    expect(html).toContain('data-paste-failed-notice="Fixture error"')
   })
 })

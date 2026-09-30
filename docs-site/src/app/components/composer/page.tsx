@@ -4,6 +4,10 @@ import { CodeBlock } from '@/components/code-block'
 import { InstallCommand } from '@/components/install-command'
 
 const composerProps = [
+  { name: 'onImagesPasted', type: '(images: File[]) => void', description: 'Opt-in PNG/JPEG handoff from an explicit paste. Files stay host-owned; mixed text replaces the current selection. No upload or send is performed.' },
+  { name: 'onPasteError', type: '(error: unknown) => void', description: 'Image size/empty-payload or clipboard read errors. The full batch and draft are unchanged; localized pasteFailedNotice is visible.' },
+  { name: 'onAttachmentAdd', type: '(attachment: ComposerAttachment, file: File) => void', description: 'Without onImagesPasted, the existing generic file staging path also provides the original File to the host uploader.' },
+  { name: 'maxAttachmentSizeBytes / acceptAttachment', type: 'number / (draft) => boolean | string', description: 'Core attachment gates. Image handoff defaults to 100 MiB per PNG/JPEG; maxAttachmentSizeBytes can lower/override that clipboard limit. Host-owned staging also applies count/accept gates.' },
   {
     name: 'value',
     type: 'string',
@@ -230,15 +234,24 @@ export function ChatFooter() {
 }`
 
 const astroUsageCode = `---
-import { Composer } from '@refraction-ui/astro'
+import { RefractionInteractiveComposer } from '@refraction-ui/astro'
 ---
 
-<!-- Static SSR shell: read-only pill + disabled send button -->
-<Composer placeholder="Sign in to join the conversation" />
-
-<Composer>
-  A pinned, read-only message rendered through the slot.
-</Composer>`
+<!-- Opt-in interactive island; no React integration required. -->
+<RefractionInteractiveComposer id="composer" defaultValue="Keep this draft" />
+<script>
+  const composer = document.getElementById('composer')!
+  composer.addEventListener('refraction:images-pasted', event => {
+    const { images, api } = (event as CustomEvent).detail
+    // Original File objects; hand them to your uploader here.
+    // Stage with api.addAttachment, then updateAttachment on upload completion.
+    console.log(images.map((file: File) => file.name))
+  })
+  composer.addEventListener('refraction:submit', event => {
+    // Only explicit Send (or opt-in submitOnEnter) emits a submission.
+    console.log((event as CustomEvent).detail)
+  })
+</script>`
 
 export default function ComposerPage() {
   return (
@@ -316,6 +329,25 @@ export default function ComposerPage() {
           Under reduced motion the removal is instant.
         </p>
         <ComposerExamples section="attachments" />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Clipboard images</h2>
+        <p className="text-sm text-muted-foreground">
+          Opt in with <code>onImagesPasted</code> to receive original PNG/JPEG files for your uploader.
+          An explicit paste preserves image-only selections and inserts mixed text at the selection;
+          it never submits. Unsupported formats are skipped; empty or oversized images reject the
+          entire batch before changing the draft. Browser paste events require no background clipboard
+          reads or permission polling. Disabled, read-only, busy and composing states block processing.
+        </p>
+        <ComposerExamples section="clipboard" />
+        <p className="text-sm text-muted-foreground">
+          Astro exposes the same clipboard boundary through <code>RefractionInteractiveComposer</code>
+          and bubbling <code>refraction:images-pasted</code> / <code>refraction:paste-error</code> events.
+          Its existing static Composer shell remains available. Host upload statuses/removal use the
+          event&apos;s core API; files and upload transport remain host-owned. This island covers text,
+          image handoff and attachment staging; it does not add React&apos;s mention or accessory UI.
+        </p>
       </section>
 
       <section className="space-y-4">
