@@ -1,5 +1,12 @@
 # @refraction-ui/astro
 
+## 0.20.1
+
+### Patch Changes
+
+- f5506f4: Wrap PageHeader actions below the text in narrow containers instead of squeezing the title into broken words.
+- f5506f4: Keep VideoTile conditional branches compatible with the Astro 7 compiler by removing HTML comments inside JavaScript expressions.
+
 ## 0.20.0
 
 ### Minor Changes
