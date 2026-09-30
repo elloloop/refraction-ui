@@ -1,3 +1,14 @@
+## 0.50.0
+
+- Support keyboard focus and Enter/Space activation for buttons, with a visible
+  focus indicator and inactive controls excluded from activation.
+
+- Add `ComposerLayoutBuilder`, `RefractionComposerStackedLayout` and
+  `RefractionComposerToolbar` for a full-width editor above compact actions,
+  retaining the composer's editor, validation and default submit behavior.
+- Give icon-only buttons an optional accessible `semanticLabel` and dropdown
+  menus an interactive `triggerBuilder` whose button owns the menu toggle.
+
 ## 0.49.1
 
 - Expose optional Flutter `inputFormatters` for host-controlled platform edits

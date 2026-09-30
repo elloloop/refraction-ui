@@ -277,6 +277,73 @@ typedef ComposerSlotBuilder =
 typedef ComposerPrimaryBuilder =
     Widget Function(BuildContext context, ComposerPrimaryContext primary);
 
+/// Arranges the existing editor and action widgets inside the composer surface.
+/// Mount each supplied widget once. Keep the editor in a stable location across
+/// rebuilds to retain its platform input connection. The supplied primary action
+/// retains validation, send handling and undo-history reset.
+typedef ComposerLayoutBuilder =
+    Widget Function(
+      BuildContext context, {
+      required Widget editor,
+      required Widget primary,
+      Widget? leading,
+      Widget? trailing,
+    });
+
+/// Full-width editor above a compact toolbar, using composer spacing tokens.
+class RefractionComposerStackedLayout extends StatelessWidget {
+  const RefractionComposerStackedLayout({
+    super.key,
+    required this.editor,
+    required this.toolbar,
+  });
+
+  final Widget editor;
+  final Widget toolbar;
+
+  @override
+  Widget build(BuildContext context) => Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: context.refractionTheme.spacingMd,
+        ),
+        child: editor,
+      ),
+      toolbar,
+    ],
+  );
+}
+
+/// Compact actions wrap independently of the trailing primary action.
+class RefractionComposerToolbar extends StatelessWidget {
+  const RefractionComposerToolbar({
+    super.key,
+    required this.actions,
+    this.primary,
+  });
+  final List<Widget> actions;
+  final Widget? primary;
+
+  @override
+  Widget build(BuildContext context) => Row(
+    children: [
+      Expanded(
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: actions,
+        ),
+      ),
+      if (primary != null) ...[
+        SizedBox(width: context.refractionTheme.spacingMd),
+        primary!,
+      ],
+    ],
+  );
+}
+
 /// Builds one suggestion overlay row.
 typedef ComposerOverlayItemBuilder =
     Widget Function(
@@ -750,6 +817,10 @@ class RefractionComposer extends StatefulWidget {
   /// [ComposerPrimaryContext].
   final ComposerPrimaryBuilder? primaryBuilder;
 
+  /// Optional surface content layout. The default remains a bottom-aligned row.
+  /// This changes placement only; the composer retains editor and submit state.
+  final ComposerLayoutBuilder? layoutBuilder;
+
   /// Custom suggestion row.
   final ComposerOverlayItemBuilder? overlayItemBuilder;
 
@@ -819,6 +890,7 @@ class RefractionComposer extends StatefulWidget {
     this.leadingBuilder,
     this.trailingBuilder,
     this.primaryBuilder,
+    this.layoutBuilder,
     this.overlayItemBuilder,
     this.overlayEmptyBuilder,
     this.overlayLoadingBuilder,
@@ -1657,39 +1729,47 @@ class _RefractionComposerState extends State<RefractionComposer>
           tokens.paddingHorizontal,
           tokens.paddingVertical,
         ),
-        child: Row(
-          // §2.3 invariant: slots bottom-anchor against the text area and
-          // never grow with it — no layout branching on line count.
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            if (leading != null) ...[
-              if (widget.leadingBuilder == null)
-                leading
-              else
+        child:
+            widget.layoutBuilder?.call(
+              context,
+              editor: textArea,
+              primary: primary,
+              leading: leading,
+              trailing: trailing,
+            ) ??
+            Row(
+              // §2.3 invariant: slots bottom-anchor against the text area and
+              // never grow with it — no layout branching on line count.
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                if (leading != null) ...[
+                  if (widget.leadingBuilder == null)
+                    leading
+                  else
+                    Semantics(
+                      container: true,
+                      sortKey: const OrdinalSortKey(0),
+                      child: leading,
+                    ),
+                  SizedBox(width: tokens.gutter),
+                ],
+                Expanded(child: textArea),
+                if (trailing != null) ...[
+                  SizedBox(width: tokens.gutter),
+                  Semantics(
+                    container: true,
+                    sortKey: const OrdinalSortKey(2),
+                    child: trailing,
+                  ),
+                ],
+                SizedBox(width: tokens.gutter),
                 Semantics(
                   container: true,
-                  sortKey: const OrdinalSortKey(0),
-                  child: leading,
+                  sortKey: const OrdinalSortKey(3),
+                  child: primary,
                 ),
-              SizedBox(width: tokens.gutter),
-            ],
-            Expanded(child: textArea),
-            if (trailing != null) ...[
-              SizedBox(width: tokens.gutter),
-              Semantics(
-                container: true,
-                sortKey: const OrdinalSortKey(2),
-                child: trailing,
-              ),
-            ],
-            SizedBox(width: tokens.gutter),
-            Semantics(
-              container: true,
-              sortKey: const OrdinalSortKey(3),
-              child: primary,
+              ],
             ),
-          ],
-        ),
       ),
     );
 

@@ -16,6 +16,18 @@ export default function ButtonPage() {
       </div>
 
       <section className="space-y-4">
+        <h2 className="text-xl font-semibold">Named icon actions</h2>
+        <p>Give icon-only buttons a semanticLabel so assistive technology announces the action without a visible text label. Enabled buttons support Tab focus and Enter or Space activation; disabled and loading buttons do not activate.</p>
+        <CodeBlock language="dart" code={`RefractionButton(
+  size: RefractionButtonSize.icon,
+  variant: RefractionButtonVariant.ghost,
+  semanticLabel: 'Dictate',
+  onPressed: startDictation,
+  child: const Icon(Icons.mic_none),
+)`} />
+      </section>
+
+      <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
         <FlutterPreview path="/docs/button" />
         <div className="h-4"></div>

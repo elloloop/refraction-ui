@@ -16,6 +16,20 @@ export default function DropdownMenuPage() {
       </div>
 
       <section className="space-y-4">
+        <h2 className="text-xl font-semibold">Interactive icon triggers</h2>
+        <p>Use triggerBuilder when the trigger is a button with its own tap handler. The supplied toggle opens or closes this menu; the existing trigger parameter remains available for passive content. Supply exactly one.</p>
+        <CodeBlock language="dart" code={`RefractionDropdownMenu(
+  triggerBuilder: (context, toggle) => RefractionButton(
+    size: RefractionButtonSize.icon,
+    semanticLabel: 'Dictation language',
+    onPressed: toggle,
+    child: const Icon(Icons.keyboard_arrow_down),
+  ),
+  items: [RefractionDropdownItem(label: 'English', onSelected: selectEnglish)],
+)`} />
+      </section>
+
+      <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
         <FlutterPreview path="/docs/dropdown-menu" />
         <div className="h-4"></div>
