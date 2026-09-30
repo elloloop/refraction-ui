@@ -1,0 +1,14 @@
+---
+import { unicodeEmojiHtml, DEFAULT_TWEMOJI_BASE_URL } from '@refraction-ui/emoji-picker'
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  text: string
+  twemojiBaseUrl?: string
+}
+const { text, twemojiBaseUrl = DEFAULT_TWEMOJI_BASE_URL, ...props } = Astro.props
+---
+<span {...props}><Fragment set:html={unicodeEmojiHtml(text, twemojiBaseUrl)} /></span>
+<script>
+  import { hydrateUnicodeEmojiArtwork } from '@refraction-ui/emoji-picker'
+  hydrateUnicodeEmojiArtwork(document)
+  document.addEventListener('astro:page-load', () => hydrateUnicodeEmojiArtwork(document))
+</script>

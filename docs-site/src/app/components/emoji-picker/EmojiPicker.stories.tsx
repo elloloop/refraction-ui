@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { EmojiPicker } from '@refraction-ui/react-emoji-picker'
+import { EmojiPicker, EmojiText } from '@refraction-ui/react-emoji-picker'
 
 const meta: Meta<typeof EmojiPicker> = {
   title: 'Utilities/EmojiPicker',
@@ -19,4 +19,8 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {},
+}
+
+export const KeyboardUnicode: Story = {
+  render: () => <EmojiText text="Keyboard 🔥 ❤️‍🔥 👨‍👩‍👧‍👦 🇬🇧 1️⃣ · fallback 👍🏽 ✈︎" />,
 }

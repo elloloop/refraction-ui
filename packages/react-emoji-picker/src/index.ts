@@ -37,3 +37,6 @@ export {
   emojiPickerGridStyles,
   emojiPickerEmojiButtonStyles,
 } from '@refraction-ui/emoji-picker'
+
+export { EmojiText, type EmojiTextProps } from './emoji-text.js'
+export { unicodeEmojiRuns, type UnicodeEmojiRun } from '@refraction-ui/emoji-picker'

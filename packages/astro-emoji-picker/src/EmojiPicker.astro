@@ -1,6 +1,8 @@
 ---
 import {
   createEmojiPicker,
+  unicodeEmojiHtml,
+  DEFAULT_TWEMOJI_BASE_URL,
   EMOJI_DATA,
   EMOJI_CATEGORIES,
   CATEGORY_LABELS,
@@ -19,9 +21,10 @@ import { cn } from '@refraction-ui/shared'
 interface Props extends astroHTML.JSX.HTMLAttributes {
   /** Initial active category */
   category?: EmojiCategory
+  twemojiBaseUrl?: string
 }
 
-const { category = 'smileys', class: className, ...props } = Astro.props
+const { category = 'smileys', twemojiBaseUrl = DEFAULT_TWEMOJI_BASE_URL, class: className, ...props } = Astro.props
 
 const api = createEmojiPicker()
 const initialEmojis = EMOJI_DATA[category]
@@ -40,6 +43,7 @@ const allEmojisJson = JSON.stringify(
 <div
   data-rfr-emoji-picker
   data-rfr-emoji-category={category}
+  data-rfr-emoji-base-url={twemojiBaseUrl}
   data-rfr-emoji-all-data={allEmojisJson}
   class={cn(emojiPickerContainerStyles, className)}
   role="dialog"
@@ -93,7 +97,7 @@ const allEmojisJson = JSON.stringify(
         role="button"
         aria-label={`${emoji.name} ${emoji.emoji}`}
         title={emoji.name}
-      >{emoji.emoji}</button>
+      ><Fragment set:html={unicodeEmojiHtml(emoji.emoji, twemojiBaseUrl)} /></button>
     ))}
   </div>
 
@@ -105,6 +109,8 @@ const allEmojisJson = JSON.stringify(
 </div>
 
 <script>
+  import { unicodeEmojiHtml, hydrateUnicodeEmojiArtwork } from '@refraction-ui/emoji-picker'
+
   const CATEGORY_LABELS: Record<string, string> = {
     smileys: 'Smileys & Emotion',
     people: 'People & Body',
@@ -133,6 +139,8 @@ const allEmojisJson = JSON.stringify(
       if (root.hasAttribute('data-rfr-emoji-init')) return
       root.setAttribute('data-rfr-emoji-init', '')
 
+      hydrateUnicodeEmojiArtwork(root)
+      const baseUrl = root.getAttribute('data-rfr-emoji-base-url') || undefined
       let activeCategory = root.getAttribute('data-rfr-emoji-category') || 'smileys'
       let searchQuery = ''
 
@@ -178,8 +186,9 @@ const allEmojisJson = JSON.stringify(
           btn.setAttribute('role', 'button')
           btn.setAttribute('aria-label', `${emoji.name} ${emoji.emoji}`)
           btn.setAttribute('title', emoji.name)
-          btn.textContent = emoji.emoji
+          btn.innerHTML = unicodeEmojiHtml(emoji.emoji, baseUrl)
           grid.appendChild(btn)
+          hydrateUnicodeEmojiArtwork(btn)
         })
 
         if (emptyMsg) {

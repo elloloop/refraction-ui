@@ -43,3 +43,5 @@ export {
   emojiPickerPanelStyles,
   emojiPickerStickerButtonStyles,
 } from './emoji-picker.styles.js'
+
+export { unicodeEmojiRuns, unicodeEmojiHtml, hydrateUnicodeEmojiArtwork, type UnicodeEmojiRun } from './unicode-emoji.js'
