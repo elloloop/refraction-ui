@@ -1022,6 +1022,9 @@ importers:
       '@refraction-ui/composer':
         specifier: workspace:*
         version: link:../composer
+      '@refraction-ui/emoji-picker':
+        specifier: workspace:*
+        version: link:../emoji-picker
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -4129,6 +4132,12 @@ importers:
       '@refraction-ui/composer':
         specifier: workspace:*
         version: link:../composer
+      '@refraction-ui/emoji-picker':
+        specifier: workspace:*
+        version: link:../emoji-picker
+      '@refraction-ui/react-emoji-picker':
+        specifier: workspace:*
+        version: link:../react-emoji-picker
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared

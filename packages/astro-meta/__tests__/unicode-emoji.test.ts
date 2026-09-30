@@ -23,3 +23,14 @@ describe('Astro Unicode artwork, published meta shape', () => {
     expect(html).toContain('data-rfr-emoji-base-url="/emoji/"')
   })
 })
+
+
+it('Astro composer remains read-only while rendering a canonical Unicode draft', async () => {
+  const { default: Composer } = await import('../dist/astro-composer/Composer.astro')
+  const container = await AstroContainer.create()
+  const html = await container.renderToString(Composer, { props: { value: 'Draft 🔥 👍🏽', twemojiBaseUrl: '/emoji' } })
+  expect(html).toContain('/emoji/1f525.svg')
+  expect(html).toContain('👍🏽')
+  expect(html).not.toContain('<textarea')
+  expect(html).toMatch(/<button[^>]*disabled/)
+})

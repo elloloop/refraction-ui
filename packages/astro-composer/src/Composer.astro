@@ -4,11 +4,15 @@ import {
   composerPrimaryActionVariants,
   composerSurfaceVariants,
 } from '@refraction-ui/composer'
+import { unicodeEmojiHtml } from '@refraction-ui/emoji-picker'
 import { cn } from '@refraction-ui/shared'
 
 interface Props extends astroHTML.JSX.HTMLAttributes {
   /** Placeholder shown in the (read-only) message area. */
   placeholder?: string
+  /** Read-only canonical Unicode draft. Slotted content takes precedence. */
+  value?: string
+  twemojiBaseUrl?: string
   /** Accessible name of the composer landmark. */
   label?: string
   /** Accessible name of the (disabled) send button. */
@@ -19,6 +23,8 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
 
 const {
   placeholder = 'Send a message…',
+  value,
+  twemojiBaseUrl,
   label = 'Message composer',
   sendLabel = 'Send',
   disabled = false,
@@ -35,7 +41,7 @@ const hasContent = Astro.slots.has('default')
 <div role="form" aria-label={label} class={cn('relative', className)} {...rest}>
   <div class={composerSurfaceVariants({ disabled: disabled ? 'true' : 'false' })}>
     <div class={cn(composerFieldClass, 'min-h-[3rem] whitespace-pre-wrap break-words')}>
-      {hasContent ? <slot /> : <span class="text-muted-foreground">{placeholder}</span>}
+      {hasContent ? <slot /> : value !== undefined ? <Fragment set:html={unicodeEmojiHtml(value, twemojiBaseUrl)} /> : <span class="text-muted-foreground">{placeholder}</span>}
     </div>
     <div class="flex items-center px-2 pb-2">
       <div class="flex-1" />
@@ -64,3 +70,9 @@ const hasContent = Astro.slots.has('default')
     </div>
   </div>
 </div>
+
+<script>
+  import { hydrateUnicodeEmojiArtwork } from '@refraction-ui/emoji-picker'
+  hydrateUnicodeEmojiArtwork(document)
+  document.addEventListener('astro:page-load', () => hydrateUnicodeEmojiArtwork(document))
+</script>

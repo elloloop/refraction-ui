@@ -500,3 +500,37 @@ describe('RefractionComposer (interaction, jsdom)', () => {
     expect(textarea().value).toBe('hello')
   })
 })
+
+
+describe('keyboard Unicode artwork mirror', () => {
+  it('keeps canonical UTF-16 value and selection, including unsupported graphemes', () => {
+    const value = 'A🔥 👨‍👩‍👧‍👦 🇬🇧 1️⃣ 👍🏽 ✈︎'
+    render(<RefractionComposer defaultValue={value} />)
+    const field = textarea()
+    expect(field.value).toBe(value)
+    expect(field.style.color).toBe('transparent')
+    expect(container.querySelectorAll('[data-rfr-composer-mirror] img')).toHaveLength(4)
+    act(() => field.setSelectionRange(1, 3))
+    expect(field.value.slice(field.selectionStart, field.selectionEnd)).toBe('🔥')
+  })
+  it('returns the whole field to native rendering during IME composition', () => {
+    render(<RefractionComposer defaultValue="Typing 🔥" />)
+    const field = textarea()
+    fireComposition(field, 'compositionstart')
+    expect(field.style.color).toBe('')
+    expect(container.querySelectorAll('[data-rfr-composer-mirror] img')).toHaveLength(0)
+    setValue(field, 'Typing 🔥 日本')
+    fireComposition(field, 'compositionend')
+    expect(field.value).toBe('Typing 🔥 日本')
+    expect(field.style.color).toBe('transparent')
+    expect(container.querySelectorAll('[data-rfr-composer-mirror] img')).toHaveLength(1)
+  })
+  it('keeps native text when artwork is disabled or the whole sequence is unsupported', () => {
+    render(<RefractionComposer defaultValue="🔥" emojiArtwork={false} />)
+    expect(textarea().style.color).toBe('')
+    expect(container.querySelector('img')).toBeNull()
+    render(<RefractionComposer value="👍🏽 ✈︎ 🔥‍🦄" />)
+    expect(textarea().value).toBe('👍🏽 ✈︎ 🔥‍🦄')
+    expect(textarea().style.color).toBe('')
+  })
+})

@@ -12,6 +12,7 @@ import { EmojiPicker } from '@refraction-ui/react-emoji-picker'
 
 interface ComposerExamplesProps {
   section:
+    | 'unicode'
     | 'basic'
     | 'mentions'
     | 'slashAndEmoji'
@@ -25,6 +26,7 @@ interface ComposerExamplesProps {
 const card = 'rounded-xl border border-border bg-card p-8'
 
 export function ComposerExamples({ section }: ComposerExamplesProps) {
+  if (section === 'unicode') return <UnicodeExample />
   if (section === 'basic') return <BasicExample />
   if (section === 'mentions') return <MentionsExample />
   if (section === 'slashAndEmoji') return <SlashAndEmojiExample />
@@ -304,4 +306,13 @@ function StatesExample() {
       </div>
     </div>
   )
+}
+
+
+function UnicodeExample() {
+  const value = 'Keyboard 🔥 ❤️‍🔥 👨‍👩‍👧‍👦 🇬🇧 1️⃣ · native 👍🏽 ✈︎'
+  return <div className={`${card} space-y-4`}>
+    <div data-testid="unicode-composer-before"><RefractionComposer defaultValue={value} emojiArtwork={false} /></div>
+    <div data-testid="unicode-composer-after"><RefractionComposer defaultValue={value} twemojiBaseUrl="/emoji" /></div>
+  </div>
 }
