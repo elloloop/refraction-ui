@@ -6,7 +6,7 @@ import {
   type DropdownMenuProps as CoreDropdownMenuProps,
   type MenuItemProps as CoreMenuItemProps,
 } from '@refraction-ui/dropdown-menu'
-import { cn, createKeyboardHandler, devWarn } from '@refraction-ui/shared'
+import { cn, devWarn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context
@@ -243,15 +243,36 @@ export const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenu
       return () => document.removeEventListener('pointerdown', onPointerDown)
     }, [open, onOpenChange, triggerRef])
 
+    React.useEffect(() => {
+      if (!open) return
+      contentRef.current?.querySelector<HTMLElement>('[role="menuitem"]:not([aria-disabled="true"])')?.focus()
+    }, [open])
+
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-      const handler = createKeyboardHandler({
-        Escape: (ev) => {
-          ev.preventDefault()
-          onOpenChange(false)
-        },
-      })
-      handler(e.nativeEvent)
       onKeyDown?.(e)
+      if (e.defaultPrevented) return
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        onOpenChange(false)
+        triggerRef.current?.focus()
+        return
+      }
+      if (e.key === 'Tab') {
+        onOpenChange(false)
+        return
+      }
+      if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) return
+      const items = Array.from(contentRef.current?.querySelectorAll<HTMLElement>(
+        '[role="menuitem"]:not([aria-disabled="true"])',
+      ) ?? [])
+      if (items.length === 0) return
+      e.preventDefault()
+      const current = items.indexOf(document.activeElement as HTMLElement)
+      const index = e.key === 'Home' ? 0
+        : e.key === 'End' ? items.length - 1
+        : e.key === 'ArrowDown' ? (current + 1) % items.length
+        : (current - 1 + items.length) % items.length
+      items[index].focus()
     }
 
     if (!open) return null
@@ -294,12 +315,13 @@ export interface DropdownMenuItemProps extends Omit<React.HTMLAttributes<HTMLDiv
 
 export const DropdownMenuItem = React.forwardRef<HTMLDivElement, DropdownMenuItemProps>(
   function DropdownMenuItem({ className, disabled, onSelect, onClick, children, ...props }, ref) {
-    const { onOpenChange } = useDropdownMenuContext()
+    const { onOpenChange, triggerRef } = useDropdownMenuContext()
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
       if (disabled) return
       onSelect?.()
       onOpenChange(false)
+      triggerRef.current?.focus()
       onClick?.(e)
     }
 
@@ -309,6 +331,7 @@ export const DropdownMenuItem = React.forwardRef<HTMLDivElement, DropdownMenuIte
         e.preventDefault()
         onSelect?.()
         onOpenChange(false)
+        triggerRef.current?.focus()
       }
     }
 

@@ -59,6 +59,14 @@ export default function DropdownMenuPage() {
           Uses the headless <code className="text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md">@refraction-ui/dropdown-menu</code> core.
         </p>
       </div>
+      <p className="text-sm text-muted-foreground">
+        Name icon triggers with aria-label. React DropdownMenuTrigger asChild preserves one
+        native button; opening focuses the first enabled item, arrow keys and Home/End move
+        between items, and Escape or selection returns focus to the trigger. Astro uses its
+        native DropdownMenuTrigger directly; buttonVariants from the Astro meta supplies
+        shared button styling without nesting another button.
+      </p>
+
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Examples</h2>
         <p className="text-sm text-muted-foreground">A menu with labels, separators, actionable items, and a disabled item.</p>
