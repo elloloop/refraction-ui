@@ -1,5 +1,15 @@
 # @refraction-ui/react
 
+## 0.23.3
+
+### Patch Changes
+
+- f5506f4: Honor DialogTrigger asChild without nested buttons, preserve child refs and click cancellation, and use stable React IDs across server rendering and hydration.
+- f5506f4: Wrap PageHeader actions below the text in narrow containers instead of squeezing the title into broken words.
+- f5506f4: Use hydration-stable React IDs for Tabs and DropdownMenu so server request history cannot break their ARIA relationships on the client.
+
+  Respect avatar images that finished loading or failed before hydration, so cached failures show initials and cached successes hide the fallback.
+
 ## 0.23.2
 
 ### Patch Changes
