@@ -363,6 +363,7 @@ describe('astro interactive composer (meta dist)', () => {
     })
     expect(count(html, '<textarea')).toBe(1)
     expect(html).toContain('Keep this draft')
+    expect(html).toContain('Attach')
     expect(html.indexOf('aria-label="Dictate"')).toBeGreaterThan(html.indexOf('</textarea>'))
     expect(html.indexOf('Attach')).toBeLessThan(html.indexOf('data-send'))
   })
