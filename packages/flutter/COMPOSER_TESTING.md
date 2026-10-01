@@ -135,4 +135,9 @@ It checks editor-state identity, input-client count, focus retention and the
 existing undo-controller replacement (the pre-existing sent-text undo bug is
 outside this additive layout change). `test/icon_menu_test.dart` checks separate
 accessible mic/menu actions, disabled controls, legacy triggers and selection.
+Main/keypad Enter on focused toolbar actions must activate the intended action
+without submitting or clearing a review draft; unhandled host-action keys must
+not invoke editor shortcuts. A narrow toolbar test forces actions onto multiple
+rows while its primary action remains separate. Fixed default and stacked cases
+verify editor continuity within each layout, not dynamic switching between them.
 The multiline docs use case consumes the same shared stacked-layout widgets.
