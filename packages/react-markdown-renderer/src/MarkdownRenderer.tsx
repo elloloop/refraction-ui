@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { enhanceUnicodeEmojiDisplay } from '@refraction-ui/emoji-picker'
 import {
   createMarkdownRenderer,
   proseVariants,
@@ -15,6 +16,8 @@ export interface MarkdownRendererProps {
   linkResolver?: (url: string) => string
   className?: string
   size?: 'sm' | 'default' | 'lg'
+  emojiArtwork?: boolean
+  twemojiBaseUrl?: string
 }
 
 /**
@@ -46,15 +49,29 @@ function sanitizeHtml(html: string): string {
  * XSS sanitization is applied before rendering via dangerouslySetInnerHTML.
  */
 export const MarkdownRenderer = React.forwardRef<HTMLDivElement, MarkdownRendererProps>(
-  function MarkdownRenderer({ content, components, linkResolver, className, size }, ref) {
+  function MarkdownRenderer({ content, components, linkResolver, className, size, emojiArtwork = true, twemojiBaseUrl }, ref) {
     const coreProps: CoreProps = { content, components, linkResolver }
     const api = createMarkdownRenderer(coreProps)
     const classes = cn(proseVariants({ size }), className)
     const sanitizedHtml = sanitizeHtml(api.html)
 
+    const ownRef = React.useRef<HTMLDivElement>(null)
+    const setRef = React.useCallback((node: HTMLDivElement | null) => {
+      ownRef.current = node
+      if (typeof ref === 'function') ref(node)
+      else if (ref) ref.current = node
+    }, [ref])
+    React.useEffect(() => {
+      const node = ownRef.current
+      if (!node) return
+      // Reset from sanitized canonical HTML when content/options change.
+      node.innerHTML = sanitizedHtml
+      if (emojiArtwork) enhanceUnicodeEmojiDisplay(node, twemojiBaseUrl)
+    }, [sanitizedHtml, emojiArtwork, twemojiBaseUrl])
+
     return (
       <div
-        ref={ref}
+        ref={setRef}
         className={classes}
         {...api.ariaProps}
         dangerouslySetInnerHTML={{ __html: sanitizedHtml }}

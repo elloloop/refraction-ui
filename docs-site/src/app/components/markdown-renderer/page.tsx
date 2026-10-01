@@ -3,6 +3,8 @@ import { PropsTable } from '@/components/props-table'
 import { CodeBlock } from '@/components/code-block'
 import { InstallCommand } from '@/components/install-command'
 const markdownProps = [
+  { name: 'emojiArtwork', type: 'boolean', default: 'true', description: 'Enhance complete supported Unicode in display text. Code blocks, inline code, URLs and editing nodes are preserved.' },
+  { name: 'twemojiBaseUrl', type: 'string', description: 'Optional self-hosted Twemoji SVG directory.' },
   { name: 'content', type: 'string', description: 'Markdown string to render.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
 ]
@@ -27,6 +29,8 @@ export default function MarkdownRendererPage() {
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Examples</h2>
         <p className="text-sm text-muted-foreground">Rendered markdown with headings, lists, and code blocks.</p>
         <MarkdownRendererExamples section="basic" />
+        <MarkdownRendererExamples section="unicode" />
+        <p>Artwork enhances sanitized display text after hydration. Unicode stays selectable and code stays literal. Message consumers use the same renderer; hosts updating Astro message DOM can invoke the shared display helper after rendering.</p>
       </section>
       {/* Install */}
       <section className="space-y-3">

@@ -49,7 +49,7 @@ function seed(): ConversationConfig {
     conversationId: 'c1',
     role: 'user',
     author: me,
-    content: 'How do I render **markdown**, `code`, and gifs in a message?',
+    content: 'Keyboard **🔥 ❤️‍🔥 👨‍👩‍👧‍👦 🇬🇧 1️⃣** · native 👍🏽 ✈︎ · `code 🔥`',
     timestamp: t(8),
     status: 'sent',
     reactions: [{ emoji: '👍', count: 2, userReacted: false }],

@@ -245,3 +245,4 @@ export * from '@refraction-ui/astro-native-select'
 
 export { default as EmojiText } from './astro-emoji-picker/EmojiText.astro'
 export { default as EmojiPicker } from './astro-emoji-picker/EmojiPicker.astro'
+export { default as MarkdownRenderer } from './astro-markdown-renderer/MarkdownRenderer.astro'

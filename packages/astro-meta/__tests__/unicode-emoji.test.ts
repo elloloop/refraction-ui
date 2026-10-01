@@ -23,3 +23,21 @@ describe('Astro Unicode artwork, published meta shape', () => {
     expect(html).toContain('data-rfr-emoji-base-url="/emoji/"')
   })
 })
+
+
+it('Astro markdown and conversation preserve canonical SSR text with display enhancement hooks', async () => {
+  const { default: MarkdownRenderer } = await import('../dist/astro-markdown-renderer/MarkdownRenderer.astro')
+  const { default: Chat } = await import('../dist/astro-conversation/Chat.astro')
+  const container = await AstroContainer.create()
+  const markdown = await container.renderToString(MarkdownRenderer, { props: { content: 'Hello **🔥** · `code 🔥`', twemojiBaseUrl: '/emoji' } })
+  expect(markdown).toContain('data-rfr-emoji-markdown')
+  expect(markdown).toContain('<strong>🔥</strong>')
+  expect(markdown).toContain('<code>code 🔥</code>')
+  const native = await container.renderToString(MarkdownRenderer, { props: { content: 'Hello 🔥', emojiArtwork: false } })
+  expect(native).not.toContain('data-rfr-emoji-markdown')
+  const chat = await container.renderToString(Chat, { props: { config: {
+    activeConversationId: 'c', messages: { c: [{ id: 'm', conversationId: 'c', role: 'user', author: { id: 'u', name: 'User' }, content: 'Message 🔥 · `code 🔥`', timestamp: new Date('2026-01-01'), status: 'sent' }] },
+  } } })
+  expect(chat).toContain('data-rfr-chat-message-body')
+  expect(chat).toContain('<code>code 🔥</code>')
+})

@@ -34,7 +34,7 @@ export function unicodeEmojiHtml(text: string, baseUrl = DEFAULT_TWEMOJI_BASE_UR
   const fragments: string[] = []
   for (const run of unicodeEmojiRuns(text, baseUrl)) {
     fragments.push(escapeHtml(text.slice(cursor, run.start)),
-      `<span data-rfr-unicode-emoji style="position:relative;display:inline-block"><span data-rfr-emoji-text>${escapeHtml(run.emoji)}</span><img data-rfr-emoji-art src="${escapeHtml(run.url)}" alt="" aria-hidden="true" draggable="false" style="position:absolute;inset:0;margin:auto;width:1em;height:1em;pointer-events:none;opacity:0" /></span>`)
+      `<span data-rfr-unicode-emoji style="position:relative;display:inline-block"><span data-rfr-emoji-text>${escapeHtml(run.emoji)}</span><img data-rfr-emoji-art src="${escapeHtml(run.url)}" alt="" aria-hidden="true" draggable="false" style="position:absolute;inset:0;margin:auto;width:1em;height:1em;pointer-events:none;border-radius:0;opacity:0" /></span>`)
     cursor = run.end
   }
   fragments.push(escapeHtml(text.slice(cursor)))
@@ -57,4 +57,23 @@ export function hydrateUnicodeEmojiArtwork(root: ParentNode): void {
     image.addEventListener('error', show)
     show()
   })
+}
+
+
+/** Enhance display text only. Never rewrite HTML attributes, code, or editors. */
+export function enhanceUnicodeEmojiDisplay(root: HTMLElement, baseUrl = DEFAULT_TWEMOJI_BASE_URL): void {
+  const document = root.ownerDocument
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+  const candidates: Text[] = []
+  while (walker.nextNode()) {
+    const node = walker.currentNode as Text
+    if (node.parentElement?.closest('code,pre,script,style,svg,math,textarea,input,[contenteditable],[data-rfr-unicode-emoji]')) continue
+    if (unicodeEmojiRuns(node.data, baseUrl).length > 0) candidates.push(node)
+  }
+  for (const node of candidates) {
+    const template = document.createElement('template')
+    template.innerHTML = unicodeEmojiHtml(node.data, baseUrl)
+    node.replaceWith(template.content)
+  }
+  hydrateUnicodeEmojiArtwork(root)
 }

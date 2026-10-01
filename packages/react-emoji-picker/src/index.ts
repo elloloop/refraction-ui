@@ -40,3 +40,5 @@ export {
 
 export { EmojiText, type EmojiTextProps } from './emoji-text.js'
 export { unicodeEmojiRuns, type UnicodeEmojiRun } from '@refraction-ui/emoji-picker'
+
+export { enhanceUnicodeEmojiDisplay } from '@refraction-ui/emoji-picker'

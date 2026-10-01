@@ -12,6 +12,8 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   components?: Record<string, ComponentDef>
   linkResolver?: (url: string) => string
   size?: 'sm' | 'default' | 'lg'
+  emojiArtwork?: boolean
+  twemojiBaseUrl?: string
 }
 
 const {
@@ -19,6 +21,8 @@ const {
   components,
   linkResolver,
   size,
+  emojiArtwork = true,
+  twemojiBaseUrl,
   class: className,
   ...props
 } = Astro.props
@@ -54,9 +58,18 @@ const sanitizedHtml = sanitizeHtml(api.html)
 
 <div
   class={classes}
+  data-rfr-emoji-markdown={emojiArtwork ? '' : undefined}
+  data-rfr-emoji-base-url={twemojiBaseUrl}
   role={api.ariaProps.role}
   aria-label={api.ariaProps['aria-label']}
   {...props}
 >
   <Fragment set:html={sanitizedHtml} />
 </div>
+
+<script>
+  import { enhanceUnicodeEmojiDisplay } from '@refraction-ui/emoji-picker'
+  const hydrate = () => document.querySelectorAll<HTMLElement>('[data-rfr-emoji-markdown]').forEach(node => enhanceUnicodeEmojiDisplay(node, node.dataset.rfrEmojiBaseUrl))
+  hydrate()
+  document.addEventListener('astro:page-load', hydrate)
+</script>
