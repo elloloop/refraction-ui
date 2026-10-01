@@ -70,3 +70,17 @@ test('Astro real clipboard copy and paste preserve complete Unicode with artwork
   await field.press('ControlOrMeta+Z')
   await expect(field).toHaveValue(text)
 })
+
+test('Astro private draft uses native Unicode by default without artwork requests', async ({ page }) => {
+  const requests: string[] = []
+  page.on('request', request => {
+    if (request.url().includes('cdn.jsdelivr.net') || /\/emoji\/.*\.svg/.test(request.url())) requests.push(request.url())
+  })
+  await page.goto(`/?draft=${encodeURIComponent(text)}&default=1`)
+  const surface = page.locator('#astro')
+  await expect.poll(() => surface.locator('refraction-interactive-composer').evaluate(node => Boolean((node as HTMLElement & {api?: unknown}).api))).toBe(true)
+  await expect(surface.locator('textarea')).toHaveValue(text)
+  await expect(surface.locator('[data-emoji-mirror] img')).toHaveCount(0)
+  expect(await surface.locator('textarea').evaluate(node => node.style.color)).toBe('')
+  expect(requests).toEqual([])
+})
