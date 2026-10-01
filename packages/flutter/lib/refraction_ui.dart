@@ -187,3 +187,6 @@ export 'src/components/radial_gauge.dart';
 export 'src/components/timeline.dart';
 export 'src/components/mascot.dart';
 export 'src/components/checklist.dart';
+
+export 'src/data/unicode_emoji.dart';
+export 'src/components/emoji_text.dart';
