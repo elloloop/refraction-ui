@@ -23,6 +23,18 @@ test('named adjacent actions preserve the editor draft and support keyboard menu
   await page.keyboard.press('Escape')
   await expect(language).toBeFocused()
   await expect(editor).toHaveValue(draft)
+  if (!isMobile) {
+    await language.press('Enter')
+    await expect(page.getByRole('menuitem', { name: 'Auto', exact: true })).toBeFocused()
+    await page.keyboard.press('Tab')
+    await expect(example.getByRole('button', { name: 'Send', exact: true })).toBeFocused()
+    await expect(page.getByRole('menu')).not.toBeVisible()
+    await language.press('Enter')
+    await page.keyboard.press('Shift+Tab')
+    await expect(dictate).toBeFocused()
+    await expect(page.getByRole('menu')).not.toBeVisible()
+    await expect(editor).toHaveValue(draft)
+  }
   await language.press('Enter')
   await expect(page.getByRole('menuitem', { name: 'Auto', exact: true })).toBeFocused()
   await page.keyboard.press('End')

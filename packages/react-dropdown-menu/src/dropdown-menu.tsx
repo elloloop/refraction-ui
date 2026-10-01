@@ -258,6 +258,8 @@ export const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenu
         return
       }
       if (e.key === 'Tab') {
+        // Native traversal must start from the trigger, before the portal unmounts.
+        triggerRef.current?.focus()
         onOpenChange(false)
         return
       }
