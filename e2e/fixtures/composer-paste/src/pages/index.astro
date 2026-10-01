@@ -9,7 +9,7 @@ import '../../../../../docs-site/src/app/globals.css'
     <h1 class="text-2xl font-semibold">Clipboard paste · local fixture</h1>
     <p>Transport-free harness. All files stay in this browser; Send only records a fixture submission.</p>
     <section id="react"><h2>React</h2><div id="react-root"></div></section>
-    <section id="astro"><h2>Astro</h2><RefractionInteractiveComposer defaultValue={Astro.url.searchParams.get('draft') ?? 'before selected after'} maxAttachmentSizeBytes={1024} /></section>
+    <section id="astro"><h2>Astro</h2><RefractionInteractiveComposer defaultValue={Astro.url.searchParams.get('draft') ?? 'before selected after'} maxAttachmentSizeBytes={1024} emojiArtwork={Astro.url.searchParams.get('native') !== '1'} twemojiBaseUrl="/emoji" /></section>
     <output id="results" class="block whitespace-pre-wrap rounded-xl border p-4">No paste or submission yet</output>
   </main>
   <script>

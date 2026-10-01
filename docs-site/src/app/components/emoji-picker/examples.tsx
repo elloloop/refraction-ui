@@ -1,11 +1,20 @@
 'use client'
 import { useState } from 'react'
-import { EmojiPicker, nativeEmojiRenderer } from '@refraction-ui/react-emoji-picker'
-interface EmojiPickerExamplesProps { section: 'basic' | 'seam' | 'stickers' }
+import { EmojiPicker, EmojiText, nativeEmojiRenderer } from '@refraction-ui/react-emoji-picker'
+interface EmojiPickerExamplesProps { section: 'basic' | 'seam' | 'stickers' | 'unicode' }
 export function EmojiPickerExamples({ section }: EmojiPickerExamplesProps) {
   const [emoji, setEmoji] = useState('')
   const [uniform, setUniform] = useState(true)
   const [picked, setPicked] = useState('')
+
+  if (section === 'unicode') {
+    const text = 'Keyboard: 🔥 ❤️ ❤️‍🔥 👩‍💻 👨‍👩‍👧‍👦 🇬🇧 1️⃣ 🏳️‍🌈 · native fallback: 👍🏽 ✈︎'
+    return <div className="rounded-xl border border-border bg-card p-8 space-y-4 text-2xl leading-loose">
+      <p data-testid="unicode-before">{text}</p>
+      <p data-testid="unicode-after"><EmojiText text={text} /></p>
+      <p><EmojiText data-testid="unicode-offline" text={text} twemojiBaseUrl="/missing-emoji" /></p>
+    </div>
+  }
 
   if (section === 'basic') {
     return (

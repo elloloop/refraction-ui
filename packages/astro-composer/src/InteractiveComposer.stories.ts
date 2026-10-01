@@ -1,6 +1,3 @@
 import Component from './InteractiveComposer.astro'
-const meta = { title: 'Astro/Composer/Interactive', component: Component }
-export default meta
-export const Clipboard = { args: { defaultValue: 'Local fixture draft', placeholder: 'Paste text and PNG/JPEG images…' } }
-export const ReadOnly = { args: { defaultValue: 'Selectable draft', readOnly: true } }
-export const Disabled = { args: { disabled: true } }
+export default { title: 'Astro/InteractiveComposer', component: Component }
+export const KeyboardUnicode = { args: { defaultValue: 'Keyboard 🔥 👨‍👩‍👧‍👦 🇬🇧 1️⃣ · native 👍🏽 ✈︎' } }

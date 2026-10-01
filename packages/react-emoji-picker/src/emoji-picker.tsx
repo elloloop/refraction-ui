@@ -4,7 +4,7 @@ import {
   EMOJI_DATA,
   CATEGORY_LABELS,
   searchEmojis,
-  twemojiAssetUrl,
+  unicodeEmojiRuns,
   DEFAULT_TWEMOJI_BASE_URL,
   STARTER_STICKER_SET,
   emojiPickerContainerStyles,
@@ -40,19 +40,32 @@ export const nativeEmojiRenderer: EmojiRenderer = (emoji) => emoji.emoji
 
 /**
  * Renders a uniform Twemoji SVG (CC-BY 4.0 — attribution required, see the
- * package README). Lazily loaded per glyph; the native glyph is the `alt`
- * fallback if the asset can't load (e.g. offline).
+ * package README). Unicode remains selectable text. The native glyph stays
+ * visible until the artwork loads and returns if loading fails (e.g. offline).
  */
 export function createTwemojiRenderer(baseUrl: string = DEFAULT_TWEMOJI_BASE_URL): EmojiRenderer {
-  return (emoji) => (
-    <img
-      src={twemojiAssetUrl(emoji.emoji, baseUrl)}
-      alt={emoji.emoji}
-      draggable={false}
-      loading="lazy"
-      className="pointer-events-none h-[1.2em] w-[1.2em] select-none"
-    />
-  )
+  return (entry) => {
+    const run = unicodeEmojiRuns(entry.emoji, baseUrl)[0]
+    if (!run || run.emoji !== entry.emoji) return entry.emoji
+    return <TwemojiGlyph key={run.url} emoji={entry.emoji} url={run.url} />
+  }
+}
+
+function TwemojiGlyph({ emoji, url }: { emoji: string; url: string }) {
+  const [loaded, setLoaded] = React.useState(false)
+  const imageRef = React.useRef<HTMLImageElement>(null)
+  React.useEffect(() => {
+    // SSR images can finish loading before React attaches its load listener.
+    const image = imageRef.current
+    if (image?.complete) setLoaded(image.naturalWidth > 0)
+  }, [url])
+  return <span style={{ position: 'relative', display: 'inline-block' }}>
+    <span style={{ opacity: loaded ? 0 : 1 }}>{emoji}</span>
+    <img ref={imageRef} src={url} alt="" aria-hidden="true" draggable={false} loading="lazy"
+      onLoad={() => setLoaded(true)} onError={() => setLoaded(false)}
+      style={{ position: 'absolute', inset: 0, margin: 'auto', width: '1em', height: '1em', opacity: loaded ? 1 : 0 }}
+      className="pointer-events-none select-none" />
+  </span>
 }
 
 export const twemojiRenderer: EmojiRenderer = createTwemojiRenderer()
