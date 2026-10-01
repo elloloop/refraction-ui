@@ -1762,6 +1762,20 @@ class _RefractionComposerState extends State<RefractionComposer>
         child: textField,
       ),
     );
+    // Flutter Web delegates Control-Z to the DOM history by default. A
+    // clipboard transaction applied through EditableText belongs to Flutter's
+    // UndoHistory instead, so use its existing actions for opted-in composers.
+    if (kIsWeb && _acceptsImagePaste) {
+      sizedField = Shortcuts(
+        shortcuts: const <ShortcutActivator, Intent>{
+          SingleActivator(LogicalKeyboardKey.keyZ, control: true):
+              UndoTextIntent(SelectionChangedCause.keyboard),
+          SingleActivator(LogicalKeyboardKey.keyZ, control: true, shift: true):
+              RedoTextIntent(SelectionChangedCause.keyboard),
+        },
+        child: sizedField,
+      );
+    }
     if (resizeDuration > Duration.zero) {
       sizedField = AnimatedSize(
         duration: resizeDuration,

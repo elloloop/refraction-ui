@@ -74,6 +74,36 @@ void main() {
     },
   );
 
+  for (final platform in [TargetPlatform.linux, TargetPlatform.macOS]) {
+    testWidgets('mixed paste retains native undo on $platform', (tester) async {
+      await mount(
+        tester,
+        RefractionComposer(
+          onImagesPasted: (_) {},
+          clipboardReader: () async =>
+              ComposerClipboardPaste(text: '🙂', images: [image]),
+        ),
+      );
+      await edit(
+        tester,
+        'before word after',
+        selection: const TextSelection(baseOffset: 7, extentOffset: 11),
+      );
+      await tester.pump(const Duration(milliseconds: 600));
+      await paste(tester);
+      expect(text(tester).text, 'before 🙂 after');
+      final modifier = platform == TargetPlatform.macOS
+          ? LogicalKeyboardKey.metaLeft
+          : LogicalKeyboardKey.controlLeft;
+      await tester.sendKeyDownEvent(modifier);
+      await tester.sendKeyEvent(LogicalKeyboardKey.keyZ);
+      await tester.sendKeyUpEvent(modifier);
+      await tester.pump();
+      expect(text(tester).text, 'before word after');
+      expectSession(tester);
+    }, variant: TargetPlatformVariant({platform}));
+  }
+
   testWidgets('late clipboard read cannot overwrite further typing', (
     tester,
   ) async {

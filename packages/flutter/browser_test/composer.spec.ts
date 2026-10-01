@@ -60,6 +60,9 @@ for (const width of [390, 768, 1280]) {
       const input = node as HTMLInputElement;
       return [input.selectionStart, input.selectionEnd];
     })).toEqual([7, 11]);
+    // Flutter coalesces text edits for 500ms. Commit the existing draft
+    // before asserting that the following paste is a separate undo entry.
+    await page.waitForTimeout(600);
     await field.evaluate(node => {
       const data = new DataTransfer();
       const png = Uint8Array.from(atob('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6ZAAAAABJRU5ErkJggg=='), c => c.charCodeAt(0));
@@ -70,15 +73,19 @@ for (const width of [390, 768, 1280]) {
     await expect(field).toHaveValue('before 🙂 after');
     await expect(page.getByText('clipboard-1.png', { exact: true })).toBeVisible();
     await expect(field).toBeFocused();
+    // Let Flutter commit the paste entry before exercising undo and redo.
+    await page.waitForTimeout(600);
     await page.keyboard.press('ControlOrMeta+Z');
     await expect(field).toHaveValue('before word after');
+    await page.keyboard.press('ControlOrMeta+Shift+Z');
+    await expect(field).toHaveValue('before 🙂 after');
     // Image staging does not alter the editor undo stack or submit the fixture.
     await expect(page.getByText('clipboard-1.png', { exact: true })).toBeVisible();
   });
 }
 
 
-test('real browser keyboard paste reads OS clipboard image', async ({ page, context }) => {
+test('real browser keyboard paste reads OS clipboard image', async ({ page, context }, testInfo) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('/');
   const field = page.getByRole('textbox', { name: 'Message input' });
@@ -96,5 +103,5 @@ test('real browser keyboard paste reads OS clipboard image', async ({ page, cont
   await expect(page.getByText('clipboard-1.png', { exact: true })).toBeVisible();
   await expect(field).toHaveValue('fixture draft');
   await expect(field).toBeFocused();
-  await page.screenshot({ path: '/private/tmp/refraction-image-paste-fixture.png' });
+  await page.screenshot({ path: testInfo.outputPath('clipboard-fixture.png') });
 });
