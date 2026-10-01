@@ -11,3 +11,10 @@ Astro exports a read-only `RefractionComposer` shell. Its optional `value` rende
 canonical Unicode with the same artwork and load/error fallback. Slotted content
 wins over `value`. Interactive editing requires a React island. This does not
 claim native OS IME or animated Noto coverage from synthetic/browser tests.
+
+Artwork is opt-in for private drafts and messages. Configure `twemojiBaseUrl`
+with a same-origin SVG directory such as `/emoji`. Explicit artwork without a
+custom URL requests emoji-codepoint assets from jsDelivr and exposes the user IP
+to that CDN. Configure CSP `img-src` for the chosen origin. Twemoji graphics are
+CC-BY 4.0: retain attribution and the graphics license when self-hosting:
+https://github.com/jdecked/twemoji/blob/main/LICENSE-GRAPHICS

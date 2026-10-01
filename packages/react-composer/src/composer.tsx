@@ -309,7 +309,7 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
       busy = false,
       onStop,
       surface = 'outlined',
-      emojiArtwork = true,
+      emojiArtwork = false,
       twemojiBaseUrl,
       accessoryPanel,
       accessoryPanelOpen,
@@ -997,7 +997,7 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
               aria-hidden="true"
               className={cn(
                 composerFieldClass,
-                'pointer-events-none overflow-hidden whitespace-pre-wrap break-words',
+                'pointer-events-none overflow-hidden whitespace-pre-wrap break-words [scrollbar-gutter:stable]',
                 paintEmojiArtwork ? 'text-foreground' : 'text-transparent',
               )}
               style={{
@@ -1043,7 +1043,7 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
                 : {})}
               className={cn(
                 composerFieldClass,
-                'absolute inset-0 h-full overflow-y-auto focus-visible:outline-none',
+                'absolute inset-0 h-full overflow-y-auto focus-visible:outline-none [scrollbar-gutter:stable]',
               )}
               style={{ lineHeight: FIELD_LINE_HEIGHT, maxHeight: fieldHeightFor(maxLines), ...(paintEmojiArtwork ? { color: 'transparent', caretColor: 'hsl(var(--foreground))' } : {}) }}
               onChange={handleChange}

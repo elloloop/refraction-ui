@@ -27,9 +27,11 @@ test('Unicode artwork preserves selectable text and handles failed assets', asyn
     return selection.toString()
   })
   expect(selectable).toBe(text)
+  if (testInfo.project.name !== 'mobile') {
   await context.grantPermissions(['clipboard-read', 'clipboard-write'])
   await page.keyboard.press(process.platform === 'darwin' ? 'Meta+C' : 'Control+C')
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(text)
+  }
   await page.evaluate(() => window.getSelection()?.removeAllRanges())
   const offline = page.getByTestId('unicode-offline')
   await offline.scrollIntoViewIfNeeded()

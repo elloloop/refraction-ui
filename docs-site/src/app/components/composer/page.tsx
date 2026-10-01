@@ -4,7 +4,7 @@ import { CodeBlock } from '@/components/code-block'
 import { InstallCommand } from '@/components/install-command'
 
 const composerProps = [
-  { name: 'emojiArtwork', type: 'boolean', default: 'true', description: 'Supported complete Unicode graphemes render in the mirror; the real textarea owns text, caret, selection, copy and undo. Artwork pauses during IME composition.' },
+  { name: 'emojiArtwork', type: 'boolean', default: 'false', description: 'Supported complete Unicode graphemes render in the mirror; the real textarea owns text, caret, selection, copy and undo. Artwork pauses during IME composition.' },
   { name: 'twemojiBaseUrl', type: 'string', description: 'Optional self-hosted Twemoji SVG directory.' },
   {
     name: 'value',

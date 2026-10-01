@@ -28,9 +28,17 @@ describe('Astro Unicode artwork, published meta shape', () => {
 it('Astro composer remains read-only while rendering a canonical Unicode draft', async () => {
   const { default: Composer } = await import('../dist/astro-composer/Composer.astro')
   const container = await AstroContainer.create()
-  const html = await container.renderToString(Composer, { props: { value: 'Draft 🔥 👍🏽', twemojiBaseUrl: '/emoji' } })
+  const html = await container.renderToString(Composer, { props: { value: 'Draft 🔥 👍🏽', emojiArtwork: true, twemojiBaseUrl: '/emoji' } })
   expect(html).toContain('/emoji/1f525.svg')
   expect(html).toContain('👍🏽')
   expect(html).not.toContain('<textarea')
   expect(html).toMatch(/<button[^>]*disabled/)
+})
+
+it('Astro composer renders private Unicode natively by default', async () => {
+  const { default: Composer } = await import('../dist/astro-composer/Composer.astro')
+  const container = await AstroContainer.create()
+  const html = await container.renderToString(Composer, { props: { value: 'Private 🔥' } })
+  expect(html).toContain('Private 🔥')
+  expect(html).not.toContain('<img')
 })

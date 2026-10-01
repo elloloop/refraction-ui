@@ -505,7 +505,7 @@ describe('RefractionComposer (interaction, jsdom)', () => {
 describe('keyboard Unicode artwork mirror', () => {
   it('keeps canonical UTF-16 value and selection, including unsupported graphemes', () => {
     const value = 'A🔥 👨‍👩‍👧‍👦 🇬🇧 1️⃣ 👍🏽 ✈︎'
-    render(<RefractionComposer defaultValue={value} />)
+    render(<RefractionComposer defaultValue={value} emojiArtwork />)
     const field = textarea()
     expect(field.value).toBe(value)
     expect(field.style.color).toBe('transparent')
@@ -514,7 +514,7 @@ describe('keyboard Unicode artwork mirror', () => {
     expect(field.value.slice(field.selectionStart, field.selectionEnd)).toBe('🔥')
   })
   it('returns the whole field to native rendering during IME composition', () => {
-    render(<RefractionComposer defaultValue="Typing 🔥" />)
+    render(<RefractionComposer defaultValue="Typing 🔥" emojiArtwork />)
     const field = textarea()
     fireComposition(field, 'compositionstart')
     expect(field.style.color).toBe('')
@@ -533,4 +533,11 @@ describe('keyboard Unicode artwork mirror', () => {
     expect(textarea().value).toBe('👍🏽 ✈︎ 🔥‍🦄')
     expect(textarea().style.color).toBe('')
   })
+})
+
+it('keeps private draft artwork opt-in', () => {
+  render(<RefractionComposer defaultValue="Private 🔥" />)
+  expect(textarea().value).toBe('Private 🔥')
+  expect(textarea().style.color).toBe('')
+  expect(container.querySelector('img')).toBeNull()
 })

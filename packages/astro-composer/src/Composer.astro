@@ -12,6 +12,7 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   placeholder?: string
   /** Read-only canonical Unicode draft. Slotted content takes precedence. */
   value?: string
+  emojiArtwork?: boolean
   twemojiBaseUrl?: string
   /** Accessible name of the composer landmark. */
   label?: string
@@ -24,6 +25,7 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
 const {
   placeholder = 'Send a message…',
   value,
+  emojiArtwork = false,
   twemojiBaseUrl,
   label = 'Message composer',
   sendLabel = 'Send',
@@ -41,7 +43,7 @@ const hasContent = Astro.slots.has('default')
 <div role="form" aria-label={label} class={cn('relative', className)} {...rest}>
   <div class={composerSurfaceVariants({ disabled: disabled ? 'true' : 'false' })}>
     <div class={cn(composerFieldClass, 'min-h-[3rem] whitespace-pre-wrap break-words')}>
-      {hasContent ? <slot /> : value !== undefined ? <Fragment set:html={unicodeEmojiHtml(value, twemojiBaseUrl)} /> : <span class="text-muted-foreground">{placeholder}</span>}
+      {hasContent ? <slot /> : value ? (emojiArtwork ? <Fragment set:html={unicodeEmojiHtml(value, twemojiBaseUrl)} /> : value) : <span class="text-muted-foreground">{placeholder}</span>}
     </div>
     <div class="flex items-center px-2 pb-2">
       <div class="flex-1" />

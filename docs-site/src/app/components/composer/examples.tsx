@@ -313,6 +313,6 @@ function UnicodeExample() {
   const value = 'Keyboard 🔥 ❤️‍🔥 👨‍👩‍👧‍👦 🇬🇧 1️⃣ · native 👍🏽 ✈︎'
   return <div className={`${card} space-y-4`}>
     <div data-testid="unicode-composer-before"><RefractionComposer defaultValue={value} emojiArtwork={false} /></div>
-    <div data-testid="unicode-composer-after"><RefractionComposer defaultValue={value} twemojiBaseUrl="/emoji" /></div>
+    <div data-testid="unicode-composer-after"><RefractionComposer defaultValue={value} emojiArtwork twemojiBaseUrl="/emoji" /></div>
   </div>
 }
