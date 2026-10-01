@@ -258,6 +258,7 @@ class _RefractionButtonState extends State<RefractionButton> {
           setState(() => _showFocusHighlight = value),
       shortcuts: const {
         SingleActivator(LogicalKeyboardKey.enter): ActivateIntent(),
+        SingleActivator(LogicalKeyboardKey.numpadEnter): ActivateIntent(),
         SingleActivator(LogicalKeyboardKey.space): ActivateIntent(),
       },
       actions: {

@@ -22,7 +22,8 @@ export default function ComposerPage() {
         <p>The optional <code>layoutBuilder</code> arranges the existing editor,
           primary action and optional leading/trailing widgets inside one surface.
           Keep the editor mounted once in a stable location. Reuse the supplied
-          primary action to preserve validation and the send-time undo reset.
+          primary action to preserve validation and the existing submit/controller reset.
+          Native undo-history limitations are documented in COMPOSER_TESTING.md.
           <code>RefractionComposerStackedLayout</code> places a full-width editor
           above the toolbar. <code>RefractionComposerToolbar</code> wraps compact
           actions independently of the trailing primary button using theme spacing.</p>

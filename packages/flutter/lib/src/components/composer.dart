@@ -284,7 +284,7 @@ typedef ComposerPrimaryBuilder =
 /// Arranges the existing editor and action widgets inside the composer surface.
 /// Mount each supplied widget once. Keep the editor in a stable location across
 /// rebuilds to retain its platform input connection. The supplied primary action
-/// retains validation, send handling and undo-history reset.
+/// retains validation and the existing submit/controller-reset behavior.
 typedef ComposerLayoutBuilder =
     Widget Function(
       BuildContext context, {
@@ -1197,7 +1197,7 @@ class _RefractionComposerState extends State<RefractionComposer>
   void _handleSubmit() {
     final submission = _controller.trySubmit(widget.validator);
     if (submission == null) return;
-    // A fresh undo stack: undo must never resurrect sent text.
+    // Replace the undo controller along with the accepted draft.
     final previousUndo = _undoController;
     _undoController = UndoHistoryController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -1208,7 +1208,9 @@ class _RefractionComposerState extends State<RefractionComposer>
   }
 
   KeyEventResult _handleKeyEvent(FocusNode node, KeyEvent event) {
-    if (event is! KeyDownEvent) return KeyEventResult.ignored;
+    if (event is! KeyDownEvent || !_focusNode.hasFocus) {
+      return KeyEventResult.ignored;
+    }
     final key = event.logicalKey;
     final state = _controller.state;
 
