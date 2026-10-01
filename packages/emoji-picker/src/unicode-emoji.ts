@@ -34,7 +34,7 @@ export function unicodeEmojiHtml(text: string, baseUrl = DEFAULT_TWEMOJI_BASE_UR
   const fragments: string[] = []
   for (const run of unicodeEmojiRuns(text, baseUrl)) {
     fragments.push(escapeHtml(text.slice(cursor, run.start)),
-      `<span data-rfr-unicode-emoji style="position:relative;display:inline-block"><span data-rfr-emoji-text>${escapeHtml(run.emoji)}</span><img data-rfr-emoji-art src="${escapeHtml(run.url)}" alt="" aria-hidden="true" draggable="false" style="position:absolute;inset:0;margin:auto;width:1em;height:1em;pointer-events:none;opacity:0" /></span>`)
+      `<span data-rfr-unicode-emoji style="position:relative;display:inline-block"><span data-rfr-emoji-text>${escapeHtml(run.emoji)}</span><img data-rfr-emoji-art src="${escapeHtml(run.url)}" alt="" aria-hidden="true" referrerpolicy="no-referrer" draggable="false" style="position:absolute;inset:0;margin:auto;width:1em;height:1em;pointer-events:none;opacity:0" /></span>`)
     cursor = run.end
   }
   fragments.push(escapeHtml(text.slice(cursor)))
