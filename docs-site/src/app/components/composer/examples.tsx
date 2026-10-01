@@ -319,7 +319,7 @@ function ToolbarExample() {
     <div className={`${card} space-y-4`} data-testid="composer-toolbar-example">
       <RefractionComposer
         minLines={3}
-        defaultValue="Please review the release notes.\nI will send this after review."
+        defaultValue={'Please review the release notes.\nI will send this after review.'}
         leading={
           <div className="flex items-center gap-0.5">
             <Button size="icon" variant="ghost" aria-label="Dictate" onClick={() => setRequested(true)}>

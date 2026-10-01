@@ -6,6 +6,7 @@ test('named adjacent actions preserve the editor draft and support keyboard menu
   const editor = example.getByRole('textbox')
   const dictate = example.getByRole('button', { name: 'Dictate', exact: true })
   const language = example.getByRole('button', { name: 'Dictation language', exact: true })
+  await expect(editor).toHaveValue('Please review the release notes.\nI will send this after review.')
   await editor.fill('Draft remains available\nfor review.')
   const draft = await editor.inputValue()
   await dictate.focus()
