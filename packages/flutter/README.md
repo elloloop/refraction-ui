@@ -376,6 +376,19 @@ RefractionEmojiPicker(
 )
 ```
 
+Keyboard and pasted Unicode in `RefractionComposer` use the same complete-grapheme
+artwork by default. The original text layout and UTF-16 offsets remain intact;
+selection, undo, clipboard and IME continue through the native editor. Unsupported
+whole sequences and text-presentation variants stay native. Pass
+`emojiRenderer: defaultEmojiRenderer` for native glyph rendering, or pass
+`emojiRenderer: refractionAnimatedEmojiRenderer` for bundled Noto animation with
+Twemoji fallback and a still frame under reduced motion.
+
+`refractionUnicodeEmojiRuns(text)` returns supported whole graphemes and original
+ranges. `refractionEmojiTextSpans(text, size: ..., renderer: ...)` is for display
+only: hosts must copy their canonical message string, because display WidgetSpans
+are placeholders in selectable paragraphs. Never use these spans in an editor.
+
 A small **starter sticker pack** (`refractionStarterStickers()`) ships too —
 eight static SVG stickers plus one Lottie-animated sticker — proving both the
 static and animated render paths. Hosts add their own packs via
@@ -400,3 +413,19 @@ Use `onPasteError` for diagnostics; the composer also shows `pasteFailedNotice`.
 The Flutter gallery Composer example and isolated input harness demonstrate the
 public callback. See [COMPOSER_TESTING.md](COMPOSER_TESTING.md#opt-in-clipboard-images)
 for platform boundaries, reader injection, privacy, limits and the dependency rationale.
+
+### Clipboard native build requirements
+
+Image handoff is opt-in at runtime, but `super_clipboard` is a runtime dependency
+of this package. Every native consumer builds/registers `super_native_extensions`,
+`irondash_engine_context` and `device_info_plus`, even without an image callback.
+Cargokit downloads cached/precompiled Rust binaries or builds through rustup;
+provision network access or a populated build cache and the normal Flutter native
+toolchain. Android needs API 23 or newer and the Flutter-selected Android NDK.
+Linux needs the Flutter GTK/CMake/Ninja toolchain; Windows needs Visual Studio's
+Desktop development with C++ workload. No extra clipboard permission is requested.
+
+The Test Matrix builds an isolated consuming app for Android, Linux and Windows
+in addition to widget/web behavior tests. Build success does not prove physical
+keyboard or OS clipboard behavior on those platforms. Actual clipboard fixtures
+cover macOS and the iOS simulator; see [COMPOSER_TESTING](COMPOSER_TESTING.md).

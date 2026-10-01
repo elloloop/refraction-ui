@@ -329,3 +329,16 @@ class _InputFormatterDemoState extends State<_InputFormatterDemo> {
     ),
   );
 }
+
+/// Keyboard Unicode and the display renderer share the same artwork.
+@widgetbook.UseCase(name: 'Keyboard Unicode emoji', type: RefractionComposer)
+Widget unicodeEmojiComposerUseCase(BuildContext context) => _ControllerScope(
+  create: () => RefractionComposerController(
+    initialValue: 'Hello 🔥 ❤️ 🇬🇧 👨‍👩‍👧‍👦 👍🏽',
+  ),
+  builder: (controller) => RefractionComposer(
+    controller: controller,
+    emojiRenderer: refractionAnimatedEmojiRenderer,
+    onSubmit: (_) {},
+  ),
+);

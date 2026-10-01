@@ -25,7 +25,7 @@ dependencies:
   characters: ^1.4.0
   # Flutter Clipboard exposes text only. Superlist supplies image formats and
   # user-initiated browser paste events; see COMPOSER_TESTING.md.
-  super_clipboard: 0.9.1
+  super_clipboard: ^0.9.1
   flutter_markdown: ^0.7.7+1
   markdown: ^7.3.1
   # Renders the bundled uniform Twemoji glyph set (assets/twemoji/*.svg) as

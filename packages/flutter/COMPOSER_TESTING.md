@@ -148,7 +148,7 @@ Unsupported formats do not stage. A read or size failure rejects the whole paste
 transaction, retains the draft, and displays the error; retry is a new gesture.
 Individual images are bounded at 100 MiB while streaming, before host validation.
 
-Flutter's first-party Clipboard API only exposes text. `super_clipboard: 0.9.1`
+Flutter's first-party Clipboard API only exposes text. `super_clipboard: ^0.9.1`
 is a necessary documented third-party dependency from Superlist, isolated in
 `composer_clipboard.dart`. It supplies OS format conversion and browser paste
 readers across macOS, Windows, Linux, iOS, Android and web. It uses native Rust
@@ -180,7 +180,12 @@ Rust patch; process-local `GIT_CONFIG_GLOBAL=/dev/null`, `GIT_CONFIG_NOSYSTEM=1`
 setting or dependency source was changed. The iOS run used a temporary unsigned
 arm64/iOS15 compiler config; the example's older deployment targets are refused
 by Xcode 27, and no app support floor was changed in this feature. Windows, Linux,
-Android and mobile Safari remain unverified; desktop responsive tests do not establish mobile OS support.
+Android and mobile Safari clipboard behavior remain unverified; desktop responsive tests do not establish mobile OS support.
+
+`test-matrix-flutter-native` builds a generated consuming app for Android, Linux
+and Windows. It imports the public composer and clipboard API and uses the actual
+native dependency graph, including Cargokit. These are build gates, not clipboard
+interaction claims; require all three jobs green before tagging this feature.
 
 ## Stacked composer surface and icon menus
 
@@ -190,4 +195,9 @@ It checks editor-state identity, input-client count, focus retention and the
 existing undo-controller replacement (the pre-existing sent-text undo bug is
 outside this additive layout change). `test/icon_menu_test.dart` checks separate
 accessible mic/menu actions, disabled controls, legacy triggers and selection.
+Main/keypad Enter on focused toolbar actions must activate the intended action
+without submitting or clearing a review draft; unhandled host-action keys must
+not invoke editor shortcuts. A narrow toolbar test forces actions onto multiple
+rows while its primary action remains separate. Fixed default and stacked cases
+verify editor continuity within each layout, not dynamic switching between them.
 The multiline docs use case consumes the same shared stacked-layout widgets.

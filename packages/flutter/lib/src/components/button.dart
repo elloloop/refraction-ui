@@ -258,6 +258,7 @@ class _RefractionButtonState extends State<RefractionButton> {
           setState(() => _showFocusHighlight = value),
       shortcuts: const {
         SingleActivator(LogicalKeyboardKey.enter): ActivateIntent(),
+        SingleActivator(LogicalKeyboardKey.numpadEnter): ActivateIntent(),
         SingleActivator(LogicalKeyboardKey.space): ActivateIntent(),
       },
       actions: {
@@ -288,6 +289,7 @@ class _RefractionButtonState extends State<RefractionButton> {
                 minWidth: minWidth ?? 0.0,
                 minHeight: minHeight,
               ),
+              width: minWidth,
               padding: padding,
               decoration: BoxDecoration(
                 color: backgroundColor,
