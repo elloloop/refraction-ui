@@ -53,6 +53,8 @@ export function registerRefractionInteractiveComposer(): void {
           mirrorKey = nextMirrorKey
           if (paintArtwork) {
             mirror.innerHTML = unicodeEmojiHtml(state.value, this.dataset.emojiBaseUrl)
+            // Match the textarea's final empty line and scroll height.
+            if (state.value.endsWith('\n')) mirror.append(document.createTextNode('\u200b'))
             hydrateUnicodeEmojiArtwork(mirror)
           } else mirror.textContent = state.value
           mirror.style.color = paintArtwork ? '' : 'transparent'

@@ -23,7 +23,7 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   submitOnEnter?: boolean
 }
 const {
-  defaultValue = '', emojiArtwork = true, twemojiBaseUrl, placeholder = 'Send a message…', label = 'Message composer',
+  defaultValue = '', emojiArtwork = false, twemojiBaseUrl, placeholder = 'Send a message…', label = 'Message composer',
   messageLabel = 'Message', sendLabel = 'Send', removeLabel = 'Remove attachment',
   pasteFailedNotice = 'Could not paste images. Try attaching the file instead.',
   trimmedNotice = 'Pasted text was trimmed to fit the length limit',
@@ -44,9 +44,9 @@ const {
     <div data-notice role="status" aria-live="polite" class="px-3 text-xs text-muted-foreground"></div>
     <div data-tray class={composerTrayClass}></div>
     <div class="relative">
-      <div data-emoji-mirror aria-hidden="true" class={cn(composerFieldClass, 'absolute inset-0 pointer-events-none overflow-hidden whitespace-pre-wrap break-words text-foreground')}></div>
+      <div data-emoji-mirror aria-hidden="true" class={cn(composerFieldClass, 'absolute inset-0 pointer-events-none overflow-hidden whitespace-pre-wrap break-words text-foreground [scrollbar-gutter:stable]')}></div>
     <textarea aria-label={messageLabel} placeholder={placeholder} disabled={disabled} readonly={readOnly}
-      rows="3" class={cn(composerFieldClass, 'relative block w-full resize-y')}>{defaultValue}</textarea>
+      rows="3" class={cn(composerFieldClass, 'relative block w-full resize-y [scrollbar-gutter:stable]')}>{defaultValue}</textarea>
     </div>
     <div class="flex justify-end px-3 pb-3">
       <button data-send type="button" disabled class="rounded-full bg-primary px-4 py-2 text-primary-foreground">{sendLabel}</button>
