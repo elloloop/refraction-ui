@@ -61,7 +61,7 @@ function TwemojiGlyph({ emoji, url }: { emoji: string; url: string }) {
   }, [url])
   return <span style={{ position: 'relative', display: 'inline-block' }}>
     <span style={{ opacity: loaded ? 0 : 1 }}>{emoji}</span>
-    <img ref={imageRef} src={url} alt="" aria-hidden="true" draggable={false} loading="lazy"
+    <img ref={imageRef} src={url} alt="" aria-hidden="true" referrerPolicy="no-referrer" draggable={false} loading="lazy"
       onLoad={() => setLoaded(true)} onError={() => setLoaded(false)}
       style={{ position: 'absolute', inset: 0, margin: 'auto', width: '1em', height: '1em', opacity: loaded ? 1 : 0 }}
       className="pointer-events-none select-none" />
