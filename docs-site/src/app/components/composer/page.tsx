@@ -338,7 +338,7 @@ export default function ComposerPage() {
           An explicit paste preserves image-only selections and inserts mixed text at the selection;
           it never submits. Unsupported formats are skipped; empty or oversized images reject the
           entire batch before changing the draft. Browser paste events require no background clipboard
-          reads or permission polling. Disabled, read-only, busy and composing states block processing.
+          reads or permission polling. Disabled, read-only and composing states block processing. Busy only blocks Send; pasting remains available.
         </p>
         <ComposerExamples section="clipboard" />
         <p className="text-sm text-muted-foreground">

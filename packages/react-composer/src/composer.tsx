@@ -752,9 +752,6 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
       }
       if (images !== undefined) {
         if (images.length > 0) onImagesPastedRef.current?.(images)
-      } else {
-        // Preserve the existing general-file staging path for hosts without opt-in.
-        addFiles(files)
       }
     }
 

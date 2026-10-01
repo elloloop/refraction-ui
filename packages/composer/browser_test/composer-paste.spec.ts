@@ -79,11 +79,11 @@ test('local fixture visual evidence at narrow/wide sizes', async ({ page }, test
 })
 
 
-test('Astro blocks paste while disabled, read-only, busy or composing; removes a staged image without submitting', async ({ page }) => {
+test('Astro blocks paste while disabled, read-only or composing; removes a staged image without submitting', async ({ page }) => {
   await page.goto('/')
   const composer = page.locator('refraction-interactive-composer')
   const field = composer.locator('textarea')
-  for (const attribute of ['disabled', 'read-only', 'busy']) {
+  for (const attribute of ['disabled', 'read-only']) {
     await composer.evaluate((el, name) => el.setAttribute(name, ''), attribute)
     await paste(field, 'blocked', [{ type: 'image/png', size: 3 }])
     await expect(field).toHaveValue('before selected after')
@@ -115,3 +115,20 @@ for (const framework of ['react', 'astro']) {
     await expect(field).toHaveValue('before 😀 after')
   })
 }
+
+
+test('Astro busy preserves paste while Send remains blocked', async ({ page }) => {
+  await page.goto('/')
+  const composer = page.locator('refraction-interactive-composer')
+  const field = composer.locator('textarea')
+  await composer.evaluate(el => el.setAttribute('busy', ''))
+  await field.focus()
+  await field.evaluate((el: HTMLTextAreaElement) => el.setSelectionRange(7, 15))
+  await paste(field, 'mixed', [{ type: 'image/png', size: 3 }])
+  await expect(field).toHaveValue('before mixed after')
+  await expect(composer.getByRole('button', { name: 'Send', exact: true })).toBeDisabled()
+  await field.press('Enter')
+  expect(JSON.parse(await page.locator('#results').innerText()).astro.submissions).toEqual([])
+  await composer.evaluate(el => el.removeAttribute('busy'))
+  await expect(composer.getByRole('button', { name: 'Send', exact: true })).toBeEnabled()
+})

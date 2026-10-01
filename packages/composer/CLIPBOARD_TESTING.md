@@ -10,7 +10,7 @@ with `maxAttachmentSizeBytes`. Callback staging applies normal core gates.
 React opts in with `onImagesPasted(File[])`; `onPasteError` accompanies a localized
 `strings.pasteFailedNotice`. Without opt-in, generic files still stage automatically;
 `onAttachmentAdd(attachment, file)` now retains the raw file. On that legacy path, files still win over clipboard text. Mixed text/image
-insertion requires the image-paste callback. React busy only gates Send; paste
+insertion requires the image-paste callback. Busy only gates Send in both adapters; paste
 remains available while a response streams. Astro keeps `Composer.astro` as its static shell and adds
 `RefractionInteractiveComposer`, with the same core and no React runtime. Its
 bubbling DOM events are:
