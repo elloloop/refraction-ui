@@ -376,6 +376,19 @@ RefractionEmojiPicker(
 )
 ```
 
+Keyboard and pasted Unicode in `RefractionComposer` use the same complete-grapheme
+artwork by default. The original text layout and UTF-16 offsets remain intact;
+selection, undo, clipboard and IME continue through the native editor. Unsupported
+whole sequences and text-presentation variants stay native. Pass
+`emojiRenderer: defaultEmojiRenderer` for native glyph rendering, or pass
+`emojiRenderer: refractionAnimatedEmojiRenderer` for bundled Noto animation with
+Twemoji fallback and a still frame under reduced motion.
+
+`refractionUnicodeEmojiRuns(text)` returns supported whole graphemes and original
+ranges. `refractionEmojiTextSpans(text, size: ..., renderer: ...)` is for display
+only: hosts must copy their canonical message string, because display WidgetSpans
+are placeholders in selectable paragraphs. Never use these spans in an editor.
+
 A small **starter sticker pack** (`refractionStarterStickers()`) ships too —
 eight static SVG stickers plus one Lottie-animated sticker — proving both the
 static and animated render paths. Hosts add their own packs via
