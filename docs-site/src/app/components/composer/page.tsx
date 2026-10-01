@@ -238,7 +238,15 @@ import { RefractionInteractiveComposer } from '@refraction-ui/astro'
 ---
 
 <!-- Opt-in interactive island; no React integration required. -->
-<RefractionInteractiveComposer id="composer" defaultValue="Keep this draft" />
+<RefractionInteractiveComposer id="composer" defaultValue="Keep this draft">
+  <div slot="leading">
+    <button type="button" aria-label="Dictate">Mic</button>
+    <button type="button" aria-label="Dictation language">Language</button>
+  </div>
+  <button slot="trailing" type="button">Attach</button>
+</RefractionInteractiveComposer>
+<!-- Host-owned actions use the row below the same editable field.
+     Connect the named buttons to your recording/menu/upload services. -->
 <script>
   const composer = document.getElementById('composer')!
   composer.addEventListener('refraction:images-pasted', event => {

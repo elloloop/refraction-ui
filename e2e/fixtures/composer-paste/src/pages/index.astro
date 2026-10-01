@@ -1,6 +1,10 @@
 ---
 export const prerender = false
 import { RefractionInteractiveComposer } from '../../../../../packages/astro-meta/dist/index.ts'
+import DropdownMenu from '../../../../../packages/astro-meta/dist/astro-dropdown-menu/DropdownMenu.astro'
+import DropdownMenuTrigger from '../../../../../packages/astro-meta/dist/astro-dropdown-menu/DropdownMenuTrigger.astro'
+import DropdownMenuContent from '../../../../../packages/astro-meta/dist/astro-dropdown-menu/DropdownMenuContent.astro'
+import DropdownMenuItem from '../../../../../packages/astro-meta/dist/astro-dropdown-menu/DropdownMenuItem.astro'
 import '../../../../../docs-site/src/app/globals.css'
 ---
 <html lang="en"><head><meta charset="utf-8" /><title>Local clipboard fixture — no transport</title></head>
@@ -9,7 +13,15 @@ import '../../../../../docs-site/src/app/globals.css'
     <h1 class="text-2xl font-semibold">Clipboard paste · local fixture</h1>
     <p>Transport-free harness. All files stay in this browser; Send only records a fixture submission.</p>
     <section id="react"><h2>React</h2><div id="react-root"></div></section>
-    <section id="astro"><h2>Astro</h2><RefractionInteractiveComposer defaultValue={Astro.url.searchParams.get('draft') ?? 'before selected after'} maxAttachmentSizeBytes={1024} /></section>
+    <section id="astro"><h2>Astro</h2><RefractionInteractiveComposer defaultValue={Astro.url.searchParams.get('draft') ?? 'before selected after'} maxAttachmentSizeBytes={1024}>
+      <div slot="leading" class="flex items-center gap-0.5">
+        <button type="button" aria-label="Dictate" class="h-10 w-10 rounded-md border">Mic</button>
+        <DropdownMenu><DropdownMenuTrigger aria-label="Dictation language">⌄</DropdownMenuTrigger>
+          <DropdownMenuContent><DropdownMenuItem>Auto</DropdownMenuItem><DropdownMenuItem>English</DropdownMenuItem><DropdownMenuItem>Telugu</DropdownMenuItem></DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+      <button slot="trailing" type="button" class="rounded-md border px-2">Attach</button>
+    </RefractionInteractiveComposer></section>
     <output id="results" class="block whitespace-pre-wrap rounded-xl border p-4">No paste or submission yet</output>
   </main>
   <script>
