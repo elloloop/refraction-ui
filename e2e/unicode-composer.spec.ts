@@ -58,6 +58,7 @@ test('composer keeps native caret, complete grapheme deletion, undo and clipboar
   await field.fill(Array.from({ length: 30 }, (_, index) => `Line ${index} 🔥`).join('\n'))
   await field.evaluate(node => { node.scrollTop = node.scrollHeight; node.dispatchEvent(new Event('scroll')) })
   const scroll = await surface.evaluate(node => ({ field: node.querySelector('textarea')!.scrollTop, mirror: node.querySelector('[data-rfr-composer-mirror]')!.scrollTop }))
+  expect(await surface.locator('[data-rfr-composer-mirror]').evaluate(node => getComputedStyle(node).color)).not.toBe('rgba(0, 0, 0, 0)')
   expect(scroll.field).toBeGreaterThan(0)
   expect(scroll.mirror).toBe(scroll.field)
 })
