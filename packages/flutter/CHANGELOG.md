@@ -1,3 +1,10 @@
+## Unreleased
+
+- Paint supported keyboard/pasted Unicode emoji over the composer's original
+  grapheme boxes while preserving canonical text, selection, IME and undo.
+- Expose complete-grapheme matching, display-only emoji spans and a shared Noto
+  animation renderer with exact-asset Twemoji fallback and reduced-motion support.
+
 ## 0.49.1
 
 - Expose optional Flutter `inputFormatters` for host-controlled platform edits
