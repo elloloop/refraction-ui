@@ -49,7 +49,7 @@ function sanitizeHtml(html: string): string {
  * XSS sanitization is applied before rendering via dangerouslySetInnerHTML.
  */
 export const MarkdownRenderer = React.forwardRef<HTMLDivElement, MarkdownRendererProps>(
-  function MarkdownRenderer({ content, components, linkResolver, className, size, emojiArtwork = true, twemojiBaseUrl }, ref) {
+  function MarkdownRenderer({ content, components, linkResolver, className, size, emojiArtwork = false, twemojiBaseUrl }, ref) {
     const coreProps: CoreProps = { content, components, linkResolver }
     const api = createMarkdownRenderer(coreProps)
     const classes = cn(proseVariants({ size }), className)

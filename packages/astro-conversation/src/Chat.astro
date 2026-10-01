@@ -16,12 +16,16 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   config?: ConversationConfig
   showConversationList?: boolean
   currentUserId?: string
+  emojiArtwork?: boolean
+  twemojiBaseUrl?: string
 }
 
 const {
   config = {},
   showConversationList = true,
   currentUserId,
+  emojiArtwork = false,
+  twemojiBaseUrl,
   class: className,
   ...rest
 } = Astro.props
@@ -48,6 +52,8 @@ function isOwn(m: ChatMessage): boolean {
 <div
   class={cn('flex h-full min-h-0 overflow-hidden rounded-lg border border-border bg-background', className)}
   data-rfr-chat
+  data-rfr-chat-emoji-artwork={emojiArtwork ? "true" : undefined}
+  data-rfr-chat-emoji-base-url={twemojiBaseUrl}
   data-threading-mode={state.threadingMode}
   {...rest}
 >
@@ -172,7 +178,9 @@ function isOwn(m: ChatMessage): boolean {
   // Astro renders the initial view from the headless store; interactivity is
   // surfaced as semantic CustomEvents the host app wires to its own backend.
   document.querySelectorAll<HTMLElement>('[data-rfr-chat]').forEach((root) => {
-    root.querySelectorAll<HTMLElement>('[data-rfr-chat-message-body]').forEach(body => enhanceUnicodeEmojiDisplay(body))
+    if (root.dataset.rfrChatEmojiArtwork === 'true') {
+      root.querySelectorAll<HTMLElement>('[data-rfr-chat-message-body]').forEach(body => enhanceUnicodeEmojiDisplay(body, root.dataset.rfrChatEmojiBaseUrl))
+    }
     const fire = (name: string, detail: Record<string, unknown>) =>
       root.dispatchEvent(new CustomEvent(`rfr:${name}`, { detail, bubbles: true }))
 

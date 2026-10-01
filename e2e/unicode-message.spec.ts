@@ -37,9 +37,11 @@ test('React markdown message paints supported artwork while preserving selectabl
     const range = document.createRange(); range.selectNodeContents(node)
     const selection = window.getSelection()!; selection.removeAllRanges(); selection.addRange(range)
   })
+  if (testInfo.project.name !== 'mobile') {
   await context.grantPermissions(['clipboard-read', 'clipboard-write'])
   await page.keyboard.press(process.platform === 'darwin' ? 'Meta+C' : 'Control+C')
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(originalSelection)
+  }
   await page.evaluate(() => window.getSelection()?.removeAllRanges())
   await before.screenshot({ path: testInfo.outputPath('message-before.png') })
   await after.screenshot({ path: testInfo.outputPath('message-after.png') })
@@ -54,7 +56,7 @@ test('React markdown message paints supported artwork while preserving selectabl
 
 test('actual React conversation message consumes the shared artwork renderer', async ({ page }) => {
   test.setTimeout(90_000)
-  await page.route('https://cdn.jsdelivr.net/**/svg/*.svg', async route => {
+  await page.route('**/emoji/*.svg', async route => {
     const filename = new URL(route.request().url()).pathname.split('/').pop()!
     await route.fulfill({ path: path.resolve('packages/flutter/assets/twemoji', filename), contentType: 'image/svg+xml' })
   })

@@ -3,7 +3,7 @@ import { PropsTable } from '@/components/props-table'
 import { CodeBlock } from '@/components/code-block'
 import { InstallCommand } from '@/components/install-command'
 const markdownProps = [
-  { name: 'emojiArtwork', type: 'boolean', default: 'true', description: 'Enhance complete supported Unicode in display text. Code blocks, inline code, URLs and editing nodes are preserved.' },
+  { name: 'emojiArtwork', type: 'boolean', default: 'false', description: 'Enhance complete supported Unicode in display text. Code blocks, inline code, URLs and editing nodes are preserved.' },
   { name: 'twemojiBaseUrl', type: 'string', description: 'Optional self-hosted Twemoji SVG directory.' },
   { name: 'content', type: 'string', description: 'Markdown string to render.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },

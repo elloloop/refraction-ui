@@ -88,7 +88,7 @@ function ChatDemo({ threadingMode }: { threadingMode: ThreadingMode }) {
   const conversation = useConversation({ ...seed(), threadingMode })
   return (
     <div className="h-[560px]">
-      <Chat conversation={conversation} currentUserId="me" />
+      <Chat conversation={conversation} currentUserId="me" emojiArtwork twemojiBaseUrl="/emoji" />
     </div>
   )
 }
