@@ -22,9 +22,10 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   /** Initial active category */
   category?: EmojiCategory
   twemojiBaseUrl?: string
+  nativeOnly?: boolean
 }
 
-const { category = 'smileys', twemojiBaseUrl = DEFAULT_TWEMOJI_BASE_URL, class: className, ...props } = Astro.props
+const { nativeOnly = false, category = 'smileys', twemojiBaseUrl = DEFAULT_TWEMOJI_BASE_URL, class: className, ...props } = Astro.props
 
 const api = createEmojiPicker()
 const initialEmojis = EMOJI_DATA[category]
@@ -41,6 +42,7 @@ const allEmojisJson = JSON.stringify(
 ---
 
 <div
+  data-rfr-emoji-native-only={nativeOnly ? "true" : undefined}
   data-rfr-emoji-picker
   data-rfr-emoji-category={category}
   data-rfr-emoji-base-url={twemojiBaseUrl}
@@ -97,7 +99,7 @@ const allEmojisJson = JSON.stringify(
         role="button"
         aria-label={`${emoji.name} ${emoji.emoji}`}
         title={emoji.name}
-      ><Fragment set:html={unicodeEmojiHtml(emoji.emoji, twemojiBaseUrl)} /></button>
+      >{nativeOnly ? emoji.emoji : <Fragment set:html={unicodeEmojiHtml(emoji.emoji, twemojiBaseUrl)} />}</button>
     ))}
   </div>
 
@@ -186,7 +188,8 @@ const allEmojisJson = JSON.stringify(
           btn.setAttribute('role', 'button')
           btn.setAttribute('aria-label', `${emoji.name} ${emoji.emoji}`)
           btn.setAttribute('title', emoji.name)
-          btn.innerHTML = unicodeEmojiHtml(emoji.emoji, baseUrl)
+          if (root.dataset.rfrEmojiNativeOnly === 'true') btn.textContent = emoji.emoji
+          else btn.innerHTML = unicodeEmojiHtml(emoji.emoji, baseUrl)
           grid.appendChild(btn)
           hydrateUnicodeEmojiArtwork(btn)
         })
