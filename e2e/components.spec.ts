@@ -27,7 +27,7 @@ const components = fs
   .sort()
 
 for (const component of components) {
-  test(`component: ${component}`, async ({ page }) => {
+  test(`component: ${component}`, async ({ page }, testInfo) => {
     await page.goto(`/components/${component}`)
     await page.waitForLoadState('networkidle')
     // Deterministic settle: fonts loaded and every CodeBlock finished its
@@ -70,6 +70,9 @@ for (const component of components) {
     await expect(page).toHaveScreenshot(`component-${component}.png`, {
       fullPage: true,
       maxDiffPixelRatio: 0.05,
+      // Tall full-page captures can consume the matcher default before a third
+      // stable frame. Keep the pixel check within the existing test deadline.
+      timeout: testInfo.timeout,
     })
   })
 }
