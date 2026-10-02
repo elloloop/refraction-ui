@@ -244,6 +244,16 @@ reason new feature packages must stay private and ride the metas.
   approving code-owner review and dismissed stale reviews. Do not bypass a
   missing approval without the developer's explicit authorization.
 
+### Visual evidence for UI approval
+
+Founder requirement, 2026-10-01: visible UI changes need comparable before-and-after PR
+screenshots, captions and revision references. `visual-evidence` validates the structure;
+[docs/pr-visual-evidence.md](docs/pr-visual-evidence.md) defines narrowly reviewed nonvisual
+and behavior-only exceptions. Add this check to existing branch-required checks to activate
+merge blocking, preserving commit-lint and code-owner approvals. Humans verify image quality,
+coverage and relevance. `make ci` runs the gate's tests; check a PR body locally with the
+Python command documented there. This is separate from package release checks.
+
 ### Flutter composer interaction gate
 
 `test-matrix-flutter` runs `flutter test --exclude-tags golden` and the isolated
