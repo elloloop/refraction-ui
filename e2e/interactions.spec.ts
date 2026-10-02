@@ -89,6 +89,8 @@ test('dropdown-menu: open', async ({ page }) => {
   // order is the live DropdownMenu example.
   const trigger = page.getByRole('button', { name: 'Open Menu' }).first()
   const menu = page.getByRole('menu')
+  await trigger.scrollIntoViewIfNeeded()
+  const scrollBeforeOpen = await page.evaluate(() => window.scrollY)
   await retryUntil(
     () => trigger.click(),
     async () => {
@@ -97,10 +99,28 @@ test('dropdown-menu: open', async ({ page }) => {
     },
   )
   await page.waitForTimeout(SETTLE_MS)
+  await expect(page.getByRole('menuitem', { name: 'Profile' })).toBeInViewport()
+  expect(await page.evaluate(() => window.scrollY)).toBe(scrollBeforeOpen)
   await expect(page).toHaveScreenshot('interaction-dropdown-menu-open.png', {
     fullPage: true,
     maxDiffPixelRatio: 0.05,
   })
+})
+
+test('dropdown-menu: keyboard opening keeps the viewport at the trigger', async ({ page }) => {
+  await gotoComponent(page, 'dropdown-menu')
+  const trigger = page.getByRole('button', { name: 'Open Menu' }).first()
+  await trigger.scrollIntoViewIfNeeded()
+  await trigger.focus()
+  const scrollBeforeOpen = await page.evaluate(() => window.scrollY)
+  await trigger.press('Enter')
+  const firstItem = page.getByRole('menuitem', { name: 'Profile' })
+  await expect(firstItem).toBeFocused()
+  await expect(firstItem).toBeInViewport()
+  expect(await page.evaluate(() => window.scrollY)).toBe(scrollBeforeOpen)
+  await page.keyboard.press('Escape')
+  await expect(trigger).toBeFocused()
+  await expect(page.getByRole('menu')).toBeHidden()
 })
 
 test('switch: checked state', async ({ page }) => {

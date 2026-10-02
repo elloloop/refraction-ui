@@ -245,7 +245,9 @@ export const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenu
 
     React.useEffect(() => {
       if (!open) return
-      contentRef.current?.querySelector<HTMLElement>('[role="menuitem"]:not([aria-disabled="true"])')?.focus()
+      // The initial portal layout can still be below the viewport when effects run.
+      // Move keyboard focus without scrolling the document away from the trigger.
+      contentRef.current?.querySelector<HTMLElement>('[role="menuitem"]:not([aria-disabled="true"])')?.focus({ preventScroll: true })
     }, [open])
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
