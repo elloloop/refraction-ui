@@ -1,5 +1,4 @@
 import 'emoji_data.dart';
-import 'emoji_types.dart';
 
 final _entriesByGrapheme = {
   for (final entry in EmojiData.all) entry.emoji: entry,

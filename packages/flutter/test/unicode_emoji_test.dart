@@ -60,7 +60,7 @@ void main() {
           RepaintBoundary(
             key: boundaryKey,
             child: RefractionComposer(
-              emojiRenderer: (_, __, ___) =>
+              emojiRenderer: (context, entry, size) =>
                   const ColoredBox(color: artworkColor),
               onSubmit: (_) {},
             ),
