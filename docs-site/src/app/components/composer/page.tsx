@@ -420,8 +420,8 @@ export default function ComposerPage() {
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Astro slots</h2>
         <p className="text-sm text-muted-foreground">
           The default slot remains read-only message content. Named leading and trailing slots
-          appear below it, before the disabled Send action. Astro has no editable composer runtime;
-          hydrate the React adapter when editing is needed. A native DropdownMenuTrigger can
+          appear below it, before the disabled Send action. Use RefractionInteractiveComposer
+          when editing is needed. A native DropdownMenuTrigger can
           receive aria-label and the shared button classes directly; do not nest buttons.
           Hosts control the behavior and disabled state of their slotted actions.
         </p>
