@@ -44,6 +44,9 @@ dependencies:
   video_player: ^2.11.1
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
+  super_clipboard: ^0.9.1
   flutter_test:
     sdk: flutter
 

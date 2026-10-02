@@ -47,30 +47,91 @@ for (const width of [390, 768, 1280]) {
   }
 }
 
-test('Unicode clipboard and undo keep complete graphemes', async ({ page, context }) => {
+for (const width of [390, 768, 1280]) {
+  test(`clipboard image and mixed text stage without send at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto('/');
+    const field = page.getByRole('textbox', { name: 'Message input' });
+    await field.click();
+    await page.keyboard.type('before word after');
+    for (let i = 0; i < 10; i++) await page.keyboard.press('ArrowLeft', { delay: 30 });
+    for (let i = 0; i < 4; i++) await page.keyboard.press('Shift+ArrowRight', { delay: 30 });
+    await expect.poll(() => field.evaluate(node => {
+      const input = node as HTMLInputElement;
+      return [input.selectionStart, input.selectionEnd];
+    })).toEqual([7, 11]);
+    // Flutter coalesces text edits for 500ms. Commit the existing draft
+    // before asserting that the following paste is a separate undo entry.
+    await page.waitForTimeout(600);
+    await field.evaluate(node => {
+      const data = new DataTransfer();
+      const png = Uint8Array.from(atob('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6ZAAAAABJRU5ErkJggg=='), c => c.charCodeAt(0));
+      data.items.add(new File([png], 'fixture.png', { type: 'image/png' }));
+      data.setData('text/plain', '🙂');
+      node.dispatchEvent(new ClipboardEvent('paste', { clipboardData: data, bubbles: true, cancelable: true }));
+    });
+    await expect(field).toHaveValue('before 🙂 after');
+    await expect(page.getByText('clipboard-1.png', { exact: true })).toBeVisible();
+    await expect(field).toBeFocused();
+    // Let Flutter commit the paste entry before exercising undo and redo.
+    await page.waitForTimeout(600);
+    await page.keyboard.press('ControlOrMeta+Z');
+    await expect(field).toHaveValue('before word after');
+    await page.keyboard.press('ControlOrMeta+Shift+Z');
+    await expect(field).toHaveValue('before 🙂 after');
+    // Image staging does not alter the editor undo stack or submit the fixture.
+    await expect(page.getByText('clipboard-1.png', { exact: true })).toBeVisible();
+  });
+}
+
+
+test('real browser keyboard paste reads OS clipboard image', async ({ page, context }, testInfo) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('/');
   const field = page.getByRole('textbox', { name: 'Message input' });
   await field.click();
-  const draft = 'Hello 🔥 ❤️ 🇬🇧 👨‍👩‍👧‍👦 👍🏽 é';
-  await page.keyboard.insertText(draft);
-  await expect(field).toHaveValue(draft);
-  await page.keyboard.press('ControlOrMeta+A');
-  await page.keyboard.press('ControlOrMeta+C');
-  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(draft);
-  await page.keyboard.press('ArrowRight');
-  // Flutter coalesces edits over a 500 ms undo window. Let the initial
-  // Unicode insertion become its own snapshot before editing its suffix.
-  await page.waitForTimeout(600);
-  await page.keyboard.type(' tail');
-  await expect(field).toHaveValue(`${draft} tail`);
-  await page.waitForTimeout(600);
-  await page.keyboard.press('ControlOrMeta+Z');
-  await expect(field).toHaveValue(draft);
-  await page.keyboard.press('ControlOrMeta+Shift+Z');
-  await expect(field).toHaveValue(`${draft} tail`);
-  await page.keyboard.press('ControlOrMeta+A');
+  await page.keyboard.type('fixture draft');
+  await page.evaluate(async () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 8;
+    const drawing = canvas.getContext('2d')!;
+    drawing.fillStyle = '#4499aa'; drawing.fillRect(0, 0, 8, 8);
+    const png = await new Promise<Blob>(resolve => canvas.toBlob(blob => resolve(blob!), 'image/png'));
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': png })]);
+  });
   await page.keyboard.press('ControlOrMeta+V');
-  await expect(field).toHaveValue(draft);
+  await expect(page.getByText('clipboard-1.png', { exact: true })).toBeVisible();
+  await expect(field).toHaveValue('fixture draft');
   await expect(field).toBeFocused();
+  await page.screenshot({ path: testInfo.outputPath('clipboard-fixture.png') });
 });
+
+for (const undoModifier of ['ControlOrMeta', 'Control']) {
+  test(`Unicode clipboard and undo keep complete graphemes (${undoModifier})`, async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    await page.goto('/');
+    const field = page.getByRole('textbox', { name: 'Message input' });
+    await field.click();
+    const draft = 'Hello 🔥 ❤️ 🇬🇧 👨‍👩‍👧‍👦 👍🏽 é';
+    await page.keyboard.insertText(draft);
+    await expect(field).toHaveValue(draft);
+    await page.keyboard.press('ControlOrMeta+A');
+    await page.keyboard.press('ControlOrMeta+C');
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(draft);
+    await page.keyboard.press('ArrowRight');
+    // Flutter coalesces edits over a 500 ms undo window. Let the initial
+    // Unicode insertion become its own snapshot before editing its suffix.
+    await page.waitForTimeout(600);
+    await page.keyboard.type(' tail');
+    await expect(field).toHaveValue(`${draft} tail`);
+    await page.waitForTimeout(600);
+    await page.keyboard.press(`${undoModifier}+Z`);
+    await expect(field).toHaveValue(draft);
+    await page.keyboard.press(`${undoModifier}+Shift+Z`);
+    await expect(field).toHaveValue(`${draft} tail`);
+    await page.keyboard.press('ControlOrMeta+A');
+    await page.keyboard.press('ControlOrMeta+V');
+    await expect(field).toHaveValue(draft);
+    await expect(field).toBeFocused();
+  });
+}
