@@ -1016,7 +1016,7 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
                     <bdi>{segment.text}</bdi>
                   </span>
                 ) : (
-                  <span key={segment.key}>{paintEmojiArtwork ? <EmojiText text={segment.text} twemojiBaseUrl={twemojiBaseUrl} /> : segment.text}</span>
+                  <span key={segment.key}>{paintEmojiArtwork ? <EmojiText text={segment.text} emojiArtwork twemojiBaseUrl={twemojiBaseUrl} /> : segment.text}</span>
                 ),
               )}
               {'\u200b'}
