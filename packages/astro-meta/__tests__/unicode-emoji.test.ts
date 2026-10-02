@@ -43,14 +43,14 @@ it('interactive Astro draft artwork is opt-in', async () => {
   expect(html).not.toContain('cdn.jsdelivr.net')
 })
 
-it('Astro native-only display escapes text and picker SSR emits no artwork requests', async () => {
+it('Astro defaults escape private Unicode and emit no artwork requests', async () => {
   const { default: EmojiText } = await import('../dist/astro-emoji-picker/EmojiText.astro')
   const { default: EmojiPicker } = await import('../dist/astro-emoji-picker/EmojiPicker.astro')
   const container = await AstroContainer.create()
-  const text = await container.renderToString(EmojiText, { props: { text: '<script>🔥</script>', emojiArtwork: false } })
+  const text = await container.renderToString(EmojiText, { props: { text: '<script>🔥</script>' } })
   expect(text).toContain('&lt;script&gt;🔥&lt;/script&gt;')
   expect(text).not.toContain('<img')
-  const picker = await container.renderToString(EmojiPicker, { props: { category: 'flags', emojiArtwork: false } })
+  const picker = await container.renderToString(EmojiPicker, { props: { category: 'flags' } })
   expect(picker).toContain('data-rfr-emoji-native-only="true"')
   expect(picker).not.toContain('<img')
 })
