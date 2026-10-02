@@ -307,7 +307,7 @@ export default function ComposerPage() {
         </p>
         <ComposerExamples section="basic" />
         <ComposerExamples section="unicode" />
-        <p>Keyboard Unicode uses the shared artwork inventory with native fallback. During IME composition the complete field returns to native rendering. Astro offers a read-only value prop; interactive editing requires a React island.</p>
+        <p>Keyboard Unicode uses the shared artwork inventory with native fallback. During IME composition the complete field returns to native rendering. The static Astro Composer exposes a read-only value; RefractionInteractiveComposer provides native Astro editing and submission.</p>
       </section>
 
       <section className="space-y-4">

@@ -5,7 +5,7 @@ import { unicodeEmojiHtml, hydrateUnicodeEmojiArtwork } from '../packages/emoji-
 const text = 'Keyboard: 🔥 ❤️ ❤️‍🔥 👩‍💻 👨‍👩‍👧‍👦 🇬🇧 1️⃣ 🏳️‍🌈 · native fallback: 👍🏽 ✈︎'
 
 test('Unicode artwork preserves selectable text and handles failed assets', async ({ page, context }, testInfo) => {
-  await page.route('https://cdn.jsdelivr.net/**/svg/*.svg', async route => {
+  await page.route('**/emoji/*.svg', async route => {
     const filename = new URL(route.request().url()).pathname.split('/').pop()!
     await route.fulfill({ path: path.resolve('packages/flutter/assets/twemoji', filename), contentType: 'image/svg+xml' })
   })

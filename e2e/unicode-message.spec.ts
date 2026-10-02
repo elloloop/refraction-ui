@@ -4,6 +4,7 @@ test('shared display enhancement is idempotent and preserves code, URL attribute
   test.setTimeout(90_000)
   await page.route('**/emoji/*.svg', route => route.abort())
   await page.goto('/components/markdown-renderer', { waitUntil: 'domcontentloaded' })
+  await page.getByText('Advanced: code and editor compatibility', { exact: true }).click()
   const display = page.getByTestId('unicode-shared-display')
   await expect(display.locator('img')).toHaveCount(5)
   await expect(display.locator('p')).toHaveText('Message 🔥 👨‍👩‍👧‍👦 🇬🇧 1️⃣ 👍🏽 ✈︎')
