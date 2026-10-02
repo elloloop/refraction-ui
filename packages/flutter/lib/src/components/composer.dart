@@ -12,6 +12,10 @@ import '../core/composer_types.dart';
 import '../theme/refraction_colors.dart';
 import '../theme/refraction_theme.dart';
 import 'emoji_picker.dart' show EmojiData;
+import 'editable_emoji_artwork.dart';
+import '../data/unicode_emoji.dart';
+import '../data/emoji_types.dart';
+import '../data/emoji_renderers.dart';
 
 export '../core/composer_core.dart';
 export '../core/composer_trigger_engine.dart';
@@ -593,8 +597,7 @@ class _RefractionComposerTextEditingController extends TextEditingController {
     final colors = RefractionTheme.maybeOf(context)?.colors;
     // While composing (or on any transient desync) fall back to the
     // default projection, which honors the composing underline.
-    if (tokens.isEmpty ||
-        colors == null ||
+    if (colors == null ||
         value.composing.isValid ||
         _core.state.value != text) {
       return super.buildTextSpan(
@@ -626,7 +629,43 @@ class _RefractionComposerTextEditingController extends TextEditingController {
     if (cursor < text.length) {
       children.add(TextSpan(text: text.substring(cursor)));
     }
-    return TextSpan(style: style, children: children);
+    final runs = refractionUnicodeEmojiRuns(text);
+    if (runs.isEmpty) return TextSpan(style: style, children: children);
+    if (children.isEmpty) children.add(TextSpan(text: text));
+    final projected = <TextSpan>[];
+    var position = 0;
+    for (final child in children) {
+      final content = child.text!;
+      final end = position + content.length;
+      var cursor = position;
+      for (final run in runs) {
+        if (run.start < position || run.end > end) continue;
+        if (run.start > cursor) {
+          projected.add(
+            TextSpan(
+              text: text.substring(cursor, run.start),
+              style: child.style,
+            ),
+          );
+        }
+        projected.add(
+          TextSpan(
+            text: run.emoji,
+            style: (child.style ?? const TextStyle()).copyWith(
+              color: Colors.transparent,
+            ),
+          ),
+        );
+        cursor = run.end;
+      }
+      if (cursor < end) {
+        projected.add(
+          TextSpan(text: text.substring(cursor, end), style: child.style),
+        );
+      }
+      position = end;
+    }
+    return TextSpan(style: style, children: projected);
   }
 
   @override
@@ -661,6 +700,10 @@ class RefractionComposer extends StatefulWidget {
   /// External controller; when null an internal one is created from the
   /// widget's props and disposed with the widget.
   final RefractionComposerController? controller;
+
+  /// Artwork for supported Unicode graphemes, shared with the emoji picker.
+  /// Original Unicode remains in the editing buffer, clipboard and submission.
+  final EmojiRenderer emojiRenderer;
 
   /// Presentational hint (never the accessible name — see
   /// [RefractionComposerStrings.fieldLabel]).
@@ -797,6 +840,7 @@ class RefractionComposer extends StatefulWidget {
   const RefractionComposer({
     super.key,
     this.controller,
+    this.emojiRenderer = twemojiEmojiRenderer,
     this.placeholder = 'Message',
     this.disabledPlaceholder,
     this.minLines = 1,
@@ -1564,7 +1608,14 @@ class _RefractionComposerState extends State<RefractionComposer>
     final resizeDuration = disableAnimations ? Duration.zero : _resizeDuration;
     Widget sizedField = ConstrainedBox(
       constraints: BoxConstraints(maxHeight: growCeiling),
-      child: textField,
+      child: EditableEmojiArtwork(
+        editor: textField,
+        renderer: widget.emojiRenderer,
+        runs: _textController.value.composing.isValid
+            ? const []
+            : refractionUnicodeEmojiRuns(_textController.text),
+        size: mediaQuery.textScaler.scale(tokens.fontSize),
+      ),
     );
     if (resizeDuration > Duration.zero) {
       sizedField = AnimatedSize(
