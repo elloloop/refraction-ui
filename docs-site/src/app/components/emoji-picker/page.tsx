@@ -70,9 +70,9 @@ export default function EmojiPickerPage() {
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Keyboard Unicode text</h2>
-        <p>EmojiText matches complete graphemes against the same artwork inventory as Flutter. Unsupported modifiers and text-presentation sequences stay native. Unicode remains selectable text; the native glyph stays visible while an image loads or fails. These web defaults use static Twemoji; animated Noto requires a host renderer.</p>
+        <p>EmojiText matches complete graphemes against the same artwork inventory as Flutter. Unsupported modifiers and text-presentation sequences stay native. Unicode remains selectable text; the native glyph stays visible while an image loads or fails. Artwork is opt-in with emojiArtwork. The artwork uses static Twemoji; animated Noto requires a host renderer.</p>
         <EmojiPickerExamples section="unicode" />
-        <CodeBlock frameworks={{ react: `import { EmojiText } from '@refraction-ui/react'\n<EmojiText text="Family 👨‍👩‍👧‍👦 · flag 🇬🇧 · keycap 1️⃣" />`, astro: `---\nimport { EmojiText } from '@refraction-ui/astro'\n---\n<EmojiText text="Family 👨‍👩‍👧‍👦 · flag 🇬🇧 · keycap 1️⃣" twemojiBaseUrl="/emoji" />` }} />
+        <CodeBlock frameworks={{ react: `import { EmojiText } from '@refraction-ui/react'\n<EmojiText emojiArtwork text="Family 👨‍👩‍👧‍👦 · flag 🇬🇧 · keycap 1️⃣" />`, astro: `---\nimport { EmojiText } from '@refraction-ui/astro'\n---\n<EmojiText emojiArtwork text="Family 👨‍👩‍👧‍👦 · flag 🇬🇧 · keycap 1️⃣" twemojiBaseUrl="/emoji" />` }} />
       </section>
 
       <section className="space-y-4">

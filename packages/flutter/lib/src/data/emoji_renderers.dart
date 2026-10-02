@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
 import 'emoji_types.dart';
+import 'animated_emoji_manifest.dart';
 import 'twemoji_index.g.dart';
 
 /// The package name assets are shipped under (for `package:`-scoped lookups).
@@ -86,3 +87,31 @@ const List<(String, String)> _starterSvgStickers = [
   ('check', 'Check'),
   ('coffee', 'Coffee'),
 ];
+
+/// Asset key for the bundled animated Noto manifest.
+String animatedEmojiCodepoint(String emoji) => emoji.runes
+    .where((rune) => rune != 0xFE0F)
+    .map((rune) => rune.toRadixString(16))
+    .join('_');
+
+/// Bundled Noto animation where an exact asset exists, otherwise Twemoji.
+/// Reduced motion renders a still frame. Sequence modifiers are never dropped.
+Widget refractionAnimatedEmojiRenderer(
+  BuildContext context,
+  EmojiEntry entry,
+  double size,
+) {
+  final key = animatedEmojiCodepoint(entry.emoji);
+  if (!entry.emoji.contains('\uFE0E') && kAnimatedEmojiAssets.contains(key)) {
+    return Lottie.asset(
+      'assets/emoji_animated/$key.json',
+      package: _package,
+      width: size,
+      height: size,
+      animate: !(MediaQuery.maybeDisableAnimationsOf(context) ?? false),
+      errorBuilder: (context, error, stackTrace) =>
+          twemojiEmojiRenderer(context, entry, size),
+    );
+  }
+  return twemojiEmojiRenderer(context, entry, size);
+}

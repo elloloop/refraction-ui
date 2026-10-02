@@ -11,8 +11,8 @@ export function EmojiPickerExamples({ section }: EmojiPickerExamplesProps) {
     const text = 'Keyboard: 🔥 ❤️ ❤️‍🔥 👩‍💻 👨‍👩‍👧‍👦 🇬🇧 1️⃣ 🏳️‍🌈 · native fallback: 👍🏽 ✈︎'
     return <div className="rounded-xl border border-border bg-card p-8 space-y-4 text-2xl leading-loose">
       <p data-testid="unicode-before">{text}</p>
-      <p data-testid="unicode-after"><EmojiText text={text} /></p>
-      <p><EmojiText data-testid="unicode-offline" text={text} twemojiBaseUrl="/missing-emoji" /></p>
+      <p data-testid="unicode-after"><EmojiText text={text} emojiArtwork /></p>
+      <p><EmojiText data-testid="unicode-offline" text={text} emojiArtwork twemojiBaseUrl="/missing-emoji" /></p>
     </div>
   }
 
