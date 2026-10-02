@@ -28,7 +28,8 @@
   },
   "dependencies": {
     "@refraction-ui/markdown-renderer": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@refraction-ui/shared": "workspace:*",
+    "@refraction-ui/emoji-picker": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

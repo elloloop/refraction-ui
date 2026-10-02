@@ -14,6 +14,7 @@ import { EmojiPicker } from '@refraction-ui/react-emoji-picker'
 
 interface ComposerExamplesProps {
   section:
+    | 'unicode'
     | 'toolbar'
     | 'basic'
     | 'mentions'
@@ -28,6 +29,7 @@ interface ComposerExamplesProps {
 const card = 'rounded-xl border border-border bg-card p-8'
 
 export function ComposerExamples({ section }: ComposerExamplesProps) {
+  if (section === 'unicode') return <UnicodeExample />
   if (section === 'toolbar') return <ToolbarExample />
   if (section === 'basic') return <BasicExample />
   if (section === 'mentions') return <MentionsExample />
@@ -308,6 +310,15 @@ function StatesExample() {
       </div>
     </div>
   )
+}
+
+
+function UnicodeExample() {
+  const value = 'Keyboard 🔥 ❤️‍🔥 👨‍👩‍👧‍👦 🇬🇧 1️⃣ · native 👍🏽 ✈︎'
+  return <div className={`${card} space-y-4`}>
+    <div data-testid="unicode-composer-before"><RefractionComposer defaultValue={value} emojiArtwork={false} /></div>
+    <div data-testid="unicode-composer-after"><RefractionComposer defaultValue={value} emojiArtwork twemojiBaseUrl="/emoji" /></div>
+  </div>
 }
 
 /* The existing action slots keep the editor mounted while actions change. */

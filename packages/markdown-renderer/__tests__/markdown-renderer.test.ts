@@ -184,3 +184,28 @@ describe('proseVariants', () => {
     expect(classes).toContain('my-custom')
   })
 })
+
+
+describe('linear block parsing of uncontrolled whitespace', () => {
+  it('preserves headings, list indentation and marker whitespace', () => {
+    const html = createMarkdownRenderer({ content: '#\tHeading 🔥\n\t*\tList 🔥\n\t12.\tOrdered 🔥\n - _ * ' }).html
+    expect(html).toContain('<h1>Heading 🔥</h1>')
+    expect(html).toContain('<ul>')
+    expect(html).toContain('<li>List 🔥</li>')
+    expect(html).toContain('<ol>')
+    expect(html).toContain('<li>Ordered 🔥</li>')
+    expect(html).toContain('<hr />')
+  })
+  it('handles CodeQL adversarial tab/line-terminator input without regex backtracking', () => {
+    const tabs = '\t'.repeat(100_000)
+    const start = performance.now()
+    for (const content of [tabs + '\r', '#' + tabs + '\r', '*' + tabs + '\r', '0.' + tabs + '\r']) {
+      const html = createMarkdownRenderer({ content }).html
+      expect(html).not.toContain('<h1>')
+      expect(html).not.toContain('<li>')
+    }
+    const interruptedRule = createMarkdownRenderer({ content: ' * ' + tabs + ' * ' + tabs + ' * !' }).html
+    expect(interruptedRule.includes('<hr />')).toBe(false)
+    expect(performance.now() - start).toBeLessThan(2_000)
+  })
+})
