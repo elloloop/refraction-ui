@@ -168,8 +168,9 @@ builds, and fixes centrally.
   `forwardRef` is awkward, so a plain generic function component is acceptable.
 
 **Astro adapter (`packages/astro-<feature>`):** `private: true`; `src/index.ts`
-is `export {}`; the real component is `src/<Name>.astro` (SSR; content via
-`<slot/>`). `astro-meta`'s `build.mjs` auto-copies the `.astro` files for any
+exports the named component and supported headless tokens; the real component
+is `src/<Name>.astro` (SSR; content via `<slot/>`). `astro-meta`'s `build.mjs`
+auto-copies the `.astro` files for any
 `astro-*` package listed in `astro-meta`'s deps — so wiring = the devDependency
 + `export *` only.
 

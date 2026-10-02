@@ -1,1 +1,1 @@
-export {}
+export { default as Composer } from './Composer.astro'
