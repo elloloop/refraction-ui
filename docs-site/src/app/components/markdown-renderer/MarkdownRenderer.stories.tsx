@@ -38,3 +38,4 @@ export const Default: Story = {
     </div>
   ),
 }
+export const KeyboardUnicode: Story = { args: { content: 'Message **🔥 👨‍👩‍👧‍👦 🇬🇧 1️⃣** · native 👍🏽 · `code 🔥`' } }

@@ -12,7 +12,8 @@
     "@refraction-ui/conversation": "workspace:*",
     "@refraction-ui/markdown-renderer": "workspace:*",
     "@refraction-ui/thread-view": "workspace:*",
-    "@refraction-ui/shared": "workspace:*"
+    "@refraction-ui/shared": "workspace:*",
+    "@refraction-ui/emoji-picker": "workspace:*"
   },
   "peerDependencies": {
     "astro": ">=4.0.0"

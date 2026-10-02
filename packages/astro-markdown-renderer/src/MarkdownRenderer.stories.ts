@@ -15,3 +15,5 @@ export const Default = {
     size: 'default'
   }
 }
+
+export const KeyboardUnicode = { args: { content: 'Message **🔥 👨‍👩‍👧‍👦 🇬🇧 1️⃣** · native 👍🏽 · `code 🔥`' } }

@@ -62,6 +62,41 @@ function parseInline(text: string, linkResolver?: (url: string) => string): stri
   return result
 }
 
+// Consume each whitespace run once; never split it between regex groups.
+function markerBody(line: string, markerEnd: number): string | null {
+  const separator = line[markerEnd]
+  if (separator === undefined || separator.trim() !== '') return null
+  const body = line.slice(markerEnd).trimStart()
+  return body.length > 0 ? body : null
+}
+
+function heading(line: string): { level: number; text: string } | null {
+  let level = 0
+  while (level < line.length && line[level] === '#') level++
+  if (level < 1 || level > 6) return null
+  const text = markerBody(line, level)
+  return text === null ? null : { level, text }
+}
+
+function unorderedItem(line: string): string | null {
+  const trimmed = line.trimStart()
+  if (!trimmed || !'-*+'.includes(trimmed[0])) return null
+  return markerBody(trimmed, 1)
+}
+
+function orderedItem(line: string): string | null {
+  const trimmed = line.trimStart()
+  let digits = 0
+  while (digits < trimmed.length && trimmed[digits] >= '0' && trimmed[digits] <= '9') digits++
+  if (digits === 0 || trimmed[digits] !== '.') return null
+  return markerBody(trimmed, digits + 1)
+}
+
+function horizontalRule(line: string): boolean {
+  const markers = line.replace(/\s/g, '')
+  return markers.length >= 3 && [...markers].every(character => '-*_'.includes(character))
+}
+
 /**
  * Parse a full markdown string into HTML.
  * Handles: headings, bold, italic, links, code (inline & block),
@@ -117,7 +152,7 @@ function parseMarkdown(content: string, linkResolver?: (url: string) => string):
     }
 
     // Horizontal rule (--- or ___ or ***)
-    if (/^(\s*[-*_]\s*){3,}$/.test(line)) {
+    if (horizontalRule(line)) {
       closeList()
       closeBlockquote()
       outputLines.push('<hr />')
@@ -125,12 +160,12 @@ function parseMarkdown(content: string, linkResolver?: (url: string) => string):
     }
 
     // Headings (# through ######)
-    const headingMatch = line.match(/^(#{1,6})\s+(.+)$/)
+    const headingMatch = heading(line)
     if (headingMatch) {
       closeList()
       closeBlockquote()
-      const level = headingMatch[1].length
-      const text = parseInline(headingMatch[2], linkResolver)
+      const level = headingMatch.level
+      const text = parseInline(headingMatch.text, linkResolver)
       outputLines.push(`<h${level}>${text}</h${level}>`)
       continue
     }
@@ -153,7 +188,7 @@ function parseMarkdown(content: string, linkResolver?: (url: string) => string):
     }
 
     // Unordered list items (- or * at start)
-    const ulMatch = line.match(/^[\s]*[-*+]\s+(.+)$/)
+    const ulMatch = unorderedItem(line)
     if (ulMatch) {
       closeBlockquote()
       if (inList !== 'ul') {
@@ -161,12 +196,12 @@ function parseMarkdown(content: string, linkResolver?: (url: string) => string):
         inList = 'ul'
         outputLines.push('<ul>')
       }
-      outputLines.push(`<li>${parseInline(ulMatch[1], linkResolver)}</li>`)
+      outputLines.push(`<li>${parseInline(ulMatch, linkResolver)}</li>`)
       continue
     }
 
     // Ordered list items (1. 2. etc.)
-    const olMatch = line.match(/^[\s]*\d+\.\s+(.+)$/)
+    const olMatch = orderedItem(line)
     if (olMatch) {
       closeBlockquote()
       if (inList !== 'ol') {
@@ -174,7 +209,7 @@ function parseMarkdown(content: string, linkResolver?: (url: string) => string):
         inList = 'ol'
         outputLines.push('<ol>')
       }
-      outputLines.push(`<li>${parseInline(olMatch[1], linkResolver)}</li>`)
+      outputLines.push(`<li>${parseInline(olMatch, linkResolver)}</li>`)
       continue
     }
 
