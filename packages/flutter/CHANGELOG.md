@@ -1,3 +1,35 @@
+## 0.50.0
+
+- Browser clipboard paste captures the current DOM selection before async reads, including rapid select-all after undo/redo. Ctrl/Cmd undo and redo use the same Flutter history; later edits still discard stale clipboard reads.
+
+- Support keyboard focus and Enter/Space activation for buttons, with a visible
+  focus indicator and inactive controls excluded from activation.
+
+- Add `ComposerLayoutBuilder`, `RefractionComposerStackedLayout` and
+  `RefractionComposerToolbar` for a full-width editor above compact actions,
+  retaining the composer's editor, validation and default submit behavior.
+- Give icon-only buttons an optional accessible `semanticLabel` and dropdown
+  menus an interactive `triggerBuilder` whose button owns the menu toggle.
+
+- Build impact: image clipboard support adds Superlist native plugins to every
+  consumer, including composers without the callback. Cargokit uses precompiled
+  Rust binaries or rustup and needs network access/cache; Android requires API 23
+  or newer, AGP/Gradle 8 and the Flutter-provided NDK. AGP/Gradle 9 is not
+  supported by Superlist 0.9.x. See README and COMPOSER_TESTING for the
+  native build gates and platform limits.
+
+- Opt-in composer PNG/JPEG image paste, native shortcuts/context Paste and user browser paste events. Hosts stage attachments with `onImagesPasted`; mixed text preserves editor selection/undo, failures are visible and stale reads are dropped.
+
+- Apply accessibility scaling once to native composer emoji artwork and preserve
+  canonical picker metadata for shared composer/display renderers.
+- Verify actual artwork paint and placement in both text directions; register
+  the Unicode example in the generated Widgetbook showcase.
+
+- Paint supported keyboard/pasted Unicode emoji over the composer's original
+  grapheme boxes while preserving canonical text, selection, IME and undo.
+- Expose complete-grapheme matching, display-only emoji spans and a shared Noto
+  animation renderer with exact-asset Twemoji fallback and reduced-motion support.
+
 ## 0.49.1
 
 - Expose optional Flutter `inputFormatters` for host-controlled platform edits

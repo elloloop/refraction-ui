@@ -8,14 +8,18 @@ import {
   type ComposerSubmission,
   type ComposerTrigger,
 } from '@refraction-ui/react-composer'
+import { Button } from '@refraction-ui/react-button'
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@refraction-ui/react-dropdown-menu'
 import { EmojiPicker } from '@refraction-ui/react-emoji-picker'
 
 interface ComposerExamplesProps {
   section:
+    | 'toolbar'
     | 'basic'
     | 'mentions'
     | 'slashAndEmoji'
     | 'expressionPanel'
+    | 'clipboard'
     | 'attachments'
     | 'busyStop'
     | 'editMode'
@@ -25,10 +29,12 @@ interface ComposerExamplesProps {
 const card = 'rounded-xl border border-border bg-card p-8'
 
 export function ComposerExamples({ section }: ComposerExamplesProps) {
+  if (section === 'toolbar') return <ToolbarExample />
   if (section === 'basic') return <BasicExample />
   if (section === 'mentions') return <MentionsExample />
   if (section === 'slashAndEmoji') return <SlashAndEmojiExample />
   if (section === 'expressionPanel') return <ExpressionPanelExample />
+  if (section === 'clipboard') return <ClipboardExample />
   if (section === 'attachments') return <AttachmentsExample />
   if (section === 'busyStop') return <BusyStopExample />
   if (section === 'editMode') return <EditModeExample />
@@ -302,6 +308,64 @@ function StatesExample() {
           onSubmit={() => undefined}
         />
       </div>
+    </div>
+  )
+}
+
+
+function ClipboardExample() {
+  const apiRef = React.useRef<ComposerAPI>(null)
+  const [files, setFiles] = React.useState<string[]>([])
+  return <div className={`${card} space-y-4`}>
+    <p className="text-sm text-muted-foreground">Local fixture: paste PNG/JPEG images and text. Nothing is uploaded or sent.</p>
+    <RefractionComposer defaultValue="A draft worth keeping" apiRef={apiRef}
+      onImagesPasted={images => {
+        setFiles(images.map(file => `${file.name} (${file.size} bytes)`))
+        for (const file of images) {
+          const id = apiRef.current?.addAttachment({ kind: 'image', name: file.name, mimeType: file.type, sizeBytes: file.size })
+          // Demo only: a production host marks ready after its uploader completes.
+          if (id) apiRef.current?.updateAttachment(id, { status: 'ready' })
+        }
+      }} />
+    <p role="status" className="text-xs text-muted-foreground">{files.join(', ')}</p>
+  </div>
+}
+
+/* The existing action slots keep the editor mounted while actions change. */
+function ToolbarExample() {
+  const [language, setLanguage] = React.useState('Auto')
+  const [requested, setRequested] = React.useState(false)
+  const [sent, setSent] = React.useState<string | null>(null)
+  return (
+    <div className={`${card} space-y-4`} data-testid="composer-toolbar-example">
+      <RefractionComposer
+        minLines={3}
+        defaultValue={'Please review the release notes.\nI will send this after review.'}
+        leading={
+          <div className="flex items-center gap-0.5">
+            <Button size="icon" variant="ghost" aria-label="Dictate" onClick={() => setRequested(true)}>
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor"><rect x="9" y="2" width="6" height="13" rx="3" /><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3" /></svg>
+            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="icon" variant="ghost" aria-label="Dictation language">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor"><path d="m6 9 6 6 6-6" /></svg>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {['Auto', 'English', 'Telugu'].map((name) => (
+                  <DropdownMenuItem key={name} onSelect={() => setLanguage(name)}>{name}</DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        }
+        onSubmit={({ plainText }) => setSent(plainText)}
+      />
+      <p role="status" className="text-sm text-muted-foreground">
+        Language: {language}. {requested ? 'Dictate requested; connect your recording service.' : 'Example actions only; no microphone is opened.'}
+      </p>
+      {sent !== null && <p>Submitted draft: {sent}</p>}
     </div>
   )
 }

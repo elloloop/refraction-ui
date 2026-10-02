@@ -11,6 +11,7 @@ import Switch from '../dist/astro-switch/Switch.astro'
 import Pagination from '../dist/astro-pagination/Pagination.astro'
 import FileTree from '../dist/astro-file-tree/FileTree.astro'
 import Slider from '../dist/astro-slider/Slider.astro'
+import InteractiveComposer from '../dist/astro-composer/InteractiveComposer.astro'
 import SkipToContent from '../dist/astro-skip-to-content/SkipToContent.astro'
 
 /**
@@ -350,5 +351,52 @@ describe('astro-skip-to-content', () => {
     expect(html).toContain('-translate-y-16')
     expect(html).toContain('focus:translate-y-0')
     expect(html).toContain('Skip to content')
+  })
+})
+
+
+describe('astro interactive composer (meta dist)', () => {
+  it('places host actions below the same editable field and before the send action', async () => {
+    const html = await render(InteractiveComposer, {
+      props: { defaultValue: 'Keep this draft' },
+      slots: { leading: '<button aria-label="Dictate">Mic</button>', trailing: '<button>Attach</button>' },
+    })
+    expect(count(html, '<textarea')).toBe(1)
+    expect(html).toContain('Keep this draft')
+    expect(html).toContain('Attach')
+    expect(html.indexOf('aria-label="Dictate"')).toBeGreaterThan(html.indexOf('</textarea>'))
+    expect(html.indexOf('Attach')).toBeLessThan(html.indexOf('data-send'))
+  })
+  it('renders an accessible editable field, localizable notices and an initially disabled send action', async () => {
+    const html = await render(InteractiveComposer, { props: {
+      defaultValue: 'Fixture draft', messageLabel: 'Fixture message', readOnly: true,
+      maxLength: 20, maxAttachments: 2, maxAttachmentSizeBytes: 1024,
+      pasteFailedNotice: 'Fixture error',
+    } })
+    expect(html).toContain('refraction-interactive-composer')
+    expect(html).toContain('aria-label="Fixture message"')
+    expect(html).toContain('Fixture draft')
+    expect(html).toMatch(/<textarea[^>]*readonly/)
+    expect(html).toMatch(/<button[^>]*data-send[^>]*disabled/)
+    expect(html).toContain('max-image-bytes="1024"')
+    expect(html).toContain('data-paste-failed-notice="Fixture error"')
+  })
+})
+
+describe('astro-composer action slots', () => {
+  it('preserves message content and one native named trigger below the read-only field', async () => {
+    const { default: ComposerComposition } = await import('./compositions/composer.astro')
+    const html = await render(ComposerComposition)
+    expect(html).toContain('Please review the release notes.')
+    expect(html).toContain('Read-only preview')
+    expect(html).not.toContain('<textarea')
+    expect(html).not.toContain('contenteditable')
+    expect(html).toMatch(/<button[^>]*aria-label="Dictate"[^>]*disabled|<button[^>]*disabled[^>]*aria-label="Dictate"/)
+    expect(html).toMatch(/<button[^>]*data-rfr-dropdown-trigger[^>]*aria-label="Dictation language"/)
+    expect(count(html, 'data-rfr-dropdown-trigger')).toBe(1)
+    expect(html).not.toMatch(/<button[^>]*>\s*<button/)
+    expect(html.indexOf('Please review')).toBeLessThan(html.indexOf('aria-label="Dictate"'))
+    expect(html.indexOf('aria-label="Dictate"')).toBeLessThan(html.indexOf('Read-only preview'))
+    expect(html).toMatch(/<button[^>]*aria-label="Send"[^>]*disabled/)
   })
 })

@@ -4,6 +4,10 @@ import { CodeBlock } from '@/components/code-block'
 import { InstallCommand } from '@/components/install-command'
 
 const composerProps = [
+  { name: 'onImagesPasted', type: '(images: File[]) => void', description: 'Opt-in PNG/JPEG handoff from an explicit paste. Files stay host-owned; mixed text replaces the current selection. No upload or send is performed.' },
+  { name: 'onPasteError', type: '(error: unknown) => void', description: 'Image size/empty-payload or clipboard read errors. The full batch and draft are unchanged; localized pasteFailedNotice is visible.' },
+  { name: 'onAttachmentAdd', type: '(attachment: ComposerAttachment, file: File) => void', description: 'Without onImagesPasted, the existing generic file staging path also provides the original File to the host uploader.' },
+  { name: 'maxAttachmentSizeBytes / acceptAttachment', type: 'number / (draft) => boolean | string', description: 'Core attachment gates. Image handoff defaults to 100 MiB per PNG/JPEG; maxAttachmentSizeBytes can lower/override that clipboard limit. Host-owned staging also applies count/accept gates.' },
   {
     name: 'value',
     type: 'string',
@@ -230,7 +234,35 @@ export function ChatFooter() {
 }`
 
 const astroUsageCode = `---
-import { Composer } from '@refraction-ui/astro'
+import { RefractionInteractiveComposer } from '@refraction-ui/astro'
+---
+
+<!-- Opt-in interactive island; no React integration required. -->
+<RefractionInteractiveComposer id="composer" defaultValue="Keep this draft">
+  <div slot="leading">
+    <button type="button" aria-label="Dictate">Mic</button>
+    <button type="button" aria-label="Dictation language">Language</button>
+  </div>
+  <button slot="trailing" type="button">Attach</button>
+</RefractionInteractiveComposer>
+<!-- Host-owned actions use the row below the same editable field.
+     Connect the named buttons to your recording/menu/upload services. -->
+<script>
+  const composer = document.getElementById('composer')!
+  composer.addEventListener('refraction:images-pasted', event => {
+    const { images, api } = (event as CustomEvent).detail
+    // Original File objects; hand them to your uploader here.
+    // Stage with api.addAttachment, then updateAttachment on upload completion.
+    console.log(images.map((file: File) => file.name))
+  })
+  composer.addEventListener('refraction:submit', event => {
+    // Only explicit Send (or opt-in submitOnEnter) emits a submission.
+    console.log((event as CustomEvent).detail)
+  })
+</script>`
+
+const staticAstroUsageCode = `---
+import { Composer, Button } from '@refraction-ui/astro'
 ---
 
 <!-- Static SSR shell: read-only pill + disabled send button -->
@@ -238,7 +270,15 @@ import { Composer } from '@refraction-ui/astro'
 
 <Composer>
   A pinned, read-only message rendered through the slot.
-</Composer>`
+  <div slot="leading" class="flex items-center gap-0.5">
+    <Button size="icon" variant="ghost" aria-label="Dictate" disabled>…</Button>
+    <Button size="icon" variant="ghost" aria-label="Dictation language" disabled>…</Button>
+  </div>
+  <span slot="trailing">Read-only preview</span>
+</Composer>
+<!-- Named action slots add composition, not an editable Astro runtime.
+     Use RefractionInteractiveComposer for opt-in editing/submission. Hosts own each
+     slotted action's disabled state and behavior. -->`
 
 export default function ComposerPage() {
   return (
@@ -264,6 +304,17 @@ export default function ComposerPage() {
           sendable. The field clears optimistically on submit.
         </p>
         <ComposerExamples section="basic" />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Adjacent icon actions</h2>
+        <p className="text-sm text-muted-foreground">
+          React already places the full-width editor above its action row. Compose adjacent
+          actions in leading, name icon buttons with aria-label, and use DropdownMenuTrigger
+          asChild to preserve one native button with keyboard activation. The language menu
+          changes example state; Dictate only reports a request and opens no microphone.
+        </p>
+        <ComposerExamples section="toolbar" />
       </section>
 
       <section className="space-y-4">
@@ -319,6 +370,25 @@ export default function ComposerPage() {
       </section>
 
       <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Clipboard images</h2>
+        <p className="text-sm text-muted-foreground">
+          Opt in with <code>onImagesPasted</code> to receive original PNG/JPEG files for your uploader.
+          An explicit paste preserves image-only selections and inserts mixed text at the selection;
+          it never submits. Unsupported formats are skipped; empty or oversized images reject the
+          entire batch before changing the draft. Browser paste events require no background clipboard
+          reads or permission polling. Disabled, read-only and composing states block processing. Busy only blocks Send; pasting remains available.
+        </p>
+        <ComposerExamples section="clipboard" />
+        <p className="text-sm text-muted-foreground">
+          Astro exposes the same clipboard boundary through <code>RefractionInteractiveComposer</code>
+          and bubbling <code>refraction:images-pasted</code> / <code>refraction:paste-error</code> events.
+          Its existing static Composer shell remains available. Host upload statuses/removal use the
+          event&apos;s core API; files and upload transport remain host-owned. This island covers text,
+          image handoff and attachment staging; it does not add React&apos;s mention or accessory UI.
+        </p>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Busy / stop</h2>
         <p className="text-sm text-muted-foreground">
           While <code className="text-xs bg-muted px-1 rounded">busy</code>, the send button
@@ -356,6 +426,18 @@ export default function ComposerPage() {
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
         <CodeBlock frameworks={{ react: usageCode, astro: astroUsageCode }} />
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Static Astro slots</h2>
+        <p className="text-sm text-muted-foreground">
+          The default slot remains read-only message content. Named leading and trailing slots
+          appear below it, before the disabled Send action. Use RefractionInteractiveComposer
+          for opt-in editing and submission. A native DropdownMenuTrigger can
+          receive aria-label and the shared button classes directly; do not nest buttons.
+          Hosts control the behavior and disabled state of their slotted actions.
+        </p>
+        <CodeBlock frameworks={{ astro: staticAstroUsageCode }} />
       </section>
 
       <div className="h-px bg-border" />
