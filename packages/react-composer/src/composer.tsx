@@ -28,7 +28,7 @@ import type {
   ComposerValidator,
   PlacedToken,
 } from '@refraction-ui/composer'
-import { cn, generateId, prefersReducedMotion } from '@refraction-ui/shared'
+import { cn, prefersReducedMotion } from '@refraction-ui/shared'
 import { useComposer } from './use-composer.js'
 
 // ---------------------------------------------------------------------------
@@ -459,7 +459,8 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
       [forwardedRef],
     )
 
-    const idBase = React.useRef(id ?? generateId('composer')).current
+    const reactId = React.useId()
+    const idBase = React.useRef(id ?? `composer-${reactId}`).current
     const listId = `${idBase}-listbox`
     const optionId = (index: number) => `${idBase}-option-${index}`
 
