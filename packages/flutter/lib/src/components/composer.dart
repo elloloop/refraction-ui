@@ -14,6 +14,8 @@ import '../theme/refraction_colors.dart';
 import '../theme/refraction_theme.dart';
 
 import 'composer_clipboard.dart';
+import 'composer_clipboard_selection_stub.dart'
+    if (dart.library.js_interop) 'composer_clipboard_selection_web.dart';
 import 'emoji_picker.dart' show EmojiData;
 import 'editable_emoji_artwork.dart';
 import '../data/unicode_emoji.dart';
@@ -1134,6 +1136,18 @@ class _RefractionComposerState extends State<RefractionComposer>
 
   void _browserPaste(ClipboardReadEvent event) {
     if (!_focusNode.hasFocus || !_acceptsImagePaste) return;
+    // The DOM selection can precede Flutter's asynchronous selectionchange
+    // notification (notably after framework undo/redo). Capture it at the
+    // gesture before the stale-read guard starts watching for newer edits.
+    final selection = composerBrowserClipboardSelection(_textController.text);
+    final editor = _focusNode.context
+        ?.findAncestorStateOfType<EditableTextState>();
+    if (selection != null && editor != null) {
+      editor.userUpdateTextEditingValue(
+        _textController.value.copyWith(selection: selection),
+        SelectionChangedCause.keyboard,
+      );
+    }
     // Requesting the event reader synchronously cancels default browser paste.
     // Text and images then share exactly one paste transaction.
     final reader = event.getClipboardReader();
@@ -1815,7 +1829,7 @@ class _RefractionComposerState extends State<RefractionComposer>
         ),
       ),
     );
-    // Flutter Web delegates Control-Z to the DOM history by default. A
+    // Flutter Web delegates Ctrl/Cmd-Z to the DOM history by default. A
     // clipboard transaction applied through EditableText belongs to Flutter's
     // UndoHistory instead, so use its existing actions for opted-in composers.
     if (kIsWeb && _acceptsImagePaste) {
@@ -1824,6 +1838,11 @@ class _RefractionComposerState extends State<RefractionComposer>
           SingleActivator(LogicalKeyboardKey.keyZ, control: true):
               UndoTextIntent(SelectionChangedCause.keyboard),
           SingleActivator(LogicalKeyboardKey.keyZ, control: true, shift: true):
+              RedoTextIntent(SelectionChangedCause.keyboard),
+          SingleActivator(LogicalKeyboardKey.keyZ, meta: true): UndoTextIntent(
+            SelectionChangedCause.keyboard,
+          ),
+          SingleActivator(LogicalKeyboardKey.keyZ, meta: true, shift: true):
               RedoTextIntent(SelectionChangedCause.keyboard),
         },
         child: sizedField,

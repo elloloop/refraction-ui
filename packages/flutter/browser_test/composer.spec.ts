@@ -106,30 +106,32 @@ test('real browser keyboard paste reads OS clipboard image', async ({ page, cont
   await page.screenshot({ path: testInfo.outputPath('clipboard-fixture.png') });
 });
 
-test('Unicode clipboard and undo keep complete graphemes', async ({ page, context }) => {
-  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
-  await page.goto('/');
-  const field = page.getByRole('textbox', { name: 'Message input' });
-  await field.click();
-  const draft = 'Hello 🔥 ❤️ 🇬🇧 👨‍👩‍👧‍👦 👍🏽 é';
-  await page.keyboard.insertText(draft);
-  await expect(field).toHaveValue(draft);
-  await page.keyboard.press('ControlOrMeta+A');
-  await page.keyboard.press('ControlOrMeta+C');
-  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(draft);
-  await page.keyboard.press('ArrowRight');
-  // Flutter coalesces edits over a 500 ms undo window. Let the initial
-  // Unicode insertion become its own snapshot before editing its suffix.
-  await page.waitForTimeout(600);
-  await page.keyboard.type(' tail');
-  await expect(field).toHaveValue(`${draft} tail`);
-  await page.waitForTimeout(600);
-  await page.keyboard.press('ControlOrMeta+Z');
-  await expect(field).toHaveValue(draft);
-  await page.keyboard.press('ControlOrMeta+Shift+Z');
-  await expect(field).toHaveValue(`${draft} tail`);
-  await page.keyboard.press('ControlOrMeta+A');
-  await page.keyboard.press('ControlOrMeta+V');
-  await expect(field).toHaveValue(draft);
-  await expect(field).toBeFocused();
-});
+for (const undoModifier of ['ControlOrMeta', 'Control']) {
+  test(`Unicode clipboard and undo keep complete graphemes (${undoModifier})`, async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    await page.goto('/');
+    const field = page.getByRole('textbox', { name: 'Message input' });
+    await field.click();
+    const draft = 'Hello 🔥 ❤️ 🇬🇧 👨‍👩‍👧‍👦 👍🏽 é';
+    await page.keyboard.insertText(draft);
+    await expect(field).toHaveValue(draft);
+    await page.keyboard.press('ControlOrMeta+A');
+    await page.keyboard.press('ControlOrMeta+C');
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(draft);
+    await page.keyboard.press('ArrowRight');
+    // Flutter coalesces edits over a 500 ms undo window. Let the initial
+    // Unicode insertion become its own snapshot before editing its suffix.
+    await page.waitForTimeout(600);
+    await page.keyboard.type(' tail');
+    await expect(field).toHaveValue(`${draft} tail`);
+    await page.waitForTimeout(600);
+    await page.keyboard.press(`${undoModifier}+Z`);
+    await expect(field).toHaveValue(draft);
+    await page.keyboard.press(`${undoModifier}+Shift+Z`);
+    await expect(field).toHaveValue(`${draft} tail`);
+    await page.keyboard.press('ControlOrMeta+A');
+    await page.keyboard.press('ControlOrMeta+V');
+    await expect(field).toHaveValue(draft);
+    await expect(field).toBeFocused();
+  });
+}

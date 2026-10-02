@@ -125,6 +125,32 @@ void main() {
     expect(staged, isEmpty);
   });
 
+  testWidgets('late clipboard read cannot overwrite a moved selection', (
+    tester,
+  ) async {
+    final pending = Completer<ComposerClipboardPaste>();
+    final staged = <ComposerClipboardImage>[];
+    await mount(
+      tester,
+      RefractionComposer(
+        onImagesPasted: staged.addAll,
+        clipboardReader: () => pending.future,
+      ),
+    );
+    await edit(tester, 'draft');
+    await paste(tester);
+    await edit(
+      tester,
+      'draft',
+      selection: const TextSelection.collapsed(offset: 0),
+    );
+    pending.complete(ComposerClipboardPaste(text: 'old', images: [image]));
+    await tester.pump();
+    expect(text(tester).text, 'draft');
+    expect(text(tester).selection, const TextSelection.collapsed(offset: 0));
+    expect(staged, isEmpty);
+  });
+
   testWidgets('read failure reports error while retaining draft', (
     tester,
   ) async {

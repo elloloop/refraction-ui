@@ -1,5 +1,7 @@
 ## 0.50.0
 
+- Browser clipboard paste captures the current DOM selection before async reads, including rapid select-all after undo/redo. Ctrl/Cmd undo and redo use the same Flutter history; later edits still discard stale clipboard reads.
+
 - Support keyboard focus and Enter/Space activation for buttons, with a visible
   focus indicator and inactive controls excluded from activation.
 

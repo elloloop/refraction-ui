@@ -213,3 +213,7 @@ Android template build is recorded as an unsupported AGP 9 configuration, not
 claimed as passing. Upstream 0.10 prereleases replace Cargokit with native hooks
 but require Flutter 3.44+, so adopting them would exclude current 3.38.3 consumers.
 No dependency override, package-cache patch or error suppression is used.
+
+### Browser selection synchronization
+
+The real Unicode clipboard case covers rapid select-all/paste after both platform and explicit Ctrl undo/redo shortcuts. The DOM selection is captured synchronously at the paste gesture because Flutter selectionchange notifications can lag behind it. The clipboard reader still rejects a result after subsequent typing or selection movement; widget regressions cover both stale-read cases.

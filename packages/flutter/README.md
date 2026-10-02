@@ -25,7 +25,7 @@ dependencies:
 - **One token model, every framework.** The same color/radius/typography scale powers `@refraction-ui/react`, `@refraction-ui/astro`, and this Flutter package. Mobile and web stay in lockstep without duplicated theme definitions.
 - **Accessible by default.** Components ship with proper `Semantics`, focus traversal, and keyboard handling. Buttons announce their pressed/disabled state, inputs are labeled, dialogs trap focus, etc.
 - **Pure-Dart UI, small dependency footprint.** The components are plain Flutter widgets built on a small set of well-known packages (`characters`, `flutter_markdown`/`markdown`, `flutter_svg`, `lottie`) — no heavyweight vendor SDKs. Video playback (`RefractionVideoPlayer`) is delegated to the [`video_player`](https://pub.dev/packages/video_player) plugin.
-- **Works everywhere Flutter does.** iOS, Android, web, macOS, Windows, Linux. Note that `video_player` is a federated plugin that uses platform channels on the platforms it supports.
+- **Across Flutter platforms.** iOS, Android, web, macOS, Windows and Linux. Video playback and clipboard images use native plugins; clipboard toolchain requirements and platform verification limits are listed below.
 
 ---
 
@@ -342,12 +342,11 @@ cover macOS and the iOS simulator; see [COMPOSER_TESTING](COMPOSER_TESTING.md).
 | Requirement | Version |
 |---|---|
 | Dart SDK | `^3.10.1` |
-| Flutter | `>= 3.27.0` (tested against current stable) |
+| Flutter | `>= 3.27.0`; Dart constraints also apply. Android clipboard builds are verified with Flutter 3.38.3 / AGP 8 / Gradle 8; AGP/Gradle 9 is unsupported. |
 | Platforms | iOS, Android, Web, macOS, Windows, Linux |
 
-Null-safety is on. The widgets themselves are pure Dart; only video playback
-(`RefractionVideoPlayer`, via the `video_player` plugin) touches platform
-channels.
+Null-safety is on. Video playback and clipboard images use platform plugins;
+see the native build requirements above.
 
 ---
 
