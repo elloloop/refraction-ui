@@ -371,3 +371,21 @@ describe('astro interactive composer (meta dist)', () => {
     expect(html).toContain('data-paste-failed-notice="Fixture error"')
   })
 })
+
+describe('astro-composer action slots', () => {
+  it('preserves message content and one native named trigger below the read-only field', async () => {
+    const { default: ComposerComposition } = await import('./compositions/composer.astro')
+    const html = await render(ComposerComposition)
+    expect(html).toContain('Please review the release notes.')
+    expect(html).toContain('Read-only preview')
+    expect(html).not.toContain('<textarea')
+    expect(html).not.toContain('contenteditable')
+    expect(html).toMatch(/<button[^>]*aria-label="Dictate"[^>]*disabled|<button[^>]*disabled[^>]*aria-label="Dictate"/)
+    expect(html).toMatch(/<button[^>]*data-rfr-dropdown-trigger[^>]*aria-label="Dictation language"/)
+    expect(count(html, 'data-rfr-dropdown-trigger')).toBe(1)
+    expect(html).not.toMatch(/<button[^>]*>\s*<button/)
+    expect(html.indexOf('Please review')).toBeLessThan(html.indexOf('aria-label="Dictate"'))
+    expect(html.indexOf('aria-label="Dictate"')).toBeLessThan(html.indexOf('Read-only preview'))
+    expect(html).toMatch(/<button[^>]*aria-label="Send"[^>]*disabled/)
+  })
+})

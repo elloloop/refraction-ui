@@ -234,7 +234,7 @@ export function ChatFooter() {
 }`
 
 const astroUsageCode = `---
-import { RefractionInteractiveComposer } from '@refraction-ui/astro'
+import { RefractionInteractiveComposer, Composer, Button } from '@refraction-ui/astro'
 ---
 
 <!-- Opt-in interactive island; no React integration required. -->
@@ -251,7 +251,22 @@ import { RefractionInteractiveComposer } from '@refraction-ui/astro'
     // Only explicit Send (or opt-in submitOnEnter) emits a submission.
     console.log((event as CustomEvent).detail)
   })
-</script>`
+</script>
+
+<!-- Static SSR shell: read-only pill + disabled send button -->
+<Composer placeholder="Sign in to join the conversation" />
+
+<Composer>
+  A pinned, read-only message rendered through the slot.
+  <div slot="leading" class="flex items-center gap-0.5">
+    <Button size="icon" variant="ghost" aria-label="Dictate" disabled>…</Button>
+    <Button size="icon" variant="ghost" aria-label="Dictation language" disabled>…</Button>
+  </div>
+  <span slot="trailing">Read-only preview</span>
+</Composer>
+<!-- Named action slots add composition, not an editable Astro runtime.
+     Use RefractionInteractiveComposer for editing/submission. Hosts own each
+     slotted action's disabled state and behavior. -->`
 
 export default function ComposerPage() {
   return (
@@ -277,6 +292,17 @@ export default function ComposerPage() {
           sendable. The field clears optimistically on submit.
         </p>
         <ComposerExamples section="basic" />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Adjacent icon actions</h2>
+        <p className="text-sm text-muted-foreground">
+          React already places the full-width editor above its action row. Compose adjacent
+          actions in leading, name icon buttons with aria-label, and use DropdownMenuTrigger
+          asChild to preserve one native button with keyboard activation. The language menu
+          changes example state; Dictate only reports a request and opens no microphone.
+        </p>
+        <ComposerExamples section="toolbar" />
       </section>
 
       <section className="space-y-4">
@@ -388,6 +414,17 @@ export default function ComposerPage() {
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
         <CodeBlock frameworks={{ react: usageCode, astro: astroUsageCode }} />
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Astro slots</h2>
+        <p className="text-sm text-muted-foreground">
+          The default slot remains read-only message content. Named leading and trailing slots
+          appear below it, before the disabled Send action. Astro has no editable composer runtime;
+          hydrate the React adapter when editing is needed. A native DropdownMenuTrigger can
+          receive aria-label and the shared button classes directly; do not nest buttons.
+          Hosts control the behavior and disabled state of their slotted actions.
+        </p>
       </section>
 
       <div className="h-px bg-border" />
