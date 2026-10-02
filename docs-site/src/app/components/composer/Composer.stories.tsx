@@ -16,4 +16,6 @@ export const BusyStop = { render: () => <ComposerExamples section="busyStop" /> 
 export const EditMode = { render: () => <ComposerExamples section="editMode" /> }
 export const States = { render: () => <ComposerExamples section="states" /> }
 
+export const ClipboardPaste = { render: () => <ComposerExamples section="clipboard" /> }
+
 export const IconToolbar = { render: () => <ComposerExamples section="toolbar" /> }
