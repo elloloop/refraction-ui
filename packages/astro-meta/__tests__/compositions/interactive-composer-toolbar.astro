@@ -1,0 +1,17 @@
+---
+import InteractiveComposer from '../../dist/astro-composer/InteractiveComposer.astro'
+import Button from '../../dist/astro-button/Button.astro'
+import DropdownMenu from '../../dist/astro-dropdown-menu/DropdownMenu.astro'
+import DropdownMenuTrigger from '../../dist/astro-dropdown-menu/DropdownMenuTrigger.astro'
+import DropdownMenuContent from '../../dist/astro-dropdown-menu/DropdownMenuContent.astro'
+import DropdownMenuItem from '../../dist/astro-dropdown-menu/DropdownMenuItem.astro'
+---
+<InteractiveComposer defaultValue="Keep this draft while choosing a language.">
+  <div slot="leading" class="flex items-center gap-0.5">
+    <Button size="icon" variant="ghost" aria-label="Dictate"><svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor"><rect x="9" y="2" width="6" height="13" rx="3" /><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3" /></svg></Button>
+    <DropdownMenu><DropdownMenuTrigger aria-label="Dictation language">⌄</DropdownMenuTrigger>
+      <DropdownMenuContent><DropdownMenuItem>Auto</DropdownMenuItem><DropdownMenuItem>English</DropdownMenuItem><DropdownMenuItem>Telugu</DropdownMenuItem></DropdownMenuContent>
+    </DropdownMenu>
+  </div>
+  <Button slot="trailing" variant="ghost">Attach</Button>
+</InteractiveComposer>

@@ -238,7 +238,15 @@ import { RefractionInteractiveComposer, Composer, Button } from '@refraction-ui/
 ---
 
 <!-- Opt-in interactive island; no React integration required. -->
-<RefractionInteractiveComposer id="composer" defaultValue="Keep this draft" />
+<RefractionInteractiveComposer id="composer" defaultValue="Keep this draft">
+  <div slot="leading">
+    <button type="button" aria-label="Dictate">Mic</button>
+    <button type="button" aria-label="Dictation language">Language</button>
+  </div>
+  <button slot="trailing" type="button">Attach</button>
+</RefractionInteractiveComposer>
+<!-- Host-owned actions use the row below the same editable field.
+     Connect the named buttons to your recording/menu/upload services. -->
 <script>
   const composer = document.getElementById('composer')!
   composer.addEventListener('refraction:images-pasted', event => {
@@ -364,7 +372,7 @@ export default function ComposerPage() {
           An explicit paste preserves image-only selections and inserts mixed text at the selection;
           it never submits. Unsupported formats are skipped; empty or oversized images reject the
           entire batch before changing the draft. Browser paste events require no background clipboard
-          reads or permission polling. Disabled, read-only, busy and composing states block processing.
+          reads or permission polling. Disabled, read-only and composing states block processing. Busy only blocks Send; pasting remains available.
         </p>
         <ComposerExamples section="clipboard" />
         <p className="text-sm text-muted-foreground">

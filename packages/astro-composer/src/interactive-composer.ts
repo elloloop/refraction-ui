@@ -103,7 +103,7 @@ export function registerRefractionInteractiveComposer(): void {
       field.addEventListener('paste', event => {
         event.preventDefault()
         const state = api.getState()
-        if (state.disabled || state.readOnly || state.isBusy || state.isComposing) return
+        if (state.disabled || state.readOnly || state.isComposing) return
         notice.textContent = ''
         let images: File[]
         let text: string

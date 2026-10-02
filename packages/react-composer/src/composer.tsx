@@ -722,7 +722,7 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
     const handlePaste = (event: React.ClipboardEvent<HTMLTextAreaElement>) => {
       event.preventDefault()
       const current = api.getState()
-      if (current.disabled || current.readOnly || current.isBusy || current.isComposing) return
+      if (current.disabled || current.readOnly || current.isComposing) return
       setPasteFailed(false)
       // Read/validate before changing the draft or delivering any images.
       let files: File[]
@@ -737,6 +737,12 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
         onPasteErrorRef.current?.(error)
         return
       }
+      // Legacy file paste keeps R23: files win over clipboard text unless
+      // the host explicitly opts into mixed text and image handoff.
+      if (images === undefined && files.length > 0) {
+        addFiles(files)
+        return
+      }
       pastingRef.current = true
       try {
         withValueChange(() => pasteComposerField(api, event.currentTarget, text,
@@ -746,9 +752,6 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
       }
       if (images !== undefined) {
         if (images.length > 0) onImagesPastedRef.current?.(images)
-      } else {
-        // Preserve the existing general-file staging path for hosts without opt-in.
-        addFiles(files)
       }
     }
 

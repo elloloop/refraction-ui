@@ -549,7 +549,7 @@ describe('clipboard image handoff', () => {
     expect(container.querySelector('[role="alert"]')?.textContent).toBe('Fixture paste failed')
   })
 
-  it.each(['disabled', 'readOnly', 'busy'] as const)('does not process clipboard while %s', flag => {
+  it.each(['disabled', 'readOnly'] as const)('does not process clipboard while %s', flag => {
     const images = vi.fn()
     render(<RefractionComposer defaultValue="draft" {...{ [flag]: true }} onImagesPasted={images} />)
     firePaste(textarea(), { text: 'replacement', files: [new File(['png'], 'fixture.png', { type: 'image/png' })] })
@@ -557,12 +557,32 @@ describe('clipboard image handoff', () => {
     expect(images).not.toHaveBeenCalled()
   })
 
-  it('legacy staging preserves mixed text and exposes the raw file to uploaders', () => {
-    const add = vi.fn()
-    render(<RefractionComposer onAttachmentAdd={add} />)
+  it('busy still allows plain-text paste while preventing submit', () => {
+    const submit = vi.fn()
+    render(<RefractionComposer busy onSubmit={submit} />)
+    firePaste(textarea(), { text: 'next prompt' })
+    expect(textarea().value).toBe('next prompt')
+    keyDown(textarea(), 'Enter')
+    expect(submit).not.toHaveBeenCalled()
+  })
+
+  it('busy permits opted-in mixed image paste without submitting', () => {
+    const images = vi.fn()
+    const submit = vi.fn()
+    render(<RefractionComposer busy onImagesPasted={images} onSubmit={submit} />)
     const file = new File(['png'], 'fixture.png', { type: 'image/png' })
-    firePaste(textarea(), { text: 'caption', files: [file] })
-    expect(textarea().value).toBe('caption')
+    firePaste(textarea(), { text: 'next prompt', files: [file] })
+    expect(textarea().value).toBe('next prompt')
+    expect(images).toHaveBeenCalledExactlyOnceWith([file])
+    expect(submit).not.toHaveBeenCalled()
+  })
+
+  it('legacy file staging preserves the draft and exposes the raw file to uploaders', () => {
+    const add = vi.fn()
+    render(<RefractionComposer defaultValue="draft" onAttachmentAdd={add} />)
+    const file = new File(['png'], 'fixture.png', { type: 'image/png' })
+    firePaste(textarea(), { text: 'fixture.png', files: [file] })
+    expect(textarea().value).toBe('draft')
     expect(add.mock.calls[0][1]).toBe(file)
     expect(container.textContent).toContain('fixture.png')
   })
