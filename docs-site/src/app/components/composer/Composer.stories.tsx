@@ -15,3 +15,5 @@ export const Attachments = {
 export const BusyStop = { render: () => <ComposerExamples section="busyStop" /> }
 export const EditMode = { render: () => <ComposerExamples section="editMode" /> }
 export const States = { render: () => <ComposerExamples section="states" /> }
+
+export const IconToolbar = { render: () => <ComposerExamples section="toolbar" /> }
