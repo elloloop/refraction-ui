@@ -39,6 +39,35 @@ Widget multilineComposerUseCase(BuildContext context) {
     ),
     builder: (controller) => RefractionComposer(
       controller: controller,
+      leadingBuilder: (context, controller) => RefractionButton(
+        size: RefractionButtonSize.icon,
+        variant: RefractionButtonVariant.ghost,
+        semanticLabel: 'Dictate',
+        onPressed: () {},
+        child: const Icon(Icons.mic_none),
+      ),
+      trailingBuilder: (context, controller) => RefractionDropdownMenu(
+        triggerBuilder: (context, toggle) => RefractionButton(
+          size: RefractionButtonSize.icon,
+          variant: RefractionButtonVariant.ghost,
+          semanticLabel: 'Dictation language',
+          onPressed: toggle,
+          child: const Icon(Icons.keyboard_arrow_down),
+        ),
+        items: [
+          for (final label in ['Auto', 'English', 'Telugu'])
+            RefractionDropdownItem(label: label, onSelected: () {}),
+        ],
+      ),
+      layoutBuilder:
+          (context, {required editor, required primary, leading, trailing}) =>
+              RefractionComposerStackedLayout(
+                editor: editor,
+                toolbar: RefractionComposerToolbar(
+                  actions: [?leading, ?trailing],
+                  primary: primary,
+                ),
+              ),
       onSubmit: (_) {},
       onAttachRequested: () {},
     ),

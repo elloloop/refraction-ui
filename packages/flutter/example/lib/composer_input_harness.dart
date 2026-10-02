@@ -18,6 +18,7 @@ class ComposerInputHarness extends StatefulWidget {
 
 class _ComposerInputHarnessState extends State<ComposerInputHarness> {
   late final SemanticsHandle _semantics;
+  final _controller = RefractionComposerController();
 
   @override
   void initState() {
@@ -27,6 +28,7 @@ class _ComposerInputHarnessState extends State<ComposerInputHarness> {
 
   @override
   void dispose() {
+    _controller.dispose();
     _semantics.dispose();
     super.dispose();
   }
@@ -45,14 +47,36 @@ class _ComposerInputHarnessState extends State<ComposerInputHarness> {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: RefractionComposer(
-                  onSubmit: (_) {},
-                  onAttachRequested: () {},
-                  trailingBuilder: (_, _) => IconButton(
-                    tooltip: 'Emoji',
-                    onPressed: () {},
-                    icon: const Icon(Icons.mood),
-                  ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'Local clipboard fixture · no message transport',
+                    ),
+                    const SizedBox(height: 8),
+                    RefractionComposer(
+                      controller: _controller,
+                      onImagesPasted: (images) {
+                        for (final image in images) {
+                          _controller.addAttachment(
+                            ComposerAttachment(
+                              kind: ComposerAttachmentKind.image,
+                              name: image.name,
+                              sizeBytes: image.bytes.length,
+                              mimeType: image.contentType,
+                            ),
+                          );
+                        }
+                      },
+                      onSubmit: (_) {},
+                      onAttachRequested: () {},
+                      trailingBuilder: (_, _) => IconButton(
+                        tooltip: 'Emoji',
+                        onPressed: () {},
+                        icon: const Icon(Icons.mood),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

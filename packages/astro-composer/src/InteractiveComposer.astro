@@ -1,0 +1,57 @@
+---
+import { composerFieldClass, composerSurfaceVariants, composerTrayClass } from '@refraction-ui/composer'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  defaultValue?: string
+  placeholder?: string
+  label?: string
+  messageLabel?: string
+  sendLabel?: string
+  removeLabel?: string
+  pasteFailedNotice?: string
+  trimmedNotice?: string
+  disabled?: boolean
+  readOnly?: boolean
+  busy?: boolean
+  maxLength?: number
+  maxAttachments?: number
+  maxAttachmentSizeBytes?: number
+  /** Opt-in keyboard submission; false preserves Enter for newlines on mobile. */
+  submitOnEnter?: boolean
+}
+const {
+  defaultValue = '', placeholder = 'Send a message…', label = 'Message composer',
+  messageLabel = 'Message', sendLabel = 'Send', removeLabel = 'Remove attachment',
+  pasteFailedNotice = 'Could not paste images. Try attaching the file instead.',
+  trimmedNotice = 'Pasted text was trimmed to fit the length limit',
+  disabled = false, readOnly = false, busy = false, submitOnEnter = false,
+  maxLength, maxAttachments, maxAttachmentSizeBytes, class: className, ...rest
+} = Astro.props
+---
+<refraction-interactive-composer
+  role="form" aria-label={label} class={cn('block relative', className)}
+  disabled={disabled || undefined} read-only={readOnly || undefined} busy={busy || undefined}
+  submit-on-enter={submitOnEnter || undefined} max-length={maxLength}
+  max-attachments={maxAttachments} max-image-bytes={maxAttachmentSizeBytes}
+  data-remove-label={removeLabel} data-paste-failed-notice={pasteFailedNotice}
+  data-trimmed-notice={trimmedNotice} {...rest}
+>
+  <div class={composerSurfaceVariants({ disabled: disabled ? 'true' : 'false' })}>
+    <div data-notice role="status" aria-live="polite" class="px-3 text-xs text-muted-foreground"></div>
+    <div data-tray class={composerTrayClass}></div>
+    <textarea aria-label={messageLabel} placeholder={placeholder} disabled={disabled} readonly={readOnly}
+      rows="3" class={cn(composerFieldClass, 'block w-full resize-y')}>{defaultValue}</textarea>
+    <div class="flex items-center justify-between gap-2 px-3 pb-3">
+      <div class="flex min-w-0 items-center gap-0.5"><slot name="leading" /></div>
+      <div class="flex items-center gap-2">
+        <slot name="trailing" />
+        <button data-send type="button" disabled class="rounded-full bg-primary px-4 py-2 text-primary-foreground">{sendLabel}</button>
+      </div>
+    </div>
+  </div>
+</refraction-interactive-composer>
+<script>
+  import { registerRefractionInteractiveComposer } from './interactive-composer.js'
+  registerRefractionInteractiveComposer()
+</script>

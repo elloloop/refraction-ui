@@ -16,6 +16,9 @@ export type { UseComposerResult } from './use-composer.js'
 // react-conversation owns `Composer`/`ComposerProps`/`SlashCommand`/`Mention`
 // and react-thread-view owns `MessageAttachment`.
 export {
+  composerClipboardImages,
+  ComposerImagePasteError,
+  DEFAULT_COMPOSER_IMAGE_MAX_BYTES,
   createComposer,
   createEmojiTrigger,
   toMessageAttachment,

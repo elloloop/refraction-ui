@@ -6,11 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:super_clipboard/super_clipboard.dart';
 
 import '../core/composer_core.dart';
 import '../core/composer_types.dart';
 import '../theme/refraction_colors.dart';
 import '../theme/refraction_theme.dart';
+
+import 'composer_clipboard.dart';
+import 'composer_clipboard_selection_stub.dart'
+    if (dart.library.js_interop) 'composer_clipboard_selection_web.dart';
 import 'emoji_picker.dart' show EmojiData;
 import 'editable_emoji_artwork.dart';
 import '../data/unicode_emoji.dart';
@@ -20,6 +25,7 @@ import '../data/emoji_renderers.dart';
 export '../core/composer_core.dart';
 export '../core/composer_trigger_engine.dart';
 export '../core/composer_types.dart';
+export 'composer_clipboard.dart';
 
 /// Density variant for [RefractionComposer] (issue #426 §2.9).
 enum ComposerDensity {
@@ -226,6 +232,9 @@ class RefractionComposerStrings {
   /// Transient banner after a clamped paste.
   final String trimmedNotice;
 
+  /// Clipboard read failure (the host also receives the cause).
+  final String pasteFailedNotice;
+
   /// Creates the strings bundle.
   const RefractionComposerStrings({
     this.fieldLabel = 'Message input',
@@ -237,6 +246,8 @@ class RefractionComposerStrings {
     this.suggestionsError = "Couldn't load suggestions",
     this.retryLabel = 'Retry',
     this.trimmedNotice = 'Pasted text was trimmed to fit',
+    this.pasteFailedNotice =
+        'Could not paste the clipboard. Try again or attach a file.',
   });
 
   /// Accessible label for an attachment chip's remove button.
@@ -280,6 +291,73 @@ typedef ComposerSlotBuilder =
 /// Builds the primary action (send ⇄ stop ⇄ mic …).
 typedef ComposerPrimaryBuilder =
     Widget Function(BuildContext context, ComposerPrimaryContext primary);
+
+/// Arranges the existing editor and action widgets inside the composer surface.
+/// Mount each supplied widget once. Keep the editor in a stable location across
+/// rebuilds to retain its platform input connection. The supplied primary action
+/// retains validation and the existing submit/controller-reset behavior.
+typedef ComposerLayoutBuilder =
+    Widget Function(
+      BuildContext context, {
+      required Widget editor,
+      required Widget primary,
+      Widget? leading,
+      Widget? trailing,
+    });
+
+/// Full-width editor above a compact toolbar, using composer spacing tokens.
+class RefractionComposerStackedLayout extends StatelessWidget {
+  const RefractionComposerStackedLayout({
+    super.key,
+    required this.editor,
+    required this.toolbar,
+  });
+
+  final Widget editor;
+  final Widget toolbar;
+
+  @override
+  Widget build(BuildContext context) => Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: context.refractionTheme.spacingMd,
+        ),
+        child: editor,
+      ),
+      toolbar,
+    ],
+  );
+}
+
+/// Compact actions wrap independently of the trailing primary action.
+class RefractionComposerToolbar extends StatelessWidget {
+  const RefractionComposerToolbar({
+    super.key,
+    required this.actions,
+    this.primary,
+  });
+  final List<Widget> actions;
+  final Widget? primary;
+
+  @override
+  Widget build(BuildContext context) => Row(
+    children: [
+      Expanded(
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: actions,
+        ),
+      ),
+      if (primary != null) ...[
+        SizedBox(width: context.refractionTheme.spacingMd),
+        primary!,
+      ],
+    ],
+  );
+}
 
 /// Builds one suggestion overlay row.
 typedef ComposerOverlayItemBuilder =
@@ -793,6 +871,10 @@ class RefractionComposer extends StatefulWidget {
   /// [ComposerPrimaryContext].
   final ComposerPrimaryBuilder? primaryBuilder;
 
+  /// Optional surface content layout. The default remains a bottom-aligned row.
+  /// This changes placement only; the composer retains editor and submit state.
+  final ComposerLayoutBuilder? layoutBuilder;
+
   /// Custom suggestion row.
   final ComposerOverlayItemBuilder? overlayItemBuilder;
 
@@ -836,6 +918,15 @@ class RefractionComposer extends StatefulWidget {
   /// [leadingBuilder]) the attach slot is omitted entirely.
   final VoidCallback? onAttachRequested;
 
+  /// Opt-in clipboard images. The host stages/uploads them; never sends here.
+  final ValueChanged<List<ComposerClipboardImage>>? onImagesPasted;
+
+  /// Receives clipboard read/size/permission failures.
+  final ValueChanged<Object>? onPasteError;
+
+  /// Optional platform reader override, useful for deterministic integration tests.
+  final ComposerClipboardReader? clipboardReader;
+
   /// Creates a [RefractionComposer].
   const RefractionComposer({
     super.key,
@@ -863,6 +954,7 @@ class RefractionComposer extends StatefulWidget {
     this.leadingBuilder,
     this.trailingBuilder,
     this.primaryBuilder,
+    this.layoutBuilder,
     this.overlayItemBuilder,
     this.overlayEmptyBuilder,
     this.overlayLoadingBuilder,
@@ -876,6 +968,9 @@ class RefractionComposer extends StatefulWidget {
     this.onTypingActivity,
     this.onAttachmentRejected,
     this.onAttachRequested,
+    this.onImagesPasted,
+    this.onPasteError,
+    this.clipboardReader,
   });
 
   @override
@@ -923,6 +1018,7 @@ class _RefractionComposerState extends State<RefractionComposer>
   String _lastValue = '';
   Duration _resizeDuration = _growDuration;
   bool _noticeVisible = false;
+  bool _pasteFailed = false;
   Timer? _noticeTimer;
 
   @override
@@ -951,6 +1047,9 @@ class _RefractionComposerState extends State<RefractionComposer>
       reverseDuration: _overlayOutDuration,
     );
     _lastValue = _controller.state.value;
+    if (kIsWeb) {
+      ClipboardEvents.instance?.registerPasteEventListener(_browserPaste);
+    }
   }
 
   RefractionComposerController _createController() {
@@ -991,6 +1090,7 @@ class _RefractionComposerState extends State<RefractionComposer>
       previousText.dispose();
       if (oldWidget.controller == null) previousController.dispose();
       _lastValue = _controller.state.value;
+      _pasteFailed = false;
     }
     if (widget.disabled != oldWidget.disabled) {
       _controller._syncWidgetFlags(disabled: widget.disabled);
@@ -1013,6 +1113,9 @@ class _RefractionComposerState extends State<RefractionComposer>
 
   @override
   void dispose() {
+    if (kIsWeb) {
+      ClipboardEvents.instance?.unregisterPasteEventListener(_browserPaste);
+    }
     _removeOverlay();
     _noticeTimer?.cancel();
     _unwire(_controller);
@@ -1023,6 +1126,74 @@ class _RefractionComposerState extends State<RefractionComposer>
     _overlayAnimation.dispose();
     if (_ownsController) _controller.dispose();
     super.dispose();
+  }
+
+  bool get _acceptsImagePaste =>
+      widget.onImagesPasted != null &&
+      !widget.disabled &&
+      !widget.readOnly &&
+      !_controller.state.isBusy;
+
+  void _browserPaste(ClipboardReadEvent event) {
+    if (!_focusNode.hasFocus || !_acceptsImagePaste) return;
+    // The DOM selection can precede Flutter's asynchronous selectionchange
+    // notification (notably after framework undo/redo). Capture it at the
+    // gesture before the stale-read guard starts watching for newer edits.
+    final selection = composerBrowserClipboardSelection(_textController.text);
+    final editor = _focusNode.context
+        ?.findAncestorStateOfType<EditableTextState>();
+    if (selection != null && editor != null) {
+      editor.userUpdateTextEditingValue(
+        _textController.value.copyWith(selection: selection),
+        SelectionChangedCause.keyboard,
+      );
+    }
+    // Requesting the event reader synchronously cancels default browser paste.
+    // Text and images then share exactly one paste transaction.
+    final reader = event.getClipboardReader();
+    unawaited(
+      _paste(
+        () async => readComposerClipboard(reader: await reader),
+        SelectionChangedCause.keyboard,
+      ),
+    );
+  }
+
+  Future<void> _paste(
+    ComposerClipboardReader read,
+    SelectionChangedCause cause,
+  ) async {
+    if (!_acceptsImagePaste) return;
+    setState(() => _pasteFailed = false);
+    final controller = _controller;
+    final value = _textController.value;
+    final editor = _focusNode.context
+        ?.findAncestorStateOfType<EditableTextState>();
+    try {
+      final pasted = await read();
+      // A late read must not land in a different conversation or over newer edits.
+      if (!mounted ||
+          controller != _controller ||
+          !_acceptsImagePaste ||
+          _textController.value != value ||
+          editor == null ||
+          !editor.mounted) {
+        return;
+      }
+      if (pasted.text != null && value.selection.isValid) {
+        editor.userUpdateTextEditingValue(
+          value.replaced(value.selection, pasted.text!),
+          cause,
+        );
+      }
+      if (pasted.images.isNotEmpty) widget.onImagesPasted!(pasted.images);
+      if (cause == SelectionChangedCause.toolbar) editor.hideToolbar();
+    } catch (error) {
+      if (mounted && controller == _controller) {
+        setState(() => _pasteFailed = true);
+        widget.onPasteError?.call(error);
+      }
+    }
   }
 
   // -- Controller plumbing ------------------------------------------------
@@ -1125,7 +1296,7 @@ class _RefractionComposerState extends State<RefractionComposer>
   void _handleSubmit() {
     final submission = _controller.trySubmit(widget.validator);
     if (submission == null) return;
-    // A fresh undo stack: undo must never resurrect sent text.
+    // Replace the undo controller along with the accepted draft.
     final previousUndo = _undoController;
     _undoController = UndoHistoryController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -1136,7 +1307,9 @@ class _RefractionComposerState extends State<RefractionComposer>
   }
 
   KeyEventResult _handleKeyEvent(FocusNode node, KeyEvent event) {
-    if (event is! KeyDownEvent) return KeyEventResult.ignored;
+    if (event is! KeyDownEvent || !_focusNode.hasFocus) {
+      return KeyEventResult.ignored;
+    }
     final key = event.logicalKey;
     final state = _controller.state;
 
@@ -1584,6 +1757,28 @@ class _RefractionComposerState extends State<RefractionComposer>
       textInputAction: TextInputAction.newline,
       textCapitalization: widget.textCapitalization,
       inputFormatters: widget.inputFormatters,
+      contextMenuBuilder: (context, editor) {
+        final items = editor.contextMenuButtonItems;
+        if (!kIsWeb && _acceptsImagePaste) {
+          items.removeWhere((item) => item.type == ContextMenuButtonType.paste);
+          items.add(
+            ContextMenuButtonItem(
+              type: ContextMenuButtonType.paste,
+              onPressed: () => _paste(
+                widget.clipboardReader ?? readComposerClipboard,
+                SelectionChangedCause.toolbar,
+              ),
+            ),
+          );
+        }
+        return TapRegion(
+          groupId: _tapRegionGroupId,
+          child: AdaptiveTextSelectionToolbar.buttonItems(
+            anchors: editor.contextMenuAnchors,
+            buttonItems: items,
+          ),
+        );
+      },
       cursorColor: colors.primary,
       style: textStyle,
       decoration: InputDecoration(
@@ -1608,15 +1803,51 @@ class _RefractionComposerState extends State<RefractionComposer>
     final resizeDuration = disableAnimations ? Duration.zero : _resizeDuration;
     Widget sizedField = ConstrainedBox(
       constraints: BoxConstraints(maxHeight: growCeiling),
-      child: EditableEmojiArtwork(
-        editor: textField,
-        renderer: widget.emojiRenderer,
-        runs: _textController.value.composing.isValid
-            ? const []
-            : refractionUnicodeEmojiRuns(_textController.text),
-        size: mediaQuery.textScaler.scale(tokens.fontSize),
+      child: Actions(
+        actions: !kIsWeb && _acceptsImagePaste
+            ? <Type, Action<Intent>>{
+                PasteTextIntent: CallbackAction<PasteTextIntent>(
+                  onInvoke: (intent) {
+                    unawaited(
+                      _paste(
+                        widget.clipboardReader ?? readComposerClipboard,
+                        intent.cause,
+                      ),
+                    );
+                    return null;
+                  },
+                ),
+              }
+            : const {},
+        child: EditableEmojiArtwork(
+          editor: textField,
+          renderer: widget.emojiRenderer,
+          runs: _textController.value.composing.isValid
+              ? const []
+              : refractionUnicodeEmojiRuns(_textController.text),
+          size: mediaQuery.textScaler.scale(tokens.fontSize),
+        ),
       ),
     );
+    // Flutter Web delegates Ctrl/Cmd-Z to the DOM history by default. A
+    // clipboard transaction applied through EditableText belongs to Flutter's
+    // UndoHistory instead, so use its existing actions for opted-in composers.
+    if (kIsWeb && _acceptsImagePaste) {
+      sizedField = Shortcuts(
+        shortcuts: const <ShortcutActivator, Intent>{
+          SingleActivator(LogicalKeyboardKey.keyZ, control: true):
+              UndoTextIntent(SelectionChangedCause.keyboard),
+          SingleActivator(LogicalKeyboardKey.keyZ, control: true, shift: true):
+              RedoTextIntent(SelectionChangedCause.keyboard),
+          SingleActivator(LogicalKeyboardKey.keyZ, meta: true): UndoTextIntent(
+            SelectionChangedCause.keyboard,
+          ),
+          SingleActivator(LogicalKeyboardKey.keyZ, meta: true, shift: true):
+              RedoTextIntent(SelectionChangedCause.keyboard),
+        },
+        child: sizedField,
+      );
+    }
     if (resizeDuration > Duration.zero) {
       sizedField = AnimatedSize(
         duration: resizeDuration,
@@ -1708,39 +1939,47 @@ class _RefractionComposerState extends State<RefractionComposer>
           tokens.paddingHorizontal,
           tokens.paddingVertical,
         ),
-        child: Row(
-          // §2.3 invariant: slots bottom-anchor against the text area and
-          // never grow with it — no layout branching on line count.
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            if (leading != null) ...[
-              if (widget.leadingBuilder == null)
-                leading
-              else
+        child:
+            widget.layoutBuilder?.call(
+              context,
+              editor: textArea,
+              primary: primary,
+              leading: leading,
+              trailing: trailing,
+            ) ??
+            Row(
+              // §2.3 invariant: slots bottom-anchor against the text area and
+              // never grow with it — no layout branching on line count.
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                if (leading != null) ...[
+                  if (widget.leadingBuilder == null)
+                    leading
+                  else
+                    Semantics(
+                      container: true,
+                      sortKey: const OrdinalSortKey(0),
+                      child: leading,
+                    ),
+                  SizedBox(width: tokens.gutter),
+                ],
+                Expanded(child: textArea),
+                if (trailing != null) ...[
+                  SizedBox(width: tokens.gutter),
+                  Semantics(
+                    container: true,
+                    sortKey: const OrdinalSortKey(2),
+                    child: trailing,
+                  ),
+                ],
+                SizedBox(width: tokens.gutter),
                 Semantics(
                   container: true,
-                  sortKey: const OrdinalSortKey(0),
-                  child: leading,
+                  sortKey: const OrdinalSortKey(3),
+                  child: primary,
                 ),
-              SizedBox(width: tokens.gutter),
-            ],
-            Expanded(child: textArea),
-            if (trailing != null) ...[
-              SizedBox(width: tokens.gutter),
-              Semantics(
-                container: true,
-                sortKey: const OrdinalSortKey(2),
-                child: trailing,
-              ),
-            ],
-            SizedBox(width: tokens.gutter),
-            Semantics(
-              container: true,
-              sortKey: const OrdinalSortKey(3),
-              child: primary,
+              ],
             ),
-          ],
-        ),
       ),
     );
 
@@ -1763,6 +2002,15 @@ class _RefractionComposerState extends State<RefractionComposer>
         if (state.error != null) ...[
           _ComposerBanner(
             text: state.error!,
+            foreground: colors.destructive,
+            background: colors.destructive.withValues(alpha: 0.1),
+            theme: theme,
+          ),
+          SizedBox(height: tokens.gutter),
+        ],
+        if (_pasteFailed) ...[
+          _ComposerBanner(
+            text: strings.pasteFailedNotice,
             foreground: colors.destructive,
             background: colors.destructive.withValues(alpha: 0.1),
             theme: theme,

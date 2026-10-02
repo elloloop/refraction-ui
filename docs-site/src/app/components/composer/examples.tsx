@@ -20,6 +20,7 @@ interface ComposerExamplesProps {
     | 'mentions'
     | 'slashAndEmoji'
     | 'expressionPanel'
+    | 'clipboard'
     | 'attachments'
     | 'busyStop'
     | 'editMode'
@@ -35,6 +36,7 @@ export function ComposerExamples({ section }: ComposerExamplesProps) {
   if (section === 'mentions') return <MentionsExample />
   if (section === 'slashAndEmoji') return <SlashAndEmojiExample />
   if (section === 'expressionPanel') return <ExpressionPanelExample />
+  if (section === 'clipboard') return <ClipboardExample />
   if (section === 'attachments') return <AttachmentsExample />
   if (section === 'busyStop') return <BusyStopExample />
   if (section === 'editMode') return <EditModeExample />
@@ -318,6 +320,24 @@ function UnicodeExample() {
   return <div className={`${card} space-y-4`}>
     <div data-testid="unicode-composer-before"><RefractionComposer defaultValue={value} emojiArtwork={false} /></div>
     <div data-testid="unicode-composer-after"><RefractionComposer defaultValue={value} emojiArtwork twemojiBaseUrl="/emoji" /></div>
+  </div>
+}
+
+function ClipboardExample() {
+  const apiRef = React.useRef<ComposerAPI>(null)
+  const [files, setFiles] = React.useState<string[]>([])
+  return <div className={`${card} space-y-4`}>
+    <p className="text-sm text-muted-foreground">Local fixture: paste PNG/JPEG images and text. Nothing is uploaded or sent.</p>
+    <RefractionComposer defaultValue="A draft worth keeping" apiRef={apiRef}
+      onImagesPasted={images => {
+        setFiles(images.map(file => `${file.name} (${file.size} bytes)`))
+        for (const file of images) {
+          const id = apiRef.current?.addAttachment({ kind: 'image', name: file.name, mimeType: file.type, sizeBytes: file.size })
+          // Demo only: a production host marks ready after its uploader completes.
+          if (id) apiRef.current?.updateAttachment(id, { status: 'ready' })
+        }
+      }} />
+    <p role="status" className="text-xs text-muted-foreground">{files.join(', ')}</p>
   </div>
 }
 
