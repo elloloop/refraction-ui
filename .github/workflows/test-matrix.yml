@@ -153,3 +153,5 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium webkit
       - name: Verify React and Astro clipboard gestures
         run: pnpm exec playwright test --config playwright.composer-paste.config.ts
+      - name: Verify Astro composer toolbar keyboard interaction
+        run: pnpm exec playwright test --config playwright.composer-toolbar.config.ts

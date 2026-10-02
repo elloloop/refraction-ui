@@ -1,0 +1,21 @@
+import { test, expect } from '@playwright/test'
+
+test('native named toolbar trigger navigates its menu and restores focus', async ({ page }) => {
+  await page.goto('/')
+  const form = page.getByRole('form', { name: 'Message composer' })
+  const trigger = form.getByRole('button', { name: 'Dictation language' })
+  await expect(form.getByRole('button', { name: 'Dictate', exact: true })).toBeDisabled()
+  await expect(form.getByRole('button', { name: 'Send', exact: true })).toBeDisabled()
+  await trigger.press('Enter')
+  await expect(form.getByRole('menuitem', { name: 'Auto', exact: true })).toBeFocused()
+  await page.keyboard.press('End')
+  await expect(form.getByRole('menuitem', { name: 'Telugu', exact: true })).toBeFocused()
+  await page.keyboard.press('Home')
+  await page.keyboard.press('ArrowDown')
+  await expect(form.getByRole('menuitem', { name: 'English', exact: true })).toBeFocused()
+  await page.keyboard.press('Escape')
+  await expect(trigger).toBeFocused()
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false')
+  await expect(form.getByRole('menu')).toBeHidden()
+  await expect(form).toContainText('Please review the release notes.')
+})

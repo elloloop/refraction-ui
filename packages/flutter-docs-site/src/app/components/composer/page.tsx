@@ -18,6 +18,28 @@ export default function ComposerPage() {
       </div>
 
       <section className="space-y-4">
+        <h2 className="text-xl font-semibold">Custom surface layout</h2>
+        <p>The optional <code>layoutBuilder</code> arranges the existing editor,
+          primary action and optional leading/trailing widgets inside one surface.
+          Keep the editor mounted once in a stable location. Reuse the supplied
+          primary action to preserve validation and the existing submit/controller reset.
+          Native undo-history limitations are documented in COMPOSER_TESTING.md.
+          <code>RefractionComposerStackedLayout</code> places a full-width editor
+          above the toolbar. <code>RefractionComposerToolbar</code> wraps compact
+          actions independently of the trailing primary button using theme spacing.</p>
+        <CodeBlock language="dart" code={`RefractionComposer(
+  layoutBuilder: (context, {required editor, required primary, leading, trailing}) => RefractionComposerStackedLayout(
+    editor: editor,
+    toolbar: RefractionComposerToolbar(
+      actions: [?leading, ?trailing],
+      primary: primary,
+    ),
+  ),
+  onSubmit: sendMessage,
+)`} />
+      </section>
+
+      <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
         <FlutterPreview path="/docs/composer" height={480} />
         <div className="h-4"></div>
