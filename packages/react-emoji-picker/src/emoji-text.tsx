@@ -4,13 +4,16 @@ import { createTwemojiRenderer } from './emoji-picker.js'
 
 export interface EmojiTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   text: string
+  /** Artwork is opt-in so private Unicode creates no CDN requests by default. */
+  emojiArtwork?: boolean
   twemojiBaseUrl?: string
 }
 
 /** Unicode stays selectable text; artwork floats over its original font metrics. */
 export const EmojiText = React.forwardRef<HTMLSpanElement, EmojiTextProps>(
-  function EmojiText({ text, twemojiBaseUrl, ...props }, ref) {
+  function EmojiText({ text, emojiArtwork = false, twemojiBaseUrl, ...props }, ref) {
     const renderEmoji = React.useMemo(() => createTwemojiRenderer(twemojiBaseUrl), [twemojiBaseUrl])
+    if (!emojiArtwork) return <span ref={ref} {...props}>{text}</span>
     const children: React.ReactNode[] = []
     let cursor = 0
     for (const run of unicodeEmojiRuns(text, twemojiBaseUrl)) {
