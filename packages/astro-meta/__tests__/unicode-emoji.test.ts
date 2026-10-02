@@ -25,6 +25,24 @@ describe('Astro Unicode artwork, published meta shape', () => {
 })
 
 
+it('interactive Astro uses a separate artwork mirror and a canonical textarea', async () => {
+  const { default: Composer } = await import('../dist/astro-composer/InteractiveComposer.astro')
+  const container = await AstroContainer.create()
+  const html = await container.renderToString(Composer, { props: { defaultValue: 'Draft 🔥 👍🏽', emojiArtwork: true, twemojiBaseUrl: '/emoji' } })
+  expect(html).toContain('data-emoji-mirror')
+  expect(html).toContain('data-emoji-base-url="/emoji"')
+  expect(html).toMatch(/<textarea[^>]*>Draft 🔥 👍🏽<\/textarea>/)
+  expect(html).not.toContain('native-emoji')
+})
+
+it('interactive Astro draft artwork is opt-in', async () => {
+  const { default: Composer } = await import('../dist/astro-composer/InteractiveComposer.astro')
+  const container = await AstroContainer.create()
+  const html = await container.renderToString(Composer, { props: { defaultValue: 'Private 🔥' } })
+  expect(html).toContain('native-emoji')
+  expect(html).not.toContain('cdn.jsdelivr.net')
+})
+
 it('Astro markdown and conversation preserve canonical SSR text with display enhancement hooks', async () => {
   const { default: MarkdownRenderer } = await import('../dist/astro-markdown-renderer/MarkdownRenderer.astro')
   const { default: Chat } = await import('../dist/astro-conversation/Chat.astro')

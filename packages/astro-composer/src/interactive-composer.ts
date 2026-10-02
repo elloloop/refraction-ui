@@ -1,3 +1,4 @@
+import { unicodeEmojiRuns, unicodeEmojiHtml, hydrateUnicodeEmojiArtwork } from '@refraction-ui/emoji-picker'
 import { composerClipboardImages, createComposer, pasteComposerField } from '@refraction-ui/composer'
 import type { ComposerAPI, ComposerState, ComposerSubmission } from '@refraction-ui/composer'
 
@@ -23,6 +24,8 @@ export function registerRefractionInteractiveComposer(): void {
     connectedCallback(): void {
       if (this.api) return
       const field = this.querySelector('textarea')!
+      const mirror = this.querySelector<HTMLElement>('[data-emoji-mirror]')!
+      let mirrorKey = ''
       const send = this.querySelector<HTMLButtonElement>('[data-send]')!
       const tray = this.querySelector<HTMLElement>('[data-tray]')!
       const notice = this.querySelector<HTMLElement>('[data-notice]')!
@@ -44,6 +47,21 @@ export function registerRefractionInteractiveComposer(): void {
       const options = { signal: controller.signal }
       const render = (state: ComposerState) => {
         if (!this.pasting && field.value !== state.value) field.value = state.value
+        const paintArtwork = !this.hasAttribute('native-emoji') && !state.isComposing && unicodeEmojiRuns(state.value).length > 0
+        const nextMirrorKey = JSON.stringify([state.value, paintArtwork, this.dataset.emojiBaseUrl])
+        if (nextMirrorKey !== mirrorKey) {
+          mirrorKey = nextMirrorKey
+          if (paintArtwork) {
+            mirror.innerHTML = unicodeEmojiHtml(state.value, this.dataset.emojiBaseUrl)
+            // Match the textarea's final empty line and scroll height.
+            if (state.value.endsWith('\n')) mirror.append(document.createTextNode('\u200b'))
+            hydrateUnicodeEmojiArtwork(mirror)
+          } else mirror.textContent = state.value
+          mirror.style.color = paintArtwork ? '' : 'transparent'
+          field.style.color = paintArtwork ? 'transparent' : ''
+          field.style.caretColor = paintArtwork ? 'hsl(var(--foreground))' : ''
+        }
+        mirror.scrollTop = field.scrollTop
         field.disabled = state.disabled
         field.readOnly = state.readOnly
         send.disabled = !state.canSend
@@ -75,6 +93,7 @@ export function registerRefractionInteractiveComposer(): void {
       }, options)
       const selection = () => api.setSelection({ start: field.selectionStart, end: field.selectionEnd })
       this.unsubscribe = api.subscribe(render)
+      field.addEventListener('scroll', () => { mirror.scrollTop = field.scrollTop }, options)
       field.addEventListener('input', () => {
         if (!this.pasting) api.setValue(field.value, { start: field.selectionStart, end: field.selectionEnd })
       }, options)

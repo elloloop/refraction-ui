@@ -278,7 +278,7 @@ import { Composer, Button } from '@refraction-ui/astro'
   </div>
   <span slot="trailing">Read-only preview</span>
 </Composer>
-<!-- Named action slots add composition, not an editable Astro runtime.
+<!-- Static Composer is a read-only shell with named action slots.
      Use RefractionInteractiveComposer for opt-in editing/submission. Hosts own each
      slotted action's disabled state and behavior. -->`
 
