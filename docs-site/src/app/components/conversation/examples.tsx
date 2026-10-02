@@ -49,7 +49,7 @@ function seed(): ConversationConfig {
     conversationId: 'c1',
     role: 'user',
     author: me,
-    content: 'How do I render **markdown**, `code`, and gifs in a message?',
+    content: 'Keyboard **🔥 ❤️‍🔥 👨‍👩‍👧‍👦 🇬🇧 1️⃣** · native 👍🏽 ✈︎ · `code 🔥`',
     timestamp: t(8),
     status: 'sent',
     reactions: [{ emoji: '👍', count: 2, userReacted: false }],
@@ -88,7 +88,7 @@ function ChatDemo({ threadingMode }: { threadingMode: ThreadingMode }) {
   const conversation = useConversation({ ...seed(), threadingMode })
   return (
     <div className="h-[560px]">
-      <Chat conversation={conversation} currentUserId="me" />
+      <Chat conversation={conversation} currentUserId="me" emojiArtwork twemojiBaseUrl="/emoji" />
     </div>
   )
 }

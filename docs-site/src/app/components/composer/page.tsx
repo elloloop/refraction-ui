@@ -4,6 +4,8 @@ import { CodeBlock } from '@/components/code-block'
 import { InstallCommand } from '@/components/install-command'
 
 const composerProps = [
+  { name: 'emojiArtwork', type: 'boolean', default: 'false', description: 'Supported complete Unicode graphemes render in the mirror; the real textarea owns text, caret, selection, copy and undo. Artwork pauses during IME composition.' },
+  { name: 'twemojiBaseUrl', type: 'string', description: 'Optional self-hosted Twemoji SVG directory.' },
   { name: 'onImagesPasted', type: '(images: File[]) => void', description: 'Opt-in PNG/JPEG handoff from an explicit paste. Files stay host-owned; mixed text replaces the current selection. No upload or send is performed.' },
   { name: 'onPasteError', type: '(error: unknown) => void', description: 'Image size/empty-payload or clipboard read errors. The full batch and draft are unchanged; localized pasteFailedNotice is visible.' },
   { name: 'onAttachmentAdd', type: '(attachment: ComposerAttachment, file: File) => void', description: 'Without onImagesPasted, the existing generic file staging path also provides the original File to the host uploader.' },
@@ -276,7 +278,7 @@ import { Composer, Button } from '@refraction-ui/astro'
   </div>
   <span slot="trailing">Read-only preview</span>
 </Composer>
-<!-- Named action slots add composition, not an editable Astro runtime.
+<!-- Static Composer is a read-only shell with named action slots.
      Use RefractionInteractiveComposer for opt-in editing/submission. Hosts own each
      slotted action's disabled state and behavior. -->`
 
@@ -304,6 +306,8 @@ export default function ComposerPage() {
           sendable. The field clears optimistically on submit.
         </p>
         <ComposerExamples section="basic" />
+        <ComposerExamples section="unicode" />
+        <p>Keyboard Unicode uses the shared artwork inventory with native fallback. During IME composition the complete field returns to native rendering. The static Astro Composer exposes a read-only value; RefractionInteractiveComposer provides native Astro editing and submission.</p>
       </section>
 
       <section className="space-y-4">

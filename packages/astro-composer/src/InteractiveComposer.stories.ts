@@ -6,3 +6,6 @@ export const Clipboard = { args: { defaultValue: 'Local fixture draft', placehol
 export const ReadOnly = { args: { defaultValue: 'Selectable draft', readOnly: true } }
 export const Disabled = { args: { disabled: true } }
 export const Toolbar = { render: () => ToolbarComposition }
+export const KeyboardUnicode = { args: { emojiArtwork: true, defaultValue: 'Keyboard 🔥 👨‍👩‍👧‍👦 🇬🇧 1️⃣ · native 👍🏽 ✈︎' } }
+
+export const NativeUnicode = { args: { defaultValue: 'Private 🔥' } }

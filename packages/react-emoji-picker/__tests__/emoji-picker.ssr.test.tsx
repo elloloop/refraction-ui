@@ -76,3 +76,28 @@ describe('EmojiPicker structure (SSR)', () => {
     expect(html).toContain('Recent')
   })
 })
+
+describe('Unicode text rendering', () => {
+  it('renders private Unicode natively by default with no artwork URLs', async () => {
+    const { EmojiText } = await import('../src/index.js')
+    const html = render(<EmojiText text={'Private <script>🔥</script> 👨‍👩‍👧‍👦'} />)
+    expect(html).toContain('Private &lt;script&gt;🔥&lt;/script&gt; 👨‍👩‍👧‍👦')
+    expect(html).not.toContain('<img')
+    expect(html).not.toContain('cdn.jsdelivr.net')
+  })
+
+  it('keeps unsupported clusters native and supported artwork exact', async () => {
+    const { EmojiText } = await import('../src/index.js')
+    const html = render(<EmojiText text={'Hi 🔥 ❤️‍🔥 🇬🇧 1️⃣ 👍🏽 ✈︎'} emojiArtwork />)
+    expect(html).toContain('2764-fe0f-200d-1f525.svg')
+    expect(html).toContain('1f1ec-1f1e7.svg')
+    expect(html).toContain('31-20e3.svg')
+    expect(html).toContain('👍🏽')
+    expect(html).not.toContain('1f44d.svg')
+    expect(html).not.toContain('2708.svg')
+    expect(html).not.toContain('alt="🔥"')
+  })
+  it('does not request an unsupported modifier sequence from the picker renderer', () => {
+    expect(twemojiRenderer({ emoji: '👍🏽', name: 'thumbs up', category: 'people', keywords: [], shortcode: '' })).toBe('👍🏽')
+  })
+})

@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { EmojiText } from '@refraction-ui/react-emoji-picker'
+import { unicodeEmojiRuns } from '@refraction-ui/emoji-picker'
 import {
   composerClipboardImages,
   pasteComposerField,
@@ -147,6 +149,9 @@ export interface RefractionComposerProps
    * page. Both keep a tasteful focus-visible ring.
    */
   surface?: 'outlined' | 'filled'
+  /** Paint supported keyboard Unicode artwork over the original textarea metrics. */
+  emojiArtwork?: boolean
+  twemojiBaseUrl?: string
   /**
    * Content for the inline expression panel (e.g. an emoji picker). When set, a
    * toggle button appears in the action row and the panel docks BELOW the field
@@ -317,6 +322,8 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
       busy = false,
       onStop,
       surface = 'outlined',
+      emojiArtwork = false,
+      twemojiBaseUrl,
       accessoryPanel,
       accessoryPanelOpen,
       defaultAccessoryPanelOpen = false,
@@ -832,6 +839,10 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
       [state.value, state.tokens],
     )
 
+    const paintEmojiArtwork = emojiArtwork && !state.isComposing && segments.some(
+      segment => !segment.isToken && unicodeEmojiRuns(segment.text).length > 0,
+    )
+
     const primaryContext: PrimaryActionContext = {
       hasText,
       canSend: state.canSend,
@@ -1029,14 +1040,17 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
             {/* Height driver + token highlight mirror: an in-flow copy of the
                 value gives measure-free auto-grow (its height IS the content
                 height between the min/max rails); token spans paint the pill
-                background while the transparent text keeps glyph metrics
-                identical to the textarea stacked above it. */}
+                background. When Unicode artwork is present this layer
+                paints the text too, with the textarea remaining the editor.
+                During IME composition the textarea paints native text. */}
             <div
               ref={highlightRef}
+              data-rfr-composer-mirror
               aria-hidden="true"
               className={cn(
                 composerFieldClass,
-                'pointer-events-none overflow-hidden whitespace-pre-wrap break-words text-transparent',
+                'pointer-events-none overflow-hidden whitespace-pre-wrap break-words [scrollbar-gutter:stable]',
+                paintEmojiArtwork ? 'text-foreground' : 'text-transparent',
               )}
               style={{
                 lineHeight: FIELD_LINE_HEIGHT,
@@ -1049,12 +1063,12 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
                   <span
                     key={segment.key}
                     data-token=""
-                    className={cn(composerTokenPillClass, 'px-0 text-transparent')}
+                    className={cn(composerTokenPillClass, 'px-0', paintEmojiArtwork ? 'text-foreground' : 'text-transparent')}
                   >
                     <bdi>{segment.text}</bdi>
                   </span>
                 ) : (
-                  <span key={segment.key}>{segment.text}</span>
+                  <span key={segment.key}>{paintEmojiArtwork ? <EmojiText text={segment.text} emojiArtwork twemojiBaseUrl={twemojiBaseUrl} /> : segment.text}</span>
                 ),
               )}
               {'\u200b'}
@@ -1081,9 +1095,9 @@ export const RefractionComposer = React.forwardRef<HTMLTextAreaElement, Refracti
                 : {})}
               className={cn(
                 composerFieldClass,
-                'absolute inset-0 h-full overflow-y-auto focus-visible:outline-none',
+                'absolute inset-0 h-full overflow-y-auto focus-visible:outline-none [scrollbar-gutter:stable]',
               )}
-              style={{ lineHeight: FIELD_LINE_HEIGHT, maxHeight: fieldHeightFor(maxLines) }}
+              style={{ lineHeight: FIELD_LINE_HEIGHT, maxHeight: fieldHeightFor(maxLines), ...(paintEmojiArtwork ? { color: 'transparent', caretColor: 'hsl(var(--foreground))' } : {}) }}
               onChange={handleChange}
               onSelect={handleSelect}
               onKeyDown={handleKeyDown}

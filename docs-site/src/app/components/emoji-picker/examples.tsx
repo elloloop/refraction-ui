@@ -1,11 +1,29 @@
 'use client'
 import { useState } from 'react'
-import { EmojiPicker, nativeEmojiRenderer } from '@refraction-ui/react-emoji-picker'
-interface EmojiPickerExamplesProps { section: 'basic' | 'seam' | 'stickers' }
+import { EmojiPicker, EmojiText, nativeEmojiRenderer } from '@refraction-ui/react-emoji-picker'
+interface EmojiPickerExamplesProps { section: 'basic' | 'seam' | 'stickers' | 'unicode' }
 export function EmojiPickerExamples({ section }: EmojiPickerExamplesProps) {
   const [emoji, setEmoji] = useState('')
   const [uniform, setUniform] = useState(true)
   const [picked, setPicked] = useState('')
+
+  if (section === 'unicode') {
+    const text = 'Keyboard: 🔥 ❤️ ❤️‍🔥 👩‍💻 👨‍👩‍👧‍👦 🇬🇧 1️⃣ 🏳️‍🌈 · native fallback: 👍🏽 ✈︎'
+    return <div className="rounded-xl border border-border bg-card p-8 space-y-4 text-2xl leading-loose">
+      <section>
+        <h3 className="text-sm font-semibold">Native Unicode</h3>
+        <p data-testid="unicode-before">{text}</p>
+      </section>
+      <section>
+        <h3 className="text-sm font-semibold">Artwork from this site's assets</h3>
+        <p data-testid="unicode-after"><EmojiText text={text} emojiArtwork twemojiBaseUrl="/emoji" /></p>
+      </section>
+      <section>
+        <h3 className="text-sm font-semibold">Native fallback when artwork is unavailable</h3>
+        <p><EmojiText data-testid="unicode-offline" text={text} emojiArtwork twemojiBaseUrl="/missing-emoji" /></p>
+      </section>
+    </div>
+  }
 
   if (section === 'basic') {
     return (

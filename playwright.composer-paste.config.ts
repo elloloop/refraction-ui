@@ -1,6 +1,6 @@
 import { defineConfig } from '@playwright/test'
 export default defineConfig({
-  testDir: './packages/composer/browser_test', testMatch: 'composer-paste.spec.ts', outputDir: './e2e/results/composer-paste',
+  testDir: './packages/composer/browser_test', testMatch: ['composer-paste.spec.ts', 'composer-unicode.spec.ts'], outputDir: './e2e/results/composer-paste',
   workers: 1, reporter: 'list', use: { baseURL: 'http://localhost:7361' },
   projects: [
     { name: 'chromium', use: { browserName: 'chromium', permissions: ['clipboard-read', 'clipboard-write'] } },
