@@ -208,3 +208,7 @@ jobs:
         run: make build
       - name: Run Storybook tests
         run: make storybook
+      - name: Install toolbar browsers
+        run: pnpm exec playwright install --with-deps chromium webkit
+      - name: Verify Astro composer toolbar keyboard interaction
+        run: pnpm exec playwright test --config playwright.composer-toolbar.config.ts

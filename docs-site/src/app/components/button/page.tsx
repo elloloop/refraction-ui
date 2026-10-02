@@ -82,6 +82,12 @@ export default function ButtonPage() {
       </div>
 
       {/* Live Example — first thing you see */}
+      <p className="text-sm text-muted-foreground">
+        Give icon-only buttons an aria-label and hide decorative SVGs from accessibility.
+        The Astro meta exports Button and buttonVariants, so another native control can
+        reuse button styling while retaining its own semantics and behavior.
+      </p>
+
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Variants</h2>
         <p className="text-sm text-muted-foreground">
