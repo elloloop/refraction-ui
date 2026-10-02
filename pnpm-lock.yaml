@@ -1049,6 +1049,9 @@ importers:
       '@refraction-ui/conversation':
         specifier: workspace:*
         version: link:../conversation
+      '@refraction-ui/emoji-picker':
+        specifier: workspace:*
+        version: link:../emoji-picker
       '@refraction-ui/markdown-renderer':
         specifier: workspace:*
         version: link:../markdown-renderer
@@ -1480,6 +1483,9 @@ importers:
 
   packages/astro-markdown-renderer:
     dependencies:
+      '@refraction-ui/emoji-picker':
+        specifier: workspace:*
+        version: link:../emoji-picker
       '@refraction-ui/markdown-renderer':
         specifier: workspace:*
         version: link:../markdown-renderer
@@ -4132,6 +4138,12 @@ importers:
       '@refraction-ui/composer':
         specifier: workspace:*
         version: link:../composer
+      '@refraction-ui/emoji-picker':
+        specifier: workspace:*
+        version: link:../emoji-picker
+      '@refraction-ui/react-emoji-picker':
+        specifier: workspace:*
+        version: link:../react-emoji-picker
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -5016,6 +5028,9 @@ importers:
 
   packages/react-markdown-renderer:
     dependencies:
+      '@refraction-ui/emoji-picker':
+        specifier: workspace:*
+        version: link:../emoji-picker
       '@refraction-ui/markdown-renderer':
         specifier: workspace:*
         version: link:../markdown-renderer

@@ -45,6 +45,8 @@ export interface ChatProps {
   slashCommands?: SlashCommand[]
   mentions?: Mention[] | ((query: string) => Mention[] | Promise<Mention[]>)
   onSlashCommand?: (cmd: SlashCommand) => void
+  emojiArtwork?: boolean
+  twemojiBaseUrl?: string
   composerToolbar?: boolean
 }
 
@@ -100,12 +102,12 @@ function Attachments({ attachments }: { attachments: MessageAttachment[] }) {
   )
 }
 
-function MessageBody({ message }: { message: ChatMessage }) {
+function MessageBody({ message, emojiArtwork, twemojiBaseUrl }: { message: ChatMessage; emojiArtwork?: boolean; twemojiBaseUrl?: string }) {
   if (message.status === 'streaming' && message.content === '') return h(TypingDots)
   return h(
     React.Fragment,
     null,
-    message.content ? h(MarkdownRenderer, { content: message.content, size: 'sm', className: chatMd }) : null,
+    message.content ? h(MarkdownRenderer, { content: message.content, size: 'sm', className: chatMd, emojiArtwork, twemojiBaseUrl }) : null,
     message.attachments && message.attachments.length > 0 ? h(Attachments, { attachments: message.attachments }) : null,
     message.status === 'error'
       ? h('div', { className: 'mt-1 text-xs text-destructive', role: 'alert' }, message.error ?? 'Failed to send.')
@@ -231,12 +233,16 @@ function MessageRow({
   currentUserId,
   showThreadAffordance,
   quotedParent,
+  emojiArtwork,
+  twemojiBaseUrl,
 }: {
   message: ChatMessage
   conversation: UseConversationResult
   currentUserId?: string
   showThreadAffordance: boolean
   quotedParent?: ChatMessage
+  emojiArtwork?: boolean
+  twemojiBaseUrl?: string
 }) {
   const { state, react, openThread } = conversation
   const [showEmojis, setShowEmojis] = React.useState(false)
@@ -253,8 +259,8 @@ function MessageRow({
     editing
       ? h(EditField, { message, conversation, onDone: () => setEditing(false) })
       : isUser
-        ? h('div', { className: 'inline-block rounded-2xl rounded-br-sm bg-primary/10 px-3 py-2 text-left' }, h(MessageBody, { message }))
-        : h(MessageBody, { message }),
+        ? h('div', { className: 'inline-block rounded-2xl rounded-br-sm bg-primary/10 px-3 py-2 text-left' }, h(MessageBody, { message, emojiArtwork, twemojiBaseUrl }))
+        : h(MessageBody, { message, emojiArtwork, twemojiBaseUrl }),
     h(Reactions, { message, onReact: (e: string) => react(message.id, e), align }),
     showThreadAffordance && replyCount > 0
       ? h(
@@ -358,7 +364,7 @@ function ConversationSidebar({ conversation }: { conversation: UseConversationRe
   )
 }
 
-function ThreadPanel({ conversation, currentUserId, composer }: { conversation: UseConversationResult; currentUserId?: string; composer: React.ReactNode }) {
+function ThreadPanel({ conversation, currentUserId, composer, emojiArtwork, twemojiBaseUrl }: { conversation: UseConversationResult; currentUserId?: string; composer: React.ReactNode; emojiArtwork?: boolean; twemojiBaseUrl?: string }) {
   const { state } = conversation
   const rootId = state.openThreadRootId
   if (!rootId) return null
@@ -377,7 +383,7 @@ function ThreadPanel({ conversation, currentUserId, composer }: { conversation: 
     h(
       'div',
       { className: 'flex-1 overflow-y-auto p-1' },
-      ...messages.map((m) => h(MessageRow, { key: m.id, message: m, conversation, currentUserId, showThreadAffordance: false })),
+      ...messages.map((m) => h(MessageRow, { key: m.id, message: m, conversation, currentUserId, emojiArtwork, twemojiBaseUrl, showThreadAffordance: false })),
     ),
     target
       ? h(
@@ -419,7 +425,7 @@ function ModeToggle({ conversation }: { conversation: UseConversationResult }) {
  * with `/` commands, `@` mentions, `:` emoji, and a formatting toolbar.
  */
 export const Chat = React.forwardRef<HTMLDivElement, ChatProps>(
-  function Chat({ conversation, showConversationList = true, showModeToggle = true, placeholder, currentUserId, emptyState, className, slashCommands, mentions, onSlashCommand, composerToolbar = true }: ChatProps, ref) {
+  function Chat({ conversation, showConversationList = true, showModeToggle = true, placeholder, currentUserId, emptyState, className, slashCommands, mentions, onSlashCommand, composerToolbar = true, emojiArtwork = false, twemojiBaseUrl }: ChatProps, ref) {
   const { state, sendMessage } = conversation
   const timeline = selectMainTimeline(state.messages, state.threadingMode)
   const activeConv = state.conversations.find((c) => c.id === state.activeConversationId)
@@ -468,6 +474,8 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>(
               message: m,
               conversation,
               currentUserId,
+              emojiArtwork,
+              twemojiBaseUrl,
               // Show the "N replies" count on originating messages in BOTH modes.
               showThreadAffordance: true,
               // Inline: quote the specific message replied to (falls back to the root).
@@ -492,7 +500,7 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>(
       body,
       mainComposer,
     ),
-    h(ThreadPanel, { conversation, currentUserId, composer: threadComposer }),
+    h(ThreadPanel, { conversation, currentUserId, composer: threadComposer, emojiArtwork, twemojiBaseUrl }),
   )
   },
 )

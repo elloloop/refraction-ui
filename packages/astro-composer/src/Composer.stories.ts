@@ -1,6 +1,3 @@
-import ToolbarExample from '../../astro-meta/__tests__/compositions/composer.astro'
-
-const meta = { title: 'Chat & AI/Composer', component: ToolbarExample }
-export default meta
-
-export const IconToolbar = {}
+import Component from './Composer.astro'
+export default { title: 'Astro/Composer', component: Component }
+export const KeyboardUnicode = { args: { value: 'Keyboard 🔥 👨‍👩‍👧‍👦 🇬🇧 1️⃣ · fallback 👍🏽 ✈︎', emojiArtwork: true } }

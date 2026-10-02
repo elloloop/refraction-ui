@@ -43,6 +43,45 @@ it('interactive Astro draft artwork is opt-in', async () => {
   expect(html).not.toContain('cdn.jsdelivr.net')
 })
 
+it('Astro markdown and conversation preserve canonical SSR text with display enhancement hooks', async () => {
+  const { default: MarkdownRenderer } = await import('../dist/astro-markdown-renderer/MarkdownRenderer.astro')
+  const { default: Chat } = await import('../dist/astro-conversation/Chat.astro')
+  const container = await AstroContainer.create()
+  const markdown = await container.renderToString(MarkdownRenderer, { props: { content: 'Hello **🔥** · `code 🔥`', emojiArtwork: true, twemojiBaseUrl: '/emoji' } })
+  expect(markdown).toContain('data-rfr-emoji-markdown')
+  expect(markdown).toContain('<strong>🔥</strong>')
+  expect(markdown).toContain('<code>code 🔥</code>')
+  const native = await container.renderToString(MarkdownRenderer, { props: { content: 'Hello 🔥' } })
+  expect(native).not.toContain('data-rfr-emoji-markdown')
+  const chat = await container.renderToString(Chat, { props: { config: {
+    activeConversationId: 'c', messages: { c: [{ id: 'm', conversationId: 'c', role: 'user', author: { id: 'u', name: 'User' }, content: 'Message 🔥 · `code 🔥`', timestamp: new Date('2026-01-01'), status: 'sent' }] },
+  } } })
+  expect(chat).not.toContain('data-rfr-chat-emoji-artwork=')
+  const enabled = await container.renderToString(Chat, { props: { emojiArtwork: true, twemojiBaseUrl: '/emoji' } })
+  expect(enabled).toContain('data-rfr-chat-emoji-artwork="true"')
+  expect(enabled).toContain('data-rfr-chat-emoji-base-url="/emoji"')
+  expect(chat).toContain('data-rfr-chat-message-body')
+  expect(chat).toContain('<code>code 🔥</code>')
+})
+
+it('Astro composer remains read-only while rendering a canonical Unicode draft', async () => {
+  const { default: Composer } = await import('../dist/astro-composer/Composer.astro')
+  const container = await AstroContainer.create()
+  const html = await container.renderToString(Composer, { props: { value: 'Draft 🔥 👍🏽', emojiArtwork: true, twemojiBaseUrl: '/emoji' } })
+  expect(html).toContain('/emoji/1f525.svg')
+  expect(html).toContain('👍🏽')
+  expect(html).not.toContain('<textarea')
+  expect(html).toMatch(/<button[^>]*disabled/)
+})
+
+it('Astro composer renders private Unicode natively by default', async () => {
+  const { default: Composer } = await import('../dist/astro-composer/Composer.astro')
+  const container = await AstroContainer.create()
+  const html = await container.renderToString(Composer, { props: { value: 'Private 🔥' } })
+  expect(html).toContain('Private 🔥')
+  expect(html).not.toContain('<img')
+})
+
 it('Astro defaults escape private Unicode and emit no artwork requests', async () => {
   const { default: EmojiText } = await import('../dist/astro-emoji-picker/EmojiText.astro')
   const { default: EmojiPicker } = await import('../dist/astro-emoji-picker/EmojiPicker.astro')

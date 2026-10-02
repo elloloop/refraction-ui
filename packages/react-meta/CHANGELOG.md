@@ -1,5 +1,15 @@
 # @refraction-ui/react
 
+## 0.24.0
+
+### Minor Changes
+
+- e390dca: Add opt-in PNG/JPEG clipboard handoff with original files, atomic size validation, mixed-text selection preservation and visible errors. React preserves generic file staging with an additive raw File callback; Astro gains an opt-in interactive composer backed by the same headless core. Paste never sends or uploads.
+
+### Patch Changes
+
+- e390dca: Restore menu trigger focus after Escape/selection and focus enabled items for keyboard navigation in React dropdowns. Export shared button classes for native Astro trigger composition without nested buttons. Add leading and trailing action slots to the read-only Astro composer shell. Document native named icon actions and the existing React stacked-editor composition; interactive editing still requires a hydrated adapter.
+
 ## 0.23.3
 
 ### Patch Changes
