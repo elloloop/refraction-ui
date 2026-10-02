@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../data/emoji_renderers.dart';
+import '../data/emoji_entry_lookup.dart';
 import '../data/emoji_types.dart';
 import '../data/unicode_emoji.dart';
 
@@ -25,15 +26,8 @@ List<InlineSpan> refractionEmojiTextSpans(
           label: run.emoji,
           child: ExcludeSemantics(
             child: Builder(
-              builder: (context) => renderer(
-                context,
-                EmojiEntry(
-                  emoji: run.emoji,
-                  name: run.emoji,
-                  category: EmojiCategory.symbols,
-                ),
-                size,
-              ),
+              builder: (context) =>
+                  renderer(context, emojiEntryForGrapheme(run.emoji), size),
             ),
           ),
         ),
