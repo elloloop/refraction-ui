@@ -63,7 +63,11 @@ class Forge:
                     if error.code != 404:
                         raise
                     permission = {}
-                review["trusted"] = permission.get("permission") in {"write", "maintain", "admin"}
+                review["trusted"] = permission.get("permission") in {
+                    "write",
+                    "maintain",
+                    "admin",
+                }
         return reviews
 
 
@@ -116,7 +120,7 @@ def run(args: argparse.Namespace) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--policy", choices=FORGES, default="learning")
+    parser.add_argument("--policy", choices=FORGES, default="refraction")
     parser.add_argument("--base", default="origin/main")
     parser.add_argument("--head", default="HEAD")
     parser.add_argument("--body")
@@ -129,7 +133,13 @@ def main() -> int:
     args = parser.parse_args()
     try:
         run(args)
-    except (EvidenceError, ValueError, KeyError, OSError, subprocess.CalledProcessError):
+    except (
+        EvidenceError,
+        ValueError,
+        KeyError,
+        OSError,
+        subprocess.CalledProcessError,
+    ):
         # Do not print API errors or bodies: they can contain credentials or private metadata.
         error = sys.exc_info()[1]
         detail = (

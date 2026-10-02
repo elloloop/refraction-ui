@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import re
 from pathlib import PurePosixPath
-from urllib.parse import urlsplit
+from urllib.parse import unquote, urlsplit
 
 UI_ROOTS = (
     "apps/web/",
@@ -23,7 +23,18 @@ UI_ROOTS = (
     "packages/ts/shared-ui/",
     "packages/ts/content-viewer/",
 )
-SOURCE_SUFFIXES = {".ts", ".tsx", ".js", ".jsx", ".mjs", ".dart", ".astro", ".vue", ".svelte"}
+SOURCE_SUFFIXES = {
+    ".ts",
+    ".tsx",
+    ".js",
+    ".jsx",
+    ".mjs",
+    ".cjs",
+    ".dart",
+    ".astro",
+    ".vue",
+    ".svelte",
+}
 ASSET_SUFFIXES = {
     ".css",
     ".scss",
@@ -64,7 +75,12 @@ def candidates(paths: list[str], policy: str) -> list[str]:
             or file.name.endswith("_test.dart")
         ):
             return False
-        if file.suffix not in SOURCE_SUFFIXES | ASSET_SUFFIXES:
+        animation = (
+            policy == "refraction"
+            and path.startswith("packages/flutter/assets/")
+            and file.suffix == ".json"
+        )
+        if file.suffix not in SOURCE_SUFFIXES | ASSET_SUFFIXES and not animation:
             return False
         if policy == "refraction":
             return path.startswith(("packages/", "docs-site/", ".storybook/", ".storybook-astro/"))
@@ -74,8 +90,23 @@ def candidates(paths: list[str], policy: str) -> list[str]:
 
 
 def section(body: str) -> str:
-    clean = re.sub(r"<!--.*?-->", "", body, flags=re.DOTALL)
-    clean = re.sub(r"(?ms)^(```|~~~).*?^\1[^\n]*$", "", clean)
+    # Unclosed comments and fences hide everything through EOF. A fence closes
+    # only with the same character and at least its opening delimiter length.
+    uncommented = re.sub(r"<!--.*?(?:-->|\Z)", "", body, flags=re.DOTALL)
+    visible = []
+    fence = None
+    for line in uncommented.splitlines(keepends=True):
+        if fence:
+            character, length = fence
+            if re.fullmatch(rf" {{0,3}}{re.escape(character)}{{{length},}}[ \t]*\n?", line):
+                fence = None
+            continue
+        opening = re.match(r"^ {0,3}(`{3,}|~{3,})(.*)$", line)
+        if opening and not (opening[1][0] == "`" and "`" in opening[2]):
+            fence = opening[1][0], len(opening[1])
+            continue
+        visible.append(line)
+    clean = "".join(visible)
     matches = re.findall(r"(?ms)^## Visual evidence\s*\n(.*?)(?=^## |\Z)", clean)
     if len(matches) != 1:
         raise EvidenceError(
@@ -110,6 +141,9 @@ def media_url(url: str, policy: str) -> bool:
     ):
         return False
     host, path = parsed.hostname, parsed.path
+    decoded_path = unquote(path)
+    if "\\" in decoded_path or any(part in {".", ".."} for part in decoded_path.split("/")):
+        return False
     if host == "github.com":
         return bool(re.fullmatch(r"/user-attachments/assets/[0-9a-fA-F-]{36}", path))
     if host == "user-images.githubusercontent.com":

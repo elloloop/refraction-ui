@@ -8,7 +8,14 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
-from visual_evidence import EvidenceError, approved, candidates, media_url, section, validate
+from visual_evidence import (
+    EvidenceError,
+    approved,
+    candidates,
+    media_url,
+    section,
+    validate,
+)
 
 ROOT = Path(__file__).resolve().parent
 BEFORE, AFTER = "a" * 40, "b" * 40
@@ -43,7 +50,10 @@ class EvidenceTests(unittest.TestCase):
         caption = "TODO list input shows its placeholder beside the unchanged toolbar."
         prefix = "Caption: Previous composer layout with the original inline toolbar and populated draft."
         self.assertIsNone(self.check(BODY.replace(prefix, f"Caption: {caption}")))
-        for filler in ["placeholder " * 7, "TODO: supply a detailed description of this screenshot"]:
+        for filler in [
+            "placeholder " * 7,
+            "TODO: supply a detailed description of this screenshot",
+        ]:
             with self.subTest(filler=filler), self.assertRaises(EvidenceError):
                 self.check(BODY.replace(prefix, f"Caption: {filler}"))
 
@@ -77,9 +87,35 @@ class EvidenceTests(unittest.TestCase):
             "packages/react-chat-input/src/index.tsx",
             "docs-site/src/app/page.tsx",
             "packages/tailwind-config/src/tokens.css",
+            ".storybook/tailwind.config.cjs",
+            "packages/flutter/assets/stickers/pulse.json",
+            "packages/flutter/assets/emoji_animated/heart.json",
         ]:
             self.assertEqual(candidates([path], "refraction"), [path])
         self.assertEqual(candidates(["packages/flutter/test/a_test.dart"], "refraction"), [])
+        self.assertEqual(candidates(["packages/flutter/package.json"], "refraction"), [])
+        for path in [
+            ".storybook/tailwind.config.cjs",
+            "packages/flutter/assets/stickers/pulse.json",
+        ]:
+            with self.subTest(path=path), self.assertRaises(EvidenceError):
+                validate("", [path], "refraction", (BEFORE, AFTER))
+
+    def test_raw_image_paths_cannot_escape_the_pinned_revision(self):
+        prefix = f"https://raw.githubusercontent.com/elloloop/refraction-ui/{AFTER}/"
+        self.assertTrue(media_url(prefix + "assets/image.png", "refraction"))
+        for path in [
+            "../main/image.png",
+            "%2e%2e/main/image.png",
+            ".%2e/main/image.png",
+            "%2e./main/image.png",
+            "%2E%2E/main/image.png",
+            "./image.png",
+            "assets/../../main/image.png",
+            "assets\\..\\..\\main/image.png",
+        ]:
+            with self.subTest(path=path):
+                self.assertFalse(media_url(prefix + path, "refraction"))
 
     def test_missing_false_and_stale_evidence(self):
         mutations = [
@@ -151,7 +187,10 @@ class EvidenceTests(unittest.TestCase):
             self.assertFalse(approved([review | delta], "author", AFTER, digest))
         self.assertFalse(
             approved(
-                [review, review | {"id": 2, "state": "REQUEST_CHANGES"}], "author", AFTER, digest
+                [review, review | {"id": 2, "state": "REQUEST_CHANGES"}],
+                "author",
+                AFTER,
+                digest,
             )
         )
         self.assertNotEqual(
@@ -185,6 +224,16 @@ class EvidenceTests(unittest.TestCase):
 
     def test_section_excludes_hidden_claims(self):
         self.assertEqual(section("<!-- ignored -->\n" + BODY), section(BODY))
+        for hidden in [
+            " ```markdown\n" + BODY + "\n ```",
+            "````markdown\nExample:\n```\n" + BODY + "\n````",
+            "~~~markdown\n" + BODY + "\n~~~",
+            "```markdown\n" + BODY,
+            "<!--\n" + BODY,
+        ]:
+            with self.subTest(hidden=hidden[:25]), self.assertRaises(EvidenceError):
+                self.check(hidden)
+        self.assertEqual(section(" ```\nexample\n ```\n" + BODY), section(BODY))
 
     def test_cli_on_real_git_diff(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -196,7 +245,8 @@ class EvidenceTests(unittest.TestCase):
             git("init", "-q")
             git("config", "user.name", "Evidence Test")
             git("config", "user.email", "evidence@example.test")
-            file = repo / PATH
+            path = "packages/react-chat-input/src/index.tsx"
+            file = repo / path
             file.parent.mkdir(parents=True)
             file.write_text("before\n")
             git("add", ".")
@@ -206,7 +256,7 @@ class EvidenceTests(unittest.TestCase):
             git("commit", "-qam", "after")
             head = git("rev-parse", "HEAD")
             body = repo / "body.md"
-            body.write_text(BODY.replace(BEFORE, base).replace(AFTER, head))
+            body.write_text(BODY.replace(PATH, path).replace(BEFORE, base).replace(AFTER, head))
             command = [
                 "python3",
                 str(ROOT / "visual-evidence-check.py"),
@@ -216,11 +266,13 @@ class EvidenceTests(unittest.TestCase):
                 str(body),
             ]
             self.assertEqual(
-                subprocess.run(command, cwd=repo, capture_output=True, check=False).returncode, 0
+                subprocess.run(command, cwd=repo, capture_output=True, check=False).returncode,
+                0,
             )
             body.write_text("")
             self.assertEqual(
-                subprocess.run(command, cwd=repo, capture_output=True, check=False).returncode, 1
+                subprocess.run(command, cwd=repo, capture_output=True, check=False).returncode,
+                1,
             )
 
 
@@ -261,7 +313,12 @@ class ForgeTests(unittest.TestCase):
         forge = self.cli.Forge.__new__(self.cli.Forge)
         forge.policy = "learning"
         rows = [
-            {"id": i, "user": {"login": f"reader{i}"}, "state": "APPROVED", "official": False}
+            {
+                "id": i,
+                "user": {"login": f"reader{i}"},
+                "state": "APPROVED",
+                "official": False,
+            }
             for i in range(50)
         ]
         forge.get = Mock(
@@ -297,6 +354,10 @@ class ForgeTests(unittest.TestCase):
         self.assertIn("persist-credentials: false", text)
         self.assertNotIn("secrets.", text)
         self.assertNotIn("pull_request.body", text)
+        self.assertLess(
+            text.index("python3 scripts/visual-evidence.test.py"),
+            text.index("python3 scripts/visual-evidence-check.py"),
+        )
 
 
 if __name__ == "__main__":

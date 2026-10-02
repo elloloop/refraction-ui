@@ -8,7 +8,8 @@ viewport, locale and theme. Green checks alone cannot establish visual quality.
 ## Scope and author flow
 
 `scripts/visual_evidence.py` classifies source and assets under packages, docs-site and Storybook, including
-headless variants, framework adapters, Flutter and design tokens. Test-only, backend, prose,
+headless variants, framework adapters, Flutter and design tokens.
+CommonJS source and Flutter JSON animation assets are included. Test-only, backend, prose,
 lockfile and dependency-manifest changes need no screenshots. Manifest upgrades
 that do alter the visible product must still include evidence voluntarily: path
 classification cannot infer the behavior of a dependency release. Deleted and
