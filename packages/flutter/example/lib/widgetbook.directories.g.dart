@@ -453,6 +453,11 @@ final directories = <_widgetbook.WidgetbookNode>[
                 .inputFormatterComposerUseCase,
           ),
           _widgetbook.WidgetbookUseCase(
+            name: 'Keyboard Unicode emoji',
+            builder: _example_use_cases_composer_use_cases
+                .unicodeEmojiComposerUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
             name: 'Multiline',
             builder:
                 _example_use_cases_composer_use_cases.multilineComposerUseCase,

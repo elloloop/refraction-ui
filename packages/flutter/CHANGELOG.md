@@ -1,5 +1,10 @@
 ## Unreleased
 
+- Apply accessibility scaling once to native composer emoji artwork and preserve
+  canonical picker metadata for shared composer/display renderers.
+- Verify actual artwork paint and placement in both text directions; register
+  the Unicode example in the generated Widgetbook showcase.
+
 - Paint supported keyboard/pasted Unicode emoji over the composer's original
   grapheme boxes while preserving canonical text, selection, IME and undo.
 - Expose complete-grapheme matching, display-only emoji spans and a shared Noto
