@@ -74,7 +74,8 @@ test('Astro real clipboard copy and paste preserve complete Unicode with artwork
 test('Astro private draft uses native Unicode by default without artwork requests', async ({ page }) => {
   const requests: string[] = []
   page.on('request', request => {
-    if (request.url().includes('cdn.jsdelivr.net') || /\/emoji\/.*\.svg/.test(request.url())) requests.push(request.url())
+    const url = new URL(request.url())
+    if (url.hostname === 'cdn.jsdelivr.net' || /^\/emoji\/.*\.svg$/.test(url.pathname)) requests.push(url.href)
   })
   await page.goto(`/?draft=${encodeURIComponent(text)}&default=1`)
   const surface = page.locator('#astro')
