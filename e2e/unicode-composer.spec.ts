@@ -27,6 +27,8 @@ test('composer keeps native caret, complete grapheme deletion, undo and clipboar
   // Start the deletion/undo check with a restored draft, separate from the
   // preceding typing transaction that WebKit may coalesce into one undo step.
   await page.reload({ waitUntil: 'domcontentloaded' })
+  await expect(surface.locator('img')).toHaveCount(5)
+  await expect.poll(() => surface.locator('img').evaluateAll(nodes => nodes.every(node => getComputedStyle(node).opacity === '1'))).toBe(true)
   await field.evaluate((node, restored) => {
     const input = node as HTMLTextAreaElement
     const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')!.set!
