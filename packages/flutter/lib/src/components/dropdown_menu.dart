@@ -172,7 +172,12 @@ class RefractionDropdownSubmenu extends RefractionDropdownEntry {
 }
 
 class RefractionDropdownMenu extends StatelessWidget {
-  final Widget trigger;
+  final Widget? trigger;
+
+  /// Builds an interactive trigger using the menu's own open/close action.
+  /// Supply this instead of [trigger] when the trigger handles its own taps.
+  final Widget Function(BuildContext context, VoidCallback toggle)?
+  triggerBuilder;
   final List<RefractionDropdownEntry> items;
   final double width;
   final AlignmentOffset? alignmentOffset;
@@ -180,12 +185,16 @@ class RefractionDropdownMenu extends StatelessWidget {
 
   const RefractionDropdownMenu({
     super.key,
-    required this.trigger,
+    this.trigger,
+    this.triggerBuilder,
     required this.items,
     this.width = 220,
     this.alignmentOffset,
     this.closeOnTriggerTap = true,
-  });
+  }) : assert(
+         (trigger == null) != (triggerBuilder == null),
+         'Provide exactly one of trigger or triggerBuilder.',
+       );
 
   @override
   Widget build(BuildContext context) {
@@ -214,16 +223,16 @@ class RefractionDropdownMenu extends StatelessWidget {
         alignmentOffset: alignmentOffset?.offset ?? Offset.zero,
         menuChildren: items.expand((e) => e.build(context)).toList(),
         builder: (context, controller, child) {
-          return GestureDetector(
-            onTap: () {
-              if (controller.isOpen) {
-                if (closeOnTriggerTap) controller.close();
-              } else {
-                controller.open();
-              }
-            },
-            child: trigger,
-          );
+          void toggle() {
+            if (controller.isOpen) {
+              if (closeOnTriggerTap) controller.close();
+            } else {
+              controller.open();
+            }
+          }
+
+          return triggerBuilder?.call(context, toggle) ??
+              GestureDetector(onTap: toggle, child: trigger);
         },
       ),
     );

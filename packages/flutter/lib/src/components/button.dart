@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../theme/refraction_theme.dart';
 
 /// Visual style of a [RefractionButton].
@@ -110,6 +111,9 @@ class RefractionButton extends StatefulWidget {
   /// When true, the [child] is replaced by a spinner and taps are ignored.
   final bool isLoading;
 
+  /// Accessible name for an icon-only action. Visible child text remains intact.
+  final String? semanticLabel;
+
   /// Creates a [RefractionButton].
   const RefractionButton({
     super.key,
@@ -118,6 +122,7 @@ class RefractionButton extends StatefulWidget {
     this.variant = RefractionButtonVariant.primary,
     this.size = RefractionButtonSize.defaultSize,
     this.isLoading = false,
+    this.semanticLabel,
   });
 
   @override
@@ -126,6 +131,7 @@ class RefractionButton extends StatefulWidget {
 
 class _RefractionButtonState extends State<RefractionButton> {
   bool _isHovered = false;
+  bool _showFocusHighlight = false;
 
   @override
   Widget build(BuildContext context) {
@@ -245,38 +251,61 @@ class _RefractionButtonState extends State<RefractionButton> {
           : widget.child,
     );
 
-    return Semantics(
-      button: true,
-      enabled: widget.onPressed != null,
-      child: MouseRegion(
-        onEnter: (_) => setState(() => _isHovered = true),
-        onExit: (_) => setState(() => _isHovered = false),
-        cursor: widget.onPressed == null
-            ? SystemMouseCursors.forbidden
-            : SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: widget.isLoading ? null : widget.onPressed,
-          behavior: HitTestBehavior.opaque,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeInOut,
-            constraints: BoxConstraints(
-              minWidth: minWidth ?? 0.0,
-              minHeight: minHeight,
+    final enabled = widget.onPressed != null && !widget.isLoading;
+    return FocusableActionDetector(
+      enabled: enabled,
+      onShowFocusHighlight: (value) =>
+          setState(() => _showFocusHighlight = value),
+      shortcuts: const {
+        SingleActivator(LogicalKeyboardKey.enter): ActivateIntent(),
+        SingleActivator(LogicalKeyboardKey.numpadEnter): ActivateIntent(),
+        SingleActivator(LogicalKeyboardKey.space): ActivateIntent(),
+      },
+      actions: {
+        ActivateIntent: CallbackAction<ActivateIntent>(
+          onInvoke: (_) {
+            if (enabled) widget.onPressed?.call();
+            return null;
+          },
+        ),
+      },
+      child: Semantics(
+        label: widget.semanticLabel,
+        button: true,
+        enabled: enabled,
+        child: MouseRegion(
+          onEnter: (_) => setState(() => _isHovered = true),
+          onExit: (_) => setState(() => _isHovered = false),
+          cursor: widget.onPressed == null
+              ? SystemMouseCursors.forbidden
+              : SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: widget.isLoading ? null : widget.onPressed,
+            behavior: HitTestBehavior.opaque,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+              constraints: BoxConstraints(
+                minWidth: minWidth ?? 0.0,
+                minHeight: minHeight,
+              ),
+              width: minWidth,
+              padding: padding,
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                // radiusMd defaults to the base borderRadius, so corners are
+                // unchanged; a consumer can now round controls independently of
+                // cards via the radius scale.
+                borderRadius: BorderRadius.circular(data.radiusMd),
+                border: _showFocusHighlight && enabled
+                    ? Border.all(color: colors.ring, width: 2)
+                    : borderColor != null
+                    ? Border.all(color: borderColor)
+                    : null,
+              ),
+              alignment: Alignment.center,
+              child: content,
             ),
-            padding: padding,
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              // radiusMd defaults to the base borderRadius, so corners are
-              // unchanged; a consumer can now round controls independently of
-              // cards via the radius scale.
-              borderRadius: BorderRadius.circular(data.radiusMd),
-              border: borderColor != null
-                  ? Border.all(color: borderColor)
-                  : null,
-            ),
-            alignment: Alignment.center,
-            child: content,
           ),
         ),
       ),

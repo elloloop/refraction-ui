@@ -234,7 +234,7 @@ export function ChatFooter() {
 }`
 
 const astroUsageCode = `---
-import { RefractionInteractiveComposer, Composer, Button } from '@refraction-ui/astro'
+import { RefractionInteractiveComposer } from '@refraction-ui/astro'
 ---
 
 <!-- Opt-in interactive island; no React integration required. -->
@@ -259,7 +259,11 @@ import { RefractionInteractiveComposer, Composer, Button } from '@refraction-ui/
     // Only explicit Send (or opt-in submitOnEnter) emits a submission.
     console.log((event as CustomEvent).detail)
   })
-</script>
+</script>`
+
+const staticAstroUsageCode = `---
+import { Composer, Button } from '@refraction-ui/astro'
+---
 
 <!-- Static SSR shell: read-only pill + disabled send button -->
 <Composer placeholder="Sign in to join the conversation" />
@@ -273,7 +277,7 @@ import { RefractionInteractiveComposer, Composer, Button } from '@refraction-ui/
   <span slot="trailing">Read-only preview</span>
 </Composer>
 <!-- Static Composer is a read-only shell with named action slots.
-     Use RefractionInteractiveComposer for editing/submission. Hosts own each
+     Use RefractionInteractiveComposer for opt-in editing/submission. Hosts own each
      slotted action's disabled state and behavior. -->`
 
 export default function ComposerPage() {
@@ -425,14 +429,15 @@ export default function ComposerPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground">Astro slots</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Static Astro slots</h2>
         <p className="text-sm text-muted-foreground">
           The default slot remains read-only message content. Named leading and trailing slots
           appear below it, before the disabled Send action. Use RefractionInteractiveComposer
-          when editing is needed. A native DropdownMenuTrigger can
+          for opt-in editing and submission. A native DropdownMenuTrigger can
           receive aria-label and the shared button classes directly; do not nest buttons.
           Hosts control the behavior and disabled state of their slotted actions.
         </p>
+        <CodeBlock frameworks={{ astro: staticAstroUsageCode }} />
       </section>
 
       <div className="h-px bg-border" />
