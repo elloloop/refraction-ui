@@ -128,6 +128,7 @@ jobs:
         include:
           - platform: android
             os: ubuntu-latest
+            flutter: 3.38.3
             build: apk --debug
           - platform: linux
             os: ubuntu-latest
@@ -140,6 +141,8 @@ jobs:
       - uses: subosito/flutter-action@v2.16.0
         with:
           channel: stable
+          # Superlist 0.9.x requires AGP/Gradle 8; match the supported consumer SDK.
+          flutter-version: ${{ matrix.flutter || 'any' }}
       - uses: actions/setup-java@v4
         if: matrix.platform == 'android'
         with:

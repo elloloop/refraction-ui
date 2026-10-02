@@ -2,6 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import '../data/emoji_renderers.dart';
+import '../data/emoji_entry_lookup.dart';
 import '../data/emoji_types.dart';
 import '../data/unicode_emoji.dart';
 
@@ -23,15 +24,14 @@ class EditableEmojiArtwork extends MultiChildRenderObjectWidget {
            for (final run in runs)
              ExcludeSemantics(
                child: IgnorePointer(
-                 child: Builder(
-                   builder: (context) => renderer(
-                     context,
-                     EmojiEntry(
-                       emoji: run.emoji,
-                       name: run.emoji,
-                       category: EmojiCategory.symbols,
+                 // Size already includes the editor's accessibility scaling.
+                 child: MediaQuery.withNoTextScaling(
+                   child: Builder(
+                     builder: (context) => renderer(
+                       context,
+                       emojiEntryForGrapheme(run.emoji),
+                       size,
                      ),
-                     size,
                    ),
                  ),
                ),

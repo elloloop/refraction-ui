@@ -201,3 +201,15 @@ not invoke editor shortcuts. A narrow toolbar test forces actions onto multiple
 rows while its primary action remains separate. Fixed default and stacked cases
 verify editor continuity within each layout, not dynamic switching between them.
 The multiline docs use case consumes the same shared stacked-layout widgets.
+
+### Android build toolchain compatibility
+
+Superlist 0.9.x and its irondash transitive dependency use Cargokit with the
+`Project.exec` API, removed in Gradle 9. Android consumers must retain AGP/Gradle 8.
+The native Android smoke gate pins Flutter 3.38.3, matching the supported consumer
+toolchain (Gradle 8.14, AGP 8.11.1, Kotlin 2.2.20); these match the committed
+consumer configuration. Linux and Windows retain stable Flutter. The failed latest-stable
+Android template build is recorded as an unsupported AGP 9 configuration, not
+claimed as passing. Upstream 0.10 prereleases replace Cargokit with native hooks
+but require Flutter 3.44+, so adopting them would exclude current 3.38.3 consumers.
+No dependency override, package-cache patch or error suppression is used.

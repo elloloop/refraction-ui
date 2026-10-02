@@ -305,6 +305,38 @@ More recipes — including a complete family-calendar app and a pregnancy tracke
 
 ---
 
+### Clipboard images in Flutter composers
+
+Set `onImagesPasted` to stage PNG/JPEG clipboard items in your application's
+existing attachment workflow. Each `ComposerClipboardImage` has `name`,
+`contentType`, and `bytes`; add the upload's chip through `controller.addAttachment`
+and update its status/progress as usual. Image paste never submits automatically.
+Use `onPasteError` for diagnostics; the composer also shows `pasteFailedNotice`.
+The Flutter gallery Composer example and isolated input harness demonstrate the
+public callback. See [COMPOSER_TESTING.md](COMPOSER_TESTING.md#opt-in-clipboard-images)
+for platform boundaries, reader injection, privacy, limits and the dependency rationale.
+
+### Clipboard native build requirements
+
+Image handoff is opt-in at runtime, but `super_clipboard` is a runtime dependency
+of this package. Every native consumer builds/registers `super_native_extensions`,
+`irondash_engine_context` and `device_info_plus`, even without an image callback.
+Cargokit downloads cached/precompiled Rust binaries or builds through rustup;
+provision network access or a populated build cache and the normal Flutter native
+toolchain. Android needs API 23 or newer, AGP/Gradle 8 and the Flutter-selected Android NDK.
+AGP/Gradle 9 is unsupported: Superlist 0.9.x Cargokit calls the removed
+`Project.exec` API. The Android build gate uses Flutter 3.38.3, matching the
+supported Gradle 8.14 / AGP 8.11.1 / Kotlin 2.2.20 consumer toolchain.
+Newer Flutter templates defaulting to AGP 9
+must retain a supported AGP 8 project; no plugin/cache patch is applied.
+Linux needs the Flutter GTK/CMake/Ninja toolchain; Windows needs Visual Studio's
+Desktop development with C++ workload. No extra clipboard permission is requested.
+
+The Test Matrix builds an isolated consuming app for Android, Linux and Windows
+in addition to widget/web behavior tests. Build success does not prove physical
+keyboard or OS clipboard behavior on those platforms. Actual clipboard fixtures
+cover macOS and the iOS simulator; see [COMPOSER_TESTING](COMPOSER_TESTING.md).
+
 ## Compatibility
 
 | Requirement | Version |
@@ -402,30 +434,3 @@ static and animated render paths. Hosts add their own packs via
 ## License
 
 MIT © [elloloop](https://github.com/elloloop). See [`LICENSE`](LICENSE).
-
-### Clipboard images in Flutter composers
-
-Set `onImagesPasted` to stage PNG/JPEG clipboard items in your application's
-existing attachment workflow. Each `ComposerClipboardImage` has `name`,
-`contentType`, and `bytes`; add the upload's chip through `controller.addAttachment`
-and update its status/progress as usual. Image paste never submits automatically.
-Use `onPasteError` for diagnostics; the composer also shows `pasteFailedNotice`.
-The Flutter gallery Composer example and isolated input harness demonstrate the
-public callback. See [COMPOSER_TESTING.md](COMPOSER_TESTING.md#opt-in-clipboard-images)
-for platform boundaries, reader injection, privacy, limits and the dependency rationale.
-
-### Clipboard native build requirements
-
-Image handoff is opt-in at runtime, but `super_clipboard` is a runtime dependency
-of this package. Every native consumer builds/registers `super_native_extensions`,
-`irondash_engine_context` and `device_info_plus`, even without an image callback.
-Cargokit downloads cached/precompiled Rust binaries or builds through rustup;
-provision network access or a populated build cache and the normal Flutter native
-toolchain. Android needs API 23 or newer and the Flutter-selected Android NDK.
-Linux needs the Flutter GTK/CMake/Ninja toolchain; Windows needs Visual Studio's
-Desktop development with C++ workload. No extra clipboard permission is requested.
-
-The Test Matrix builds an isolated consuming app for Android, Linux and Windows
-in addition to widget/web behavior tests. Build success does not prove physical
-keyboard or OS clipboard behavior on those platforms. Actual clipboard fixtures
-cover macOS and the iOS simulator; see [COMPOSER_TESTING](COMPOSER_TESTING.md).

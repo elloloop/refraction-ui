@@ -155,6 +155,8 @@ RefractionComposer(
           software keyboards and multiple clipboard items have OS-specific limits.
           HTML image URLs, HEIC and Android keyboard content insertion are outside
           this clipboard API. Without the callback, existing text paste is unchanged.
+          Every native consumer still builds the Superlist plugins. Android requires
+          AGP/Gradle 8; AGP/Gradle 9 is unsupported by the current upstream adapter.
         </p>
       </section>
     </div>
