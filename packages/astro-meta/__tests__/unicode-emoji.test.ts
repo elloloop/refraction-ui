@@ -6,7 +6,7 @@ describe('Astro Unicode artwork, published meta shape', () => {
     const { default: EmojiText } = await import('../dist/astro-emoji-picker/EmojiText.astro')
     const container = await AstroContainer.create()
     const html = await container.renderToString(EmojiText, {
-      props: { text: 'Hello 🔥 ❤️‍🔥 🇬🇧 1️⃣ 👍🏽 ✈︎', twemojiBaseUrl: '/emoji/' },
+      props: { text: 'Hello 🔥 ❤️‍🔥 🇬🇧 1️⃣ 👍🏽 ✈︎', emojiArtwork: true, twemojiBaseUrl: '/emoji/' },
     })
     expect(html).toContain('/emoji/2764-fe0f-200d-1f525.svg')
     expect(html).toContain('/emoji/1f1ec-1f1e7.svg')
@@ -18,7 +18,7 @@ describe('Astro Unicode artwork, published meta shape', () => {
   it('picker SSR uses the same artwork as its client search path', async () => {
     const { default: EmojiPicker } = await import('../dist/astro-emoji-picker/EmojiPicker.astro')
     const container = await AstroContainer.create()
-    const html = await container.renderToString(EmojiPicker, { props: { category: 'flags', twemojiBaseUrl: '/emoji/' } })
+    const html = await container.renderToString(EmojiPicker, { props: { category: 'flags', emojiArtwork: true, twemojiBaseUrl: '/emoji/' } })
     expect(html).toContain('/emoji/1f1ec-1f1e7.svg')
     expect(html).toContain('data-rfr-emoji-base-url="/emoji/"')
   })
@@ -47,10 +47,10 @@ it('Astro native-only display escapes text and picker SSR emits no artwork reque
   const { default: EmojiText } = await import('../dist/astro-emoji-picker/EmojiText.astro')
   const { default: EmojiPicker } = await import('../dist/astro-emoji-picker/EmojiPicker.astro')
   const container = await AstroContainer.create()
-  const text = await container.renderToString(EmojiText, { props: { text: '<script>🔥</script>', nativeOnly: true } })
+  const text = await container.renderToString(EmojiText, { props: { text: '<script>🔥</script>', emojiArtwork: false } })
   expect(text).toContain('&lt;script&gt;🔥&lt;/script&gt;')
   expect(text).not.toContain('<img')
-  const picker = await container.renderToString(EmojiPicker, { props: { category: 'flags', nativeOnly: true } })
+  const picker = await container.renderToString(EmojiPicker, { props: { category: 'flags', emojiArtwork: false } })
   expect(picker).toContain('data-rfr-emoji-native-only="true"')
   expect(picker).not.toContain('<img')
 })

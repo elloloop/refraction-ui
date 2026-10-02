@@ -55,6 +55,21 @@ class MyComposer extends StatelessWidget {
 }`} />
       </section>
       <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Keyboard Unicode emoji</h2>
+        <p>Typed and pasted Unicode uses bundled artwork for complete supported graphemes.
+          The editing buffer, clipboard, selection and submission keep the original Unicode.
+          Unsupported sequences and active IME composition stay native. Skin tones, flags
+          and joined families are matched whole; modifiers are never removed.</p>
+        <p><code>emojiRenderer: EmojiRenderer</code> defaults to <code>twemojiEmojiRenderer</code>.
+          Use the same renderer on the picker and composer. For animated Noto artwork with
+          Twemoji fallback and reduced-motion support, choose <code>refractionAnimatedEmojiRenderer</code>.
+          Display message text with <code>refractionEmojiTextSpans(text, size: 18, renderer: refractionAnimatedEmojiRenderer)</code>.</p>
+        <CodeBlock language="dart" code={`RefractionComposer(
+  emojiRenderer: refractionAnimatedEmojiRenderer,
+  onSubmit: (draft) => save(draft.plainText),
+)`} />
+      </section>
+      <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Platform input formatters</h2>
         <p>
           The optional <code>inputFormatters: List&lt;TextInputFormatter&gt;?</code> prop
