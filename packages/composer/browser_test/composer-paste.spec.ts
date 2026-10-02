@@ -1,5 +1,33 @@
 import { test, expect, type Locator } from '@playwright/test'
 
+test('Astro toolbar actions keep the textarea, draft and selection through menu use', async ({ page, browserName }) => {
+  await page.goto('/')
+  const composer = page.locator('refraction-interactive-composer')
+  const field = composer.getByRole('textbox')
+  await field.fill('Draft to keep\nwhile choosing a language.')
+  const handle = await field.elementHandle()
+  await field.evaluate((el: HTMLTextAreaElement) => el.setSelectionRange(6, 13))
+  const trigger = composer.getByRole('button', { name: 'Dictation language' })
+  await composer.getByRole('button', { name: 'Dictate', exact: true }).focus()
+  // WebKit's default macOS traversal skips native buttons; Chromium proves Tab.
+  if (browserName === 'webkit') await trigger.focus()
+  else await page.keyboard.press('Tab')
+  await expect(trigger).toBeFocused()
+  await page.keyboard.press('Enter')
+  await expect(composer.getByRole('menuitem', { name: 'Auto', exact: true })).toBeFocused()
+  await page.keyboard.press('End')
+  await expect(composer.getByRole('menuitem', { name: 'Telugu', exact: true })).toBeFocused()
+  await page.keyboard.press('Escape')
+  await expect(trigger).toBeFocused()
+  await expect(field).toHaveValue('Draft to keep\nwhile choosing a language.')
+  expect(await field.evaluate((el: HTMLTextAreaElement) => [el.selectionStart, el.selectionEnd])).toEqual([6, 13])
+  expect(await field.evaluate((el, previous) => el === previous, handle)).toBe(true)
+  await expect(page.locator('#results')).toHaveText('No paste or submission yet')
+  const fieldBox = await field.boundingBox()
+  const micBox = await composer.getByRole('button', { name: 'Dictate', exact: true }).boundingBox()
+  expect(micBox!.y).toBeGreaterThanOrEqual(fieldBox!.y + fieldBox!.height)
+})
+
 async function paste(field: Locator, text: string, files: { type: string; size: number; name?: string }[] = []) {
   await field.evaluate((el, data) => {
     const transfer = new DataTransfer()

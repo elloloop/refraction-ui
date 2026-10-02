@@ -356,6 +356,17 @@ describe('astro-skip-to-content', () => {
 
 
 describe('astro interactive composer (meta dist)', () => {
+  it('places host actions below the same editable field and before the send action', async () => {
+    const html = await render(InteractiveComposer, {
+      props: { defaultValue: 'Keep this draft' },
+      slots: { leading: '<button aria-label="Dictate">Mic</button>', trailing: '<button>Attach</button>' },
+    })
+    expect(count(html, '<textarea')).toBe(1)
+    expect(html).toContain('Keep this draft')
+    expect(html).toContain('Attach')
+    expect(html.indexOf('aria-label="Dictate"')).toBeGreaterThan(html.indexOf('</textarea>'))
+    expect(html.indexOf('Attach')).toBeLessThan(html.indexOf('data-send'))
+  })
   it('renders an accessible editable field, localizable notices and an initially disabled send action', async () => {
     const html = await render(InteractiveComposer, { props: {
       defaultValue: 'Fixture draft', messageLabel: 'Fixture message', readOnly: true,
