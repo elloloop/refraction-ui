@@ -159,6 +159,18 @@ class _ComposerPageState extends State<ComposerPage> {
             maxLines: 6,
             triggers: _triggers,
             onSubmit: _handleSubmit,
+            onImagesPasted: (images) {
+              for (final image in images) {
+                _controller.addAttachment(
+                  ComposerAttachment(
+                    kind: ComposerAttachmentKind.image,
+                    name: image.name,
+                    sizeBytes: image.bytes.length,
+                    mimeType: image.contentType,
+                  ),
+                );
+              }
+            },
             onAttachRequested: () =>
                 showComposerAttachSheet(context, _controller),
             // WhatsApp-style emoji toggle: the icon swaps emoji <-> keyboard.

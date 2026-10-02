@@ -25,7 +25,7 @@ dependencies:
 - **One token model, every framework.** The same color/radius/typography scale powers `@refraction-ui/react`, `@refraction-ui/astro`, and this Flutter package. Mobile and web stay in lockstep without duplicated theme definitions.
 - **Accessible by default.** Components ship with proper `Semantics`, focus traversal, and keyboard handling. Buttons announce their pressed/disabled state, inputs are labeled, dialogs trap focus, etc.
 - **Pure-Dart UI, small dependency footprint.** The components are plain Flutter widgets built on a small set of well-known packages (`characters`, `flutter_markdown`/`markdown`, `flutter_svg`, `lottie`) — no heavyweight vendor SDKs. Video playback (`RefractionVideoPlayer`) is delegated to the [`video_player`](https://pub.dev/packages/video_player) plugin.
-- **Works everywhere Flutter does.** iOS, Android, web, macOS, Windows, Linux. Note that `video_player` is a federated plugin that uses platform channels on the platforms it supports.
+- **Across Flutter platforms.** iOS, Android, web, macOS, Windows and Linux. Video playback and clipboard images use native plugins; clipboard toolchain requirements and platform verification limits are listed below.
 
 ---
 
@@ -305,17 +305,48 @@ More recipes — including a complete family-calendar app and a pregnancy tracke
 
 ---
 
+### Clipboard images in Flutter composers
+
+Set `onImagesPasted` to stage PNG/JPEG clipboard items in your application's
+existing attachment workflow. Each `ComposerClipboardImage` has `name`,
+`contentType`, and `bytes`; add the upload's chip through `controller.addAttachment`
+and update its status/progress as usual. Image paste never submits automatically.
+Use `onPasteError` for diagnostics; the composer also shows `pasteFailedNotice`.
+The Flutter gallery Composer example and isolated input harness demonstrate the
+public callback. See [COMPOSER_TESTING.md](COMPOSER_TESTING.md#opt-in-clipboard-images)
+for platform boundaries, reader injection, privacy, limits and the dependency rationale.
+
+### Clipboard native build requirements
+
+Image handoff is opt-in at runtime, but `super_clipboard` is a runtime dependency
+of this package. Every native consumer builds/registers `super_native_extensions`,
+`irondash_engine_context` and `device_info_plus`, even without an image callback.
+Cargokit downloads cached/precompiled Rust binaries or builds through rustup;
+provision network access or a populated build cache and the normal Flutter native
+toolchain. Android needs API 23 or newer, AGP/Gradle 8 and the Flutter-selected Android NDK.
+AGP/Gradle 9 is unsupported: Superlist 0.9.x Cargokit calls the removed
+`Project.exec` API. The Android build gate uses Flutter 3.38.3, matching the
+supported Gradle 8.14 / AGP 8.11.1 / Kotlin 2.2.20 consumer toolchain.
+Newer Flutter templates defaulting to AGP 9
+must retain a supported AGP 8 project; no plugin/cache patch is applied.
+Linux needs the Flutter GTK/CMake/Ninja toolchain; Windows needs Visual Studio's
+Desktop development with C++ workload. No extra clipboard permission is requested.
+
+The Test Matrix builds an isolated consuming app for Android, Linux and Windows
+in addition to widget/web behavior tests. Build success does not prove physical
+keyboard or OS clipboard behavior on those platforms. Actual clipboard fixtures
+cover macOS and the iOS simulator; see [COMPOSER_TESTING](COMPOSER_TESTING.md).
+
 ## Compatibility
 
 | Requirement | Version |
 |---|---|
 | Dart SDK | `^3.10.1` |
-| Flutter | `>= 3.27.0` (tested against current stable) |
+| Flutter | `>= 3.27.0`; Dart constraints also apply. Android clipboard builds are verified with Flutter 3.38.3 / AGP 8 / Gradle 8; AGP/Gradle 9 is unsupported. |
 | Platforms | iOS, Android, Web, macOS, Windows, Linux |
 
-Null-safety is on. The widgets themselves are pure Dart; only video playback
-(`RefractionVideoPlayer`, via the `video_player` plugin) touches platform
-channels.
+Null-safety is on. Video playback and clipboard images use platform plugins;
+see the native build requirements above.
 
 ---
 
