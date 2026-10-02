@@ -45,8 +45,10 @@ const hasContent = Astro.slots.has('default')
     <div class={cn(composerFieldClass, 'min-h-[3rem] whitespace-pre-wrap break-words')}>
       {hasContent ? <slot /> : value ? (emojiArtwork ? <Fragment set:html={unicodeEmojiHtml(value, twemojiBaseUrl)} /> : value) : <span class="text-muted-foreground">{placeholder}</span>}
     </div>
-    <div class="flex items-center px-2 pb-2">
+    <div class="flex items-center gap-0.5 px-2 pb-2">
+      <slot name="leading" />
       <div class="flex-1" />
+      <slot name="trailing" />
       <button
         type="button"
         aria-label={sendLabel}

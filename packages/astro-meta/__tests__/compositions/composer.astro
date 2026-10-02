@@ -1,0 +1,28 @@
+---
+import Composer from '../../dist/astro-composer/Composer.astro'
+import Button from '../../dist/astro-button/Button.astro'
+import DropdownMenu from '../../dist/astro-dropdown-menu/DropdownMenu.astro'
+import DropdownMenuTrigger from '../../dist/astro-dropdown-menu/DropdownMenuTrigger.astro'
+import DropdownMenuContent from '../../dist/astro-dropdown-menu/DropdownMenuContent.astro'
+import DropdownMenuItem from '../../dist/astro-dropdown-menu/DropdownMenuItem.astro'
+import { buttonVariants } from '../../dist/astro-button/index'
+---
+<Composer>
+  Please review the release notes.
+  <div slot="leading" class="flex items-center gap-0.5">
+    <Button size="icon" variant="ghost" aria-label="Dictate" disabled>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v7a3 3 0 0 0 3 3Z" fill="none" stroke="currentColor" /></svg>
+    </Button>
+    <DropdownMenu>
+      <DropdownMenuTrigger aria-label="Dictation language" class={buttonVariants({ variant: 'ghost', size: 'icon' })}>
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" /></svg>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem>Auto</DropdownMenuItem>
+        <DropdownMenuItem>English</DropdownMenuItem>
+        <DropdownMenuItem>Telugu</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  </div>
+  <span slot="trailing">Read-only preview</span>
+</Composer>
