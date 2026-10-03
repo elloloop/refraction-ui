@@ -1,5 +1,43 @@
 # @refraction-ui/react
 
+## 0.25.0
+
+### Minor Changes
+
+- e9eb007: Add opt-in PNG/JPEG clipboard handoff with original files, atomic size validation, mixed-text selection preservation and visible errors. React preserves generic file staging with an additive raw File callback; Astro gains an opt-in interactive composer backed by the same headless core. Paste never sends or uploads.
+- e9eb007: Paint complete supported Unicode artwork in the React composer mirror while preserving the real textarea and native IME composition. Add a canonical read-only Unicode value to the Astro composer shell.
+
+  Artwork is opt-in for private drafts and messages. Configure `twemojiBaseUrl`
+  with a same-origin SVG directory such as `/emoji`. Explicit artwork without a
+  custom URL requests emoji-codepoint assets from jsDelivr and exposes the user IP
+  to that CDN. Configure CSP `img-src` for the chosen origin. Twemoji graphics are
+  CC-BY 4.0: retain attribution and the graphics license when self-hosting:
+  https://github.com/jdecked/twemoji/blob/main/LICENSE-GRAPHICS
+
+- e9eb007: Add EmojiText for complete keyboard Unicode graphemes with shared Flutter artwork coverage, canonical selectable text, and native load/error fallback. Astro picker SSR and client search now use the same artwork matching as React.
+
+  Artwork is opt-in for private drafts and messages. Configure `twemojiBaseUrl`
+  with a same-origin SVG directory such as `/emoji`. Explicit artwork without a
+  custom URL requests emoji-codepoint assets from jsDelivr and exposes the user IP
+  to that CDN. Configure CSP `img-src` for the chosen origin. Twemoji graphics are
+  CC-BY 4.0: retain attribution and the graphics license when self-hosting:
+  https://github.com/jdecked/twemoji/blob/main/LICENSE-GRAPHICS
+
+- e9eb007: Enhance sanitized markdown and conversation display text with complete Unicode artwork while preserving canonical selectable text, links, literal code, and editing nodes.
+
+  Use linear heading/list/rule block scans to eliminate polynomial whitespace matching exposed by message input.
+
+  Artwork is opt-in for private drafts and messages. Configure `twemojiBaseUrl`
+  with a same-origin SVG directory such as `/emoji`. Explicit artwork without a
+  custom URL requests emoji-codepoint assets from jsDelivr and exposes the user IP
+  to that CDN. Configure CSP `img-src` for the chosen origin. Twemoji graphics are
+  CC-BY 4.0: retain attribution and the graphics license when self-hosting:
+  https://github.com/jdecked/twemoji/blob/main/LICENSE-GRAPHICS
+
+### Patch Changes
+
+- e9eb007: Restore menu trigger focus after Escape/selection and focus enabled items for keyboard navigation in React dropdowns. Export shared button classes for native Astro trigger composition without nested buttons. Add leading and trailing action slots to the read-only Astro composer shell. Document native named icon actions and the existing React stacked-editor composition; interactive editing still requires a hydrated adapter.
+
 ## 0.24.0
 
 ### Minor Changes
