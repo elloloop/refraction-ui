@@ -1,6 +1,6 @@
 name: refraction_ui
 description: "A headless, highly customizable, and fully accessible Flutter UI library matching Refraction UI."
-version: 0.50.0
+version: 0.51.0
 homepage: https://elloloop.github.io/refraction-ui
 repository: https://github.com/elloloop/refraction-ui
 issue_tracker: https://github.com/elloloop/refraction-ui/issues
@@ -15,7 +15,7 @@ topics:
 
 environment:
   sdk: ^3.10.1
-  flutter: ">=3.27.0"
+  flutter: ">=3.44.0"
 
 dependencies:
   flutter:
@@ -25,7 +25,9 @@ dependencies:
   characters: ^1.4.0
   # Flutter Clipboard exposes text only. Superlist supplies image formats and
   # user-initiated browser paste events; see COMPOSER_TESTING.md.
-  super_clipboard: ^0.9.1
+  # 0.9.x pins device_info_plus below 12, excluding current LiveKit SDKs.
+  # This upstream prerelease widens that constraint; pin it for reproducibility.
+  super_clipboard: 0.10.0-dev.2
   flutter_markdown: ^0.7.7+1
   markdown: ^7.3.1
   # Renders the bundled uniform Twemoji glyph set (assets/twemoji/*.svg) as

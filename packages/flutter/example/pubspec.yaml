@@ -46,7 +46,7 @@ dependencies:
 dev_dependencies:
   integration_test:
     sdk: flutter
-  super_clipboard: ^0.9.1
+  super_clipboard: 0.10.0-dev.2
   flutter_test:
     sdk: flutter
 

@@ -1,0 +1,222 @@
+{
+  "timestamp": "2026-10-04T13:27:27Z",
+  "call": "heuristic",
+  "sourceId": "diff:f9fb04b1-45f9-42c8-961e-685d45dda5a9:v1",
+  "commit": "1cc39dd45c97eec0ddda9424a096dbe954817394",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:calling-clipboard-compatibility",
+          "name": "Calling Clipboard Compatibility",
+          "summary": "chore(calling-clipboard-compatibility): fix(flutter): allow calling SDKs alongside image clipboard",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "Upgrade the pinned upstream clipboard prerelease and Flutter minimum; preserve image paste while allowing current official LiveKit dependencies.",
+            "chore(calling-clipboard-compatibility): fix(flutter): allow calling SDKs alongside image clipboard"
+          ],
+          "testerNotes": [
+            "Verify behavior touching .github/workflows/test-matrix.yml, packages/flutter/CHANGELOG.md, packages/flutter/COMPOSER_TESTING.md, packages/flutter/example/pubspec.lock, packages/flutter/example/pubspec.yaml."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:calling-clipboard-compatibility"
+          ],
+          "relatedComponents": [
+            "component:github",
+            "component:packages"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:calling-clipboard-compatibility",
+          "title": "Calling Clipboard Compatibility",
+          "summary": "chore(calling-clipboard-compatibility): fix(flutter): allow calling SDKs alongside image clipboard",
+          "designNotes": [
+            "Changed files: .github/workflows/test-matrix.yml, packages/flutter/CHANGELOG.md, packages/flutter/COMPOSER_TESTING.md, packages/flutter/example/pubspec.lock, packages/flutter/example/pubspec.yaml, packages/flutter/pubspec.yaml",
+            "Upgrade the pinned upstream clipboard prerelease and Flutter minimum; preserve image paste while allowing current official LiveKit dependencies."
+          ],
+          "relatedFeatures": [
+            "feature:calling-clipboard-compatibility"
+          ],
+          "relatedComponents": [
+            "component:github",
+            "component:packages"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:github",
+          "name": "GitHub Workflows",
+          "kind": "config",
+          "paths": [
+            ".github/workflows/test-matrix.yml"
+          ],
+          "summary": "Owns changes under .github.",
+          "relatedFeatures": [
+            "feature:calling-clipboard-compatibility"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:calling-clipboard-compatibility"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:packages",
+          "name": "Packages",
+          "kind": "unknown",
+          "paths": [
+            "packages/flutter/CHANGELOG.md",
+            "packages/flutter/COMPOSER_TESTING.md",
+            "packages/flutter/example/pubspec.lock",
+            "packages/flutter/example/pubspec.yaml",
+            "packages/flutter/pubspec.yaml"
+          ],
+          "summary": "Owns changes under packages.",
+          "relatedFeatures": [
+            "feature:calling-clipboard-compatibility"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:calling-clipboard-compatibility"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:calling-clipboard-compatibility",
+          "to": "component:github",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:calling-clipboard-compatibility",
+          "to": "component:github",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:calling-clipboard-compatibility",
+          "to": "component:packages",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:calling-clipboard-compatibility",
+          "to": "component:packages",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:calling-clipboard-compatibility",
+          "to": "technical:calling-clipboard-compatibility",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "operations:.github",
+          "parent": "operations",
+          "title": "GitHub Workflows",
+          "summary": "Changed in: fix(flutter): allow calling SDKs alongside image clipboard",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:packages-flutter",
+              "kind": "http"
+            }
+          ],
+          "why": "Upgrade the pinned upstream clipboard prerelease and Flutter minimum; preserve image paste while allowing current official LiveKit dependencies.",
+          "what": "fix(flutter): allow calling SDKs alongside image clipboard",
+          "how": "Changed: .github/workflows/test-matrix.yml",
+          "sources": [
+            {
+              "id": "diff:f9fb04b1-45f9-42c8-961e-685d45dda5a9:v1",
+              "kind": "diff",
+              "commit": "1cc39dd45c97eec0ddda9424a096dbe954817394",
+              "diffUuid": "f9fb04b1-45f9-42c8-961e-685d45dda5a9"
+            }
+          ],
+          "updated": "2026-10-04T13:27:27Z"
+        },
+        {
+          "id": "api:packages-flutter",
+          "parent": "apis",
+          "title": "Packages Flutter",
+          "summary": "Changed in: fix(flutter): allow calling SDKs alongside image clipboard",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "why": "Upgrade the pinned upstream clipboard prerelease and Flutter minimum; preserve image paste while allowing current official LiveKit dependencies.",
+          "what": "fix(flutter): allow calling SDKs alongside image clipboard",
+          "how": "Changed: packages/flutter/CHANGELOG.md, packages/flutter/COMPOSER_TESTING.md, packages/flutter/example/pubspec.lock, packages/flutter/example/pubspec.yaml",
+          "sources": [
+            {
+              "id": "diff:f9fb04b1-45f9-42c8-961e-685d45dda5a9:v1",
+              "kind": "diff",
+              "commit": "1cc39dd45c97eec0ddda9424a096dbe954817394",
+              "diffUuid": "f9fb04b1-45f9-42c8-961e-685d45dda5a9"
+            }
+          ],
+          "updated": "2026-10-04T13:27:27Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "1cc39dd45c97eec0ddda9424a096dbe954817394",
+        "label": "chore(calling-clipboard-compatibility): fix(flutter): allow calling SDKs alongside image clipboard",
+        "date": "2026-10-04",
+        "kind": "chore",
+        "touches": [
+          "operations:.github",
+          "api:packages-flutter"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "0cab13748b3d63fd592ddc3ad81cb2ca3771bfb6581d5d3a3e74464388acfc47",
+    "nodeCount": 1,
+    "relationCount": 3,
+    "featureCount": 1,
+    "componentCount": 1,
+    "technicalsCount": 1
+  },
+  "graphAfter": {
+    "sha256": "198da1182e64839b1b8695d1be7f5343f3c693d644be0f1d0cf641c3c076789b",
+    "nodeCount": 2,
+    "relationCount": 8,
+    "featureCount": 2,
+    "componentCount": 2,
+    "technicalsCount": 2
+  }
+}
