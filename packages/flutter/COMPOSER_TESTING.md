@@ -148,7 +148,7 @@ Unsupported formats do not stage. A read or size failure rejects the whole paste
 transaction, retains the draft, and displays the error; retry is a new gesture.
 Individual images are bounded at 100 MiB while streaming, before host validation.
 
-Flutter's first-party Clipboard API only exposes text. `super_clipboard: 0.10.0-dev.2`
+Flutter's first-party Clipboard API only exposes text. `super_clipboard: ^0.10.0-dev.2`
 is a necessary documented third-party dependency from Superlist, isolated in
 `composer_clipboard.dart`. It supplies OS format conversion and browser paste
 readers across macOS, Windows, Linux, iOS, Android and web. It uses native Rust
@@ -204,7 +204,7 @@ The multiline docs use case consumes the same shared stacked-layout widgets.
 
 ### Android build toolchain compatibility
 
-Refraction 0.51 requires Flutter 3.44+ and pins upstream Superlist 0.10.0-dev.2.
+Refraction 0.51 requires Flutter 3.44+ and allows compatible upstream Superlist releases from 0.10.0-dev.2.
 Its native hooks replace Cargokit, whose Project.exec call was removed in Gradle 9.
 The native Android smoke gate pins Flutter 3.47.5; Linux and Windows use stable
 Flutter. Consumers on Flutter 3.38.3 must stay on Refraction 0.50 until upgraded.
