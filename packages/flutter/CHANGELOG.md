@@ -1,3 +1,7 @@
+## 0.51.0
+
+- Pin upstream `super_clipboard` 0.10.0-dev.2 so clipboard images can coexist with current LiveKit calling SDKs. Requires Flutter 3.44+ for upstream native hooks. This is a minimum-SDK change; retain clipboard interaction verification before release.
+
 ## 0.50.0
 
 - Browser clipboard paste captures the current DOM selection before async reads, including rapid select-all after undo/redo. Ctrl/Cmd undo and redo use the same Flutter history; later edits still discard stale clipboard reads.

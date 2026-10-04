@@ -1,0 +1,154 @@
+{
+  "timestamp": "2026-10-04T13:27:27Z",
+  "call": "heuristic",
+  "sourceId": "commit:2068e222b4d8",
+  "commit": "2068e222b4d8acba8e2cc4e74f2d466f256acc84",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:auto-save-before-switching-context",
+          "name": "auto-save before switching context",
+          "summary": "WIP: auto-save before switching context",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "WIP: auto-save before switching context"
+          ],
+          "testerNotes": [
+            "Verify behavior touching packages/flutter/CHANGELOG.md, packages/flutter/lib/src/components/composer.dart, packages/flutter/test/composer_test.dart."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:auto-save-before-switching-context"
+          ],
+          "relatedComponents": [
+            "component:packages"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:auto-save-before-switching-context",
+          "title": "auto-save before switching context",
+          "summary": "WIP: auto-save before switching context",
+          "designNotes": [
+            "Changed files: packages/flutter/CHANGELOG.md, packages/flutter/lib/src/components/composer.dart, packages/flutter/test/composer_test.dart",
+            "WIP: auto-save before switching context"
+          ],
+          "relatedFeatures": [
+            "feature:auto-save-before-switching-context"
+          ],
+          "relatedComponents": [
+            "component:packages"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:packages",
+          "name": "Packages",
+          "kind": "unknown",
+          "paths": [
+            "packages/flutter/CHANGELOG.md",
+            "packages/flutter/lib/src/components/composer.dart",
+            "packages/flutter/test/composer_test.dart"
+          ],
+          "summary": "Owns changes under packages.",
+          "relatedFeatures": [
+            "feature:auto-save-before-switching-context"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:auto-save-before-switching-context"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:auto-save-before-switching-context",
+          "to": "component:packages",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:auto-save-before-switching-context",
+          "to": "component:packages",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:auto-save-before-switching-context",
+          "to": "technical:auto-save-before-switching-context",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "api:packages-flutter",
+          "parent": "apis",
+          "title": "Packages Flutter",
+          "summary": "Changed in: auto-save before switching context",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "why": "auto-save before switching context",
+          "what": "auto-save before switching context",
+          "how": "Changed: packages/flutter/CHANGELOG.md, packages/flutter/lib/src/components/composer.dart, packages/flutter/test/composer_test.dart",
+          "sources": [
+            {
+              "id": "commit:2068e222b4d8",
+              "kind": "commit",
+              "commit": "2068e222b4d8acba8e2cc4e74f2d466f256acc84"
+            }
+          ],
+          "updated": "2026-10-04T13:27:27Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "2068e222b4d8acba8e2cc4e74f2d466f256acc84",
+        "label": "WIP: auto-save before switching context",
+        "date": "2026-10-04",
+        "kind": "unknown",
+        "touches": [
+          "api:packages-flutter"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "b69147b09a669e5e878df16dcb426a9a4e5014029e9b7ade5f944f714e23d72c",
+    "nodeCount": 0,
+    "relationCount": 0,
+    "featureCount": 0,
+    "componentCount": 0,
+    "technicalsCount": 0
+  },
+  "graphAfter": {
+    "sha256": "c23845fad81847e05ebcf6018cfc87653530dd2ddd77feadc8c2adaf43c629e6",
+    "nodeCount": 1,
+    "relationCount": 3,
+    "featureCount": 1,
+    "componentCount": 1,
+    "technicalsCount": 1
+  }
+}
