@@ -1,3 +1,7 @@
+## 0.51.0-dev.1
+
+- Allow compatible super_clipboard versions from 0.10.0-dev.2, as required by pub.dev library validation. Publish as a prerelease while the clipboard dependency is itself a prerelease. Consumers retain reproducible exact Refraction pins and lockfiles. Version 0.51.0 was not published because validation rejected its exact dependency range.
+
 ## 0.51.0
 
 - Pin upstream `super_clipboard` 0.10.0-dev.2 so clipboard images can coexist with current LiveKit calling SDKs. Requires Flutter 3.44+ for upstream native hooks. This is a minimum-SDK change; retain clipboard interaction verification before release.
