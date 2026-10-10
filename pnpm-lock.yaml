@@ -203,6 +203,9 @@ importers:
       '@refraction-ui/react-carousel':
         specifier: workspace:*
         version: link:../packages/react-carousel
+      '@refraction-ui/react-celebration-scene':
+        specifier: workspace:*
+        version: link:../packages/react-celebration-scene
       '@refraction-ui/react-charts':
         specifier: workspace:*
         version: link:../packages/react-charts
@@ -927,6 +930,18 @@ importers:
         specifier: 7.2.8
         version: 7.2.8(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.1.0)(jiti@2.6.1)(yaml@2.8.3)
 
+  packages/astro-celebration-scene:
+    dependencies:
+      '@refraction-ui/celebration-scene':
+        specifier: workspace:*
+        version: link:../celebration-scene
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 7.2.8
+        version: 7.2.8(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.1.0)(jiti@2.6.1)(yaml@2.8.3)
+
   packages/astro-charts:
     dependencies:
       '@refraction-ui/charts':
@@ -1607,6 +1622,9 @@ importers:
       '@refraction-ui/astro-carousel':
         specifier: workspace:*
         version: link:../astro-carousel
+      '@refraction-ui/astro-celebration-scene':
+        specifier: workspace:*
+        version: link:../astro-celebration-scene
       '@refraction-ui/astro-charts':
         specifier: workspace:*
         version: link:../astro-charts
@@ -2733,6 +2751,12 @@ importers:
       '@refraction-ui/accordion':
         specifier: workspace:*
         version: link:../accordion
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/celebration-scene:
+    dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -3930,6 +3954,28 @@ importers:
         version: 19.0.0
       react-dom:
         specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-celebration-scene:
+    dependencies:
+      '@refraction-ui/celebration-scene':
+        specifier: workspace:*
+        version: link:../celebration-scene
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
   packages/react-charts:
@@ -5195,6 +5241,9 @@ importers:
       '@refraction-ui/react-carousel':
         specifier: workspace:*
         version: link:../react-carousel
+      '@refraction-ui/react-celebration-scene':
+        specifier: workspace:*
+        version: link:../react-celebration-scene
       '@refraction-ui/react-charts':
         specifier: workspace:*
         version: link:../react-charts

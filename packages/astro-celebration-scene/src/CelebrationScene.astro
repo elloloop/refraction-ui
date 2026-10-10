@@ -1,0 +1,10 @@
+---
+import {celebrationSceneCSS, celebrationSceneSVG, type CelebrationSceneStyle} from '@refraction-ui/celebration-scene'
+import {cn} from '@refraction-ui/shared'
+interface Props extends astroHTML.JSX.HTMLAttributes { scene?: CelebrationSceneStyle; animate?: boolean }
+const {scene='confetti',animate=true,class:className,...rest}=Astro.props
+---
+<div {...rest} class={cn('rui-celebration-scene',className)} data-animate={animate} aria-hidden="true">
+  <style is:inline set:html={celebrationSceneCSS} />
+  <Fragment set:html={celebrationSceneSVG(scene)} />
+</div>

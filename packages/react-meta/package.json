@@ -1,7 +1,7 @@
 {
   "name": "@refraction-ui/react",
   "version": "0.25.0",
-  "description": "All Refraction UI React components in one package — headless, accessible, zero-dependency",
+  "description": "All Refraction UI React components in one package \u2014 headless, accessible, zero-dependency",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -187,7 +187,8 @@
     "@types/react": "19.0.0",
     "@types/react-dom": "19.0.0",
     "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react-dom": "19.0.0",
+    "@refraction-ui/react-celebration-scene": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
