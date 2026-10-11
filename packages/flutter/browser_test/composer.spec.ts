@@ -10,6 +10,7 @@ for (const width of [390, 768, 1280]) {
       const field = page.getByRole('textbox', { name: 'Message input' });
       await field.waitFor();
       await field.click();
+      await expect(field).toBeFocused();
       // Save the actual DOM node, not a locator which silently resolves a
       // replacement. A retained locator alone cannot catch a detached editor.
       const original = await field.elementHandle();
@@ -53,7 +54,13 @@ for (const width of [390, 768, 1280]) {
     await page.goto('/');
     const field = page.getByRole('textbox', { name: 'Message input' });
     await field.click();
+    await expect(field).toBeFocused();
     await page.keyboard.type('before word after');
+    await expect(field).toHaveValue('before word after');
+    await expect.poll(() => field.evaluate(node => {
+      const input = node as HTMLInputElement;
+      return [input.selectionStart, input.selectionEnd];
+    })).toEqual([17, 17]);
     for (let i = 0; i < 10; i++) await page.keyboard.press('ArrowLeft', { delay: 30 });
     for (let i = 0; i < 4; i++) await page.keyboard.press('Shift+ArrowRight', { delay: 30 });
     await expect.poll(() => field.evaluate(node => {
@@ -90,6 +97,7 @@ test('real browser keyboard paste reads OS clipboard image', async ({ page, cont
   await page.goto('/');
   const field = page.getByRole('textbox', { name: 'Message input' });
   await field.click();
+  await expect(field).toBeFocused();
   await page.keyboard.type('fixture draft');
   await page.evaluate(async () => {
     const canvas = document.createElement('canvas');
@@ -112,6 +120,7 @@ for (const undoModifier of ['ControlOrMeta', 'Control']) {
     await page.goto('/');
     const field = page.getByRole('textbox', { name: 'Message input' });
     await field.click();
+    await expect(field).toBeFocused();
     const draft = 'Hello 🔥 ❤️ 🇬🇧 👨‍👩‍👧‍👦 👍🏽 é';
     await page.keyboard.insertText(draft);
     await expect(field).toHaveValue(draft);
