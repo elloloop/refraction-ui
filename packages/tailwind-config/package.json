@@ -30,7 +30,7 @@
     "@tailwindcss/typography": "0.5.19"
   },
   "devDependencies": {
-    "tailwindcss": "3.4.0"
+    "tailwindcss": "4.3.3"
   },
   "publishConfig": {
     "access": "public"
