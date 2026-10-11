@@ -118,6 +118,17 @@ describe('typing', () => {
 })
 
 describe('debounce', () => {
+  it('cancels a pending search when the component unmounts', () => {
+    vi.useFakeTimers()
+    const onSearch = vi.fn()
+    render(React.createElement(SearchBar, { onSearch }))
+    typeText('pending')
+    act(() => root.render(null))
+    act(() => vi.advanceTimersByTime(1000))
+    expect(onSearch).not.toHaveBeenCalled()
+    expect(vi.getTimerCount()).toBe(0)
+  })
+
   it('does not call onSearch synchronously while typing', () => {
     vi.useFakeTimers()
     const onSearch = vi.fn()
