@@ -1,0 +1,270 @@
+{
+  "timestamp": "2026-10-11T16:37:09Z",
+  "call": "heuristic",
+  "sourceId": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+  "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:search-bar-unmount",
+          "name": "Search Bar Unmount",
+          "summary": "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.",
+            "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount"
+          ],
+          "testerNotes": [
+            "Verify behavior touching packages/react-search-bar/__tests__/search-bar.interaction.test.tsx, packages/react-search-bar/src/search-bar.tsx, .changeset/search-bar-cancel-unmounted-search.md."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:search-bar-unmount"
+          ],
+          "relatedComponents": [
+            "component:packages",
+            "component:changeset"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:search-bar-unmount",
+          "title": "Search Bar Unmount",
+          "summary": "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount",
+          "designNotes": [
+            "Changed files: packages/react-search-bar/__tests__/search-bar.interaction.test.tsx, packages/react-search-bar/src/search-bar.tsx, .changeset/search-bar-cancel-unmounted-search.md",
+            "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved."
+          ],
+          "relatedFeatures": [
+            "feature:search-bar-unmount"
+          ],
+          "relatedComponents": [
+            "component:packages",
+            "component:changeset"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:packages",
+          "name": "Packages",
+          "kind": "unknown",
+          "paths": [
+            "packages/react-search-bar/__tests__/search-bar.interaction.test.tsx",
+            "packages/react-search-bar/src/search-bar.tsx"
+          ],
+          "summary": "Owns changes under packages.",
+          "relatedFeatures": [
+            "feature:search-bar-unmount"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:search-bar-unmount"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:changeset",
+          "name": ".Changeset",
+          "kind": "unknown",
+          "paths": [
+            ".changeset/search-bar-cancel-unmounted-search.md"
+          ],
+          "summary": "Owns changes under .changeset.",
+          "relatedFeatures": [
+            "feature:search-bar-unmount"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:search-bar-unmount"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:search-bar-unmount",
+          "to": "component:packages",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:search-bar-unmount",
+          "to": "component:packages",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:search-bar-unmount",
+          "to": "component:changeset",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:search-bar-unmount",
+          "to": "component:changeset",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:search-bar-unmount",
+          "to": "technical:search-bar-unmount",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "operations:packages-react-search-bar",
+          "parent": "operations",
+          "title": "Packages React Search Bar",
+          "summary": "Changed in: fix(search-bar): cancel debounce on unmount",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:packages-react-search-bar",
+              "kind": "http"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            }
+          ],
+          "why": "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.",
+          "what": "fix(search-bar): cancel debounce on unmount",
+          "how": "TypeScript. Changed: packages/react-search-bar/__tests__/search-bar.interaction.test.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+              "kind": "diff",
+              "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+              "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+            }
+          ],
+          "updated": "2026-10-11T16:37:09Z"
+        },
+        {
+          "id": "api:packages-react-search-bar",
+          "parent": "apis",
+          "title": "Packages React Search Bar",
+          "summary": "Changed in: fix(search-bar): cancel debounce on unmount",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "grpc"
+            }
+          ],
+          "why": "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.",
+          "what": "fix(search-bar): cancel debounce on unmount",
+          "how": "TypeScript. Changed: packages/react-search-bar/src/search-bar.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+              "kind": "diff",
+              "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+              "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+            }
+          ],
+          "updated": "2026-10-11T16:37:09Z"
+        },
+        {
+          "id": "api:.changeset",
+          "parent": "apis",
+          "title": "Changeset",
+          "summary": "Changed in: fix(search-bar): cancel debounce on unmount",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "why": "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.",
+          "what": "fix(search-bar): cancel debounce on unmount",
+          "how": "Changed: .changeset/search-bar-cancel-unmounted-search.md",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+              "kind": "diff",
+              "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+              "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+            }
+          ],
+          "updated": "2026-10-11T16:37:09Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "332fa58635476d65a8b6519371edd1c0a224342b",
+        "label": "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount",
+        "date": "2026-10-11",
+        "kind": "fix",
+        "touches": [
+          "operations:packages-react-search-bar",
+          "api:packages-react-search-bar",
+          "api:.changeset"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "3ba866f457d816a86a07a434ef51881b80225fd5747e73976ab577ddc5085864",
+    "nodeCount": 2,
+    "relationCount": 8,
+    "featureCount": 2,
+    "componentCount": 2,
+    "technicalsCount": 2
+  },
+  "graphAfter": {
+    "sha256": "d79f8b1d83211f47b9c36965dd3843cb85af824774f435595d369e92576e5000",
+    "nodeCount": 5,
+    "relationCount": 13,
+    "featureCount": 3,
+    "componentCount": 3,
+    "technicalsCount": 3
+  }
+}
