@@ -152,7 +152,8 @@
     "@refraction-ui/astro-waveform": "workspace:*",
     "@refraction-ui/astro-wizard": "workspace:*",
     "@refraction-ui/shared": "workspace:*",
-    "@types/node": "22.0.0"
+    "@types/node": "22.0.0",
+    "@refraction-ui/astro-celebration-scene": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

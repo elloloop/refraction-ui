@@ -203,6 +203,7 @@ const componentGroups = [
     title: 'Assessment',
     items: [
       { name: 'Rating Scale', href: '/components/rating-scale' },
+      { name: 'Celebration Scene', href: '/components/celebration-scene' },
       { name: 'Wizard', href: '/components/wizard' },
       { name: 'Radial Gauge', href: '/components/radial-gauge' },
       { name: 'Timeline', href: '/components/timeline' },

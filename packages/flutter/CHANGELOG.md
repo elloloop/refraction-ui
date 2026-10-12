@@ -1,3 +1,9 @@
+## 0.52.0-dev.1
+
+- Add `RefractionCelebrationScene`: twenty decorative scenes for acknowledgements
+  and celebrations, with semantic theme colors, finite animation, a still option
+  and automatic reduced-motion support. Message text remains the accessible content.
+
 ## 0.51.0-dev.1
 
 - Allow compatible super_clipboard versions from 0.10.0-dev.2, as required by pub.dev library validation. Publish as a prerelease while the clipboard dependency is itself a prerelease. Consumers retain reproducible exact Refraction pins and lockfiles. Version 0.51.0 was not published because validation rejected its exact dependency range.
