@@ -1,6 +1,6 @@
 {
   "name": "@refraction-ui/react",
-  "version": "0.25.0",
+  "version": "0.26.0",
   "description": "All Refraction UI React components in one package \u2014 headless, accessible, zero-dependency",
   "type": "module",
   "main": "./dist/index.js",

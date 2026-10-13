@@ -1,5 +1,11 @@
 # @refraction-ui/astro
 
+## 0.22.1
+
+### Patch Changes
+
+- 3f2927e: Activate focus containment and restoration for React modal dialogs. Skip hidden, disabled and negative-tabindex controls in the shared focus utility, focus empty panels, and keep nested Escape handling and consumer cancellation scoped to their dialog.
+
 ## 0.22.0
 
 ### Minor Changes
