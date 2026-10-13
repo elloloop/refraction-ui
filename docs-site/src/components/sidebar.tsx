@@ -159,6 +159,7 @@ const componentGroups = [
       { name: 'Code Block', href: '/components/code-block' },
       { name: 'Diff Viewer', href: '/components/diff-viewer' },
       { name: 'File Tree', href: '/components/file-tree' },
+      { name: 'Hierarchy Canvas', href: '/components/hierarchy-canvas' },
       { name: 'Callout', href: '/components/callout' },
       { name: 'Carousel', href: '/components/carousel' },
       { name: 'Link Card', href: '/components/link-card' },

@@ -1,7 +1,7 @@
 {
   "name": "@refraction-ui/react",
   "version": "0.25.0",
-  "description": "All Refraction UI React components in one package — headless, accessible, zero-dependency",
+  "description": "All Refraction UI React components in one package \u2014 headless, accessible, zero-dependency",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -104,6 +104,7 @@
     "@refraction-ui/react-form": "workspace:*",
     "@refraction-ui/react-funnel-chart": "workspace:*",
     "@refraction-ui/react-graph-view": "workspace:*",
+    "@refraction-ui/react-hierarchy-canvas": "workspace:*",
     "@refraction-ui/react-icon-system": "workspace:*",
     "@refraction-ui/react-infinite-canvas": "workspace:*",
     "@refraction-ui/react-inline-editor": "workspace:*",
