@@ -52,6 +52,8 @@ import 'package:example/use_cases/floating_reactions_use_cases.dart'
     as _example_use_cases_floating_reactions_use_cases;
 import 'package:example/use_cases/flow_editor_use_cases.dart'
     as _example_use_cases_flow_editor_use_cases;
+import 'package:example/use_cases/focus_ring_use_cases.dart'
+    as _example_use_cases_focus_ring_use_cases;
 import 'package:example/use_cases/footer_use_cases.dart'
     as _example_use_cases_footer_use_cases;
 import 'package:example/use_cases/graph_view_use_cases.dart'
@@ -559,6 +561,16 @@ final directories = <_widgetbook.WidgetbookNode>[
             name: 'Default',
             builder: _example_use_cases_flow_editor_use_cases
                 .flowEditorDefaultUseCase,
+          ),
+        ],
+      ),
+      _widgetbook.WidgetbookComponent(
+        name: 'RefractionFocusRing',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Custom keyboard action',
+            builder:
+                _example_use_cases_focus_ring_use_cases.customKeyboardFocus,
           ),
         ],
       ),
