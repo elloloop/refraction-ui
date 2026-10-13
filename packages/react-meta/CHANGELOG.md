@@ -1,5 +1,16 @@
 # @refraction-ui/react
 
+## 0.26.0
+
+### Minor Changes
+
+- 0332e51: Add HierarchyCanvas for scrollable top-down and left-to-right hierarchies with real DOM card slots, configurable geometry, decorative connectors and focus-preserving viewport updates. Export the deterministic hierarchyLayout core through the React meta package.
+
+### Patch Changes
+
+- 3f2927e: Activate focus containment and restoration for React modal dialogs. Skip hidden, disabled and negative-tabindex controls in the shared focus utility, focus empty panels, and keep nested Escape handling and consumer cancellation scoped to their dialog.
+- f595b07: Cancel pending SearchBar debounced searches on unmount so callbacks and loading updates do not run after the component is removed.
+
 ## 0.25.0
 
 ### Minor Changes
