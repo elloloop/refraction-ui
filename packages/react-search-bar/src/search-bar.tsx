@@ -55,6 +55,13 @@ export const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
 
   const debounceRef = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
+  React.useEffect(() => () => {
+    if (debounceRef.current !== undefined) {
+      clearTimeout(debounceRef.current)
+      debounceRef.current = undefined
+    }
+  }, [])
+
   const handleValueChange = React.useCallback(
     (val: string) => {
       if (!isControlled) {
