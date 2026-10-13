@@ -1,0 +1,74 @@
+[
+  {
+    "width": 375,
+    "colorScheme": "light",
+    "outlineNodes": 6,
+    "diagramNodes": 6,
+    "bothOrientations": true,
+    "keyboardExpansionAndFocus": true,
+    "rootVisible": true,
+    "zoom": true,
+    "pageOverflow": false,
+    "browserErrors": []
+  },
+  {
+    "width": 375,
+    "colorScheme": "dark",
+    "outlineNodes": 6,
+    "diagramNodes": 6,
+    "bothOrientations": true,
+    "keyboardExpansionAndFocus": true,
+    "rootVisible": true,
+    "zoom": true,
+    "pageOverflow": false,
+    "browserErrors": []
+  },
+  {
+    "width": 768,
+    "colorScheme": "light",
+    "outlineNodes": 6,
+    "diagramNodes": 6,
+    "bothOrientations": true,
+    "keyboardExpansionAndFocus": true,
+    "rootVisible": true,
+    "zoom": true,
+    "pageOverflow": false,
+    "browserErrors": []
+  },
+  {
+    "width": 768,
+    "colorScheme": "dark",
+    "outlineNodes": 6,
+    "diagramNodes": 6,
+    "bothOrientations": true,
+    "keyboardExpansionAndFocus": true,
+    "rootVisible": true,
+    "zoom": true,
+    "pageOverflow": false,
+    "browserErrors": []
+  },
+  {
+    "width": 1440,
+    "colorScheme": "light",
+    "outlineNodes": 6,
+    "diagramNodes": 6,
+    "bothOrientations": true,
+    "keyboardExpansionAndFocus": true,
+    "rootVisible": true,
+    "zoom": true,
+    "pageOverflow": false,
+    "browserErrors": []
+  },
+  {
+    "width": 1440,
+    "colorScheme": "dark",
+    "outlineNodes": 6,
+    "diagramNodes": 6,
+    "bothOrientations": true,
+    "keyboardExpansionAndFocus": true,
+    "rootVisible": true,
+    "zoom": true,
+    "pageOverflow": false,
+    "browserErrors": []
+  }
+]

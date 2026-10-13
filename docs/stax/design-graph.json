@@ -2,25 +2,25 @@
   "schemaVersion": 2,
   "repo": "elloloop/refraction-ui",
   "defaultBranch": "main",
-  "mainCommit": "cc2765c250178ab58db0babd99f1dd7c8c9a211b",
-  "lastUpdated": "2026-10-11T16:43:48Z",
+  "mainCommit": "f595b0757d1f889b9bb69f3a3bc7ce9e31bae8ee",
+  "lastUpdated": "2026-10-13T02:33:31Z",
   "state": {
-    "lastProcessedMainCommit": "cc2765c250178ab58db0babd99f1dd7c8c9a211b",
-    "lastProcessedSourceId": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2"
+    "lastProcessedMainCommit": "f595b0757d1f889b9bb69f3a3bc7ce9e31bae8ee",
+    "lastProcessedSourceId": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1"
   },
   "nodes": [
     {
       "id": "api:.changeset",
       "parent": "apis",
       "title": "Changeset",
-      "summary": "Changed in: fix(search-bar): cancel debounce on unmount",
+      "summary": "Changed in: fix(search-bar): cancel debounce on unmount\n\nChanged in: add a generic keyboard-friendly hierarchy canvas",
       "kicker": "Service",
       "diagram": {
         "tier": "api"
       },
-      "why": "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.",
-      "what": "fix(search-bar): cancel debounce on unmount",
-      "how": "Changed: .changeset/search-bar-cancel-unmounted-search.md",
+      "why": "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.\n\nResume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.",
+      "what": "add a generic keyboard-friendly hierarchy canvas",
+      "how": "Changed: .changeset/hierarchy-canvas.md",
       "meta": {
         "status": "live"
       },
@@ -33,9 +33,29 @@
           "kind": "diff",
           "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
           "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        },
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
         }
       ],
-      "updated": "2026-10-11T16:37:09Z"
+      "updated": "2026-10-13T02:33:31Z",
+      "edges": [
+        {
+          "to": "api:docs",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-hierarchy-canvas",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-hierarchy-canvas",
+          "kind": "grpc"
+        }
+      ]
     },
     {
       "id": "api:.review-evidence",
@@ -69,7 +89,7 @@
       "id": "api:docs",
       "parent": "apis",
       "title": "Docs",
-      "summary": "Changed in: fix(search-bar): cancel debounce on unmount",
+      "summary": "Changed in: fix(search-bar): cancel debounce on unmount\n\nChanged in: add a generic keyboard-friendly hierarchy canvas",
       "kicker": "Service",
       "diagram": {
         "tier": "api"
@@ -78,11 +98,19 @@
         {
           "to": "api:.review-evidence",
           "kind": "grpc"
+        },
+        {
+          "to": "api:packages-hierarchy-canvas",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-hierarchy-canvas",
+          "kind": "grpc"
         }
       ],
-      "why": "Cancel delayed callbacks on removal; browser evidence compares real callbacks at 375/768/1440 in light/dark. Focused 57 tests and full 1108-task graph pass.",
-      "what": "fix(search-bar): cancel debounce on unmount",
-      "how": "Changed: docs/stax/design-graph.json, docs/stax/audit/332fa586-diff_592ce96a-6675-48fa-a3d1-7d5691e9468-heuristic-unknown.json",
+      "why": "Cancel delayed callbacks on removal; browser evidence compares real callbacks at 375/768/1440 in light/dark. Focused 57 tests and full 1108-task graph pass.\n\nResume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.",
+      "what": "add a generic keyboard-friendly hierarchy canvas",
+      "how": "Changed: docs/pr-evidence/",
       "meta": {
         "status": "live"
       },
@@ -95,9 +123,15 @@
           "kind": "diff",
           "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
           "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        },
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
         }
       ],
-      "updated": "2026-10-11T16:43:48Z"
+      "updated": "2026-10-13T02:33:31Z"
     },
     {
       "id": "api:packages-flutter",
@@ -225,6 +259,276 @@
         }
       ],
       "updated": "2026-10-11T16:37:09Z"
+    },
+    {
+      "id": "api:docs-site",
+      "parent": "apis",
+      "title": "Docs Site",
+      "summary": "Changed in: add a generic keyboard-friendly hierarchy canvas",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "edges": [
+        {
+          "to": "api:packages-react-meta",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:.changeset",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:docs",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-hierarchy-canvas",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-hierarchy-canvas",
+          "kind": "grpc"
+        }
+      ],
+      "why": "Resume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.",
+      "what": "add a generic keyboard-friendly hierarchy canvas",
+      "how": "TypeScript. Changed: docs-site/package.json, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, docs-site/src/app/components/hierarchy-canvas/",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "id": "api:packages-hierarchy-canvas",
+      "parent": "apis",
+      "title": "Packages Hierarchy Canvas",
+      "summary": "Changed in: add a generic keyboard-friendly hierarchy canvas",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "edges": [
+        {
+          "to": "api:packages-react-hierarchy-canvas",
+          "kind": "grpc"
+        }
+      ],
+      "why": "Resume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.",
+      "what": "add a generic keyboard-friendly hierarchy canvas",
+      "how": "Changed: packages/hierarchy-canvas/",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "id": "api:packages-react-hierarchy-canvas",
+      "parent": "apis",
+      "title": "Packages React Hierarchy Canvas",
+      "summary": "Changed in: add a generic keyboard-friendly hierarchy canvas",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "why": "Resume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.",
+      "what": "add a generic keyboard-friendly hierarchy canvas",
+      "how": "Changed: packages/react-hierarchy-canvas/",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "id": "api:packages-react-meta",
+      "parent": "apis",
+      "title": "Packages React Meta",
+      "summary": "Changed in: add a generic keyboard-friendly hierarchy canvas",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "edges": [
+        {
+          "to": "api:.changeset",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:docs",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-hierarchy-canvas",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-hierarchy-canvas",
+          "kind": "grpc"
+        }
+      ],
+      "why": "Resume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.",
+      "what": "add a generic keyboard-friendly hierarchy canvas",
+      "how": "TypeScript. Changed: packages/react-meta/package.json, packages/react-meta/src/index.ts",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "id": "operations:e2e",
+      "parent": "operations",
+      "title": "E2e",
+      "summary": "Changed in: add a generic keyboard-friendly hierarchy canvas",
+      "kicker": "Operations",
+      "diagram": {
+        "tier": "operations"
+      },
+      "edges": [
+        {
+          "to": "api:docs-site",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-react-meta",
+          "kind": "http"
+        },
+        {
+          "to": "operations:workspace-config",
+          "kind": "calls"
+        },
+        {
+          "to": "api:.changeset",
+          "kind": "http"
+        },
+        {
+          "to": "api:docs",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-hierarchy-canvas",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-react-hierarchy-canvas",
+          "kind": "http"
+        }
+      ],
+      "why": "Resume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.",
+      "what": "add a generic keyboard-friendly hierarchy canvas",
+      "how": "TypeScript. Changed: e2e/hierarchy-canvas.spec.ts",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "id": "operations:workspace-config",
+      "parent": "operations",
+      "title": "Workspace Config",
+      "summary": "Changed in: add a generic keyboard-friendly hierarchy canvas",
+      "kicker": "Operations",
+      "diagram": {
+        "tier": "operations"
+      },
+      "edges": [
+        {
+          "to": "api:docs-site",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-react-meta",
+          "kind": "http"
+        },
+        {
+          "to": "api:.changeset",
+          "kind": "http"
+        },
+        {
+          "to": "api:docs",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-hierarchy-canvas",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-react-hierarchy-canvas",
+          "kind": "http"
+        }
+      ],
+      "why": "Resume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.",
+      "what": "add a generic keyboard-friendly hierarchy canvas",
+      "how": "Changed: pnpm-lock.yaml",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
     }
   ],
   "commits": [
@@ -266,6 +570,22 @@
       "touches": [
         "api:docs",
         "api:.review-evidence"
+      ]
+    },
+    {
+      "sha": "664ec460ee704601ca87b2dbca251f708b893171",
+      "label": "feat(hierarchy-canvas): add a generic keyboard-friendly hierarchy canvas",
+      "date": "2026-10-13",
+      "kind": "feature",
+      "touches": [
+        "api:docs-site",
+        "api:packages-react-meta",
+        "operations:workspace-config",
+        "api:.changeset",
+        "api:docs",
+        "operations:e2e",
+        "api:packages-hierarchy-canvas",
+        "api:packages-react-hierarchy-canvas"
       ]
     }
   ],
@@ -375,6 +695,44 @@
         }
       ],
       "updated": "2026-10-11T16:43:48Z"
+    },
+    {
+      "id": "feature:hierarchy-canvas",
+      "name": "Hierarchy Canvas",
+      "summary": "feat(hierarchy-canvas): add a generic keyboard-friendly hierarchy canvas",
+      "audience": [
+        "end-user",
+        "product-manager",
+        "tester"
+      ],
+      "userDocs": [
+        "Resume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.",
+        "feat(hierarchy-canvas): add a generic keyboard-friendly hierarchy canvas"
+      ],
+      "testerNotes": [
+        "Verify behavior touching docs-site/package.json, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, packages/react-meta/package.json, packages/react-meta/src/index.ts."
+      ],
+      "relatedTechnicalDetails": [
+        "technical:hierarchy-canvas"
+      ],
+      "relatedComponents": [
+        "component:docs-site-packagejson",
+        "component:docs-site-src",
+        "component:packages",
+        "component:pnpm-lockyaml",
+        "component:changeset",
+        "component:docs",
+        "component:e2e"
+      ],
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
     }
   ],
   "technicalDetails": [
@@ -460,6 +818,36 @@
         }
       ],
       "updated": "2026-10-11T16:43:48Z"
+    },
+    {
+      "id": "technical:hierarchy-canvas",
+      "title": "Hierarchy Canvas",
+      "summary": "feat(hierarchy-canvas): add a generic keyboard-friendly hierarchy canvas",
+      "designNotes": [
+        "Changed files: docs-site/package.json, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, packages/react-meta/package.json, packages/react-meta/src/index.ts, pnpm-lock.yaml, .changeset/hierarchy-canvas.md, docs-site/src/app/components/hierarchy-canvas/",
+        "Resume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync."
+      ],
+      "relatedFeatures": [
+        "feature:hierarchy-canvas"
+      ],
+      "relatedComponents": [
+        "component:docs-site-packagejson",
+        "component:docs-site-src",
+        "component:packages",
+        "component:pnpm-lockyaml",
+        "component:changeset",
+        "component:docs",
+        "component:e2e"
+      ],
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
     }
   ],
   "components": [
@@ -468,14 +856,17 @@
       "name": ".Changeset",
       "kind": "unknown",
       "paths": [
-        ".changeset/search-bar-cancel-unmounted-search.md"
+        ".changeset/search-bar-cancel-unmounted-search.md",
+        ".changeset/hierarchy-canvas.md"
       ],
       "summary": "Owns changes under .changeset.",
       "relatedFeatures": [
-        "feature:search-bar-unmount"
+        "feature:search-bar-unmount",
+        "feature:hierarchy-canvas"
       ],
       "relatedTechnicalDetails": [
-        "technical:search-bar-unmount"
+        "technical:search-bar-unmount",
+        "technical:hierarchy-canvas"
       ],
       "sources": [
         {
@@ -483,9 +874,15 @@
           "kind": "diff",
           "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
           "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        },
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
         }
       ],
-      "updated": "2026-10-11T16:37:09Z"
+      "updated": "2026-10-13T02:33:31Z"
     },
     {
       "id": "component:docs",
@@ -493,14 +890,17 @@
       "kind": "docs",
       "paths": [
         "docs/stax/design-graph.json",
-        "docs/stax/audit/332fa586-diff_592ce96a-6675-48fa-a3d1-7d5691e9468-heuristic-unknown.json"
+        "docs/stax/audit/332fa586-diff_592ce96a-6675-48fa-a3d1-7d5691e9468-heuristic-unknown.json",
+        "docs/pr-evidence/"
       ],
       "summary": "Owns changes under docs.",
       "relatedFeatures": [
-        "feature:search-bar-unmount"
+        "feature:search-bar-unmount",
+        "feature:hierarchy-canvas"
       ],
       "relatedTechnicalDetails": [
-        "technical:search-bar-unmount"
+        "technical:search-bar-unmount",
+        "technical:hierarchy-canvas"
       ],
       "sources": [
         {
@@ -508,9 +908,15 @@
           "kind": "diff",
           "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
           "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        },
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
         }
       ],
-      "updated": "2026-10-11T16:43:48Z"
+      "updated": "2026-10-13T02:33:31Z"
     },
     {
       "id": "component:github",
@@ -549,18 +955,24 @@
         "packages/flutter/example/pubspec.yaml",
         "packages/flutter/pubspec.yaml",
         "packages/react-search-bar/__tests__/search-bar.interaction.test.tsx",
-        "packages/react-search-bar/src/search-bar.tsx"
+        "packages/react-search-bar/src/search-bar.tsx",
+        "packages/react-meta/package.json",
+        "packages/react-meta/src/index.ts",
+        "packages/hierarchy-canvas/",
+        "packages/react-hierarchy-canvas/"
       ],
       "summary": "Owns changes under packages.",
       "relatedFeatures": [
         "feature:auto-save-before-switching-context",
         "feature:calling-clipboard-compatibility",
-        "feature:search-bar-unmount"
+        "feature:search-bar-unmount",
+        "feature:hierarchy-canvas"
       ],
       "relatedTechnicalDetails": [
         "technical:auto-save-before-switching-context",
         "technical:calling-clipboard-compatibility",
-        "technical:search-bar-unmount"
+        "technical:search-bar-unmount",
+        "technical:hierarchy-canvas"
       ],
       "sources": [
         {
@@ -579,9 +991,15 @@
           "kind": "diff",
           "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
           "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        },
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
         }
       ],
-      "updated": "2026-10-11T16:37:09Z"
+      "updated": "2026-10-13T02:33:31Z"
     },
     {
       "id": "component:review-evidence",
@@ -606,6 +1024,104 @@
         }
       ],
       "updated": "2026-10-11T16:43:48Z"
+    },
+    {
+      "id": "component:docs-site-packagejson",
+      "name": "Docs Site/Package.Json",
+      "kind": "docs",
+      "paths": [
+        "docs-site/package.json"
+      ],
+      "summary": "Owns changes under docs-site/package.json.",
+      "relatedFeatures": [
+        "feature:hierarchy-canvas"
+      ],
+      "relatedTechnicalDetails": [
+        "technical:hierarchy-canvas"
+      ],
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "id": "component:docs-site-src",
+      "name": "Docs Site/Src",
+      "kind": "docs",
+      "paths": [
+        "docs-site/src/app/components/page.tsx",
+        "docs-site/src/components/sidebar.tsx",
+        "docs-site/src/app/components/hierarchy-canvas/"
+      ],
+      "summary": "Owns changes under docs-site/src.",
+      "relatedFeatures": [
+        "feature:hierarchy-canvas"
+      ],
+      "relatedTechnicalDetails": [
+        "technical:hierarchy-canvas"
+      ],
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "id": "component:e2e",
+      "name": "E2e",
+      "kind": "unknown",
+      "paths": [
+        "e2e/hierarchy-canvas.spec.ts"
+      ],
+      "summary": "Owns changes under e2e.",
+      "relatedFeatures": [
+        "feature:hierarchy-canvas"
+      ],
+      "relatedTechnicalDetails": [
+        "technical:hierarchy-canvas"
+      ],
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "id": "component:pnpm-lockyaml",
+      "name": "Pnpm Lock.Yaml",
+      "kind": "unknown",
+      "paths": [
+        "pnpm-lock.yaml"
+      ],
+      "summary": "Owns changes under pnpm-lock.yaml.",
+      "relatedFeatures": [
+        "feature:hierarchy-canvas"
+      ],
+      "relatedTechnicalDetails": [
+        "technical:hierarchy-canvas"
+      ],
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
     }
   ],
   "relations": [
@@ -866,6 +1382,231 @@
         }
       ],
       "updated": "2026-10-11T16:43:48Z"
+    },
+    {
+      "from": "feature:hierarchy-canvas",
+      "to": "technical:hierarchy-canvas",
+      "type": "explained_by",
+      "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "feature:hierarchy-canvas",
+      "to": "component:changeset",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "feature:hierarchy-canvas",
+      "to": "component:docs",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "feature:hierarchy-canvas",
+      "to": "component:docs-site-packagejson",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "feature:hierarchy-canvas",
+      "to": "component:docs-site-src",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "feature:hierarchy-canvas",
+      "to": "component:e2e",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "feature:hierarchy-canvas",
+      "to": "component:packages",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "feature:hierarchy-canvas",
+      "to": "component:pnpm-lockyaml",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "technical:hierarchy-canvas",
+      "to": "component:changeset",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "technical:hierarchy-canvas",
+      "to": "component:docs",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "technical:hierarchy-canvas",
+      "to": "component:docs-site-packagejson",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "technical:hierarchy-canvas",
+      "to": "component:docs-site-src",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "technical:hierarchy-canvas",
+      "to": "component:e2e",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "technical:hierarchy-canvas",
+      "to": "component:packages",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "technical:hierarchy-canvas",
+      "to": "component:pnpm-lockyaml",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+          "kind": "diff",
+          "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+          "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        }
+      ],
+      "updated": "2026-10-13T02:33:31Z"
     }
   ],
   "sources": [
@@ -959,6 +1700,39 @@
       "diffHash": "09646ff69ebbfc165e682377360e87d59e25a54d77b5d76320286202c3663725",
       "created": "2026-10-11T16:37:09Z",
       "processedAt": "2026-10-11T16:43:48Z"
+    },
+    {
+      "id": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1",
+      "kind": "diff",
+      "feature": "hierarchy-canvas",
+      "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177",
+      "diffPosition": 1,
+      "version": 1,
+      "commit": "664ec460ee704601ca87b2dbca251f708b893171",
+      "parent": "cc2765c250178ab58db0babd99f1dd7c8c9a211b",
+      "title": "feat(hierarchy-canvas): add a generic keyboard-friendly hierarchy canvas",
+      "description": "Resume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.",
+      "type": "feature",
+      "files": [
+        "docs-site/package.json",
+        "docs-site/src/app/components/page.tsx",
+        "docs-site/src/components/sidebar.tsx",
+        "packages/react-meta/package.json",
+        "packages/react-meta/src/index.ts",
+        "pnpm-lock.yaml",
+        ".changeset/hierarchy-canvas.md",
+        "docs-site/src/app/components/hierarchy-canvas/",
+        "docs/pr-evidence/",
+        "e2e/hierarchy-canvas.spec.ts",
+        "packages/hierarchy-canvas/",
+        "packages/react-hierarchy-canvas/"
+      ],
+      "additions": 48,
+      "deletions": 15,
+      "mainCommit": "cc2765c250178ab58db0babd99f1dd7c8c9a211b",
+      "diffHash": "817841c4ffbe0d26024dd6b3e0cfee0475fd100c038157d9647038963bb9e55d",
+      "created": "2026-10-13T02:33:31Z",
+      "processedAt": "2026-10-13T02:33:31Z"
     }
   ]
 }
