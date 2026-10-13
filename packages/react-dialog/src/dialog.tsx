@@ -4,7 +4,7 @@ import {
   overlayStyles,
   dialogContentVariants,
 } from '@refraction-ui/dialog'
-import { cn, createKeyboardHandler, devWarn } from '@refraction-ui/shared'
+import { cn, createFocusTrap, devWarn } from '@refraction-ui/shared'
 
 // ---------------------------------------------------------------------------
 // Context
@@ -214,19 +214,35 @@ function containsElement(node: React.ReactNode, type: React.ElementType): boolea
 }
 
 export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps>(
-  function DialogContent({ className, children, onKeyDown, ...props }, ref) {
+  function DialogContent({ className, children, onKeyDown, onFocusCapture, ...props }, ref) {
     const { open, onOpenChange, modal, contentId, titleId, descriptionId, hasTitle, hasDescription } =
       useDialogContext()
+    const contentRef = React.useRef<HTMLDivElement>(null)
+    const ownedFocus = React.useRef(new WeakSet<EventTarget>())
+    const setContentRef = React.useCallback((node: HTMLDivElement | null) => {
+      contentRef.current = node
+      if (typeof ref === 'function') return ref(node)
+      if (ref) ref.current = node
+    }, [ref])
+
+    React.useEffect(() => {
+      if (!open || !modal || !contentRef.current) return
+      ownedFocus.current = new WeakSet()
+      const trap = createFocusTrap({
+        container: contentRef.current,
+        containsFocus: target => target !== null && ownedFocus.current.has(target),
+      })
+      trap.activate()
+      return () => trap.deactivate()
+    }, [open, modal])
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-      const handler = createKeyboardHandler({
-        Escape: (ev) => {
-          ev.preventDefault()
-          onOpenChange(false)
-        },
-      })
-      handler(e.nativeEvent)
       onKeyDown?.(e)
+      if (e.key !== 'Escape' || e.defaultPrevented || e.nativeEvent.defaultPrevented) return
+      // A nested portal must close only its own dialog.
+      e.preventDefault()
+      e.stopPropagation()
+      onOpenChange(false)
     }
 
     if (!open) return null
@@ -234,7 +250,7 @@ export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps
     const content = React.createElement(
       'div',
       {
-        ref,
+        ref: setContentRef,
         role: 'dialog',
         'aria-modal': modal,
         // Reference only parts that exist: an id pointing at nothing leaves the
@@ -245,6 +261,11 @@ export const DialogContent = React.forwardRef<HTMLDivElement, DialogContentProps
         id: contentId,
         className: cn(dialogContentVariants(), className),
         onKeyDown: handleKeyDown,
+        onFocusCapture: (event: React.FocusEvent<HTMLDivElement>) => {
+          // React capture follows the component tree, including child portals.
+          ownedFocus.current.add(event.target)
+          onFocusCapture?.(event)
+        },
         tabIndex: -1,
         ...props,
       },

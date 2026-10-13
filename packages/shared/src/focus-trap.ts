@@ -10,7 +10,16 @@ export const FOCUSABLE_SELECTOR =
 
 /** Get all focusable elements within a container */
 export function getFocusableElements(container: Element): Element[] {
-  return Array.from(container.querySelectorAll(FOCUSABLE_SELECTOR))
+  return Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(element => {
+    if (element.tabIndex < 0 || element.matches(':disabled, input[type="hidden"]')) return false
+    if (element.closest('[hidden], [inert]')) return false
+    const view = element.ownerDocument.defaultView
+    for (let parent: HTMLElement | null = element; parent; parent = parent.parentElement) {
+      const style = view?.getComputedStyle(parent)
+      if (style?.display === 'none' || style?.visibility === 'hidden') return false
+    }
+    return true
+  })
 }
 
 /** Configuration for creating a focus trap */
@@ -19,6 +28,8 @@ export interface FocusTrapConfig {
   container: Element
   /** Called to get the initial focus target */
   initialFocus?: () => Element | null
+  /** Framework-owned portals that are logically inside this scope. */
+  containsFocus?: (target: EventTarget | null) => boolean
   /** Called when Escape is pressed */
   onEscape?: () => void
   /** Whether to return focus to trigger on deactivate */
@@ -32,10 +43,25 @@ export interface FocusTrap {
   isActive(): boolean
 }
 
+// Nested portals have separate DOM parents; only the innermost trap owns focus.
+const activeContainers = new WeakMap<Document, Element[]>()
+
 /** Create a focus trap that keeps Tab/Shift+Tab within a container */
 export function createFocusTrap(config: FocusTrapConfig): FocusTrap {
   let active = false
   let previouslyFocused: Element | null = null
+  const ownerDocument = config.container.ownerDocument
+
+  function focusInside(): void {
+    const target = config.initialFocus?.() ?? getFocusableElements(config.container)[0] ?? config.container
+    if ('focus' in target) (target as HTMLElement).focus()
+  }
+
+  function handleFocusIn(event: FocusEvent): void {
+    const containers = activeContainers.get(ownerDocument)
+    if (containers?.at(-1) !== config.container) return
+    if (!config.container.contains(event.target as Node) && !config.containsFocus?.(event.target)) focusInside()
+  }
 
   function handleKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Escape' && config.onEscape) {
@@ -47,20 +73,24 @@ export function createFocusTrap(config: FocusTrapConfig): FocusTrap {
     if (event.key !== 'Tab') return
 
     const focusable = getFocusableElements(config.container)
-    if (focusable.length === 0) return
+    if (focusable.length === 0) {
+      event.preventDefault()
+      if ('focus' in config.container) (config.container as HTMLElement).focus()
+      return
+    }
 
     const first = focusable[0] as HTMLElement
     const last = focusable[focusable.length - 1] as HTMLElement
 
     if (event.shiftKey) {
       // Shift+Tab: if on first element, wrap to last
-      if (document.activeElement === first) {
+      if (ownerDocument.activeElement === first || ownerDocument.activeElement === config.container) {
         event.preventDefault()
         last.focus()
       }
     } else {
       // Tab: if on last element, wrap to first
-      if (document.activeElement === last) {
+      if (ownerDocument.activeElement === last) {
         event.preventDefault()
         first.focus()
       }
@@ -73,22 +103,14 @@ export function createFocusTrap(config: FocusTrapConfig): FocusTrap {
       active = true
 
       // Remember the currently focused element so we can restore it later
-      if (typeof document !== 'undefined') {
-        previouslyFocused = document.activeElement
+      if (ownerDocument) {
+        previouslyFocused = ownerDocument.activeElement
+        const containers = activeContainers.get(ownerDocument) ?? []
+        activeContainers.set(ownerDocument, [...containers, config.container])
+        ownerDocument.addEventListener('focusin', handleFocusIn)
       }
 
-      // Set initial focus
-      if (config.initialFocus) {
-        const target = config.initialFocus()
-        if (target && 'focus' in target) {
-          (target as HTMLElement).focus()
-        }
-      } else {
-        const focusable = getFocusableElements(config.container)
-        if (focusable.length > 0) {
-          (focusable[0] as HTMLElement).focus()
-        }
-      }
+      focusInside()
 
       // Attach keydown listener to the container
       config.container.addEventListener(
@@ -106,11 +128,18 @@ export function createFocusTrap(config: FocusTrapConfig): FocusTrap {
         handleKeyDown as EventListener,
       )
 
+      if (ownerDocument) {
+        ownerDocument.removeEventListener('focusin', handleFocusIn)
+        const containers = activeContainers.get(ownerDocument) ?? []
+        activeContainers.set(ownerDocument, containers.filter(container => container !== config.container))
+      }
+
       // Restore focus to the previously focused element
       if (
         config.returnFocusOnDeactivate !== false &&
         previouslyFocused &&
-        'focus' in previouslyFocused
+        'focus' in previouslyFocused &&
+        previouslyFocused.isConnected
       ) {
         (previouslyFocused as HTMLElement).focus()
       }

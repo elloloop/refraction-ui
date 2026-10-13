@@ -104,3 +104,19 @@ export const ChildTrigger = {
     </Dialog>
   ),
 }
+
+/** Use Tab/Shift+Tab, then Escape: focus returns to the opening button. */
+export const KeyboardFocus: Story = {
+  render: () => (
+    <Dialog>
+      <DialogTrigger>Open keyboard example</DialogTrigger>
+      <DialogOverlay />
+      <DialogContent>
+        <DialogTitle>Keyboard focus</DialogTitle>
+        <button type="button" hidden>Hidden control</button>
+        <Input aria-label="Display name" placeholder="Display name" />
+        <DialogClose>Done</DialogClose>
+      </DialogContent>
+    </Dialog>
+  ),
+}
