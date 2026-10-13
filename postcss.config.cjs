@@ -2,7 +2,7 @@
 // so it does not affect package builds (those ship plain class strings).
 module.exports = {
   plugins: {
-    tailwindcss: { config: './.storybook/tailwind.config.cjs' },
+    '@tailwindcss/postcss': {},
     autoprefixer: {},
   },
 }
