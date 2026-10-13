@@ -2,13 +2,103 @@
   "schemaVersion": 2,
   "repo": "elloloop/refraction-ui",
   "defaultBranch": "main",
-  "mainCommit": "2068e222b4d8acba8e2cc4e74f2d466f256acc84",
-  "lastUpdated": "2026-10-04T13:27:27Z",
+  "mainCommit": "cc2765c250178ab58db0babd99f1dd7c8c9a211b",
+  "lastUpdated": "2026-10-11T16:43:48Z",
   "state": {
-    "lastProcessedMainCommit": "2068e222b4d8acba8e2cc4e74f2d466f256acc84",
-    "lastProcessedSourceId": "diff:f9fb04b1-45f9-42c8-961e-685d45dda5a9:v1"
+    "lastProcessedMainCommit": "cc2765c250178ab58db0babd99f1dd7c8c9a211b",
+    "lastProcessedSourceId": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2"
   },
   "nodes": [
+    {
+      "id": "api:.changeset",
+      "parent": "apis",
+      "title": "Changeset",
+      "summary": "Changed in: fix(search-bar): cancel debounce on unmount",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "why": "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.",
+      "what": "fix(search-bar): cancel debounce on unmount",
+      "how": "Changed: .changeset/search-bar-cancel-unmounted-search.md",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+          "kind": "diff",
+          "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:37:09Z"
+    },
+    {
+      "id": "api:.review-evidence",
+      "parent": "apis",
+      "title": "Review Evidence",
+      "summary": "Changed in: fix(search-bar): cancel debounce on unmount",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "why": "Cancel delayed callbacks on removal; browser evidence compares real callbacks at 375/768/1440 in light/dark. Focused 57 tests and full 1108-task graph pass.",
+      "what": "fix(search-bar): cancel debounce on unmount",
+      "how": "Changed: .review-evidence/",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+          "kind": "diff",
+          "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:43:48Z"
+    },
+    {
+      "id": "api:docs",
+      "parent": "apis",
+      "title": "Docs",
+      "summary": "Changed in: fix(search-bar): cancel debounce on unmount",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "edges": [
+        {
+          "to": "api:.review-evidence",
+          "kind": "grpc"
+        }
+      ],
+      "why": "Cancel delayed callbacks on removal; browser evidence compares real callbacks at 375/768/1440 in light/dark. Focused 57 tests and full 1108-task graph pass.",
+      "what": "fix(search-bar): cancel debounce on unmount",
+      "how": "Changed: docs/stax/design-graph.json, docs/stax/audit/332fa586-diff_592ce96a-6675-48fa-a3d1-7d5691e9468-heuristic-unknown.json",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+          "kind": "diff",
+          "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:43:48Z"
+    },
     {
       "id": "api:packages-flutter",
       "parent": "apis",
@@ -37,6 +127,40 @@
       "updated": "2026-10-04T13:27:27Z"
     },
     {
+      "id": "api:packages-react-search-bar",
+      "parent": "apis",
+      "title": "Packages React Search Bar",
+      "summary": "Changed in: fix(search-bar): cancel debounce on unmount",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "edges": [
+        {
+          "to": "api:.changeset",
+          "kind": "grpc"
+        }
+      ],
+      "why": "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.",
+      "what": "fix(search-bar): cancel debounce on unmount",
+      "how": "TypeScript. Changed: packages/react-search-bar/src/search-bar.tsx",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+          "kind": "diff",
+          "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:37:09Z"
+    },
+    {
       "id": "operations:.github",
       "parent": "operations",
       "title": "GitHub Workflows",
@@ -63,6 +187,44 @@
         }
       ],
       "updated": "2026-10-04T13:27:27Z"
+    },
+    {
+      "id": "operations:packages-react-search-bar",
+      "parent": "operations",
+      "title": "Packages React Search Bar",
+      "summary": "Changed in: fix(search-bar): cancel debounce on unmount",
+      "kicker": "Operations",
+      "diagram": {
+        "tier": "operations"
+      },
+      "edges": [
+        {
+          "to": "api:packages-react-search-bar",
+          "kind": "http"
+        },
+        {
+          "to": "api:.changeset",
+          "kind": "http"
+        }
+      ],
+      "why": "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.",
+      "what": "fix(search-bar): cancel debounce on unmount",
+      "how": "TypeScript. Changed: packages/react-search-bar/__tests__/search-bar.interaction.test.tsx",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+          "kind": "diff",
+          "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:37:09Z"
     }
   ],
   "commits": [
@@ -83,6 +245,27 @@
       "touches": [
         "operations:.github",
         "api:packages-flutter"
+      ]
+    },
+    {
+      "sha": "332fa58635476d65a8b6519371edd1c0a224342b",
+      "label": "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount",
+      "date": "2026-10-11",
+      "kind": "fix",
+      "touches": [
+        "operations:packages-react-search-bar",
+        "api:packages-react-search-bar",
+        "api:.changeset"
+      ]
+    },
+    {
+      "sha": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+      "label": "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount",
+      "date": "2026-10-11",
+      "kind": "fix",
+      "touches": [
+        "api:docs",
+        "api:.review-evidence"
       ]
     }
   ],
@@ -149,6 +332,49 @@
         }
       ],
       "updated": "2026-10-04T13:27:27Z"
+    },
+    {
+      "id": "feature:search-bar-unmount",
+      "name": "Search Bar Unmount",
+      "summary": "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount",
+      "audience": [
+        "end-user",
+        "product-manager",
+        "tester"
+      ],
+      "userDocs": [
+        "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.",
+        "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount",
+        "Cancel delayed callbacks on removal; browser evidence compares real callbacks at 375/768/1440 in light/dark. Focused 57 tests and full 1108-task graph pass."
+      ],
+      "testerNotes": [
+        "Verify behavior touching packages/react-search-bar/__tests__/search-bar.interaction.test.tsx, packages/react-search-bar/src/search-bar.tsx, .changeset/search-bar-cancel-unmounted-search.md.",
+        "Verify behavior touching docs/stax/design-graph.json, .review-evidence/, docs/stax/audit/332fa586-diff_592ce96a-6675-48fa-a3d1-7d5691e9468-heuristic-unknown.json."
+      ],
+      "relatedTechnicalDetails": [
+        "technical:search-bar-unmount"
+      ],
+      "relatedComponents": [
+        "component:packages",
+        "component:changeset",
+        "component:docs",
+        "component:review-evidence"
+      ],
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+          "kind": "diff",
+          "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        },
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+          "kind": "diff",
+          "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:43:48Z"
     }
   ],
   "technicalDetails": [
@@ -199,9 +425,93 @@
         }
       ],
       "updated": "2026-10-04T13:27:27Z"
+    },
+    {
+      "id": "technical:search-bar-unmount",
+      "title": "Search Bar Unmount",
+      "summary": "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount",
+      "designNotes": [
+        "Changed files: packages/react-search-bar/__tests__/search-bar.interaction.test.tsx, packages/react-search-bar/src/search-bar.tsx, .changeset/search-bar-cancel-unmounted-search.md",
+        "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.",
+        "Changed files: docs/stax/design-graph.json, .review-evidence/, docs/stax/audit/332fa586-diff_592ce96a-6675-48fa-a3d1-7d5691e9468-heuristic-unknown.json",
+        "Cancel delayed callbacks on removal; browser evidence compares real callbacks at 375/768/1440 in light/dark. Focused 57 tests and full 1108-task graph pass."
+      ],
+      "relatedFeatures": [
+        "feature:search-bar-unmount"
+      ],
+      "relatedComponents": [
+        "component:packages",
+        "component:changeset",
+        "component:docs",
+        "component:review-evidence"
+      ],
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+          "kind": "diff",
+          "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        },
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+          "kind": "diff",
+          "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:43:48Z"
     }
   ],
   "components": [
+    {
+      "id": "component:changeset",
+      "name": ".Changeset",
+      "kind": "unknown",
+      "paths": [
+        ".changeset/search-bar-cancel-unmounted-search.md"
+      ],
+      "summary": "Owns changes under .changeset.",
+      "relatedFeatures": [
+        "feature:search-bar-unmount"
+      ],
+      "relatedTechnicalDetails": [
+        "technical:search-bar-unmount"
+      ],
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+          "kind": "diff",
+          "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:37:09Z"
+    },
+    {
+      "id": "component:docs",
+      "name": "Documentation",
+      "kind": "docs",
+      "paths": [
+        "docs/stax/design-graph.json",
+        "docs/stax/audit/332fa586-diff_592ce96a-6675-48fa-a3d1-7d5691e9468-heuristic-unknown.json"
+      ],
+      "summary": "Owns changes under docs.",
+      "relatedFeatures": [
+        "feature:search-bar-unmount"
+      ],
+      "relatedTechnicalDetails": [
+        "technical:search-bar-unmount"
+      ],
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+          "kind": "diff",
+          "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:43:48Z"
+    },
     {
       "id": "component:github",
       "name": "GitHub Workflows",
@@ -237,16 +547,20 @@
         "packages/flutter/COMPOSER_TESTING.md",
         "packages/flutter/example/pubspec.lock",
         "packages/flutter/example/pubspec.yaml",
-        "packages/flutter/pubspec.yaml"
+        "packages/flutter/pubspec.yaml",
+        "packages/react-search-bar/__tests__/search-bar.interaction.test.tsx",
+        "packages/react-search-bar/src/search-bar.tsx"
       ],
       "summary": "Owns changes under packages.",
       "relatedFeatures": [
         "feature:auto-save-before-switching-context",
-        "feature:calling-clipboard-compatibility"
+        "feature:calling-clipboard-compatibility",
+        "feature:search-bar-unmount"
       ],
       "relatedTechnicalDetails": [
         "technical:auto-save-before-switching-context",
-        "technical:calling-clipboard-compatibility"
+        "technical:calling-clipboard-compatibility",
+        "technical:search-bar-unmount"
       ],
       "sources": [
         {
@@ -259,9 +573,39 @@
           "kind": "diff",
           "commit": "1cc39dd45c97eec0ddda9424a096dbe954817394",
           "diffUuid": "f9fb04b1-45f9-42c8-961e-685d45dda5a9"
+        },
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+          "kind": "diff",
+          "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
         }
       ],
-      "updated": "2026-10-04T13:27:27Z"
+      "updated": "2026-10-11T16:37:09Z"
+    },
+    {
+      "id": "component:review-evidence",
+      "name": ".Review Evidence",
+      "kind": "unknown",
+      "paths": [
+        ".review-evidence/"
+      ],
+      "summary": "Owns changes under .review-evidence.",
+      "relatedFeatures": [
+        "feature:search-bar-unmount"
+      ],
+      "relatedTechnicalDetails": [
+        "technical:search-bar-unmount"
+      ],
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+          "kind": "diff",
+          "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:43:48Z"
     }
   ],
   "relations": [
@@ -339,6 +683,87 @@
       "updated": "2026-10-04T13:27:27Z"
     },
     {
+      "from": "feature:search-bar-unmount",
+      "to": "technical:search-bar-unmount",
+      "type": "explained_by",
+      "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+          "kind": "diff",
+          "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        },
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+          "kind": "diff",
+          "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:43:48Z"
+    },
+    {
+      "from": "feature:search-bar-unmount",
+      "to": "component:changeset",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+          "kind": "diff",
+          "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:37:09Z"
+    },
+    {
+      "from": "feature:search-bar-unmount",
+      "to": "component:docs",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+          "kind": "diff",
+          "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:43:48Z"
+    },
+    {
+      "from": "feature:search-bar-unmount",
+      "to": "component:packages",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+          "kind": "diff",
+          "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:37:09Z"
+    },
+    {
+      "from": "feature:search-bar-unmount",
+      "to": "component:review-evidence",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+          "kind": "diff",
+          "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:43:48Z"
+    },
+    {
       "from": "technical:auto-save-before-switching-context",
       "to": "component:packages",
       "type": "documents",
@@ -381,6 +806,66 @@
         }
       ],
       "updated": "2026-10-04T13:27:27Z"
+    },
+    {
+      "from": "technical:search-bar-unmount",
+      "to": "component:changeset",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+          "kind": "diff",
+          "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:37:09Z"
+    },
+    {
+      "from": "technical:search-bar-unmount",
+      "to": "component:docs",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+          "kind": "diff",
+          "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:43:48Z"
+    },
+    {
+      "from": "technical:search-bar-unmount",
+      "to": "component:packages",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+          "kind": "diff",
+          "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:37:09Z"
+    },
+    {
+      "from": "technical:search-bar-unmount",
+      "to": "component:review-evidence",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+          "kind": "diff",
+          "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+          "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+        }
+      ],
+      "updated": "2026-10-11T16:43:48Z"
     }
   ],
   "sources": [
@@ -427,6 +912,53 @@
       "diffHash": "471d8a7701a48b3229838721fccec8c47b5bf5fadcdfe925b98dff2116d451f4",
       "created": "2026-10-04T13:27:26Z",
       "processedAt": "2026-10-04T13:27:27Z"
+    },
+    {
+      "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v1",
+      "kind": "diff",
+      "feature": "search-bar-unmount",
+      "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681",
+      "diffPosition": 1,
+      "version": 1,
+      "commit": "332fa58635476d65a8b6519371edd1c0a224342b",
+      "parent": "cc2765c250178ab58db0babd99f1dd7c8c9a211b",
+      "title": "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount",
+      "description": "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.",
+      "type": "fix",
+      "files": [
+        "packages/react-search-bar/__tests__/search-bar.interaction.test.tsx",
+        "packages/react-search-bar/src/search-bar.tsx",
+        ".changeset/search-bar-cancel-unmounted-search.md"
+      ],
+      "additions": 21,
+      "mainCommit": "cc2765c250178ab58db0babd99f1dd7c8c9a211b",
+      "diffHash": "59307d27d2bcb620691a38489c0a8bf805a0368ac306f53e056b782f48699553",
+      "created": "2026-10-11T16:37:09Z",
+      "processedAt": "2026-10-11T16:37:09Z"
+    },
+    {
+      "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+      "kind": "diff",
+      "feature": "search-bar-unmount",
+      "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681",
+      "diffPosition": 1,
+      "version": 2,
+      "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+      "parent": "cc2765c250178ab58db0babd99f1dd7c8c9a211b",
+      "title": "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount",
+      "description": "Cancel delayed callbacks on removal; browser evidence compares real callbacks at 375/768/1440 in light/dark. Focused 57 tests and full 1108-task graph pass.",
+      "type": "fix",
+      "files": [
+        "docs/stax/design-graph.json",
+        ".review-evidence/",
+        "docs/stax/audit/332fa586-diff_592ce96a-6675-48fa-a3d1-7d5691e9468-heuristic-unknown.json"
+      ],
+      "additions": 309,
+      "deletions": 8,
+      "mainCommit": "cc2765c250178ab58db0babd99f1dd7c8c9a211b",
+      "diffHash": "09646ff69ebbfc165e682377360e87d59e25a54d77b5d76320286202c3663725",
+      "created": "2026-10-11T16:37:09Z",
+      "processedAt": "2026-10-11T16:43:48Z"
     }
   ]
 }

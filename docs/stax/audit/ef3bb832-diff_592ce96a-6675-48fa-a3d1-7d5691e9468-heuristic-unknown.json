@@ -1,0 +1,231 @@
+{
+  "timestamp": "2026-10-11T16:43:48Z",
+  "call": "heuristic",
+  "sourceId": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+  "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:search-bar-unmount",
+          "name": "Search Bar Unmount",
+          "summary": "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "Cancel delayed callbacks on removal; browser evidence compares real callbacks at 375/768/1440 in light/dark. Focused 57 tests and full 1108-task graph pass.",
+            "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount"
+          ],
+          "testerNotes": [
+            "Verify behavior touching docs/stax/design-graph.json, .review-evidence/, docs/stax/audit/332fa586-diff_592ce96a-6675-48fa-a3d1-7d5691e9468-heuristic-unknown.json."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:search-bar-unmount"
+          ],
+          "relatedComponents": [
+            "component:docs",
+            "component:review-evidence"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:search-bar-unmount",
+          "title": "Search Bar Unmount",
+          "summary": "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount",
+          "designNotes": [
+            "Changed files: docs/stax/design-graph.json, .review-evidence/, docs/stax/audit/332fa586-diff_592ce96a-6675-48fa-a3d1-7d5691e9468-heuristic-unknown.json",
+            "Cancel delayed callbacks on removal; browser evidence compares real callbacks at 375/768/1440 in light/dark. Focused 57 tests and full 1108-task graph pass."
+          ],
+          "relatedFeatures": [
+            "feature:search-bar-unmount"
+          ],
+          "relatedComponents": [
+            "component:docs",
+            "component:review-evidence"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:docs",
+          "name": "Documentation",
+          "kind": "docs",
+          "paths": [
+            "docs/stax/design-graph.json",
+            "docs/stax/audit/332fa586-diff_592ce96a-6675-48fa-a3d1-7d5691e9468-heuristic-unknown.json"
+          ],
+          "summary": "Owns changes under docs.",
+          "relatedFeatures": [
+            "feature:search-bar-unmount"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:search-bar-unmount"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:review-evidence",
+          "name": ".Review Evidence",
+          "kind": "unknown",
+          "paths": [
+            ".review-evidence/"
+          ],
+          "summary": "Owns changes under .review-evidence.",
+          "relatedFeatures": [
+            "feature:search-bar-unmount"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:search-bar-unmount"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:search-bar-unmount",
+          "to": "component:docs",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:search-bar-unmount",
+          "to": "component:docs",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:search-bar-unmount",
+          "to": "component:review-evidence",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:search-bar-unmount",
+          "to": "component:review-evidence",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:search-bar-unmount",
+          "to": "technical:search-bar-unmount",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "api:docs",
+          "parent": "apis",
+          "title": "Docs",
+          "summary": "Changed in: fix(search-bar): cancel debounce on unmount",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:.review-evidence",
+              "kind": "grpc"
+            }
+          ],
+          "why": "Cancel delayed callbacks on removal; browser evidence compares real callbacks at 375/768/1440 in light/dark. Focused 57 tests and full 1108-task graph pass.",
+          "what": "fix(search-bar): cancel debounce on unmount",
+          "how": "Changed: docs/stax/design-graph.json, docs/stax/audit/332fa586-diff_592ce96a-6675-48fa-a3d1-7d5691e9468-heuristic-unknown.json",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+              "kind": "diff",
+              "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+              "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+            }
+          ],
+          "updated": "2026-10-11T16:43:48Z"
+        },
+        {
+          "id": "api:.review-evidence",
+          "parent": "apis",
+          "title": "Review Evidence",
+          "summary": "Changed in: fix(search-bar): cancel debounce on unmount",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "why": "Cancel delayed callbacks on removal; browser evidence compares real callbacks at 375/768/1440 in light/dark. Focused 57 tests and full 1108-task graph pass.",
+          "what": "fix(search-bar): cancel debounce on unmount",
+          "how": "Changed: .review-evidence/",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:592ce96a-6675-48fa-a3d1-7d5691e94681:v2",
+              "kind": "diff",
+              "commit": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+              "diffUuid": "592ce96a-6675-48fa-a3d1-7d5691e94681"
+            }
+          ],
+          "updated": "2026-10-11T16:43:48Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "ef3bb8326379d11a01426070e5e1e4a45f2da02d",
+        "label": "fix(search-bar-unmount): fix(search-bar): cancel debounce on unmount",
+        "date": "2026-10-11",
+        "kind": "fix",
+        "touches": [
+          "api:docs",
+          "api:.review-evidence"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "4eee1267aab2a18d93a1ef8897edce8dbaa694fe7d0a85dc1c3a3b28196e181f",
+    "nodeCount": 5,
+    "relationCount": 13,
+    "featureCount": 3,
+    "componentCount": 3,
+    "technicalsCount": 3
+  },
+  "graphAfter": {
+    "sha256": "1384f39052b40a52670dd30d429c6e94e99d328ec9c8ebd037efb94e01f8bdac",
+    "nodeCount": 7,
+    "relationCount": 17,
+    "featureCount": 3,
+    "componentCount": 5,
+    "technicalsCount": 3
+  }
+}

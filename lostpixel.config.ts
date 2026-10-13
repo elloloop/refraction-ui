@@ -7,6 +7,10 @@ export const config = {
   // Concurrent route builds animate the Next badge on every open page.
   // Preserve the badge/error UI, but capture only after this route is idle.
   shotConcurrency: 1,
+  // Use Chromium's web-test baseline path instead of CPU-specific blur optimizations.
+  browserLaunchOptions: {
+    chromium: { args: ['--disable-skia-runtime-opts'] },
+  },
   beforeScreenshot: async (page: Page) => {
     await page.evaluate(() => document.fonts.ready.then(() => undefined))
     await page.locator('nextjs-portal [data-next-mark-loading="false"]').first().waitFor()

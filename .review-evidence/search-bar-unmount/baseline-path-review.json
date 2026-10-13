@@ -1,0 +1,88 @@
+{
+  "sourceHead": "486d4a22de24e80de2ab1981fdebc8c62d73a0bd",
+  "artifact": 11794745038,
+  "records": [
+    {
+      "name": "example-ember.png",
+      "size": [1280, 2846],
+      "rawChangedPixels": 687,
+      "maxChannelDelta": 1,
+      "bbox": [45, 112, 1246, 2649],
+      "beforeSha256": "837a601f0aa0fffd336fe95dcdaf37fd316a4e1d72188702c04a94cf5229e643",
+      "afterSha256": "0079cc7241d9bd7531b9cdd62d8df0a13570df1b22c73ce31e61a7a548b3793b"
+    },
+    {
+      "name": "example-grandview.png",
+      "size": [1280, 2783],
+      "rawChangedPixels": 122,
+      "maxChannelDelta": 1,
+      "bbox": [50, 113, 1222, 1519],
+      "beforeSha256": "9beb0d0b1f233f3abd3c4019ddfae36500c8c7b92baa2c34e580254e9dc73ebd",
+      "afterSha256": "68b26dc8afc7f7e9857da2fab90773c9f679a640cc234de944350c079e790309"
+    },
+    {
+      "name": "example-insightiq.png",
+      "size": [1280, 2745],
+      "rawChangedPixels": 3,
+      "maxChannelDelta": 1,
+      "bbox": [979, 189, 1001, 222],
+      "beforeSha256": "54d3baa1357e1b11c0629a0289410afff8b64e2f4004caa050903ec6b12a26a8",
+      "afterSha256": "e1930f5dd470f1b255a2ea1162685d1a2293ed635cc6cb721fffbb8ef7a56d55"
+    },
+    {
+      "name": "example-learnhub.png",
+      "size": [1280, 1824],
+      "rawChangedPixels": 9,
+      "maxChannelDelta": 1,
+      "bbox": [394, 205, 936, 1086],
+      "beforeSha256": "f173dbb835e22ac83c67590ed766593645fff1711598a1972bdbc12b71d4d9b4",
+      "afterSha256": "ba314e68c88782b5484fe2d6c70978a48aba9c68c0aa3a2466b095850cf8f26c"
+    },
+    {
+      "name": "example-maison.png",
+      "size": [1280, 2405],
+      "rawChangedPixels": 57,
+      "maxChannelDelta": 1,
+      "bbox": [419, 288, 864, 289],
+      "beforeSha256": "956fdf202e8dc88a060482aab25050812a3f1788d3ceb0dcd593105390d1214c",
+      "afterSha256": "3dd054abad8b8ff3aa4d1f7aadd22d5f9af8bd8f85dc95a9a069a2f6ff705aca"
+    },
+    {
+      "name": "example-momento.png",
+      "size": [1280, 1735],
+      "rawChangedPixels": 33,
+      "maxChannelDelta": 1,
+      "bbox": [235, 15, 1232, 1368],
+      "beforeSha256": "579e606ac09a4ae0b4e42c1e3b211b6b3d6d13bf499a8bde4be1ce9da2cf8d56",
+      "afterSha256": "ef05a20e31bbe6411a8b6f3923990e505eb249f84f3f17b9a323aa95c7d137b8"
+    },
+    {
+      "name": "example-studiox__[w1280px].png",
+      "size": [1280, 4274],
+      "rawChangedPixels": 22,
+      "maxChannelDelta": 1,
+      "bbox": [677, 992, 1161, 1914],
+      "beforeSha256": "80f37d2c1f4fde54e3c7ff658dbc449fa69c446ee22f46e831ae58c551996a11",
+      "afterSha256": "37b2d1912f376fd0a3865e361162ca659f2586c2408b2eb3dc44088376fd5f57"
+    },
+    {
+      "name": "example-verve.png",
+      "size": [1280, 2084],
+      "rawChangedPixels": 50,
+      "maxChannelDelta": 1,
+      "bbox": [432, 60, 433, 475],
+      "beforeSha256": "9c099d24d27f426f5dbee44d545a634ca4a07fb58aeda38b3b81a9c0dc62c707",
+      "afterSha256": "a09d841780e4b5b493b9e2f3a1bf28b9cd1220443de6a87276c6b1430b6416af"
+    },
+    {
+      "name": "homepage.png",
+      "size": [1280, 1929],
+      "rawChangedPixels": 4,
+      "maxChannelDelta": 1,
+      "bbox": [618, 150, 619, 175],
+      "beforeSha256": "83440076993300696e1045fec35f7233cd2a086cbc2976858737e9d69e2a811f",
+      "afterSha256": "676be18a8e8fb28c2a405ce3008ab6dd5a271b129747fb20850b9594400dc385"
+    }
+  ],
+  "review": "Nine full current captures inspected; complete representative original/current pairs inspected. Deliberate Chromium baseline-code-path migration; unchanged geometry/content and only1RGB-level pixel differences. Original theme-editor remains unchanged. Final full gate pending."
+}
