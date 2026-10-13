@@ -40,6 +40,13 @@ class RefractionSlider extends StatelessWidget {
   /// Defaults to [RefractionColors.muted].
   final Color? inactiveColor;
 
+  /// Optional Material value-indicator label, such as a formatted percentage.
+  final String? label;
+
+  /// Overrides the complete slider theme when preserving an existing surface.
+  /// Null uses Refraction token defaults; the same Material control is retained.
+  final SliderThemeData? sliderTheme;
+
   /// Creates a slider bound to [value] within `[min, max]`.
   const RefractionSlider({
     super.key,
@@ -49,6 +56,8 @@ class RefractionSlider extends StatelessWidget {
     this.onChanged,
     this.activeColor,
     this.inactiveColor,
+    this.label,
+    this.sliderTheme,
   });
 
   @override
@@ -56,23 +65,37 @@ class RefractionSlider extends StatelessWidget {
     final theme = RefractionTheme.of(context).data;
 
     return SliderTheme(
-      data: SliderThemeData(
-        activeTrackColor: activeColor ?? theme.colors.primary,
-        inactiveTrackColor: inactiveColor ?? theme.colors.muted,
-        thumbColor: theme.colors.background,
-        overlayColor: (activeColor ?? theme.colors.primary).withValues(
-          alpha: 0.2,
+      data:
+          sliderTheme ??
+          SliderThemeData(
+            activeTrackColor: activeColor ?? theme.colors.primary,
+            inactiveTrackColor: inactiveColor ?? theme.colors.muted,
+            thumbColor: theme.colors.background,
+            overlayColor: (activeColor ?? theme.colors.primary).withValues(
+              alpha: 0.2,
+            ),
+            trackHeight: 8.0,
+            thumbShape: const RoundSliderThumbShape(
+              enabledThumbRadius: 10.0,
+              elevation: 2,
+              pressedElevation: 4,
+            ),
+            overlayShape: const RoundSliderOverlayShape(overlayRadius: 20.0),
+            trackShape: const RoundedRectSliderTrackShape(),
+          ),
+      // A local overlay keeps Material's portal semantics inside this subtree
+      // during route updates (Flutter #190357), without disabling accessibility.
+      child: Overlay.wrap(
+        alwaysSizeToContent: true,
+        clipBehavior: Clip.none,
+        child: Slider(
+          value: value,
+          min: min,
+          max: max,
+          label: label,
+          onChanged: onChanged,
         ),
-        trackHeight: 8.0,
-        thumbShape: const RoundSliderThumbShape(
-          enabledThumbRadius: 10.0,
-          elevation: 2,
-          pressedElevation: 4,
-        ),
-        overlayShape: const RoundSliderOverlayShape(overlayRadius: 20.0),
-        trackShape: const RoundedRectSliderTrackShape(),
       ),
-      child: Slider(value: value, min: min, max: max, onChanged: onChanged),
     );
   }
 }

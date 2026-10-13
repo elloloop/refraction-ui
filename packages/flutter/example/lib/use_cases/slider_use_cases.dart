@@ -18,6 +18,7 @@ Widget customColorsSlider(BuildContext context) {
       value: 0.7,
       min: 0.0,
       max: 1.0,
+      label: "70%",
       activeColor: Colors.green,
       inactiveColor: Colors.red,
     ),

@@ -71,6 +71,17 @@ export default function SliderPage() {
       </div>
 
       <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Flutter</h2>
+        <p className="text-sm text-muted-foreground">
+          RefractionSlider retains Material drag, keyboard and screen-reader controls.
+          Its value indicator owns a local overlay to preserve accessibility during route changes.
+          The optional label formats the indicator; sliderTheme preserves an existing surface’s
+          exact colors and geometry. Without either, Refraction defaults remain.
+          See the Flutter Custom Colors Widgetbook example and package README for this API.
+        </p>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Default</h2>
         <p className="text-sm text-muted-foreground">
           A controlled slider bound to React state.
