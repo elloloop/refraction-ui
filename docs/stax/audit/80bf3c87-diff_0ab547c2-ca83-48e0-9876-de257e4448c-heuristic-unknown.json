@@ -1,0 +1,233 @@
+{
+  "timestamp": "2026-10-13T00:01:30Z",
+  "call": "heuristic",
+  "sourceId": "diff:0ab547c2-ca83-48e0-9876-de257e4448cb:v1",
+  "commit": "80bf3c87f3b017b6a3297c590dc64450c8266ccc",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:slider-overlay-ownership",
+          "name": "Slider Overlay Ownership",
+          "summary": "fix(slider-overlay-ownership): preserve Flutter slider overlay accessibility",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "Own the Material slider overlay to avoid orphan semantics during route changes; preserve token defaults and expose label/theme slots for exact consumer replacement.",
+            "fix(slider-overlay-ownership): preserve Flutter slider overlay accessibility"
+          ],
+          "testerNotes": [
+            "Verify behavior touching docs-site/src/app/components/slider/page.tsx, packages/flutter/README.md, packages/flutter/example/lib/use_cases/slider_use_cases.dart, packages/flutter/lib/src/components/slider.dart, packages/flutter/test/slider_semantics_test.dart."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:slider-overlay-ownership"
+          ],
+          "relatedComponents": [
+            "component:docs-site-src",
+            "component:packages"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:slider-overlay-ownership",
+          "title": "Slider Overlay Ownership",
+          "summary": "fix(slider-overlay-ownership): preserve Flutter slider overlay accessibility",
+          "designNotes": [
+            "Changed files: docs-site/src/app/components/slider/page.tsx, packages/flutter/README.md, packages/flutter/example/lib/use_cases/slider_use_cases.dart, packages/flutter/lib/src/components/slider.dart, packages/flutter/test/slider_semantics_test.dart",
+            "Own the Material slider overlay to avoid orphan semantics during route changes; preserve token defaults and expose label/theme slots for exact consumer replacement."
+          ],
+          "relatedFeatures": [
+            "feature:slider-overlay-ownership"
+          ],
+          "relatedComponents": [
+            "component:docs-site-src",
+            "component:packages"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:docs-site-src",
+          "name": "Docs Site/Src",
+          "kind": "docs",
+          "paths": [
+            "docs-site/src/app/components/slider/page.tsx"
+          ],
+          "summary": "Owns changes under docs-site/src.",
+          "relatedFeatures": [
+            "feature:slider-overlay-ownership"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:slider-overlay-ownership"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:packages",
+          "name": "Packages",
+          "kind": "unknown",
+          "paths": [
+            "packages/flutter/README.md",
+            "packages/flutter/example/lib/use_cases/slider_use_cases.dart",
+            "packages/flutter/lib/src/components/slider.dart",
+            "packages/flutter/test/slider_semantics_test.dart"
+          ],
+          "summary": "Owns changes under packages.",
+          "relatedFeatures": [
+            "feature:slider-overlay-ownership"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:slider-overlay-ownership"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:slider-overlay-ownership",
+          "to": "component:docs-site-src",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:slider-overlay-ownership",
+          "to": "component:docs-site-src",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:slider-overlay-ownership",
+          "to": "component:packages",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:slider-overlay-ownership",
+          "to": "component:packages",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:slider-overlay-ownership",
+          "to": "technical:slider-overlay-ownership",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "api:docs-site",
+          "parent": "apis",
+          "title": "Docs Site",
+          "summary": "Changed in: preserve Flutter slider overlay accessibility",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-flutter",
+              "kind": "grpc"
+            }
+          ],
+          "why": "Own the Material slider overlay to avoid orphan semantics during route changes; preserve token defaults and expose label/theme slots for exact consumer replacement.",
+          "what": "preserve Flutter slider overlay accessibility",
+          "how": "TypeScript. Changed: docs-site/src/app/components/slider/page.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:0ab547c2-ca83-48e0-9876-de257e4448cb:v1",
+              "kind": "diff",
+              "commit": "80bf3c87f3b017b6a3297c590dc64450c8266ccc",
+              "diffUuid": "0ab547c2-ca83-48e0-9876-de257e4448cb"
+            }
+          ],
+          "updated": "2026-10-13T00:01:30Z"
+        },
+        {
+          "id": "api:packages-flutter",
+          "parent": "apis",
+          "title": "Packages Flutter",
+          "summary": "Changed in: preserve Flutter slider overlay accessibility",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "why": "Own the Material slider overlay to avoid orphan semantics during route changes; preserve token defaults and expose label/theme slots for exact consumer replacement.",
+          "what": "preserve Flutter slider overlay accessibility",
+          "how": "Changed: packages/flutter/README.md, packages/flutter/example/lib/use_cases/slider_use_cases.dart, packages/flutter/lib/src/components/slider.dart, packages/flutter/test/slider_semantics_test.dart",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:0ab547c2-ca83-48e0-9876-de257e4448cb:v1",
+              "kind": "diff",
+              "commit": "80bf3c87f3b017b6a3297c590dc64450c8266ccc",
+              "diffUuid": "0ab547c2-ca83-48e0-9876-de257e4448cb"
+            }
+          ],
+          "updated": "2026-10-13T00:01:30Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "80bf3c87f3b017b6a3297c590dc64450c8266ccc",
+        "label": "fix(slider-overlay-ownership): preserve Flutter slider overlay accessibility",
+        "date": "2026-10-13",
+        "kind": "fix",
+        "touches": [
+          "api:docs-site",
+          "api:packages-flutter"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "3ba866f457d816a86a07a434ef51881b80225fd5747e73976ab577ddc5085864",
+    "nodeCount": 2,
+    "relationCount": 8,
+    "featureCount": 2,
+    "componentCount": 2,
+    "technicalsCount": 2
+  },
+  "graphAfter": {
+    "sha256": "8ed55a790da43e5d7565045fbe0cee2f22c81fcc71cdc4299d2d8d26b48f49ad",
+    "nodeCount": 3,
+    "relationCount": 13,
+    "featureCount": 3,
+    "componentCount": 3,
+    "technicalsCount": 3
+  }
+}

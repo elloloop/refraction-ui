@@ -433,3 +433,15 @@ static and animated render paths. Hosts add their own packs via
 ## License
 
 MIT © [elloloop](https://github.com/elloloop). See [`LICENSE`](LICENSE).
+
+### Slider route accessibility and themed labels
+
+`RefractionSlider` retains the Material slider (dragging, keyboard arrows and
+screen-reader increase/decrease actions), with an owned overlay so its value
+indicator cannot serialize orphan semantics nodes when a route changes. This is
+a preserving workaround for Flutter [#190357](https://github.com/flutter/flutter/issues/190357).
+
+Use `label` for a formatted value indicator and optional `sliderTheme` to preserve
+a surface's exact colors, thumb/track shapes and track height. When omitted, the
+existing Refraction token defaults remain. The Custom Colors Widgetbook case
+exercises these options. This Flutter API does not change the React/Astro contract.
