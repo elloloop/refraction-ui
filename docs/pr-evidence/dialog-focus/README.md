@@ -1,0 +1,13 @@
+# Dialog keyboard comparison
+
+Captured at 375, 768 and 1440 pixels in both light and dark appearances using the real FormDialog Storybook story. The local comparison wrapper follows system appearance by default and observes actual iframe focus; it does not simulate it. Keyboard Enter opens the dialog from the focused Edit Profile button.
+
+The before build is the verified audit-repair source56e6, whose complete Git tree is identical to actual merged main00a3871d. The after build contains the preserved eight-file Dialog PR543 payload rebased onto that actual repaired main. Both use the same repaired compiler and package lock. The wrapper uses matching dimensions/content and disables animations on both sides.
+
+Before, focus remains on the outside opener and Escape leaves the modal open. After, the Name field receives focus; Tab from the final button wraps to Name, Shift+Tab wraps back, Escape closes the modal and restores the opener. All twelve real comparisons have zero page errors. Screenshots show the initial focus state; the browser proof records wrap, Escape and restoration.
+
+No visual threshold, product assertion, audit gate or code-owner protection was relaxed. Full canonical and forge gates still follow the SearchBar prerequisite before merge. These images contain only the generic Storybook fixture, with no customer data.
+
+The expanded DialogContent keyboard-behavior description intentionally increases the documentation table row and page height. Exact Ubuntu visual artifact11799750586 at e046 produced three byte-identical captures for each desktop/mobile project. Complete before/after images were inspected; only these two original PNG references are adopted, without editing/regeneration, assertion, font or tolerance changes. After the real graph-conflict rebase onto merged Hierarchy0332, the eight-file Dialog source and twelve focus comparison captures remain unchanged. All current full implementation and visual gates still precede merge.
+
+Final f9 visual run38373382343 passed the complete original Playwright stage, then reached LostPixel, where only the Dialog documentation page retained its old short-description reference; all25other page references matched. The full original/current LostPixel images were inspected and show the same intentionally expanded description row/page height as the already reviewed desktop/mobile Playwright snapshots. Only the untouched original Ubuntu component-dialog.png from artifact11802081696 is copied here; no unrelated reference, source style, font, timeout, threshold, functional assertion or capture/error guard changes. A fresh complete final-head verdict is still required.

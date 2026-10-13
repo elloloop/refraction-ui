@@ -1,0 +1,9 @@
+{
+  "sourceHead": "f9c19e40665b5219707f51c65bb01ab31fe2cc74",
+  "run": 38373382343,
+  "artifact": 11802081696,
+  "beforeSha256": "1e33f1f2db7929e61e38ea2f85cb617e90b74b1deb3b660e25ed600612dfd112",
+  "afterSha256": "94419e5db3f7ac2b618913ad42b687ab5bffed14e2bf4d15dbc2eaf6cb654559",
+  "reference": ".lostpixel/baseline/component-dialog.png",
+  "review": "Complete original/current images inspected; longer intended keyboard-description row/page height. All original Playwright assertions passed;25other LostPixel pages match. Original Ubuntu PNG copied byte-identical, no source/assertion/font/threshold waiver. Fresh final-head full gate required."
+}

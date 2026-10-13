@@ -1,0 +1,17 @@
+{
+  "sourceHead": "e046bff496f2b4838ef3608a4b003c8f8e781ca9",
+  "artifact": 11799750586,
+  "images": [
+    {
+      "project": "chromium",
+      "sha256": "ebcd18940bbde7b5d286f3d8b10116d232a276a162b312fb8c44fef0a10e3518",
+      "identicalAttempts": 3
+    },
+    {
+      "project": "mobile",
+      "sha256": "52cbe7acc5ffc1157ad04f1ab6418ec56ae53351e1dfd9c3ac197ef0b32da8fe",
+      "identicalAttempts": 3
+    }
+  ],
+  "review": "Complete original/current desktop and mobile captures inspected. The expanded keyboard behavior description increases its prop-table row and page height; all original assertions/fonts/tolerances preserved. Fresh full final-head checks required."
+}

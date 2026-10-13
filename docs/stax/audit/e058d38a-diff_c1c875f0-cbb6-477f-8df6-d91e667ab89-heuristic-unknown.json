@@ -1,0 +1,539 @@
+{
+  "timestamp": "2026-10-13T02:29:15Z",
+  "call": "heuristic",
+  "sourceId": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+  "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:dialog-focus",
+          "name": "Dialog Focus",
+          "summary": "fix(dialog-focus): contain modal keyboard focus and restore the opener",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+            "fix(dialog-focus): contain modal keyboard focus and restore the opener"
+          ],
+          "testerNotes": [
+            "Verify behavior touching docs-site/src/app/components/dialog/Dialog.stories.tsx, docs-site/src/app/components/dialog/page.tsx, e2e/dialog-hydration.spec.ts, packages/react-dialog/src/dialog.tsx, packages/shared/__tests__/focus-trap.test.ts."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:dialog-focus"
+          ],
+          "relatedComponents": [
+            "component:docs-site-src",
+            "component:e2e",
+            "component:packages",
+            "component:changeset"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:dialog-focus",
+          "title": "Dialog Focus",
+          "summary": "fix(dialog-focus): contain modal keyboard focus and restore the opener",
+          "designNotes": [
+            "Changed files: docs-site/src/app/components/dialog/Dialog.stories.tsx, docs-site/src/app/components/dialog/page.tsx, e2e/dialog-hydration.spec.ts, packages/react-dialog/src/dialog.tsx, packages/shared/__tests__/focus-trap.test.ts, packages/shared/src/focus-trap.ts, .changeset/dialog-keyboard-focus.md, packages/react-dialog/__tests__/dialog.focus.test.tsx",
+            "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite."
+          ],
+          "relatedFeatures": [
+            "feature:dialog-focus"
+          ],
+          "relatedComponents": [
+            "component:docs-site-src",
+            "component:e2e",
+            "component:packages",
+            "component:changeset"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:docs-site-src",
+          "name": "Docs Site/Src",
+          "kind": "docs",
+          "paths": [
+            "docs-site/src/app/components/dialog/Dialog.stories.tsx",
+            "docs-site/src/app/components/dialog/page.tsx"
+          ],
+          "summary": "Owns changes under docs-site/src.",
+          "relatedFeatures": [
+            "feature:dialog-focus"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:dialog-focus"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:e2e",
+          "name": "E2e",
+          "kind": "unknown",
+          "paths": [
+            "e2e/dialog-hydration.spec.ts"
+          ],
+          "summary": "Owns changes under e2e.",
+          "relatedFeatures": [
+            "feature:dialog-focus"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:dialog-focus"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:packages",
+          "name": "Packages",
+          "kind": "unknown",
+          "paths": [
+            "packages/react-dialog/src/dialog.tsx",
+            "packages/shared/__tests__/focus-trap.test.ts",
+            "packages/shared/src/focus-trap.ts",
+            "packages/react-dialog/__tests__/dialog.focus.test.tsx"
+          ],
+          "summary": "Owns changes under packages.",
+          "relatedFeatures": [
+            "feature:dialog-focus"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:dialog-focus"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:changeset",
+          "name": ".Changeset",
+          "kind": "unknown",
+          "paths": [
+            ".changeset/dialog-keyboard-focus.md"
+          ],
+          "summary": "Owns changes under .changeset.",
+          "relatedFeatures": [
+            "feature:dialog-focus"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:dialog-focus"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:dialog-focus",
+          "to": "component:docs-site-src",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:dialog-focus",
+          "to": "component:docs-site-src",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:dialog-focus",
+          "to": "component:e2e",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:dialog-focus",
+          "to": "component:e2e",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:dialog-focus",
+          "to": "component:packages",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:dialog-focus",
+          "to": "component:packages",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:dialog-focus",
+          "to": "component:changeset",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:dialog-focus",
+          "to": "component:changeset",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:dialog-focus",
+          "to": "technical:dialog-focus",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "api:docs-site",
+          "parent": "apis",
+          "title": "Docs Site",
+          "summary": "Changed in: contain modal keyboard focus and restore the opener",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-react-dialog",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-shared",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "grpc"
+            }
+          ],
+          "why": "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+          "what": "contain modal keyboard focus and restore the opener",
+          "how": "TypeScript. Changed: docs-site/src/app/components/dialog/Dialog.stories.tsx, docs-site/src/app/components/dialog/page.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+              "kind": "diff",
+              "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+              "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+            }
+          ],
+          "updated": "2026-10-13T02:29:15Z"
+        },
+        {
+          "id": "operations:e2e",
+          "parent": "operations",
+          "title": "E2e",
+          "summary": "Changed in: contain modal keyboard focus and restore the opener",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-dialog",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-shared",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-shared",
+              "kind": "http"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-react-dialog",
+              "kind": "calls"
+            }
+          ],
+          "why": "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+          "what": "contain modal keyboard focus and restore the opener",
+          "how": "TypeScript. Changed: e2e/dialog-hydration.spec.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+              "kind": "diff",
+              "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+              "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+            }
+          ],
+          "updated": "2026-10-13T02:29:15Z"
+        },
+        {
+          "id": "api:packages-react-dialog",
+          "parent": "apis",
+          "title": "Packages React Dialog",
+          "summary": "Changed in: contain modal keyboard focus and restore the opener",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-shared",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "grpc"
+            }
+          ],
+          "why": "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+          "what": "contain modal keyboard focus and restore the opener",
+          "how": "TypeScript. Changed: packages/react-dialog/src/dialog.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+              "kind": "diff",
+              "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+              "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+            }
+          ],
+          "updated": "2026-10-13T02:29:15Z"
+        },
+        {
+          "id": "operations:packages-shared",
+          "parent": "operations",
+          "title": "Packages Shared",
+          "summary": "Changed in: contain modal keyboard focus and restore the opener",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-dialog",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-shared",
+              "kind": "http"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            }
+          ],
+          "why": "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+          "what": "contain modal keyboard focus and restore the opener",
+          "how": "TypeScript. Changed: packages/shared/__tests__/focus-trap.test.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+              "kind": "diff",
+              "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+              "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+            }
+          ],
+          "updated": "2026-10-13T02:29:15Z"
+        },
+        {
+          "id": "api:packages-shared",
+          "parent": "apis",
+          "title": "Packages Shared",
+          "summary": "Changed in: contain modal keyboard focus and restore the opener",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "grpc"
+            }
+          ],
+          "why": "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+          "what": "contain modal keyboard focus and restore the opener",
+          "how": "TypeScript. Changed: packages/shared/src/focus-trap.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+              "kind": "diff",
+              "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+              "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+            }
+          ],
+          "updated": "2026-10-13T02:29:15Z"
+        },
+        {
+          "id": "api:.changeset",
+          "parent": "apis",
+          "title": "Changeset",
+          "summary": "Changed in: contain modal keyboard focus and restore the opener",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "why": "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+          "what": "contain modal keyboard focus and restore the opener",
+          "how": "Changed: .changeset/dialog-keyboard-focus.md",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+              "kind": "diff",
+              "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+              "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+            }
+          ],
+          "updated": "2026-10-13T02:29:15Z"
+        },
+        {
+          "id": "operations:packages-react-dialog",
+          "parent": "operations",
+          "title": "Packages React Dialog",
+          "summary": "Changed in: contain modal keyboard focus and restore the opener",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-dialog",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-shared",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-shared",
+              "kind": "http"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            }
+          ],
+          "why": "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+          "what": "contain modal keyboard focus and restore the opener",
+          "how": "TypeScript. Changed: packages/react-dialog/__tests__/dialog.focus.test.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+              "kind": "diff",
+              "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+              "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+            }
+          ],
+          "updated": "2026-10-13T02:29:15Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+        "label": "fix(dialog-focus): contain modal keyboard focus and restore the opener",
+        "date": "2026-10-13",
+        "kind": "fix",
+        "touches": [
+          "api:docs-site",
+          "operations:e2e",
+          "api:packages-react-dialog",
+          "operations:packages-shared",
+          "api:packages-shared",
+          "api:.changeset",
+          "operations:packages-react-dialog"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "3ba866f457d816a86a07a434ef51881b80225fd5747e73976ab577ddc5085864",
+    "nodeCount": 2,
+    "relationCount": 8,
+    "featureCount": 2,
+    "componentCount": 2,
+    "technicalsCount": 2
+  },
+  "graphAfter": {
+    "sha256": "284f9091d62ab4cfe84ecb27dd76f79e47a6e76ff3fd644e1fe8602f23cffe54",
+    "nodeCount": 9,
+    "relationCount": 17,
+    "featureCount": 3,
+    "componentCount": 5,
+    "technicalsCount": 3
+  }
+}
