@@ -1,0 +1,20 @@
+import { expect, test } from '@playwright/test'
+
+test('hierarchy orientation, scale and expansion keep real DOM controls usable', async ({ page }) => {
+  await page.goto('/components/hierarchy-canvas')
+  const canvas = page.getByRole('group', { name: 'Product organization' })
+  await expect(canvas.locator('[data-hierarchy-node]')).toHaveCount(6)
+  await page.getByRole('button', { name: 'Collapse reports' }).press('Enter')
+  await expect(canvas.locator('[data-hierarchy-node]')).toHaveCount(1)
+  const expand = page.getByRole('button', { name: 'Expand reports' })
+  await expect(expand).toBeFocused()
+  await expand.press('Enter')
+  await expect(canvas.locator('[data-hierarchy-node]')).toHaveCount(6)
+  await page.getByRole('combobox', { name: 'Hierarchy direction' }).selectOption('horizontal')
+  const card = await canvas.locator('[data-hierarchy-node="Product"]').boundingBox()
+  const viewport = await canvas.boundingBox()
+  expect(card && viewport && card.x >= viewport.x - 1).toBe(true)
+  await page.getByRole('button', { name: 'Zoom out' }).click()
+  await expect(page.getByRole('button', { name: 'Reset zoom' })).toBeVisible()
+  await expect(canvas.locator('[data-hierarchy-node]')).toHaveCount(6)
+})

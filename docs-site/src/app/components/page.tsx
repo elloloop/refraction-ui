@@ -83,6 +83,7 @@ const components = [
   { name: 'Code Block', href: '/components/code-block', description: 'Styled container for source code with optional header and content blocks.', category: 'Media' },
   { name: 'Diff Viewer', href: '/components/diff-viewer', description: 'Monaco-powered side-by-side and inline diff viewer with file sidebar.', category: 'Media' },
   { name: 'File Tree', href: '/components/file-tree', description: 'Hierarchical view of files and folders (early-stage primitive).', category: 'Media' },
+  { name: 'Hierarchy Canvas', href: '/components/hierarchy-canvas', description: 'Scrollable top-down and left-to-right hierarchies with real DOM cards.', category: 'Media' },
   { name: 'Link Card', href: '/components/link-card', description: 'Anchor wrapping an entire card so the whole surface is clickable.', category: 'Media' },
   // AI
   { name: 'Voice Pill', href: '/components/voice-pill', description: 'Floating speaker indicator with intensity-driven pulse and mute control.', category: 'AI' },

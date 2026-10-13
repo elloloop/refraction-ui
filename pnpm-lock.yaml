@@ -305,6 +305,9 @@ importers:
       '@refraction-ui/react-graph-view':
         specifier: workspace:*
         version: link:../packages/react-graph-view
+      '@refraction-ui/react-hierarchy-canvas':
+        specifier: workspace:*
+        version: link:../packages/react-hierarchy-canvas
       '@refraction-ui/react-infinite-canvas':
         specifier: workspace:*
         version: link:../packages/react-infinite-canvas
@@ -3158,6 +3161,8 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/hierarchy-canvas: {}
+
   packages/http: {}
 
   packages/i18n:
@@ -4684,6 +4689,25 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-hierarchy-canvas:
+    dependencies:
+      '@refraction-ui/hierarchy-canvas':
+        specifier: workspace:*
+        version: link:../hierarchy-canvas
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-icon-system:
     devDependencies:
       '@types/react':
@@ -5297,6 +5321,9 @@ importers:
       '@refraction-ui/react-graph-view':
         specifier: workspace:*
         version: link:../react-graph-view
+      '@refraction-ui/react-hierarchy-canvas':
+        specifier: workspace:*
+        version: link:../react-hierarchy-canvas
       '@refraction-ui/react-icon-system':
         specifier: workspace:*
         version: link:../react-icon-system
