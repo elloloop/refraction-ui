@@ -33,7 +33,9 @@ describe('FOCUSABLE_SELECTOR', () => {
 
 describe('getFocusableElements', () => {
   it('calls querySelectorAll with the focusable selector', () => {
-    const mockElements = [{}, {}]
+    const mockElement = () => ({ tabIndex: 0, matches: () => false, closest: () => null,
+      ownerDocument: { defaultView: null }, parentElement: null })
+    const mockElements = [mockElement(), mockElement()]
     const mockContainer = {
       querySelectorAll: vi.fn().mockReturnValue(mockElements),
     } as unknown as Element
@@ -158,7 +160,8 @@ describe('createFocusTrap', () => {
   })
 
   it('focuses first focusable element when no initialFocus provided', () => {
-    const mockFirst = { focus: vi.fn() }
+    const mockFirst = { focus: vi.fn(), tabIndex: 0, matches: () => false, closest: () => null,
+      ownerDocument: { defaultView: null }, parentElement: null }
     const mockContainer = {
       querySelectorAll: vi.fn().mockReturnValue([mockFirst]),
       addEventListener: vi.fn(),

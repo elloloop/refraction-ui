@@ -1,0 +1,116 @@
+[
+  {
+    "side": "before",
+    "width": 375,
+    "colorScheme": "light",
+    "initialFocus": "Edit Profile opener",
+    "escapeCloses": false,
+    "browserErrors": []
+  },
+  {
+    "side": "after",
+    "width": 375,
+    "colorScheme": "light",
+    "initialFocus": "Enter your name",
+    "forwardWrap": true,
+    "backwardWrap": true,
+    "restoredOpener": true,
+    "escapeCloses": true,
+    "browserErrors": []
+  },
+  {
+    "side": "before",
+    "width": 375,
+    "colorScheme": "dark",
+    "initialFocus": "Edit Profile opener",
+    "escapeCloses": false,
+    "browserErrors": []
+  },
+  {
+    "side": "after",
+    "width": 375,
+    "colorScheme": "dark",
+    "initialFocus": "Enter your name",
+    "forwardWrap": true,
+    "backwardWrap": true,
+    "restoredOpener": true,
+    "escapeCloses": true,
+    "browserErrors": []
+  },
+  {
+    "side": "before",
+    "width": 768,
+    "colorScheme": "light",
+    "initialFocus": "Edit Profile opener",
+    "escapeCloses": false,
+    "browserErrors": []
+  },
+  {
+    "side": "after",
+    "width": 768,
+    "colorScheme": "light",
+    "initialFocus": "Enter your name",
+    "forwardWrap": true,
+    "backwardWrap": true,
+    "restoredOpener": true,
+    "escapeCloses": true,
+    "browserErrors": []
+  },
+  {
+    "side": "before",
+    "width": 768,
+    "colorScheme": "dark",
+    "initialFocus": "Edit Profile opener",
+    "escapeCloses": false,
+    "browserErrors": []
+  },
+  {
+    "side": "after",
+    "width": 768,
+    "colorScheme": "dark",
+    "initialFocus": "Enter your name",
+    "forwardWrap": true,
+    "backwardWrap": true,
+    "restoredOpener": true,
+    "escapeCloses": true,
+    "browserErrors": []
+  },
+  {
+    "side": "before",
+    "width": 1440,
+    "colorScheme": "light",
+    "initialFocus": "Edit Profile opener",
+    "escapeCloses": false,
+    "browserErrors": []
+  },
+  {
+    "side": "after",
+    "width": 1440,
+    "colorScheme": "light",
+    "initialFocus": "Enter your name",
+    "forwardWrap": true,
+    "backwardWrap": true,
+    "restoredOpener": true,
+    "escapeCloses": true,
+    "browserErrors": []
+  },
+  {
+    "side": "before",
+    "width": 1440,
+    "colorScheme": "dark",
+    "initialFocus": "Edit Profile opener",
+    "escapeCloses": false,
+    "browserErrors": []
+  },
+  {
+    "side": "after",
+    "width": 1440,
+    "colorScheme": "dark",
+    "initialFocus": "Enter your name",
+    "forwardWrap": true,
+    "backwardWrap": true,
+    "restoredOpener": true,
+    "escapeCloses": true,
+    "browserErrors": []
+  }
+]

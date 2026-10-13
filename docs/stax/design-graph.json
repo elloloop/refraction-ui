@@ -2,25 +2,25 @@
   "schemaVersion": 2,
   "repo": "elloloop/refraction-ui",
   "defaultBranch": "main",
-  "mainCommit": "f595b0757d1f889b9bb69f3a3bc7ce9e31bae8ee",
-  "lastUpdated": "2026-10-13T02:33:31Z",
+  "mainCommit": "0332e5106d292d17c729dfc334afea5d0f937090",
+  "lastUpdated": "2026-10-13T02:29:15Z",
   "state": {
-    "lastProcessedMainCommit": "f595b0757d1f889b9bb69f3a3bc7ce9e31bae8ee",
-    "lastProcessedSourceId": "diff:ee8f20cd-c966-472a-9425-dbfce1bb2177:v1"
+    "lastProcessedMainCommit": "0332e5106d292d17c729dfc334afea5d0f937090",
+    "lastProcessedSourceId": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1"
   },
   "nodes": [
     {
       "id": "api:.changeset",
       "parent": "apis",
       "title": "Changeset",
-      "summary": "Changed in: fix(search-bar): cancel debounce on unmount\n\nChanged in: add a generic keyboard-friendly hierarchy canvas",
+      "summary": "Changed in: fix(search-bar): cancel debounce on unmount\n\nChanged in: add a generic keyboard-friendly hierarchy canvas\n\nChanged in: fix(search-bar): cancel debounce on unmount\n\nChanged in: contain modal keyboard focus and restore the opener",
       "kicker": "Service",
       "diagram": {
         "tier": "api"
       },
-      "why": "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.\n\nResume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.",
-      "what": "add a generic keyboard-friendly hierarchy canvas",
-      "how": "Changed: .changeset/hierarchy-canvas.md",
+      "why": "Cancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.\n\nResume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.\n\nCancel delayed search callbacks when the adapter unmounts. Regression coverage proves no callback runs after removal; all 57 focused tests and the full make ci graph pass. Existing dependency audit advisories remain separately unresolved.\n\nResume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+      "what": "contain modal keyboard focus and restore the opener",
+      "how": "Changed: .changeset/dialog-keyboard-focus.md",
       "meta": {
         "status": "live"
       },
@@ -39,9 +39,15 @@
           "kind": "diff",
           "commit": "664ec460ee704601ca87b2dbca251f708b893171",
           "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        },
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
         }
       ],
-      "updated": "2026-10-13T02:33:31Z",
+      "updated": "2026-10-13T02:29:15Z",
       "edges": [
         {
           "to": "api:docs",
@@ -264,7 +270,7 @@
       "id": "api:docs-site",
       "parent": "apis",
       "title": "Docs Site",
-      "summary": "Changed in: add a generic keyboard-friendly hierarchy canvas",
+      "summary": "Changed in: add a generic keyboard-friendly hierarchy canvas\n\nChanged in: contain modal keyboard focus and restore the opener",
       "kicker": "Service",
       "diagram": {
         "tier": "api"
@@ -289,11 +295,19 @@
         {
           "to": "api:packages-react-hierarchy-canvas",
           "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-dialog",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-shared",
+          "kind": "grpc"
         }
       ],
-      "why": "Resume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.",
-      "what": "add a generic keyboard-friendly hierarchy canvas",
-      "how": "TypeScript. Changed: docs-site/package.json, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, docs-site/src/app/components/hierarchy-canvas/",
+      "why": "Resume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.\n\nResume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+      "what": "contain modal keyboard focus and restore the opener",
+      "how": "TypeScript. Changed: docs-site/src/app/components/dialog/Dialog.stories.tsx, docs-site/src/app/components/dialog/page.tsx",
       "meta": {
         "status": "live"
       },
@@ -306,9 +320,15 @@
           "kind": "diff",
           "commit": "664ec460ee704601ca87b2dbca251f708b893171",
           "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        },
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
         }
       ],
-      "updated": "2026-10-13T02:33:31Z"
+      "updated": "2026-10-13T02:29:15Z"
     },
     {
       "id": "api:packages-hierarchy-canvas",
@@ -422,7 +442,7 @@
       "id": "operations:e2e",
       "parent": "operations",
       "title": "E2e",
-      "summary": "Changed in: add a generic keyboard-friendly hierarchy canvas",
+      "summary": "Changed in: add a generic keyboard-friendly hierarchy canvas\n\nChanged in: contain modal keyboard focus and restore the opener",
       "kicker": "Operations",
       "diagram": {
         "tier": "operations"
@@ -455,11 +475,27 @@
         {
           "to": "api:packages-react-hierarchy-canvas",
           "kind": "http"
+        },
+        {
+          "to": "api:packages-react-dialog",
+          "kind": "http"
+        },
+        {
+          "to": "operations:packages-shared",
+          "kind": "calls"
+        },
+        {
+          "to": "api:packages-shared",
+          "kind": "http"
+        },
+        {
+          "to": "operations:packages-react-dialog",
+          "kind": "calls"
         }
       ],
-      "why": "Resume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.",
-      "what": "add a generic keyboard-friendly hierarchy canvas",
-      "how": "TypeScript. Changed: e2e/hierarchy-canvas.spec.ts",
+      "why": "Resume exact existing PR545 generic layout/React canvas payload and changeset; preserve existing remote PR ownership. Audit/toolchain and fresh browser evidence follow actual-main sync.\n\nResume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+      "what": "contain modal keyboard focus and restore the opener",
+      "how": "TypeScript. Changed: e2e/dialog-hydration.spec.ts",
       "meta": {
         "status": "live"
       },
@@ -472,9 +508,15 @@
           "kind": "diff",
           "commit": "664ec460ee704601ca87b2dbca251f708b893171",
           "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        },
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
         }
       ],
-      "updated": "2026-10-13T02:33:31Z"
+      "updated": "2026-10-13T02:29:15Z"
     },
     {
       "id": "operations:workspace-config",
@@ -529,6 +571,174 @@
         }
       ],
       "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "id": "api:packages-react-dialog",
+      "parent": "apis",
+      "title": "Packages React Dialog",
+      "summary": "Changed in: contain modal keyboard focus and restore the opener",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "edges": [
+        {
+          "to": "api:packages-shared",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:.changeset",
+          "kind": "grpc"
+        }
+      ],
+      "why": "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+      "what": "contain modal keyboard focus and restore the opener",
+      "how": "TypeScript. Changed: packages/react-dialog/src/dialog.tsx",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
+    },
+    {
+      "id": "api:packages-shared",
+      "parent": "apis",
+      "title": "Packages Shared",
+      "summary": "Changed in: contain modal keyboard focus and restore the opener",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "edges": [
+        {
+          "to": "api:.changeset",
+          "kind": "grpc"
+        }
+      ],
+      "why": "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+      "what": "contain modal keyboard focus and restore the opener",
+      "how": "TypeScript. Changed: packages/shared/src/focus-trap.ts",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
+    },
+    {
+      "id": "operations:packages-react-dialog",
+      "parent": "operations",
+      "title": "Packages React Dialog",
+      "summary": "Changed in: contain modal keyboard focus and restore the opener",
+      "kicker": "Operations",
+      "diagram": {
+        "tier": "operations"
+      },
+      "edges": [
+        {
+          "to": "api:docs-site",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-react-dialog",
+          "kind": "http"
+        },
+        {
+          "to": "operations:packages-shared",
+          "kind": "calls"
+        },
+        {
+          "to": "api:packages-shared",
+          "kind": "http"
+        },
+        {
+          "to": "api:.changeset",
+          "kind": "http"
+        }
+      ],
+      "why": "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+      "what": "contain modal keyboard focus and restore the opener",
+      "how": "TypeScript. Changed: packages/react-dialog/__tests__/dialog.focus.test.tsx",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
+    },
+    {
+      "id": "operations:packages-shared",
+      "parent": "operations",
+      "title": "Packages Shared",
+      "summary": "Changed in: contain modal keyboard focus and restore the opener",
+      "kicker": "Operations",
+      "diagram": {
+        "tier": "operations"
+      },
+      "edges": [
+        {
+          "to": "api:docs-site",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-react-dialog",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-shared",
+          "kind": "http"
+        },
+        {
+          "to": "api:.changeset",
+          "kind": "http"
+        }
+      ],
+      "why": "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+      "what": "contain modal keyboard focus and restore the opener",
+      "how": "TypeScript. Changed: packages/shared/__tests__/focus-trap.test.ts",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
     }
   ],
   "commits": [
@@ -586,6 +796,21 @@
         "operations:e2e",
         "api:packages-hierarchy-canvas",
         "api:packages-react-hierarchy-canvas"
+      ]
+    },
+    {
+      "sha": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+      "label": "fix(dialog-focus): contain modal keyboard focus and restore the opener",
+      "date": "2026-10-13",
+      "kind": "fix",
+      "touches": [
+        "api:docs-site",
+        "operations:e2e",
+        "api:packages-react-dialog",
+        "operations:packages-shared",
+        "api:packages-shared",
+        "api:.changeset",
+        "operations:packages-react-dialog"
       ]
     }
   ],
@@ -733,6 +958,41 @@
         }
       ],
       "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "id": "feature:dialog-focus",
+      "name": "Dialog Focus",
+      "summary": "fix(dialog-focus): contain modal keyboard focus and restore the opener",
+      "audience": [
+        "end-user",
+        "product-manager",
+        "tester"
+      ],
+      "userDocs": [
+        "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+        "fix(dialog-focus): contain modal keyboard focus and restore the opener"
+      ],
+      "testerNotes": [
+        "Verify behavior touching docs-site/src/app/components/dialog/Dialog.stories.tsx, docs-site/src/app/components/dialog/page.tsx, e2e/dialog-hydration.spec.ts, packages/react-dialog/src/dialog.tsx, packages/shared/__tests__/focus-trap.test.ts."
+      ],
+      "relatedTechnicalDetails": [
+        "technical:dialog-focus"
+      ],
+      "relatedComponents": [
+        "component:docs-site-src",
+        "component:e2e",
+        "component:packages",
+        "component:changeset"
+      ],
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
     }
   ],
   "technicalDetails": [
@@ -848,6 +1108,33 @@
         }
       ],
       "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "id": "technical:dialog-focus",
+      "title": "Dialog Focus",
+      "summary": "fix(dialog-focus): contain modal keyboard focus and restore the opener",
+      "designNotes": [
+        "Changed files: docs-site/src/app/components/dialog/Dialog.stories.tsx, docs-site/src/app/components/dialog/page.tsx, e2e/dialog-hydration.spec.ts, packages/react-dialog/src/dialog.tsx, packages/shared/__tests__/focus-trap.test.ts, packages/shared/src/focus-trap.ts, .changeset/dialog-keyboard-focus.md, packages/react-dialog/__tests__/dialog.focus.test.tsx",
+        "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite."
+      ],
+      "relatedFeatures": [
+        "feature:dialog-focus"
+      ],
+      "relatedComponents": [
+        "component:docs-site-src",
+        "component:e2e",
+        "component:packages",
+        "component:changeset"
+      ],
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
     }
   ],
   "components": [
@@ -857,16 +1144,19 @@
       "kind": "unknown",
       "paths": [
         ".changeset/search-bar-cancel-unmounted-search.md",
-        ".changeset/hierarchy-canvas.md"
+        ".changeset/hierarchy-canvas.md",
+        ".changeset/dialog-keyboard-focus.md"
       ],
       "summary": "Owns changes under .changeset.",
       "relatedFeatures": [
         "feature:search-bar-unmount",
-        "feature:hierarchy-canvas"
+        "feature:hierarchy-canvas",
+        "feature:dialog-focus"
       ],
       "relatedTechnicalDetails": [
         "technical:search-bar-unmount",
-        "technical:hierarchy-canvas"
+        "technical:hierarchy-canvas",
+        "technical:dialog-focus"
       ],
       "sources": [
         {
@@ -880,9 +1170,15 @@
           "kind": "diff",
           "commit": "664ec460ee704601ca87b2dbca251f708b893171",
           "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        },
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
         }
       ],
-      "updated": "2026-10-13T02:33:31Z"
+      "updated": "2026-10-13T02:29:15Z"
     },
     {
       "id": "component:docs",
@@ -959,20 +1255,26 @@
         "packages/react-meta/package.json",
         "packages/react-meta/src/index.ts",
         "packages/hierarchy-canvas/",
-        "packages/react-hierarchy-canvas/"
+        "packages/react-hierarchy-canvas/",
+        "packages/react-dialog/src/dialog.tsx",
+        "packages/shared/__tests__/focus-trap.test.ts",
+        "packages/shared/src/focus-trap.ts",
+        "packages/react-dialog/__tests__/dialog.focus.test.tsx"
       ],
       "summary": "Owns changes under packages.",
       "relatedFeatures": [
         "feature:auto-save-before-switching-context",
         "feature:calling-clipboard-compatibility",
         "feature:search-bar-unmount",
-        "feature:hierarchy-canvas"
+        "feature:hierarchy-canvas",
+        "feature:dialog-focus"
       ],
       "relatedTechnicalDetails": [
         "technical:auto-save-before-switching-context",
         "technical:calling-clipboard-compatibility",
         "technical:search-bar-unmount",
-        "technical:hierarchy-canvas"
+        "technical:hierarchy-canvas",
+        "technical:dialog-focus"
       ],
       "sources": [
         {
@@ -997,9 +1299,15 @@
           "kind": "diff",
           "commit": "664ec460ee704601ca87b2dbca251f708b893171",
           "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        },
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
         }
       ],
-      "updated": "2026-10-13T02:33:31Z"
+      "updated": "2026-10-13T02:29:15Z"
     },
     {
       "id": "component:review-evidence",
@@ -1056,14 +1364,18 @@
       "paths": [
         "docs-site/src/app/components/page.tsx",
         "docs-site/src/components/sidebar.tsx",
-        "docs-site/src/app/components/hierarchy-canvas/"
+        "docs-site/src/app/components/hierarchy-canvas/",
+        "docs-site/src/app/components/dialog/Dialog.stories.tsx",
+        "docs-site/src/app/components/dialog/page.tsx"
       ],
       "summary": "Owns changes under docs-site/src.",
       "relatedFeatures": [
-        "feature:hierarchy-canvas"
+        "feature:hierarchy-canvas",
+        "feature:dialog-focus"
       ],
       "relatedTechnicalDetails": [
-        "technical:hierarchy-canvas"
+        "technical:hierarchy-canvas",
+        "technical:dialog-focus"
       ],
       "sources": [
         {
@@ -1071,23 +1383,32 @@
           "kind": "diff",
           "commit": "664ec460ee704601ca87b2dbca251f708b893171",
           "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        },
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
         }
       ],
-      "updated": "2026-10-13T02:33:31Z"
+      "updated": "2026-10-13T02:29:15Z"
     },
     {
       "id": "component:e2e",
       "name": "E2e",
       "kind": "unknown",
       "paths": [
-        "e2e/hierarchy-canvas.spec.ts"
+        "e2e/hierarchy-canvas.spec.ts",
+        "e2e/dialog-hydration.spec.ts"
       ],
       "summary": "Owns changes under e2e.",
       "relatedFeatures": [
-        "feature:hierarchy-canvas"
+        "feature:hierarchy-canvas",
+        "feature:dialog-focus"
       ],
       "relatedTechnicalDetails": [
-        "technical:hierarchy-canvas"
+        "technical:hierarchy-canvas",
+        "technical:dialog-focus"
       ],
       "sources": [
         {
@@ -1095,9 +1416,15 @@
           "kind": "diff",
           "commit": "664ec460ee704601ca87b2dbca251f708b893171",
           "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        },
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
         }
       ],
-      "updated": "2026-10-13T02:33:31Z"
+      "updated": "2026-10-13T02:29:15Z"
     },
     {
       "id": "component:pnpm-lockyaml",
@@ -1607,6 +1934,141 @@
         }
       ],
       "updated": "2026-10-13T02:33:31Z"
+    },
+    {
+      "from": "feature:dialog-focus",
+      "to": "technical:dialog-focus",
+      "type": "explained_by",
+      "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
+    },
+    {
+      "from": "feature:dialog-focus",
+      "to": "component:changeset",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
+    },
+    {
+      "from": "feature:dialog-focus",
+      "to": "component:docs-site-src",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
+    },
+    {
+      "from": "feature:dialog-focus",
+      "to": "component:e2e",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
+    },
+    {
+      "from": "feature:dialog-focus",
+      "to": "component:packages",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
+    },
+    {
+      "from": "technical:dialog-focus",
+      "to": "component:changeset",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
+    },
+    {
+      "from": "technical:dialog-focus",
+      "to": "component:docs-site-src",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
+    },
+    {
+      "from": "technical:dialog-focus",
+      "to": "component:e2e",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
+    },
+    {
+      "from": "technical:dialog-focus",
+      "to": "component:packages",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+          "kind": "diff",
+          "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+          "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f"
+        }
+      ],
+      "updated": "2026-10-13T02:29:15Z"
     }
   ],
   "sources": [
@@ -1733,6 +2195,35 @@
       "diffHash": "817841c4ffbe0d26024dd6b3e0cfee0475fd100c038157d9647038963bb9e55d",
       "created": "2026-10-13T02:33:31Z",
       "processedAt": "2026-10-13T02:33:31Z"
+    },
+    {
+      "id": "diff:c1c875f0-cbb6-477f-8df6-d91e667ab89f:v1",
+      "kind": "diff",
+      "feature": "dialog-focus",
+      "diffUuid": "c1c875f0-cbb6-477f-8df6-d91e667ab89f",
+      "diffPosition": 1,
+      "version": 1,
+      "commit": "e058d38a5314d49e3fb67feb30c53c32d77257b9",
+      "parent": "cc2765c250178ab58db0babd99f1dd7c8c9a211b",
+      "title": "fix(dialog-focus): contain modal keyboard focus and restore the opener",
+      "description": "Resume exact existing PR543 payload: eight files, unchanged behavior and tests. Preserve remote ownership; full publication waits for repaired tooling and SearchBar prerequisite.",
+      "type": "fix",
+      "files": [
+        "docs-site/src/app/components/dialog/Dialog.stories.tsx",
+        "docs-site/src/app/components/dialog/page.tsx",
+        "e2e/dialog-hydration.spec.ts",
+        "packages/react-dialog/src/dialog.tsx",
+        "packages/shared/__tests__/focus-trap.test.ts",
+        "packages/shared/src/focus-trap.ts",
+        ".changeset/dialog-keyboard-focus.md",
+        "packages/react-dialog/__tests__/dialog.focus.test.tsx"
+      ],
+      "additions": 112,
+      "deletions": 33,
+      "mainCommit": "cc2765c250178ab58db0babd99f1dd7c8c9a211b",
+      "diffHash": "3336b26d867f35deec9f7306d48033d6974b63bcded60c8c1e2871b66a59875f",
+      "created": "2026-10-13T02:29:15Z",
+      "processedAt": "2026-10-13T02:29:15Z"
     }
   ]
 }

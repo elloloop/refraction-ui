@@ -42,7 +42,7 @@ const subComponents = [
   {
     name: 'DialogContent',
     type: 'HTMLAttributes<HTMLDivElement>',
-    description: 'The dialog content panel. Handles Escape key.',
+    description: 'The dialog content panel. Modal dialogs focus the first available control (or the panel), contain Tab navigation, restore focus on close, and handle Escape. Set modal=false to leave keyboard focus unchanged.',
   },
   {
     name: 'DialogHeader',
