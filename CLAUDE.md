@@ -213,6 +213,14 @@ auto-copies the `.astro` files for any
    `@latest` via OIDC with provenance.
 4. Verify: `npm view @refraction-ui/react dist-tags --json`.
 
+The canary helper first reads the official release plan and skips versioning and
+publication when no public package is pending. The OIDC publisher reports only
+successful new publications using Changesets Action's `New tag:` marker and
+creates the matching local tag for that trusted workflow to push. Publication,
+registry and tag failures fail the workflow; they are not successful releases.
+`scripts/release-helpers.test.mjs` exercises these contracts with isolated fake
+commands and credentials, without publishing anything.
+
 Existing public packages already have npm OIDC trusted publishers configured
 (that's why they publish). Brand-new public package names would NOT — another
 reason new feature packages must stay private and ride the metas.

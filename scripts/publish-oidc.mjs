@@ -1,17 +1,25 @@
-import { execSync } from 'node:child_process';
+import { execSync, execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
 function getPackageNpmToken(pkgName, githubOidcToken) {
   const encodedPkg = pkgName.replace('@', '%40').replace('/', '%2f');
-  const npmResponse = execSync(`curl -sS -f -X POST "https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/${encodedPkg}" -H "Authorization: Bearer ${githubOidcToken}"`).toString();
-
-  return JSON.parse(npmResponse).token;
+  try {
+    const npmResponse = execFileSync('curl', ['-sS', '-f', '-X', 'POST',
+      `https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/${encodedPkg}`,
+      '-H', `Authorization: Bearer ${githubOidcToken}`], { stdio: ['ignore', 'pipe', 'pipe'] }).toString();
+    const token = JSON.parse(npmResponse).token;
+    if (typeof token !== 'string' || !token) throw new Error('Empty token');
+    return token;
+  } catch {
+    // Child-process errors can include the complete Authorization argument.
+    throw new Error(`npm OIDC exchange failed for ${pkgName}`);
+  }
 }
 
 function withPackageNpmrc(npmToken, callback) {
   const npmrcPath = path.join(process.cwd(), '.npmrc.tmp');
-  fs.writeFileSync(npmrcPath, `//registry.npmjs.org/:_authToken=${npmToken}\n`);
+  fs.writeFileSync(npmrcPath, `//registry.npmjs.org/:_authToken=${npmToken}\n`, { mode: 0o600, flag: 'wx' });
 
   try {
     callback(npmrcPath);
@@ -29,6 +37,15 @@ async function publish() {
   const packagesStr = execSync('pnpm ls -r --depth -1 --json').toString();
   const allPackages = JSON.parse(packagesStr);
   const publicPackages = allPackages.filter(pkg => !pkg.private);
+  const allowed = new Set(['@refraction-ui/react', '@refraction-ui/astro', '@refraction-ui/tailwind-config']);
+  for (const pkg of publicPackages) {
+    if (!allowed.has(pkg.name) || typeof pkg.version !== 'string' || pkg.version.length > 256 ||
+        pkg.version.trim() !== pkg.version ||
+        !/^[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(pkg.version)) {
+      throw new Error('Unexpected public package or version; review the publisher allowlist');
+    }
+  }
+  const failures = [];
 
   if (publicPackages.length === 0) {
     console.log('✅ No public packages found.');
@@ -43,8 +60,17 @@ async function publish() {
     throw new Error('Missing GITHUB_ACTIONS OIDC environment variables.');
   }
 
-  const oidcResponse = execSync(`curl -sS -f "${idTokenUrl}&audience=npm:registry.npmjs.org" -H "Authorization: Bearer ${idToken}"`).toString();
-  const githubOidcToken = JSON.parse(oidcResponse).value;
+  let githubOidcToken;
+  try {
+    const url = new URL(idTokenUrl);
+    url.searchParams.set('audience', 'npm:registry.npmjs.org');
+    const oidcResponse = execFileSync('curl', ['-sS', '-f', url.toString(), '-H',
+      `Authorization: Bearer ${idToken}`], { stdio: ['ignore', 'pipe', 'pipe'] }).toString();
+    githubOidcToken = JSON.parse(oidcResponse).value;
+    if (typeof githubOidcToken !== 'string' || !githubOidcToken) throw new Error('Empty token');
+  } catch {
+    throw new Error('GitHub OIDC exchange failed');
+  }
 
   // 3. Check and publish each package
   for (const pkg of publicPackages) {
@@ -72,7 +98,9 @@ async function publish() {
       const distTagsStr = execSync(`npm info ${pkgName} dist-tags --json`, { stdio: ['pipe', 'pipe', 'ignore'] }).toString();
       distTags = JSON.parse(distTagsStr);
     } catch (err) {
-      // 404 means the package has never been published before
+      // Only an explicit registry E404 allows publishing a first version.
+      const diagnostic = `${err.stdout ?? ''}\n${err.stderr ?? ''}`;
+      if (!diagnostic.includes('E404')) throw new Error(`Registry lookup failed for ${pkgName}`);
       console.log(`ℹ️  ${pkgName} not found on npm. Publishing first version.`);
     }
 
@@ -94,8 +122,9 @@ async function publish() {
         });
 
         console.log(`✅ Successfully tagged ${pkgName}@${pkgVersion} as ${tag}`);
-      } catch (err) {
-        console.error(`❌ Failed to tag ${pkgName}@${pkgVersion} as ${tag}:`, err.message);
+      } catch {
+        console.error(`❌ Failed to tag ${pkgName}@${pkgVersion} as ${tag}`);
+        failures.push(`${pkgName}: dist-tag update`);
       }
       continue;
     }
@@ -114,12 +143,18 @@ async function publish() {
         });
       });
       
+      // Changesets/action discovers successful releases from this exact marker
+      // and pushes the corresponding tag. Create it only after npm succeeds.
+      const releaseTag = `${pkgName}@${pkgVersion}`;
+      execFileSync('git', ['tag', releaseTag], { stdio: ['ignore', 'pipe', 'pipe'] });
+      console.log(`New tag: ${releaseTag}`);
       console.log(`✅ Successfully published ${pkgName}`);
-    } catch (err) {
-      console.error(`❌ Failed to publish ${pkgName}:`, err.message);
-      // We continue to other packages even if one fails
+    } catch {
+      console.error(`❌ Failed to publish ${pkgName}`);
+      failures.push(`${pkgName}: publication or release tag`);
     }
   }
+  if (failures.length) throw new Error(`Release failed: ${failures.join(', ')}`);
 }
 
 publish().catch(err => {
