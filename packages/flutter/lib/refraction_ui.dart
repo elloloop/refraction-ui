@@ -190,3 +190,4 @@ export 'src/components/checklist.dart';
 
 export 'src/data/unicode_emoji.dart';
 export 'src/components/emoji_text.dart';
+export 'src/components/celebration_scene.dart';
