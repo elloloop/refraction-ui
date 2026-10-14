@@ -1,3 +1,7 @@
+## Unreleased
+
+- Add opt-in content-sized top/bottom sheets with keyboard-aware maximum height; long content scrolls while title and actions stay visible. Existing fixed sizing remains the default.
+
 ## 0.51.0-dev.1
 
 - Allow compatible super_clipboard versions from 0.10.0-dev.2, as required by pub.dev library validation. Publish as a prerelease while the clipboard dependency is itself a prerelease. Consumers retain reproducible exact Refraction pins and lockfiles. Version 0.51.0 was not published because validation rejected its exact dependency range.
