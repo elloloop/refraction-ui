@@ -24,15 +24,24 @@ jobs:
       - name: Build packages
         run: make build-packages
 
+      # Compile every docs route before navigation. Next dev recompiles routes
+      # during screenshots and may restart when its memory threshold is reached.
+      - name: Build documentation
+        run: pnpm --filter refraction-ui-docs build
+
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps
 
       - name: Run Playwright visual tests
+        env:
+          # Only this lane prepares a production documentation build. Baseline
+          # regeneration and the standalone harnesses keep their existing mode.
+          REFRACTION_VISUAL_PRODUCTION: "1"
         run: pnpm e2e
 
       - name: Run Lost Pixel
         run: |
-          pnpm --filter refraction-ui-docs dev > /tmp/refraction-ui-docs.log 2>&1 &
+          pnpm --filter refraction-ui-docs exec next start > /tmp/refraction-ui-docs.log 2>&1 &
           DOCS_PID=$!
           trap 'kill "$DOCS_PID"' EXIT
 
