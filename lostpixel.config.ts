@@ -13,7 +13,11 @@ export const config = {
   },
   beforeScreenshot: async (page: Page) => {
     await page.evaluate(() => document.fonts.ready.then(() => undefined))
-    await page.locator('nextjs-portal [data-next-mark-loading="false"]').first().waitFor()
+    if (process.env.REFRACTION_VISUAL_PRODUCTION === '1') {
+      await page.waitForLoadState('networkidle')
+    } else {
+      await page.locator('nextjs-portal [data-next-mark-loading="false"]').first().waitFor()
+    }
     if (await page.locator('nextjs-portal [data-next-badge][data-error="true"]').count()) {
       throw new Error('Next.js reported an error before the visual capture')
     }

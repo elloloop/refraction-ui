@@ -40,6 +40,8 @@ jobs:
         run: pnpm e2e
 
       - name: Run Lost Pixel
+        env:
+          REFRACTION_VISUAL_PRODUCTION: "1"
         run: |
           pnpm --filter refraction-ui-docs exec next start > /tmp/refraction-ui-docs.log 2>&1 &
           DOCS_PID=$!
