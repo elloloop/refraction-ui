@@ -4,6 +4,7 @@ const config: StorybookConfig = {
   stories: [
     '../packages/react-*/src/**/*.stories.@(ts|tsx)',
     '../docs-site/src/app/components/**/*.stories.tsx',
+    '../packages/flutter-docs-site/src/app/components/avatar/Avatar.stories.tsx',
   ],
   addons: [],
   framework: { name: '@storybook/react-vite', options: {} },

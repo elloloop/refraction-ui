@@ -1,3 +1,8 @@
+## 0.52.0-dev.1
+
+- Add RefractionBoundedAvatar with display-sized decoding, a 512 px ceiling and shared initials fallback. Support complete-original containment, exact provider lifecycle and bounded error callbacks; loaded transparent images have no placeholder glyph underneath.
+- Add RefractionEmojiGlyph for bundled animated Noto artwork with Twemoji fallback and reduced-motion stills.
+
 ## 0.51.0-dev.1
 
 - Allow compatible super_clipboard versions from 0.10.0-dev.2, as required by pub.dev library validation. Publish as a prerelease while the clipboard dependency is itself a prerelease. Consumers retain reproducible exact Refraction pins and lockfiles. Version 0.51.0 was not published because validation rejected its exact dependency range.

@@ -25,7 +25,7 @@ function getThemeString(mode: 'light' | 'dark' | 'system', resolved: 'light' | '
 
 export function FlutterPreview({ path, height = 400 }: FlutterPreviewProps) {
   const { mode, resolved } = useTheme()
-  const [themeParam, setThemeParam] = useState('Refraction Light')
+  const [themeParam, setThemeParam] = useState(() => getThemeString(mode, resolved))
 
   useEffect(() => {
     setThemeParam(getThemeString(mode, resolved))
@@ -64,7 +64,8 @@ export function FlutterPreview({ path, height = 400 }: FlutterPreviewProps) {
   const mappedPath = routeMap[path] || path
 
   // In local development or production, /refraction-ui/flutter/prototype/ will serve the app.
-  const src = `/refraction-ui/flutter/prototype/#${mappedPath}`
+  const query = new URLSearchParams({ theme: themeParam, appearance: mode })
+  const src = `/refraction-ui/flutter/prototype/?${query.toString()}#${mappedPath}`
 
   return (
     <div 
