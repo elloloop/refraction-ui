@@ -337,6 +337,14 @@ in addition to widget/web behavior tests. Build success does not prove physical
 keyboard or OS clipboard behavior on those platforms. Actual clipboard fixtures
 cover macOS and the iOS simulator; see [COMPOSER_TESTING](COMPOSER_TESTING.md).
 
+### Date picker with large text
+
+`RefractionDatePicker` respects the inherited text scale. Its full selected
+value or placeholder wraps within the parent's width. The calendar keeps seven
+aligned weekday columns; enlarged cells scroll horizontally if they cannot fit
+the viewport. The date/time popover stays within the viewport, and time fields
+keep both scaled digits visible. Do not disable text scaling to fit a form.
+
 ## Compatibility
 
 | Requirement | Version |
