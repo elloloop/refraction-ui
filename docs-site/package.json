@@ -127,6 +127,7 @@
     "@refraction-ui/react-select": "workspace:*",
     "@refraction-ui/react-separator": "workspace:*",
     "@refraction-ui/react-sheet": "workspace:*",
+    "@refraction-ui/react-shortcuts-dialog": "workspace:*",
     "@refraction-ui/react-sidebar": "workspace:*",
     "@refraction-ui/react-skeleton": "workspace:*",
     "@refraction-ui/react-skip-to-content": "workspace:*",

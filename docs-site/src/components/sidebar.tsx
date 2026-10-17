@@ -127,6 +127,7 @@ const componentGroups = [
       { name: 'File Card', href: '/components/file-card' },
       { name: 'Jump To Latest', href: '/components/jump-to-latest' },
       { name: 'Command Dialog', href: '/components/command-dialog' },
+      { name: 'Shortcuts Dialog', href: '/components/shortcuts-dialog' },
     ],
   },
   {

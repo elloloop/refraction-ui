@@ -506,6 +506,9 @@ importers:
       '@refraction-ui/react-sheet':
         specifier: workspace:*
         version: link:../packages/react-sheet
+      '@refraction-ui/react-shortcuts-dialog':
+        specifier: workspace:*
+        version: link:../packages/react-shortcuts-dialog
       '@refraction-ui/react-sidebar':
         specifier: workspace:*
         version: link:../packages/react-sidebar
@@ -5430,6 +5433,9 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -6247,6 +6253,9 @@ importers:
       '@refraction-ui/react-sheet':
         specifier: workspace:*
         version: link:../react-sheet
+      '@refraction-ui/react-shortcuts-dialog':
+        specifier: workspace:*
+        version: link:../react-shortcuts-dialog
       '@refraction-ui/react-sidebar':
         specifier: workspace:*
         version: link:../react-sidebar
@@ -7147,6 +7156,43 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-shortcuts-dialog:
+    dependencies:
+      '@refraction-ui/keyboard-shortcut':
+        specifier: workspace:*
+        version: link:../keyboard-shortcut
+      '@refraction-ui/react-dialog':
+        specifier: workspace:*
+        version: link:../react-dialog
+      '@refraction-ui/react-keycap':
+        specifier: workspace:*
+        version: link:../react-keycap
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/shortcuts-dialog':
+        specifier: workspace:*
+        version: link:../shortcuts-dialog
+    devDependencies:
+      '@refraction-ui/react-keyboard-shortcut':
+        specifier: workspace:*
+        version: link:../react-keyboard-shortcut
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -8174,6 +8220,18 @@ importers:
         version: link:../shared
 
   packages/shared: {}
+
+  packages/shortcuts-dialog:
+    dependencies:
+      '@refraction-ui/keyboard-shortcut':
+        specifier: workspace:*
+        version: link:../keyboard-shortcut
+      '@refraction-ui/keycap':
+        specifier: workspace:*
+        version: link:../keycap
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
 
   packages/sidebar:
     dependencies:

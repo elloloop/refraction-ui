@@ -168,20 +168,104 @@ export const SANE_DEFAULTS: Record<string, string[]> = {
   help: ['?'],
 };
 
-export class ShortcutRegistry {
-  private shortcuts: Map<string, () => void> = new Map();
+/** What a registered shortcut does, for help screens such as ShortcutsDialog. */
+export interface ShortcutRegistrationInfo {
+  /** What the shortcut does ("Save the document"). */
+  description?: string
+  /** Section the shortcut is listed under ("Editing"). */
+  group?: string
+}
 
-  register(keys: string[], handler: () => void) {
-    const keyStr = keys.map(k => k.toLowerCase()).sort().join('+');
+/** Group names used by SANE_DEFAULT_SHORTCUT_INFO. */
+const SANE_DEFAULT_GROUPS = {
+  general: 'General',
+  editing: 'Editing',
+  clipboard: 'Clipboard',
+} as const
+
+/** Descriptions and groups for every SANE_DEFAULTS action, keyed by action name. */
+export const SANE_DEFAULT_SHORTCUT_INFO: Readonly<Record<string, Required<ShortcutRegistrationInfo>>> = {
+  save: { description: 'Save', group: SANE_DEFAULT_GROUPS.general },
+  search: { description: 'Search', group: SANE_DEFAULT_GROUPS.general },
+  close: { description: 'Close', group: SANE_DEFAULT_GROUPS.general },
+  submit: { description: 'Submit', group: SANE_DEFAULT_GROUPS.general },
+  new: { description: 'New', group: SANE_DEFAULT_GROUPS.general },
+  print: { description: 'Print', group: SANE_DEFAULT_GROUPS.general },
+  help: { description: 'Show keyboard shortcuts', group: SANE_DEFAULT_GROUPS.general },
+  undo: { description: 'Undo', group: SANE_DEFAULT_GROUPS.editing },
+  redo: { description: 'Redo', group: SANE_DEFAULT_GROUPS.editing },
+  copy: { description: 'Copy', group: SANE_DEFAULT_GROUPS.clipboard },
+  paste: { description: 'Paste', group: SANE_DEFAULT_GROUPS.clipboard },
+  cut: { description: 'Cut', group: SANE_DEFAULT_GROUPS.clipboard },
+};
+
+/** A shortcut currently held by a ShortcutRegistry, as listed by `getSnapshot()`. */
+export interface RegisteredShortcut extends ShortcutRegistrationInfo {
+  /** Registry key: the lower-cased keys, sorted and joined with `+`. */
+  id: string
+  /** The keys as they were registered. */
+  keys: readonly string[]
+}
+
+interface RegistryEntry {
+  keys: readonly string[]
+  handler: () => void
+  info: ShortcutRegistrationInfo
+}
+
+const EMPTY_SNAPSHOT: readonly RegisteredShortcut[] = Object.freeze([])
+
+function registryKey(keys: readonly string[]): string {
+  return keys.map(k => k.toLowerCase()).sort().join('+');
+}
+
+export class ShortcutRegistry {
+  private shortcuts: Map<string, RegistryEntry> = new Map();
+  private listeners: Set<() => void> = new Set();
+  private snapshot: readonly RegisteredShortcut[] = EMPTY_SNAPSHOT;
+
+  register(keys: string[], handler: () => void, info: ShortcutRegistrationInfo = {}) {
+    const keyStr = registryKey(keys);
     if (this.shortcuts.has(keyStr)) {
       console.warn(`Shortcut ${keyStr} is already registered.`);
     }
-    this.shortcuts.set(keyStr, handler);
+    this.shortcuts.set(keyStr, { keys: [...keys], handler, info: { ...info } });
+    this.changed();
   }
 
-  unregister(keys: string[]) {
-    const keyStr = keys.map(k => k.toLowerCase()).sort().join('+');
+  /**
+   * Removes the shortcut for `keys`. When `handler` is given, the entry is only
+   * removed if it is still that handler's — so a component unmounting cannot
+   * drop a newer registration of the same keys made by another component.
+   */
+  unregister(keys: string[], handler?: () => void) {
+    const keyStr = registryKey(keys);
+    const entry = this.shortcuts.get(keyStr);
+    if (!entry) return;
+    if (handler && entry.handler !== handler) return;
     this.shortcuts.delete(keyStr);
+    this.changed();
+  }
+
+  /** Calls `listener` whenever a shortcut is registered or unregistered. Returns an unsubscribe function. */
+  subscribe = (listener: () => void): (() => void) => {
+    this.listeners.add(listener);
+    return () => {
+      this.listeners.delete(listener);
+    };
+  };
+
+  /**
+   * The registered shortcuts in registration order. The array is immutable and
+   * keeps its identity until the registry changes (safe for useSyncExternalStore).
+   */
+  getSnapshot = (): readonly RegisteredShortcut[] => this.snapshot;
+
+  private changed() {
+    this.snapshot = Object.freeze(
+      Array.from(this.shortcuts, ([id, entry]) => ({ id, keys: entry.keys, ...entry.info })),
+    );
+    this.listeners.forEach((listener) => listener());
   }
 }
 
