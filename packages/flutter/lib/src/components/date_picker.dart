@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/refraction_colors.dart';
@@ -99,6 +100,15 @@ class _RefractionDatePickerState extends State<RefractionDatePicker> {
     final RenderBox renderBox = context.findRenderObject() as RenderBox;
     final size = renderBox.size;
     final themeData = RefractionTheme.of(context).data;
+    const edge = 16.0;
+    final viewport = MediaQuery.sizeOf(context).width;
+    final scale = MediaQuery.textScalerOf(context).scale(14) / 14;
+    final width = math.min(
+      280.0 * math.max(1.0, scale),
+      math.max(0.0, viewport - edge * 2),
+    );
+    final anchor = renderBox.localToGlobal(Offset.zero).dx;
+    final left = anchor.clamp(edge, math.max(edge, viewport - width - edge));
 
     _overlayEntry = OverlayEntry(
       builder: (context) => Stack(
@@ -111,11 +121,11 @@ class _RefractionDatePickerState extends State<RefractionDatePicker> {
             ),
           ),
           Positioned(
-            width: 280,
+            width: width,
             child: CompositedTransformFollower(
               link: _layerLink,
               showWhenUnlinked: false,
-              offset: Offset(0, size.height + 4),
+              offset: Offset(left - anchor, size.height + 4),
               child: Material(
                 color: Colors.transparent,
                 child: TweenAnimationBuilder<double>(
@@ -199,13 +209,17 @@ class _RefractionDatePickerState extends State<RefractionDatePicker> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                _displayValue,
-                style: theme.data.textStyle.copyWith(
-                  fontSize: 14,
-                  color: widget.value == null
-                      ? colors.mutedForeground
-                      : colors.foreground,
+              // Respect the parent's available width without shrinking the
+              // user's text scale or hiding the selected date/time.
+              Flexible(
+                child: Text(
+                  _displayValue,
+                  style: theme.data.textStyle.copyWith(
+                    fontSize: 14,
+                    color: widget.value == null
+                        ? colors.mutedForeground
+                        : colors.foreground,
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
@@ -389,6 +403,16 @@ class _DatePickerDropdownState extends State<_DatePickerDropdown> {
     final theme = RefractionTheme.of(context);
     final colors = theme.colors;
 
+    final digits = TextPainter(
+      text: TextSpan(
+        text: '88',
+        style: theme.data.textStyle.copyWith(fontSize: 14),
+      ),
+      textDirection: Directionality.of(context),
+      textScaler: MediaQuery.textScalerOf(context),
+    )..layout();
+    final cell = math.max(32.0, math.max(digits.width, digits.height) + 8);
+    digits.dispose();
     final days = _buildDays();
     const shortDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
     const monthNames = [
@@ -409,7 +433,6 @@ class _DatePickerDropdownState extends State<_DatePickerDropdown> {
         '${monthNames[_currentMonth.month - 1]} ${_currentMonth.year}';
 
     return Container(
-      width: 280,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: colors.popover,
@@ -471,82 +494,97 @@ class _DatePickerDropdownState extends State<_DatePickerDropdown> {
             ],
           ),
           const SizedBox(height: 12),
-          // Days Header
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: shortDays
-                .map(
-                  (d) => SizedBox(
-                    width: 32,
-                    child: Text(
-                      d,
-                      textAlign: TextAlign.center,
-                      style: theme.data.textStyle.copyWith(
-                        fontSize: 12,
-                        color: colors.mutedForeground,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+          // Keep seven aligned columns at the user's text scale. When they
+          // cannot fit the viewport, scroll the calendar rather than overlap.
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(
+              width: cell * 7 + 4 * 6,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: shortDays
+                        .map(
+                          (d) => SizedBox(
+                            width: cell,
+                            child: Text(
+                              d,
+                              textAlign: TextAlign.center,
+                              style: theme.data.textStyle.copyWith(
+                                fontSize: 12,
+                                color: colors.mutedForeground,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
-                )
-                .toList(),
-          ),
-          const SizedBox(height: 8),
-          // Grid
-          Wrap(
-            spacing: 4,
-            runSpacing: 4,
-            children: days.map((day) {
-              Color bgColor = Colors.transparent;
-              Color textColor = colors.foreground;
-              BoxBorder? border;
-              double opacity = 1.0;
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 4,
+                    runSpacing: 4,
+                    children: days.map((day) {
+                      Color bgColor = Colors.transparent;
+                      Color textColor = colors.foreground;
+                      BoxBorder? border;
+                      double opacity = 1.0;
 
-              if (day.isDisabled) {
-                textColor = colors.mutedForeground;
-                opacity = 0.5;
-              } else if (day.isSelected) {
-                bgColor = colors.primary;
-                textColor = colors.primaryForeground;
-              } else if (day.isToday) {
-                border = Border.all(color: colors.accentForeground);
-              } else if (!day.isCurrentMonth) {
-                textColor = colors.mutedForeground;
-                opacity = 0.3;
-              }
+                      if (day.isDisabled) {
+                        textColor = colors.mutedForeground;
+                        opacity = 0.5;
+                      } else if (day.isSelected) {
+                        bgColor = colors.primary;
+                        textColor = colors.primaryForeground;
+                      } else if (day.isToday) {
+                        border = Border.all(color: colors.accentForeground);
+                      } else if (!day.isCurrentMonth) {
+                        textColor = colors.mutedForeground;
+                        opacity = 0.3;
+                      }
 
-              return GestureDetector(
-                onTap: day.isDisabled
-                    ? null
-                    : () => _handleSelectDate(day.date),
-                child: Opacity(
-                  opacity: opacity,
-                  child: Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      color: bgColor,
-                      borderRadius: BorderRadius.circular(theme.borderRadius),
-                      border: border,
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      day.date.day.toString(),
-                      style: theme.data.textStyle.copyWith(
-                        fontSize: 14,
-                        color: textColor,
-                      ),
-                    ),
+                      return GestureDetector(
+                        onTap: day.isDisabled
+                            ? null
+                            : () => _handleSelectDate(day.date),
+                        child: Opacity(
+                          opacity: opacity,
+                          child: Container(
+                            width: cell,
+                            height: cell,
+                            decoration: BoxDecoration(
+                              color: bgColor,
+                              borderRadius: BorderRadius.circular(
+                                theme.borderRadius,
+                              ),
+                              border: border,
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              day.date.day.toString(),
+                              style: theme.data.textStyle.copyWith(
+                                fontSize: 14,
+                                color: textColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
                   ),
-                ),
-              );
-            }).toList(),
+                ],
+              ),
+            ),
           ),
           if (widget.showTime) ...[
             const SizedBox(height: 12),
             Divider(color: colors.border),
             const SizedBox(height: 12),
-            Row(
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 Text(
                   'Time:',
@@ -555,26 +593,30 @@ class _DatePickerDropdownState extends State<_DatePickerDropdown> {
                     color: colors.mutedForeground,
                   ),
                 ),
-                const SizedBox(width: 8),
-                _buildTimeInput(
-                  _hoursController,
-                  (val) => _handleTimeChange(),
-                  theme,
-                  colors,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  ':',
-                  style: theme.data.textStyle.copyWith(
-                    color: colors.mutedForeground,
-                  ),
-                ),
-                const SizedBox(width: 4),
-                _buildTimeInput(
-                  _minutesController,
-                  (val) => _handleTimeChange(),
-                  theme,
-                  colors,
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildTimeInput(
+                      _hoursController,
+                      (val) => _handleTimeChange(),
+                      theme,
+                      colors,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      ':',
+                      style: theme.data.textStyle.copyWith(
+                        color: colors.mutedForeground,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    _buildTimeInput(
+                      _minutesController,
+                      (val) => _handleTimeChange(),
+                      theme,
+                      colors,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -590,19 +632,32 @@ class _DatePickerDropdownState extends State<_DatePickerDropdown> {
     RefractionTheme theme,
     RefractionColors colors,
   ) {
+    const horizontalPadding = 8.0;
+    const cursorWidth = 2.0;
+    final style = theme.data.textStyle.copyWith(fontSize: 14);
+    final digits = TextPainter(
+      text: TextSpan(text: '00', style: style),
+      textDirection: Directionality.of(context),
+      textScaler: MediaQuery.textScalerOf(context),
+    )..layout();
+    // Keep both scaled digits visible inside the field's padding and border.
+    final width = (digits.width + horizontalPadding * 2 + 2 + cursorWidth)
+        .clamp(48.0, double.infinity);
+    digits.dispose();
     return SizedBox(
-      width: 48,
+      width: width,
       child: TextField(
+        cursorWidth: cursorWidth,
         controller: controller,
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         onChanged: onChanged,
-        style: theme.data.textStyle.copyWith(fontSize: 14),
+        style: style,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(
             vertical: 4,
-            horizontal: 8,
+            horizontal: horizontalPadding,
           ),
           isDense: true,
           filled: true,

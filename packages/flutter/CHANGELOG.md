@@ -1,3 +1,7 @@
+## 0.51.0-dev.2
+
+- Keep DatePicker date/time values readable at large text scales in narrow layouts. The trigger wraps without shrinking or truncating text, the popover stays within the viewport, calendar cells grow while preserving seven aligned columns with horizontal scrolling when needed, and time inputs retain both enlarged digits.
+
 ## 0.51.0-dev.1
 
 - Allow compatible super_clipboard versions from 0.10.0-dev.2, as required by pub.dev library validation. Publish as a prerelease while the clipboard dependency is itself a prerelease. Consumers retain reproducible exact Refraction pins and lockfiles. Version 0.51.0 was not published because validation rejected its exact dependency range.
