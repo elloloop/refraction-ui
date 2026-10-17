@@ -116,6 +116,7 @@ const componentGroups = [
       { name: 'Multi Combobox', href: '/components/multi-combobox' },
       { name: 'Emoji Glyph', href: '/components/emoji-glyph' },
       { name: 'Task List', href: '/components/task-list' },
+      { name: 'Sandbox Frame', href: '/components/sandbox-frame' },
     ],
   },
   {

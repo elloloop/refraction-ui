@@ -160,6 +160,7 @@
     "@refraction-ui/react-reaction-tray": "workspace:*",
     "@refraction-ui/react-resizable-layout": "workspace:*",
     "@refraction-ui/react-rich-editor": "workspace:*",
+    "@refraction-ui/react-sandbox-frame": "workspace:*",
     "@refraction-ui/react-search-bar": "workspace:*",
     "@refraction-ui/react-section-head": "workspace:*",
     "@refraction-ui/react-segmented-control": "workspace:*",

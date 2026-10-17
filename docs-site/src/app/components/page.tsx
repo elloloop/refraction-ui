@@ -163,6 +163,7 @@ const components = [
   { name: 'Multi Combobox', href: '/components/multi-combobox', description: 'Multi-select combobox with removable chips and async options.', category: 'Workplace' },
   { name: 'Emoji Glyph', href: '/components/emoji-glyph', description: 'An emoji drawn from bundled art, animated where art exists.', category: 'Workplace' },
   { name: 'Task List', href: '/components/task-list', description: 'Grouped tasks with folding groups and bulk selection.', category: 'Workplace' },
+  { name: 'Sandbox Frame', href: '/components/sandbox-frame', description: 'Shows untrusted HTML in a locked-down, auto-height iframe.', category: 'Workplace' },
   { name: 'Rating Scale', href: '/components/rating-scale', description: 'Visual rating input with customizable range.', category: 'Forms' },
   { name: 'Wizard', href: '/components/wizard', description: 'Multi-step form wizard with progress indicators.', category: 'Forms' },
   { name: 'Radial Gauge', href: '/components/radial-gauge', description: 'Circular dial gauge for displaying percentage values.', category: 'Data' },

@@ -461,6 +461,9 @@ importers:
       '@refraction-ui/react-resizable-layout':
         specifier: workspace:*
         version: link:../packages/react-resizable-layout
+      '@refraction-ui/react-sandbox-frame':
+        specifier: workspace:*
+        version: link:../packages/react-sandbox-frame
       '@refraction-ui/react-search-bar':
         specifier: workspace:*
         version: link:../packages/react-search-bar
@@ -5876,6 +5879,9 @@ importers:
       '@refraction-ui/react-rich-editor':
         specifier: workspace:*
         version: link:../react-rich-editor
+      '@refraction-ui/react-sandbox-frame':
+        specifier: workspace:*
+        version: link:../react-sandbox-frame
       '@refraction-ui/react-search-bar':
         specifier: workspace:*
         version: link:../react-search-bar
@@ -6625,6 +6631,31 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-sandbox-frame:
+    dependencies:
+      '@refraction-ui/sandbox-frame':
+        specifier: workspace:*
+        version: link:../sandbox-frame
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -7687,6 +7718,15 @@ importers:
       '@refraction-ui/emoji-picker':
         specifier: workspace:*
         version: link:../emoji-picker
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/sandbox-frame:
+    dependencies:
+      '@refraction-ui/button':
+        specifier: workspace:*
+        version: link:../button
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
