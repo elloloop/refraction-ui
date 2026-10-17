@@ -66,6 +66,39 @@ describe('DropdownMenuContent anchoring and dismissal', () => {
     expect(menu.style.left).toBe('40px')
   })
 
+  it('measures its own width, not the page width, before aligning to the end edge', () => {
+    // jsdom has no layout, so report what a browser would: a block in normal
+    // flow is as wide as <body>, a fixed box shrinks to its content.
+    const offsetWidth = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetWidth')!
+    Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+      configurable: true,
+      get(this: HTMLElement) {
+        return this.style.position === 'fixed' ? 60 : 1024
+      },
+    })
+    try {
+      act(() =>
+        root.render(
+          <DropdownMenu>
+            <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem>Rename</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>,
+        ),
+      )
+      const trigger = container.querySelector('button')!
+      trigger.getBoundingClientRect = () => ({ ...rect, x: rect.left, y: rect.top, height: 32, toJSON: () => ({}) }) as DOMRect
+      act(() => trigger.dispatchEvent(new MouseEvent('click', { bubbles: true })))
+      const menu = document.body.querySelector<HTMLElement>('[role="menu"]')!
+      // trigger.right (140) - menu width (60). Measured in normal flow, the
+      // page-wide box would have clamped it to 0.
+      expect(menu.style.left).toBe('80px')
+    } finally {
+      Object.defineProperty(HTMLElement.prototype, 'offsetWidth', offsetWidth)
+    }
+  })
+
   it('closes on a pointer press outside, not inside', () => {
     renderMenu()
     const menu = document.body.querySelector<HTMLElement>('[role="menu"]')!

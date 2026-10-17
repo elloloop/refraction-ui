@@ -161,6 +161,16 @@ export type DropdownMenuAlign = 'start' | 'center' | 'end'
 
 const DEFAULT_SIDE_OFFSET = 4
 
+/**
+ * Style for the pass that measures the portalled menu before it is placed.
+ * Fixed positioning makes the box shrink to its content, as it will be once
+ * placed; left in normal flow it would be as wide as <body>, and `end` or
+ * `center` alignment would push it off the start edge. It is never painted:
+ * the layout effect places the menu before the browser paints. It stays
+ * visible so the first item can take focus in the meantime.
+ */
+const MEASURING_STYLE: React.CSSProperties = { position: 'fixed', top: 0, left: 0 }
+
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect
 
 /**
@@ -281,6 +291,8 @@ export const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenu
 
     if (!open) return null
 
+    // On the server there is no trigger to measure: render inline, unplaced.
+    const isClient = typeof document !== 'undefined'
     const content = React.createElement(
       'div',
       {
@@ -289,7 +301,7 @@ export const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenu
         id: contentId,
         'data-state': open ? 'open' : 'closed',
         className: cn(menuContentVariants(), className),
-        style: position ? { ...position, ...style } : style,
+        style: { ...(position ?? (isClient ? MEASURING_STYLE : undefined)), ...style },
         'data-align': align,
         onKeyDown: handleKeyDown,
         tabIndex: -1,
@@ -299,7 +311,7 @@ export const DropdownMenuContent = React.forwardRef<HTMLDivElement, DropdownMenu
     )
 
     // Render via portal if document is available (client-side)
-    if (typeof document !== 'undefined') {
+    if (isClient) {
       return ReactDOM.createPortal(content, document.body)
     }
 
