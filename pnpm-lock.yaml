@@ -308,6 +308,9 @@ importers:
       '@refraction-ui/react-funnel-chart':
         specifier: workspace:*
         version: link:../packages/react-funnel-chart
+      '@refraction-ui/react-gif-picker':
+        specifier: workspace:*
+        version: link:../packages/react-gif-picker
       '@refraction-ui/react-graph-view':
         specifier: workspace:*
         version: link:../packages/react-graph-view
@@ -3233,6 +3236,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/gif-picker:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/graph-view:
     dependencies:
       '@refraction-ui/shared':
@@ -4870,6 +4879,40 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-gif-picker:
+    dependencies:
+      '@refraction-ui/button':
+        specifier: workspace:*
+        version: link:../button
+      '@refraction-ui/gif-picker':
+        specifier: workspace:*
+        version: link:../gif-picker
+      '@refraction-ui/input':
+        specifier: workspace:*
+        version: link:../input
+      '@refraction-ui/react-tabs':
+        specifier: workspace:*
+        version: link:../react-tabs
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-graph-view:
     dependencies:
       '@refraction-ui/graph-view':
@@ -5714,6 +5757,9 @@ importers:
       '@refraction-ui/react-funnel-chart':
         specifier: workspace:*
         version: link:../react-funnel-chart
+      '@refraction-ui/react-gif-picker':
+        specifier: workspace:*
+        version: link:../react-gif-picker
       '@refraction-ui/react-graph-view':
         specifier: workspace:*
         version: link:../react-graph-view

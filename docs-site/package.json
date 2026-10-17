@@ -61,6 +61,7 @@
     "@refraction-ui/react-footer": "workspace:*",
     "@refraction-ui/react-form": "workspace:*",
     "@refraction-ui/react-funnel-chart": "workspace:*",
+    "@refraction-ui/react-gif-picker": "workspace:*",
     "@refraction-ui/react-graph-view": "workspace:*",
     "@refraction-ui/react-hierarchy-canvas": "workspace:*",
     "@refraction-ui/react-highlight-text": "workspace:*",

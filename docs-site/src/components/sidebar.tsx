@@ -117,6 +117,7 @@ const componentGroups = [
       { name: 'Emoji Glyph', href: '/components/emoji-glyph' },
       { name: 'Task List', href: '/components/task-list' },
       { name: 'Sandbox Frame', href: '/components/sandbox-frame' },
+      { name: 'GIF Picker', href: '/components/gif-picker' },
     ],
   },
   {
