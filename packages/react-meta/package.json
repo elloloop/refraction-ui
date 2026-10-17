@@ -99,6 +99,7 @@
     "@refraction-ui/react-empty-state": "workspace:*",
     "@refraction-ui/react-event-calendar": "workspace:*",
     "@refraction-ui/react-feedback-dialog": "workspace:*",
+    "@refraction-ui/react-file-card": "workspace:*",
     "@refraction-ui/react-file-tree": "workspace:*",
     "@refraction-ui/react-file-upload": "workspace:*",
     "@refraction-ui/react-floating-panel": "workspace:*",

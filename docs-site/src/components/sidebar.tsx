@@ -124,6 +124,7 @@ const componentGroups = [
       { name: 'Level Bars', href: '/components/level-bars' },
       { name: 'Floating Panel', href: '/components/floating-panel' },
       { name: 'Voice Note', href: '/components/voice-note' },
+      { name: 'File Card', href: '/components/file-card' },
     ],
   },
   {

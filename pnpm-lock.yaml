@@ -290,6 +290,9 @@ importers:
       '@refraction-ui/react-feedback-dialog':
         specifier: workspace:*
         version: link:../packages/react-feedback-dialog
+      '@refraction-ui/react-file-card':
+        specifier: workspace:*
+        version: link:../packages/react-file-card
       '@refraction-ui/react-file-tree':
         specifier: workspace:*
         version: link:../packages/react-file-tree
@@ -3016,6 +3019,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/file-card:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/file-tree:
     dependencies:
       '@refraction-ui/shared':
@@ -4792,6 +4801,34 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-file-card:
+    dependencies:
+      '@refraction-ui/file-card':
+        specifier: workspace:*
+        version: link:../file-card
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-file-tree:
     dependencies:
       '@refraction-ui/file-tree':
@@ -5896,6 +5933,9 @@ importers:
       '@refraction-ui/react-feedback-dialog':
         specifier: workspace:*
         version: link:../react-feedback-dialog
+      '@refraction-ui/react-file-card':
+        specifier: workspace:*
+        version: link:../react-file-card
       '@refraction-ui/react-file-tree':
         specifier: workspace:*
         version: link:../react-file-tree
