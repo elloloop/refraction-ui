@@ -1,0 +1,13 @@
+region: 1
+polite announcement: "Draft deleted. Undo"
+assertive announcement: ""
+polite after 1.2s: ""
+drafts after delete: "Drafts left: 2"
+toasts after 7s focused (duration 6000): 1
+toasts after Escape: 0
+focus after Escape: "Delete a draft"
+toasts after Undo: 0
+drafts after Undo: "Drafts left: 2"
+toasts after 4s hovered (duration 3000): 1
+toasts 2.5s after leaving: 0
+assertive announcement (error): "Something went wrong. Please try again."
