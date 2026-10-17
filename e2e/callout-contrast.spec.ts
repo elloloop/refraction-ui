@@ -6,6 +6,7 @@ import { test, expect, type Locator, type Page } from '@playwright/test'
 
 const AA_BODY_TEXT = 4.5
 const DESTRUCTIVE_TEXT = 'Deleting this project is permanent and cannot be undone.'
+const HYDRATION_TIMEOUT = 60_000
 
 /** Contrast between an element's text and the surface it is drawn on, as painted. */
 async function paintedContrast(element: Locator): Promise<{ ratio: number; text: number[]; surface: number[] }> {
@@ -56,18 +57,27 @@ async function paintedContrast(element: Locator): Promise<{ ratio: number; text:
   })
 }
 
-async function setColorMode(page: Page, mode: 'Light' | 'Dark') {
+/** Open the Callout docs page and switch it to a colour mode with the site's control. */
+async function openInMode(page: Page, mode: 'Light' | 'Dark') {
+  await page.goto('/components/callout')
+
+  // Wait for hydration before clicking: on mount the theme switcher writes the
+  // preset's colours to the root. In dev the first visit to a page compiles it,
+  // which can take far longer than the usual timeouts.
+  await expect
+    .poll(() => page.evaluate(() => document.documentElement.style.getPropertyValue('--destructive')), {
+      timeout: HYDRATION_TIMEOUT,
+    })
+    .not.toBe('')
+
   const radio = page.getByRole('radiogroup', { name: 'Color mode' }).getByRole('radio', { name: mode })
+  await radio.click()
+  await expect(radio).toHaveAttribute('aria-checked', 'true')
   const html = expect(page.locator('html'))
-  // In dev the first click can land before hydration and be a no-op; click
-  // again until the mode is applied, as a user would.
-  await expect(async () => {
-    await radio.click()
-    await expect(radio).toHaveAttribute('aria-checked', 'true', { timeout: 1_000 })
-    if (mode === 'Dark') await html.toHaveClass(/\bdark\b/, { timeout: 1_000 })
-    else await html.not.toHaveClass(/\bdark\b/, { timeout: 1_000 })
-  }).toPass({ timeout: 15_000 })
-  // Measure the settled colours, not a frame of the colour transition.
+  if (mode === 'Dark') await html.toHaveClass(/\bdark\b/)
+  else await html.not.toHaveClass(/\bdark\b/)
+
+  // Measure the settled colours, not a frame of a colour transition.
   await expect
     .poll(() => page.evaluate(() => document.getAnimations().filter((a) => a instanceof CSSTransition).length))
     .toBe(0)
@@ -75,8 +85,8 @@ async function setColorMode(page: Page, mode: 'Light' | 'Dark') {
 
 for (const mode of ['Light', 'Dark'] as const) {
   test(`destructive callout text meets WCAG AA in ${mode.toLowerCase()} mode`, async ({ page }) => {
-    await page.goto('/components/callout')
-    await setColorMode(page, mode)
+    test.setTimeout(HYDRATION_TIMEOUT * 2)
+    await openInMode(page, mode)
 
     const callout = page.getByRole('alert').filter({ hasText: DESTRUCTIVE_TEXT })
     await expect(callout).toBeVisible()
