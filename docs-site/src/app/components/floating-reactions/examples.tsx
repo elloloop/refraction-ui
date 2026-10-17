@@ -27,19 +27,17 @@ export function FloatingReactionsExamples({ section }: FloatingReactionsExamples
   return null
 }
 
-/** Shows a fixed set of reactions positioned in the overlay (no auto-expiry). */
+/**
+ * A burst moment held still. ReactionBurst items do not float away, so the
+ * frame stays put; reactions in a FloatingReactions overlay always do.
+ */
 function StaticExample() {
   return (
     <div className="rounded-xl border border-border bg-card p-0 overflow-hidden">
       <div className="relative w-full h-48 bg-muted flex items-center justify-center">
         <span className="text-sm text-muted-foreground">Meeting surface</span>
-        <FloatingReactions
-          reactions={[
-            { id: '1', emoji: '👋', lane: 1 },
-            { id: '2', emoji: '❤️', lane: 3 },
-          ]}
-          lanes={5}
-        />
+        <ReactionBurst emoji="👋" lane={1} lanes={5} />
+        <ReactionBurst emoji="❤️" lane={3} lanes={5} />
       </div>
     </div>
   )
@@ -67,10 +65,11 @@ function InteractiveExample() {
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <div className="relative w-full h-48 bg-muted flex items-end justify-center pb-4">
-        <span className="absolute top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-          Reactions float here
-        </span>
-        <FloatingReactions reactions={reactions} lanes={5} />
+        <span className="absolute top-4 text-sm text-muted-foreground">Reactions float here</span>
+        {/* The overlay covers the stage above the buttons, so a reaction starts clear of them. */}
+        <div className="absolute inset-x-0 top-0 bottom-14">
+          <FloatingReactions reactions={reactions} lanes={5} />
+        </div>
         <div className="relative z-10 flex gap-2 pointer-events-auto">
           {['👋', '❤️', '🎉', '😂', '👏'].map((emoji, i) => (
             <button

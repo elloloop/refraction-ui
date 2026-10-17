@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import * as React from 'react'
 import { renderToString } from 'react-dom/server'
-import { FloatingReactions } from '../src/floating-reactions.js'
+import { floatingReactionsStyles } from '@refraction-ui/floating-reactions'
+import { FloatingReactions, ReactionBurst } from '../src/floating-reactions.js'
 import type { FloatingReaction } from '../src/floating-reactions.js'
 
 const render = (props: React.ComponentProps<typeof FloatingReactions>) =>
@@ -62,5 +63,42 @@ describe('FloatingReactions (SSR)', () => {
   it('renders empty overlay with no reaction spans when reactions is empty', () => {
     const html = render({ reactions: [] })
     expect(html).not.toContain('aria-hidden="true"')
+  })
+})
+
+describe('FloatingReactions motion (SSR)', () => {
+  const styleTag = /<style[^>]*data-href="refraction-ui\/floating-reactions"[^>]*>([\s\S]*?)<\/style>/g
+
+  it('ships the library stylesheet with the overlay, so no global CSS is needed', () => {
+    const html = render({ reactions: [] })
+    const sheets = [...html.matchAll(styleTag)]
+    expect(sheets).toHaveLength(1)
+    expect(sheets[0][1]).toBe(floatingReactionsStyles)
+  })
+
+  it('renders the stylesheet once however many overlays a page has', () => {
+    const html = renderToString(
+      <div>
+        <FloatingReactions reactions={[{ id: 'a', emoji: '👋' }]} />
+        <FloatingReactions reactions={[]} />
+      </div>,
+    )
+    expect([...html.matchAll(styleTag)]).toHaveLength(1)
+  })
+
+  it('marks every reaction item so the stylesheet animates it', () => {
+    const reactions: FloatingReaction[] = [
+      { id: 'a', emoji: '👋', lane: 0 },
+      { id: 'b', emoji: '🎉', lane: 1 },
+    ]
+    const html = render({ reactions })
+    expect((html.match(/data-floating-reaction=""/g) ?? []).length).toBe(reactions.length)
+  })
+
+  it('keeps a ReactionBurst still: no motion marker and no stylesheet', () => {
+    const html = renderToString(<ReactionBurst emoji="🎉" lane={2} />)
+    expect(html).toContain('🎉')
+    expect(html).not.toContain('data-floating-reaction')
+    expect(html).not.toContain('<style')
   })
 })
