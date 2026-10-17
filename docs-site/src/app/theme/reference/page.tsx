@@ -38,7 +38,7 @@ const essentialCategories: Category[] = [
       { name: '--muted-foreground', controls: 'Subdued text (placeholders, secondary labels)', accepts: 'HSL: H S% L%', defaultValue: '240 4% 44%' },
       { name: '--accent', controls: 'Highlighted/hover backgrounds', accepts: 'HSL: H S% L%', defaultValue: '250 30% 95%' },
       { name: '--accent-foreground', controls: 'Text on accent color', accepts: 'HSL: H S% L%', defaultValue: '250 50% 40%' },
-      { name: '--destructive', controls: 'Error and danger actions', accepts: 'HSL: H S% L%', defaultValue: '0 84% 50%' },
+      { name: '--destructive', controls: 'Error and danger actions, and error text', accepts: 'HSL: H S% L%', defaultValue: '0 72% 40%' },
       { name: '--destructive-foreground', controls: 'Text on destructive color', accepts: 'HSL: H S% L%', defaultValue: '0 0% 100%' },
       { name: '--border', controls: 'Default border color for cards, dividers', accepts: 'HSL: H S% L%', defaultValue: '240 6% 92%' },
       { name: '--input', controls: 'Input field border color', accepts: 'HSL: H S% L%', defaultValue: '240 6% 92%' },

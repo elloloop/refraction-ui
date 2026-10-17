@@ -53,13 +53,23 @@ function hslToRGB(h: number, s: number, l: number): [number, number, number] {
   return [r + m, g + m, b + m]
 }
 
+/** Relative luminance of an sRGB colour (each channel 0-1), WCAG 2.1 formula. */
+function rgbToLuminance([r, g, b]: [number, number, number]): number {
+  return 0.2126 * sRGBToLinear(r) + 0.7152 * sRGBToLinear(g) + 0.0722 * sRGBToLinear(b)
+}
+
 /** Convert HSL to relative luminance (WCAG 2.1 formula) */
 export function hslToLuminance(h: number, s: number, l: number): number {
-  const [r, g, b] = hslToRGB(h, s, l)
-  const rLin = sRGBToLinear(r)
-  const gLin = sRGBToLinear(g)
-  const bLin = sRGBToLinear(b)
-  return 0.2126 * rLin + 0.7152 * gLin + 0.0722 * bLin
+  return rgbToLuminance(hslToRGB(h, s, l))
+}
+
+/** `top` drawn at `opacity` over `bottom`, blended in sRGB as browsers do. */
+function over(
+  top: [number, number, number],
+  opacity: number,
+  bottom: [number, number, number],
+): [number, number, number] {
+  return [0, 1, 2].map((i) => opacity * top[i] + (1 - opacity) * bottom[i]) as [number, number, number]
 }
 
 /** Calculate contrast ratio between two relative luminances */
@@ -112,9 +122,19 @@ const CATEGORY_PAIRS = Array.from({ length: CATEGORY_COUNT }, (_, i) => {
 /**
  * Foreground/background pairs to validate in a theme.
  * Each entry maps a descriptive pair name to the CSS variable names
- * for the foreground and background colors.
+ * for the foreground and background colors. A pair is checked as it is drawn:
+ * `wash` lays the foreground colour over the background at that opacity first
+ * (status text on its own tint, e.g. `text-destructive` on `bg-destructive/10`),
+ * and `fgOpacity` draws the text itself at that opacity.
  */
-const THEME_PAIRS: { pair: string; fg: string; bg: string; largeText?: boolean }[] = [
+const THEME_PAIRS: {
+  pair: string
+  fg: string
+  bg: string
+  largeText?: boolean
+  wash?: number
+  fgOpacity?: number
+}[] = [
   { pair: 'foreground / background', fg: '--foreground', bg: '--background' },
   { pair: 'primary / background', fg: '--primary', bg: '--background' },
   { pair: 'primary-foreground / primary', fg: '--primary-foreground', bg: '--primary' },
@@ -123,6 +143,27 @@ const THEME_PAIRS: { pair: string; fg: string; bg: string; largeText?: boolean }
   { pair: 'muted-foreground / muted', fg: '--muted-foreground', bg: '--muted' },
   { pair: 'accent-foreground / accent', fg: '--accent-foreground', bg: '--accent' },
   { pair: 'destructive-foreground / destructive', fg: '--destructive-foreground', bg: '--destructive' },
+  // Destructive is a text colour too: error text, and a destructive Callout or
+  // Toast. Components draw it on the page and on cards, on its own wash of up
+  // to 20%, and dimmed to 90% on a 10% wash (a Callout's description).
+  { pair: 'destructive / background', fg: '--destructive', bg: '--background' },
+  { pair: 'destructive / card', fg: '--destructive', bg: '--card' },
+  { pair: 'destructive / 20% destructive wash on background', fg: '--destructive', bg: '--background', wash: 0.2 },
+  { pair: 'destructive / 20% destructive wash on card', fg: '--destructive', bg: '--card', wash: 0.2 },
+  {
+    pair: 'destructive at 90% / 10% destructive wash on background',
+    fg: '--destructive',
+    bg: '--background',
+    wash: 0.1,
+    fgOpacity: 0.9,
+  },
+  {
+    pair: 'destructive at 90% / 10% destructive wash on card',
+    fg: '--destructive',
+    bg: '--card',
+    wash: 0.1,
+    fgOpacity: 0.9,
+  },
   { pair: 'card-foreground / card', fg: '--card-foreground', bg: '--card' },
   { pair: 'popover-foreground / popover', fg: '--popover-foreground', bg: '--popover' },
   { pair: 'sidebar-foreground / sidebar-background', fg: '--sidebar-foreground', bg: '--sidebar-background' },
@@ -138,7 +179,7 @@ export function validateThemeContrast(
 
   for (const mode of ['light', 'dark'] as const) {
     const vars = theme[mode]
-    for (const { pair, fg, bg, largeText } of THEME_PAIRS) {
+    for (const { pair, fg, bg, largeText, wash = 0, fgOpacity = 1 } of THEME_PAIRS) {
       const fgVal = vars[fg]
       const bgVal = vars[bg]
       if (!fgVal || !bgVal) continue
@@ -147,9 +188,12 @@ export function validateThemeContrast(
       try {
         const fgHSL = parseHSL(fgVal)
         const bgHSL = parseHSL(bgVal)
-        const fgLum = hslToLuminance(fgHSL.h, fgHSL.s, fgHSL.l)
-        const bgLum = hslToLuminance(bgHSL.h, bgHSL.s, bgHSL.l)
-        const ratio = contrastRatio(fgLum, bgLum)
+        const fgRGB = hslToRGB(fgHSL.h, fgHSL.s, fgHSL.l)
+        const surface = over(fgRGB, wash, hslToRGB(bgHSL.h, bgHSL.s, bgHSL.l))
+        const ratio = contrastRatio(
+          rgbToLuminance(over(fgRGB, fgOpacity, surface)),
+          rgbToLuminance(surface),
+        )
         const threshold = largeText ? 3 : 4.5
         results.push({
           pair: `${mode}: ${pair}`,

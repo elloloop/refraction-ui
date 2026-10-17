@@ -120,11 +120,21 @@ export interface ThemeDefinition {
 //   --foreground       (240 10% 10%)  -> ~17.5:1  AAA
 //   --primary          (250 50% 50%)  -> ~7.2:1   AAA (muted violet ~#6366F1)
 //   --muted-foreground (240 4% 44%)   -> ~5.1:1   AA
-//   --destructive-fg on destructive   -> ~4.5:1   AA
+//   --destructive      (0 72% 40%)    -> ~6.8:1   AA
+//   --destructive-fg on destructive   -> ~7.0:1   AAA
 //
 // Dark mode (against --background 240 10% 4%):
 //   --foreground       (0 0% 98%)     -> ~19.0:1  AAA
 //   --primary          (250 50% 65%)  -> ~5.4:1   AA
+//   --destructive      (0 63% 70%)    -> ~7.4:1   AAA
+//   --destructive-fg on destructive   -> ~7.4:1   AAA
+//
+// --destructive is a text colour as well as a fill: error text, and a
+// destructive Callout or Toast draw it on the page or on its own 5-20% wash.
+// Every theme uses the same two values, chosen to pass AA in both roles.
+// In dark mode no red light enough to read on the page is dark enough to
+// carry light text, so --destructive-foreground is the theme's dark
+// background, as it is for --primary.
 // ---------------------------------------------------------------------------
 
 export const refractionTheme: ThemeDefinition = {
@@ -149,7 +159,7 @@ export const refractionTheme: ThemeDefinition = {
 
       '--muted': '240 5% 96%',
       '--muted-foreground': '240 4% 44%',
-      '--destructive': '0 84% 50%',
+      '--destructive': '0 72% 40%',
       '--destructive-foreground': '0 0% 100%',
 
       '--success': '142 71% 35%',
@@ -227,8 +237,8 @@ export const refractionTheme: ThemeDefinition = {
 
       '--muted': '240 5% 16%',
       '--muted-foreground': '240 5% 65%',
-      '--destructive': '0 63% 31%',
-      '--destructive-foreground': '0 0% 98%',
+      '--destructive': '0 63% 70%',
+      '--destructive-foreground': '240 10% 4%',
 
       '--success': '142 71% 45%',
       '--success-foreground': '0 0% 98%',
@@ -376,7 +386,7 @@ export const luxeTheme: ThemeDefinition = {
 
       '--muted': '220 5% 96%',
       '--muted-foreground': '220 5% 40%',
-      '--destructive': '0 72% 45%',
+      '--destructive': '0 72% 40%',
       '--destructive-foreground': '0 0% 100%',
 
       '--success': '142 71% 35%',
@@ -452,8 +462,8 @@ export const luxeTheme: ThemeDefinition = {
 
       '--muted': '220 5% 16%',
       '--muted-foreground': '220 5% 60%',
-      '--destructive': '0 63% 31%',
-      '--destructive-foreground': '0 0% 98%',
+      '--destructive': '0 63% 70%',
+      '--destructive-foreground': '0 0% 7%',
 
       '--success': '142 71% 45%',
       '--success-foreground': '0 0% 98%',
@@ -604,7 +614,7 @@ export const warmTheme: ThemeDefinition = {
 
       '--muted': '30 15% 95%',
       '--muted-foreground': '25 10% 40%',
-      '--destructive': '0 72% 45%',
+      '--destructive': '0 72% 40%',
       '--destructive-foreground': '0 0% 100%',
 
       '--success': '142 71% 35%',
@@ -680,8 +690,8 @@ export const warmTheme: ThemeDefinition = {
 
       '--muted': '20 10% 16%',
       '--muted-foreground': '30 10% 60%',
-      '--destructive': '0 63% 31%',
-      '--destructive-foreground': '0 0% 98%',
+      '--destructive': '0 63% 70%',
+      '--destructive-foreground': '15 15% 5%',
 
       '--success': '142 71% 45%',
       '--success-foreground': '0 0% 98%',
@@ -831,7 +841,7 @@ export const signalTheme: ThemeDefinition = {
 
       '--muted': '200 8% 95%',
       '--muted-foreground': '210 8% 40%',
-      '--destructive': '0 72% 45%',
+      '--destructive': '0 72% 40%',
       '--destructive-foreground': '0 0% 100%',
 
       '--success': '142 71% 35%',
@@ -907,8 +917,8 @@ export const signalTheme: ThemeDefinition = {
 
       '--muted': '210 8% 16%',
       '--muted-foreground': '210 8% 60%',
-      '--destructive': '0 63% 31%',
-      '--destructive-foreground': '0 0% 98%',
+      '--destructive': '0 63% 70%',
+      '--destructive-foreground': '210 15% 5%',
 
       '--success': '142 71% 45%',
       '--success-foreground': '0 0% 98%',
@@ -1058,7 +1068,7 @@ export const pulseTheme: ThemeDefinition = {
 
       '--muted': '240 8% 93%',
       '--muted-foreground': '240 6% 40%',
-      '--destructive': '0 72% 45%',
+      '--destructive': '0 72% 40%',
       '--destructive-foreground': '0 0% 100%',
 
       '--success': '142 71% 35%',
@@ -1134,8 +1144,8 @@ export const pulseTheme: ThemeDefinition = {
 
       '--muted': '260 6% 16%',
       '--muted-foreground': '260 6% 60%',
-      '--destructive': '0 63% 31%',
-      '--destructive-foreground': '0 0% 98%',
+      '--destructive': '0 63% 70%',
+      '--destructive-foreground': '260 15% 5%',
 
       '--success': '142 71% 45%',
       '--success-foreground': '0 0% 98%',
@@ -1285,7 +1295,7 @@ export const monoTheme: ThemeDefinition = {
 
       '--muted': '210 12% 94%',
       '--muted-foreground': '210 10% 40%',
-      '--destructive': '0 72% 45%',
+      '--destructive': '0 72% 40%',
       '--destructive-foreground': '0 0% 100%',
 
       '--success': '142 71% 35%',
@@ -1361,8 +1371,8 @@ export const monoTheme: ThemeDefinition = {
 
       '--muted': '210 8% 14%',
       '--muted-foreground': '210 8% 60%',
-      '--destructive': '0 63% 31%',
-      '--destructive-foreground': '0 0% 98%',
+      '--destructive': '0 63% 70%',
+      '--destructive-foreground': '210 15% 5%',
 
       '--success': '142 71% 45%',
       '--success-foreground': '0 0% 98%',
