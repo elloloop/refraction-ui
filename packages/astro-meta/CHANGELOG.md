@@ -1,5 +1,87 @@
 # @refraction-ui/astro
 
+## 0.23.0
+
+### Minor Changes
+
+- ea602b0: The Astro toasts catch up with the React ones: a title, an action, live-region announcements and a keyboard focus ring.
+  
+  - `Toast.astro` takes `title` (a heading above the message), `actionLabel` (an action button such as Undo) and `dismissLabel` (the dismiss button's accessible name). Choosing the action closes the toast, then dispatches a bubbling `rfr-toast-action` event from it. The `title` prop is now this heading; it is no longer passed through as the HTML `title` attribute.
+  - `window.__rfr_toast({ message, title, variant, duration, action: { label, onClick } })` shows the same toast from a script; the callback runs once, after the toast starts to close. A bare `window.__rfr_toast('Saved')` works as before.
+  - `Toaster.astro` is a labelled landmark region (`aria-label`, default "Notifications") with a polite and an assertive live region that exist before any toast. Each toast in it is announced once, errors assertively and the rest politely, and loses its own `role="alert"` so it is not announced twice. A toast outside a toaster keeps `role="alert"`. `dismissLabel` on the toaster names the dismiss button of scripted toasts.
+  - The countdown pauses while a toast is hovered or holds focus. Escape closes the focused toast, and focus returns to where it was before it entered the toaster. The action and dismiss buttons get the keyboard-only focus ring, the dismiss glyph is hidden from assistive technology, and toasts close without the exit animation for users who prefer reduced motion.
+- ea602b0: AvatarGroup: whole presence dots, a fallback for missing photos, and a "+N" badge that can be a real button.
+  
+  - The presence dot is no longer cut off by its avatar's edge or hidden under the next avatar in the stack: it sits on top (`z-10`), and the group keeps it within itself (`isolate`).
+  - A photo is laid over the initials, which show while it loads and stay when it fails, including a photo that failed before the page hydrated or the Astro script ran. The photo is decoration (`alt=""`); the avatar already carries the name.
+  - `onOverflowClick` (React) and `overflowButton` (Astro) make the "+N" badge a button with a visible focus ring, e.g. to open a list of everyone. React passes the button, to anchor a popover to it; in Astro, listen for `click` on `[data-rfr-avatar-group-overflow]`.
+  - The group's ids come from `useId` in React, so a server-rendered group hydrates without a mismatch.
+  - The `xs` size's text is `0.625rem` instead of `10px`, so it follows the user's font size.
+  - `@refraction-ui/astro` now exports `AvatarGroup` (before, the meta exported nothing for it), and `@refraction-ui/react` now exports the `AvatarUser` type.
+  
+  **Changed:** without a handler, the "+N" badge is labelled as an image ("2 more users"), not as a button that did nothing when pressed. The avatar root no longer clips (`overflow-hidden` is gone from `avatarVariants`); the photo and the initials round and clip themselves (`rounded-[inherit]`). Other content placed in a styled avatar is no longer clipped to its shape.
+- ea602b0: Avatar: show presence.
+  
+  - `presence` (`'online' | 'away' | 'busy' | 'dnd' | 'offline'`) draws a dot at the avatar's bottom end corner, in the same colours as `PresenceIndicator` (both now read one status-to-colour map). `avatarPresenceVariants` exposes its classes. It sits over the edge with a ring in the page background, scales with `size` and sits just off the corner of a `square` avatar.
+  - A named avatar (`aria-label`) adds the status to its name, "Ada Lovelace (Away)", and hides the dot from assistive tech; an unnamed avatar names the dot itself ("Away"). `presenceLabel` sets the status words, e.g. for another language. `data-presence` on the root and `data-status` on the dot are styling hooks.
+  - `@refraction-ui/astro` now exports `Avatar`, `AvatarImage` and `AvatarFallback` (before, the meta exported nothing for them), and the Astro `Avatar` takes the same `presence` and `presenceLabel`.
+  
+  **Changed:** so the dot is not cut off, the avatar root no longer clips (`overflow-hidden` is gone from `avatarVariants`). The image and the fallback round and clip themselves instead (`rounded-[inherit]`), and the image is laid over the fallback (`absolute inset-0`), so the initials show while a photo loads. Content other than `AvatarImage` and `AvatarFallback` placed inside an avatar is no longer clipped to its shape; give it `rounded-[inherit] overflow-hidden` to keep that.
+- ea602b0: Add an opt-in `touchTarget` prop to Button. It grows the clickable area to at least 44×44 CSS px (the WCAG 2.5.5 target size, and larger when the reader's root text size is larger) with an invisible centred pseudo-element, so the small icon sizes (`icon`, `icon-sm`, `icon-xs`) can meet the target without changing how the button looks or the space it takes. It is off by default, so existing layouts do not shift. The button gets `data-touch-target`, and the class string is exported from the core as `buttonTouchTargetStyles` for custom controls. Keep neighbouring targets' centres at least 44px apart; an ancestor with `overflow: hidden` clips the extension.
+- ea602b0: `DatePicker` takes `presets`: one-click dates shown as buttons after the input, such as "Today", "Tomorrow" and "Next week".
+  
+  - `createDefaultDatePresets({ labels, weekStartsOn })` gives those three, with translated labels and the locale's first day of the week ("Next week" is the next one). Add your own presets as data: `{ id, label, weekday?, days? }` moves to the next `weekday` after today, then adds `days`.
+  - Each preset is a native button in the tab order after the input, chosen with Enter or Space, inside a group named by `presetsLabel` (default "Date shortcuts"). Labels are shown as given.
+  - A preset outside `minDate` or `maxDate` is disabled. Each resolves again when chosen, so a page left open past midnight picks the right day. With `showTime`, the time already chosen is kept.
+  - React calls `onChange` with the chosen day. Pass `today` when server-rendering presets with `minDate` or `maxDate` so the server and the browser agree on which are disabled.
+  - Astro resolves presets in the browser, so a statically built page stays correct, and fills the input with `input` and `change` events like a typed date. `DatePicker` is now exported by name from `@refraction-ui/astro`.
+- ea602b0: Add `Field`: a labelled form control with an optional hint that works with any control and any (or no) form library. The label names the control by id, the hint describes it, and a render-function child wires a control nested inside a wrapper. Stacked and inline layouts, `labelTone` for a regular or eyebrow label, and `grow` for wrapping rows.
+- ea602b0: LiveTranscript shows both sides of a call, interim lines that settle into their finals, and can follow the live line.
+  
+  - `TranscriptEntry` gains `side` (`'me' | 'them'`), `interim` and `startMs`. Your lines sit at the end edge and theirs at the start edge, each in its own bubble. Interim lines are muted with a dotted underline, carry a screen-reader "still listening" suffix (`interimLabel`) and are kept out of the log's announcements until their final replaces them.
+  - New `applyTranscriptUpdate(entries, result)`: each side keeps one interim line, a final replaces it, and finals from both sides are ordered by `startMs`.
+  - The panel is focusable by default (`tabIndex` 0) so it can be scrolled from the keyboard; pass `tabIndex={-1}` (React) or `tabindex={-1}` (Astro) to opt out.
+  - React only: `autoFollow` keeps the newest line in view, pauses when the reader scrolls up, and shows a "Jump to live" control (`jumpToLiveLabel`) that resumes it, without animation under reduced motion.
+  
+  Breaking for direct users of the core helpers only: `TranscriptBlock.texts` is now `lines` (`{ id, text, interim }`), and `transcriptTextLineClass` is now `transcriptTextLineVariants`. Neither is exported by `@refraction-ui/react` or `@refraction-ui/astro`.
+- ea602b0: Add `MediaFrame`: a fixed-aspect box for an image, a video or a live preview on a letterbox surface, with an optional corner caption. `ratio` takes a number, `"w:h"` or `"w/h"` and falls back to a square (with a development warning) when it is unusable; the frame exposes `data-orientation`. `labelPosition` corners are logical, so they follow the writing direction, and `tone` switches the letterbox between the neutral surface and the theme's tertiary accent.
+- ea602b0: ReactionBar: show who reacted, fold long bars behind "+N", and hand the add button to a picker.
+  
+  - A `Reaction` takes an optional `label` (its accessible name; defaults to the emoji) and `reactors` (who reacted). A pill with reactors gets a tooltip, "Ana, Sam and 3 others reacted with Agree", on hover and keyboard focus but not on touch; Escape dismisses it before an enclosing dialog sees the key, and the pill references it with `aria-describedby`. The tooltip lines up with the pill's start edge, or its end edge when that keeps it on screen (`getReactorsTooltipAlign`). `formatReactorNames` is exported for the same sentence elsewhere.
+  - `maxVisible` shows that many reactions and a "+N" button (`aria-expanded`, "Show N more reactions") that expands the bar in place and collapses it again.
+  - `strings` overrides every user-facing string: the group label, the add label, the overflow text and labels, each pill's name and the who-reacted sentence.
+  - Pills, the add button and the overflow button show a focus-visible ring, and drop their colour transition under reduced motion.
+  - The Astro bar now toggles, expands and shows who reacted in the browser too, with every string resolved on the server, and `@refraction-ui/astro` exports it: `import { ReactionBar } from '@refraction-ui/astro'` (before, the meta exported nothing for it).
+  
+  **Breaking change:** the add button no longer reports a hard-coded 👍. (This is technically a breaking change but is being shipped as a `minor` per `0.x` semver convention.)
+  
+  Migration:
+  
+  - React: `onAdd(emoji)` is now `onAddReaction(trigger)`, called with the add button so a picker can anchor to it and return focus to it. The add button renders only when `onAddReaction` is given; `showAddButton={false}` still hides it.
+  - Headless core: `createReactionBar` no longer takes `onAdd` or returns `add()`; open your picker from the add button and call `toggle(emoji)` or update `reactions` with the choice.
+  - Astro: the `rfr-reaction-add` event's detail is `{ trigger }` (the add button) instead of `{ emoji }`.
+- ea602b0: Show live media and call state on video tiles. `VideoGrid` gains `renderMedia` (a participant's `<video>`, transport-agnostic) and `renderTile` (custom or extended tiles, with the region and default tile props), and its participant type is generic so your own fields reach both. Grid rows now pack to the top instead of stretching into each other when the parent is shorter than the grid, and the speaker-view spotlight tile fills its area instead of overflowing it.
+  
+  `VideoTile` gains `handRaised`, `screenShare` (a "Presenting" qualifier on the name, a screen icon and letterboxed media), a `menu` slot for tile options, `fill` and localisable `labels`. The speaking and pinned highlights move from an outer ring, which a clipping parent cut off, to an inset edge drawn above the media with the success and primary tokens, plus a sound-wave icon and a pin badge so neither cue is colour-only. Media children now fill the tile, a long name truncates inside the chip, and the avatar circle and its initials shrink with the tile so they never run under the name chip. The Astro `VideoTile` matches and is exported by name.
+
+### Patch Changes
+
+- ea602b0: `FloatingReactions` now ships its own motion. The overlay renders the keyframes it animates with, so reactions rise and fade without any global CSS; before, they stayed still unless the app defined a `float-up` keyframe itself (that rule is no longer used and can be removed). Each reaction animates for exactly `REACTION_LIFETIME_MS`, the time `useFloatingReactions` removes it after. Under `prefers-reduced-motion: reduce` a reaction no longer moves: it stays where it appeared and fades out. In React 19 the stylesheet is hoisted into the document head once, however many overlays render. `ReactionBurst` stays a still preview of one reaction in its lane and never floats away.
+- ea602b0: Show a keyboard focus ring on every ThreadView, Calendar and AppShell control without relying on a global `:focus-visible` rule in the host app. ThreadView reaction pills and the Reply action, Calendar days and month buttons, and the AppShell sidebar toggle now carry the shared `focus-visible` ring, and ThreadView reveals its hover-only actions while one of them has focus. The Astro calendar's client re-render now uses the core day styles, so its days keep the ring after a month change.
+- ea602b0: Size small text in rem instead of pixels so it follows the reader's browser text-size setting. Badge (`sm`), SocialAuthButton's "Last used" badge, SectionHead, PageHeader and AudienceFeatureCard kickers, the Table eyebrow header, AudioRoom badges, the CallControls label, BrowserChromeMock, FunnelChart, LineChart, DiffViewer and the Composer trigger menu heading now use rem values equal to their former pixel sizes at the default 16px root, so nothing moves for readers who keep the default. DiffViewer's file tabs and status bar heights are in rem too, so they grow with their text instead of clipping it.
+- ea602b0: Toasts can carry a title and an action such as Undo: `toast(message, { title, action: { label, onClick } })`. Choosing the action closes the toast, then runs the callback once. `toast(message)` and `toast(message, { variant, duration })` work as before.
+  
+  The React `Toaster` is now a labelled landmark region (`aria-label`, default "Notifications") with a polite and an assertive live region that exist before any toast, so each new toast is announced once: errors assertively, other variants politely. Toasts inside a `Toaster` are no longer `role="alert"` themselves, so no toast is announced twice; a standalone `Toast` still is. Select rendered toasts with `[data-rfr-toast]`.
+  
+  The auto-dismiss countdown now really pauses while a toast is hovered or holds focus, and resumes with the time it had left (the manager gains `pause(id)` and `resume(id)`). Escape closes the focused toast, and focus returns to where it was before it entered the toasts. The action and dismiss buttons get a keyboard-only focus ring, the dismiss button's name can be set with `dismissLabel`, and toast transitions are off for users who prefer reduced motion (in Astro too).
+- ea602b0: Toasts no longer let the page show through or spill off small screens.
+  
+  - The tinted variants (success, error, warning) paint their tint over an opaque background, so content behind a toast no longer shows through.
+  - The toaster keeps a 16px gutter on both sides. On a phone it spans the screen minus the gutters instead of overflowing the left edge; on wider screens it stays at the bottom right, capped at `max-w-sm`.
+  - A long unbroken message, such as a URL, wraps instead of pushing the dismiss button out of the toast.
+  - The React `Toaster` and `Toast` carry the `data-rfr-toaster` and `data-rfr-toast` hooks the Astro ones already had.
+  - The Astro programmatic toast uses the shared variant classes instead of its own copy, and an unknown variant falls back to `default`.
+
 ## 0.22.1
 
 ### Patch Changes
