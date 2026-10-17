@@ -226,7 +226,7 @@ describe('@refraction-ui/react (meta package)', () => {
     const offenders: string[] = []
     for (const file of readdirSync(distDir).filter((f) => f.endsWith('.js'))) {
       const js = readFileSync(join(distDir, file), 'utf8')
-      for (const m of js.matchAll(/import\(((?:\s*\/\*[\s\S]*?\*\/)*)\s*([A-Za-z_$][\w$]*)\s*\)/g)) {
+      for (const m of js.matchAll(/import\(((?:\s*\/\*[^*]*\*+(?:[^/*][^*]*\*+)*\/)*)\s*([A-Za-z_$][\w$]*)\s*\)/g)) {
         if (!m[1].includes('webpackIgnore: true')) offenders.push(`${file}: import(${m[2]})`)
       }
     }
