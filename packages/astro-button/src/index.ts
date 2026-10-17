@@ -3,6 +3,7 @@ export { default as Button } from './Button.astro'
 export {
   buttonVariants,
   buttonTokens,
+  buttonTouchTargetStyles,
   type ButtonVariant,
   type ButtonSize,
 } from '@refraction-ui/button'

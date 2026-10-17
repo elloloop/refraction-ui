@@ -36,6 +36,13 @@ const buttonProps = [
     description: 'Render as child element (e.g. wrap an <a> tag).',
   },
   {
+    name: 'touchTarget',
+    type: 'boolean',
+    default: 'false',
+    description:
+      'Extends the clickable area to at least 44×44 CSS px (WCAG 2.5.5) with an invisible pseudo-element, without changing the visual size or layout. Use it on small icon buttons; keep neighbouring targets 44px apart.',
+  },
+  {
     name: 'shortcut',
     type: 'string',
     description: 'Keyboard shortcut (e.g. "mod+k") that triggers a click; renders a shortcut hint on the button.',
@@ -153,6 +160,19 @@ export default function ButtonPage() {
           Loading shows a spinner and disables interaction. Disabled greys out the button.
         </p>
         <ButtonExamples section="states" />
+      </section>
+
+      {/* Touch targets */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Touch targets</h2>
+        <p className="text-sm text-muted-foreground">
+          The icon sizes are 28–36px. Add{' '}
+          <code className="text-xs bg-muted px-1 rounded">touchTarget</code> to grow the clickable
+          area to 44×44 CSS px, the WCAG 2.5.5 target size, without changing how the button looks
+          or the space it takes. It is opt-in so existing layouts never shift. Neighbouring targets
+          closer than 44px overlap, so keep their centres at least 44px apart.
+        </p>
+        <ButtonExamples section="touch-target" />
       </section>
 
       <div className="h-px bg-border" />

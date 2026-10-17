@@ -11,8 +11,9 @@ const meta: Meta<typeof Button> = {
     },
     size: {
       control: 'select',
-      options: ['default', 'sm', 'lg', 'icon', 'xs'],
+      options: ['default', 'sm', 'lg', 'icon', 'xs', 'icon-sm', 'icon-xs'],
     },
+    touchTarget: { control: 'boolean' },
     disabled: { control: 'boolean' },
     loading: { control: 'boolean' },
     children: { control: 'text' },
@@ -38,5 +39,11 @@ export const Soft: Story = {
 
 export const Tertiary: Story = {
   args: { variant: 'tertiary', children: 'Tertiary' },
+  render: (args) => <Button {...args} />,
+}
+
+// An icon button whose hit area is extended to 44×44 CSS px.
+export const TouchTarget: Story = {
+  args: { size: 'icon-sm', variant: 'outline', touchTarget: true, 'aria-label': 'Star', children: '★' },
   render: (args) => <Button {...args} />,
 }
