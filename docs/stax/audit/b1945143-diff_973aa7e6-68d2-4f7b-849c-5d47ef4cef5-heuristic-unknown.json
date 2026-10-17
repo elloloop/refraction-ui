@@ -1,0 +1,864 @@
+{
+  "timestamp": "2026-10-17T03:48:16Z",
+  "call": "heuristic",
+  "sourceId": "diff:973aa7e6-68d2-4f7b-849c-5d47ef4cef55:v1",
+  "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:collapsible-rail",
+          "name": "Collapsible Rail",
+          "summary": "feat(collapsible-rail): add a side navigation rail that collapses and becomes an overlay",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
+            "feat(collapsible-rail): add a side navigation rail that collapses and becomes an overlay"
+          ],
+          "testerNotes": [
+            "Verify behavior touching .changeset/collapsible-rail.md, docs-site/package.json, docs-site/src/app/components/collapsible-rail/CollapsibleRail.stories.tsx, docs-site/src/app/components/collapsible-rail/examples.tsx, docs-site/src/app/components/collapsible-rail/page.tsx."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:collapsible-rail"
+          ],
+          "relatedComponents": [
+            "component:changeset",
+            "component:docs-site-packagejson",
+            "component:docs-site-src",
+            "component:docs",
+            "component:e2e",
+            "component:packages",
+            "component:pnpm-lockyaml"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:collapsible-rail",
+          "title": "Collapsible Rail",
+          "summary": "feat(collapsible-rail): add a side navigation rail that collapses and becomes an overlay",
+          "designNotes": [
+            "Changed files: .changeset/collapsible-rail.md, docs-site/package.json, docs-site/src/app/components/collapsible-rail/CollapsibleRail.stories.tsx, docs-site/src/app/components/collapsible-rail/examples.tsx, docs-site/src/app/components/collapsible-rail/page.tsx, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, docs/pr-evidence/collapsible-rail/README.md",
+            "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape."
+          ],
+          "relatedFeatures": [
+            "feature:collapsible-rail"
+          ],
+          "relatedComponents": [
+            "component:changeset",
+            "component:docs-site-packagejson",
+            "component:docs-site-src",
+            "component:docs",
+            "component:e2e",
+            "component:packages",
+            "component:pnpm-lockyaml"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:changeset",
+          "name": ".Changeset",
+          "kind": "unknown",
+          "paths": [
+            ".changeset/collapsible-rail.md"
+          ],
+          "summary": "Owns changes under .changeset.",
+          "relatedFeatures": [
+            "feature:collapsible-rail"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:collapsible-rail"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:docs-site-packagejson",
+          "name": "Docs Site/Package.Json",
+          "kind": "docs",
+          "paths": [
+            "docs-site/package.json"
+          ],
+          "summary": "Owns changes under docs-site/package.json.",
+          "relatedFeatures": [
+            "feature:collapsible-rail"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:collapsible-rail"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:docs-site-src",
+          "name": "Docs Site/Src",
+          "kind": "docs",
+          "paths": [
+            "docs-site/src/app/components/collapsible-rail/CollapsibleRail.stories.tsx",
+            "docs-site/src/app/components/collapsible-rail/examples.tsx",
+            "docs-site/src/app/components/collapsible-rail/page.tsx",
+            "docs-site/src/app/components/page.tsx",
+            "docs-site/src/components/sidebar.tsx"
+          ],
+          "summary": "Owns changes under docs-site/src.",
+          "relatedFeatures": [
+            "feature:collapsible-rail"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:collapsible-rail"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:docs",
+          "name": "Documentation",
+          "kind": "docs",
+          "paths": [
+            "docs/pr-evidence/collapsible-rail/README.md",
+            "docs/pr-evidence/collapsible-rail/after-collapsed-dark-1440.png",
+            "docs/pr-evidence/collapsible-rail/after-collapsed-light-1440.png",
+            "docs/pr-evidence/collapsible-rail/after-dark-1440.png",
+            "docs/pr-evidence/collapsible-rail/after-dark-375.png",
+            "docs/pr-evidence/collapsible-rail/after-light-1440.png",
+            "docs/pr-evidence/collapsible-rail/after-light-375.png",
+            "docs/pr-evidence/collapsible-rail/after-overlay-open-dark-375.png",
+            "docs/pr-evidence/collapsible-rail/after-overlay-open-light-375.png",
+            "docs/pr-evidence/collapsible-rail/before-dark-1440.png",
+            "docs/pr-evidence/collapsible-rail/before-dark-375.png",
+            "docs/pr-evidence/collapsible-rail/before-light-1440.png",
+            "docs/pr-evidence/collapsible-rail/before-light-375.png",
+            "docs/pr-evidence/collapsible-rail/browser-proof.json"
+          ],
+          "summary": "Owns changes under docs.",
+          "relatedFeatures": [
+            "feature:collapsible-rail"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:collapsible-rail"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:e2e",
+          "name": "E2e",
+          "kind": "unknown",
+          "paths": [
+            "e2e/collapsible-rail.spec.ts"
+          ],
+          "summary": "Owns changes under e2e.",
+          "relatedFeatures": [
+            "feature:collapsible-rail"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:collapsible-rail"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:packages",
+          "name": "Packages",
+          "kind": "unknown",
+          "paths": [
+            "packages/collapsible-rail/__tests__/collapsible-rail.dom.test.ts",
+            "packages/collapsible-rail/__tests__/collapsible-rail.test.ts",
+            "packages/collapsible-rail/package.json",
+            "packages/collapsible-rail/src/collapsible-rail.styles.ts",
+            "packages/collapsible-rail/src/collapsible-rail.ts",
+            "packages/collapsible-rail/src/index.ts",
+            "packages/collapsible-rail/tsconfig.json",
+            "packages/collapsible-rail/tsup.config.ts",
+            "packages/collapsible-rail/vitest.config.ts",
+            "packages/react-collapsible-rail/__tests__/collapsible-rail.interaction.test.tsx",
+            "packages/react-collapsible-rail/__tests__/collapsible-rail.test.tsx",
+            "packages/react-collapsible-rail/package.json",
+            "packages/react-collapsible-rail/src/collapsible-rail.tsx",
+            "packages/react-collapsible-rail/src/index.ts",
+            "packages/react-collapsible-rail/tsconfig.json",
+            "packages/react-collapsible-rail/tsup.config.ts",
+            "packages/react-collapsible-rail/vitest.config.ts",
+            "packages/react-meta/package.json",
+            "packages/react-meta/src/index.ts"
+          ],
+          "summary": "Owns changes under packages.",
+          "relatedFeatures": [
+            "feature:collapsible-rail"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:collapsible-rail"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:pnpm-lockyaml",
+          "name": "Pnpm Lock.Yaml",
+          "kind": "unknown",
+          "paths": [
+            "pnpm-lock.yaml"
+          ],
+          "summary": "Owns changes under pnpm-lock.yaml.",
+          "relatedFeatures": [
+            "feature:collapsible-rail"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:collapsible-rail"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:collapsible-rail",
+          "to": "component:changeset",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:collapsible-rail",
+          "to": "component:changeset",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:collapsible-rail",
+          "to": "component:docs-site-packagejson",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:collapsible-rail",
+          "to": "component:docs-site-packagejson",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:collapsible-rail",
+          "to": "component:docs-site-src",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:collapsible-rail",
+          "to": "component:docs-site-src",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:collapsible-rail",
+          "to": "component:docs",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:collapsible-rail",
+          "to": "component:docs",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:collapsible-rail",
+          "to": "component:e2e",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:collapsible-rail",
+          "to": "component:e2e",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:collapsible-rail",
+          "to": "component:packages",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:collapsible-rail",
+          "to": "component:packages",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:collapsible-rail",
+          "to": "component:pnpm-lockyaml",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:collapsible-rail",
+          "to": "component:pnpm-lockyaml",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:collapsible-rail",
+          "to": "technical:collapsible-rail",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "api:.changeset",
+          "parent": "apis",
+          "title": "Changeset",
+          "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:docs-site",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-collapsible-rail",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-collapsible-rail",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
+          "what": "add a side navigation rail that collapses and becomes an overlay",
+          "how": "Changed: .changeset/collapsible-rail.md",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:973aa7e6-68d2-4f7b-849c-5d47ef4cef55:v1",
+              "kind": "diff",
+              "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
+              "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+            }
+          ],
+          "updated": "2026-10-17T03:48:16Z"
+        },
+        {
+          "id": "api:docs-site",
+          "parent": "apis",
+          "title": "Docs Site",
+          "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-collapsible-rail",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-collapsible-rail",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
+          "what": "add a side navigation rail that collapses and becomes an overlay",
+          "how": "TypeScript. Changed: docs-site/package.json, docs-site/src/app/components/collapsible-rail/CollapsibleRail.stories.tsx, docs-site/src/app/components/collapsible-rail/examples.tsx, docs-site/src/app/components/collapsible-rail/page.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:973aa7e6-68d2-4f7b-849c-5d47ef4cef55:v1",
+              "kind": "diff",
+              "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
+              "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+            }
+          ],
+          "updated": "2026-10-17T03:48:16Z"
+        },
+        {
+          "id": "api:docs",
+          "parent": "apis",
+          "title": "Docs",
+          "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-collapsible-rail",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-collapsible-rail",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
+          "what": "add a side navigation rail that collapses and becomes an overlay",
+          "how": "Changed: docs/pr-evidence/collapsible-rail/README.md, docs/pr-evidence/collapsible-rail/after-collapsed-dark-1440.png, docs/pr-evidence/collapsible-rail/after-collapsed-light-1440.png, docs/pr-evidence/collapsible-rail/after-dark-1440.png",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:973aa7e6-68d2-4f7b-849c-5d47ef4cef55:v1",
+              "kind": "diff",
+              "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
+              "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+            }
+          ],
+          "updated": "2026-10-17T03:48:16Z"
+        },
+        {
+          "id": "operations:e2e",
+          "parent": "operations",
+          "title": "E2e",
+          "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-collapsible-rail",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-collapsible-rail",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-react-collapsible-rail",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-react-collapsible-rail",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            }
+          ],
+          "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
+          "what": "add a side navigation rail that collapses and becomes an overlay",
+          "how": "TypeScript. Changed: e2e/collapsible-rail.spec.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:973aa7e6-68d2-4f7b-849c-5d47ef4cef55:v1",
+              "kind": "diff",
+              "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
+              "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+            }
+          ],
+          "updated": "2026-10-17T03:48:16Z"
+        },
+        {
+          "id": "operations:packages-collapsible-rail",
+          "parent": "operations",
+          "title": "Packages Collapsible Rail",
+          "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-collapsible-rail",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-react-collapsible-rail",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-react-collapsible-rail",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            }
+          ],
+          "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
+          "what": "add a side navigation rail that collapses and becomes an overlay",
+          "how": "TypeScript. Changed: packages/collapsible-rail/__tests__/collapsible-rail.dom.test.ts, packages/collapsible-rail/__tests__/collapsible-rail.test.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:973aa7e6-68d2-4f7b-849c-5d47ef4cef55:v1",
+              "kind": "diff",
+              "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
+              "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+            }
+          ],
+          "updated": "2026-10-17T03:48:16Z"
+        },
+        {
+          "id": "api:packages-collapsible-rail",
+          "parent": "apis",
+          "title": "Packages Collapsible Rail",
+          "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-react-collapsible-rail",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
+          "what": "add a side navigation rail that collapses and becomes an overlay",
+          "how": "TypeScript. Changed: packages/collapsible-rail/package.json, packages/collapsible-rail/src/collapsible-rail.styles.ts, packages/collapsible-rail/src/collapsible-rail.ts, packages/collapsible-rail/src/index.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:973aa7e6-68d2-4f7b-849c-5d47ef4cef55:v1",
+              "kind": "diff",
+              "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
+              "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+            }
+          ],
+          "updated": "2026-10-17T03:48:16Z"
+        },
+        {
+          "id": "operations:packages-react-collapsible-rail",
+          "parent": "operations",
+          "title": "Packages React Collapsible Rail",
+          "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-collapsible-rail",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-collapsible-rail",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            }
+          ],
+          "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
+          "what": "add a side navigation rail that collapses and becomes an overlay",
+          "how": "TypeScript. Changed: packages/react-collapsible-rail/__tests__/collapsible-rail.interaction.test.tsx, packages/react-collapsible-rail/__tests__/collapsible-rail.test.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:973aa7e6-68d2-4f7b-849c-5d47ef4cef55:v1",
+              "kind": "diff",
+              "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
+              "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+            }
+          ],
+          "updated": "2026-10-17T03:48:16Z"
+        },
+        {
+          "id": "api:packages-react-collapsible-rail",
+          "parent": "apis",
+          "title": "Packages React Collapsible Rail",
+          "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
+          "what": "add a side navigation rail that collapses and becomes an overlay",
+          "how": "TypeScript. Changed: packages/react-collapsible-rail/package.json, packages/react-collapsible-rail/src/collapsible-rail.tsx, packages/react-collapsible-rail/src/index.ts, packages/react-collapsible-rail/tsconfig.json",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:973aa7e6-68d2-4f7b-849c-5d47ef4cef55:v1",
+              "kind": "diff",
+              "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
+              "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+            }
+          ],
+          "updated": "2026-10-17T03:48:16Z"
+        },
+        {
+          "id": "api:packages-react-meta",
+          "parent": "apis",
+          "title": "Packages React Meta",
+          "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
+          "what": "add a side navigation rail that collapses and becomes an overlay",
+          "how": "TypeScript. Changed: packages/react-meta/package.json, packages/react-meta/src/index.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:973aa7e6-68d2-4f7b-849c-5d47ef4cef55:v1",
+              "kind": "diff",
+              "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
+              "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+            }
+          ],
+          "updated": "2026-10-17T03:48:16Z"
+        },
+        {
+          "id": "operations:workspace-config",
+          "parent": "operations",
+          "title": "Workspace Config",
+          "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-collapsible-rail",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-collapsible-rail",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "http"
+            }
+          ],
+          "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
+          "what": "add a side navigation rail that collapses and becomes an overlay",
+          "how": "Changed: pnpm-lock.yaml",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:973aa7e6-68d2-4f7b-849c-5d47ef4cef55:v1",
+              "kind": "diff",
+              "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
+              "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+            }
+          ],
+          "updated": "2026-10-17T03:48:16Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
+        "label": "feat(collapsible-rail): add a side navigation rail that collapses and becomes an overlay",
+        "date": "2026-10-17",
+        "kind": "feature",
+        "touches": [
+          "api:.changeset",
+          "api:docs-site",
+          "api:docs",
+          "operations:e2e",
+          "operations:packages-collapsible-rail",
+          "api:packages-collapsible-rail",
+          "operations:packages-react-collapsible-rail",
+          "api:packages-react-collapsible-rail",
+          "api:packages-react-meta",
+          "operations:workspace-config"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "e8090c81ed9f0d229a8d3186ff673e2619812108abcd818261d075dc520244c7",
+    "nodeCount": 22,
+    "relationCount": 66,
+    "featureCount": 8,
+    "componentCount": 12,
+    "technicalsCount": 8
+  },
+  "graphAfter": {
+    "sha256": "37d8492150e8cacead809b32378735f18e76f4e969a823d8e96c844a4de4724b",
+    "nodeCount": 26,
+    "relationCount": 81,
+    "featureCount": 9,
+    "componentCount": 12,
+    "technicalsCount": 9
+  }
+}

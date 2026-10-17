@@ -227,6 +227,9 @@ importers:
       '@refraction-ui/react-collapsible':
         specifier: workspace:*
         version: link:../packages/react-collapsible
+      '@refraction-ui/react-collapsible-rail':
+        specifier: workspace:*
+        version: link:../packages/react-collapsible-rail
       '@refraction-ui/react-color-chip':
         specifier: workspace:*
         version: link:../packages/react-color-chip
@@ -2950,6 +2953,16 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/collapsible-rail:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+
   packages/color-chip:
     dependencies:
       '@refraction-ui/shared':
@@ -4406,6 +4419,31 @@ importers:
         version: 19.0.0
       react-dom:
         specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-collapsible-rail:
+    dependencies:
+      '@refraction-ui/collapsible-rail':
+        specifier: workspace:*
+        version: link:../collapsible-rail
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
   packages/react-color-chip:
@@ -6210,6 +6248,9 @@ importers:
       '@refraction-ui/react-collapsible':
         specifier: workspace:*
         version: link:../react-collapsible
+      '@refraction-ui/react-collapsible-rail':
+        specifier: workspace:*
+        version: link:../react-collapsible-rail
       '@refraction-ui/react-color-chip':
         specifier: workspace:*
         version: link:../react-color-chip

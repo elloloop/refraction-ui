@@ -78,6 +78,7 @@
     "@refraction-ui/react-code-block": "workspace:*",
     "@refraction-ui/react-code-editor": "workspace:*",
     "@refraction-ui/react-collapsible": "workspace:*",
+    "@refraction-ui/react-collapsible-rail": "workspace:*",
     "@refraction-ui/react-color-chip": "workspace:*",
     "@refraction-ui/react-combobox": "workspace:*",
     "@refraction-ui/react-command": "workspace:*",
