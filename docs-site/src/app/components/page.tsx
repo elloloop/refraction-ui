@@ -151,6 +151,7 @@ const components = [
   { name: 'Mini Map', href: '/components/mini-map', description: 'Overview map overlay for infinite canvas navigation.', category: 'Workplace' },
   { name: 'Live Dot', href: '/components/live-dot', description: 'A status dot whose halo breathes while something is live.', category: 'Workplace' },
   { name: 'Icon Button', href: '/components/icon-button', description: 'Icon-only button with a required label, tooltip and a 44 px hit area.', category: 'Workplace' },
+  { name: 'Split Button', href: '/components/split-button', description: 'A primary action fused with a caret that opens a menu of secondary actions.', category: 'Workplace' },
   { name: 'Highlight Text', href: '/components/highlight-text', description: 'Marks the matched parts of a text with accessible highlights.', category: 'Workplace' },
   { name: 'Markup Text', href: '/components/markup-text', description: 'Bold runs, inline tokens, mentions and safe links in message text.', category: 'Workplace' },
   { name: 'Virtual List', href: '/components/virtual-list', description: 'Virtualised list for long, variable-height, bottom-anchored histories.', category: 'Workplace' },
