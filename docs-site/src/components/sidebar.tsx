@@ -69,6 +69,7 @@ const componentGroups = [
     title: 'Media',
     items: [
       { name: 'Video Player', href: '/components/video-player' },
+      { name: 'Media Frame', href: '/components/media-frame' },
       { name: 'Markdown Renderer', href: '/components/markdown-renderer' },
       { name: 'Code Editor', href: '/components/code-editor' },
       { name: 'Slide Viewer', href: '/components/slide-viewer' },

@@ -1,0 +1,32 @@
+---
+import {
+  createMediaFrame,
+  type MediaFrameLabelPosition,
+  type MediaFrameRatio,
+  type MediaFrameTone,
+} from '@refraction-ui/media-frame'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends Omit<astroHTML.JSX.HTMLAttributes, 'style'> {
+  /** Width ÷ height: a number, `"16:9"` or `"16/9"`. Defaults to square. */
+  ratio?: MediaFrameRatio
+  /** Optional corner caption, such as a format, size or timestamp. */
+  label?: string
+  /** Corner the caption sits in. Defaults to `top-start`. */
+  labelPosition?: MediaFrameLabelPosition
+  /** Letterbox surface behind the media. Defaults to `default`. */
+  tone?: MediaFrameTone
+  /** Inline styles, appended after the computed `aspect-ratio` so they can override it. */
+  style?: string
+}
+
+const { ratio, label, labelPosition, tone, class: className, style, ...rest } = Astro.props
+
+const api = createMediaFrame({ ratio, tone, labelPosition })
+const styleAttr = style ? `aspect-ratio:${api.aspectRatio};${style}` : `aspect-ratio:${api.aspectRatio}`
+---
+
+<div class={cn(api.rootClass, className)} style={styleAttr} {...api.dataAttributes} {...rest}>
+  <slot />
+  {label && <span data-slot="media-frame-label" class={api.labelClass}>{label}</span>}
+</div>

@@ -148,6 +148,7 @@ export const EXPECT_SLOT_CONTENT = new Set([
   'astro-infinite-canvas',
   'astro-input-group',
   'astro-link-card',
+  'astro-media-frame',
   'astro-mobile-nav',
   'astro-pagination',
   'astro-popover',

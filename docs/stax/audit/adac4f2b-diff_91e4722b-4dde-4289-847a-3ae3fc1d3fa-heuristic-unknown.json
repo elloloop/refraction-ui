@@ -1,0 +1,977 @@
+{
+  "timestamp": "2026-10-17T03:07:10Z",
+  "call": "heuristic",
+  "sourceId": "diff:91e4722b-4dde-4289-847a-3ae3fc1d3fa6:v1",
+  "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:media-frame",
+          "name": "Media Frame",
+          "summary": "feat(media-frame): add a fixed-aspect frame for rendered media",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
+            "feat(media-frame): add a fixed-aspect frame for rendered media"
+          ],
+          "testerNotes": [
+            "Verify behavior touching .changeset/media-frame.md, docs-site/package.json, docs-site/src/app/components/media-frame/MediaFrame.stories.tsx, docs-site/src/app/components/media-frame/examples.tsx, docs-site/src/app/components/media-frame/page.tsx."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:media-frame"
+          ],
+          "relatedComponents": [
+            "component:changeset",
+            "component:docs-site-packagejson",
+            "component:docs-site-src",
+            "component:docs",
+            "component:packages",
+            "component:pnpm-lockyaml"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:media-frame",
+          "title": "Media Frame",
+          "summary": "feat(media-frame): add a fixed-aspect frame for rendered media",
+          "designNotes": [
+            "Changed files: .changeset/media-frame.md, docs-site/package.json, docs-site/src/app/components/media-frame/MediaFrame.stories.tsx, docs-site/src/app/components/media-frame/examples.tsx, docs-site/src/app/components/media-frame/page.tsx, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, docs/pr-evidence/media-frame/README.md",
+            "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset."
+          ],
+          "relatedFeatures": [
+            "feature:media-frame"
+          ],
+          "relatedComponents": [
+            "component:changeset",
+            "component:docs-site-packagejson",
+            "component:docs-site-src",
+            "component:docs",
+            "component:packages",
+            "component:pnpm-lockyaml"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:changeset",
+          "name": ".Changeset",
+          "kind": "unknown",
+          "paths": [
+            ".changeset/media-frame.md"
+          ],
+          "summary": "Owns changes under .changeset.",
+          "relatedFeatures": [
+            "feature:media-frame"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:media-frame"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:docs-site-packagejson",
+          "name": "Docs Site/Package.Json",
+          "kind": "docs",
+          "paths": [
+            "docs-site/package.json"
+          ],
+          "summary": "Owns changes under docs-site/package.json.",
+          "relatedFeatures": [
+            "feature:media-frame"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:media-frame"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:docs-site-src",
+          "name": "Docs Site/Src",
+          "kind": "docs",
+          "paths": [
+            "docs-site/src/app/components/media-frame/MediaFrame.stories.tsx",
+            "docs-site/src/app/components/media-frame/examples.tsx",
+            "docs-site/src/app/components/media-frame/page.tsx",
+            "docs-site/src/app/components/page.tsx",
+            "docs-site/src/components/sidebar.tsx"
+          ],
+          "summary": "Owns changes under docs-site/src.",
+          "relatedFeatures": [
+            "feature:media-frame"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:media-frame"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:docs",
+          "name": "Documentation",
+          "kind": "docs",
+          "paths": [
+            "docs/pr-evidence/media-frame/README.md",
+            "docs/pr-evidence/media-frame/after-dark-1440.png",
+            "docs/pr-evidence/media-frame/after-dark-375.png",
+            "docs/pr-evidence/media-frame/after-light-1440.png",
+            "docs/pr-evidence/media-frame/after-light-375.png",
+            "docs/pr-evidence/media-frame/before-dark-1440.png",
+            "docs/pr-evidence/media-frame/before-dark-375.png",
+            "docs/pr-evidence/media-frame/before-light-1440.png",
+            "docs/pr-evidence/media-frame/before-light-375.png",
+            "docs/pr-evidence/media-frame/browser-proof.json"
+          ],
+          "summary": "Owns changes under docs.",
+          "relatedFeatures": [
+            "feature:media-frame"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:media-frame"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:packages",
+          "name": "Packages",
+          "kind": "unknown",
+          "paths": [
+            "packages/astro-media-frame/package.json",
+            "packages/astro-media-frame/src/MediaFrame.astro",
+            "packages/astro-media-frame/src/index.ts",
+            "packages/astro-meta/__tests__/fixtures.ts",
+            "packages/astro-meta/__tests__/media-frame.test.ts",
+            "packages/astro-meta/package.json",
+            "packages/astro-meta/src/index.ts",
+            "packages/media-frame/__tests__/media-frame.test.ts",
+            "packages/media-frame/package.json",
+            "packages/media-frame/src/index.ts",
+            "packages/media-frame/src/media-frame.styles.ts",
+            "packages/media-frame/src/media-frame.ts",
+            "packages/media-frame/tsconfig.json",
+            "packages/media-frame/tsup.config.ts",
+            "packages/media-frame/vitest.config.ts",
+            "packages/react-media-frame/__tests__/media-frame.dom.test.tsx",
+            "packages/react-media-frame/__tests__/media-frame.test.tsx",
+            "packages/react-media-frame/package.json",
+            "packages/react-media-frame/src/index.ts",
+            "packages/react-media-frame/src/media-frame.tsx",
+            "packages/react-media-frame/tsconfig.json",
+            "packages/react-media-frame/tsup.config.ts",
+            "packages/react-media-frame/vitest.config.ts",
+            "packages/react-meta/package.json",
+            "packages/react-meta/src/index.ts"
+          ],
+          "summary": "Owns changes under packages.",
+          "relatedFeatures": [
+            "feature:media-frame"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:media-frame"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:pnpm-lockyaml",
+          "name": "Pnpm Lock.Yaml",
+          "kind": "unknown",
+          "paths": [
+            "pnpm-lock.yaml"
+          ],
+          "summary": "Owns changes under pnpm-lock.yaml.",
+          "relatedFeatures": [
+            "feature:media-frame"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:media-frame"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:media-frame",
+          "to": "component:changeset",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:media-frame",
+          "to": "component:changeset",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:media-frame",
+          "to": "component:docs-site-packagejson",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:media-frame",
+          "to": "component:docs-site-packagejson",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:media-frame",
+          "to": "component:docs-site-src",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:media-frame",
+          "to": "component:docs-site-src",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:media-frame",
+          "to": "component:docs",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:media-frame",
+          "to": "component:docs",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:media-frame",
+          "to": "component:packages",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:media-frame",
+          "to": "component:packages",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:media-frame",
+          "to": "component:pnpm-lockyaml",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:media-frame",
+          "to": "component:pnpm-lockyaml",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:media-frame",
+          "to": "technical:media-frame",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "api:.changeset",
+          "parent": "apis",
+          "title": "Changeset",
+          "summary": "Changed in: add a fixed-aspect frame for rendered media",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:docs-site",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-astro-media-frame",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-media-frame",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-media-frame",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a fixed-aspect frame for rendered media",
+          "how": "Changed: .changeset/media-frame.md",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:91e4722b-4dde-4289-847a-3ae3fc1d3fa6:v1",
+              "kind": "diff",
+              "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
+              "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+            }
+          ],
+          "updated": "2026-10-17T03:07:10Z"
+        },
+        {
+          "id": "api:docs-site",
+          "parent": "apis",
+          "title": "Docs Site",
+          "summary": "Changed in: add a fixed-aspect frame for rendered media",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-astro-media-frame",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-media-frame",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-media-frame",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a fixed-aspect frame for rendered media",
+          "how": "TypeScript. Changed: docs-site/package.json, docs-site/src/app/components/media-frame/MediaFrame.stories.tsx, docs-site/src/app/components/media-frame/examples.tsx, docs-site/src/app/components/media-frame/page.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:91e4722b-4dde-4289-847a-3ae3fc1d3fa6:v1",
+              "kind": "diff",
+              "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
+              "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+            }
+          ],
+          "updated": "2026-10-17T03:07:10Z"
+        },
+        {
+          "id": "api:docs",
+          "parent": "apis",
+          "title": "Docs",
+          "summary": "Changed in: add a fixed-aspect frame for rendered media",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-astro-media-frame",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-media-frame",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-media-frame",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a fixed-aspect frame for rendered media",
+          "how": "Changed: docs/pr-evidence/media-frame/README.md, docs/pr-evidence/media-frame/after-dark-1440.png, docs/pr-evidence/media-frame/after-dark-375.png, docs/pr-evidence/media-frame/after-light-1440.png",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:91e4722b-4dde-4289-847a-3ae3fc1d3fa6:v1",
+              "kind": "diff",
+              "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
+              "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+            }
+          ],
+          "updated": "2026-10-17T03:07:10Z"
+        },
+        {
+          "id": "api:packages-astro-media-frame",
+          "parent": "apis",
+          "title": "Packages Astro Media Frame",
+          "summary": "Changed in: add a fixed-aspect frame for rendered media",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-media-frame",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-media-frame",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a fixed-aspect frame for rendered media",
+          "how": "TypeScript. Changed: packages/astro-media-frame/package.json, packages/astro-media-frame/src/MediaFrame.astro, packages/astro-media-frame/src/index.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:91e4722b-4dde-4289-847a-3ae3fc1d3fa6:v1",
+              "kind": "diff",
+              "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
+              "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+            }
+          ],
+          "updated": "2026-10-17T03:07:10Z"
+        },
+        {
+          "id": "api:packages-astro-meta",
+          "parent": "apis",
+          "title": "Packages Astro Meta",
+          "summary": "Changed in: add a fixed-aspect frame for rendered media",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-media-frame",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-media-frame",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a fixed-aspect frame for rendered media",
+          "how": "TypeScript. Changed: packages/astro-meta/__tests__/fixtures.ts, packages/astro-meta/package.json, packages/astro-meta/src/index.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:91e4722b-4dde-4289-847a-3ae3fc1d3fa6:v1",
+              "kind": "diff",
+              "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
+              "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+            }
+          ],
+          "updated": "2026-10-17T03:07:10Z"
+        },
+        {
+          "id": "operations:packages-astro-meta",
+          "parent": "operations",
+          "title": "Packages Astro Meta",
+          "summary": "Changed in: add a fixed-aspect frame for rendered media",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-media-frame",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-media-frame",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-media-frame",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-react-media-frame",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-react-media-frame",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            }
+          ],
+          "why": "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a fixed-aspect frame for rendered media",
+          "how": "TypeScript. Changed: packages/astro-meta/__tests__/media-frame.test.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:91e4722b-4dde-4289-847a-3ae3fc1d3fa6:v1",
+              "kind": "diff",
+              "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
+              "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+            }
+          ],
+          "updated": "2026-10-17T03:07:10Z"
+        },
+        {
+          "id": "operations:packages-media-frame",
+          "parent": "operations",
+          "title": "Packages Media Frame",
+          "summary": "Changed in: add a fixed-aspect frame for rendered media",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-media-frame",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-media-frame",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-react-media-frame",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-react-media-frame",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            }
+          ],
+          "why": "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a fixed-aspect frame for rendered media",
+          "how": "TypeScript. Changed: packages/media-frame/__tests__/media-frame.test.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:91e4722b-4dde-4289-847a-3ae3fc1d3fa6:v1",
+              "kind": "diff",
+              "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
+              "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+            }
+          ],
+          "updated": "2026-10-17T03:07:10Z"
+        },
+        {
+          "id": "api:packages-media-frame",
+          "parent": "apis",
+          "title": "Packages Media Frame",
+          "summary": "Changed in: add a fixed-aspect frame for rendered media",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-react-media-frame",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a fixed-aspect frame for rendered media",
+          "how": "TypeScript. Changed: packages/media-frame/package.json, packages/media-frame/src/index.ts, packages/media-frame/src/media-frame.styles.ts, packages/media-frame/src/media-frame.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:91e4722b-4dde-4289-847a-3ae3fc1d3fa6:v1",
+              "kind": "diff",
+              "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
+              "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+            }
+          ],
+          "updated": "2026-10-17T03:07:10Z"
+        },
+        {
+          "id": "operations:packages-react-media-frame",
+          "parent": "operations",
+          "title": "Packages React Media Frame",
+          "summary": "Changed in: add a fixed-aspect frame for rendered media",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-media-frame",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-media-frame",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-media-frame",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            }
+          ],
+          "why": "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a fixed-aspect frame for rendered media",
+          "how": "TypeScript. Changed: packages/react-media-frame/__tests__/media-frame.dom.test.tsx, packages/react-media-frame/__tests__/media-frame.test.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:91e4722b-4dde-4289-847a-3ae3fc1d3fa6:v1",
+              "kind": "diff",
+              "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
+              "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+            }
+          ],
+          "updated": "2026-10-17T03:07:10Z"
+        },
+        {
+          "id": "api:packages-react-media-frame",
+          "parent": "apis",
+          "title": "Packages React Media Frame",
+          "summary": "Changed in: add a fixed-aspect frame for rendered media",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a fixed-aspect frame for rendered media",
+          "how": "TypeScript. Changed: packages/react-media-frame/package.json, packages/react-media-frame/src/index.ts, packages/react-media-frame/src/media-frame.tsx, packages/react-media-frame/tsconfig.json",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:91e4722b-4dde-4289-847a-3ae3fc1d3fa6:v1",
+              "kind": "diff",
+              "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
+              "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+            }
+          ],
+          "updated": "2026-10-17T03:07:10Z"
+        },
+        {
+          "id": "api:packages-react-meta",
+          "parent": "apis",
+          "title": "Packages React Meta",
+          "summary": "Changed in: add a fixed-aspect frame for rendered media",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "why": "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a fixed-aspect frame for rendered media",
+          "how": "TypeScript. Changed: packages/react-meta/package.json, packages/react-meta/src/index.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:91e4722b-4dde-4289-847a-3ae3fc1d3fa6:v1",
+              "kind": "diff",
+              "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
+              "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+            }
+          ],
+          "updated": "2026-10-17T03:07:10Z"
+        },
+        {
+          "id": "operations:workspace-config",
+          "parent": "operations",
+          "title": "Workspace Config",
+          "summary": "Changed in: add a fixed-aspect frame for rendered media",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-media-frame",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-media-frame",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-media-frame",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "http"
+            }
+          ],
+          "why": "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a fixed-aspect frame for rendered media",
+          "how": "Changed: pnpm-lock.yaml",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:91e4722b-4dde-4289-847a-3ae3fc1d3fa6:v1",
+              "kind": "diff",
+              "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
+              "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+            }
+          ],
+          "updated": "2026-10-17T03:07:10Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
+        "label": "feat(media-frame): add a fixed-aspect frame for rendered media",
+        "date": "2026-10-17",
+        "kind": "feature",
+        "touches": [
+          "api:.changeset",
+          "api:docs-site",
+          "api:docs",
+          "api:packages-astro-media-frame",
+          "api:packages-astro-meta",
+          "operations:packages-astro-meta",
+          "operations:packages-media-frame",
+          "api:packages-media-frame",
+          "operations:packages-react-media-frame",
+          "api:packages-react-media-frame",
+          "api:packages-react-meta",
+          "operations:workspace-config"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "452e7620439d1dc52ed42de5eb1658b4578f85095ec77bb6ff005d5d94f48358",
+    "nodeCount": 22,
+    "relationCount": 66,
+    "featureCount": 8,
+    "componentCount": 12,
+    "technicalsCount": 8
+  },
+  "graphAfter": {
+    "sha256": "88e14b7c020714b9f871190e100e7953bcd9e1a564545766cbae15754d18043a",
+    "nodeCount": 28,
+    "relationCount": 79,
+    "featureCount": 9,
+    "componentCount": 12,
+    "technicalsCount": 9
+  }
+}
