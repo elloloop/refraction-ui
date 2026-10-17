@@ -13,9 +13,12 @@ export {
   type AvatarSize,
   type AvatarShape,
   type AvatarLoadingStatus,
+  type AvatarPresenceAPI,
+  type PresenceStatus,
   getInitials,
   avatarVariants,
   avatarImageVariants,
   avatarFallbackVariants,
+  avatarPresenceVariants,
   avatarTokens,
 } from '@refraction-ui/avatar'

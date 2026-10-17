@@ -1,9 +1,61 @@
 'use client'
 
-import { Avatar, AvatarImage, AvatarFallback } from '@refraction-ui/react-avatar'
+import {
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+  type AvatarSize,
+  type PresenceStatus,
+} from '@refraction-ui/react-avatar'
 
 interface AvatarExamplesProps {
-  section: 'sizes' | 'fallback'
+  section: 'sizes' | 'fallback' | 'presence'
+}
+
+const PEOPLE: { name: string; initials: string; presence: PresenceStatus; status: string }[] = [
+  { name: 'Ada Lovelace', initials: 'AL', presence: 'online', status: 'Online' },
+  { name: 'Grace Hopper', initials: 'GH', presence: 'away', status: 'Away' },
+  { name: 'Alan Turing', initials: 'AT', presence: 'busy', status: 'Busy' },
+  { name: 'Katherine Johnson', initials: 'KJ', presence: 'dnd', status: 'Do Not Disturb' },
+  { name: 'Edsger Dijkstra', initials: 'ED', presence: 'offline', status: 'Offline' },
+]
+
+const SIZES: AvatarSize[] = ['xs', 'sm', 'md', 'lg', 'xl']
+
+function PresenceExample() {
+  return (
+    <div
+      data-testid="avatar-presence-example"
+      className="rounded-xl border border-border bg-card p-8 space-y-8"
+    >
+      <div className="flex flex-wrap items-end gap-6">
+        {PEOPLE.map((person) => (
+          <div key={person.name} className="flex flex-col items-center gap-2.5">
+            <Avatar size="lg" aria-label={person.name} presence={person.presence}>
+              <AvatarFallback>{person.initials}</AvatarFallback>
+            </Avatar>
+            <span className="text-xs text-muted-foreground font-medium">{person.status}</span>
+          </div>
+        ))}
+      </div>
+      <div className="flex flex-wrap items-end gap-6">
+        {SIZES.map((size) => (
+          <div key={size} className="flex flex-col items-center gap-2.5">
+            <Avatar size={size} aria-label={`Ada Lovelace, ${size}`} presence="online">
+              <AvatarFallback>AL</AvatarFallback>
+            </Avatar>
+            <span className="text-xs text-muted-foreground font-medium">{size}</span>
+          </div>
+        ))}
+        <div className="flex flex-col items-center gap-2.5">
+          <Avatar size="lg" shape="square" aria-label="Design team" presence="away">
+            <AvatarFallback>DT</AvatarFallback>
+          </Avatar>
+          <span className="text-xs text-muted-foreground font-medium">square</span>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export function AvatarExamples({ section }: AvatarExamplesProps) {
@@ -74,6 +126,8 @@ export function AvatarExamples({ section }: AvatarExamplesProps) {
       </div>
     )
   }
+
+  if (section === 'presence') return <PresenceExample />
 
   return null
 }

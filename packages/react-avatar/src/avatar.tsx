@@ -4,8 +4,10 @@ import {
   avatarVariants,
   avatarImageVariants,
   avatarFallbackVariants,
+  avatarPresenceVariants,
   type AvatarSize,
   type AvatarShape,
+  type PresenceStatus,
 } from '@refraction-ui/avatar'
 import { cn } from '@refraction-ui/shared'
 
@@ -31,18 +33,38 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLSpanElement> {
   size?: AvatarSize
   /** `circle` (default) or `square` (rounded corners) — e.g. for teams and organisations. */
   shape?: AvatarShape
+  /**
+   * Shows a presence dot at the bottom end corner. With an `aria-label` the
+   * status joins the avatar's name ("Ada Lovelace (Away)"); without one the
+   * dot is named on its own.
+   */
+  presence?: PresenceStatus
+  /** The status as words, e.g. for another language. Default: "Online", "Away", … */
+  presenceLabel?: string
 }
 
 /**
- * Avatar -- circular image with fallback support.
+ * Avatar -- circular image with fallback support and an optional presence dot.
  * Compound component: use Avatar > AvatarImage + AvatarFallback.
  */
 export const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
-  function Avatar({ size = 'md', shape = 'circle', className, children, ...props }, ref) {
+  function Avatar(
+    {
+      size = 'md',
+      shape = 'circle',
+      presence,
+      presenceLabel,
+      'aria-label': ariaLabel,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) {
     const [imageLoaded, setImageLoaded] = React.useState(false)
     const [imageError, setImageError] = React.useState(false)
 
-    const api = createAvatar({ size, alt: props['aria-label'] })
+    const api = createAvatar({ size, alt: ariaLabel, presence, presenceLabel })
 
     return (
       <AvatarContext.Provider value={{ size, imageLoaded, imageError, setImageLoaded, setImageError }}>
@@ -54,6 +76,13 @@ export const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
           {...props}
         >
           {children}
+          {api.presence && (
+            <span
+              className={avatarPresenceVariants({ status: api.presence.status, shape, size })}
+              {...api.presence.ariaProps}
+              {...api.presence.dataAttributes}
+            />
+          )}
         </span>
       </AvatarContext.Provider>
     )

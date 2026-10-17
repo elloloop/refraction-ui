@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { createPresence, STATUS_COLORS, STATUS_LABELS } from '../src/presence-indicator.js'
 import {
+  presenceDotColorClasses,
   presenceDotVariants,
   presenceContainerStyles,
   presenceLabelStyles,
@@ -141,5 +142,13 @@ describe('styles', () => {
   it('exports away dot variant', () => {
     const classes = presenceDotVariants({ status: 'away' })
     expect(classes).toContain('bg-warning')
+  })
+
+  it('fills each status dot from the shared colour map', () => {
+    for (const [status, color] of Object.entries(presenceDotColorClasses)) {
+      expect(presenceDotVariants({ status: status as keyof typeof presenceDotColorClasses })).toContain(color)
+    }
+    expect(presenceDotColorClasses.busy).toBe('bg-destructive')
+    expect(presenceDotColorClasses.dnd).toBe('bg-destructive')
   })
 })

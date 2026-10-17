@@ -72,9 +72,70 @@ describe('Avatar (React)', () => {
     expect(html).toContain('rounded-full')
   })
 
-  it('base classes include overflow-hidden', () => {
+  it('does not clip its corner, where the presence dot sits', () => {
     const html = renderToString(React.createElement(Avatar))
-    expect(html).toContain('overflow-hidden')
+    expect(html).not.toContain('overflow-hidden')
+  })
+})
+
+describe('Avatar presence (React)', () => {
+  function presenceDot(html: string): string | undefined {
+    return html.match(/<span[^>]*data-slot="avatar-presence"[^>]*>/)?.[0]
+  }
+
+  it('renders no dot without presence', () => {
+    const html = renderToString(<Avatar aria-label="Ada Lovelace"><AvatarFallback>AL</AvatarFallback></Avatar>)
+    expect(presenceDot(html)).toBeUndefined()
+    expect(html).not.toContain('data-presence')
+  })
+
+  it('adds the status to a named avatar and hides the dot from assistive tech', () => {
+    const html = renderToString(
+      <Avatar aria-label="Ada Lovelace" presence="away"><AvatarFallback>AL</AvatarFallback></Avatar>,
+    )
+    expect(html).toMatch(/^<span[^>]*role="img"[^>]*aria-label="Ada Lovelace \(Away\)"/)
+    expect(html).toContain('data-presence="away"')
+    const dot = presenceDot(html)
+    expect(dot).toContain('aria-hidden="true"')
+    expect(dot).toContain('data-status="away"')
+    expect(dot).toContain('bg-warning')
+  })
+
+  it('names the dot when the avatar itself has no name', () => {
+    const html = renderToString(
+      <Avatar presence="online"><AvatarImage src="/a.png" alt="Ada Lovelace" /></Avatar>,
+    )
+    expect(html).not.toMatch(/^<span[^>]*role="img"/)
+    const dot = presenceDot(html)
+    expect(dot).toContain('role="img"')
+    expect(dot).toContain('aria-label="Online"')
+  })
+
+  it('takes the status words from presenceLabel', () => {
+    const html = renderToString(
+      <Avatar aria-label="Ada" presence="busy" presenceLabel="Occupée"><AvatarFallback>A</AvatarFallback></Avatar>,
+    )
+    expect(html).toContain('aria-label="Ada (Occupée)"')
+  })
+
+  it('sizes and places the dot for the avatar size and shape', () => {
+    const circle = presenceDot(renderToString(<Avatar size="xl" presence="online" />))
+    expect(circle).toContain('h-4 w-4')
+    expect(circle).toContain('bottom-0 end-0')
+    const square = presenceDot(renderToString(<Avatar size="xs" shape="square" presence="online" />))
+    expect(square).toContain('h-2 w-2')
+    expect(square).toContain('-bottom-0.5 -end-0.5')
+  })
+
+  it('draws the dot after the image and fallback, so it paints over them', () => {
+    const html = renderToString(
+      <Avatar presence="online">
+        <AvatarImage src="/a.png" alt="" />
+        <AvatarFallback>AL</AvatarFallback>
+      </Avatar>,
+    )
+    expect(html.indexOf('data-slot="avatar-presence"')).toBeGreaterThan(html.indexOf('AL'))
+    expect(html.indexOf('data-slot="avatar-presence"')).toBeGreaterThan(html.indexOf('<img'))
   })
 })
 
