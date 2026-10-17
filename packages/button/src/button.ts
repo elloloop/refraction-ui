@@ -37,6 +37,11 @@ export interface ButtonProps {
   loading?: boolean
   asChild?: boolean
   type?: 'button' | 'submit' | 'reset'
+  /**
+   * Extend the hit area to at least 44×44 CSS px without changing the
+   * button's visual size or layout (see `buttonTouchTargetStyles`).
+   */
+  touchTarget?: boolean
 }
 
 export interface ButtonAPI {
@@ -51,7 +56,7 @@ export interface ButtonAPI {
 }
 
 export function createButton(props: ButtonProps = {}): ButtonAPI {
-  const { disabled = false, loading = false } = props
+  const { disabled = false, loading = false, touchTarget = false } = props
   const isInteractive = !disabled && !loading
 
   const ariaProps: Partial<AccessibilityProps> = {}
@@ -69,6 +74,9 @@ export function createButton(props: ButtonProps = {}): ButtonAPI {
   }
   if (disabled) {
     dataAttributes['data-disabled'] = ''
+  }
+  if (touchTarget) {
+    dataAttributes['data-touch-target'] = ''
   }
 
   const keyboardHandlers: KeyboardHandlerMap = {}

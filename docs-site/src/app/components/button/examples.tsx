@@ -3,8 +3,19 @@
 import { Button } from '@refraction-ui/react-button'
 
 interface ButtonExamplesProps {
-  section: 'variants' | 'sizes' | 'states' | 'primary-alias' | 'brand'
+  section: 'variants' | 'sizes' | 'states' | 'primary-alias' | 'brand' | 'touch-target'
 }
+
+function StarIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  )
+}
+
+// For illustration only: outlines the otherwise invisible extended hit area.
+const showHitArea = 'after:outline-dashed after:outline-1 after:outline-primary/60'
 
 export function ButtonExamples({ section }: ButtonExamplesProps) {
   // Issue #485 — soft tinted brand fill + a real second brand accent.
@@ -116,6 +127,38 @@ export function ButtonExamples({ section }: ButtonExamplesProps) {
           <div className="flex flex-col items-center gap-2.5">
             <Button variant="outline" disabled>Disabled Outline</Button>
             <span className="text-xs text-muted-foreground font-medium">Outline + Disabled</span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // `touchTarget` grows the clickable area to 44×44 CSS px; the buttons keep
+  // their visual size and their place in the layout.
+  if (section === 'touch-target') {
+    return (
+      <div className="rounded-xl border border-border bg-card p-8">
+        <div className="flex flex-wrap items-center gap-10">
+          <div className="flex flex-col items-center gap-4">
+            <Button size="icon" variant="outline" touchTarget aria-label="Star" className={showHitArea}>
+              <StarIcon />
+            </Button>
+            <code className="text-xs text-muted-foreground font-mono">icon · 36px</code>
+          </div>
+          <div className="flex flex-col items-center gap-4">
+            <Button size="icon-sm" variant="outline" touchTarget aria-label="Star" className={showHitArea}>
+              <StarIcon />
+            </Button>
+            <code className="text-xs text-muted-foreground font-mono">icon-sm · 32px</code>
+          </div>
+          <div className="flex flex-col items-center gap-4">
+            <Button size="icon-xs" variant="outline" touchTarget aria-label="Star" className={showHitArea}>
+              <StarIcon />
+            </Button>
+            <code className="text-xs text-muted-foreground font-mono">icon-xs · 28px</code>
+          </div>
+          <div className="flex items-center text-xs text-muted-foreground max-w-xs">
+            The dashed outline marks the 44×44 hit area; it is drawn here for illustration only.
           </div>
         </div>
       </div>

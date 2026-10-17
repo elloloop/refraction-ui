@@ -12,6 +12,25 @@ export const buttonTokens: TokenContract = {
   },
 }
 
+/**
+ * Extends a button's hit area to at least 44×44 CSS px — the WCAG 2.5.5 target
+ * size — with a transparent, centred pseudo-element. The button keeps its
+ * visual size and takes up the same space in the layout; only the area that
+ * receives pointer input grows. `max(44px, 2.75rem)` never drops below 44 CSS
+ * px and grows with the reader's text-size setting.
+ *
+ * The button becomes the pseudo-element's containing block through a
+ * zero-specificity `position: relative` (`:where()`), so a consumer's
+ * `absolute`, `fixed` or `sticky` class still wins. An ancestor with
+ * `overflow: hidden` clips the extension.
+ *
+ * Neighbouring targets that sit closer than 44px apart overlap, and the later
+ * one in the document wins the overlap — leave at least 44px between their
+ * centres (e.g. `gap-2` between 36px `icon` buttons).
+ */
+export const buttonTouchTargetStyles =
+  "[:where(&)]:relative after:absolute after:left-1/2 after:top-1/2 after:h-full after:w-full after:min-h-[max(44px,2.75rem)] after:min-w-[max(44px,2.75rem)] after:-translate-x-1/2 after:-translate-y-1/2 after:content-['']"
+
 export const buttonVariants = cva({
   base: 'inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0',
   variants: {
@@ -40,9 +59,14 @@ export const buttonVariants = cva({
       'icon-sm': 'h-8 w-8 rounded-md text-xs',
       'icon-xs': 'h-7 w-7 rounded text-xs',
     },
+    touchTarget: {
+      true: buttonTouchTargetStyles,
+      false: '',
+    },
   },
   defaultVariants: {
     variant: 'default',
     size: 'default',
+    touchTarget: 'false',
   },
 })

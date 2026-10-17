@@ -17,6 +17,12 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   asChild?: boolean
   shortcut?: string
   action?: string
+  /**
+   * Extend the hit area to at least 44×44 CSS px without changing the
+   * button's visual size or layout — for icon buttons that must meet the
+   * WCAG 2.5.5 target size.
+   */
+  touchTarget?: boolean
 }
 
 /**
@@ -26,13 +32,16 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
  * Styling via Tailwind utility classes (no external CSS-in-JS).
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  function Button({ variant, size, loading, asChild, className, disabled, children, shortcut, action, ...props }, ref) {
+  function Button({ variant, size, loading, asChild, className, disabled, children, shortcut, action, touchTarget = false, ...props }, ref) {
     // `primary` is an ecosystem-muscle-memory alias for `default` — resolve it
     // here so styling, aria, and data attributes all see the canonical variant.
     // See issue #201.
     const resolvedVariant = resolveButtonVariant(variant)
-    const api = createButton({ variant: resolvedVariant, size, disabled, loading, asChild, type: props.type })
-    const classes = cn(buttonVariants({ variant: resolvedVariant, size }), className)
+    const api = createButton({ variant: resolvedVariant, size, disabled, loading, asChild, type: props.type, touchTarget })
+    const classes = cn(
+      buttonVariants({ variant: resolvedVariant, size, touchTarget: touchTarget ? 'true' : 'false' }),
+      className,
+    )
     
     const internalRef = React.useRef<HTMLButtonElement>(null)
     const mergedRef = React.useCallback(
