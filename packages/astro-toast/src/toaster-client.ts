@@ -5,6 +5,7 @@ import {
   isToastVariant,
   toastActionClass,
   toastCloseClass,
+  toastContentClass,
   toastDescriptionClass,
   toastTitleClass,
   toastVariants,
@@ -258,7 +259,7 @@ function createToastElement(
   toast.setAttribute('data-rfr-toast-duration', String(duration))
 
   if (title) {
-    const content = element(doc, 'flex-1')
+    const content = element(doc, toastContentClass)
     const heading = element(doc, toastTitleClass, title)
     heading.setAttribute('data-rfr-toast-title', '')
     const body = element(doc, toastDescriptionClass, message)
@@ -266,7 +267,7 @@ function createToastElement(
     content.append(heading, body)
     toast.append(content)
   } else {
-    const content = element(doc, 'flex-1', message)
+    const content = element(doc, toastContentClass, message)
     content.setAttribute('data-rfr-toast-message', '')
     toast.append(content)
   }

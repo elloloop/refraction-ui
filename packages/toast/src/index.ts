@@ -23,6 +23,7 @@ export {
 
 export {
   toastVariants,
+  toastContentClass,
   toastTitleClass,
   toastDescriptionClass,
   toastActionClass,

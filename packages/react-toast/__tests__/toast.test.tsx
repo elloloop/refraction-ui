@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import { resetIdCounter } from '@refraction-ui/shared'
+import { toastContentClass, toasterClass } from '@refraction-ui/toast'
 import {
   ToastProvider,
   Toaster,
@@ -38,7 +39,7 @@ describe('Toaster (React SSR)', () => {
     // Container should be present with positioning classes
     expect(html).toContain('fixed')
     expect(html).toContain('bottom-4')
-    expect(html).toContain('right-4')
+    expect(html).toContain('inset-x-4')
     expect(html).toContain('z-50')
   })
 
@@ -106,7 +107,7 @@ describe('Toast (React SSR)', () => {
       ),
     )
     expect(html).toContain('border-success/50')
-    expect(html).toContain('bg-success/10')
+    expect(html).toContain('from-success/10')
   })
 
   it('renders error variant classes', () => {
@@ -126,7 +127,7 @@ describe('Toast (React SSR)', () => {
       ),
     )
     expect(html).toContain('border-destructive/50')
-    expect(html).toContain('bg-destructive/10')
+    expect(html).toContain('from-destructive/10')
   })
 
   it('renders warning variant classes', () => {
@@ -146,7 +147,7 @@ describe('Toast (React SSR)', () => {
       ),
     )
     expect(html).toContain('border-warning/50')
-    expect(html).toContain('bg-warning/10')
+    expect(html).toContain('from-warning/10')
   })
 
   it('renders dismiss button when onDismiss provided', () => {
@@ -378,7 +379,7 @@ function makeEntry(overrides: Partial<ToastEntry> = {}): ToastEntry {
 }
 
 describe('Toaster – container styling (SSR)', () => {
-  it('constrains width and opts out of pointer events', () => {
+  it('uses the shared toaster layout: equal side gutters, capped width, no pointer events', () => {
     const html = renderToString(
       React.createElement(
         ToastProvider,
@@ -386,9 +387,45 @@ describe('Toaster – container styling (SSR)', () => {
         React.createElement(Toaster, null),
       ),
     )
-    expect(html).toContain('w-full')
-    expect(html).toContain('max-w-sm')
-    expect(html).toContain('pointer-events-none')
+    expect(html).toContain(`class="${toasterClass}"`)
+    expect(toasterClass).toContain('inset-x-4')
+    expect(toasterClass).toContain('max-w-sm')
+    expect(toasterClass).toContain('pointer-events-none')
+  })
+
+  it('marks the container and each toast with the data hooks the Astro toaster uses', () => {
+    const html = renderToString(
+      React.createElement(
+        ToastProvider,
+        null,
+        React.createElement(Toaster, null),
+        React.createElement(Toast, {
+          entry: { id: 't1', message: 'Saved', variant: 'success', duration: 0, createdAt: 0 },
+        }),
+      ),
+    )
+    expect(html).toMatch(/<div[^>]*data-rfr-toaster=""/)
+    expect(html).toMatch(/<div[^>]*data-rfr-toast=""[^>]*>/)
+  })
+
+  it('wraps the message in the shared content column', () => {
+    const html = renderToString(
+      React.createElement(Toast, {
+        entry: { id: 't1', message: 'Saved', variant: 'default', duration: 0, createdAt: 0 },
+      }),
+    )
+    expect(html).toContain(`<div class="${toastContentClass}">Saved</div>`)
+  })
+
+  it('appends a consumer className after the shared layout', () => {
+    const html = renderToString(
+      React.createElement(
+        ToastProvider,
+        null,
+        React.createElement(Toaster, { className: 'bottom-8' }),
+      ),
+    )
+    expect(html).toContain(`class="${toasterClass} bottom-8"`)
   })
 
   it('spreads extra HTML attributes onto the container', () => {
@@ -439,7 +476,7 @@ describe('Toast – structure (SSR)', () => {
         React.createElement(Toast, { entry: makeEntry({ variant: 'success' }) }),
       ),
     )
-    expect(html).toContain('bg-success/10')
+    expect(html).toContain('from-success/10')
     expect(html).toContain('text-success')
   })
 
@@ -451,7 +488,7 @@ describe('Toast – structure (SSR)', () => {
         React.createElement(Toast, { entry: makeEntry({ variant: 'error' }) }),
       ),
     )
-    expect(html).toContain('bg-destructive/10')
+    expect(html).toContain('from-destructive/10')
     expect(html).toContain('text-destructive')
   })
 
@@ -463,7 +500,7 @@ describe('Toast – structure (SSR)', () => {
         React.createElement(Toast, { entry: makeEntry({ variant: 'warning' }) }),
       ),
     )
-    expect(html).toContain('bg-warning/10')
+    expect(html).toContain('from-warning/10')
     expect(html).toContain('text-warning')
   })
 
@@ -560,13 +597,13 @@ describe('Toast – title, action and controls (SSR)', () => {
   it('renders the title and the message under it', () => {
     const html = renderToastHtml({ ...base, title: 'Archived' })
     expect(html).toContain(
-      '<div class="flex-1"><div class="text-sm font-semibold">Archived</div><div class="text-sm opacity-90">One conversation moved to the archive</div></div>',
+      '<div class="min-w-0 flex-1 break-words"><div class="text-sm font-semibold">Archived</div><div class="text-sm opacity-90">One conversation moved to the archive</div></div>',
     )
   })
 
   it('without a title, keeps the message markup unchanged', () => {
     expect(renderToastHtml(base)).toContain(
-      '<div class="flex-1">One conversation moved to the archive</div>',
+      '<div class="min-w-0 flex-1 break-words">One conversation moved to the archive</div>',
     )
   })
 

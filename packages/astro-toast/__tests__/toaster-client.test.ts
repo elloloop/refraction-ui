@@ -3,6 +3,7 @@ import {
   getToastAnnouncement,
   toastActionClass,
   toastCloseClass,
+  toastContentClass,
   toastDescriptionClass,
   toastTitleClass,
   toastVariants,
@@ -122,7 +123,7 @@ describe('programmatic toasts (window.__rfr_toast)', () => {
     showToast({ message: 'Saved' })
 
     const message = lastToast().querySelector('[data-rfr-toast-message]')!
-    expect(message.className).toBe('flex-1')
+    expect(message.className).toBe(toastContentClass)
     expect(message.textContent).toBe('Saved')
     expect(lastToast().querySelector('[data-rfr-toast-title]')).toBeNull()
     expect(lastToast().querySelector('[data-rfr-toast-action]')).toBeNull()

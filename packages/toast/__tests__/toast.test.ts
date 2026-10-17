@@ -11,11 +11,16 @@ import {
 } from '../src/toast.js'
 import {
   toastVariants,
+  toastContentClass,
+  toasterClass,
   toastActionClass,
   toastCloseClass,
   toastTitleClass,
   toastDescriptionClass,
 } from '../src/toast.styles.js'
+
+/** The individual class names in a class string. */
+const tokens = (classes: string) => classes.split(/\s+/).filter(Boolean)
 
 beforeEach(() => {
   resetIdCounter()
@@ -207,19 +212,25 @@ describe('toast styles', () => {
   it('returns success variant classes', () => {
     const classes = toastVariants({ variant: 'success' })
     expect(classes).toContain('border-success/50')
-    expect(classes).toContain('bg-success/10')
+    expect(tokens(classes)).toEqual(
+      expect.arrayContaining(['from-success/10', 'to-success/10', 'text-success']),
+    )
   })
 
   it('returns error variant classes', () => {
     const classes = toastVariants({ variant: 'error' })
     expect(classes).toContain('border-destructive/50')
-    expect(classes).toContain('bg-destructive/10')
+    expect(tokens(classes)).toEqual(
+      expect.arrayContaining(['from-destructive/10', 'to-destructive/10', 'text-destructive']),
+    )
   })
 
   it('returns warning variant classes', () => {
     const classes = toastVariants({ variant: 'warning' })
     expect(classes).toContain('border-warning/50')
-    expect(classes).toContain('bg-warning/10')
+    expect(tokens(classes)).toEqual(
+      expect.arrayContaining(['from-warning/10', 'to-warning/10', 'text-warning']),
+    )
   })
 
   it('appends custom className', () => {
@@ -657,4 +668,54 @@ describe('isToastVariant', () => {
       expect(isToastVariant(value)).toBe(false)
     },
   )
+})
+
+describe('toast surfaces are opaque', () => {
+  const variants = ['default', 'success', 'error', 'warning'] as const
+
+  it.each(variants)('%s paints an opaque background under any tint', (variant) => {
+    const classes = tokens(toastVariants({ variant }))
+    expect(classes).toContain('bg-background')
+    // A translucent background color would let the page show through.
+    expect(classes.filter((c) => /^bg-[a-z-]+\/\d+$/.test(c))).toEqual([])
+  })
+
+  it.each(['success', 'error', 'warning'] as const)(
+    '%s layers its tint as a gradient over the opaque background',
+    (variant) => {
+      const classes = tokens(toastVariants({ variant }))
+      expect(classes).toContain('bg-gradient-to-r')
+      const from = classes.find((c) => c.startsWith('from-'))
+      const to = classes.find((c) => c.startsWith('to-'))
+      // Same color at both stops: a flat tint, not a visible gradient.
+      expect(from?.slice('from-'.length)).toBe(to?.slice('to-'.length))
+    },
+  )
+})
+
+describe('toasterClass', () => {
+  const classes = tokens(toasterClass)
+
+  it('keeps the same gutter on both sides, so a phone-width toaster never spills', () => {
+    expect(classes).toEqual(expect.arrayContaining(['fixed', 'bottom-4', 'inset-x-4']))
+    // A full-width box pushed in from one side is what overflowed before.
+    expect(classes).not.toContain('w-full')
+    expect(classes).not.toContain('right-4')
+  })
+
+  it('caps the width and keeps the toaster at the bottom right on wider screens', () => {
+    expect(classes).toEqual(expect.arrayContaining(['max-w-sm', 'ml-auto']))
+  })
+
+  it('stacks the toasts and lets clicks through the gaps between them', () => {
+    expect(classes).toEqual(
+      expect.arrayContaining(['z-50', 'flex', 'flex-col', 'gap-2', 'pointer-events-none']),
+    )
+  })
+})
+
+describe('toastContentClass', () => {
+  it('lets the text column shrink and wrap long words, so the buttons stay in view', () => {
+    expect(tokens(toastContentClass)).toEqual(expect.arrayContaining(['flex-1', 'min-w-0', 'break-words']))
+  })
 })

@@ -115,7 +115,7 @@ describe('useToast – show', () => {
     showToast('Broke', { variant: 'error' })
     const alert = toastEls()[0]
     expect(alert).toBeDefined()
-    expect(alert!.className).toContain('bg-destructive/10')
+    expect(alert!.className).toContain('from-destructive/10')
   })
 })
 

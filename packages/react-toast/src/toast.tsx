@@ -5,6 +5,7 @@ import {
   getToastAnnouncement,
   getToastPoliteness,
   toastVariants,
+  toastContentClass,
   toastTitleClass,
   toastDescriptionClass,
   toastActionClass,
@@ -213,11 +214,11 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(function Toast
   const content = entry.title
     ? React.createElement(
         'div',
-        { className: 'flex-1' },
+        { className: toastContentClass },
         React.createElement('div', { className: toastTitleClass }, entry.title),
         React.createElement('div', { className: toastDescriptionClass }, entry.message),
       )
-    : React.createElement('div', { className: 'flex-1' }, entry.message)
+    : React.createElement('div', { className: toastContentClass }, entry.message)
 
   return React.createElement(
     'div',
@@ -389,6 +390,7 @@ export const Toaster = React.forwardRef<HTMLDivElement, ToasterProps>(function T
         role: 'region',
         'aria-label': DEFAULT_TOASTER_LABEL,
         className: cn(toasterClass, className),
+        'data-rfr-toaster': '',
         ...props,
         onFocus: handleFocus,
       },

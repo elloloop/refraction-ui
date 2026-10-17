@@ -1,6 +1,7 @@
 ---
 import {
   toastVariants,
+  toastContentClass,
   toastTitleClass,
   toastDescriptionClass,
   toastActionClass,
@@ -60,7 +61,7 @@ const {
 >
   {
     title ? (
-      <div class="flex-1">
+      <div class={toastContentClass}>
         <div class={toastTitleClass} data-rfr-toast-title>
           {title}
         </div>
@@ -69,7 +70,7 @@ const {
         </div>
       </div>
     ) : (
-      <div class="flex-1" data-rfr-toast-message>
+      <div class={toastContentClass} data-rfr-toast-message>
         {message ? message : <slot />}
       </div>
     )

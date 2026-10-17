@@ -209,7 +209,7 @@ describe('astro-toast (Toaster + Toast composed)', () => {
       /<div[^>]*class="text-sm opacity-90"[^>]*data-rfr-toast-message[^>]*>\s*It is no longer in your drafts.\s*<\/div>/
     )
     // A toast without a title keeps its message unstyled.
-    expect(html).toMatch(/<div[^>]*class="flex-1"[^>]*data-rfr-toast-message[^>]*>\s*Saved successfully\s*<\/div>/)
+    expect(html).toMatch(/<div[^>]*class="min-w-0 flex-1 break-words"[^>]*data-rfr-toast-message[^>]*>\s*Saved successfully\s*<\/div>/)
     expect(html).toMatch(/<button[^>]*type="button"[^>]*class="[^"]*focus-visible:ring-2[^"]*"[^>]*data-rfr-toast-action[^>]*>\s*Undo\s*<\/button>/)
     expect(count(html, 'data-rfr-toast-action')).toBe(1)
     expect(html).toMatch(
@@ -227,6 +227,31 @@ describe('astro-toast (Toaster + Toast composed)', () => {
 
     const toast = await render(Toast, { props: { message: 'Gespeichert', dismissLabel: 'Schließen' } })
     expect(toast).toMatch(/<button[^>]*data-rfr-toast-dismiss[^>]*aria-label="Schließen"/)
+  })
+
+  it('lays the toaster out with equal side gutters and a capped width', async () => {
+    const html = await render(ToasterComposition)
+    const toaster = html.match(/<div[^>]*data-rfr-toaster[^>]*>/)?.[0] ?? ''
+
+    expect(toaster).toMatch(/class="[^"]*\binset-x-4\b[^"]*"/)
+    expect(toaster).toMatch(/class="[^"]*\bml-auto\b[^"]*"/)
+    expect(toaster).toMatch(/class="[^"]*\bmax-w-sm\b[^"]*"/)
+    expect(toaster).not.toMatch(/\bw-full\b/)
+  })
+
+  it('renders a tinted toast on an opaque background', async () => {
+    const html = await render(ToasterComposition)
+    const toast = html.match(/<div[^>]*data-rfr-toast-variant="success"[^>]*>/)?.[0] ?? ''
+
+    expect(toast).toMatch(/\bbg-background\b/)
+    expect(toast).toMatch(/\bfrom-success\/10\b/)
+    expect(toast).not.toMatch(/\bbg-success\/10\b/)
+  })
+
+  it('wraps the message in a column that shrinks and breaks long words', async () => {
+    const html = await render(ToasterComposition)
+
+    expect(html).toMatch(/<div class="[^"]*\bmin-w-0\b[^"]*\bbreak-words\b[^"]*"[^>]*>\s*Saved successfully\s*<\/div>/)
   })
 })
 
