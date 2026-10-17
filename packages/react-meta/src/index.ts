@@ -284,3 +284,4 @@ export * from '@refraction-ui/react-hierarchy-canvas'
 
 // work-chat components (#560)
 export * from '@refraction-ui/react-live-dot'
+export * from '@refraction-ui/react-icon-button'

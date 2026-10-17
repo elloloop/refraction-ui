@@ -98,6 +98,7 @@ const componentGroups = [
       { name: 'Keyboard Shortcut', href: '/components/keyboard-shortcut' },
       { name: 'Rich Editor', href: '/components/rich-editor' },
       { name: 'Live Dot', href: '/components/live-dot' },
+      { name: 'Icon Button', href: '/components/icon-button' },
     ],
   },
   {

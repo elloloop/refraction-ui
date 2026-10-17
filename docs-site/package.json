@@ -61,6 +61,7 @@
     "@refraction-ui/react-funnel-chart": "workspace:*",
     "@refraction-ui/react-graph-view": "workspace:*",
     "@refraction-ui/react-hierarchy-canvas": "workspace:*",
+    "@refraction-ui/react-icon-button": "workspace:*",
     "@refraction-ui/react-infinite-canvas": "workspace:*",
     "@refraction-ui/react-inline-editor": "workspace:*",
     "@refraction-ui/react-input": "workspace:*",

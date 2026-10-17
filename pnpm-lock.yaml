@@ -308,6 +308,9 @@ importers:
       '@refraction-ui/react-hierarchy-canvas':
         specifier: workspace:*
         version: link:../packages/react-hierarchy-canvas
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../packages/react-icon-button
       '@refraction-ui/react-infinite-canvas':
         specifier: workspace:*
         version: link:../packages/react-infinite-canvas
@@ -3174,6 +3177,15 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/icon-button:
+    dependencies:
+      '@refraction-ui/button':
+        specifier: workspace:*
+        version: link:../button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/icon-system: {}
 
   packages/infinite-canvas:
@@ -4717,6 +4729,37 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-icon-button:
+    dependencies:
+      '@refraction-ui/icon-button':
+        specifier: workspace:*
+        version: link:../icon-button
+      '@refraction-ui/react-button':
+        specifier: workspace:*
+        version: link:../react-button
+      '@refraction-ui/react-tooltip':
+        specifier: workspace:*
+        version: link:../react-tooltip
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-icon-system:
     devDependencies:
       '@types/react':
@@ -5358,6 +5401,9 @@ importers:
       '@refraction-ui/react-hierarchy-canvas':
         specifier: workspace:*
         version: link:../react-hierarchy-canvas
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
       '@refraction-ui/react-icon-system':
         specifier: workspace:*
         version: link:../react-icon-system
