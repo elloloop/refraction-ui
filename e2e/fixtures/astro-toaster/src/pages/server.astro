@@ -1,0 +1,30 @@
+---
+import Toaster from '../../../../../packages/astro-meta/dist/astro-toast/Toaster.astro'
+import Toast from '../../../../../packages/astro-meta/dist/astro-toast/Toast.astro'
+import '../../../../../.storybook/tokens.css'
+import '../../../../../.storybook/preview.css'
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Astro toaster, server-rendered toasts</title>
+  </head>
+  <body>
+    <main class="mx-auto max-w-2xl space-y-4 p-8">
+      <h1 class="text-2xl font-semibold">Server-rendered toasts</h1>
+      <p>Last action: <output id="last-action">none</output></p>
+    </main>
+    <Toaster>
+      <Toast title="Signed in" message="Welcome back." actionLabel="View profile" duration={0} />
+    </Toaster>
+    <script>
+      const lastAction = document.getElementById('last-action')!
+      document.addEventListener('rfr-toast-action', (event) => {
+        const title = (event.target as HTMLElement).querySelector('[data-rfr-toast-title]')
+        lastAction.textContent = title?.textContent?.trim() ?? 'unknown'
+      })
+    </script>
+  </body>
+</html>

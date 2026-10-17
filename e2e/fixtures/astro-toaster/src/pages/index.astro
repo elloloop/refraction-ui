@@ -1,0 +1,49 @@
+---
+import Toaster from '../../../../../packages/astro-meta/dist/astro-toast/Toaster.astro'
+import '../../../../../.storybook/tokens.css'
+import '../../../../../.storybook/preview.css'
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Astro toaster</title>
+  </head>
+  <body>
+    <main class="mx-auto max-w-2xl space-y-4 p-8">
+      <h1 class="text-2xl font-semibold">Astro toaster</h1>
+      <p>Each button shows a toast through <code>window.__rfr_toast</code>.</p>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" class="rounded-md border px-3 py-2 text-sm" data-show="undo">Delete draft</button>
+        <button type="button" class="rounded-md border px-3 py-2 text-sm" data-show="error">Upload file</button>
+        <button type="button" class="rounded-md border px-3 py-2 text-sm" data-show="brief">Save</button>
+      </div>
+      <p>Restored drafts: <output id="restored">0</output></p>
+    </main>
+    <Toaster />
+    <script>
+      const restored = document.getElementById('restored')!
+      const show: Record<string, () => void> = {
+        undo: () =>
+          window.__rfr_toast?.({
+            title: 'Draft deleted',
+            message: 'It is no longer in your drafts.',
+            variant: 'success',
+            duration: 0,
+            action: {
+              label: 'Undo',
+              onClick: () => {
+                restored.textContent = String(Number(restored.textContent) + 1)
+              },
+            },
+          }),
+        error: () => window.__rfr_toast?.({ message: 'Upload failed', variant: 'error', duration: 0 }),
+        brief: () => window.__rfr_toast?.({ message: 'Saved', duration: 1500 }),
+      }
+      document.querySelectorAll<HTMLButtonElement>('[data-show]').forEach((button) => {
+        button.addEventListener('click', () => show[button.dataset.show!]?.())
+      })
+    </script>
+  </body>
+</html>

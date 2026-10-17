@@ -8,12 +8,22 @@
   "files": [
     "src"
   ],
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src __tests__ browser_test --ext .ts"
+  },
   "dependencies": {
     "@refraction-ui/toast": "workspace:*",
     "@refraction-ui/shared": "workspace:*"
   },
   "peerDependencies": {
     "astro": ">=4.0.0"
+  },
+  "devDependencies": {
+    "jsdom": "29.0.2"
   },
   "sideEffects": false,
   "license": "MIT",

@@ -218,3 +218,5 @@ jobs:
         run: pnpm exec playwright test --config playwright.composer-paste.config.ts
       - name: Verify Astro composer toolbar keyboard interaction
         run: pnpm exec playwright test --config playwright.composer-toolbar.config.ts
+      - name: Verify Astro toaster keyboard, focus and announcements
+        run: pnpm exec playwright test --config playwright.astro-toaster.config.ts

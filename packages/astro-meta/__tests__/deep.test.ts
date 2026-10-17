@@ -13,6 +13,8 @@ import FileTree from '../dist/astro-file-tree/FileTree.astro'
 import Slider from '../dist/astro-slider/Slider.astro'
 import InteractiveComposer from '../dist/astro-composer/InteractiveComposer.astro'
 import SkipToContent from '../dist/astro-skip-to-content/SkipToContent.astro'
+import Toaster from '../dist/astro-toast/Toaster.astro'
+import Toast from '../dist/astro-toast/Toast.astro'
 
 /**
  * Deep render tests for the stateful / ARIA-heavy adapters. Multi-part
@@ -183,6 +185,48 @@ describe('astro-toast (Toaster + Toast composed)', () => {
     expect(html).toContain('data-rfr-toast-duration="5000"')
     expect(html).toContain('Saved successfully')
     expect(html).toMatch(/<button[^>]*aria-label="Dismiss"/)
+  })
+
+  it('renders the toaster as a labelled region with a polite and an assertive live region', async () => {
+    const html = await render(ToasterComposition)
+
+    expect(html).toMatch(/<div[^>]*data-rfr-toaster[^>]*role="region"[^>]*aria-label="Notifications"/)
+    expect(html).toContain('data-rfr-toast-dismiss-label="Dismiss"')
+    for (const politeness of ['polite', 'assertive']) {
+      expect(html).toMatch(
+        new RegExp(
+          `<div[^>]*class="sr-only"[^>]*aria-live="${politeness}"[^>]*aria-atomic="false"[^>]*aria-relevant="additions"[^>]*data-rfr-toast-announcer="${politeness}"[^>]*>\\s*</div>`
+        )
+      )
+    }
+  })
+
+  it('renders a title above the message, an action button and a labelled dismiss button', async () => {
+    const html = await render(ToasterComposition)
+
+    expect(html).toMatch(/<div[^>]*class="text-sm font-semibold"[^>]*data-rfr-toast-title[^>]*>\s*Draft deleted\s*<\/div>/)
+    expect(html).toMatch(
+      /<div[^>]*class="text-sm opacity-90"[^>]*data-rfr-toast-message[^>]*>\s*It is no longer in your drafts.\s*<\/div>/
+    )
+    // A toast without a title keeps its message unstyled.
+    expect(html).toMatch(/<div[^>]*class="flex-1"[^>]*data-rfr-toast-message[^>]*>\s*Saved successfully\s*<\/div>/)
+    expect(html).toMatch(/<button[^>]*type="button"[^>]*class="[^"]*focus-visible:ring-2[^"]*"[^>]*data-rfr-toast-action[^>]*>\s*Undo\s*<\/button>/)
+    expect(count(html, 'data-rfr-toast-action')).toBe(1)
+    expect(html).toMatch(
+      /<button[^>]*data-rfr-toast-dismiss[^>]*class="[^"]*focus-visible:ring-2[^"]*"[^>]*aria-label="Dismiss"[^>]*>\s*<span aria-hidden="true">&times;<\/span>/
+    )
+  })
+
+  it('lets the toaster name and the dismiss label be translated', async () => {
+    const toaster = await render(Toaster, {
+      props: { 'aria-label': 'Benachrichtigungen', dismissLabel: 'Schließen' },
+    })
+    expect(toaster).toContain('aria-label="Benachrichtigungen"')
+    expect(count(toaster, 'aria-label=')).toBe(1)
+    expect(toaster).toContain('data-rfr-toast-dismiss-label="Schließen"')
+
+    const toast = await render(Toast, { props: { message: 'Gespeichert', dismissLabel: 'Schließen' } })
+    expect(toast).toMatch(/<button[^>]*data-rfr-toast-dismiss[^>]*aria-label="Schließen"/)
   })
 })
 
