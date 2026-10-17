@@ -79,6 +79,7 @@
     "@refraction-ui/react-live-transcript": "workspace:*",
     "@refraction-ui/react-location-selector": "workspace:*",
     "@refraction-ui/react-markdown-renderer": "workspace:*",
+    "@refraction-ui/react-markup-text": "workspace:*",
     "@refraction-ui/react-marquee-strip": "workspace:*",
     "@refraction-ui/react-mastery-bar": "workspace:*",
     "@refraction-ui/react-mini-map": "workspace:*",

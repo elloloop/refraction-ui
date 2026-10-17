@@ -362,6 +362,9 @@ importers:
       '@refraction-ui/react-markdown-renderer':
         specifier: workspace:*
         version: link:../packages/react-markdown-renderer
+      '@refraction-ui/react-markup-text':
+        specifier: workspace:*
+        version: link:../packages/react-markup-text
       '@refraction-ui/react-marquee-strip':
         specifier: workspace:*
         version: link:../packages/react-marquee-strip
@@ -3308,6 +3311,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/markup-text:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/marquee-strip:
     dependencies:
       '@refraction-ui/shared':
@@ -5192,6 +5201,31 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-markup-text:
+    dependencies:
+      '@refraction-ui/markup-text':
+        specifier: workspace:*
+        version: link:../markup-text
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-marquee-strip:
     dependencies:
       '@refraction-ui/marquee-strip':
@@ -5495,6 +5529,9 @@ importers:
       '@refraction-ui/react-markdown-renderer':
         specifier: workspace:*
         version: link:../react-markdown-renderer
+      '@refraction-ui/react-markup-text':
+        specifier: workspace:*
+        version: link:../react-markup-text
       '@refraction-ui/react-marquee-strip':
         specifier: workspace:*
         version: link:../react-marquee-strip

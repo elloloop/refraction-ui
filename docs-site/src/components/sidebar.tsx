@@ -100,6 +100,7 @@ const componentGroups = [
       { name: 'Live Dot', href: '/components/live-dot' },
       { name: 'Icon Button', href: '/components/icon-button' },
       { name: 'Highlight Text', href: '/components/highlight-text' },
+      { name: 'Markup Text', href: '/components/markup-text' },
     ],
   },
   {
