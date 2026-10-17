@@ -182,6 +182,7 @@ const componentGroups = [
       { name: 'Input Group', href: '/components/input-group' },
       { name: 'Location Selector', href: '/components/location-selector' },
       { name: 'Form', href: '/components/form' },
+      { name: 'Field', href: '/components/field' },
       { name: 'Charts', href: '/components/charts' },
       { name: 'Line Chart', href: '/components/line-chart' },
       { name: 'Funnel Chart', href: '/components/funnel-chart' },

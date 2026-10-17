@@ -6,14 +6,14 @@
   "lastUpdated": "2026-10-17T03:09:13Z",
   "state": {
     "lastProcessedMainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
-    "lastProcessedSourceId": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1"
+    "lastProcessedSourceId": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1"
   },
   "nodes": [
     {
       "id": "api:.changeset",
       "parent": "apis",
       "title": "Changeset",
-      "summary": "Changed in: show live media and call state on video tiles",
+      "summary": "Changed in: add a labelled form control with an optional hint",
       "kicker": "Service",
       "diagram": {
         "tier": "api"
@@ -54,11 +54,23 @@
         {
           "to": "api:packages-react-meta",
           "kind": "grpc"
+        },
+        {
+          "to": "api:packages-astro-field",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-field",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-field",
+          "kind": "grpc"
         }
       ],
-      "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
-      "what": "show live media and call state on video tiles",
-      "how": "Changed: .changeset/video-tile-live-media.md",
+      "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+      "what": "add a labelled form control with an optional hint",
+      "how": "Changed: .changeset/field.md",
       "meta": {
         "status": "live"
       },
@@ -99,6 +111,12 @@
           "kind": "diff",
           "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
           "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+        },
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
         }
       ],
       "updated": "2026-10-17T03:09:12Z"
@@ -213,7 +231,7 @@
       "id": "api:docs",
       "parent": "apis",
       "title": "Docs",
-      "summary": "Changed in: show live media and call state on video tiles",
+      "summary": "Changed in: add a labelled form control with an optional hint",
       "kicker": "Service",
       "diagram": {
         "tier": "api"
@@ -238,11 +256,31 @@
         {
           "to": "api:packages-shared",
           "kind": "grpc"
+        },
+        {
+          "to": "api:packages-astro-field",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-astro-meta",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-field",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-field",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-meta",
+          "kind": "grpc"
         }
       ],
-      "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
-      "what": "show live media and call state on video tiles",
-      "how": "Changed: docs/pr-evidence/video-grid-render-tile/",
+      "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+      "what": "add a labelled form control with an optional hint",
+      "how": "Changed: docs/pr-evidence/field/README.md, docs/pr-evidence/field/after-dark-1440.png, docs/pr-evidence/field/after-dark-375.png, docs/pr-evidence/field/after-light-1440.png",
       "meta": {
         "status": "live"
       },
@@ -272,6 +310,12 @@
           "kind": "diff",
           "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
           "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+        },
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
         }
       ],
       "updated": "2026-10-17T03:09:12Z"
@@ -280,7 +324,7 @@
       "id": "api:docs-site",
       "parent": "apis",
       "title": "Docs Site",
-      "summary": "Changed in: show live media and call state on video tiles",
+      "summary": "Changed in: add a labelled form control with an optional hint",
       "kicker": "Service",
       "diagram": {
         "tier": "api"
@@ -333,11 +377,27 @@
         {
           "to": "api:packages-video-tile",
           "kind": "grpc"
+        },
+        {
+          "to": "api:packages-astro-field",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-astro-meta",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-field",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-field",
+          "kind": "grpc"
         }
       ],
-      "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
-      "what": "show live media and call state on video tiles",
-      "how": "TypeScript. Changed: docs-site/src/app/components/video-grid/VideoGrid.stories.tsx, docs-site/src/app/components/video-grid/examples.tsx, docs-site/src/app/components/video-grid/page.tsx, docs-site/src/app/components/video-tile/VideoTile.stories.tsx",
+      "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+      "what": "add a labelled form control with an optional hint",
+      "how": "TypeScript. Changed: docs-site/package.json, docs-site/src/app/components/field/Field.stories.tsx, docs-site/src/app/components/field/examples.tsx, docs-site/src/app/components/field/page.tsx",
       "meta": {
         "status": "live"
       },
@@ -367,6 +427,12 @@
           "kind": "diff",
           "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
           "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+        },
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
         }
       ],
       "updated": "2026-10-17T03:09:12Z"
@@ -375,7 +441,7 @@
       "id": "api:packages-astro-meta",
       "parent": "apis",
       "title": "Packages Astro Meta",
-      "summary": "Changed in: release packages",
+      "summary": "Changed in: add a labelled form control with an optional hint",
       "kicker": "Service",
       "diagram": {
         "tier": "api"
@@ -384,19 +450,39 @@
         {
           "to": "api:packages-react-meta",
           "kind": "grpc"
+        },
+        {
+          "to": "api:packages-field",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-field",
+          "kind": "grpc"
         }
       ],
-      "why": "release packages",
-      "what": "release packages",
-      "how": "Changed: packages/astro-meta/CHANGELOG.md, packages/astro-meta/package.json",
+      "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+      "what": "add a labelled form control with an optional hint",
+      "how": "TypeScript. Changed: packages/astro-meta/__tests__/fixtures.ts, packages/astro-meta/package.json, packages/astro-meta/src/index.ts",
       "sources": [
         {
           "id": "commit:5602fbb1eacb",
           "kind": "commit",
           "commit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0"
+        },
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
         }
       ],
-      "updated": "2026-10-17T03:09:12Z"
+      "updated": "2026-10-17T03:09:12Z",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      }
     },
     {
       "id": "api:packages-astro-video-tile",
@@ -588,7 +674,7 @@
       "id": "api:packages-react-meta",
       "parent": "apis",
       "title": "Packages React Meta",
-      "summary": "Changed in: release packages",
+      "summary": "Changed in: add a labelled form control with an optional hint",
       "kicker": "Service",
       "diagram": {
         "tier": "api"
@@ -611,8 +697,8 @@
           "kind": "grpc"
         }
       ],
-      "why": "release packages",
-      "what": "release packages",
+      "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+      "what": "add a labelled form control with an optional hint",
       "how": "Changed: packages/react-meta/CHANGELOG.md, packages/react-meta/package.json",
       "meta": {
         "status": "live"
@@ -631,6 +717,12 @@
           "id": "commit:5602fbb1eacb",
           "kind": "commit",
           "commit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0"
+        },
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
         }
       ],
       "updated": "2026-10-17T03:09:12Z"
@@ -1055,7 +1147,7 @@
       "id": "operations:packages-astro-meta",
       "parent": "operations",
       "title": "Packages Astro Meta",
-      "summary": "Changed in: show live media and call state on video tiles",
+      "summary": "Changed in: add a labelled form control with an optional hint",
       "kicker": "Operations",
       "diagram": {
         "tier": "operations"
@@ -1112,11 +1204,39 @@
         {
           "to": "api:docs",
           "kind": "http"
+        },
+        {
+          "to": "api:packages-astro-field",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-astro-meta",
+          "kind": "http"
+        },
+        {
+          "to": "operations:packages-field",
+          "kind": "calls"
+        },
+        {
+          "to": "api:packages-field",
+          "kind": "http"
+        },
+        {
+          "to": "operations:packages-react-field",
+          "kind": "calls"
+        },
+        {
+          "to": "api:packages-react-field",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-react-meta",
+          "kind": "http"
         }
       ],
-      "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
-      "what": "show live media and call state on video tiles",
-      "how": "TypeScript. Changed: packages/astro-meta/__tests__/deep.test.ts",
+      "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+      "what": "add a labelled form control with an optional hint",
+      "how": "TypeScript. Changed: packages/astro-meta/__tests__/field.test.ts",
       "meta": {
         "status": "live"
       },
@@ -1129,6 +1249,12 @@
           "kind": "diff",
           "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
           "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+        },
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
         }
       ],
       "updated": "2026-10-17T03:09:12Z"
@@ -1622,7 +1748,7 @@
       "id": "operations:workspace-config",
       "parent": "operations",
       "title": "Workspace Config",
-      "summary": "Changed in: show live media and call state on video tiles",
+      "summary": "Changed in: add a labelled form control with an optional hint",
       "kicker": "Operations",
       "diagram": {
         "tier": "operations"
@@ -1671,10 +1797,26 @@
         {
           "to": "api:packages-video-tile",
           "kind": "http"
+        },
+        {
+          "to": "api:packages-astro-field",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-astro-meta",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-field",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-react-field",
+          "kind": "http"
         }
       ],
-      "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
-      "what": "show live media and call state on video tiles",
+      "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+      "what": "add a labelled form control with an optional hint",
       "how": "Changed: pnpm-lock.yaml",
       "meta": {
         "status": "live"
@@ -1694,9 +1836,269 @@
           "kind": "diff",
           "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
           "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+        },
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
         }
       ],
       "updated": "2026-10-17T03:09:12Z"
+    },
+    {
+      "id": "api:packages-astro-field",
+      "parent": "apis",
+      "title": "Packages Astro Field",
+      "summary": "Changed in: add a labelled form control with an optional hint",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "edges": [
+        {
+          "to": "api:packages-astro-meta",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-field",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-field",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-meta",
+          "kind": "grpc"
+        }
+      ],
+      "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+      "what": "add a labelled form control with an optional hint",
+      "how": "TypeScript. Changed: packages/astro-field/package.json, packages/astro-field/src/Field.astro, packages/astro-field/src/index.ts",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "id": "api:packages-field",
+      "parent": "apis",
+      "title": "Packages Field",
+      "summary": "Changed in: add a labelled form control with an optional hint",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "edges": [
+        {
+          "to": "api:packages-react-field",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-meta",
+          "kind": "grpc"
+        }
+      ],
+      "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+      "what": "add a labelled form control with an optional hint",
+      "how": "TypeScript. Changed: packages/field/package.json, packages/field/src/field.styles.ts, packages/field/src/field.ts, packages/field/src/index.ts",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "id": "api:packages-react-field",
+      "parent": "apis",
+      "title": "Packages React Field",
+      "summary": "Changed in: add a labelled form control with an optional hint",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "edges": [
+        {
+          "to": "api:packages-react-meta",
+          "kind": "grpc"
+        }
+      ],
+      "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+      "what": "add a labelled form control with an optional hint",
+      "how": "TypeScript. Changed: packages/react-field/package.json, packages/react-field/src/field.tsx, packages/react-field/src/index.ts, packages/react-field/tsconfig.json",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "id": "operations:packages-field",
+      "parent": "operations",
+      "title": "Packages Field",
+      "summary": "Changed in: add a labelled form control with an optional hint",
+      "kicker": "Operations",
+      "diagram": {
+        "tier": "operations"
+      },
+      "edges": [
+        {
+          "to": "api:.changeset",
+          "kind": "http"
+        },
+        {
+          "to": "api:docs-site",
+          "kind": "http"
+        },
+        {
+          "to": "api:docs",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-astro-field",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-astro-meta",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-field",
+          "kind": "http"
+        },
+        {
+          "to": "operations:packages-react-field",
+          "kind": "calls"
+        },
+        {
+          "to": "api:packages-react-field",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-react-meta",
+          "kind": "http"
+        },
+        {
+          "to": "operations:workspace-config",
+          "kind": "calls"
+        }
+      ],
+      "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+      "what": "add a labelled form control with an optional hint",
+      "how": "TypeScript. Changed: packages/field/__tests__/field.test.ts",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "id": "operations:packages-react-field",
+      "parent": "operations",
+      "title": "Packages React Field",
+      "summary": "Changed in: add a labelled form control with an optional hint",
+      "kicker": "Operations",
+      "diagram": {
+        "tier": "operations"
+      },
+      "edges": [
+        {
+          "to": "api:.changeset",
+          "kind": "http"
+        },
+        {
+          "to": "api:docs-site",
+          "kind": "http"
+        },
+        {
+          "to": "api:docs",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-astro-field",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-astro-meta",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-field",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-react-field",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-react-meta",
+          "kind": "http"
+        },
+        {
+          "to": "operations:workspace-config",
+          "kind": "calls"
+        }
+      ],
+      "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+      "what": "add a labelled form control with an optional hint",
+      "how": "TypeScript. Changed: packages/react-field/__tests__/field.interaction.test.tsx, packages/react-field/__tests__/field.test.tsx",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
     }
   ],
   "commits": [
@@ -1831,6 +2233,26 @@
         "operations:workspace-config",
         "api:.changeset",
         "api:docs"
+      ]
+    },
+    {
+      "sha": "509f1e95db4d285d99bd714af348dbe4a5095543",
+      "label": "feat(field): add a labelled form control with an optional hint",
+      "date": "2026-10-17",
+      "kind": "feature",
+      "touches": [
+        "api:.changeset",
+        "api:docs-site",
+        "api:docs",
+        "api:packages-astro-field",
+        "operations:packages-astro-meta",
+        "api:packages-astro-meta",
+        "operations:packages-field",
+        "api:packages-field",
+        "operations:packages-react-field",
+        "api:packages-react-field",
+        "api:packages-react-meta",
+        "operations:workspace-config"
       ]
     }
   ],
@@ -2147,6 +2569,43 @@
         }
       ],
       "updated": "2026-10-17T03:09:12Z"
+    },
+    {
+      "id": "feature:field",
+      "name": "Field",
+      "summary": "feat(field): add a labelled form control with an optional hint",
+      "audience": [
+        "end-user",
+        "product-manager",
+        "tester"
+      ],
+      "userDocs": [
+        "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+        "feat(field): add a labelled form control with an optional hint"
+      ],
+      "testerNotes": [
+        "Verify behavior touching .changeset/field.md, docs-site/package.json, docs-site/src/app/components/field/Field.stories.tsx, docs-site/src/app/components/field/examples.tsx, docs-site/src/app/components/field/page.tsx."
+      ],
+      "relatedTechnicalDetails": [
+        "technical:field"
+      ],
+      "relatedComponents": [
+        "component:changeset",
+        "component:docs-site-packagejson",
+        "component:docs-site-src",
+        "component:docs",
+        "component:packages",
+        "component:pnpm-lockyaml"
+      ],
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
     }
   ],
   "technicalDetails": [
@@ -2394,6 +2853,35 @@
         }
       ],
       "updated": "2026-10-17T03:09:12Z"
+    },
+    {
+      "id": "technical:field",
+      "title": "Field",
+      "summary": "feat(field): add a labelled form control with an optional hint",
+      "designNotes": [
+        "Changed files: .changeset/field.md, docs-site/package.json, docs-site/src/app/components/field/Field.stories.tsx, docs-site/src/app/components/field/examples.tsx, docs-site/src/app/components/field/page.tsx, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, docs/pr-evidence/field/README.md",
+        "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset."
+      ],
+      "relatedFeatures": [
+        "feature:field"
+      ],
+      "relatedComponents": [
+        "component:changeset",
+        "component:docs-site-packagejson",
+        "component:docs-site-src",
+        "component:docs",
+        "component:packages",
+        "component:pnpm-lockyaml"
+      ],
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
     }
   ],
   "components": [
@@ -2405,7 +2893,8 @@
         ".changeset/search-bar-cancel-unmounted-search.md",
         ".changeset/hierarchy-canvas.md",
         ".changeset/dialog-keyboard-focus.md",
-        ".changeset/video-tile-live-media.md"
+        ".changeset/video-tile-live-media.md",
+        ".changeset/field.md"
       ],
       "summary": "Owns changes under .changeset.",
       "relatedFeatures": [
@@ -2414,7 +2903,8 @@
         "feature:dialog-focus",
         "feature:contain-modal-focus-and-restore-the-opener",
         "feature:release-packages",
-        "feature:video-grid-render-tile"
+        "feature:video-grid-render-tile",
+        "feature:field"
       ],
       "relatedTechnicalDetails": [
         "technical:search-bar-unmount",
@@ -2422,7 +2912,8 @@
         "technical:dialog-focus",
         "technical:contain-modal-focus-and-restore-the-opener",
         "technical:release-packages",
-        "technical:video-grid-render-tile"
+        "technical:video-grid-render-tile",
+        "technical:field"
       ],
       "sources": [
         {
@@ -2458,6 +2949,12 @@
           "kind": "diff",
           "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
           "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+        },
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
         }
       ],
       "updated": "2026-10-17T03:09:12Z"
@@ -2510,20 +3007,32 @@
         "docs/pr-evidence/dialog-focus/documentation-snapshots-review.json",
         "docs/pr-evidence/dialog-focus/lostpixel-documentation-review.json",
         "docs/stax/audit/e058d38a-diff_c1c875f0-cbb6-477f-8df6-d91e667ab89-heuristic-unknown.json",
-        "docs/pr-evidence/video-grid-render-tile/"
+        "docs/pr-evidence/video-grid-render-tile/",
+        "docs/pr-evidence/field/README.md",
+        "docs/pr-evidence/field/after-dark-1440.png",
+        "docs/pr-evidence/field/after-dark-375.png",
+        "docs/pr-evidence/field/after-light-1440.png",
+        "docs/pr-evidence/field/after-light-375.png",
+        "docs/pr-evidence/field/before-dark-1440.png",
+        "docs/pr-evidence/field/before-dark-375.png",
+        "docs/pr-evidence/field/before-light-1440.png",
+        "docs/pr-evidence/field/before-light-375.png",
+        "docs/pr-evidence/field/browser-proof.json"
       ],
       "summary": "Owns changes under docs.",
       "relatedFeatures": [
         "feature:search-bar-unmount",
         "feature:hierarchy-canvas",
         "feature:contain-modal-focus-and-restore-the-opener",
-        "feature:video-grid-render-tile"
+        "feature:video-grid-render-tile",
+        "feature:field"
       ],
       "relatedTechnicalDetails": [
         "technical:search-bar-unmount",
         "technical:hierarchy-canvas",
         "technical:contain-modal-focus-and-restore-the-opener",
-        "technical:video-grid-render-tile"
+        "technical:video-grid-render-tile",
+        "technical:field"
       ],
       "sources": [
         {
@@ -2548,6 +3057,12 @@
           "kind": "diff",
           "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
           "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+        },
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
         }
       ],
       "updated": "2026-10-17T03:09:12Z"
@@ -2561,10 +3076,12 @@
       ],
       "summary": "Owns changes under docs-site/package.json.",
       "relatedFeatures": [
-        "feature:hierarchy-canvas"
+        "feature:hierarchy-canvas",
+        "feature:field"
       ],
       "relatedTechnicalDetails": [
-        "technical:hierarchy-canvas"
+        "technical:hierarchy-canvas",
+        "technical:field"
       ],
       "sources": [
         {
@@ -2572,9 +3089,15 @@
           "kind": "diff",
           "commit": "664ec460ee704601ca87b2dbca251f708b893171",
           "diffUuid": "ee8f20cd-c966-472a-9425-dbfce1bb2177"
+        },
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
         }
       ],
-      "updated": "2026-10-13T02:33:31Z"
+      "updated": "2026-10-17T03:02:55Z"
     },
     {
       "id": "component:docs-site-src",
@@ -2592,20 +3115,25 @@
         "docs-site/src/app/components/video-tile/VideoTile.stories.tsx",
         "docs-site/src/app/components/video-tile/examples.tsx",
         "docs-site/src/app/components/video-tile/page.tsx",
-        "docs-site/src/components/demo-call-media.tsx"
+        "docs-site/src/components/demo-call-media.tsx",
+        "docs-site/src/app/components/field/Field.stories.tsx",
+        "docs-site/src/app/components/field/examples.tsx",
+        "docs-site/src/app/components/field/page.tsx"
       ],
       "summary": "Owns changes under docs-site/src.",
       "relatedFeatures": [
         "feature:hierarchy-canvas",
         "feature:dialog-focus",
         "feature:contain-modal-focus-and-restore-the-opener",
-        "feature:video-grid-render-tile"
+        "feature:video-grid-render-tile",
+        "feature:field"
       ],
       "relatedTechnicalDetails": [
         "technical:hierarchy-canvas",
         "technical:dialog-focus",
         "technical:contain-modal-focus-and-restore-the-opener",
-        "technical:video-grid-render-tile"
+        "technical:video-grid-render-tile",
+        "technical:field"
       ],
       "sources": [
         {
@@ -2630,6 +3158,12 @@
           "kind": "diff",
           "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
           "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+        },
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
         }
       ],
       "updated": "2026-10-17T03:09:12Z"
@@ -2775,7 +3309,29 @@
         "packages/video-tile/src/video-tile.styles.ts",
         "packages/video-tile/src/video-tile.ts",
         "packages/react-video-grid/__tests__/video-grid.interaction.test.tsx",
-        "packages/react-video-tile/__tests__/video-tile.interaction.test.tsx"
+        "packages/react-video-tile/__tests__/video-tile.interaction.test.tsx",
+        "packages/astro-field/package.json",
+        "packages/astro-field/src/Field.astro",
+        "packages/astro-field/src/index.ts",
+        "packages/astro-meta/__tests__/field.test.ts",
+        "packages/astro-meta/__tests__/fixtures.ts",
+        "packages/astro-meta/src/index.ts",
+        "packages/field/__tests__/field.test.ts",
+        "packages/field/package.json",
+        "packages/field/src/field.styles.ts",
+        "packages/field/src/field.ts",
+        "packages/field/src/index.ts",
+        "packages/field/tsconfig.json",
+        "packages/field/tsup.config.ts",
+        "packages/field/vitest.config.ts",
+        "packages/react-field/__tests__/field.interaction.test.tsx",
+        "packages/react-field/__tests__/field.test.tsx",
+        "packages/react-field/package.json",
+        "packages/react-field/src/field.tsx",
+        "packages/react-field/src/index.ts",
+        "packages/react-field/tsconfig.json",
+        "packages/react-field/tsup.config.ts",
+        "packages/react-field/vitest.config.ts"
       ],
       "summary": "Owns changes under packages.",
       "relatedFeatures": [
@@ -2786,7 +3342,8 @@
         "feature:dialog-focus",
         "feature:contain-modal-focus-and-restore-the-opener",
         "feature:release-packages",
-        "feature:video-grid-render-tile"
+        "feature:video-grid-render-tile",
+        "feature:field"
       ],
       "relatedTechnicalDetails": [
         "technical:auto-save-before-switching-context",
@@ -2796,7 +3353,8 @@
         "technical:dialog-focus",
         "technical:contain-modal-focus-and-restore-the-opener",
         "technical:release-packages",
-        "technical:video-grid-render-tile"
+        "technical:video-grid-render-tile",
+        "technical:field"
       ],
       "sources": [
         {
@@ -2843,6 +3401,12 @@
           "kind": "diff",
           "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
           "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+        },
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
         }
       ],
       "updated": "2026-10-17T03:09:12Z"
@@ -2857,11 +3421,13 @@
       "summary": "Owns changes under pnpm-lock.yaml.",
       "relatedFeatures": [
         "feature:hierarchy-canvas",
-        "feature:video-grid-render-tile"
+        "feature:video-grid-render-tile",
+        "feature:field"
       ],
       "relatedTechnicalDetails": [
         "technical:hierarchy-canvas",
-        "technical:video-grid-render-tile"
+        "technical:video-grid-render-tile",
+        "technical:field"
       ],
       "sources": [
         {
@@ -2875,6 +3441,12 @@
           "kind": "diff",
           "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
           "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+        },
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
         }
       ],
       "updated": "2026-10-17T03:09:12Z"
@@ -4062,6 +4634,201 @@
         }
       ],
       "updated": "2026-10-17T03:09:12Z"
+    },
+    {
+      "from": "feature:field",
+      "to": "technical:field",
+      "type": "explained_by",
+      "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "from": "feature:field",
+      "to": "component:changeset",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "from": "feature:field",
+      "to": "component:docs",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "from": "feature:field",
+      "to": "component:docs-site-packagejson",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "from": "feature:field",
+      "to": "component:docs-site-src",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "from": "feature:field",
+      "to": "component:packages",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "from": "feature:field",
+      "to": "component:pnpm-lockyaml",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "from": "technical:field",
+      "to": "component:changeset",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "from": "technical:field",
+      "to": "component:docs",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "from": "technical:field",
+      "to": "component:docs-site-packagejson",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "from": "technical:field",
+      "to": "component:docs-site-src",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "from": "technical:field",
+      "to": "component:packages",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
+    },
+    {
+      "from": "technical:field",
+      "to": "component:pnpm-lockyaml",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+          "kind": "diff",
+          "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+          "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+        }
+      ],
+      "updated": "2026-10-17T03:02:55Z"
     }
   ],
   "sources": [
@@ -4361,6 +5128,69 @@
       "diffHash": "141c911b89daef2c11778c3a7dccc0f8e2e97fdaa42bcdff16f35bc96844085b",
       "created": "2026-10-17T03:09:10Z",
       "processedAt": "2026-10-17T03:09:12Z"
+    },
+    {
+      "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+      "kind": "diff",
+      "feature": "field",
+      "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137",
+      "diffPosition": 1,
+      "version": 1,
+      "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+      "parent": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
+      "title": "feat(field): add a labelled form control with an optional hint",
+      "description": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+      "type": "feature",
+      "files": [
+        ".changeset/field.md",
+        "docs-site/package.json",
+        "docs-site/src/app/components/field/Field.stories.tsx",
+        "docs-site/src/app/components/field/examples.tsx",
+        "docs-site/src/app/components/field/page.tsx",
+        "docs-site/src/app/components/page.tsx",
+        "docs-site/src/components/sidebar.tsx",
+        "docs/pr-evidence/field/README.md",
+        "docs/pr-evidence/field/after-dark-1440.png",
+        "docs/pr-evidence/field/after-dark-375.png",
+        "docs/pr-evidence/field/after-light-1440.png",
+        "docs/pr-evidence/field/after-light-375.png",
+        "docs/pr-evidence/field/before-dark-1440.png",
+        "docs/pr-evidence/field/before-dark-375.png",
+        "docs/pr-evidence/field/before-light-1440.png",
+        "docs/pr-evidence/field/before-light-375.png",
+        "docs/pr-evidence/field/browser-proof.json",
+        "packages/astro-field/package.json",
+        "packages/astro-field/src/Field.astro",
+        "packages/astro-field/src/index.ts",
+        "packages/astro-meta/__tests__/field.test.ts",
+        "packages/astro-meta/__tests__/fixtures.ts",
+        "packages/astro-meta/package.json",
+        "packages/astro-meta/src/index.ts",
+        "packages/field/__tests__/field.test.ts",
+        "packages/field/package.json",
+        "packages/field/src/field.styles.ts",
+        "packages/field/src/field.ts",
+        "packages/field/src/index.ts",
+        "packages/field/tsconfig.json",
+        "packages/field/tsup.config.ts",
+        "packages/field/vitest.config.ts",
+        "packages/react-field/__tests__/field.interaction.test.tsx",
+        "packages/react-field/__tests__/field.test.tsx",
+        "packages/react-field/package.json",
+        "packages/react-field/src/field.tsx",
+        "packages/react-field/src/index.ts",
+        "packages/react-field/tsconfig.json",
+        "packages/react-field/tsup.config.ts",
+        "packages/react-field/vitest.config.ts",
+        "packages/react-meta/package.json",
+        "packages/react-meta/src/index.ts",
+        "pnpm-lock.yaml"
+      ],
+      "additions": 1421,
+      "mainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
+      "diffHash": "9cd04b05295d24591a929ed89845ebc1c7a87417113c06f501817c0d914f1066",
+      "created": "2026-10-17T03:02:53Z",
+      "processedAt": "2026-10-17T03:02:55Z"
     }
   ]
 }
