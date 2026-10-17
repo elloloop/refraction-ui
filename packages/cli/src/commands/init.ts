@@ -28,7 +28,7 @@ const DEFAULT_GLOBALS_CSS = `@tailwind base;
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 72% 40%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 240 5.9% 90%;
@@ -63,8 +63,8 @@ const DEFAULT_GLOBALS_CSS = `@tailwind base;
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 63% 70%;
+    --destructive-foreground: 240 10% 3.9%;
 
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;

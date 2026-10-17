@@ -8,6 +8,7 @@ import {
   validateThemeContrast,
   glassaTheme,
   refractionTheme,
+  THEMES,
 } from '../src/index.js'
 
 describe('parseHSL', () => {
@@ -236,5 +237,60 @@ describe('validateThemeContrast on refraction theme', () => {
     const results = validateThemeContrast(glassaTheme)
     const failures = results.filter(r => !r.passes)
     expect(failures).toHaveLength(0)
+  })
+})
+
+describe('validateThemeContrast: destructive as text', () => {
+  const MODES = ['light', 'dark'] as const
+  const TEXT_PAIRS = [
+    'destructive / background',
+    'destructive / card',
+    'destructive / 20% destructive wash on background',
+    'destructive / 20% destructive wash on card',
+    'destructive at 90% / 10% destructive wash on background',
+    'destructive at 90% / 10% destructive wash on card',
+  ]
+
+  it.each(Object.values(THEMES).map((theme) => [theme.name, theme] as const))(
+    '%s: destructive passes AA as text and as a fill, in both modes',
+    (_name, theme) => {
+      const results = validateThemeContrast(theme.colors)
+      for (const mode of MODES) {
+        for (const pair of [...TEXT_PAIRS, 'destructive-foreground / destructive']) {
+          const result = results.find((r) => r.pair === `${mode}: ${pair}`)
+          expect(result, `${mode}: ${pair} is checked`).toBeDefined()
+          expect(result!.ratio, `${mode}: ${pair}`).toBeGreaterThanOrEqual(4.5)
+        }
+      }
+    },
+  )
+
+  it('fails a dark fill colour used as text, which the fill check alone passes', () => {
+    // A deep red under light text, the shape of the previous dark-mode token.
+    const theme = {
+      light: refractionTheme.colors.light,
+      dark: { ...refractionTheme.colors.dark, '--destructive': '0 63% 31%', '--destructive-foreground': '0 0% 98%' },
+    }
+    const failing = validateThemeContrast(theme)
+      .filter((r) => !r.passes)
+      .map((r) => r.pair)
+    expect(failing).toEqual(TEXT_PAIRS.map((pair) => `dark: ${pair}`))
+  })
+
+  it('measures a wash and dimmed text as the browser blends them', () => {
+    const blackOnWhite = {
+      '--background': '0 0% 100%',
+      '--card': '0 0% 100%',
+      '--destructive': '0 0% 0%',
+      '--destructive-foreground': '0 0% 100%',
+    }
+    const results = validateThemeContrast({ light: blackOnWhite, dark: blackOnWhite })
+    // Ratios are reported to two decimals.
+    const ratio = (pair: string) => results.find((r) => r.pair === `light: ${pair}`)!.ratio
+    expect(ratio('destructive / background')).toBe(21)
+    // Black on a 20% black wash: the surface is 80% white.
+    expect(ratio('destructive / 20% destructive wash on background')).toBe(13.08)
+    // Black at 90% on a 10% black wash: 9% white on 90% white.
+    expect(ratio('destructive at 90% / 10% destructive wash on background')).toBe(14.3)
   })
 })

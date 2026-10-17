@@ -22,7 +22,7 @@ export const SIMPLE_THEME_TEMPLATE = `:root {
   --muted-foreground: 240 4% 44%;
   --accent: 250 30% 95%;
   --accent-foreground: 250 50% 40%;
-  --destructive: 0 84% 50%;
+  --destructive: 0 72% 40%;
   --destructive-foreground: 0 0% 100%;
   --border: 240 6% 92%;
   --input: 240 6% 92%;
@@ -55,7 +55,7 @@ export const ADVANCED_THEME_TEMPLATE = `:root {
   --muted-foreground: 240 4% 44%;
   --accent: 250 30% 95%;
   --accent-foreground: 250 50% 40%;
-  --destructive: 0 84% 50%;
+  --destructive: 0 72% 40%;
   --destructive-foreground: 0 0% 100%;
   --border: 240 6% 92%;
   --input: 240 6% 92%;

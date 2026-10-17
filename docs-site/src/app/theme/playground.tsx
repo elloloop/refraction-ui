@@ -33,7 +33,7 @@ const refractionDefaults: PlaygroundTheme = {
     '--muted-foreground': '240 4% 43%',
     '--accent': '252 30% 95%',
     '--accent-foreground': '252 50% 45%',
-    '--destructive': '0 84% 50%',
+    '--destructive': '0 72% 40%',
     '--destructive-foreground': '0 0% 100%',
     '--border': '240 6% 90%',
     '--input': '240 6% 90%',
