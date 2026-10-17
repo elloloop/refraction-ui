@@ -9,8 +9,10 @@ import {
   threadTimestampStyles,
   threadBodyStyles,
   threadReactionsStyles,
+  threadReactionVariants,
   threadReplyIndicatorStyles,
   threadActionsStyles,
+  threadReplyButtonStyles,
   threadAttachmentStyles,
   threadEditedStyles,
   type MessageData,
@@ -77,10 +79,9 @@ function MessageComponent({
               {
                 key: `${reaction.emoji}-${i}`,
                 type: 'button',
-                className: cn(
-                  'inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-xs cursor-pointer',
-                  reaction.userReacted ? 'border-primary bg-primary/10' : 'border-border',
-                ),
+                className: threadReactionVariants({
+                  reacted: reaction.userReacted ? 'true' : 'false',
+                }),
                 onClick: () => api.react(message.id, reaction.emoji),
               },
               `${reaction.emoji} ${reaction.count}`,
@@ -113,7 +114,7 @@ function MessageComponent({
           'button',
           {
             type: 'button',
-            className: 'text-xs text-muted-foreground hover:text-foreground cursor-pointer',
+            className: threadReplyButtonStyles,
             onClick: () => api.startReply(message.id),
             ...api.getReplyButtonAriaProps(message.id),
           },
