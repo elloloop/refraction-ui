@@ -154,7 +154,8 @@
     "@refraction-ui/astro-waveform": "workspace:*",
     "@refraction-ui/astro-wizard": "workspace:*",
     "@refraction-ui/shared": "workspace:*",
-    "@types/node": "22.0.0"
+    "@types/node": "22.0.0",
+    "jsdom": "29.0.2"
   },
   "publishConfig": {
     "access": "public"
