@@ -410,6 +410,9 @@ importers:
       '@refraction-ui/react-pagination':
         specifier: workspace:*
         version: link:../packages/react-pagination
+      '@refraction-ui/react-pane-header':
+        specifier: workspace:*
+        version: link:../packages/react-pane-header
       '@refraction-ui/react-password-input':
         specifier: workspace:*
         version: link:../packages/react-password-input
@@ -3455,6 +3458,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/pane-header:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/password-input:
     dependencies:
       '@refraction-ui/shared':
@@ -5755,6 +5764,9 @@ importers:
       '@refraction-ui/react-pagination':
         specifier: workspace:*
         version: link:../react-pagination
+      '@refraction-ui/react-pane-header':
+        specifier: workspace:*
+        version: link:../react-pane-header
       '@refraction-ui/react-password-input':
         specifier: workspace:*
         version: link:../react-password-input
@@ -6139,6 +6151,31 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-pane-header:
+    dependencies:
+      '@refraction-ui/pane-header':
+        specifier: workspace:*
+        version: link:../pane-header
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0

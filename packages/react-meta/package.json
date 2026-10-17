@@ -142,6 +142,7 @@
     "@refraction-ui/react-otp-input": "workspace:*",
     "@refraction-ui/react-page-header": "workspace:*",
     "@refraction-ui/react-pagination": "workspace:*",
+    "@refraction-ui/react-pane-header": "workspace:*",
     "@refraction-ui/react-password-input": "workspace:*",
     "@refraction-ui/react-payment": "workspace:*",
     "@refraction-ui/react-pinned-bar": "workspace:*",

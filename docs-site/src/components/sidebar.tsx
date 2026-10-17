@@ -110,6 +110,7 @@ const componentGroups = [
       { name: 'Context Menu', href: '/components/context-menu' },
       { name: 'List Item', href: '/components/list-item' },
       { name: 'Nav Item', href: '/components/nav-item' },
+      { name: 'Pane Header', href: '/components/pane-header' },
     ],
   },
   {
