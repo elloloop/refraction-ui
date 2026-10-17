@@ -9,7 +9,7 @@ export const pageHeaderTextClass = 'flex min-w-0 basis-64 grow flex-col gap-1'
 
 /** Small uppercase eyebrow above the title. */
 export const pageHeaderKickerClass =
-  'break-words text-[11px] uppercase tracking-wider text-muted-foreground'
+  'break-words text-[0.6875rem] uppercase tracking-wider text-muted-foreground'
 
 /** Title — app-sized, not a marketing display size. */
 export const pageHeaderTitleClass = 'break-words text-xl font-semibold text-foreground'

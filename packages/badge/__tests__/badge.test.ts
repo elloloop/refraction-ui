@@ -78,7 +78,7 @@ describe('badgeVariants', () => {
 
   it('returns sm size classes', () => {
     const classes = badgeVariants({ size: 'sm' })
-    expect(classes).toContain('text-[10px]')
+    expect(classes).toContain('text-[0.625rem]')
   })
 
   it('returns md size classes by default', () => {
@@ -176,8 +176,8 @@ describe('badgeVariants – both sizes produce different classes', () => {
     expect(sm).not.toBe(md)
   })
 
-  it('sm contains text-[10px]', () => {
-    expect(badgeVariants({ size: 'sm' })).toContain('text-[10px]')
+  it('sm contains text-[0.625rem]', () => {
+    expect(badgeVariants({ size: 'sm' })).toContain('text-[0.625rem]')
   })
 
   it('md contains text-xs', () => {

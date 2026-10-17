@@ -117,7 +117,7 @@ const diffLines = computeDiffLines(original, modified)
         class={sidebarVariants({ theme })}
         style={`width: ${sidebarWidth}px`}
       >
-        <div class="px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+        <div class="px-2.5 py-2 text-[0.6875rem] font-semibold uppercase tracking-wider text-muted-foreground">
           Files ({files.length})
         </div>
         {files.map((f, idx) => {
@@ -130,15 +130,15 @@ const diffLines = computeDiffLines(original, modified)
               class={sidebarItemVariants({ active: active ? 'true' : 'false', theme })}
             >
               <div class="flex items-center gap-1">
-                <span class="text-[10px]">{api.getFileStatusIcon(f.status)}</span>
+                <span class="text-[0.625rem]">{api.getFileStatusIcon(f.status)}</span>
                 <span class={active ? '' : 'opacity-70'}>{fname}</span>
-                <span class="ml-auto text-[10px]">
+                <span class="ml-auto text-[0.625rem]">
                   <span class="text-green-500">+{f.additions}</span>
                   {f.deletions > 0 && <span class="text-red-500">-{f.deletions}</span>}
                 </span>
               </div>
               {dir && (
-                <div class="text-[10px] opacity-50 mt-0.5 pl-4">{dir}</div>
+                <div class="text-[0.625rem] opacity-50 mt-0.5 pl-4">{dir}</div>
               )}
             </div>
           )
@@ -159,7 +159,7 @@ const diffLines = computeDiffLines(original, modified)
                 data-rfr-diff-viewer-tab={String(idx)}
                 class={tabVariants({ active: active ? 'true' : 'false', theme })}
               >
-                <span class="text-[9px]">{api.getFileStatusIcon(f.status)}</span>
+                <span class="text-[0.5625rem]">{api.getFileStatusIcon(f.status)}</span>
                 {fname}
               </div>
             )

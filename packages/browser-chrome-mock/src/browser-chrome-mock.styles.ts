@@ -15,7 +15,7 @@ export const chromeBarClass =
 export const trafficDotClass = 'size-2.5 rounded-full border border-border'
 
 /** Centered URL bar. */
-export const urlBarClass = 'flex-1 text-center font-mono text-[11px] text-muted-foreground'
+export const urlBarClass = 'flex-1 text-center font-mono text-[0.6875rem] text-muted-foreground'
 
 /** Bold domain segment inside the URL bar. */
 export const urlDomainClass = 'font-semibold text-foreground'
@@ -27,7 +27,7 @@ export const urlDomainClass = 'font-semibold text-foreground'
  * rec   → destructive tint with a pulsing dot
  */
 export const statusBadgeVariants = cva({
-  base: 'inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide',
+  base: 'inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.625rem] font-semibold uppercase tracking-wide',
   variants: {
     status: {
       live: 'text-emerald-500 bg-emerald-500/10',

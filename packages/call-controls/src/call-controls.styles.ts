@@ -60,4 +60,4 @@ export const callControlButtonVariants = cva({
 
 /** Label beneath the icon inside a call-control button. */
 export const callControlLabelClass =
-  'sr-only text-[10px] leading-none mt-0.5'
+  'sr-only text-[0.625rem] leading-none mt-0.5'

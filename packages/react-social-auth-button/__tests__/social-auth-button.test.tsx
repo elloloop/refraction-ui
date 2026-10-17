@@ -195,6 +195,6 @@ describe('SocialAuthButton – button semantics (React)', () => {
     expect(html).toContain('absolute')
     expect(html).toContain('-right-2')
     expect(html).toContain('rounded-full')
-    expect(html).toContain('text-[10px]')
+    expect(html).toContain('text-[0.625rem]')
   })
 })

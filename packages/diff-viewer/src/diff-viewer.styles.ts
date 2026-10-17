@@ -90,7 +90,7 @@ export const tabBarVariants = cva({
 })
 
 export const tabVariants = cva({
-  base: 'px-3 h-[35px] flex items-center gap-1 cursor-pointer text-xs font-mono border-r shrink-0',
+  base: 'px-3 h-[2.1875rem] flex items-center gap-1 cursor-pointer text-xs font-mono border-r shrink-0',
   variants: {
     active: {
       'true': '',
@@ -114,7 +114,7 @@ export const tabVariants = cva({
 })
 
 export const statusBarVariants = cva({
-  base: 'h-[22px] flex items-center px-2.5 gap-3 text-[11px] font-mono flex-shrink-0',
+  base: 'h-[1.375rem] flex items-center px-2.5 gap-3 text-[0.6875rem] font-mono flex-shrink-0',
   variants: {
     theme: {
       light: 'bg-blue-600 text-white',

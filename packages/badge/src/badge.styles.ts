@@ -18,7 +18,7 @@ export const badgeVariants = cva({
       done: 'border-transparent bg-done text-info-foreground shadow hover:bg-done/80 font-semibold',
     },
     size: {
-      sm: 'px-2 py-0 text-[10px]',
+      sm: 'px-2 py-0 text-[0.625rem]',
       md: 'px-2.5 py-0.5 text-xs',
     },
   },

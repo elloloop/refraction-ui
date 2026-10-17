@@ -69,7 +69,7 @@ export const audioRoomMutedBadgeClass = [
   'inline-flex items-center justify-center',
   'size-6 rounded-full',
   'bg-destructive text-destructive-foreground',
-  'text-[10px] leading-none',
+  'text-[0.625rem] leading-none',
   'border-2 border-background',
   'translate-x-1 translate-y-1',
 ].join(' ')
@@ -82,7 +82,7 @@ export const audioRoomHandBadgeClass = [
   'inline-flex items-center justify-center',
   'size-6 rounded-full',
   'bg-warning text-warning-foreground',
-  'text-[12px] leading-none',
+  'text-[0.75rem] leading-none',
   'border-2 border-background',
   'translate-x-1 -translate-y-1',
 ].join(' ')

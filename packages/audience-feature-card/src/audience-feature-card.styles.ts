@@ -9,7 +9,7 @@ export const audienceFeatureCardVariants = cva({
 
 /** Kicker text above the title. */
 export const audienceFeatureCardKickerClass =
-  'text-[10px] uppercase tracking-widest text-primary font-semibold'
+  'text-[0.625rem] uppercase tracking-widest text-primary font-semibold'
 
 /** Main title. */
 export const audienceFeatureCardTitleClass =

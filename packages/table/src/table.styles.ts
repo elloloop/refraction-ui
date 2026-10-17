@@ -36,7 +36,7 @@ export const tableHeadVariants = cva({
     align,
     tone: {
       default: 'text-xs font-medium text-muted-foreground',
-      eyebrow: 'text-[11px] font-semibold uppercase tracking-wider text-muted-foreground',
+      eyebrow: 'text-[0.6875rem] font-semibold uppercase tracking-wider text-muted-foreground',
     },
     density: {
       compact: 'h-8 px-2',

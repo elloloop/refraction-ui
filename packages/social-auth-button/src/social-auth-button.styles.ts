@@ -12,5 +12,5 @@ export const socialAuthRowVariants = cva({
 
 /** Floating "Last used" badge anchored to the top-right of a button. */
 export const lastUsedBadgeVariants = cva({
-  base: 'absolute -top-2 -right-2 rounded-full bg-primary text-primary-foreground text-[10px] px-1.5',
+  base: 'absolute -top-2 -right-2 rounded-full bg-primary text-primary-foreground text-[0.625rem] px-1.5',
 })
