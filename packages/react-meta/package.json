@@ -120,6 +120,7 @@
     "@refraction-ui/react-input": "workspace:*",
     "@refraction-ui/react-input-group": "workspace:*",
     "@refraction-ui/react-install-prompt": "workspace:*",
+    "@refraction-ui/react-jump-to-latest": "workspace:*",
     "@refraction-ui/react-kanban-board": "workspace:*",
     "@refraction-ui/react-keyboard-shortcut": "workspace:*",
     "@refraction-ui/react-keycap": "workspace:*",

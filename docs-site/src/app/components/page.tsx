@@ -172,6 +172,7 @@ const components = [
   { name: 'Floating Panel', href: '/components/floating-panel', description: 'A draggable mini panel that snaps to a corner.', category: 'Workplace' },
   { name: 'Voice Note', href: '/components/voice-note', description: 'Audio message player with a waveform scrubber.', category: 'Workplace' },
   { name: 'File Card', href: '/components/file-card', description: 'Attachment card with kind, size and upload states.', category: 'Workplace' },
+  { name: 'Jump To Latest', href: '/components/jump-to-latest', description: 'A pill that returns a scrolled-back reader to the newest item.', category: 'Workplace' },
   { name: 'Rating Scale', href: '/components/rating-scale', description: 'Visual rating input with customizable range.', category: 'Forms' },
   { name: 'Wizard', href: '/components/wizard', description: 'Multi-step form wizard with progress indicators.', category: 'Forms' },
   { name: 'Radial Gauge', href: '/components/radial-gauge', description: 'Circular dial gauge for displaying percentage values.', category: 'Data' },
