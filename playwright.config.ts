@@ -28,7 +28,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'pnpm --filter refraction-ui-docs dev',
+    command: process.env.REFRACTION_VISUAL_PRODUCTION === '1'
+      ? 'pnpm --filter refraction-ui-docs exec next start'
+      : 'pnpm --filter refraction-ui-docs dev',
     port: 3000,
     reuseExistingServer: !process.env.CI,
   },
