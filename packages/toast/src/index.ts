@@ -2,6 +2,7 @@ export {
   createToast,
   createToastManager,
   getToastIcon,
+  isToastVariant,
   getToastPoliteness,
   getToastAnnouncement,
   DEFAULT_TOAST_DURATION,

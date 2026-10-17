@@ -5,6 +5,7 @@ import {
   createToastManager,
   getToastAnnouncement,
   getToastPoliteness,
+  isToastVariant,
   DEFAULT_TOAST_DURATION,
   type ToastVariant,
 } from '../src/toast.js'
@@ -643,4 +644,17 @@ describe('toast part styles', () => {
     expect(toastTitleClass).toContain('font-semibold')
     expect(toastDescriptionClass).toContain('text-sm')
   })
+})
+
+describe('isToastVariant', () => {
+  it.each(['default', 'success', 'error', 'warning'])('accepts %s', (value) => {
+    expect(isToastVariant(value)).toBe(true)
+  })
+
+  it.each([['info'], [''], ['Success'], ['toString'], ['__proto__'], [undefined], [null], [3]])(
+    'rejects %j',
+    (value) => {
+      expect(isToastVariant(value)).toBe(false)
+    },
+  )
 })
