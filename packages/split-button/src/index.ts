@@ -1,0 +1,30 @@
+export {
+  createSplitButton,
+  createSplitButtonTrigger,
+  resolveSplitButtonMenuLabel,
+  resolveSplitButtonDivider,
+  resolveSplitButtonDirection,
+  resolveSplitButtonMenuAlign,
+  isSplitButtonPartDisabled,
+  getSplitButtonTriggerKeyIntent,
+  SPLIT_BUTTON_DEFAULT_MENU_LABEL,
+  SPLIT_BUTTON_DEFAULT_MENU_ALIGN,
+  SPLIT_BUTTON_DEFAULT_VARIANT,
+  SPLIT_BUTTON_DEFAULT_SIZE,
+  type SplitButtonDivider,
+  type SplitButtonDirection,
+  type SplitButtonMenuAlign,
+  type SplitButtonTriggerKeyIntent,
+  type SplitButtonOptions,
+  type SplitButtonAPI,
+  type SplitButtonTriggerOptions,
+  type SplitButtonTriggerAPI,
+} from './split-button.js'
+
+export {
+  splitButtonGroupClass,
+  splitButtonActionClass,
+  splitButtonTriggerVariants,
+  splitButtonHitAreaVariants,
+  splitButtonCaretClass,
+} from './split-button.styles.js'
