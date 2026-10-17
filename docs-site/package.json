@@ -10,6 +10,7 @@
     "@refraction-ui/react": "workspace:*",
     "@refraction-ui/react-accordion": "workspace:*",
     "@refraction-ui/react-action-list": "workspace:*",
+    "@refraction-ui/react-adaptive-tab-nav": "workspace:*",
     "@refraction-ui/react-animated-text": "workspace:*",
     "@refraction-ui/react-app-shell": "workspace:*",
     "@refraction-ui/react-audience-feature-card": "workspace:*",

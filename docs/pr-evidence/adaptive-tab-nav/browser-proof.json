@@ -1,0 +1,196 @@
+[
+  {
+    "image": "before-light-1440.png",
+    "page": "/components/bottom-nav/",
+    "width": 1440,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": []
+  },
+  {
+    "image": "before-dark-1440.png",
+    "page": "/components/bottom-nav/",
+    "width": 1440,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "Docs-site colour-mode toggle hydration mismatch in dark mode (present on the parent revision too, not this change)"
+    ]
+  },
+  {
+    "image": "before-light-375.png",
+    "page": "/components/bottom-nav/",
+    "width": 375,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": []
+  },
+  {
+    "image": "before-dark-375.png",
+    "page": "/components/bottom-nav/",
+    "width": 375,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "Docs-site colour-mode toggle hydration mismatch in dark mode (present on the parent revision too, not this change)"
+    ]
+  },
+  {
+    "image": "after-light-1440.png",
+    "page": "/components/adaptive-tab-nav/",
+    "width": 1440,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": [],
+    "proof": {
+      "position": "static",
+      "inTopBar": true,
+      "oneNavElement": true,
+      "firstTabReachedByTab": true,
+      "focusVisible": true,
+      "focusRingDrawn": true,
+      "tabOrderFollowsReadingOrder": true,
+      "enterSelectsAndMovesAriaCurrent": true,
+      "spaceSelects": true,
+      "focusStaysOnChosenTab": true,
+      "tabHeightsPx": [
+        44,
+        44,
+        44
+      ],
+      "contrastActiveLabel": 8.38,
+      "contrastInactiveLabel": 17.41,
+      "noTabLitOutsideEverySection": true
+    }
+  },
+  {
+    "image": "after-dark-1440.png",
+    "page": "/components/adaptive-tab-nav/",
+    "width": 1440,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "Docs-site colour-mode toggle hydration mismatch in dark mode (present on the parent revision too, not this change)"
+    ],
+    "proof": {
+      "position": "static",
+      "inTopBar": true,
+      "oneNavElement": true,
+      "firstTabReachedByTab": true,
+      "focusVisible": true,
+      "focusRingDrawn": true,
+      "tabOrderFollowsReadingOrder": true,
+      "enterSelectsAndMovesAriaCurrent": true,
+      "spaceSelects": true,
+      "focusStaysOnChosenTab": true,
+      "tabHeightsPx": [
+        44,
+        44,
+        44
+      ],
+      "contrastActiveLabel": 7.17,
+      "contrastInactiveLabel": 19.06,
+      "noTabLitOutsideEverySection": true
+    }
+  },
+  {
+    "image": "after-light-375.png",
+    "page": "/components/adaptive-tab-nav/",
+    "width": 375,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": [],
+    "proof": {
+      "position": "fixed",
+      "bottomEdgePx": 900,
+      "viewportHeightPx": 900,
+      "leftPx": 0,
+      "widthPx": 375,
+      "paddingBottomPx": 12,
+      "oneNavElement": true,
+      "tabHeightsPx": [
+        44,
+        44,
+        44
+      ],
+      "tabWidthsPx": [
+        114,
+        114,
+        114
+      ],
+      "iconAboveLabel": true,
+      "enterSelects": true,
+      "contrastActiveLabel": 8.38,
+      "contrastInactiveLabel": 16.25,
+      "widenedTo1280": {
+        "position": "static",
+        "inTopBar": true
+      },
+      "narrowedAgain": {
+        "position": "fixed",
+        "bottomEdgePx": 900
+      },
+      "selectionKeptAcrossResize": true
+    }
+  },
+  {
+    "image": "after-dark-375.png",
+    "page": "/components/adaptive-tab-nav/",
+    "width": 375,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "Docs-site colour-mode toggle hydration mismatch in dark mode (present on the parent revision too, not this change)"
+    ],
+    "proof": {
+      "position": "fixed",
+      "bottomEdgePx": 900,
+      "viewportHeightPx": 900,
+      "leftPx": 0,
+      "widthPx": 375,
+      "paddingBottomPx": 12,
+      "oneNavElement": true,
+      "tabHeightsPx": [
+        44,
+        44,
+        44
+      ],
+      "tabWidthsPx": [
+        114,
+        114,
+        114
+      ],
+      "iconAboveLabel": true,
+      "enterSelects": true,
+      "contrastActiveLabel": 7.17,
+      "contrastInactiveLabel": 14.26,
+      "widenedTo1280": {
+        "position": "static",
+        "inTopBar": true
+      },
+      "narrowedAgain": {
+        "position": "fixed",
+        "bottomEdgePx": 900
+      },
+      "selectionKeptAcrossResize": true
+    }
+  },
+  {
+    "image": "after-docked-light-375.png",
+    "page": "/components/adaptive-tab-nav/",
+    "width": 375,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": []
+  },
+  {
+    "image": "after-docked-dark-375.png",
+    "page": "/components/adaptive-tab-nav/",
+    "width": 375,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "Docs-site colour-mode toggle hydration mismatch in dark mode (present on the parent revision too, not this change)"
+    ]
+  }
+]

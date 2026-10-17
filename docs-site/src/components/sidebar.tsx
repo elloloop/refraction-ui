@@ -42,6 +42,7 @@ const componentGroups = [
       { name: 'Breadcrumbs', href: '/components/breadcrumbs' },
       { name: 'Footer', href: '/components/footer' },
       { name: 'Bottom Nav', href: '/components/bottom-nav' },
+      { name: 'Adaptive Tab Nav', href: '/components/adaptive-tab-nav' },
     ],
   },
   {
