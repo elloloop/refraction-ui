@@ -281,3 +281,6 @@ export * from '@refraction-ui/react-table'
 export * from '@refraction-ui/react-native-select'
 
 export * from '@refraction-ui/react-hierarchy-canvas'
+
+// work-chat components (#560)
+export * from '@refraction-ui/react-live-dot'
