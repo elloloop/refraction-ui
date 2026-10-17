@@ -167,6 +167,7 @@
     "@refraction-ui/react-social-auth-button": "workspace:*",
     "@refraction-ui/react-sortable-list": "workspace:*",
     "@refraction-ui/react-stat-grid": "workspace:*",
+    "@refraction-ui/react-status-badge": "workspace:*",
     "@refraction-ui/react-status-indicator": "workspace:*",
     "@refraction-ui/react-steps": "workspace:*",
     "@refraction-ui/react-sticky-note": "workspace:*",

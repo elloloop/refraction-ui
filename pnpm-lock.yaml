@@ -479,6 +479,9 @@ importers:
       '@refraction-ui/react-stat-grid':
         specifier: workspace:*
         version: link:../packages/react-stat-grid
+      '@refraction-ui/react-status-badge':
+        specifier: workspace:*
+        version: link:../packages/react-status-badge
       '@refraction-ui/react-status-indicator':
         specifier: workspace:*
         version: link:../packages/react-status-indicator
@@ -5695,6 +5698,9 @@ importers:
       '@refraction-ui/react-stat-grid':
         specifier: workspace:*
         version: link:../react-stat-grid
+      '@refraction-ui/react-status-badge':
+        specifier: workspace:*
+        version: link:../react-status-badge
       '@refraction-ui/react-status-indicator':
         specifier: workspace:*
         version: link:../react-status-indicator
@@ -6620,6 +6626,34 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-status-badge:
+    dependencies:
+      '@refraction-ui/react-live-dot':
+        specifier: workspace:*
+        version: link:../react-live-dot
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/status-badge':
+        specifier: workspace:*
+        version: link:../status-badge
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-status-indicator:
     dependencies:
       '@refraction-ui/shared':
@@ -7271,6 +7305,18 @@ importers:
 
   packages/stat-grid:
     dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/status-badge:
+    dependencies:
+      '@refraction-ui/badge':
+        specifier: workspace:*
+        version: link:../badge
+      '@refraction-ui/live-dot':
+        specifier: workspace:*
+        version: link:../live-dot
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared

@@ -150,6 +150,7 @@ const components = [
   { name: 'Markup Text', href: '/components/markup-text', description: 'Bold runs, inline tokens, mentions and safe links in message text.', category: 'Workplace' },
   { name: 'Virtual List', href: '/components/virtual-list', description: 'Virtualised list for long, variable-height, bottom-anchored histories.', category: 'Workplace' },
   { name: 'Keycap', href: '/components/keycap', description: 'A key as it is printed, with side, pressed and highlighted states.', category: 'Workplace' },
+  { name: 'Status Badge', href: '/components/status-badge', description: 'A badge with a leading dot or icon, pulsing while pending.', category: 'Workplace' },
   { name: 'Rating Scale', href: '/components/rating-scale', description: 'Visual rating input with customizable range.', category: 'Forms' },
   { name: 'Wizard', href: '/components/wizard', description: 'Multi-step form wizard with progress indicators.', category: 'Forms' },
   { name: 'Radial Gauge', href: '/components/radial-gauge', description: 'Circular dial gauge for displaying percentage values.', category: 'Data' },

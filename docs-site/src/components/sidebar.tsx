@@ -103,6 +103,7 @@ const componentGroups = [
       { name: 'Markup Text', href: '/components/markup-text' },
       { name: 'Virtual List', href: '/components/virtual-list' },
       { name: 'Keycap', href: '/components/keycap' },
+      { name: 'Status Badge', href: '/components/status-badge' },
     ],
   },
   {
