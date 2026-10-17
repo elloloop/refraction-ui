@@ -112,6 +112,7 @@ const componentGroups = [
       { name: 'Nav Item', href: '/components/nav-item' },
       { name: 'Pane Header', href: '/components/pane-header' },
       { name: 'Thread Summary', href: '/components/thread-summary' },
+      { name: 'Reaction Tray', href: '/components/reaction-tray' },
     ],
   },
   {

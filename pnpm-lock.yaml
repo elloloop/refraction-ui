@@ -449,6 +449,9 @@ importers:
       '@refraction-ui/react-reaction-bar':
         specifier: workspace:*
         version: link:../packages/react-reaction-bar
+      '@refraction-ui/react-reaction-tray':
+        specifier: workspace:*
+        version: link:../packages/react-reaction-tray
       '@refraction-ui/react-resizable-layout':
         specifier: workspace:*
         version: link:../packages/react-resizable-layout
@@ -5806,6 +5809,9 @@ importers:
       '@refraction-ui/react-reaction-bar':
         specifier: workspace:*
         version: link:../react-reaction-bar
+      '@refraction-ui/react-reaction-tray':
+        specifier: workspace:*
+        version: link:../react-reaction-tray
       '@refraction-ui/react-resizable-layout':
         specifier: workspace:*
         version: link:../react-resizable-layout
@@ -6451,6 +6457,31 @@ importers:
       '@refraction-ui/reaction-bar':
         specifier: workspace:*
         version: link:../reaction-bar
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-reaction-tray:
+    dependencies:
+      '@refraction-ui/reaction-tray':
+        specifier: workspace:*
+        version: link:../reaction-tray
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -7517,6 +7548,12 @@ importers:
         version: 19.0.0(react@19.0.0)
 
   packages/reaction-bar:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/reaction-tray:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*

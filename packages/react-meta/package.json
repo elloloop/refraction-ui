@@ -155,6 +155,7 @@
     "@refraction-ui/react-radio": "workspace:*",
     "@refraction-ui/react-rating-scale": "workspace:*",
     "@refraction-ui/react-reaction-bar": "workspace:*",
+    "@refraction-ui/react-reaction-tray": "workspace:*",
     "@refraction-ui/react-resizable-layout": "workspace:*",
     "@refraction-ui/react-rich-editor": "workspace:*",
     "@refraction-ui/react-search-bar": "workspace:*",
