@@ -413,6 +413,9 @@ importers:
       '@refraction-ui/react-mastery-bar':
         specifier: workspace:*
         version: link:../packages/react-mastery-bar
+      '@refraction-ui/react-message-row':
+        specifier: workspace:*
+        version: link:../packages/react-message-row
       '@refraction-ui/react-mini-map':
         specifier: workspace:*
         version: link:../packages/react-mini-map
@@ -3531,6 +3534,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/message-row:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/mini-map:
     dependencies:
       '@refraction-ui/shared':
@@ -5910,6 +5919,37 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-message-row:
+    dependencies:
+      '@refraction-ui/message-row':
+        specifier: workspace:*
+        version: link:../message-row
+      '@refraction-ui/react-dropdown-menu':
+        specifier: workspace:*
+        version: link:../react-dropdown-menu
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-meta:
     dependencies:
       react-hook-form:
@@ -6201,6 +6241,9 @@ importers:
       '@refraction-ui/react-mastery-bar':
         specifier: workspace:*
         version: link:../react-mastery-bar
+      '@refraction-ui/react-message-row':
+        specifier: workspace:*
+        version: link:../react-message-row
       '@refraction-ui/react-mini-map':
         specifier: workspace:*
         version: link:../react-mini-map

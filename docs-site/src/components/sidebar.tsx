@@ -129,6 +129,7 @@ const componentGroups = [
       { name: 'Command Dialog', href: '/components/command-dialog' },
       { name: 'Shortcuts Dialog', href: '/components/shortcuts-dialog' },
       { name: 'Color Chip', href: '/components/color-chip' },
+      { name: 'Message Row', href: '/components/message-row' },
     ],
   },
   {

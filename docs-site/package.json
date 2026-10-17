@@ -96,6 +96,7 @@
     "@refraction-ui/react-markup-text": "workspace:*",
     "@refraction-ui/react-marquee-strip": "workspace:*",
     "@refraction-ui/react-mastery-bar": "workspace:*",
+    "@refraction-ui/react-message-row": "workspace:*",
     "@refraction-ui/react-mini-map": "workspace:*",
     "@refraction-ui/react-mobile-nav": "workspace:*",
     "@refraction-ui/react-multi-combobox": "workspace:*",

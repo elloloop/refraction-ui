@@ -176,6 +176,7 @@ const components = [
   { name: 'Command Dialog', href: '/components/command-dialog', description: 'A command palette in a dialog, with filter chips.', category: 'Workplace' },
   { name: 'Shortcuts Dialog', href: '/components/shortcuts-dialog', description: 'Keyboard shortcut help generated from the shortcut registry.', category: 'Workplace' },
   { name: 'Color Chip', href: '/components/color-chip', description: 'A categorical colour chip with an optional edit action.', category: 'Workplace' },
+  { name: 'Message Row', href: '/components/message-row', description: 'Chat message row with a hover and keyboard toolbar, quote and tombstone.', category: 'Workplace' },
   { name: 'Rating Scale', href: '/components/rating-scale', description: 'Visual rating input with customizable range.', category: 'Forms' },
   { name: 'Wizard', href: '/components/wizard', description: 'Multi-step form wizard with progress indicators.', category: 'Forms' },
   { name: 'Radial Gauge', href: '/components/radial-gauge', description: 'Circular dial gauge for displaying percentage values.', category: 'Data' },
