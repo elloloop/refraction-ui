@@ -1,10 +1,18 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { resetIdCounter } from '@refraction-ui/shared'
-import { createAvatarGroup, getInitials, AVATAR_SIZES } from '../src/avatar-group.js'
+import {
+  createAvatarGroup,
+  getInitials,
+  getAvatarImageStatus,
+  AVATAR_SIZES,
+} from '../src/avatar-group.js'
 import {
   avatarGroupStyles,
   avatarVariants,
   avatarOverflowBadgeVariants,
+  avatarOverflowButtonStyles,
+  avatarImageStyles,
+  avatarInitialsStyles,
   avatarPresenceDotVariants,
 } from '../src/avatar-group.styles.js'
 
@@ -136,6 +144,30 @@ describe('ARIA props', () => {
     const api = createAvatarGroup({ users, max: 3 })
     expect(api.overflowBadgeProps['aria-label']).toContain('2')
   })
+
+  it('a badge that does nothing is a labelled image, not a button', () => {
+    const api = createAvatarGroup({ users, max: 3 })
+    expect(api.overflowBadgeProps).toEqual({ role: 'img', 'aria-label': '2 more users' })
+  })
+
+  it('an interactive badge is a plain button: its element carries the role', () => {
+    const api = createAvatarGroup({ users, max: 3, overflowInteractive: true })
+    expect(api.overflowBadgeProps).toEqual({ type: 'button', 'aria-label': '2 more users' })
+  })
+})
+
+describe('getAvatarImageStatus', () => {
+  it('is loading until the image completes', () => {
+    expect(getAvatarImageStatus({ complete: false, naturalWidth: 0 })).toBe('loading')
+  })
+
+  it('is loaded once complete with pixels', () => {
+    expect(getAvatarImageStatus({ complete: true, naturalWidth: 150 })).toBe('loaded')
+  })
+
+  it('is failed once complete without pixels', () => {
+    expect(getAvatarImageStatus({ complete: true, naturalWidth: 0 })).toBe('failed')
+  })
 })
 
 describe('IDs', () => {
@@ -143,6 +175,12 @@ describe('IDs', () => {
     const api1 = createAvatarGroup({ users })
     const api2 = createAvatarGroup({ users })
     expect(api1.ids.group).not.toBe(api2.ids.group)
+  })
+
+  it('uses a given prefix, so a server and a client render agree', () => {
+    const api = createAvatarGroup({ users, idPrefix: 'team-a' })
+    expect(api.ids).toEqual({ group: 'team-a', label: 'team-a-label' })
+    expect(api.ariaProps.id).toBe('team-a')
   })
 })
 
@@ -164,5 +202,49 @@ describe('styles', () => {
   it('exports presence dot variants', () => {
     const online = avatarPresenceDotVariants({ status: 'online' })
     expect(online).toContain('bg-success')
+  })
+
+  it('an avatar does not clip, so its dot can sit over the edge', () => {
+    for (const size of ['xs', 'sm', 'md', 'lg', 'xl'] as const) {
+      expect(avatarVariants({ size }).split(' ')).not.toContain('overflow-hidden')
+    }
+  })
+
+  it('the photo covers the initials and rounds itself', () => {
+    expect(avatarImageStyles.split(' ')).toEqual(
+      expect.arrayContaining(['absolute', 'inset-0', 'rounded-[inherit]', 'object-cover']),
+    )
+    expect(avatarInitialsStyles.split(' ')).toEqual(
+      expect.arrayContaining(['overflow-hidden', 'rounded-[inherit]']),
+    )
+  })
+
+  it('the dot sits at the bottom end corner, above the next avatar, inside the group', () => {
+    const dot = avatarPresenceDotVariants({ status: 'away' }).split(' ')
+    expect(dot).toEqual(expect.arrayContaining(['absolute', 'bottom-0', 'end-0', 'z-10']))
+    expect(avatarGroupStyles.split(' ')).toContain('isolate')
+  })
+
+  it('sizes text in rem, so it follows the reader\'s text size', () => {
+    for (const variants of [avatarVariants, avatarOverflowBadgeVariants]) {
+      for (const size of ['xs', 'sm', 'md', 'lg', 'xl'] as const) {
+        expect(variants({ size })).not.toMatch(/text-\[\d+px\]/)
+      }
+    }
+    expect(avatarVariants({ size: 'xs' })).toContain('text-[0.625rem]')
+  })
+
+  it('an overflow button shows a keyboard focus ring and drops its transition under reduced motion', () => {
+    const classes = avatarOverflowButtonStyles.split(' ')
+    expect(classes).toEqual(
+      expect.arrayContaining([
+        'focus-visible:outline-none',
+        'focus-visible:ring-ring',
+        'focus-visible:ring-offset-2',
+        'motion-reduce:transition-none',
+      ]),
+    )
+    // The badge's own ring is what turns the ring colour on focus.
+    expect(avatarOverflowBadgeVariants({ size: 'md' })).toContain('ring-2')
   })
 })

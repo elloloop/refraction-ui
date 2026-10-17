@@ -23,7 +23,8 @@ describe('AvatarGroup (React)', () => {
     const html = renderToString(React.createElement(AvatarGroup, { users, max: 2 }))
     expect(html).toContain('aria-label="Ada Lovelace (online)"')
     expect(html).toContain('aria-label="Grace Hopper"')
-    expect(html.match(/role="img"/g)?.length).toBe(2)
+    // Two avatars, then the "+2" label.
+    expect(html.match(/role="img"/g)?.length).toBe(3)
   })
 
   it('includes the presence status in the avatar aria-label', () => {
@@ -31,11 +32,13 @@ describe('AvatarGroup (React)', () => {
     expect(html).toContain('aria-label="Edsger Dijkstra (busy)"')
   })
 
-  it('renders an img with alt text when the user has a src', () => {
+  it('renders the photo as decoration of the named avatar, over its initials', () => {
     const html = renderToString(React.createElement(AvatarGroup, { users, max: 1 }))
-    expect(html).toContain('<img')
     expect(html).toContain('src="https://example.com/ada.png"')
-    expect(html).toContain('alt="Ada Lovelace"')
+    // The avatar is already named "Ada Lovelace (online)"; a broken photo
+    // with alt text would also paint that text over the initials.
+    expect(html).toMatch(/<img[^>]*alt=""/)
+    expect(html).toMatch(/<span class="[^"]*rounded-\[inherit\][^"]*">AL<\/span><img/)
   })
 
   it('renders initials when the user has no src', () => {
@@ -58,10 +61,42 @@ describe('AvatarGroup (React)', () => {
     expect(html).not.toContain('Edsger Dijkstra')
   })
 
+  it('a badge without onOverflowClick is a label, never an inert button', () => {
+    const html = renderToString(React.createElement(AvatarGroup, { users, max: 2 }))
+    expect(html).toMatch(/<div role="img" aria-label="2 more users" class="[^"]*">\+2<\/div>/)
+    expect(html).not.toContain('role="button"')
+    expect(html).not.toContain('<button')
+  })
+
+  it('with onOverflowClick the badge is a real button with a focus ring', () => {
+    const html = renderToString(
+      React.createElement(AvatarGroup, { users, max: 2, onOverflowClick: () => {} }),
+    )
+    const button = html.match(/<button[^>]*>\+2<\/button>/)?.[0]
+    expect(button).toBeDefined()
+    expect(button).toContain('type="button"')
+    expect(button).toContain('aria-label="2 more users"')
+    expect(button).not.toContain('role=')
+    expect(button).toContain('focus-visible:ring-ring')
+  })
+
   it('renders no overflow badge when users fit within max', () => {
     const html = renderToString(React.createElement(AvatarGroup, { users, max: 10 }))
     expect(html).not.toContain('more users')
     expect(html.match(/role="img"/g)?.length).toBe(4)
+  })
+
+  it('does not clip an avatar, so its presence dot is whole over the edge', () => {
+    const html = renderToString(React.createElement(AvatarGroup, { users, max: 1 }))
+    const avatar = html.match(/<div class="([^"]*)" role="img" aria-label="Ada Lovelace \(online\)"/)?.[1]
+    expect(avatar?.split(' ')).not.toContain('overflow-hidden')
+    expect(html).toMatch(/<span class="[^"]*absolute bottom-0 end-0 z-10[^"]*bg-success[^"]*"><\/span>/)
+  })
+
+  it('takes its id from React, not a module counter, so hydration matches', () => {
+    const first = renderToString(React.createElement(AvatarGroup, { users }))
+    const second = renderToString(React.createElement(AvatarGroup, { users }))
+    expect(first.match(/id="([^"]+)"/)?.[1]).toBe(second.match(/id="([^"]+)"/)?.[1])
   })
 
   it('applies size classes to avatars', () => {

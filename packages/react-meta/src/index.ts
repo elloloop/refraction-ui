@@ -170,7 +170,8 @@ export * from '@refraction-ui/react-avatar'
 export {
   AvatarGroup,
   type AvatarGroupProps,
-    } from '@refraction-ui/react-avatar-group'
+  type AvatarUser,
+} from '@refraction-ui/react-avatar-group'
 
 export * from '@refraction-ui/react-card'
 export * from '@refraction-ui/react-checkbox'
