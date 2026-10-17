@@ -1,5 +1,15 @@
 # @refraction-ui/react
 
+## 0.29.0
+
+### Minor Changes
+
+- d39380e: Add `SplitButton` to `@refraction-ui/react`: a primary action fused with a caret that opens a menu of secondary actions. `SplitButtonAction` and `SplitButtonTrigger` are two real buttons with their own accessible names (the caret defaults to "More options"); `SplitButtonMenu` is DropdownMenu's content, filled with `DropdownMenuItem`s. ArrowDown on the caret opens the menu, Escape returns focus to the caret, both parts take Button's variants and sizes and follow `disabled`, and each part's hit area extends to 44 px. (#301)
+
+### Patch Changes
+
+- d39380e: Fix `DropdownMenuContent` with `align="end"` or `align="center"` opening at the left edge of the page the first time it opens. The menu is now measured at its own width, not the width of `<body>`, before it is placed against the trigger.
+
 ## 0.28.0
 
 ### Minor Changes
