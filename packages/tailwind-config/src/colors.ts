@@ -1,3 +1,26 @@
+import { CATEGORY_COUNT, categoryVariableNames } from './themes/categories.js'
+
+/**
+ * One categorical colour as Tailwind's nested shape, so it yields
+ * `bg-category-N`, `bg-category-N-wash` and `text-category-N-foreground`.
+ * The fallbacks are an already contrast-checked neutral pair
+ * (muted-foreground / muted / foreground), so a consumer stylesheet that
+ * predates the palette still renders a readable chip.
+ */
+function categoryColor(index: number) {
+  const vars = categoryVariableNames(index)
+  return {
+    DEFAULT: `hsl(var(${vars.dot}, var(--muted-foreground)))`,
+    wash: `hsl(var(${vars.wash}, var(--muted)))`,
+    foreground: `hsl(var(${vars.foreground}, var(--foreground)))`,
+  }
+}
+
+/** Categorical palette (issue #593), keyed 1..CATEGORY_COUNT. */
+const category: Record<number, ReturnType<typeof categoryColor>> = Object.fromEntries(
+  Array.from({ length: CATEGORY_COUNT }, (_, i) => [i + 1, categoryColor(i + 1)]),
+)
+
 /** Semantic color tokens mapped to CSS custom properties */
 export const colors = {
   background: 'hsl(var(--background))',
@@ -54,6 +77,7 @@ export const colors = {
     4: 'hsl(var(--chart-4))',
     5: 'hsl(var(--chart-5))',
   },
+  category,
   sidebar: {
     DEFAULT: 'hsl(var(--sidebar-background))',
     foreground: 'hsl(var(--sidebar-foreground))',

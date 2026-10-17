@@ -1,0 +1,49 @@
+{
+  "name": "@refraction-ui/react-command-dialog",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@refraction-ui/command-dialog": "workspace:*",
+    "@refraction-ui/react-command": "workspace:*",
+    "@refraction-ui/react-dialog": "workspace:*",
+    "@refraction-ui/react-highlight-text": "workspace:*",
+    "@refraction-ui/react-keyboard-shortcut": "workspace:*",
+    "@refraction-ui/shared": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.0",
+    "@types/react-dom": "19.0.0",
+    "jsdom": "29.0.2",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "private": true
+}

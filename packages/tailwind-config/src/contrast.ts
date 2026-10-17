@@ -97,6 +97,18 @@ export function meetsWCAG_AAA(
   return ratio >= (isLargeText ? 4.5 : 7)
 }
 
+import { CATEGORY_COUNT, categoryVariableNames } from './themes/categories.js'
+
+/** Text on each categorical wash (issue #593). */
+const CATEGORY_PAIRS = Array.from({ length: CATEGORY_COUNT }, (_, i) => {
+  const vars = categoryVariableNames(i + 1)
+  return {
+    pair: `category-${i + 1}-foreground / category-${i + 1}-wash`,
+    fg: vars.foreground,
+    bg: vars.wash,
+  }
+})
+
 /**
  * Foreground/background pairs to validate in a theme.
  * Each entry maps a descriptive pair name to the CSS variable names
@@ -115,6 +127,7 @@ const THEME_PAIRS: { pair: string; fg: string; bg: string; largeText?: boolean }
   { pair: 'popover-foreground / popover', fg: '--popover-foreground', bg: '--popover' },
   { pair: 'sidebar-foreground / sidebar-background', fg: '--sidebar-foreground', bg: '--sidebar-background' },
   { pair: 'sidebar-accent-foreground / sidebar-accent', fg: '--sidebar-accent-foreground', bg: '--sidebar-accent' },
+  ...CATEGORY_PAIRS,
 ]
 
 /** Validate an entire theme's contrast ratios */

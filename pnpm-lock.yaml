@@ -227,12 +227,18 @@ importers:
       '@refraction-ui/react-collapsible':
         specifier: workspace:*
         version: link:../packages/react-collapsible
+      '@refraction-ui/react-color-chip':
+        specifier: workspace:*
+        version: link:../packages/react-color-chip
       '@refraction-ui/react-combobox':
         specifier: workspace:*
         version: link:../packages/react-combobox
       '@refraction-ui/react-command':
         specifier: workspace:*
         version: link:../packages/react-command
+      '@refraction-ui/react-command-dialog':
+        specifier: workspace:*
+        version: link:../packages/react-command-dialog
       '@refraction-ui/react-command-input':
         specifier: workspace:*
         version: link:../packages/react-command-input
@@ -242,6 +248,9 @@ importers:
       '@refraction-ui/react-content-protection':
         specifier: workspace:*
         version: link:../packages/react-content-protection
+      '@refraction-ui/react-context-menu':
+        specifier: workspace:*
+        version: link:../packages/react-context-menu
       '@refraction-ui/react-conversation':
         specifier: workspace:*
         version: link:../packages/react-conversation
@@ -272,21 +281,33 @@ importers:
       '@refraction-ui/react-editor-tabs':
         specifier: workspace:*
         version: link:../packages/react-editor-tabs
+      '@refraction-ui/react-emoji-glyph':
+        specifier: workspace:*
+        version: link:../packages/react-emoji-glyph
       '@refraction-ui/react-emoji-picker':
         specifier: workspace:*
         version: link:../packages/react-emoji-picker
       '@refraction-ui/react-empty-state':
         specifier: workspace:*
         version: link:../packages/react-empty-state
+      '@refraction-ui/react-event-calendar':
+        specifier: workspace:*
+        version: link:../packages/react-event-calendar
       '@refraction-ui/react-feedback-dialog':
         specifier: workspace:*
         version: link:../packages/react-feedback-dialog
+      '@refraction-ui/react-file-card':
+        specifier: workspace:*
+        version: link:../packages/react-file-card
       '@refraction-ui/react-file-tree':
         specifier: workspace:*
         version: link:../packages/react-file-tree
       '@refraction-ui/react-file-upload':
         specifier: workspace:*
         version: link:../packages/react-file-upload
+      '@refraction-ui/react-floating-panel':
+        specifier: workspace:*
+        version: link:../packages/react-floating-panel
       '@refraction-ui/react-floating-reactions':
         specifier: workspace:*
         version: link:../packages/react-floating-reactions
@@ -302,12 +323,27 @@ importers:
       '@refraction-ui/react-funnel-chart':
         specifier: workspace:*
         version: link:../packages/react-funnel-chart
+      '@refraction-ui/react-gif-picker':
+        specifier: workspace:*
+        version: link:../packages/react-gif-picker
       '@refraction-ui/react-graph-view':
         specifier: workspace:*
         version: link:../packages/react-graph-view
       '@refraction-ui/react-hierarchy-canvas':
         specifier: workspace:*
         version: link:../packages/react-hierarchy-canvas
+      '@refraction-ui/react-highlight-text':
+        specifier: workspace:*
+        version: link:../packages/react-highlight-text
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../packages/react-icon-button
+      '@refraction-ui/react-image-viewer':
+        specifier: workspace:*
+        version: link:../packages/react-image-viewer
+      '@refraction-ui/react-incoming-call-card':
+        specifier: workspace:*
+        version: link:../packages/react-incoming-call-card
       '@refraction-ui/react-infinite-canvas':
         specifier: workspace:*
         version: link:../packages/react-infinite-canvas
@@ -323,27 +359,45 @@ importers:
       '@refraction-ui/react-install-prompt':
         specifier: workspace:*
         version: link:../packages/react-install-prompt
+      '@refraction-ui/react-jump-to-latest':
+        specifier: workspace:*
+        version: link:../packages/react-jump-to-latest
       '@refraction-ui/react-kanban-board':
         specifier: workspace:*
         version: link:../packages/react-kanban-board
       '@refraction-ui/react-keyboard-shortcut':
         specifier: workspace:*
         version: link:../packages/react-keyboard-shortcut
+      '@refraction-ui/react-keycap':
+        specifier: workspace:*
+        version: link:../packages/react-keycap
       '@refraction-ui/react-language-selector':
         specifier: workspace:*
         version: link:../packages/react-language-selector
+      '@refraction-ui/react-level-bars':
+        specifier: workspace:*
+        version: link:../packages/react-level-bars
       '@refraction-ui/react-line-chart':
         specifier: workspace:*
         version: link:../packages/react-line-chart
       '@refraction-ui/react-link-card':
         specifier: workspace:*
         version: link:../packages/react-link-card
+      '@refraction-ui/react-link-preview':
+        specifier: workspace:*
+        version: link:../packages/react-link-preview
+      '@refraction-ui/react-list-item':
+        specifier: workspace:*
+        version: link:../packages/react-list-item
       '@refraction-ui/react-live-captions':
         specifier: workspace:*
         version: link:../packages/react-live-captions
       '@refraction-ui/react-live-cursors':
         specifier: workspace:*
         version: link:../packages/react-live-cursors
+      '@refraction-ui/react-live-dot':
+        specifier: workspace:*
+        version: link:../packages/react-live-dot
       '@refraction-ui/react-live-transcript':
         specifier: workspace:*
         version: link:../packages/react-live-transcript
@@ -353,21 +407,33 @@ importers:
       '@refraction-ui/react-markdown-renderer':
         specifier: workspace:*
         version: link:../packages/react-markdown-renderer
+      '@refraction-ui/react-markup-text':
+        specifier: workspace:*
+        version: link:../packages/react-markup-text
       '@refraction-ui/react-marquee-strip':
         specifier: workspace:*
         version: link:../packages/react-marquee-strip
       '@refraction-ui/react-mastery-bar':
         specifier: workspace:*
         version: link:../packages/react-mastery-bar
+      '@refraction-ui/react-message-row':
+        specifier: workspace:*
+        version: link:../packages/react-message-row
       '@refraction-ui/react-mini-map':
         specifier: workspace:*
         version: link:../packages/react-mini-map
       '@refraction-ui/react-mobile-nav':
         specifier: workspace:*
         version: link:../packages/react-mobile-nav
+      '@refraction-ui/react-multi-combobox':
+        specifier: workspace:*
+        version: link:../packages/react-multi-combobox
       '@refraction-ui/react-native-select':
         specifier: workspace:*
         version: link:../packages/react-native-select
+      '@refraction-ui/react-nav-item':
+        specifier: workspace:*
+        version: link:../packages/react-nav-item
       '@refraction-ui/react-navbar':
         specifier: workspace:*
         version: link:../packages/react-navbar
@@ -383,12 +449,18 @@ importers:
       '@refraction-ui/react-pagination':
         specifier: workspace:*
         version: link:../packages/react-pagination
+      '@refraction-ui/react-pane-header':
+        specifier: workspace:*
+        version: link:../packages/react-pane-header
       '@refraction-ui/react-password-input':
         specifier: workspace:*
         version: link:../packages/react-password-input
       '@refraction-ui/react-payment':
         specifier: workspace:*
         version: link:../packages/react-payment
+      '@refraction-ui/react-pinned-bar':
+        specifier: workspace:*
+        version: link:../packages/react-pinned-bar
       '@refraction-ui/react-popover':
         specifier: workspace:*
         version: link:../packages/react-popover
@@ -416,9 +488,15 @@ importers:
       '@refraction-ui/react-reaction-bar':
         specifier: workspace:*
         version: link:../packages/react-reaction-bar
+      '@refraction-ui/react-reaction-tray':
+        specifier: workspace:*
+        version: link:../packages/react-reaction-tray
       '@refraction-ui/react-resizable-layout':
         specifier: workspace:*
         version: link:../packages/react-resizable-layout
+      '@refraction-ui/react-sandbox-frame':
+        specifier: workspace:*
+        version: link:../packages/react-sandbox-frame
       '@refraction-ui/react-search-bar':
         specifier: workspace:*
         version: link:../packages/react-search-bar
@@ -437,6 +515,9 @@ importers:
       '@refraction-ui/react-sheet':
         specifier: workspace:*
         version: link:../packages/react-sheet
+      '@refraction-ui/react-shortcuts-dialog':
+        specifier: workspace:*
+        version: link:../packages/react-shortcuts-dialog
       '@refraction-ui/react-sidebar':
         specifier: workspace:*
         version: link:../packages/react-sidebar
@@ -464,9 +545,15 @@ importers:
       '@refraction-ui/react-stat-grid':
         specifier: workspace:*
         version: link:../packages/react-stat-grid
+      '@refraction-ui/react-status-badge':
+        specifier: workspace:*
+        version: link:../packages/react-status-badge
       '@refraction-ui/react-status-indicator':
         specifier: workspace:*
         version: link:../packages/react-status-indicator
+      '@refraction-ui/react-step-card':
+        specifier: workspace:*
+        version: link:../packages/react-step-card
       '@refraction-ui/react-steps':
         specifier: workspace:*
         version: link:../packages/react-steps
@@ -485,6 +572,9 @@ importers:
       '@refraction-ui/react-tabs':
         specifier: workspace:*
         version: link:../packages/react-tabs
+      '@refraction-ui/react-task-list':
+        specifier: workspace:*
+        version: link:../packages/react-task-list
       '@refraction-ui/react-terminal':
         specifier: workspace:*
         version: link:../packages/react-terminal
@@ -497,9 +587,15 @@ importers:
       '@refraction-ui/react-theme':
         specifier: workspace:*
         version: link:../packages/react-theme
+      '@refraction-ui/react-thread-summary':
+        specifier: workspace:*
+        version: link:../packages/react-thread-summary
       '@refraction-ui/react-thread-view':
         specifier: workspace:*
         version: link:../packages/react-thread-view
+      '@refraction-ui/react-time-picker':
+        specifier: workspace:*
+        version: link:../packages/react-time-picker
       '@refraction-ui/react-timeline':
         specifier: workspace:*
         version: link:../packages/react-timeline
@@ -521,6 +617,12 @@ importers:
       '@refraction-ui/react-video-tile':
         specifier: workspace:*
         version: link:../packages/react-video-tile
+      '@refraction-ui/react-virtual-list':
+        specifier: workspace:*
+        version: link:../packages/react-virtual-list
+      '@refraction-ui/react-voice-note':
+        specifier: workspace:*
+        version: link:../packages/react-voice-note
       '@refraction-ui/react-voice-pill':
         specifier: workspace:*
         version: link:../packages/react-voice-pill
@@ -2801,7 +2903,23 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/color-chip:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@refraction-ui/tailwind-config':
+        specifier: workspace:*
+        version: link:../tailwind-config
+
   packages/command:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/command-dialog:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -2830,6 +2948,15 @@ importers:
 
   packages/content-protection:
     dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/context-menu:
+    dependencies:
+      '@refraction-ui/dropdown-menu':
+        specifier: workspace:*
+        version: link:../dropdown-menu
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -2890,6 +3017,15 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/emoji-glyph:
+    dependencies:
+      '@refraction-ui/emoji-picker':
+        specifier: workspace:*
+        version: link:../emoji-picker
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/emoji-picker:
     dependencies:
       '@refraction-ui/shared':
@@ -2897,6 +3033,12 @@ importers:
         version: link:../shared
 
   packages/empty-state:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/event-calendar:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -2911,6 +3053,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/file-card:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/file-tree:
     dependencies:
       '@refraction-ui/shared':
@@ -2918,6 +3066,12 @@ importers:
         version: link:../shared
 
   packages/file-upload:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/floating-panel:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -3155,6 +3309,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/gif-picker:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/graph-view:
     dependencies:
       '@refraction-ui/shared':
@@ -3162,6 +3322,12 @@ importers:
         version: link:../shared
 
   packages/hierarchy-canvas: {}
+
+  packages/highlight-text:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
 
   packages/http: {}
 
@@ -3171,7 +3337,28 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/icon-button:
+    dependencies:
+      '@refraction-ui/button':
+        specifier: workspace:*
+        version: link:../button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/icon-system: {}
+
+  packages/image-viewer:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/incoming-call-card:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
 
   packages/infinite-canvas:
     dependencies:
@@ -3203,6 +3390,15 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/jump-to-latest:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/virtual-list':
+        specifier: workspace:*
+        version: link:../virtual-list
+
   packages/kanban-board:
     dependencies:
       '@refraction-ui/shared':
@@ -3215,11 +3411,29 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/keycap:
+    dependencies:
+      '@refraction-ui/keyboard-shortcut':
+        specifier: workspace:*
+        version: link:../keyboard-shortcut
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/language-selector:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
+
+  packages/level-bars:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/waveform':
+        specifier: workspace:*
+        version: link:../waveform
 
   packages/line-chart:
     dependencies:
@@ -3233,6 +3447,18 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/link-preview:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/list-item:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/live-captions:
     dependencies:
       '@refraction-ui/shared':
@@ -3240,6 +3466,12 @@ importers:
         version: link:../shared
 
   packages/live-cursors:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/live-dot:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -3278,6 +3510,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/markup-text:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/marquee-strip:
     dependencies:
       '@refraction-ui/shared':
@@ -3305,6 +3543,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/message-row:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/mini-map:
     dependencies:
       '@refraction-ui/shared':
@@ -3317,7 +3561,19 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/multi-combobox:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/native-select:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/nav-item:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -3353,6 +3609,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/pane-header:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/password-input:
     dependencies:
       '@refraction-ui/shared':
@@ -3360,6 +3622,12 @@ importers:
         version: link:../shared
 
   packages/payment:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/pinned-bar:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -4075,6 +4343,37 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-color-chip:
+    dependencies:
+      '@refraction-ui/color-chip':
+        specifier: workspace:*
+        version: link:../color-chip
+      '@refraction-ui/icon-button':
+        specifier: workspace:*
+        version: link:../icon-button
+      '@refraction-ui/react-tooltip':
+        specifier: workspace:*
+        version: link:../react-tooltip
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-combobox:
     dependencies:
       '@refraction-ui/shared':
@@ -4109,6 +4408,43 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-command-dialog:
+    dependencies:
+      '@refraction-ui/command-dialog':
+        specifier: workspace:*
+        version: link:../command-dialog
+      '@refraction-ui/react-command':
+        specifier: workspace:*
+        version: link:../react-command
+      '@refraction-ui/react-dialog':
+        specifier: workspace:*
+        version: link:../react-dialog
+      '@refraction-ui/react-highlight-text':
+        specifier: workspace:*
+        version: link:../react-highlight-text
+      '@refraction-ui/react-keyboard-shortcut':
+        specifier: workspace:*
+        version: link:../react-keyboard-shortcut
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -4190,6 +4526,34 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-context-menu:
+    dependencies:
+      '@refraction-ui/context-menu':
+        specifier: workspace:*
+        version: link:../context-menu
+      '@refraction-ui/dropdown-menu':
+        specifier: workspace:*
+        version: link:../dropdown-menu
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -4435,6 +4799,34 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-emoji-glyph:
+    dependencies:
+      '@refraction-ui/emoji-glyph':
+        specifier: workspace:*
+        version: link:../emoji-glyph
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      lottie-web:
+        specifier: 5.13.0
+        version: 5.13.0
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-emoji-picker:
     dependencies:
       '@refraction-ui/emoji-picker':
@@ -4479,6 +4871,37 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-event-calendar:
+    dependencies:
+      '@refraction-ui/event-calendar':
+        specifier: workspace:*
+        version: link:../event-calendar
+      '@refraction-ui/react-button':
+        specifier: workspace:*
+        version: link:../react-button
+      '@refraction-ui/react-segmented-control':
+        specifier: workspace:*
+        version: link:../react-segmented-control
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-feedback-dialog:
     dependencies:
       '@refraction-ui/feedback-dialog':
@@ -4494,6 +4917,34 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-file-card:
+    dependencies:
+      '@refraction-ui/file-card':
+        specifier: workspace:*
+        version: link:../file-card
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -4538,6 +4989,34 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-floating-panel:
+    dependencies:
+      '@refraction-ui/floating-panel':
+        specifier: workspace:*
+        version: link:../floating-panel
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -4664,6 +5143,40 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-gif-picker:
+    dependencies:
+      '@refraction-ui/button':
+        specifier: workspace:*
+        version: link:../button
+      '@refraction-ui/gif-picker':
+        specifier: workspace:*
+        version: link:../gif-picker
+      '@refraction-ui/input':
+        specifier: workspace:*
+        version: link:../input
+      '@refraction-ui/react-tabs':
+        specifier: workspace:*
+        version: link:../react-tabs
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-graph-view:
     dependencies:
       '@refraction-ui/graph-view':
@@ -4708,6 +5221,62 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-highlight-text:
+    dependencies:
+      '@refraction-ui/highlight-text':
+        specifier: workspace:*
+        version: link:../highlight-text
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-icon-button:
+    dependencies:
+      '@refraction-ui/icon-button':
+        specifier: workspace:*
+        version: link:../icon-button
+      '@refraction-ui/react-button':
+        specifier: workspace:*
+        version: link:../react-button
+      '@refraction-ui/react-tooltip':
+        specifier: workspace:*
+        version: link:../react-tooltip
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-icon-system:
     devDependencies:
       '@types/react':
@@ -4716,6 +5285,65 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-image-viewer:
+    dependencies:
+      '@refraction-ui/image-viewer':
+        specifier: workspace:*
+        version: link:../image-viewer
+      '@refraction-ui/react-dialog':
+        specifier: workspace:*
+        version: link:../react-dialog
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-incoming-call-card:
+    dependencies:
+      '@refraction-ui/incoming-call-card':
+        specifier: workspace:*
+        version: link:../incoming-call-card
+      '@refraction-ui/react-avatar':
+        specifier: workspace:*
+        version: link:../react-avatar
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -4833,6 +5461,34 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-jump-to-latest:
+    dependencies:
+      '@refraction-ui/jump-to-latest':
+        specifier: workspace:*
+        version: link:../jump-to-latest
+      '@refraction-ui/react-virtual-list':
+        specifier: workspace:*
+        version: link:../react-virtual-list
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-kanban-board:
     dependencies:
       '@refraction-ui/kanban-board':
@@ -4870,6 +5526,34 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-keycap:
+    dependencies:
+      '@refraction-ui/keycap':
+        specifier: workspace:*
+        version: link:../keycap
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -4892,6 +5576,31 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-level-bars:
+    dependencies:
+      '@refraction-ui/level-bars':
+        specifier: workspace:*
+        version: link:../level-bars
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -4946,6 +5655,59 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-link-preview:
+    dependencies:
+      '@refraction-ui/link-preview':
+        specifier: workspace:*
+        version: link:../link-preview
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-list-item:
+    dependencies:
+      '@refraction-ui/list-item':
+        specifier: workspace:*
+        version: link:../list-item
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-live-captions:
     dependencies:
       '@refraction-ui/live-captions':
@@ -4988,6 +5750,31 @@ importers:
         version: 19.0.0
       react-dom:
         specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-live-dot:
+    dependencies:
+      '@refraction-ui/live-dot':
+        specifier: workspace:*
+        version: link:../live-dot
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
   packages/react-live-transcript:
@@ -5081,6 +5868,31 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-markup-text:
+    dependencies:
+      '@refraction-ui/markup-text':
+        specifier: workspace:*
+        version: link:../markup-text
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-marquee-strip:
     dependencies:
       '@refraction-ui/marquee-strip':
@@ -5145,6 +5957,37 @@ importers:
         version: 19.0.0
       react-dom:
         specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-message-row:
+    dependencies:
+      '@refraction-ui/message-row':
+        specifier: workspace:*
+        version: link:../message-row
+      '@refraction-ui/react-dropdown-menu':
+        specifier: workspace:*
+        version: link:../react-dropdown-menu
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
   packages/react-meta:
@@ -5243,12 +6086,18 @@ importers:
       '@refraction-ui/react-collapsible':
         specifier: workspace:*
         version: link:../react-collapsible
+      '@refraction-ui/react-color-chip':
+        specifier: workspace:*
+        version: link:../react-color-chip
       '@refraction-ui/react-combobox':
         specifier: workspace:*
         version: link:../react-combobox
       '@refraction-ui/react-command':
         specifier: workspace:*
         version: link:../react-command
+      '@refraction-ui/react-command-dialog':
+        specifier: workspace:*
+        version: link:../react-command-dialog
       '@refraction-ui/react-command-input':
         specifier: workspace:*
         version: link:../react-command-input
@@ -5258,6 +6107,9 @@ importers:
       '@refraction-ui/react-content-protection':
         specifier: workspace:*
         version: link:../react-content-protection
+      '@refraction-ui/react-context-menu':
+        specifier: workspace:*
+        version: link:../react-context-menu
       '@refraction-ui/react-conversation':
         specifier: workspace:*
         version: link:../react-conversation
@@ -5288,21 +6140,33 @@ importers:
       '@refraction-ui/react-editor-tabs':
         specifier: workspace:*
         version: link:../react-editor-tabs
+      '@refraction-ui/react-emoji-glyph':
+        specifier: workspace:*
+        version: link:../react-emoji-glyph
       '@refraction-ui/react-emoji-picker':
         specifier: workspace:*
         version: link:../react-emoji-picker
       '@refraction-ui/react-empty-state':
         specifier: workspace:*
         version: link:../react-empty-state
+      '@refraction-ui/react-event-calendar':
+        specifier: workspace:*
+        version: link:../react-event-calendar
       '@refraction-ui/react-feedback-dialog':
         specifier: workspace:*
         version: link:../react-feedback-dialog
+      '@refraction-ui/react-file-card':
+        specifier: workspace:*
+        version: link:../react-file-card
       '@refraction-ui/react-file-tree':
         specifier: workspace:*
         version: link:../react-file-tree
       '@refraction-ui/react-file-upload':
         specifier: workspace:*
         version: link:../react-file-upload
+      '@refraction-ui/react-floating-panel':
+        specifier: workspace:*
+        version: link:../react-floating-panel
       '@refraction-ui/react-floating-reactions':
         specifier: workspace:*
         version: link:../react-floating-reactions
@@ -5318,15 +6182,30 @@ importers:
       '@refraction-ui/react-funnel-chart':
         specifier: workspace:*
         version: link:../react-funnel-chart
+      '@refraction-ui/react-gif-picker':
+        specifier: workspace:*
+        version: link:../react-gif-picker
       '@refraction-ui/react-graph-view':
         specifier: workspace:*
         version: link:../react-graph-view
       '@refraction-ui/react-hierarchy-canvas':
         specifier: workspace:*
         version: link:../react-hierarchy-canvas
+      '@refraction-ui/react-highlight-text':
+        specifier: workspace:*
+        version: link:../react-highlight-text
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
       '@refraction-ui/react-icon-system':
         specifier: workspace:*
         version: link:../react-icon-system
+      '@refraction-ui/react-image-viewer':
+        specifier: workspace:*
+        version: link:../react-image-viewer
+      '@refraction-ui/react-incoming-call-card':
+        specifier: workspace:*
+        version: link:../react-incoming-call-card
       '@refraction-ui/react-infinite-canvas':
         specifier: workspace:*
         version: link:../react-infinite-canvas
@@ -5342,27 +6221,45 @@ importers:
       '@refraction-ui/react-install-prompt':
         specifier: workspace:*
         version: link:../react-install-prompt
+      '@refraction-ui/react-jump-to-latest':
+        specifier: workspace:*
+        version: link:../react-jump-to-latest
       '@refraction-ui/react-kanban-board':
         specifier: workspace:*
         version: link:../react-kanban-board
       '@refraction-ui/react-keyboard-shortcut':
         specifier: workspace:*
         version: link:../react-keyboard-shortcut
+      '@refraction-ui/react-keycap':
+        specifier: workspace:*
+        version: link:../react-keycap
       '@refraction-ui/react-language-selector':
         specifier: workspace:*
         version: link:../react-language-selector
+      '@refraction-ui/react-level-bars':
+        specifier: workspace:*
+        version: link:../react-level-bars
       '@refraction-ui/react-line-chart':
         specifier: workspace:*
         version: link:../react-line-chart
       '@refraction-ui/react-link-card':
         specifier: workspace:*
         version: link:../react-link-card
+      '@refraction-ui/react-link-preview':
+        specifier: workspace:*
+        version: link:../react-link-preview
+      '@refraction-ui/react-list-item':
+        specifier: workspace:*
+        version: link:../react-list-item
       '@refraction-ui/react-live-captions':
         specifier: workspace:*
         version: link:../react-live-captions
       '@refraction-ui/react-live-cursors':
         specifier: workspace:*
         version: link:../react-live-cursors
+      '@refraction-ui/react-live-dot':
+        specifier: workspace:*
+        version: link:../react-live-dot
       '@refraction-ui/react-live-transcript':
         specifier: workspace:*
         version: link:../react-live-transcript
@@ -5375,6 +6272,9 @@ importers:
       '@refraction-ui/react-markdown-renderer':
         specifier: workspace:*
         version: link:../react-markdown-renderer
+      '@refraction-ui/react-markup-text':
+        specifier: workspace:*
+        version: link:../react-markup-text
       '@refraction-ui/react-marquee-strip':
         specifier: workspace:*
         version: link:../react-marquee-strip
@@ -5384,15 +6284,24 @@ importers:
       '@refraction-ui/react-mastery-bar':
         specifier: workspace:*
         version: link:../react-mastery-bar
+      '@refraction-ui/react-message-row':
+        specifier: workspace:*
+        version: link:../react-message-row
       '@refraction-ui/react-mini-map':
         specifier: workspace:*
         version: link:../react-mini-map
       '@refraction-ui/react-mobile-nav':
         specifier: workspace:*
         version: link:../react-mobile-nav
+      '@refraction-ui/react-multi-combobox':
+        specifier: workspace:*
+        version: link:../react-multi-combobox
       '@refraction-ui/react-native-select':
         specifier: workspace:*
         version: link:../react-native-select
+      '@refraction-ui/react-nav-item':
+        specifier: workspace:*
+        version: link:../react-nav-item
       '@refraction-ui/react-navbar':
         specifier: workspace:*
         version: link:../react-navbar
@@ -5408,12 +6317,18 @@ importers:
       '@refraction-ui/react-pagination':
         specifier: workspace:*
         version: link:../react-pagination
+      '@refraction-ui/react-pane-header':
+        specifier: workspace:*
+        version: link:../react-pane-header
       '@refraction-ui/react-password-input':
         specifier: workspace:*
         version: link:../react-password-input
       '@refraction-ui/react-payment':
         specifier: workspace:*
         version: link:../react-payment
+      '@refraction-ui/react-pinned-bar':
+        specifier: workspace:*
+        version: link:../react-pinned-bar
       '@refraction-ui/react-popover':
         specifier: workspace:*
         version: link:../react-popover
@@ -5441,12 +6356,18 @@ importers:
       '@refraction-ui/react-reaction-bar':
         specifier: workspace:*
         version: link:../react-reaction-bar
+      '@refraction-ui/react-reaction-tray':
+        specifier: workspace:*
+        version: link:../react-reaction-tray
       '@refraction-ui/react-resizable-layout':
         specifier: workspace:*
         version: link:../react-resizable-layout
       '@refraction-ui/react-rich-editor':
         specifier: workspace:*
         version: link:../react-rich-editor
+      '@refraction-ui/react-sandbox-frame':
+        specifier: workspace:*
+        version: link:../react-sandbox-frame
       '@refraction-ui/react-search-bar':
         specifier: workspace:*
         version: link:../react-search-bar
@@ -5465,6 +6386,9 @@ importers:
       '@refraction-ui/react-sheet':
         specifier: workspace:*
         version: link:../react-sheet
+      '@refraction-ui/react-shortcuts-dialog':
+        specifier: workspace:*
+        version: link:../react-shortcuts-dialog
       '@refraction-ui/react-sidebar':
         specifier: workspace:*
         version: link:../react-sidebar
@@ -5495,9 +6419,15 @@ importers:
       '@refraction-ui/react-stat-grid':
         specifier: workspace:*
         version: link:../react-stat-grid
+      '@refraction-ui/react-status-badge':
+        specifier: workspace:*
+        version: link:../react-status-badge
       '@refraction-ui/react-status-indicator':
         specifier: workspace:*
         version: link:../react-status-indicator
+      '@refraction-ui/react-step-card':
+        specifier: workspace:*
+        version: link:../react-step-card
       '@refraction-ui/react-steps':
         specifier: workspace:*
         version: link:../react-steps
@@ -5516,6 +6446,9 @@ importers:
       '@refraction-ui/react-tabs':
         specifier: workspace:*
         version: link:../react-tabs
+      '@refraction-ui/react-task-list':
+        specifier: workspace:*
+        version: link:../react-task-list
       '@refraction-ui/react-terminal':
         specifier: workspace:*
         version: link:../react-terminal
@@ -5528,9 +6461,15 @@ importers:
       '@refraction-ui/react-theme':
         specifier: workspace:*
         version: link:../react-theme
+      '@refraction-ui/react-thread-summary':
+        specifier: workspace:*
+        version: link:../react-thread-summary
       '@refraction-ui/react-thread-view':
         specifier: workspace:*
         version: link:../react-thread-view
+      '@refraction-ui/react-time-picker':
+        specifier: workspace:*
+        version: link:../react-time-picker
       '@refraction-ui/react-timeline':
         specifier: workspace:*
         version: link:../react-timeline
@@ -5552,6 +6491,12 @@ importers:
       '@refraction-ui/react-video-tile':
         specifier: workspace:*
         version: link:../react-video-tile
+      '@refraction-ui/react-virtual-list':
+        specifier: workspace:*
+        version: link:../react-virtual-list
+      '@refraction-ui/react-voice-note':
+        specifier: workspace:*
+        version: link:../react-voice-note
       '@refraction-ui/react-voice-pill':
         specifier: workspace:*
         version: link:../react-voice-pill
@@ -5621,6 +6566,31 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-multi-combobox:
+    dependencies:
+      '@refraction-ui/multi-combobox':
+        specifier: workspace:*
+        version: link:../multi-combobox
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-native-select:
     dependencies:
       '@refraction-ui/native-select':
@@ -5641,6 +6611,37 @@ importers:
         version: 19.0.0
       react-dom:
         specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-nav-item:
+    dependencies:
+      '@refraction-ui/nav-item':
+        specifier: workspace:*
+        version: link:../nav-item
+      '@refraction-ui/react-slot':
+        specifier: workspace:*
+        version: link:../react-slot
+      '@refraction-ui/react-tooltip':
+        specifier: workspace:*
+        version: link:../react-tooltip
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
   packages/react-navbar:
@@ -5756,6 +6757,31 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-pane-header:
+    dependencies:
+      '@refraction-ui/pane-header':
+        specifier: workspace:*
+        version: link:../pane-header
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-password-input:
     dependencies:
       '@refraction-ui/password-input':
@@ -5799,6 +6825,34 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-pinned-bar:
+    dependencies:
+      '@refraction-ui/pinned-bar':
+        specifier: workspace:*
+        version: link:../pinned-bar
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -6010,6 +7064,31 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-reaction-tray:
+    dependencies:
+      '@refraction-ui/reaction-tray':
+        specifier: workspace:*
+        version: link:../reaction-tray
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-resizable-layout:
     dependencies:
       '@refraction-ui/resizable-layout':
@@ -6047,6 +7126,31 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-sandbox-frame:
+    dependencies:
+      '@refraction-ui/sandbox-frame':
+        specifier: workspace:*
+        version: link:../sandbox-frame
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -6185,6 +7289,43 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-shortcuts-dialog:
+    dependencies:
+      '@refraction-ui/keyboard-shortcut':
+        specifier: workspace:*
+        version: link:../keyboard-shortcut
+      '@refraction-ui/react-dialog':
+        specifier: workspace:*
+        version: link:../react-dialog
+      '@refraction-ui/react-keycap':
+        specifier: workspace:*
+        version: link:../react-keycap
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/shortcuts-dialog':
+        specifier: workspace:*
+        version: link:../shortcuts-dialog
+    devDependencies:
+      '@refraction-ui/react-keyboard-shortcut':
+        specifier: workspace:*
+        version: link:../react-keyboard-shortcut
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -6417,6 +7558,34 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-status-badge:
+    dependencies:
+      '@refraction-ui/react-live-dot':
+        specifier: workspace:*
+        version: link:../react-live-dot
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/status-badge':
+        specifier: workspace:*
+        version: link:../status-badge
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-status-indicator:
     dependencies:
       '@refraction-ui/shared':
@@ -6432,6 +7601,40 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-step-card:
+    dependencies:
+      '@refraction-ui/react-button':
+        specifier: workspace:*
+        version: link:../react-button
+      '@refraction-ui/react-collapsible':
+        specifier: workspace:*
+        version: link:../react-collapsible
+      '@refraction-ui/react-markup-text':
+        specifier: workspace:*
+        version: link:../react-markup-text
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/step-card':
+        specifier: workspace:*
+        version: link:../step-card
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -6580,6 +7783,37 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-task-list:
+    dependencies:
+      '@refraction-ui/react-checkbox':
+        specifier: workspace:*
+        version: link:../react-checkbox
+      '@refraction-ui/react-collapsible':
+        specifier: workspace:*
+        version: link:../react-collapsible
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/task-list':
+        specifier: workspace:*
+        version: link:../task-list
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-terminal:
     dependencies:
       '@refraction-ui/shared':
@@ -6671,6 +7905,34 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-thread-summary:
+    dependencies:
+      '@refraction-ui/react-avatar':
+        specifier: workspace:*
+        version: link:../react-avatar
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/thread-summary':
+        specifier: workspace:*
+        version: link:../thread-summary
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-thread-view:
     dependencies:
       '@refraction-ui/shared':
@@ -6689,6 +7951,31 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-time-picker:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/time-picker':
+        specifier: workspace:*
+        version: link:../time-picker
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -6868,6 +8155,65 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-virtual-list:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/virtual-list':
+        specifier: workspace:*
+        version: link:../virtual-list
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-voice-note:
+    dependencies:
+      '@refraction-ui/react-button':
+        specifier: workspace:*
+        version: link:../react-button
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
+      '@refraction-ui/react-waveform':
+        specifier: workspace:*
+        version: link:../react-waveform
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/voice-note':
+        specifier: workspace:*
+        version: link:../voice-note
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-voice-pill:
     dependencies:
       '@refraction-ui/shared':
@@ -6946,6 +8292,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/reaction-tray:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/resizable-layout:
     dependencies:
       '@refraction-ui/shared':
@@ -6957,6 +8309,15 @@ importers:
       '@refraction-ui/emoji-picker':
         specifier: workspace:*
         version: link:../emoji-picker
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/sandbox-frame:
+    dependencies:
+      '@refraction-ui/button':
+        specifier: workspace:*
+        version: link:../button
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -6992,6 +8353,18 @@ importers:
         version: link:../shared
 
   packages/shared: {}
+
+  packages/shortcuts-dialog:
+    dependencies:
+      '@refraction-ui/keyboard-shortcut':
+        specifier: workspace:*
+        version: link:../keyboard-shortcut
+      '@refraction-ui/keycap':
+        specifier: workspace:*
+        version: link:../keycap
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
 
   packages/sidebar:
     dependencies:
@@ -7047,7 +8420,25 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/status-badge:
+    dependencies:
+      '@refraction-ui/badge':
+        specifier: workspace:*
+        version: link:../badge
+      '@refraction-ui/live-dot':
+        specifier: workspace:*
+        version: link:../live-dot
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/status-indicator:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/step-card:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -7099,6 +8490,12 @@ importers:
         specifier: 4.3.3
         version: 4.3.3
 
+  packages/task-list:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/terminal:
     dependencies:
       '@refraction-ui/shared':
@@ -7123,7 +8520,19 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/thread-summary:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/thread-view:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/time-picker:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -7168,6 +8577,18 @@ importers:
         version: link:../shared
 
   packages/video-tile:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/virtual-list:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/voice-note:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -10361,6 +11782,9 @@ packages:
     hasBin: true
     peerDependencies:
       playwright-core: '>=1.47.2'
+
+  lottie-web@5.13.0:
+    resolution: {integrity: sha512-+gfBXl6sxXMPe8tKQm7qzLnUy5DUPJPKIyRHwtpCpyUEYjHYRJC/5gjUvdkuO2c3JllrPtHXH5UJJK8LRYl5yQ==}
 
   loupe@3.2.0:
     resolution: {integrity: sha512-2NCfZcT5VGVNX9mSZIxLRkEAegDGBpuQZBy13desuHeVORmBDyAET4TkJr4SjqQy3A8JDofMN6LpkK8Xcm/dlw==}
@@ -15173,6 +16597,8 @@ snapshots:
       - debug
       - supports-color
       - typescript
+
+  lottie-web@5.13.0: {}
 
   loupe@3.2.0: {}
 

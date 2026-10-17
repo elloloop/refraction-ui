@@ -8,6 +8,7 @@ import {
   altHintState,
   globalShortcutRegistry,
   SANE_DEFAULTS,
+  SANE_DEFAULT_SHORTCUT_INFO,
 } from '@refraction-ui/keyboard-shortcut'
 import { cn } from '@refraction-ui/shared'
 
@@ -34,6 +35,13 @@ export interface UseShortcutOptions {
   onTrigger: () => void;
   enabled?: boolean;
   preventDefault?: boolean;
+  /**
+   * What the shortcut does, listed by help screens such as ShortcutsDialog.
+   * Defaults to the SANE_DEFAULTS action's description when `action` is set.
+   */
+  description?: string;
+  /** Section the shortcut is listed under. Defaults to the action's group when `action` is set. */
+  group?: string;
 }
 
 export function useShortcut({
@@ -42,6 +50,8 @@ export function useShortcut({
   onTrigger,
   enabled = true,
   preventDefault = true,
+  description,
+  group,
 }: UseShortcutOptions) {
   const showHints = React.useContext(ShortcutContext);
 
@@ -55,6 +65,10 @@ export function useShortcut({
     return [];
   }, [shortcut, action]);
 
+  const actionInfo = action ? SANE_DEFAULT_SHORTCUT_INFO[action] : undefined;
+  const listedDescription = description ?? actionInfo?.description;
+  const listedGroup = group ?? actionInfo?.group;
+
   const apiRef = React.useRef(
     createKeyboardShortcut({ keys, onTrigger, enabled, preventDefault })
   );
@@ -66,9 +80,6 @@ export function useShortcut({
   React.useEffect(() => {
     if (!enabled || keys.length === 0) return;
 
-    const handler = () => { apiRef.current.handler(new KeyboardEvent('keydown')); };
-    globalShortcutRegistry.register(keys, handler);
-
     const handleKeyDown = (e: KeyboardEvent) => {
       apiRef.current.handler(e);
     };
@@ -76,9 +87,23 @@ export function useShortcut({
     document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      globalShortcutRegistry.unregister(keys);
     };
   }, [enabled, keys]);
+
+  // Registered separately so a new description re-lists the shortcut without
+  // re-attaching its keydown listener.
+  React.useEffect(() => {
+    if (!enabled || keys.length === 0) return;
+
+    const handler = () => { apiRef.current.handler(new KeyboardEvent('keydown')); };
+    globalShortcutRegistry.register(keys, handler, {
+      description: listedDescription,
+      group: listedGroup,
+    });
+    return () => {
+      globalShortcutRegistry.unregister(keys, handler);
+    };
+  }, [enabled, keys, listedDescription, listedGroup]);
 
   return { keys, showHints };
 }

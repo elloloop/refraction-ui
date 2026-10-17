@@ -1,0 +1,27 @@
+@refraction-ui/react-emoji-glyph
+================================
+
+This package ships no artwork. By default `EmojiGlyph` loads third-party
+artwork at runtime (from jsDelivr, or from the directories you pass as
+`animatedBaseUrl` / `twemojiBaseUrl`). Applications that display it must
+preserve the attributions below (for example, on an About or Licenses screen).
+
+Noto animated emoji (animated art, Lottie JSON)
+-----------------------------------------------
+Copyright Google Inc. and other contributors.
+Licensed under the Creative Commons Attribution 4.0 International licence
+(CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
+Source: https://googlefonts.github.io/noto-emoji-animation/
+The default files are the ones bundled with the refraction_ui Flutter package
+(packages/flutter/assets/emoji_animated/), byte-identical to Google's CDN.
+
+Twemoji (still art, SVG)
+------------------------
+Copyright Twitter, Inc and other contributors.
+Graphics licensed under CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+Source: https://github.com/jdecked/twemoji
+
+lottie-web (animation player, loaded on first use)
+--------------------------------------------------
+Copyright (c) 2015 Bodymovin. MIT License.
+Source: https://github.com/airbnb/lottie-web

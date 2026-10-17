@@ -1,0 +1,30 @@
+export {
+  createIconButton,
+  isIconButtonLabelValid,
+  resolveIconButtonTapTarget,
+  resolveIconButtonIconSize,
+  iconButtonPxToRem,
+  computeIconButtonTooltipPosition,
+  ICON_BUTTON_DEFAULT_MIN_TAP_TARGET_PX,
+  ICON_BUTTON_DEFAULT_VARIANT,
+  ICON_BUTTON_TOOLTIP_DELAY_MS,
+  ICON_BUTTON_TOOLTIP_OFFSET_PX,
+  ICON_BUTTON_TOOLTIP_VIEWPORT_MARGIN_PX,
+  ICON_BUTTON_SIZE_TO_BUTTON_SIZE,
+  ICON_BUTTON_DEFAULT_ICON_SIZE_PX,
+  type IconButtonSize,
+  type IconButtonTooltipSide,
+  type IconButtonOptions,
+  type IconButtonAPI,
+  type IconButtonRect,
+  type IconButtonTooltipPositionInput,
+  type IconButtonTooltipPosition,
+} from './icon-button.js'
+
+export {
+  iconButtonVariants,
+  iconButtonHitAreaClass,
+  iconButtonIconClass,
+  iconButtonTooltipTriggerClass,
+  iconButtonTooltipClass,
+} from './icon-button.styles.js'
