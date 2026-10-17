@@ -3,6 +3,7 @@ import {
   computeGridColumns,
   bucketByCount,
   createVideoGrid,
+  videoGridVariants,
 } from '../src/index.js'
 
 describe('computeGridColumns', () => {
@@ -76,5 +77,16 @@ describe('createVideoGrid', () => {
   it('reflects the requested layout in data-layout', () => {
     expect(createVideoGrid({ layout: 'grid' }).dataAttributes['data-layout']).toBe('grid')
     expect(createVideoGrid({ layout: 'speaker' }).dataAttributes['data-layout']).toBe('speaker')
+  })
+})
+
+describe('videoGridVariants', () => {
+  it('packs grid rows to the top so 16:9 tiles never overlap the next row', () => {
+    expect(videoGridVariants({ layout: 'grid' })).toContain('content-start')
+    expect(videoGridVariants({ layout: 'auto' })).toContain('content-start')
+  })
+
+  it('stacks the spotlight over the filmstrip in speaker view', () => {
+    expect(videoGridVariants({ layout: 'speaker' })).toContain('flex-col')
   })
 })

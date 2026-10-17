@@ -2,7 +2,8 @@ import { describe, it, expect } from 'vitest'
 import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import { VideoGrid } from '../src/video-grid.js'
-import type { VideoTileData } from '../src/video-grid.js'
+import type { VideoGridRegion, VideoTileData } from '../src/video-grid.js'
+import { VideoTile } from '@refraction-ui/react-video-tile'
 
 const render = (props: React.ComponentProps<typeof VideoGrid>) =>
   renderToString(React.createElement(VideoGrid, props))
@@ -76,5 +77,114 @@ describe('VideoGrid (SSR)', () => {
   it('auto layout resolves to grid for multiple participants', () => {
     const html = render({ participants: makeParticipants(4), layout: 'auto' })
     expect(html).toContain('data-layout="grid"')
+  })
+})
+
+describe('VideoGrid (SSR) — media and custom tiles', () => {
+  it('renders the media from renderMedia inside each tile', () => {
+    const html = render({
+      participants: makeParticipants(2),
+      layout: 'grid',
+      renderMedia: (p) => React.createElement('video', { 'data-stream': p.id }),
+    })
+    expect(html).toContain('data-stream="p1"')
+    expect(html).toContain('data-stream="p2"')
+    // Media replaces the initials fallback.
+    expect(html).not.toContain('>P1<')
+  })
+
+  it('falls back to the avatar when renderMedia returns null', () => {
+    const html = render({
+      participants: makeParticipants(2),
+      layout: 'grid',
+      renderMedia: (p) => (p.id === 'p1' ? React.createElement('video') : null),
+    })
+    expect(html.match(/<video/g)?.length).toBe(1)
+    expect(html).toContain('>P2<')
+  })
+
+  it('tells renderMedia which region each tile sits in', () => {
+    const seen: Array<[string, VideoGridRegion]> = []
+    render({
+      participants: makeParticipants(3),
+      layout: 'speaker',
+      spotlightId: 'p2',
+      renderMedia: (p, { region }) => {
+        seen.push([p.id, region])
+        return null
+      },
+    })
+    expect(seen).toEqual([
+      ['p2', 'spotlight'],
+      ['p1', 'filmstrip'],
+      ['p3', 'filmstrip'],
+    ])
+  })
+
+  it('passes avatar, raised hand and screen share through to the tiles', () => {
+    const html = render({
+      participants: [
+        { id: 'a', name: 'Ada', handRaised: true, avatarUrl: 'https://example.com/ada.png' },
+        { id: 'b', name: 'Ben', screenShare: true },
+      ],
+      layout: 'grid',
+    })
+    expect(html).toContain('aria-label="Hand raised"')
+    expect(html).toContain('src="https://example.com/ada.png"')
+    expect(html).toContain('aria-label="Ben (Presenting)"')
+  })
+
+  it('fills the spotlight and keeps grid and filmstrip tiles at 16:9', () => {
+    const html = render({ participants: makeParticipants(2), layout: 'speaker', spotlightId: 'p1' })
+    const tiles = (html.match(/<div[^>]*role="group"[^>]*>/g) ?? []).filter((tag) =>
+      tag.includes('aria-label="Participant'),
+    )
+    expect(tiles).toHaveLength(2)
+    expect(tiles[0]).toContain('h-full w-full')
+    expect(tiles[0]).not.toContain('aspect-video')
+    expect(tiles[1]).toContain('aspect-video')
+  })
+
+  it('renders custom tiles from renderTile with the default tile props', () => {
+    const html = render({
+      participants: makeParticipants(2),
+      layout: 'grid',
+      renderTile: (p, { region, tileProps }) =>
+        React.createElement(VideoTile, {
+          ...tileProps,
+          'data-region': region,
+          menu: React.createElement('button', { type: 'button', 'aria-label': `Options for ${p.name}` }),
+        }),
+    })
+    expect(html).toContain('data-region="grid"')
+    expect(html).toContain('aria-label="Options for Participant 1"')
+    expect(html).toContain('aria-label="Options for Participant 2"')
+  })
+
+  it('hands renderTile the media from renderMedia', () => {
+    let media: React.ReactNode
+    render({
+      participants: makeParticipants(1),
+      layout: 'grid',
+      renderMedia: () => React.createElement('video'),
+      renderTile: (_p, { tileProps }) => {
+        media = tileProps.mediaSlot
+        return null
+      },
+    })
+    expect(React.isValidElement(media)).toBe(true)
+  })
+
+  it('types extra participant fields through to the render props', () => {
+    type Live = VideoTileData & { streamKey: string }
+    const participants: Live[] = [{ id: 'a', name: 'Ada', streamKey: 'cam-a' }]
+    const html = renderToString(
+      <VideoGrid
+        participants={participants}
+        layout="grid"
+        renderMedia={(p) => <video data-key={p.streamKey} />}
+      />,
+    )
+    expect(html).toContain('data-key="cam-a"')
   })
 })

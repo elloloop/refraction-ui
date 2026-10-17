@@ -17,6 +17,7 @@ import InteractiveComposer from '../dist/astro-composer/InteractiveComposer.astr
 import SkipToContent from '../dist/astro-skip-to-content/SkipToContent.astro'
 import Toaster from '../dist/astro-toast/Toaster.astro'
 import Toast from '../dist/astro-toast/Toast.astro'
+import VideoTile from '../dist/astro-video-tile/VideoTile.astro'
 
 /**
  * Deep render tests for the stateful / ARIA-heavy adapters. Multi-part
@@ -586,5 +587,61 @@ describe('astro-live-transcript exports', () => {
     expect(entry).toContain("export { default as LiveTranscript } from './LiveTranscript.astro'")
     expect(entry).toMatch(/\bapplyTranscriptUpdate\b/)
     expect(index).toContain("export * from './astro-live-transcript/index.ts'")
+  })
+})
+
+describe('astro-video-tile', () => {
+  it('renders the call states with accessible, non-colour-only cues', async () => {
+    const html = await render(VideoTile, {
+      props: { name: 'Ada Park', speaking: true, pinned: true, handRaised: true, micState: 'muted' },
+    })
+    expect(html).toContain('role="group"')
+    expect(html).toContain('aria-label="Ada Park"')
+    expect(html).toContain('data-hand-raised="true"')
+    expect(html).toContain('data-emphasis="speaking"')
+    expect(html).toContain('aria-label="Speaking"')
+    expect(html).toContain('aria-label="Hand raised"')
+    expect(html).toContain('aria-label="Pinned"')
+    expect(html).toContain('aria-label="Microphone muted"')
+  })
+
+  it('qualifies a shared screen and letterboxes its media slot', async () => {
+    const html = await render(VideoTile, {
+      props: { name: 'Ada Park', screenShare: true },
+      slots: { default: '<video data-media></video>' },
+    })
+    expect(html).toContain('aria-label="Ada Park (Presenting)"')
+    // One truncating string, so a narrow tile cuts the qualifier before the name.
+    expect(html).toMatch(/>\s*Ada Park \(Presenting\)\s*</)
+    expect(html).toContain('data-screen-share="true"')
+    expect(html).toMatch(/\[&(amp;)?(>|&gt;)video\]:object-contain/)
+    expect(html).toContain('data-media')
+    expect(html).not.toContain('>AP<')
+  })
+
+  it('renders the menu and reaction slots in the top-end cluster', async () => {
+    const html = await render(VideoTile, {
+      props: { name: 'Ada Park' },
+      slots: { menu: '<button aria-label="Options for Ada Park">...</button>', reaction: 'wave' },
+    })
+    expect(html).toContain('aria-label="Options for Ada Park"')
+    expect(html).toMatch(/aria-hidden="true">\s*wave\s*<\/div>/)
+  })
+
+  it('is exported by name from its adapter entry (re-exported by the meta)', async () => {
+    // The shipped entry is raw source whose relative imports end in `.ts`;
+    // a non-literal specifier keeps it out of this package's type-check.
+    const entryPath = '../dist/astro-video-tile/index.ts'
+    const entry = await import(/* @vite-ignore */ entryPath)
+    expect(entry.VideoTile).toBe(VideoTile)
+    expect(entry.videoTileDefaultLabels.screenShare).toBe('Presenting')
+  })
+
+  it('renders no badges or menu cluster for an idle tile', async () => {
+    const html = await render(VideoTile, { props: { name: 'Ada Park' } })
+    expect(html).toContain('data-emphasis="none"')
+    expect(html).not.toContain('Hand raised')
+    expect(html).not.toContain('aria-label="Pinned"')
+    expect(html).not.toContain('top-2 z-20')
   })
 })

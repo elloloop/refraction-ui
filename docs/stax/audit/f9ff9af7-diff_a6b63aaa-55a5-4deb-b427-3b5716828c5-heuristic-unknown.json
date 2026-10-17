@@ -1,0 +1,1092 @@
+{
+  "timestamp": "2026-10-17T03:09:13Z",
+  "call": "heuristic",
+  "sourceId": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+  "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:video-grid-render-tile",
+          "name": "Video Grid Render Tile",
+          "summary": "feat(video-grid-render-tile): show live media and call state on video tiles",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+            "feat(video-grid-render-tile): show live media and call state on video tiles"
+          ],
+          "testerNotes": [
+            "Verify behavior touching docs-site/src/app/components/video-grid/VideoGrid.stories.tsx, docs-site/src/app/components/video-grid/examples.tsx, docs-site/src/app/components/video-grid/page.tsx, docs-site/src/app/components/video-tile/VideoTile.stories.tsx, docs-site/src/app/components/video-tile/examples.tsx."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:video-grid-render-tile"
+          ],
+          "relatedComponents": [
+            "component:docs-site-src",
+            "component:packages",
+            "component:pnpm-lockyaml",
+            "component:changeset",
+            "component:docs"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:video-grid-render-tile",
+          "title": "Video Grid Render Tile",
+          "summary": "feat(video-grid-render-tile): show live media and call state on video tiles",
+          "designNotes": [
+            "Changed files: docs-site/src/app/components/video-grid/VideoGrid.stories.tsx, docs-site/src/app/components/video-grid/examples.tsx, docs-site/src/app/components/video-grid/page.tsx, docs-site/src/app/components/video-tile/VideoTile.stories.tsx, docs-site/src/app/components/video-tile/examples.tsx, docs-site/src/app/components/video-tile/page.tsx, packages/astro-meta/__tests__/deep.test.ts, packages/astro-video-tile/src/VideoTile.astro",
+            "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile."
+          ],
+          "relatedFeatures": [
+            "feature:video-grid-render-tile"
+          ],
+          "relatedComponents": [
+            "component:docs-site-src",
+            "component:packages",
+            "component:pnpm-lockyaml",
+            "component:changeset",
+            "component:docs"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:docs-site-src",
+          "name": "Docs Site/Src",
+          "kind": "docs",
+          "paths": [
+            "docs-site/src/app/components/video-grid/VideoGrid.stories.tsx",
+            "docs-site/src/app/components/video-grid/examples.tsx",
+            "docs-site/src/app/components/video-grid/page.tsx",
+            "docs-site/src/app/components/video-tile/VideoTile.stories.tsx",
+            "docs-site/src/app/components/video-tile/examples.tsx",
+            "docs-site/src/app/components/video-tile/page.tsx",
+            "docs-site/src/components/demo-call-media.tsx"
+          ],
+          "summary": "Owns changes under docs-site/src.",
+          "relatedFeatures": [
+            "feature:video-grid-render-tile"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:video-grid-render-tile"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:packages",
+          "name": "Packages",
+          "kind": "unknown",
+          "paths": [
+            "packages/astro-meta/__tests__/deep.test.ts",
+            "packages/astro-video-tile/src/VideoTile.astro",
+            "packages/astro-video-tile/src/index.ts",
+            "packages/react-video-grid/__tests__/video-grid.test.tsx",
+            "packages/react-video-grid/package.json",
+            "packages/react-video-grid/src/index.ts",
+            "packages/react-video-grid/src/video-grid.tsx",
+            "packages/react-video-tile/__tests__/video-tile.test.tsx",
+            "packages/react-video-tile/package.json",
+            "packages/react-video-tile/src/index.ts",
+            "packages/react-video-tile/src/video-tile.tsx",
+            "packages/video-grid/__tests__/video-grid.test.ts",
+            "packages/video-grid/src/video-grid.styles.ts",
+            "packages/video-grid/src/video-grid.ts",
+            "packages/video-tile/__tests__/video-tile.test.ts",
+            "packages/video-tile/src/index.ts",
+            "packages/video-tile/src/video-tile.styles.ts",
+            "packages/video-tile/src/video-tile.ts",
+            "packages/react-video-grid/__tests__/video-grid.interaction.test.tsx",
+            "packages/react-video-tile/__tests__/video-tile.interaction.test.tsx"
+          ],
+          "summary": "Owns changes under packages.",
+          "relatedFeatures": [
+            "feature:video-grid-render-tile"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:video-grid-render-tile"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:pnpm-lockyaml",
+          "name": "Pnpm Lock.Yaml",
+          "kind": "unknown",
+          "paths": [
+            "pnpm-lock.yaml"
+          ],
+          "summary": "Owns changes under pnpm-lock.yaml.",
+          "relatedFeatures": [
+            "feature:video-grid-render-tile"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:video-grid-render-tile"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:changeset",
+          "name": ".Changeset",
+          "kind": "unknown",
+          "paths": [
+            ".changeset/video-tile-live-media.md"
+          ],
+          "summary": "Owns changes under .changeset.",
+          "relatedFeatures": [
+            "feature:video-grid-render-tile"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:video-grid-render-tile"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:docs",
+          "name": "Documentation",
+          "kind": "docs",
+          "paths": [
+            "docs/pr-evidence/video-grid-render-tile/"
+          ],
+          "summary": "Owns changes under docs.",
+          "relatedFeatures": [
+            "feature:video-grid-render-tile"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:video-grid-render-tile"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:video-grid-render-tile",
+          "to": "component:docs-site-src",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:video-grid-render-tile",
+          "to": "component:docs-site-src",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:video-grid-render-tile",
+          "to": "component:packages",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:video-grid-render-tile",
+          "to": "component:packages",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:video-grid-render-tile",
+          "to": "component:pnpm-lockyaml",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:video-grid-render-tile",
+          "to": "component:pnpm-lockyaml",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:video-grid-render-tile",
+          "to": "component:changeset",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:video-grid-render-tile",
+          "to": "component:changeset",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:video-grid-render-tile",
+          "to": "component:docs",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:video-grid-render-tile",
+          "to": "component:docs",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:video-grid-render-tile",
+          "to": "technical:video-grid-render-tile",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "api:docs-site",
+          "parent": "apis",
+          "title": "Docs Site",
+          "summary": "Changed in: show live media and call state on video tiles",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-astro-video-tile",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-video-grid",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-video-tile",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-video-grid",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-video-tile",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            }
+          ],
+          "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+          "what": "show live media and call state on video tiles",
+          "how": "TypeScript. Changed: docs-site/src/app/components/video-grid/VideoGrid.stories.tsx, docs-site/src/app/components/video-grid/examples.tsx, docs-site/src/app/components/video-grid/page.tsx, docs-site/src/app/components/video-tile/VideoTile.stories.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+              "kind": "diff",
+              "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+              "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "operations:packages-astro-meta",
+          "parent": "operations",
+          "title": "Packages Astro Meta",
+          "summary": "Changed in: show live media and call state on video tiles",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-react-video-grid",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-react-video-grid",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-react-video-tile",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-react-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-video-grid",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-video-grid",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-video-tile",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            }
+          ],
+          "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+          "what": "show live media and call state on video tiles",
+          "how": "TypeScript. Changed: packages/astro-meta/__tests__/deep.test.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+              "kind": "diff",
+              "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+              "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "api:packages-astro-video-tile",
+          "parent": "apis",
+          "title": "Packages Astro Video Tile",
+          "summary": "Changed in: show live media and call state on video tiles",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-react-video-grid",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-video-tile",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-video-grid",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-video-tile",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            }
+          ],
+          "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+          "what": "show live media and call state on video tiles",
+          "how": "TypeScript. Changed: packages/astro-video-tile/src/VideoTile.astro, packages/astro-video-tile/src/index.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+              "kind": "diff",
+              "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+              "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "operations:packages-react-video-grid",
+          "parent": "operations",
+          "title": "Packages React Video Grid",
+          "summary": "Changed in: show live media and call state on video tiles",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-video-grid",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-react-video-tile",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-react-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-video-grid",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-video-grid",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-video-tile",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            }
+          ],
+          "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+          "what": "show live media and call state on video tiles",
+          "how": "TypeScript. Changed: packages/react-video-grid/__tests__/video-grid.test.tsx, packages/react-video-grid/__tests__/video-grid.interaction.test.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+              "kind": "diff",
+              "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+              "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "api:packages-react-video-grid",
+          "parent": "apis",
+          "title": "Packages React Video Grid",
+          "summary": "Changed in: show live media and call state on video tiles",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-react-video-tile",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-video-grid",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-video-tile",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            }
+          ],
+          "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+          "what": "show live media and call state on video tiles",
+          "how": "TypeScript. Changed: packages/react-video-grid/package.json, packages/react-video-grid/src/index.ts, packages/react-video-grid/src/video-grid.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+              "kind": "diff",
+              "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+              "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "operations:packages-react-video-tile",
+          "parent": "operations",
+          "title": "Packages React Video Tile",
+          "summary": "Changed in: show live media and call state on video tiles",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-video-grid",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-video-grid",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-video-grid",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-video-tile",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            }
+          ],
+          "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+          "what": "show live media and call state on video tiles",
+          "how": "TypeScript. Changed: packages/react-video-tile/__tests__/video-tile.test.tsx, packages/react-video-tile/__tests__/video-tile.interaction.test.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+              "kind": "diff",
+              "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+              "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "api:packages-react-video-tile",
+          "parent": "apis",
+          "title": "Packages React Video Tile",
+          "summary": "Changed in: show live media and call state on video tiles",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-video-grid",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-video-tile",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            }
+          ],
+          "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+          "what": "show live media and call state on video tiles",
+          "how": "TypeScript. Changed: packages/react-video-tile/package.json, packages/react-video-tile/src/index.ts, packages/react-video-tile/src/video-tile.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+              "kind": "diff",
+              "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+              "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "operations:packages-video-grid",
+          "parent": "operations",
+          "title": "Packages Video Grid",
+          "summary": "Changed in: show live media and call state on video tiles",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-video-grid",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-video-grid",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-video-tile",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            }
+          ],
+          "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+          "what": "show live media and call state on video tiles",
+          "how": "TypeScript. Changed: packages/video-grid/__tests__/video-grid.test.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+              "kind": "diff",
+              "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+              "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "api:packages-video-grid",
+          "parent": "apis",
+          "title": "Packages Video Grid",
+          "summary": "Changed in: show live media and call state on video tiles",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-video-tile",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            }
+          ],
+          "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+          "what": "show live media and call state on video tiles",
+          "how": "TypeScript. Changed: packages/video-grid/src/video-grid.styles.ts, packages/video-grid/src/video-grid.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+              "kind": "diff",
+              "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+              "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "operations:packages-video-tile",
+          "parent": "operations",
+          "title": "Packages Video Tile",
+          "summary": "Changed in: show live media and call state on video tiles",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-video-grid",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-video-grid",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            }
+          ],
+          "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+          "what": "show live media and call state on video tiles",
+          "how": "TypeScript. Changed: packages/video-tile/__tests__/video-tile.test.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+              "kind": "diff",
+              "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+              "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "api:packages-video-tile",
+          "parent": "apis",
+          "title": "Packages Video Tile",
+          "summary": "Changed in: show live media and call state on video tiles",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            }
+          ],
+          "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+          "what": "show live media and call state on video tiles",
+          "how": "TypeScript. Changed: packages/video-tile/src/index.ts, packages/video-tile/src/video-tile.styles.ts, packages/video-tile/src/video-tile.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+              "kind": "diff",
+              "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+              "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "operations:workspace-config",
+          "parent": "operations",
+          "title": "Workspace Config",
+          "summary": "Changed in: show live media and call state on video tiles",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-video-grid",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-video-grid",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-video-tile",
+              "kind": "http"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            }
+          ],
+          "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+          "what": "show live media and call state on video tiles",
+          "how": "Changed: pnpm-lock.yaml",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+              "kind": "diff",
+              "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+              "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "api:.changeset",
+          "parent": "apis",
+          "title": "Changeset",
+          "summary": "Changed in: show live media and call state on video tiles",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            }
+          ],
+          "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+          "what": "show live media and call state on video tiles",
+          "how": "Changed: .changeset/video-tile-live-media.md",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+              "kind": "diff",
+              "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+              "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "api:docs",
+          "parent": "apis",
+          "title": "Docs",
+          "summary": "Changed in: show live media and call state on video tiles",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "why": "VideoGrid gains renderMedia and renderTile with a generic participant type, so a call app attaches each participant's video without the grid touching a transport. VideoTile gains a raised hand, a screen-share qualifier, a menu slot for tile options, fill, and localisable labels; speaking and pinned cues move to an inset token edge plus icons so neither is colour-only. Grid rows pack to the top and the speaker spotlight fills its area, fixing overlapping and clipped tiles. Avatar initials scale with the tile.",
+          "what": "show live media and call state on video tiles",
+          "how": "Changed: docs/pr-evidence/video-grid-render-tile/",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:a6b63aaa-55a5-4deb-b427-3b5716828c53:v1",
+              "kind": "diff",
+              "commit": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+              "diffUuid": "a6b63aaa-55a5-4deb-b427-3b5716828c53"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "f9ff9af79487d7ac37a0f5c2da331ff0229a06bf",
+        "label": "feat(video-grid-render-tile): show live media and call state on video tiles",
+        "date": "2026-10-17",
+        "kind": "feature",
+        "touches": [
+          "api:docs-site",
+          "operations:packages-astro-meta",
+          "api:packages-astro-video-tile",
+          "operations:packages-react-video-grid",
+          "api:packages-react-video-grid",
+          "operations:packages-react-video-tile",
+          "api:packages-react-video-tile",
+          "operations:packages-video-grid",
+          "api:packages-video-grid",
+          "operations:packages-video-tile",
+          "api:packages-video-tile",
+          "operations:workspace-config",
+          "api:.changeset",
+          "api:docs"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "8d879b41825ae70bb4fa102e5dbd0b02a96dc3464b5f466002352d39ee1da996",
+    "nodeCount": 22,
+    "relationCount": 66,
+    "featureCount": 8,
+    "componentCount": 12,
+    "technicalsCount": 8
+  },
+  "graphAfter": {
+    "sha256": "2ecbdb0ec1bdca735c6e27740df123b12608e9cef1f64f14c31eb7e3ec1fc679",
+    "nodeCount": 32,
+    "relationCount": 77,
+    "featureCount": 9,
+    "componentCount": 12,
+    "technicalsCount": 9
+  }
+}

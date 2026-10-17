@@ -28,6 +28,11 @@ describe('VideoTile (SSR)', () => {
     expect(html).toContain('>A<')
   })
 
+  it('draws the initials as SVG text that scales with the avatar circle', () => {
+    const html = render({ name: 'Maya Goldberg' })
+    expect(html).toMatch(/<svg viewBox="0 0 40 40"[^>]*><text[^>]*text-anchor="middle"[^>]*>MG<\/text><\/svg>/)
+  })
+
   it('sets data-speaking=true when speaking', () => {
     const html = render({ name: 'Bob', speaking: true })
     expect(html).toContain('data-speaking="true"')
@@ -64,5 +69,103 @@ describe('VideoTile (SSR)', () => {
   it('renders the reaction badge when a reaction is provided', () => {
     const html = render({ name: 'Frank', reaction: React.createElement('span', null, '👋') })
     expect(html).toContain('👋')
+  })
+})
+
+describe('VideoTile (SSR) — call states', () => {
+  it('renders the raised-hand badge with an accessible name', () => {
+    const html = render({ name: 'Gita', handRaised: true })
+    expect(html).toContain('data-hand-raised="true"')
+    expect(html).toContain('aria-label="Hand raised"')
+  })
+
+  it('omits the raised-hand badge by default', () => {
+    const html = render({ name: 'Gita' })
+    expect(html).toContain('data-hand-raised="false"')
+    expect(html).not.toContain('Hand raised')
+  })
+
+  it('labels a shared-screen tile and qualifies its accessible name', () => {
+    const html = render({ name: 'Hiro', screenShare: true })
+    expect(html).toContain('data-screen-share="true"')
+    expect(html).toContain('aria-label="Hiro (Presenting)"')
+    // One truncating string, so a narrow tile cuts the qualifier before the name.
+    expect(html).toContain('>Hiro (Presenting)<')
+  })
+
+  it('letterboxes shared-screen media and crops camera media', () => {
+    const media = React.createElement('video')
+    expect(render({ name: 'Hiro', screenShare: true, mediaSlot: media })).toContain(
+      '[&amp;&gt;video]:object-contain',
+    )
+    expect(render({ name: 'Hiro', mediaSlot: media })).toContain(
+      '[&amp;&gt;video]:object-cover',
+    )
+  })
+
+  it('shows a sound-wave cue while speaking, so the cue is not colour-only', () => {
+    const html = render({ name: 'Ines', speaking: true })
+    expect(html).toContain('aria-label="Speaking"')
+    expect(html).toContain('data-emphasis="speaking"')
+  })
+
+  it('shows no speaking cue when silent', () => {
+    expect(render({ name: 'Ines' })).not.toContain('aria-label="Speaking"')
+  })
+
+  it('marks a pinned tile with a badge and the primary edge', () => {
+    const html = render({ name: 'Jon', pinned: true })
+    expect(html).toContain('aria-label="Pinned"')
+    expect(html).toContain('data-emphasis="pinned"')
+    expect(html).toContain('border-primary')
+  })
+
+  it('keeps the speaking edge on a pinned speaker', () => {
+    const html = render({ name: 'Jon', pinned: true, speaking: true })
+    expect(html).toContain('data-emphasis="speaking"')
+    expect(html).toContain('aria-label="Pinned"')
+  })
+
+  it('renders the menu slot', () => {
+    const menu = React.createElement('button', { type: 'button', 'aria-label': 'Options for Kim' })
+    expect(render({ name: 'Kim', menu })).toContain('aria-label="Options for Kim"')
+  })
+
+  it('accepts localised labels', () => {
+    const html = render({
+      name: 'Lea',
+      micState: 'muted',
+      handRaised: true,
+      screenShare: true,
+      labels: { muted: 'Stumm', handRaised: 'Hand gehoben', screenShare: 'Bildschirm' },
+    })
+    expect(html).toContain('aria-label="Stumm"')
+    expect(html).toContain('aria-label="Hand gehoben"')
+    expect(html).toContain('aria-label="Lea (Bildschirm)"')
+  })
+
+  it('uses the avatar image when no media is provided', () => {
+    const html = render({ name: 'Mo', avatarUrl: 'https://example.com/a.png' })
+    expect(html).toContain('src="https://example.com/a.png"')
+    expect(html).toContain('alt="Mo"')
+  })
+
+  it('keeps a 16:9 aspect ratio by default and fills its parent with fill', () => {
+    expect(render({ name: 'Ola' })).toContain('aspect-video')
+    const filled = render({ name: 'Ola', fill: true })
+    expect(filled).toContain('h-full w-full')
+    expect(filled).not.toContain('aspect-video')
+  })
+
+  it('lets a consumer aria-label win over the derived one', () => {
+    expect(render({ name: 'Nia', 'aria-label': 'Custom' })).toContain('aria-label="Custom"')
+  })
+})
+
+describe('react-video-tile entry', () => {
+  it('re-exports the label helpers so menus can name a tile the way it announces itself', async () => {
+    const entry = await import('../src/index.js')
+    expect(entry.getVideoTileLabel('Ada', { screenShare: true })).toBe('Ada (Presenting)')
+    expect(entry.videoTileDefaultLabels.handRaised).toBe('Hand raised')
   })
 })

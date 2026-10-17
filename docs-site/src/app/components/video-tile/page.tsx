@@ -19,13 +19,27 @@ const videoTileProps = [
     name: 'speaking',
     type: 'boolean',
     default: 'false',
-    description: 'Whether the participant is actively speaking. Adds an emerald ring around the tile.',
+    description:
+      'Whether the participant is actively speaking. Draws a success-toned edge inside the tile and a sound-wave icon in the name chip, so the cue is not colour alone.',
   },
   {
     name: 'pinned',
     type: 'boolean',
     default: 'false',
-    description: 'Whether the tile is pinned in the meeting grid. Adds a primary ring.',
+    description: 'Whether the tile is pinned. Draws a primary edge and a pin badge (the speaking edge wins while they talk; the badge stays).',
+  },
+  {
+    name: 'handRaised',
+    type: 'boolean',
+    default: 'false',
+    description: 'Whether the participant has raised their hand. Shows a labelled hand badge at the top-left.',
+  },
+  {
+    name: 'screenShare',
+    type: 'boolean',
+    default: 'false',
+    description:
+      'Whether the tile carries a shared screen. Adds a "Presenting" qualifier to the name chip and the accessible name, and letterboxes the media instead of cropping it.',
   },
   {
     name: 'avatarUrl',
@@ -35,7 +49,25 @@ const videoTileProps = [
   {
     name: 'mediaSlot',
     type: 'React.ReactNode',
-    description: 'A <video> element or any ReactNode to use as the tile media layer. When omitted the avatar/initials fallback is shown.',
+    description:
+      'A <video> element (or any ReactNode) for the media layer. Direct children are sized to fill the tile; camera video is cropped to cover, a shared screen is letterboxed. When omitted the avatar/initials fallback is shown.',
+  },
+  {
+    name: 'fill',
+    type: 'boolean',
+    default: 'false',
+    description: 'Fill the parent instead of keeping a 16:9 aspect ratio — for a spotlight or stage cell whose size the layout sets.',
+  },
+  {
+    name: 'menu',
+    type: 'React.ReactNode',
+    description: 'Tile options slot at the top-right, above the media — typically a menu trigger (pin, maximise, mute for me). Interactive content stays keyboard reachable.',
+  },
+  {
+    name: 'labels',
+    type: 'Partial<VideoTileLabels>',
+    description:
+      "Override the indicator text: { muted, speaking, handRaised, pinned, screenShare }. Defaults: 'Microphone muted', 'Speaking', 'Hand raised', 'Pinned', 'Presenting'.",
   },
   {
     name: 'reaction',
@@ -51,22 +83,40 @@ const videoTileProps = [
 
 const usageCode = `import { VideoTile } from '@refraction-ui/react'
 
-export function MeetingGrid() {
+// Attach a participant's MediaStream from whichever call SDK you use.
+function StreamVideo({ stream }: { stream: MediaStream }) {
+  const ref = React.useRef<HTMLVideoElement>(null)
+  React.useEffect(() => {
+    if (ref.current) ref.current.srcObject = stream
+  }, [stream])
+  return <video ref={ref} autoPlay muted playsInline />
+}
+
+export function MeetingGrid({ stream, share }) {
   return (
     <div className="grid grid-cols-2 gap-4">
-      <VideoTile
-        name="Maya Goldberg"
-        speaking={true}
-        micState="on"
-      />
+      <VideoTile name="Maya Goldberg" speaking handRaised />
       <VideoTile
         name="Bob Kim"
         micState="muted"
-        mediaSlot={<video autoPlay muted ref={videoRef} />}
+        mediaSlot={<StreamVideo stream={stream} />}
+        menu={<TileOptionsMenu participant="Bob Kim" />}
       />
+      <VideoTile name="Bob Kim" screenShare mediaSlot={<StreamVideo stream={share} />} />
     </div>
   )
 }`
+
+const astroUsageCode = `---
+import { VideoTile } from '@refraction-ui/astro'
+---
+
+<VideoTile name="Maya Goldberg" speaking handRaised />
+
+<VideoTile name="Bob Kim" micState="muted">
+  <video autoplay muted playsinline data-stream="bob"></video>
+  <button slot="menu" type="button" aria-label="Options for Bob Kim">…</button>
+</VideoTile>`
 
 export default function VideoTilePage() {
   return (
@@ -81,7 +131,8 @@ export default function VideoTilePage() {
         <p className="mt-3 text-lg text-muted-foreground leading-relaxed">
           A participant tile for video meeting grids — shows a live media stream
           or an avatar/initials fallback, with overlays for the participant name,
-          mic state, speaking indicator, and optional reactions.
+          mic state, speaking indicator, raised hand, shared screen, reactions and
+          a tile options menu.
         </p>
       </div>
 
@@ -98,8 +149,8 @@ export default function VideoTilePage() {
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Speaking + muted states</h2>
         <p className="text-sm text-muted-foreground">
-          Pass <code className="text-xs bg-muted px-1 rounded">speaking</code> to add an
-          emerald ring indicating active audio. Set{' '}
+          Pass <code className="text-xs bg-muted px-1 rounded">speaking</code> to draw a
+          success-toned edge and a sound-wave icon for active audio. Set{' '}
           <code className="text-xs bg-muted px-1 rounded">micState="muted"</code> to show
           the mic-off icon in the name chip.
         </p>
@@ -110,11 +161,46 @@ export default function VideoTilePage() {
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Pinned</h2>
         <p className="text-sm text-muted-foreground">
           Pass <code className="text-xs bg-muted px-1 rounded">pinned</code> to highlight
-          a tile with a primary ring. The optional{' '}
+          a tile with a primary edge and a pin badge. The optional{' '}
           <code className="text-xs bg-muted px-1 rounded">reaction</code> prop places a
           badge in the top-right corner.
         </p>
         <VideoTileExamples section="pinned" />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Live media</h2>
+        <p className="text-sm text-muted-foreground">
+          Pass a <code className="text-xs bg-muted px-1 rounded">&lt;video&gt;</code> as{' '}
+          <code className="text-xs bg-muted px-1 rounded">mediaSlot</code> and attach the
+          participant&apos;s stream to it. The tile never touches the stream, so it works with
+          any call SDK. The examples here use static frames.
+        </p>
+        <VideoTileExamples section="media" />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">
+          Raised hand and shared screen
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          <code className="text-xs bg-muted px-1 rounded">handRaised</code> shows a labelled
+          hand badge.{' '}
+          <code className="text-xs bg-muted px-1 rounded">screenShare</code> marks a shared
+          screen: the name chip reads &quot;Presenting&quot;, the accessible name is qualified so
+          it is not confused with the same person&apos;s camera, and the media is letterboxed.
+        </p>
+        <VideoTileExamples section="hand-screen" />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Tile options</h2>
+        <p className="text-sm text-muted-foreground">
+          The <code className="text-xs bg-muted px-1 rounded">menu</code> slot sits at the
+          top-right above the media. Put a menu trigger there — here a dropdown that pins the tile
+          and mutes the participant for you.
+        </p>
+        <VideoTileExamples section="tile-options" />
       </section>
 
       <section className="space-y-3">
@@ -124,7 +210,7 @@ export default function VideoTilePage() {
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
-        <CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} />
+        <CodeBlock frameworks={{ react: usageCode, astro: astroUsageCode }} />
       </section>
 
       <div className="h-px bg-border" />
