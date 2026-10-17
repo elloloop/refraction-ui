@@ -113,6 +113,7 @@ const componentGroups = [
       { name: 'Pane Header', href: '/components/pane-header' },
       { name: 'Thread Summary', href: '/components/thread-summary' },
       { name: 'Reaction Tray', href: '/components/reaction-tray' },
+      { name: 'Multi Combobox', href: '/components/multi-combobox' },
     ],
   },
   {

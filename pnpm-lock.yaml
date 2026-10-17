@@ -389,6 +389,9 @@ importers:
       '@refraction-ui/react-mobile-nav':
         specifier: workspace:*
         version: link:../packages/react-mobile-nav
+      '@refraction-ui/react-multi-combobox':
+        specifier: workspace:*
+        version: link:../packages/react-multi-combobox
       '@refraction-ui/react-native-select':
         specifier: workspace:*
         version: link:../packages/react-native-select
@@ -3422,6 +3425,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/multi-combobox:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/native-select:
     dependencies:
       '@refraction-ui/shared':
@@ -5749,6 +5758,9 @@ importers:
       '@refraction-ui/react-mobile-nav':
         specifier: workspace:*
         version: link:../react-mobile-nav
+      '@refraction-ui/react-multi-combobox':
+        specifier: workspace:*
+        version: link:../react-multi-combobox
       '@refraction-ui/react-native-select':
         specifier: workspace:*
         version: link:../react-native-select
@@ -5997,6 +6009,31 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-multi-combobox:
+    dependencies:
+      '@refraction-ui/multi-combobox':
+        specifier: workspace:*
+        version: link:../multi-combobox
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
