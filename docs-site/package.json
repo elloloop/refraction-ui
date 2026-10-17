@@ -120,6 +120,7 @@
     "@refraction-ui/react-stat-grid": "workspace:*",
     "@refraction-ui/react-status-badge": "workspace:*",
     "@refraction-ui/react-status-indicator": "workspace:*",
+    "@refraction-ui/react-step-card": "workspace:*",
     "@refraction-ui/react-steps": "workspace:*",
     "@refraction-ui/react-sticky-note": "workspace:*",
     "@refraction-ui/react-switch": "workspace:*",

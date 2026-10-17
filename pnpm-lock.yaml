@@ -485,6 +485,9 @@ importers:
       '@refraction-ui/react-status-indicator':
         specifier: workspace:*
         version: link:../packages/react-status-indicator
+      '@refraction-ui/react-step-card':
+        specifier: workspace:*
+        version: link:../packages/react-step-card
       '@refraction-ui/react-steps':
         specifier: workspace:*
         version: link:../packages/react-steps
@@ -5704,6 +5707,9 @@ importers:
       '@refraction-ui/react-status-indicator':
         specifier: workspace:*
         version: link:../react-status-indicator
+      '@refraction-ui/react-step-card':
+        specifier: workspace:*
+        version: link:../react-step-card
       '@refraction-ui/react-steps':
         specifier: workspace:*
         version: link:../react-steps
@@ -6676,6 +6682,40 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-step-card:
+    dependencies:
+      '@refraction-ui/react-button':
+        specifier: workspace:*
+        version: link:../react-button
+      '@refraction-ui/react-collapsible':
+        specifier: workspace:*
+        version: link:../react-collapsible
+      '@refraction-ui/react-markup-text':
+        specifier: workspace:*
+        version: link:../react-markup-text
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/step-card':
+        specifier: workspace:*
+        version: link:../step-card
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-steps:
     dependencies:
       '@refraction-ui/shared':
@@ -7322,6 +7362,12 @@ importers:
         version: link:../shared
 
   packages/status-indicator:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/step-card:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
