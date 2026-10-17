@@ -145,6 +145,7 @@
     "@refraction-ui/react-theme": "workspace:*",
     "@refraction-ui/react-thread-summary": "workspace:*",
     "@refraction-ui/react-thread-view": "workspace:*",
+    "@refraction-ui/react-time-picker": "workspace:*",
     "@refraction-ui/react-timeline": "workspace:*",
     "@refraction-ui/react-toast": "workspace:*",
     "@refraction-ui/react-tooltip": "workspace:*",

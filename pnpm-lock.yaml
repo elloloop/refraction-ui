@@ -560,6 +560,9 @@ importers:
       '@refraction-ui/react-thread-view':
         specifier: workspace:*
         version: link:../packages/react-thread-view
+      '@refraction-ui/react-time-picker':
+        specifier: workspace:*
+        version: link:../packages/react-time-picker
       '@refraction-ui/react-timeline':
         specifier: workspace:*
         version: link:../packages/react-timeline
@@ -6024,6 +6027,9 @@ importers:
       '@refraction-ui/react-thread-view':
         specifier: workspace:*
         version: link:../react-thread-view
+      '@refraction-ui/react-time-picker':
+        specifier: workspace:*
+        version: link:../react-time-picker
       '@refraction-ui/react-timeline':
         specifier: workspace:*
         version: link:../react-timeline
@@ -7472,6 +7478,31 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-time-picker:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/time-picker':
+        specifier: workspace:*
+        version: link:../time-picker
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-timeline:
     dependencies:
       '@refraction-ui/shared':
@@ -7970,6 +8001,12 @@ importers:
         version: link:../shared
 
   packages/thread-view:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/time-picker:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*

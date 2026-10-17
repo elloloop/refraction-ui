@@ -118,6 +118,7 @@ const componentGroups = [
       { name: 'Task List', href: '/components/task-list' },
       { name: 'Sandbox Frame', href: '/components/sandbox-frame' },
       { name: 'GIF Picker', href: '/components/gif-picker' },
+      { name: 'Time Picker', href: '/components/time-picker' },
     ],
   },
   {
