@@ -76,6 +76,7 @@
     "@refraction-ui/react-line-chart": "workspace:*",
     "@refraction-ui/react-link-card": "workspace:*",
     "@refraction-ui/react-link-preview": "workspace:*",
+    "@refraction-ui/react-list-item": "workspace:*",
     "@refraction-ui/react-live-captions": "workspace:*",
     "@refraction-ui/react-live-cursors": "workspace:*",
     "@refraction-ui/react-live-dot": "workspace:*",

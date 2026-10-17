@@ -108,6 +108,7 @@ const componentGroups = [
       { name: 'Pinned Bar', href: '/components/pinned-bar' },
       { name: 'Link Preview', href: '/components/link-preview' },
       { name: 'Context Menu', href: '/components/context-menu' },
+      { name: 'List Item', href: '/components/list-item' },
     ],
   },
   {
