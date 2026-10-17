@@ -172,6 +172,7 @@ const componentGroups = [
     items: [
       { name: 'Video Tile', href: '/components/video-tile' },
       { name: 'Video Grid', href: '/components/video-grid' },
+      { name: 'Video Stage', href: '/components/video-stage' },
       { name: 'Call Controls', href: '/components/call-controls' },
       { name: 'Live Captions', href: '/components/live-captions' },
       { name: 'Live Transcript', href: '/components/live-transcript' },

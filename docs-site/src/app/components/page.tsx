@@ -132,6 +132,7 @@ const components = [
   { name: 'Test Results', href: '/components/test-results', description: 'Visual representation of unit test suite executions.', category: 'Data' },
   { name: 'Video Tile', href: '/components/video-tile', description: 'Call participant video tile with status overlays.', category: 'Media' },
   { name: 'Video Grid', href: '/components/video-grid', description: 'Grid container for multiple video tiles.', category: 'Media' },
+  { name: 'Video Stage', href: '/components/video-stage', description: 'Call stage with paging, pin, spotlight and zoom.', category: 'Media' },
   { name: 'Call Controls', href: '/components/call-controls', description: 'Actions bar for managing audio, video, and screenshare.', category: 'Media' },
   { name: 'Live Captions', href: '/components/live-captions', description: 'Real-time speech-to-text subtitle overlay.', category: 'Media' },
   { name: 'Live Transcript', href: '/components/live-transcript', description: 'Full conversation transcription list with search.', category: 'Media' },

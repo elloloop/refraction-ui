@@ -243,6 +243,7 @@ export * from '@refraction-ui/react-editor-status-bar'
 // easyloops design-parity wave 2 (Cluster A — video)
 export * from '@refraction-ui/react-video-tile'
 export * from '@refraction-ui/react-video-grid'
+export * from '@refraction-ui/react-video-stage'
 export * from '@refraction-ui/react-call-controls'
 export * from '@refraction-ui/react-live-captions'
 export * from '@refraction-ui/react-live-transcript'
