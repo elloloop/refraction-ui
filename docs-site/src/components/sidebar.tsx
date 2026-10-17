@@ -101,6 +101,7 @@ const componentGroups = [
       { name: 'Rich Editor', href: '/components/rich-editor' },
       { name: 'Live Dot', href: '/components/live-dot' },
       { name: 'Icon Button', href: '/components/icon-button' },
+      { name: 'Split Button', href: '/components/split-button' },
       { name: 'Highlight Text', href: '/components/highlight-text' },
       { name: 'Markup Text', href: '/components/markup-text' },
       { name: 'Virtual List', href: '/components/virtual-list' },
