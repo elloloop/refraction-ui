@@ -227,6 +227,9 @@ importers:
       '@refraction-ui/react-collapsible':
         specifier: workspace:*
         version: link:../packages/react-collapsible
+      '@refraction-ui/react-color-chip':
+        specifier: workspace:*
+        version: link:../packages/react-color-chip
       '@refraction-ui/react-combobox':
         specifier: workspace:*
         version: link:../packages/react-combobox
@@ -2894,6 +2897,16 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/color-chip:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@refraction-ui/tailwind-config':
+        specifier: workspace:*
+        version: link:../tailwind-config
+
   packages/command:
     dependencies:
       '@refraction-ui/shared':
@@ -4305,6 +4318,37 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-color-chip:
+    dependencies:
+      '@refraction-ui/color-chip':
+        specifier: workspace:*
+        version: link:../color-chip
+      '@refraction-ui/icon-button':
+        specifier: workspace:*
+        version: link:../icon-button
+      '@refraction-ui/react-tooltip':
+        specifier: workspace:*
+        version: link:../react-tooltip
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -5962,6 +6006,9 @@ importers:
       '@refraction-ui/react-collapsible':
         specifier: workspace:*
         version: link:../react-collapsible
+      '@refraction-ui/react-color-chip':
+        specifier: workspace:*
+        version: link:../react-color-chip
       '@refraction-ui/react-combobox':
         specifier: workspace:*
         version: link:../react-combobox

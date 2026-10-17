@@ -24,6 +24,9 @@ export {
   getThemeVariableNames,
 } from './themes/glassa.js'
 
+// Categorical palette (dot / wash / foreground per category)
+export { CATEGORY_COUNT, categoryTokens, categoryVariableNames } from './themes/categories.js'
+
 // Accessibility: WCAG contrast ratio validation
 export {
   parseHSL,

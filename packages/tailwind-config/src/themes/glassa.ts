@@ -19,6 +19,8 @@
  *   Mono       — Stripe docs + GitHub (slate, technical, code-first)
  */
 
+import { categoryTokens } from './categories.js'
+
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
@@ -195,6 +197,9 @@ export const refractionTheme: ThemeDefinition = {
       '--chart-4': '330 65% 50%',
       '--chart-5': '201 96% 42%',
 
+      // Categorical palette (shared by all themes; see categories.ts)
+      ...categoryTokens.light,
+
       // Sidebar
       '--sidebar-background': '0 0% 98%',
       '--sidebar-foreground': '240 10% 10%',
@@ -268,6 +273,9 @@ export const refractionTheme: ThemeDefinition = {
       '--chart-3': '38 92% 60%',
       '--chart-4': '330 60% 65%',
       '--chart-5': '201 90% 55%',
+
+      // Categorical palette (shared by all themes; see categories.ts)
+      ...categoryTokens.dark,
 
       '--sidebar-background': '240 10% 4%',
       '--sidebar-foreground': '0 0% 98%',
@@ -415,6 +423,9 @@ export const luxeTheme: ThemeDefinition = {
       '--chart-4': '280 50% 50%',
       '--chart-5': '350 60% 50%',
 
+      // Categorical palette (shared by all themes; see categories.ts)
+      ...categoryTokens.light,
+
       '--sidebar-background': '0 0% 98%',
       '--sidebar-foreground': '0 0% 12%',
       '--sidebar-primary': '220 90% 45%',
@@ -487,6 +498,9 @@ export const luxeTheme: ThemeDefinition = {
       '--chart-3': '38 85% 58%',
       '--chart-4': '280 45% 60%',
       '--chart-5': '350 55% 60%',
+
+      // Categorical palette (shared by all themes; see categories.ts)
+      ...categoryTokens.dark,
 
       '--sidebar-background': '0 0% 5%',
       '--sidebar-foreground': '0 0% 98%',
@@ -637,6 +651,9 @@ export const warmTheme: ThemeDefinition = {
       '--chart-4': '270 50% 55%',
       '--chart-5': '45 85% 48%',
 
+      // Categorical palette (shared by all themes; see categories.ts)
+      ...categoryTokens.light,
+
       '--sidebar-background': '35 25% 97%',
       '--sidebar-foreground': '15 20% 12%',
       '--sidebar-primary': '350 85% 46%',
@@ -709,6 +726,9 @@ export const warmTheme: ThemeDefinition = {
       '--chart-3': '155 50% 48%',
       '--chart-4': '270 45% 65%',
       '--chart-5': '45 80% 58%',
+
+      // Categorical palette (shared by all themes; see categories.ts)
+      ...categoryTokens.dark,
 
       '--sidebar-background': '15 15% 5%',
       '--sidebar-foreground': '30 20% 95%',
@@ -858,6 +878,9 @@ export const signalTheme: ThemeDefinition = {
       '--chart-4': '340 60% 50%',
       '--chart-5': '160 70% 38%',
 
+      // Categorical palette (shared by all themes; see categories.ts)
+      ...categoryTokens.light,
+
       '--sidebar-background': '200 8% 97%',
       '--sidebar-foreground': '210 15% 12%',
       '--sidebar-primary': '190 80% 32%',
@@ -930,6 +953,9 @@ export const signalTheme: ThemeDefinition = {
       '--chart-3': '252 55% 65%',
       '--chart-4': '340 55% 60%',
       '--chart-5': '160 55% 48%',
+
+      // Categorical palette (shared by all themes; see categories.ts)
+      ...categoryTokens.dark,
 
       '--sidebar-background': '210 15% 5%',
       '--sidebar-foreground': '190 10% 95%',
@@ -1079,6 +1105,9 @@ export const pulseTheme: ThemeDefinition = {
       '--chart-4': '340 65% 50%',
       '--chart-5': '140 60% 40%',
 
+      // Categorical palette (shared by all themes; see categories.ts)
+      ...categoryTokens.light,
+
       '--sidebar-background': '240 8% 96%',
       '--sidebar-foreground': '240 10% 10%',
       '--sidebar-primary': '265 80% 55%',
@@ -1151,6 +1180,9 @@ export const pulseTheme: ThemeDefinition = {
       '--chart-3': '55 75% 58%',
       '--chart-4': '340 55% 60%',
       '--chart-5': '140 50% 50%',
+
+      // Categorical palette (shared by all themes; see categories.ts)
+      ...categoryTokens.dark,
 
       '--sidebar-background': '260 15% 5%',
       '--sidebar-foreground': '260 10% 96%',
@@ -1300,6 +1332,9 @@ export const monoTheme: ThemeDefinition = {
       '--chart-4': '210 10% 70%',
       '--chart-5': '210 10% 82%',
 
+      // Categorical palette (shared by all themes; see categories.ts)
+      ...categoryTokens.light,
+
       '--sidebar-background': '210 18% 96%',
       '--sidebar-foreground': '210 15% 20%',
       '--sidebar-primary': '210 10% 23%',
@@ -1372,6 +1407,9 @@ export const monoTheme: ThemeDefinition = {
       '--chart-3': '210 10% 50%',
       '--chart-4': '210 10% 35%',
       '--chart-5': '210 10% 22%',
+
+      // Categorical palette (shared by all themes; see categories.ts)
+      ...categoryTokens.dark,
 
       '--sidebar-background': '210 15% 5%',
       '--sidebar-foreground': '210 15% 93%',

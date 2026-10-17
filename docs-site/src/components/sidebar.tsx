@@ -128,6 +128,7 @@ const componentGroups = [
       { name: 'Jump To Latest', href: '/components/jump-to-latest' },
       { name: 'Command Dialog', href: '/components/command-dialog' },
       { name: 'Shortcuts Dialog', href: '/components/shortcuts-dialog' },
+      { name: 'Color Chip', href: '/components/color-chip' },
     ],
   },
   {
