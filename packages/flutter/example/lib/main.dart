@@ -81,13 +81,14 @@ class _RouteNotifier extends Notifier<String> {
     } else {
       initial = WidgetsBinding.instance.platformDispatcher.defaultRouteName;
     }
-    
+
     if (initial.isNotEmpty && initial != '/') {
       // Ensure leading slash
       return initial.startsWith('/') ? initial : '/$initial';
     }
     return '/';
   }
+
   void update(String val) => state = val;
 }
 
@@ -95,19 +96,40 @@ final appRouteProvider = NotifierProvider<_RouteNotifier, String>(
   _RouteNotifier.new,
 );
 
-class _DarkModeNotifier extends Notifier<bool> {
-  @override
-  bool build() => true;
-  void toggle() => state = !state;
+ThemeMode previewAppearance(Uri uri) =>
+    switch (uri.queryParameters['appearance']) {
+      'light' => ThemeMode.light,
+      'dark' => ThemeMode.dark,
+      _ => ThemeMode.system,
+    };
+
+String previewPalette(Uri uri) {
+  final theme = uri.queryParameters['theme'];
+  for (final palette in const [
+    'Minimal',
+    'Fintech',
+    'Wellness',
+    'Creative',
+    'Productivity',
+  ]) {
+    if (theme == '$palette Light' || theme == '$palette Dark') return palette;
+  }
+  return 'Minimal';
 }
 
-final darkModeProvider = NotifierProvider<_DarkModeNotifier, bool>(
-  _DarkModeNotifier.new,
+class _AppearanceNotifier extends Notifier<ThemeMode> {
+  @override
+  ThemeMode build() => previewAppearance(Uri.base);
+  void update(ThemeMode mode) => state = mode;
+}
+
+final appearanceProvider = NotifierProvider<_AppearanceNotifier, ThemeMode>(
+  _AppearanceNotifier.new,
 );
 
 class _PaletteNotifier extends Notifier<String> {
   @override
-  String build() => 'Minimal';
+  String build() => previewPalette(Uri.base);
   void update(String val) => state = val;
 }
 
@@ -115,8 +137,33 @@ final paletteProvider = NotifierProvider<_PaletteNotifier, String>(
   _PaletteNotifier.new,
 );
 
-class RefractionDemoApp extends ConsumerWidget {
+class RefractionDemoApp extends ConsumerStatefulWidget {
   const RefractionDemoApp({super.key});
+
+  @override
+  ConsumerState<RefractionDemoApp> createState() => _RefractionDemoAppState();
+}
+
+class _RefractionDemoAppState extends ConsumerState<RefractionDemoApp>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    if (mounted && ref.read(appearanceProvider) == ThemeMode.system) {
+      setState(() {});
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   final List<String> components = const [
     'App Shell',
@@ -180,8 +227,13 @@ class RefractionDemoApp extends ConsumerWidget {
   ];
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isDarkMode = ref.watch(darkModeProvider);
+  Widget build(BuildContext context) {
+    final appearance = ref.watch(appearanceProvider);
+    final isDarkMode =
+        appearance == ThemeMode.dark ||
+        (appearance == ThemeMode.system &&
+            WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+                Brightness.dark);
     final palette = ref.watch(paletteProvider);
 
     RefractionThemeData themeData;
@@ -231,6 +283,8 @@ class RefractionDemoApp extends ConsumerWidget {
 }
 
 class _AppShell extends ConsumerWidget {
+  static const _compactHeaderBreakpoint = 800.0;
+  static const _compactHeaderHeight = 168.0;
   final List<String> components;
 
   const _AppShell({required this.components});
@@ -258,61 +312,76 @@ class _AppShell extends ConsumerWidget {
       body = const Center(child: Text('404 Not Found'));
     }
 
+    final compact = MediaQuery.sizeOf(context).width < _compactHeaderBreakpoint;
     return Scaffold(
       backgroundColor: colors.background,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(64),
+        preferredSize: Size.fromHeight(compact ? _compactHeaderHeight : 64),
         child: Container(
           decoration: BoxDecoration(
             color: colors.background,
             border: Border(bottom: BorderSide(color: colors.border)),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () => ref.read(appRouteProvider.notifier).update('/'),
-                child: Row(
-                  children: [
-                    Icon(Icons.diamond, color: colors.primary, size: 28),
-                    const SizedBox(width: 12),
-                    Text(
-                      "Refraction UI",
-                      style: theme.textStyle.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    RefractionBadge(
-                      variant: RefractionBadgeVariant.secondary,
-                      child: const Text("Flutter v0.2.0"),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: SizedBox(
+              width: double.infinity,
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 16,
+                runSpacing: 8,
                 children: [
-                  _buildThemePicker(context, ref, theme),
-                  const SizedBox(width: 16),
-                  _buildDarkModeToggle(ref, theme),
-                  const SizedBox(width: 16),
-                  RefractionButton(
-                    variant: RefractionButtonVariant.outline,
-                    onPressed: () {},
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
+                  InkWell(
+                    onTap: () =>
+                        ref.read(appRouteProvider.notifier).update('/'),
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 12,
+                      runSpacing: 8,
                       children: [
-                        Icon(Icons.code, size: 16),
-                        SizedBox(width: 8),
-                        Text("GitHub"),
+                        Icon(Icons.diamond, color: colors.primary, size: 28),
+                        Text(
+                          "Refraction UI",
+                          style: theme.textStyle.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                        RefractionBadge(
+                          variant: RefractionBadgeVariant.secondary,
+                          child: const Text("Flutter v0.2.0"),
+                        ),
                       ],
                     ),
                   ),
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 16,
+                    runSpacing: 8,
+                    children: [
+                      _buildThemePicker(context, ref, theme),
+                      _buildAppearancePicker(ref),
+                      IntrinsicWidth(
+                        child: RefractionButton(
+                          variant: RefractionButtonVariant.outline,
+                          onPressed: () {},
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.code, size: 16),
+                              SizedBox(width: 8),
+                              Text("GitHub"),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),
@@ -320,25 +389,24 @@ class _AppShell extends ConsumerWidget {
     );
   }
 
-  Widget _buildDarkModeToggle(WidgetRef ref, RefractionThemeData theme) {
-    final isDark = ref.watch(darkModeProvider);
-    return InkWell(
-      onTap: () => ref.read(darkModeProvider.notifier).toggle(),
-      child: Container(
-        height: 36,
-        width: 36,
-        decoration: BoxDecoration(
-          border: Border.all(color: theme.colors.border),
-          borderRadius: BorderRadius.circular(theme.borderRadius),
-        ),
-        child: Icon(
-          isDark ? Icons.light_mode : Icons.dark_mode,
-          size: 16,
-          color: theme.colors.foreground,
-        ),
+  Widget _buildAppearancePicker(WidgetRef ref) => SizedBox(
+    width: 140,
+    child: Semantics(
+      label: 'Appearance',
+      child: RefractionSelect<ThemeMode>(
+        key: const ValueKey('gallery-appearance'),
+        value: ref.watch(appearanceProvider),
+        onChanged: (mode) {
+          if (mode != null) ref.read(appearanceProvider.notifier).update(mode);
+        },
+        items: const [
+          DropdownMenuItem(value: ThemeMode.system, child: Text('System')),
+          DropdownMenuItem(value: ThemeMode.light, child: Text('Light')),
+          DropdownMenuItem(value: ThemeMode.dark, child: Text('Dark')),
+        ],
       ),
-    );
-  }
+    ),
+  );
 
   Widget _buildThemePicker(
     BuildContext context,
@@ -369,6 +437,7 @@ class _AppShell extends ConsumerWidget {
           borderRadius: BorderRadius.circular(theme.borderRadius),
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               width: 12,

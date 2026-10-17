@@ -17,9 +17,41 @@ class AvatarPage extends StatelessWidget {
           runSpacing: 32,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            const Column(
+            Column(
               children: [
-                Text("Standard"),
+                Text(
+                  'Bounded decode',
+                  style: TextStyle(color: context.refractionColors.foreground),
+                ),
+                SizedBox(height: 16),
+                RefractionBoundedAvatar(
+                  imageUrl: 'https://i.pravatar.cc/150?img=1',
+                  fallbackText: 'JD',
+                  size: 48,
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Text(
+                  'Complete original',
+                  style: TextStyle(color: context.refractionColors.foreground),
+                ),
+                SizedBox(height: 16),
+                RefractionBoundedAvatar(
+                  imageUrl: 'https://i.pravatar.cc/150?img=1',
+                  fallbackText: 'JD',
+                  size: 64,
+                  fit: BoxFit.contain,
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Text(
+                  "Standard",
+                  style: TextStyle(color: context.refractionColors.foreground),
+                ),
                 SizedBox(height: 16),
                 RefractionAvatar(
                   imageUrl: 'https://i.pravatar.cc/150?img=1',
@@ -27,16 +59,22 @@ class AvatarPage extends StatelessWidget {
                 ),
               ],
             ),
-            const Column(
+            Column(
               children: [
-                Text("Fallback"),
+                Text(
+                  "Fallback",
+                  style: TextStyle(color: context.refractionColors.foreground),
+                ),
                 SizedBox(height: 16),
                 RefractionAvatar(fallbackText: 'JD'),
               ],
             ),
-            const Column(
+            Column(
               children: [
-                Text("Error Fallback"),
+                Text(
+                  "Error Fallback",
+                  style: TextStyle(color: context.refractionColors.foreground),
+                ),
                 SizedBox(height: 16),
                 RefractionAvatar(
                   imageUrl: 'https://invalid-url.com/image.png',
@@ -46,7 +84,10 @@ class AvatarPage extends StatelessWidget {
             ),
             Column(
               children: [
-                const Text("Avatar Group"),
+                Text(
+                  "Avatar Group",
+                  style: TextStyle(color: context.refractionColors.foreground),
+                ),
                 const SizedBox(height: 16),
                 RefractionAvatarGroup(
                   avatars: const [
