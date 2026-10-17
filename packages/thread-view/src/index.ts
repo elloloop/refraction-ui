@@ -19,8 +19,10 @@ export {
   threadTimestampStyles,
   threadBodyStyles,
   threadReactionsStyles,
+  threadReactionVariants,
   threadReplyIndicatorStyles,
   threadActionsStyles,
+  threadReplyButtonStyles,
   threadAttachmentStyles,
   threadEditedStyles,
 } from './thread-view.styles.js'

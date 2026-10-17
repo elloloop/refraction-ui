@@ -9,8 +9,10 @@ import {
   threadTimestampStyles,
   threadBodyStyles,
   threadReactionsStyles,
+  threadReactionVariants,
   threadReplyIndicatorStyles,
   threadActionsStyles,
+  threadReplyButtonStyles,
   threadAttachmentStyles,
   threadEditedStyles,
   type MessageData,
@@ -85,10 +87,9 @@ const api = createThreadView({ messages, currentUserId })
               {message.reactions.map((reaction, i) => (
                 <button
                   type="button"
-                  class={cn(
-                    'inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-xs cursor-pointer',
-                    reaction.userReacted ? 'border-primary bg-primary/10' : 'border-border',
-                  )}
+                  class={threadReactionVariants({
+                    reacted: reaction.userReacted ? 'true' : 'false',
+                  })}
                   data-rfr-thread-reaction
                   data-message-id={message.id}
                   data-emoji={reaction.emoji}
@@ -118,7 +119,7 @@ const api = createThreadView({ messages, currentUserId })
           <div class={threadActionsStyles}>
             <button
               type="button"
-              class="text-xs text-muted-foreground hover:text-foreground cursor-pointer"
+              class={threadReplyButtonStyles}
               role={replyAriaProps.role as string}
               aria-label={replyAriaProps['aria-label'] as string}
               data-rfr-thread-reply
