@@ -2045,6 +2045,9 @@ importers:
       '@types/node':
         specifier: 22.0.0
         version: 22.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
 
   packages/astro-mini-map:
     dependencies:
