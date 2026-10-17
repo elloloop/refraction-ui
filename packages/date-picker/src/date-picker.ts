@@ -103,12 +103,30 @@ function startOfMonth(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), 1)
 }
 
-function startOfDay(date: Date): Date {
+/** Midnight, local time, at the start of `date`'s day. */
+export function startOfDay(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate())
 }
 
 function endOfDay(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999)
+}
+
+/** Whether `date` falls on a day before `minDate` or after `maxDate`. */
+export function isDateOutOfRange(date: Date, minDate?: Date, maxDate?: Date): boolean {
+  if (minDate && date < startOfDay(minDate)) return true
+  if (maxDate && date > endOfDay(maxDate)) return true
+  return false
+}
+
+/**
+ * `date` with the hours and minutes of `source`, so picking another day keeps
+ * the time already chosen. Without a `source` it is a copy of `date`.
+ */
+export function withTimeOf(date: Date, source?: Date): Date {
+  const result = new Date(date)
+  if (source) result.setHours(source.getHours(), source.getMinutes())
+  return result
 }
 
 const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -170,9 +188,7 @@ export function createDatePicker(props: DatePickerProps = {}): DatePickerAPI {
   }
 
   function isDateDisabled(date: Date): boolean {
-    if (minDate && date < startOfDay(minDate)) return true
-    if (maxDate && date > endOfDay(maxDate)) return true
-    return false
+    return isDateOutOfRange(date, minDate, maxDate)
   }
 
   function buildDays(): CalendarDay[] {
@@ -220,12 +236,7 @@ export function createDatePicker(props: DatePickerProps = {}): DatePickerAPI {
 
   function selectDate(date: Date): void {
     if (isDateDisabled(date)) return
-    const newDate = new Date(date)
-    if (value) {
-      newDate.setHours(value.getHours())
-      newDate.setMinutes(value.getMinutes())
-    }
-    onChange?.(newDate)
+    onChange?.(withTimeOf(date, value))
     if (!showTime) {
       closePicker()
     }

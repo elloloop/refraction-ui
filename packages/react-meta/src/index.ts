@@ -179,6 +179,14 @@ export * from '@refraction-ui/react-checkbox'
 export {
   DatePicker,
   type DatePickerProps,
+  createDefaultDatePresets,
+  DEFAULT_DATE_PRESET_LABELS,
+  DEFAULT_DATE_PRESETS_LABEL,
+  DEFAULT_WEEK_STARTS_ON,
+  type DatePreset,
+  type DatePresetLabels,
+  type DatePickerWeekday,
+  type DefaultDatePresetOptions,
     } from '@refraction-ui/react-date-picker'
 
 

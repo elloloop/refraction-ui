@@ -29,3 +29,9 @@ export const datePickerTimeStyles =
 
 export const datePickerTimeInputStyles =
   'w-14 rounded-md border border-input bg-background px-2 py-1 text-sm text-center'
+
+/** The row of preset buttons ("Today", "Tomorrow", …) next to the picker. */
+export const datePickerPresetsStyles = 'mt-2 flex flex-wrap gap-2'
+
+export const datePickerPresetStyles =
+  'inline-flex items-center rounded-md border border-input bg-background px-2.5 py-1 text-xs font-medium transition-colors hover:bg-accent hover:text-accent-foreground ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none'

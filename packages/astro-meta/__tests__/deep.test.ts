@@ -7,6 +7,7 @@ import CommandComposition from './compositions/command.astro'
 import RadioComposition from './compositions/radio.astro'
 import DropdownMenuComposition from './compositions/dropdown-menu.astro'
 import ToasterComposition from './compositions/toaster.astro'
+import DatePicker from '../dist/astro-date-picker/DatePicker.astro'
 import Switch from '../dist/astro-switch/Switch.astro'
 import Pagination from '../dist/astro-pagination/Pagination.astro'
 import FileTree from '../dist/astro-file-tree/FileTree.astro'
@@ -354,6 +355,87 @@ describe('astro-skip-to-content', () => {
   })
 })
 
+
+describe('astro-date-picker presets', () => {
+  // What createDefaultDatePresets() returns; spelled out because tsc does not
+  // follow imports into the copied sources in dist/.
+  const DEFAULTS = [
+    { id: 'today', label: 'Today', days: 0 },
+    { id: 'tomorrow', label: 'Tomorrow', days: 1 },
+    { id: 'next-week', label: 'Next week', weekday: 1 },
+  ]
+
+  /** A `disabled` attribute, not the `disabled:` variants in the class list. */
+  const DISABLED = /\sdisabled(?=[\s>=])/
+
+  /** Each preset button's opening tag and label, in order. */
+  function presetButtons(html: string): { tag: string; label: string }[] {
+    return [...html.matchAll(/(<button[^>]*data-rfr-datepicker-preset=[^>]*>)\s*([^<]*?)\s*<\/button>/g)].map(
+      ([, tag, label]) => ({ tag, label }),
+    )
+  }
+
+  it('renders no presets, and no id, without the prop', async () => {
+    const html = await render(DatePicker, { props: { value: '2026-06-15T00:00:00.000Z' } })
+    expect(html).not.toContain('data-rfr-datepicker-presets')
+    expect(html).not.toMatch(/<input[^>]* id=/)
+  })
+
+  it('renders a labelled group of buttons that the browser resolves from data attributes', async () => {
+    const html = await render(DatePicker, { props: { presets: DEFAULTS } })
+    const inputId = html.match(/<input[^>]* id="([^"]+)"/)?.[1]
+    expect(inputId).toBeTruthy()
+    expect(html).toMatch(/<div role="group" aria-label="Date shortcuts" class="[^"]*flex-wrap[^"]*" data-rfr-datepicker-presets/)
+    expect(html.indexOf('<input')).toBeLessThan(html.indexOf('role="group"'))
+
+    const buttons = presetButtons(html)
+    expect(buttons.map(({ label }) => label)).toEqual(['Today', 'Tomorrow', 'Next week'])
+    expect(buttons[0].tag).toContain('data-rfr-datepicker-preset-days="0"')
+    expect(buttons[1].tag).toContain('data-rfr-datepicker-preset-days="1"')
+    expect(buttons[2].tag).toContain('data-rfr-datepicker-preset-weekday="1"')
+    expect(buttons[2].tag).not.toContain('data-rfr-datepicker-preset-days')
+    for (const { tag } of buttons) {
+      expect(tag).toContain('type="button"')
+      expect(tag).toContain(`aria-controls="${inputId}"`)
+      expect(tag).toContain('focus-visible:ring-2')
+      expect(tag).not.toMatch(DISABLED)
+    }
+  })
+
+  it('shows translated labels, a translated group name and the caller id', async () => {
+    const html = await render(DatePicker, {
+      props: {
+        id: 'due-date',
+        presetsLabel: 'Atajos de fecha',
+        presets: [
+          { id: 'today', label: 'Hoy', days: 0 },
+          { id: 'tomorrow', label: 'Mañana', days: 1 },
+          { id: 'next-week', label: 'Next week', weekday: 0 },
+          { id: 'in-two-weeks', label: 'En dos semanas', days: 14 },
+        ],
+      },
+    })
+    expect(html).toContain('<input id="due-date"')
+    expect(html).toContain('aria-label="Atajos de fecha"')
+    const buttons = presetButtons(html)
+    expect(buttons.map(({ label }) => label)).toEqual(['Hoy', 'Mañana', 'Next week', 'En dos semanas'])
+    expect(buttons[2].tag).toContain('data-rfr-datepicker-preset-weekday="0"')
+    expect(buttons[3].tag).toContain('data-rfr-datepicker-preset-days="14"')
+    expect(buttons.every(({ tag }) => tag.includes('aria-controls="due-date"'))).toBe(true)
+  })
+
+  it('disables every preset when the picker is disabled', async () => {
+    const html = await render(DatePicker, { props: { disabled: true, presets: DEFAULTS } })
+    expect(presetButtons(html).every(({ tag }) => DISABLED.test(tag))).toBe(true)
+  })
+
+  it('refuses a preset list it could not resolve', async () => {
+    const presets = [...DEFAULTS, { id: 'today', label: 'Again' }]
+    await expect(render(DatePicker, { props: { presets } })).rejects.toThrow(
+      'Date preset ids must be unique; "today" appears more than once',
+    )
+  })
+})
 
 describe('astro interactive composer (meta dist)', () => {
   it('places host actions below the same editable field and before the send action', async () => {

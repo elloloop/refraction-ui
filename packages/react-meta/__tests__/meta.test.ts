@@ -96,6 +96,16 @@ describe('@refraction-ui/react (meta package)', () => {
     expect(MetaExports.Toaster).toBeDefined()
   })
 
+  it('exports DatePicker and the presets it takes from react-date-picker', () => {
+    expect(MetaExports.DatePicker).toBeDefined()
+    expect(MetaExports.createDefaultDatePresets().map((preset) => preset.id)).toEqual([
+      'today',
+      'tomorrow',
+      'next-week',
+    ])
+    expect(MetaExports.DEFAULT_DATE_PRESETS_LABEL).toBe('Date shortcuts')
+  })
+
   it('exports Sidebar from react-sidebar', () => {
     expect(MetaExports.Sidebar).toBeDefined()
   })
