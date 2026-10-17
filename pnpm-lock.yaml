@@ -614,6 +614,9 @@ importers:
       '@refraction-ui/react-video-player':
         specifier: workspace:*
         version: link:../packages/react-video-player
+      '@refraction-ui/react-video-stage':
+        specifier: workspace:*
+        version: link:../packages/react-video-stage
       '@refraction-ui/react-video-tile':
         specifier: workspace:*
         version: link:../packages/react-video-tile
@@ -6508,6 +6511,9 @@ importers:
       '@refraction-ui/react-video-player':
         specifier: workspace:*
         version: link:../react-video-player
+      '@refraction-ui/react-video-stage':
+        specifier: workspace:*
+        version: link:../react-video-stage
       '@refraction-ui/react-video-tile':
         specifier: workspace:*
         version: link:../react-video-tile
@@ -8156,6 +8162,37 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-video-stage:
+    dependencies:
+      '@refraction-ui/react-video-tile':
+        specifier: workspace:*
+        version: link:../react-video-tile
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/video-stage':
+        specifier: workspace:*
+        version: link:../video-stage
+      '@refraction-ui/video-tile':
+        specifier: workspace:*
+        version: link:../video-tile
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-video-tile:
     dependencies:
       '@refraction-ui/shared':
@@ -8597,6 +8634,12 @@ importers:
         version: link:../shared
 
   packages/video-player:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/video-stage:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
