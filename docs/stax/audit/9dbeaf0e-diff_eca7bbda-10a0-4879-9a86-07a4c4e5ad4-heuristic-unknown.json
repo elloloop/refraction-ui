@@ -1,0 +1,160 @@
+{
+  "timestamp": "2026-10-17T04:20:00Z",
+  "call": "heuristic",
+  "sourceId": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+  "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:adaptive-tab-nav",
+          "name": "Adaptive Tab Nav",
+          "summary": "feat(adaptive-tab-nav): read rendered tab labels without stripping markup",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "The SSR test collected the visible text by deleting tags with a regex, which code scanning reports as incomplete sanitisation. It now reads the text between tags instead; the assertion is unchanged.",
+            "feat(adaptive-tab-nav): read rendered tab labels without stripping markup"
+          ],
+          "testerNotes": [
+            "Verify behavior touching packages/react-adaptive-tab-nav/__tests__/adaptive-tab-nav.test.tsx."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:adaptive-tab-nav"
+          ],
+          "relatedComponents": [
+            "component:packages"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:adaptive-tab-nav",
+          "title": "Adaptive Tab Nav",
+          "summary": "feat(adaptive-tab-nav): read rendered tab labels without stripping markup",
+          "designNotes": [
+            "Changed files: packages/react-adaptive-tab-nav/__tests__/adaptive-tab-nav.test.tsx",
+            "The SSR test collected the visible text by deleting tags with a regex, which code scanning reports as incomplete sanitisation. It now reads the text between tags instead; the assertion is unchanged."
+          ],
+          "relatedFeatures": [
+            "feature:adaptive-tab-nav"
+          ],
+          "relatedComponents": [
+            "component:packages"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:packages",
+          "name": "Packages",
+          "kind": "unknown",
+          "paths": [
+            "packages/react-adaptive-tab-nav/__tests__/adaptive-tab-nav.test.tsx"
+          ],
+          "summary": "Owns changes under packages.",
+          "relatedFeatures": [
+            "feature:adaptive-tab-nav"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:adaptive-tab-nav"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:adaptive-tab-nav",
+          "to": "component:packages",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:adaptive-tab-nav",
+          "to": "component:packages",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:adaptive-tab-nav",
+          "to": "technical:adaptive-tab-nav",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "operations:packages-react-adaptive-tab-nav",
+          "parent": "operations",
+          "title": "Packages React Adaptive Tab Nav",
+          "summary": "Changed in: read rendered tab labels without stripping markup",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "why": "The SSR test collected the visible text by deleting tags with a regex, which code scanning reports as incomplete sanitisation. It now reads the text between tags instead; the assertion is unchanged.",
+          "what": "read rendered tab labels without stripping markup",
+          "how": "TypeScript. Changed: packages/react-adaptive-tab-nav/__tests__/adaptive-tab-nav.test.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+              "kind": "diff",
+              "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+              "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
+            }
+          ],
+          "updated": "2026-10-17T04:20:00Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+        "label": "feat(adaptive-tab-nav): read rendered tab labels without stripping markup",
+        "date": "2026-10-17",
+        "kind": "feature",
+        "touches": [
+          "operations:packages-react-adaptive-tab-nav"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "23aa1543869cc598767a88567803d6a538d671801e8471e66eca803438a4c676",
+    "nodeCount": 24,
+    "relationCount": 81,
+    "featureCount": 9,
+    "componentCount": 12,
+    "technicalsCount": 9
+  },
+  "graphAfter": {
+    "sha256": "76f3ce0f466a328a733c43b6934a7ea5a3964f52b3c6221d8d5543ba4b521969",
+    "nodeCount": 25,
+    "relationCount": 81,
+    "featureCount": 9,
+    "componentCount": 12,
+    "technicalsCount": 9
+  }
+}

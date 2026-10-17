@@ -3,17 +3,17 @@
   "repo": "elloloop/refraction-ui",
   "defaultBranch": "main",
   "mainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
-  "lastUpdated": "2026-10-17T03:48:16Z",
+  "lastUpdated": "2026-10-17T04:20:00Z",
   "state": {
     "lastProcessedMainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
-    "lastProcessedSourceId": "diff:973aa7e6-68d2-4f7b-849c-5d47ef4cef55:v1"
+    "lastProcessedSourceId": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1"
   },
   "nodes": [
     {
       "id": "api:.changeset",
       "parent": "apis",
       "title": "Changeset",
-      "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+      "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
       "kicker": "Service",
       "diagram": {
         "tier": "api"
@@ -86,11 +86,19 @@
         {
           "to": "api:packages-react-collapsible-rail",
           "kind": "grpc"
+        },
+        {
+          "to": "api:packages-adaptive-tab-nav",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-adaptive-tab-nav",
+          "kind": "grpc"
         }
       ],
-      "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
-      "what": "add a side navigation rail that collapses and becomes an overlay",
-      "how": "Changed: .changeset/collapsible-rail.md",
+      "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+      "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
+      "how": "Changed: .changeset/adaptive-tab-nav.md",
       "meta": {
         "status": "live"
       },
@@ -149,9 +157,15 @@
           "kind": "diff",
           "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
           "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+        },
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "id": "api:.lostpixel",
@@ -196,7 +210,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "id": "api:.review-evidence",
@@ -257,13 +271,13 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "id": "api:docs",
       "parent": "apis",
       "title": "Docs",
-      "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+      "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
       "kicker": "Service",
       "diagram": {
         "tier": "api"
@@ -328,11 +342,19 @@
         {
           "to": "api:packages-react-collapsible-rail",
           "kind": "grpc"
+        },
+        {
+          "to": "api:packages-adaptive-tab-nav",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-adaptive-tab-nav",
+          "kind": "grpc"
         }
       ],
-      "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
-      "what": "add a side navigation rail that collapses and becomes an overlay",
-      "how": "Changed: docs/pr-evidence/collapsible-rail/README.md, docs/pr-evidence/collapsible-rail/after-collapsed-dark-1440.png, docs/pr-evidence/collapsible-rail/after-collapsed-light-1440.png, docs/pr-evidence/collapsible-rail/after-dark-1440.png",
+      "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+      "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
+      "how": "Changed: docs/pr-evidence/adaptive-tab-nav/",
       "meta": {
         "status": "live"
       },
@@ -380,15 +402,21 @@
           "kind": "diff",
           "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
           "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+        },
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "id": "api:docs-site",
       "parent": "apis",
       "title": "Docs Site",
-      "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+      "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
       "kicker": "Service",
       "diagram": {
         "tier": "api"
@@ -477,11 +505,19 @@
         {
           "to": "api:packages-react-collapsible-rail",
           "kind": "grpc"
+        },
+        {
+          "to": "api:packages-adaptive-tab-nav",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-adaptive-tab-nav",
+          "kind": "grpc"
         }
       ],
-      "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
-      "what": "add a side navigation rail that collapses and becomes an overlay",
-      "how": "TypeScript. Changed: docs-site/package.json, docs-site/src/app/components/collapsible-rail/CollapsibleRail.stories.tsx, docs-site/src/app/components/collapsible-rail/examples.tsx, docs-site/src/app/components/collapsible-rail/page.tsx",
+      "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+      "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
+      "how": "TypeScript. Changed: docs-site/package.json, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, docs-site/src/app/components/adaptive-tab-nav/",
       "meta": {
         "status": "live"
       },
@@ -529,9 +565,15 @@
           "kind": "diff",
           "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
           "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+        },
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "id": "api:packages-astro-meta",
@@ -586,7 +628,7 @@
           "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z",
+      "updated": "2026-10-17T04:08:15Z",
       "meta": {
         "status": "live"
       },
@@ -750,7 +792,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "id": "api:packages-react-hierarchy-canvas",
@@ -784,7 +826,7 @@
       "id": "api:packages-react-meta",
       "parent": "apis",
       "title": "Packages React Meta",
-      "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+      "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
       "kicker": "Service",
       "diagram": {
         "tier": "api"
@@ -805,10 +847,18 @@
         {
           "to": "api:packages-react-hierarchy-canvas",
           "kind": "grpc"
+        },
+        {
+          "to": "api:packages-adaptive-tab-nav",
+          "kind": "grpc"
+        },
+        {
+          "to": "api:packages-react-adaptive-tab-nav",
+          "kind": "grpc"
         }
       ],
-      "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
-      "what": "add a side navigation rail that collapses and becomes an overlay",
+      "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+      "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
       "how": "Changed: packages/react-meta/CHANGELOG.md, packages/react-meta/package.json",
       "meta": {
         "status": "live"
@@ -845,9 +895,15 @@
           "kind": "diff",
           "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
           "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+        },
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "id": "api:packages-react-search-bar",
@@ -1016,7 +1072,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "id": "api:packages-video-grid",
@@ -1123,7 +1179,7 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "id": "operations:.github",
@@ -1174,13 +1230,13 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "id": "operations:e2e",
       "parent": "operations",
       "title": "E2e",
-      "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+      "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
       "kicker": "Operations",
       "diagram": {
         "tier": "operations"
@@ -1249,11 +1305,19 @@
         {
           "to": "api:packages-react-collapsible-rail",
           "kind": "http"
+        },
+        {
+          "to": "api:packages-adaptive-tab-nav",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-react-adaptive-tab-nav",
+          "kind": "http"
         }
       ],
-      "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
-      "what": "add a side navigation rail that collapses and becomes an overlay",
-      "how": "TypeScript. Changed: e2e/collapsible-rail.spec.ts",
+      "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+      "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
+      "how": "TypeScript. Changed: e2e/adaptive-tab-nav.spec.ts",
       "meta": {
         "status": "live"
       },
@@ -1283,9 +1347,15 @@
           "kind": "diff",
           "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
           "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+        },
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "id": "operations:packages-astro-meta",
@@ -1490,7 +1560,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "id": "operations:packages-react-search-bar",
@@ -1739,7 +1809,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "id": "operations:packages-video-grid",
@@ -1912,13 +1982,13 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "id": "operations:workspace-config",
       "parent": "operations",
       "title": "Workspace Config",
-      "summary": "Changed in: add a side navigation rail that collapses and becomes an overlay",
+      "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
       "kicker": "Operations",
       "diagram": {
         "tier": "operations"
@@ -2003,10 +2073,18 @@
         {
           "to": "api:packages-react-collapsible-rail",
           "kind": "http"
+        },
+        {
+          "to": "api:packages-adaptive-tab-nav",
+          "kind": "http"
+        },
+        {
+          "to": "api:packages-react-adaptive-tab-nav",
+          "kind": "http"
         }
       ],
-      "why": "CollapsibleRail, RailEdgeToggle, RailBackdrop and useCollapsibleRail: a headless core (reducer, persistence rule, stored-value parsing, chrome-click classifier, cva variants) and a React adapter. The wide-viewport width is remembered under an optional storage key; below 768px the rail is an inert off-canvas overlay that takes focus when opened and returns it on close or Escape.",
-      "what": "add a side navigation rail that collapses and becomes an overlay",
+      "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+      "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
       "how": "Changed: pnpm-lock.yaml",
       "meta": {
         "status": "live"
@@ -2044,9 +2122,15 @@
           "kind": "diff",
           "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
           "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+        },
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "id": "api:packages-astro-field",
@@ -2759,6 +2843,96 @@
         }
       ],
       "updated": "2026-10-17T03:48:16Z"
+    },
+    {
+      "id": "api:packages-adaptive-tab-nav",
+      "parent": "apis",
+      "title": "Packages Adaptive Tab Nav",
+      "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "edges": [
+        {
+          "to": "api:packages-react-adaptive-tab-nav",
+          "kind": "grpc"
+        }
+      ],
+      "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+      "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
+      "how": "Changed: packages/adaptive-tab-nav/",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        }
+      ],
+      "updated": "2026-10-17T04:08:15Z"
+    },
+    {
+      "id": "api:packages-react-adaptive-tab-nav",
+      "parent": "apis",
+      "title": "Packages React Adaptive Tab Nav",
+      "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
+      "kicker": "Service",
+      "diagram": {
+        "tier": "api"
+      },
+      "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+      "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
+      "how": "Changed: packages/react-adaptive-tab-nav/",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        }
+      ],
+      "updated": "2026-10-17T04:08:15Z"
+    },
+    {
+      "id": "operations:packages-react-adaptive-tab-nav",
+      "parent": "operations",
+      "title": "Packages React Adaptive Tab Nav",
+      "summary": "Changed in: read rendered tab labels without stripping markup",
+      "kicker": "Operations",
+      "diagram": {
+        "tier": "operations"
+      },
+      "why": "The SSR test collected the visible text by deleting tags with a regex, which code scanning reports as incomplete sanitisation. It now reads the text between tags instead; the assertion is unchanged.",
+      "what": "read rendered tab labels without stripping markup",
+      "how": "TypeScript. Changed: packages/react-adaptive-tab-nav/__tests__/adaptive-tab-nav.test.tsx",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+          "kind": "diff",
+          "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+          "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
+        }
+      ],
+      "updated": "2026-10-17T04:20:00Z"
     }
   ],
   "commits": [
@@ -2962,6 +3136,31 @@
         "api:packages-react-meta",
         "operations:workspace-config"
       ]
+    },
+    {
+      "sha": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+      "label": "feat(adaptive-tab-nav): add a top-bar tab nav that docks to the bottom on narrow screens",
+      "date": "2026-10-17",
+      "kind": "feature",
+      "touches": [
+        "api:docs-site",
+        "api:packages-react-meta",
+        "operations:workspace-config",
+        "api:.changeset",
+        "api:docs",
+        "operations:e2e",
+        "api:packages-adaptive-tab-nav",
+        "api:packages-react-adaptive-tab-nav"
+      ]
+    },
+    {
+      "sha": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+      "label": "feat(adaptive-tab-nav): read rendered tab labels without stripping markup",
+      "date": "2026-10-17",
+      "kind": "feature",
+      "touches": [
+        "operations:packages-react-adaptive-tab-nav"
+      ]
     }
   ],
   "featureDocs": [
@@ -3061,7 +3260,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "id": "feature:dialog-focus",
@@ -3165,7 +3364,7 @@
           "commit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "id": "feature:search-bar-unmount",
@@ -3240,7 +3439,7 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "id": "feature:video-grid-render-tile",
@@ -3398,6 +3597,53 @@
         }
       ],
       "updated": "2026-10-17T03:48:16Z"
+    },
+    {
+      "id": "feature:adaptive-tab-nav",
+      "name": "Adaptive Tab Nav",
+      "summary": "feat(adaptive-tab-nav): read rendered tab labels without stripping markup",
+      "audience": [
+        "end-user",
+        "product-manager",
+        "tester"
+      ],
+      "userDocs": [
+        "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+        "feat(adaptive-tab-nav): add a top-bar tab nav that docks to the bottom on narrow screens",
+        "The SSR test collected the visible text by deleting tags with a regex, which code scanning reports as incomplete sanitisation. It now reads the text between tags instead; the assertion is unchanged.",
+        "feat(adaptive-tab-nav): read rendered tab labels without stripping markup"
+      ],
+      "testerNotes": [
+        "Verify behavior touching docs-site/package.json, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, packages/react-meta/package.json, packages/react-meta/src/index.ts.",
+        "Verify behavior touching packages/react-adaptive-tab-nav/__tests__/adaptive-tab-nav.test.tsx."
+      ],
+      "relatedTechnicalDetails": [
+        "technical:adaptive-tab-nav"
+      ],
+      "relatedComponents": [
+        "component:docs-site-packagejson",
+        "component:docs-site-src",
+        "component:packages",
+        "component:pnpm-lockyaml",
+        "component:changeset",
+        "component:docs",
+        "component:e2e"
+      ],
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        },
+        {
+          "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+          "kind": "diff",
+          "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+          "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
+        }
+      ],
+      "updated": "2026-10-17T04:20:00Z"
     }
   ],
   "technicalDetails": [
@@ -3475,7 +3721,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "id": "technical:dialog-focus",
@@ -3556,7 +3802,7 @@
           "commit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "id": "technical:search-bar-unmount",
@@ -3616,7 +3862,7 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "id": "technical:video-grid-render-tile",
@@ -3741,6 +3987,44 @@
         }
       ],
       "updated": "2026-10-17T03:48:16Z"
+    },
+    {
+      "id": "technical:adaptive-tab-nav",
+      "title": "Adaptive Tab Nav",
+      "summary": "feat(adaptive-tab-nav): read rendered tab labels without stripping markup",
+      "designNotes": [
+        "Changed files: docs-site/package.json, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, packages/react-meta/package.json, packages/react-meta/src/index.ts, pnpm-lock.yaml, .changeset/adaptive-tab-nav.md, docs-site/src/app/components/adaptive-tab-nav/",
+        "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+        "Changed files: packages/react-adaptive-tab-nav/__tests__/adaptive-tab-nav.test.tsx",
+        "The SSR test collected the visible text by deleting tags with a regex, which code scanning reports as incomplete sanitisation. It now reads the text between tags instead; the assertion is unchanged."
+      ],
+      "relatedFeatures": [
+        "feature:adaptive-tab-nav"
+      ],
+      "relatedComponents": [
+        "component:docs-site-packagejson",
+        "component:docs-site-src",
+        "component:packages",
+        "component:pnpm-lockyaml",
+        "component:changeset",
+        "component:docs",
+        "component:e2e"
+      ],
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        },
+        {
+          "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+          "kind": "diff",
+          "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+          "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
+        }
+      ],
+      "updated": "2026-10-17T04:20:00Z"
     }
   ],
   "components": [
@@ -3755,7 +4039,8 @@
         ".changeset/video-tile-live-media.md",
         ".changeset/field.md",
         ".changeset/media-frame.md",
-        ".changeset/collapsible-rail.md"
+        ".changeset/collapsible-rail.md",
+        ".changeset/adaptive-tab-nav.md"
       ],
       "summary": "Owns changes under .changeset.",
       "relatedFeatures": [
@@ -3767,7 +4052,8 @@
         "feature:video-grid-render-tile",
         "feature:field",
         "feature:media-frame",
-        "feature:collapsible-rail"
+        "feature:collapsible-rail",
+        "feature:adaptive-tab-nav"
       ],
       "relatedTechnicalDetails": [
         "technical:search-bar-unmount",
@@ -3778,7 +4064,8 @@
         "technical:video-grid-render-tile",
         "technical:field",
         "technical:media-frame",
-        "technical:collapsible-rail"
+        "technical:collapsible-rail",
+        "technical:adaptive-tab-nav"
       ],
       "sources": [
         {
@@ -3832,9 +4119,15 @@
           "kind": "diff",
           "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
           "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+        },
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "id": "component:claudemd",
@@ -3857,7 +4150,7 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "id": "component:docs",
@@ -3918,7 +4211,8 @@
         "docs/pr-evidence/collapsible-rail/before-dark-375.png",
         "docs/pr-evidence/collapsible-rail/before-light-1440.png",
         "docs/pr-evidence/collapsible-rail/before-light-375.png",
-        "docs/pr-evidence/collapsible-rail/browser-proof.json"
+        "docs/pr-evidence/collapsible-rail/browser-proof.json",
+        "docs/pr-evidence/adaptive-tab-nav/"
       ],
       "summary": "Owns changes under docs.",
       "relatedFeatures": [
@@ -3928,7 +4222,8 @@
         "feature:video-grid-render-tile",
         "feature:field",
         "feature:media-frame",
-        "feature:collapsible-rail"
+        "feature:collapsible-rail",
+        "feature:adaptive-tab-nav"
       ],
       "relatedTechnicalDetails": [
         "technical:search-bar-unmount",
@@ -3937,7 +4232,8 @@
         "technical:video-grid-render-tile",
         "technical:field",
         "technical:media-frame",
-        "technical:collapsible-rail"
+        "technical:collapsible-rail",
+        "technical:adaptive-tab-nav"
       ],
       "sources": [
         {
@@ -3980,9 +4276,15 @@
           "kind": "diff",
           "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
           "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+        },
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "id": "component:docs-site-packagejson",
@@ -3996,13 +4298,15 @@
         "feature:hierarchy-canvas",
         "feature:field",
         "feature:media-frame",
-        "feature:collapsible-rail"
+        "feature:collapsible-rail",
+        "feature:adaptive-tab-nav"
       ],
       "relatedTechnicalDetails": [
         "technical:hierarchy-canvas",
         "technical:field",
         "technical:media-frame",
-        "technical:collapsible-rail"
+        "technical:collapsible-rail",
+        "technical:adaptive-tab-nav"
       ],
       "sources": [
         {
@@ -4028,9 +4332,15 @@
           "kind": "diff",
           "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
           "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+        },
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "id": "component:docs-site-src",
@@ -4057,7 +4367,8 @@
         "docs-site/src/app/components/media-frame/page.tsx",
         "docs-site/src/app/components/collapsible-rail/CollapsibleRail.stories.tsx",
         "docs-site/src/app/components/collapsible-rail/examples.tsx",
-        "docs-site/src/app/components/collapsible-rail/page.tsx"
+        "docs-site/src/app/components/collapsible-rail/page.tsx",
+        "docs-site/src/app/components/adaptive-tab-nav/"
       ],
       "summary": "Owns changes under docs-site/src.",
       "relatedFeatures": [
@@ -4067,7 +4378,8 @@
         "feature:video-grid-render-tile",
         "feature:field",
         "feature:media-frame",
-        "feature:collapsible-rail"
+        "feature:collapsible-rail",
+        "feature:adaptive-tab-nav"
       ],
       "relatedTechnicalDetails": [
         "technical:hierarchy-canvas",
@@ -4076,7 +4388,8 @@
         "technical:video-grid-render-tile",
         "technical:field",
         "technical:media-frame",
-        "technical:collapsible-rail"
+        "technical:collapsible-rail",
+        "technical:adaptive-tab-nav"
       ],
       "sources": [
         {
@@ -4119,9 +4432,15 @@
           "kind": "diff",
           "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
           "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+        },
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "id": "component:e2e",
@@ -4132,20 +4451,23 @@
         "e2e/dialog-hydration.spec.ts",
         "e2e/snapshots/components.spec.ts-snapshots/component-dialog-chromium.png",
         "e2e/snapshots/components.spec.ts-snapshots/component-dialog-mobile.png",
-        "e2e/collapsible-rail.spec.ts"
+        "e2e/collapsible-rail.spec.ts",
+        "e2e/adaptive-tab-nav.spec.ts"
       ],
       "summary": "Owns changes under e2e.",
       "relatedFeatures": [
         "feature:hierarchy-canvas",
         "feature:dialog-focus",
         "feature:contain-modal-focus-and-restore-the-opener",
-        "feature:collapsible-rail"
+        "feature:collapsible-rail",
+        "feature:adaptive-tab-nav"
       ],
       "relatedTechnicalDetails": [
         "technical:hierarchy-canvas",
         "technical:dialog-focus",
         "technical:contain-modal-focus-and-restore-the-opener",
-        "technical:collapsible-rail"
+        "technical:collapsible-rail",
+        "technical:adaptive-tab-nav"
       ],
       "sources": [
         {
@@ -4170,9 +4492,15 @@
           "kind": "diff",
           "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
           "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+        },
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "id": "component:github",
@@ -4204,7 +4532,7 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "id": "component:lostpixel",
@@ -4227,7 +4555,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "id": "component:packages",
@@ -4332,7 +4660,10 @@
         "packages/react-collapsible-rail/src/index.ts",
         "packages/react-collapsible-rail/tsconfig.json",
         "packages/react-collapsible-rail/tsup.config.ts",
-        "packages/react-collapsible-rail/vitest.config.ts"
+        "packages/react-collapsible-rail/vitest.config.ts",
+        "packages/adaptive-tab-nav/",
+        "packages/react-adaptive-tab-nav/",
+        "packages/react-adaptive-tab-nav/__tests__/adaptive-tab-nav.test.tsx"
       ],
       "summary": "Owns changes under packages.",
       "relatedFeatures": [
@@ -4346,7 +4677,8 @@
         "feature:video-grid-render-tile",
         "feature:field",
         "feature:media-frame",
-        "feature:collapsible-rail"
+        "feature:collapsible-rail",
+        "feature:adaptive-tab-nav"
       ],
       "relatedTechnicalDetails": [
         "technical:auto-save-before-switching-context",
@@ -4359,7 +4691,8 @@
         "technical:video-grid-render-tile",
         "technical:field",
         "technical:media-frame",
-        "technical:collapsible-rail"
+        "technical:collapsible-rail",
+        "technical:adaptive-tab-nav"
       ],
       "sources": [
         {
@@ -4430,9 +4763,21 @@
           "kind": "diff",
           "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
           "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+        },
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        },
+        {
+          "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+          "kind": "diff",
+          "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+          "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:20:00Z"
     },
     {
       "id": "component:pnpm-lockyaml",
@@ -4447,14 +4792,16 @@
         "feature:video-grid-render-tile",
         "feature:field",
         "feature:media-frame",
-        "feature:collapsible-rail"
+        "feature:collapsible-rail",
+        "feature:adaptive-tab-nav"
       ],
       "relatedTechnicalDetails": [
         "technical:hierarchy-canvas",
         "technical:video-grid-render-tile",
         "technical:field",
         "technical:media-frame",
-        "technical:collapsible-rail"
+        "technical:collapsible-rail",
+        "technical:adaptive-tab-nav"
       ],
       "sources": [
         {
@@ -4486,9 +4833,15 @@
           "kind": "diff",
           "commit": "b1945143b0989b723ca11710ef2dc5f736d7f9b9",
           "diffUuid": "973aa7e6-68d2-4f7b-849c-5d47ef4cef55"
+        },
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "id": "component:review-evidence",
@@ -4537,7 +4890,7 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     }
   ],
   "relations": [
@@ -4626,7 +4979,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "from": "feature:contain-modal-focus-and-restore-the-opener",
@@ -4640,7 +4993,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "from": "feature:contain-modal-focus-and-restore-the-opener",
@@ -4654,7 +5007,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "from": "feature:contain-modal-focus-and-restore-the-opener",
@@ -4668,7 +5021,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "from": "feature:contain-modal-focus-and-restore-the-opener",
@@ -4682,7 +5035,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "from": "feature:contain-modal-focus-and-restore-the-opener",
@@ -4696,7 +5049,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "from": "feature:contain-modal-focus-and-restore-the-opener",
@@ -4710,7 +5063,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "from": "feature:dialog-focus",
@@ -4919,7 +5272,7 @@
           "commit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "from": "feature:release-packages",
@@ -4933,7 +5286,7 @@
           "commit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "from": "feature:release-packages",
@@ -4947,7 +5300,7 @@
           "commit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "from": "feature:search-bar-unmount",
@@ -5042,7 +5395,7 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "from": "feature:skip-empty-canaries-and-report-publication-failures",
@@ -5056,7 +5409,7 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "from": "feature:skip-empty-canaries-and-report-publication-failures",
@@ -5070,7 +5423,7 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "from": "feature:skip-empty-canaries-and-report-publication-failures",
@@ -5084,7 +5437,7 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "from": "feature:video-grid-render-tile",
@@ -5232,7 +5585,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "from": "technical:contain-modal-focus-and-restore-the-opener",
@@ -5246,7 +5599,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "from": "technical:contain-modal-focus-and-restore-the-opener",
@@ -5260,7 +5613,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "from": "technical:contain-modal-focus-and-restore-the-opener",
@@ -5274,7 +5627,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "from": "technical:contain-modal-focus-and-restore-the-opener",
@@ -5288,7 +5641,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "from": "technical:contain-modal-focus-and-restore-the-opener",
@@ -5302,7 +5655,7 @@
           "commit": "3f2927e5714eaf5f923001bc1529d7cc295dfa24"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:13Z"
     },
     {
       "from": "technical:dialog-focus",
@@ -5481,7 +5834,7 @@
           "commit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "from": "technical:release-packages",
@@ -5495,7 +5848,7 @@
           "commit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0"
         }
       ],
-      "updated": "2026-10-17T03:48:16Z"
+      "updated": "2026-10-17T04:08:15Z"
     },
     {
       "from": "technical:search-bar-unmount",
@@ -5569,7 +5922,7 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "from": "technical:skip-empty-canaries-and-report-publication-failures",
@@ -5583,7 +5936,7 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "from": "technical:skip-empty-canaries-and-report-publication-failures",
@@ -5597,7 +5950,7 @@
           "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
         }
       ],
-      "updated": "2026-10-17T03:48:15Z"
+      "updated": "2026-10-17T04:08:14Z"
     },
     {
       "from": "technical:video-grid-render-tile",
@@ -6306,6 +6659,249 @@
         }
       ],
       "updated": "2026-10-17T03:48:16Z"
+    },
+    {
+      "from": "feature:adaptive-tab-nav",
+      "to": "technical:adaptive-tab-nav",
+      "type": "explained_by",
+      "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        },
+        {
+          "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+          "kind": "diff",
+          "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+          "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
+        }
+      ],
+      "updated": "2026-10-17T04:20:00Z"
+    },
+    {
+      "from": "feature:adaptive-tab-nav",
+      "to": "component:changeset",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        }
+      ],
+      "updated": "2026-10-17T04:08:15Z"
+    },
+    {
+      "from": "feature:adaptive-tab-nav",
+      "to": "component:docs",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        }
+      ],
+      "updated": "2026-10-17T04:08:15Z"
+    },
+    {
+      "from": "feature:adaptive-tab-nav",
+      "to": "component:docs-site-packagejson",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        }
+      ],
+      "updated": "2026-10-17T04:08:15Z"
+    },
+    {
+      "from": "feature:adaptive-tab-nav",
+      "to": "component:docs-site-src",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        }
+      ],
+      "updated": "2026-10-17T04:08:15Z"
+    },
+    {
+      "from": "feature:adaptive-tab-nav",
+      "to": "component:e2e",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        }
+      ],
+      "updated": "2026-10-17T04:08:15Z"
+    },
+    {
+      "from": "feature:adaptive-tab-nav",
+      "to": "component:packages",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        },
+        {
+          "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+          "kind": "diff",
+          "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+          "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
+        }
+      ],
+      "updated": "2026-10-17T04:20:00Z"
+    },
+    {
+      "from": "feature:adaptive-tab-nav",
+      "to": "component:pnpm-lockyaml",
+      "type": "implemented_by",
+      "evidence": "Changed files map this user-facing work to the component.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        }
+      ],
+      "updated": "2026-10-17T04:08:15Z"
+    },
+    {
+      "from": "technical:adaptive-tab-nav",
+      "to": "component:changeset",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        }
+      ],
+      "updated": "2026-10-17T04:08:15Z"
+    },
+    {
+      "from": "technical:adaptive-tab-nav",
+      "to": "component:docs",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        }
+      ],
+      "updated": "2026-10-17T04:08:15Z"
+    },
+    {
+      "from": "technical:adaptive-tab-nav",
+      "to": "component:docs-site-packagejson",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        }
+      ],
+      "updated": "2026-10-17T04:08:15Z"
+    },
+    {
+      "from": "technical:adaptive-tab-nav",
+      "to": "component:docs-site-src",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        }
+      ],
+      "updated": "2026-10-17T04:08:15Z"
+    },
+    {
+      "from": "technical:adaptive-tab-nav",
+      "to": "component:e2e",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        }
+      ],
+      "updated": "2026-10-17T04:08:15Z"
+    },
+    {
+      "from": "technical:adaptive-tab-nav",
+      "to": "component:packages",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        },
+        {
+          "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+          "kind": "diff",
+          "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+          "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
+        }
+      ],
+      "updated": "2026-10-17T04:20:00Z"
+    },
+    {
+      "from": "technical:adaptive-tab-nav",
+      "to": "component:pnpm-lockyaml",
+      "type": "documents",
+      "evidence": "Changed files link this technical detail to the component.",
+      "sources": [
+        {
+          "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+          "kind": "diff",
+          "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+          "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        }
+      ],
+      "updated": "2026-10-17T04:08:15Z"
     }
   ],
   "sources": [
@@ -6503,7 +7099,7 @@
       ],
       "mainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
       "diffHash": "5ed67cd324311fe47702c0ea168ac069d7e5512ac740fd81cbfac20117952d20",
-      "processedAt": "2026-10-17T03:48:15Z",
+      "processedAt": "2026-10-17T04:08:13Z",
       "prNumber": 543,
       "prTitle": "fix(dialog): contain modal focus and restore the opener",
       "prBody": "## Summary\n\nReact modal dialogs opened while focus remained on the trigger, allowing Tab to reach background controls and Escape to miss the dialog. Activate the shared focus utility when a modal opens and restore the opener on close or unmount. Preserve forwarded refs, child portal interactions, nested-modal ordering and consumer Escape cancellation. No public prop or style changes.\n\n## Validation\n\n- 119 shared focus/DOM tests and40 Dialog tests pass, with the actual Storybook built.\n- Twelve actual FormDialog comparisons at375/768/1440 pixels in light/dark exercise keyboard Enter opening, initial input focus, both Tab boundaries, Escape and restored opener. Before, focus stays on the outside opener and Escape misses; after, Name receives focus and the modal contains keyboard navigation. All twelve have zero page errors. Browser-proof.json records the real assertions.\n- Fresh full canonical make ci after actual merged Hierarchy main passes1116 tasks (1102cached). An inspected first local run stopped only because sandbox policy denied an unchanged real-socket relay fixture's127.0.0.1 listener; tests and implementation were not altered. The inspected local-socket rerun passed with tests unchanged. Forge gates remain required at the exact final head.\n- Actual repaired main546 isf595b0757d1f889b9bb69f3a3bc7ce9e31bae8ee. The eight-file Dialog implementation is byte-identical to its previously tested prepared payload. Both rebase conflicts were generated stax design-graph metadata; both record sets were retained and original local documents preserved outside the commit.\n- A React/Astro meta patch changeset is included. The current official compiler/pnpm lock is retained. Publication follows main Test Matrix, Changesets Version PR and trusted OIDC; this PR claims no release or production deployment.\n\n## Visual evidence\n\nEvidence-type: screenshots\nBefore-ref: 0332e5106d292d17c729dfc334afea5d0f937090\nAfter-ref: 1e8fec2d481735f9eb4347acbb8bd90ed95edb65\nContext: Real FormDialog Storybook, English, matching375/768/1440 viewports, light/dark, keyboard Enter from focused Edit Profile opener. Before captures use audit-repair547; the FormDialog story, existing Dialog implementation and shared focus source bytes are identical to the actual current merge base, confirmed by an empty scoped diff. After captures use the preserved Dialog payload, which remains byte-identical after rebase. Static screenshots show initial focus and browser-proof.json records navigation/restoration; the local harness follows system appearance.\n\n- `packages/react-dialog/src/dialog.tsx`: Actual FormDialog comparisons exercise modal initial focus, both Tab boundaries, Escape close and restored opener in all three widths and both appearances.\n- `packages/shared/src/focus-trap.ts`: Actual modal comparisons exercise the shared utility through the real adapter;119 shared and40 Dialog tests additionally cover hidden targets, empty/nested content and portaled controls.\n- `docs-site/src/app/components/dialog/Dialog.stories.tsx`: The actual FormDialog story is used in every paired capture, with real keyboard focus observed from the iframe rather than simulated or injected.\n- `docs-site/src/app/components/dialog/page.tsx`: The existing prop description documents the verified modal focus behavior; the corresponding actual story demonstrates the behavior without introducing a separate layout.\n\n### Before\n\nCaption: Keyboard opening leaves focus on the outside Edit Profile button; Escape misses the modal.\n![Before modal focus at 375px in light](https://raw.githubusercontent.com/elloloop/refraction-ui/1e8fec2d481735f9eb4347acbb8bd90ed95edb65/docs/pr-evidence/dialog-focus/before-375-light.png)\n![Before modal focus at 375px in dark](https://raw.githubusercontent.com/elloloop/refraction-ui/1e8fec2d481735f9eb4347acbb8bd90ed95edb65/docs/pr-evidence/dialog-focus/before-375-dark.png)\n![Before modal focus at 768px in light](https://raw.githubusercontent.com/elloloop/refraction-ui/1e8fec2d481\n…truncated…"
@@ -6526,7 +7122,7 @@
       ],
       "mainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
       "diffHash": "0ade7555e51951d16f789ada47e6d8a54773aac387dc7541093262b94430faf3",
-      "processedAt": "2026-10-17T03:48:15Z",
+      "processedAt": "2026-10-17T04:08:14Z",
       "prNumber": 552,
       "prTitle": "fix(release): skip empty canaries and report publication failures",
       "prBody": "Audit-only main releases currently reach Changesets3 snapshot versioning with no unreleased changesets and fail the canary step. The custom OIDC publisher also omits the `New tag:` marker consumed by Changesets Action and returns success after per-package publication failures.\n\nSkip only empty public release plans. Keep pending canaries on the existing snapshot/OIDC path, create and report a release tag only after npm succeeds, and propagate publication/tag/registry failures. OIDC errors are sanitized so failed child processes cannot expose Authorization arguments. Credential files use exclusive creation, mode0600 and cleanup. The three existing public package names, provenance publishing and normal main Test Matrix → Changesets/OIDC release ownership are preserved.\n\nValidation:15 process-mocked regression tests cover empty/private plans, snapshot failure, real command contracts, provenance, first-version E404, registry outage, existing versions, publish/tag failures, credential cleanup and redaction. The real official empty plan skips without versioning or publication. Full1108 canonical tasks pass (cached), audit has0high/critical (10moderate,1low remain), syntax and local visual-evidence policy pass. The regressions are added to the normal React Test Matrix. No local publication, workflow dispatch, credential/grant change or runtime UI change was performed.\n\nThe first CodeQL run identified excessive backtracking in the new version guard. The guard now has a256-character limit and non-overlapping prerelease/build groups; added tests prove long malformed input terminates before credential exchange and valid metadata remains supported. No security finding is waived. The initial stax-created quoted PR title was corrected; fresh source-head metadata checks are required.\n"
@@ -6550,7 +7146,7 @@
       ],
       "mainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
       "diffHash": "6584b06bd96d51d32f3db8b4023cd000e9696d9d9d4535f8ee4145a839695f95",
-      "processedAt": "2026-10-17T03:48:16Z",
+      "processedAt": "2026-10-17T04:08:15Z",
       "prNumber": 554,
       "prTitle": "chore: release packages",
       "prBody": "This PR was opened by the [Changesets release](https://github.com/changesets/action) GitHub action. When you're ready to do a release, you can merge this and the packages will be published to npm automatically. If you're not ready to do a release yet, that's fine, whenever you add more changesets to main, this PR will be updated.\n\n\n# Releases\n## @refraction-ui/react@0.26.0\n\n### Minor Changes\n\n- 0332e51: Add HierarchyCanvas for scrollable top-down and left-to-right hierarchies with real DOM card slots, configurable geometry, decorative connectors and focus-preserving viewport updates. Export the deterministic hierarchyLayout core through the React meta package.\n\n### Patch Changes\n\n- 3f2927e: Activate focus containment and restoration for React modal dialogs. Skip hidden, disabled and negative-tabindex controls in the shared focus utility, focus empty panels, and keep nested Escape handling and consumer cancellation scoped to their dialog.\n- f595b07: Cancel pending SearchBar debounced searches on unmount so callbacks and loading updates do not run after the component is removed.\n## @refraction-ui/astro@0.22.1\n\n### Patch Changes\n\n- 3f2927e: Activate focus containment and restoration for React modal dialogs. Skip hidden, disabled and negative-tabindex controls in the shared focus utility, focus empty panels, and keep nested Escape handling and consumer cancellation scoped to their dialog."
@@ -6816,6 +7412,60 @@
       "diffHash": "1b551a8bfe6d1c7bb8f6f9ea88e8f5ef4ce8b8258c6c7e87e772e9d5f3440874",
       "created": "2026-10-17T03:48:14Z",
       "processedAt": "2026-10-17T03:48:16Z"
+    },
+    {
+      "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+      "kind": "diff",
+      "feature": "adaptive-tab-nav",
+      "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88",
+      "diffPosition": 1,
+      "version": 1,
+      "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+      "parent": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
+      "title": "feat(adaptive-tab-nav): add a top-bar tab nav that docks to the bottom on narrow screens",
+      "description": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+      "type": "feature",
+      "files": [
+        "docs-site/package.json",
+        "docs-site/src/app/components/page.tsx",
+        "docs-site/src/components/sidebar.tsx",
+        "packages/react-meta/package.json",
+        "packages/react-meta/src/index.ts",
+        "pnpm-lock.yaml",
+        ".changeset/adaptive-tab-nav.md",
+        "docs-site/src/app/components/adaptive-tab-nav/",
+        "docs/pr-evidence/adaptive-tab-nav/",
+        "e2e/adaptive-tab-nav.spec.ts",
+        "packages/adaptive-tab-nav/",
+        "packages/react-adaptive-tab-nav/"
+      ],
+      "additions": 42,
+      "mainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
+      "diffHash": "5b97d42c88fd2911da8a61a80385484a9476d1a08202323efc3881ad23d1c67b",
+      "created": "2026-10-17T04:08:12Z",
+      "processedAt": "2026-10-17T04:08:15Z"
+    },
+    {
+      "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+      "kind": "diff",
+      "feature": "adaptive-tab-nav",
+      "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a",
+      "diffPosition": 2,
+      "version": 1,
+      "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+      "parent": "36e7fb3e8f7d1a71b3df466191a44a9c73efa0ad",
+      "title": "feat(adaptive-tab-nav): read rendered tab labels without stripping markup",
+      "description": "The SSR test collected the visible text by deleting tags with a regex, which code scanning reports as incomplete sanitisation. It now reads the text between tags instead; the assertion is unchanged.",
+      "type": "feature",
+      "files": [
+        "packages/react-adaptive-tab-nav/__tests__/adaptive-tab-nav.test.tsx"
+      ],
+      "additions": 4,
+      "deletions": 1,
+      "mainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
+      "diffHash": "b04899a3ae631ae78efe2adfe70de503f0ad3c22fca38185aff4432f749441f9",
+      "created": "2026-10-17T04:20:00Z",
+      "processedAt": "2026-10-17T04:20:00Z"
     }
   ]
 }

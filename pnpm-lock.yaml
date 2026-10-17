@@ -155,6 +155,9 @@ importers:
       '@refraction-ui/react-action-list':
         specifier: workspace:*
         version: link:../packages/react-action-list
+      '@refraction-ui/react-adaptive-tab-nav':
+        specifier: workspace:*
+        version: link:../packages/react-adaptive-tab-nav
       '@refraction-ui/react-animated-text':
         specifier: workspace:*
         version: link:../packages/react-animated-text
@@ -692,6 +695,12 @@ importers:
         version: link:../shared
 
   packages/action-list:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/adaptive-tab-nav:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
@@ -3797,6 +3806,31 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-adaptive-tab-nav:
+    dependencies:
+      '@refraction-ui/adaptive-tab-nav':
+        specifier: workspace:*
+        version: link:../adaptive-tab-nav
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-ai:
     dependencies:
       '@refraction-ui/ai':
@@ -6167,6 +6201,9 @@ importers:
       '@refraction-ui/react-action-list':
         specifier: workspace:*
         version: link:../react-action-list
+      '@refraction-ui/react-adaptive-tab-nav':
+        specifier: workspace:*
+        version: link:../react-adaptive-tab-nav
       '@refraction-ui/react-ai':
         specifier: workspace:*
         version: link:../react-ai

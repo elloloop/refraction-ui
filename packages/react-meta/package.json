@@ -51,6 +51,7 @@
     "@refraction-ui/accordion": "workspace:*",
     "@refraction-ui/react-accordion": "workspace:*",
     "@refraction-ui/react-action-list": "workspace:*",
+    "@refraction-ui/react-adaptive-tab-nav": "workspace:*",
     "@refraction-ui/react-ai": "workspace:*",
     "@refraction-ui/react-analytics": "workspace:*",
     "@refraction-ui/react-animated-text": "workspace:*",

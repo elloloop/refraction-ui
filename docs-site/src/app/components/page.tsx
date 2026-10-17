@@ -37,6 +37,7 @@ const components = [
   { name: 'Breadcrumbs', href: '/components/breadcrumbs', description: 'Breadcrumb trail auto-generated from pathname or manual items.', category: 'Layout' },
   { name: 'Footer', href: '/components/footer', description: 'Site footer with link columns, copyright, and social links.', category: 'Layout' },
   { name: 'Bottom Nav', href: '/components/bottom-nav', description: 'Mobile tab bar fixed to the bottom of the viewport.', category: 'Layout' },
+  { name: 'Adaptive Tab Nav', href: '/components/adaptive-tab-nav', description: 'Pill tabs in a top bar that dock to the bottom as a tab bar on narrow screens.', category: 'Layout' },
   { name: 'App Shell', href: '/components/app-shell', description: 'Responsive app layout with collapsible sidebar and sticky header.', category: 'Layout' },
   { name: 'Collapsible Rail', href: '/components/collapsible-rail', description: 'Side navigation rail with a remembered collapsed width that becomes an overlay on narrow screens.', category: 'Layout' },
   { name: 'Card Grid', href: '/components/card-grid', description: 'Layout container arranging cards into responsive columns.', category: 'Layout' },
