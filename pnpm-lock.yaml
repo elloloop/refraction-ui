@@ -404,6 +404,9 @@ importers:
       '@refraction-ui/react-payment':
         specifier: workspace:*
         version: link:../packages/react-payment
+      '@refraction-ui/react-pinned-bar':
+        specifier: workspace:*
+        version: link:../packages/react-pinned-bar
       '@refraction-ui/react-popover':
         specifier: workspace:*
         version: link:../packages/react-popover
@@ -3425,6 +3428,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/pinned-bar:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/popover:
     dependencies:
       '@refraction-ui/shared':
@@ -5620,6 +5629,9 @@ importers:
       '@refraction-ui/react-payment':
         specifier: workspace:*
         version: link:../react-payment
+      '@refraction-ui/react-pinned-bar':
+        specifier: workspace:*
+        version: link:../react-pinned-bar
       '@refraction-ui/react-popover':
         specifier: workspace:*
         version: link:../react-popover
@@ -6014,6 +6026,34 @@ importers:
       '@types/react-dom':
         specifier: 19.0.0
         version: 19.0.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-pinned-bar:
+    dependencies:
+      '@refraction-ui/pinned-bar':
+        specifier: workspace:*
+        version: link:../pinned-bar
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
       react:
         specifier: 19.0.0
         version: 19.0.0

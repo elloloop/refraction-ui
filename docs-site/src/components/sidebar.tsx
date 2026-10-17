@@ -105,6 +105,7 @@ const componentGroups = [
       { name: 'Keycap', href: '/components/keycap' },
       { name: 'Status Badge', href: '/components/status-badge' },
       { name: 'Step Card', href: '/components/step-card' },
+      { name: 'Pinned Bar', href: '/components/pinned-bar' },
     ],
   },
   {

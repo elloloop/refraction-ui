@@ -93,6 +93,7 @@
     "@refraction-ui/react-pagination": "workspace:*",
     "@refraction-ui/react-password-input": "workspace:*",
     "@refraction-ui/react-payment": "workspace:*",
+    "@refraction-ui/react-pinned-bar": "workspace:*",
     "@refraction-ui/react-popover": "workspace:*",
     "@refraction-ui/react-pre-call-lobby": "workspace:*",
     "@refraction-ui/react-presence-indicator": "workspace:*",
