@@ -106,6 +106,7 @@ const componentGroups = [
       { name: 'Status Badge', href: '/components/status-badge' },
       { name: 'Step Card', href: '/components/step-card' },
       { name: 'Pinned Bar', href: '/components/pinned-bar' },
+      { name: 'Link Preview', href: '/components/link-preview' },
     ],
   },
   {

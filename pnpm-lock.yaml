@@ -347,6 +347,9 @@ importers:
       '@refraction-ui/react-link-card':
         specifier: workspace:*
         version: link:../packages/react-link-card
+      '@refraction-ui/react-link-preview':
+        specifier: workspace:*
+        version: link:../packages/react-link-preview
       '@refraction-ui/react-live-captions':
         specifier: workspace:*
         version: link:../packages/react-live-captions
@@ -3284,6 +3287,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/link-preview:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/live-captions:
     dependencies:
       '@refraction-ui/shared':
@@ -5096,6 +5105,34 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-link-preview:
+    dependencies:
+      '@refraction-ui/link-preview':
+        specifier: workspace:*
+        version: link:../link-preview
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-live-captions:
     dependencies:
       '@refraction-ui/live-captions':
@@ -5566,6 +5603,9 @@ importers:
       '@refraction-ui/react-link-card':
         specifier: workspace:*
         version: link:../react-link-card
+      '@refraction-ui/react-link-preview':
+        specifier: workspace:*
+        version: link:../react-link-preview
       '@refraction-ui/react-live-captions':
         specifier: workspace:*
         version: link:../react-live-captions
