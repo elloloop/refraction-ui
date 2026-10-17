@@ -1,6 +1,14 @@
 ---
-import { cn } from '@refraction-ui/shared'
-import { datePickerTriggerStyles, formatDate } from '@refraction-ui/date-picker'
+import { cn, generateId } from '@refraction-ui/shared'
+import {
+  assertValidDatePresets,
+  datePickerPresetStyles,
+  datePickerPresetsStyles,
+  datePickerTriggerStyles,
+  formatDate,
+  DEFAULT_DATE_PRESETS_LABEL,
+  type DatePreset,
+} from '@refraction-ui/date-picker'
 
 interface Props extends astroHTML.JSX.HTMLAttributes {
   /** Selected date value (ISO string) */
@@ -17,6 +25,16 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   placeholder?: string
   /** Whether the picker is disabled */
   disabled?: boolean
+  /**
+   * One-click dates shown under the input, in order: `createDefaultDatePresets()`
+   * gives "Today", "Tomorrow" and "Next week", and callers can add their own.
+   * Labels are shown as given, so pass them already translated. The browser
+   * resolves each one against the reader's date when the page loads and again
+   * when it is chosen, so a statically built page stays correct.
+   */
+  presets?: readonly DatePreset[]
+  /** Accessible name of the group of presets (default: "Date shortcuts"). */
+  presetsLabel?: string
 }
 
 const {
@@ -27,9 +45,17 @@ const {
   format,
   placeholder,
   disabled = false,
+  presets = [],
+  presetsLabel = DEFAULT_DATE_PRESETS_LABEL,
+  id,
   class: className,
   ...props
 } = Astro.props
+
+// Reject a bad preset list when the page renders, not in the reader's browser.
+assertValidDatePresets(presets)
+// Presets point at the input they fill, so it needs an id.
+const inputId = id ?? (presets.length > 0 ? generateId('rfr-datepicker') : undefined)
 
 const sliceLen = showTime ? 16 : 10
 
@@ -57,6 +83,7 @@ const formattedDisplay = format && value ? formatDate(new Date(value), format, s
 ---
 
 <input
+  id={inputId}
   type={showTime ? "datetime-local" : "date"}
   class={cn(datePickerTriggerStyles, "justify-start text-left font-normal w-[280px]", className)}
   value={parsedValue}
@@ -70,21 +97,27 @@ const formattedDisplay = format && value ? formatDate(new Date(value), format, s
 {formattedDisplay && (
   <span class="text-sm text-muted-foreground">{formattedDisplay}</span>
 )}
+{presets.length > 0 && (
+  <div role="group" aria-label={presetsLabel} class={datePickerPresetsStyles} data-rfr-datepicker-presets>
+    {presets.map((preset) => (
+      <button
+        type="button"
+        class={datePickerPresetStyles}
+        data-rfr-datepicker-preset={preset.id}
+        data-rfr-datepicker-preset-days={preset.days}
+        data-rfr-datepicker-preset-weekday={preset.weekday}
+        aria-controls={inputId}
+        disabled={disabled}
+      >
+        {preset.label}
+      </button>
+    ))}
+  </div>
+)}
 
 <script>
-  document.querySelectorAll<HTMLInputElement>('[data-rfr-datepicker]').forEach((input) => {
-    if (input.hasAttribute('data-rfr-datepicker-init')) return
-    input.setAttribute('data-rfr-datepicker-init', '')
+  import { initDatePickers } from './date-picker-client.js'
 
-    input.addEventListener('change', (e) => {
-      const target = e.target as HTMLInputElement
-      if (target.value) {
-        const date = new Date(target.value)
-        input.dispatchEvent(new CustomEvent('rfr-date-change', {
-          detail: { date, iso: date.toISOString() },
-          bubbles: true,
-        }))
-      }
-    })
-  })
+  initDatePickers()
+  document.addEventListener('astro:after-swap', () => initDatePickers())
 </script>

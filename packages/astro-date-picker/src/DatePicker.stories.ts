@@ -1,3 +1,4 @@
+import { createDefaultDatePresets } from '@refraction-ui/date-picker'
 import Component from './DatePicker.astro'
 
 const meta = {
@@ -17,4 +18,20 @@ export const Default = {
     placeholder: 'Select a date',
     disabled: false
   }
+}
+
+export const WithPresets = {
+  args: {
+    presets: [...createDefaultDatePresets(), { id: 'in-two-weeks', label: 'In two weeks', days: 14 }],
+    placeholder: 'Select a date',
+  },
+}
+
+export const TranslatedPresets = {
+  args: {
+    presets: createDefaultDatePresets({
+      labels: { today: 'Hoy', tomorrow: 'Mañana', nextWeek: 'La próxima semana' },
+    }),
+    presetsLabel: 'Atajos de fecha',
+  },
 }

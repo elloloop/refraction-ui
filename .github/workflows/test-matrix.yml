@@ -214,6 +214,8 @@ jobs:
         run: make storybook
       - name: Install clipboard fixture browsers
         run: pnpm exec playwright install --with-deps chromium webkit
+      - name: Verify Astro date picker presets from the keyboard
+        run: pnpm exec playwright test --config playwright.astro-date-picker.config.ts
       - name: Verify React and Astro clipboard gestures
         run: pnpm exec playwright test --config playwright.composer-paste.config.ts
       - name: Verify Astro composer toolbar keyboard interaction
