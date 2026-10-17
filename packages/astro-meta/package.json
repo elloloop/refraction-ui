@@ -67,6 +67,7 @@
     "@refraction-ui/astro-emoji-picker": "workspace:*",
     "@refraction-ui/astro-empty-state": "workspace:*",
     "@refraction-ui/astro-feedback-dialog": "workspace:*",
+    "@refraction-ui/astro-field": "workspace:*",
     "@refraction-ui/astro-file-tree": "workspace:*",
     "@refraction-ui/astro-file-upload": "workspace:*",
     "@refraction-ui/astro-floating-reactions": "workspace:*",

@@ -242,6 +242,7 @@ export * from '@refraction-ui/astro-line-chart'
 export * from '@refraction-ui/astro-page-header'
 export * from '@refraction-ui/astro-table'
 export * from '@refraction-ui/astro-native-select'
+export * from '@refraction-ui/astro-field'
 
 export { default as EmojiText } from './astro-emoji-picker/EmojiText.astro'
 export { default as EmojiPicker } from './astro-emoji-picker/EmojiPicker.astro'

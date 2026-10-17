@@ -1,0 +1,977 @@
+{
+  "timestamp": "2026-10-17T03:02:55Z",
+  "call": "heuristic",
+  "sourceId": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+  "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:field",
+          "name": "Field",
+          "summary": "feat(field): add a labelled form control with an optional hint",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+            "feat(field): add a labelled form control with an optional hint"
+          ],
+          "testerNotes": [
+            "Verify behavior touching .changeset/field.md, docs-site/package.json, docs-site/src/app/components/field/Field.stories.tsx, docs-site/src/app/components/field/examples.tsx, docs-site/src/app/components/field/page.tsx."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:field"
+          ],
+          "relatedComponents": [
+            "component:changeset",
+            "component:docs-site-packagejson",
+            "component:docs-site-src",
+            "component:docs",
+            "component:packages",
+            "component:pnpm-lockyaml"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:field",
+          "title": "Field",
+          "summary": "feat(field): add a labelled form control with an optional hint",
+          "designNotes": [
+            "Changed files: .changeset/field.md, docs-site/package.json, docs-site/src/app/components/field/Field.stories.tsx, docs-site/src/app/components/field/examples.tsx, docs-site/src/app/components/field/page.tsx, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, docs/pr-evidence/field/README.md",
+            "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset."
+          ],
+          "relatedFeatures": [
+            "feature:field"
+          ],
+          "relatedComponents": [
+            "component:changeset",
+            "component:docs-site-packagejson",
+            "component:docs-site-src",
+            "component:docs",
+            "component:packages",
+            "component:pnpm-lockyaml"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:changeset",
+          "name": ".Changeset",
+          "kind": "unknown",
+          "paths": [
+            ".changeset/field.md"
+          ],
+          "summary": "Owns changes under .changeset.",
+          "relatedFeatures": [
+            "feature:field"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:field"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:docs-site-packagejson",
+          "name": "Docs Site/Package.Json",
+          "kind": "docs",
+          "paths": [
+            "docs-site/package.json"
+          ],
+          "summary": "Owns changes under docs-site/package.json.",
+          "relatedFeatures": [
+            "feature:field"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:field"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:docs-site-src",
+          "name": "Docs Site/Src",
+          "kind": "docs",
+          "paths": [
+            "docs-site/src/app/components/field/Field.stories.tsx",
+            "docs-site/src/app/components/field/examples.tsx",
+            "docs-site/src/app/components/field/page.tsx",
+            "docs-site/src/app/components/page.tsx",
+            "docs-site/src/components/sidebar.tsx"
+          ],
+          "summary": "Owns changes under docs-site/src.",
+          "relatedFeatures": [
+            "feature:field"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:field"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:docs",
+          "name": "Documentation",
+          "kind": "docs",
+          "paths": [
+            "docs/pr-evidence/field/README.md",
+            "docs/pr-evidence/field/after-dark-1440.png",
+            "docs/pr-evidence/field/after-dark-375.png",
+            "docs/pr-evidence/field/after-light-1440.png",
+            "docs/pr-evidence/field/after-light-375.png",
+            "docs/pr-evidence/field/before-dark-1440.png",
+            "docs/pr-evidence/field/before-dark-375.png",
+            "docs/pr-evidence/field/before-light-1440.png",
+            "docs/pr-evidence/field/before-light-375.png",
+            "docs/pr-evidence/field/browser-proof.json"
+          ],
+          "summary": "Owns changes under docs.",
+          "relatedFeatures": [
+            "feature:field"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:field"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:packages",
+          "name": "Packages",
+          "kind": "unknown",
+          "paths": [
+            "packages/astro-field/package.json",
+            "packages/astro-field/src/Field.astro",
+            "packages/astro-field/src/index.ts",
+            "packages/astro-meta/__tests__/field.test.ts",
+            "packages/astro-meta/__tests__/fixtures.ts",
+            "packages/astro-meta/package.json",
+            "packages/astro-meta/src/index.ts",
+            "packages/field/__tests__/field.test.ts",
+            "packages/field/package.json",
+            "packages/field/src/field.styles.ts",
+            "packages/field/src/field.ts",
+            "packages/field/src/index.ts",
+            "packages/field/tsconfig.json",
+            "packages/field/tsup.config.ts",
+            "packages/field/vitest.config.ts",
+            "packages/react-field/__tests__/field.interaction.test.tsx",
+            "packages/react-field/__tests__/field.test.tsx",
+            "packages/react-field/package.json",
+            "packages/react-field/src/field.tsx",
+            "packages/react-field/src/index.ts",
+            "packages/react-field/tsconfig.json",
+            "packages/react-field/tsup.config.ts",
+            "packages/react-field/vitest.config.ts",
+            "packages/react-meta/package.json",
+            "packages/react-meta/src/index.ts"
+          ],
+          "summary": "Owns changes under packages.",
+          "relatedFeatures": [
+            "feature:field"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:field"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:pnpm-lockyaml",
+          "name": "Pnpm Lock.Yaml",
+          "kind": "unknown",
+          "paths": [
+            "pnpm-lock.yaml"
+          ],
+          "summary": "Owns changes under pnpm-lock.yaml.",
+          "relatedFeatures": [
+            "feature:field"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:field"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:field",
+          "to": "component:changeset",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:field",
+          "to": "component:changeset",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:field",
+          "to": "component:docs-site-packagejson",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:field",
+          "to": "component:docs-site-packagejson",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:field",
+          "to": "component:docs-site-src",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:field",
+          "to": "component:docs-site-src",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:field",
+          "to": "component:docs",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:field",
+          "to": "component:docs",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:field",
+          "to": "component:packages",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:field",
+          "to": "component:packages",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:field",
+          "to": "component:pnpm-lockyaml",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:field",
+          "to": "component:pnpm-lockyaml",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:field",
+          "to": "technical:field",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "api:.changeset",
+          "parent": "apis",
+          "title": "Changeset",
+          "summary": "Changed in: add a labelled form control with an optional hint",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:docs-site",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-astro-field",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-field",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-field",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a labelled form control with an optional hint",
+          "how": "Changed: .changeset/field.md",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+              "kind": "diff",
+              "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+              "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+            }
+          ],
+          "updated": "2026-10-17T03:02:55Z"
+        },
+        {
+          "id": "api:docs-site",
+          "parent": "apis",
+          "title": "Docs Site",
+          "summary": "Changed in: add a labelled form control with an optional hint",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-astro-field",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-field",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-field",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a labelled form control with an optional hint",
+          "how": "TypeScript. Changed: docs-site/package.json, docs-site/src/app/components/field/Field.stories.tsx, docs-site/src/app/components/field/examples.tsx, docs-site/src/app/components/field/page.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+              "kind": "diff",
+              "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+              "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+            }
+          ],
+          "updated": "2026-10-17T03:02:55Z"
+        },
+        {
+          "id": "api:docs",
+          "parent": "apis",
+          "title": "Docs",
+          "summary": "Changed in: add a labelled form control with an optional hint",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-astro-field",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-field",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-field",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a labelled form control with an optional hint",
+          "how": "Changed: docs/pr-evidence/field/README.md, docs/pr-evidence/field/after-dark-1440.png, docs/pr-evidence/field/after-dark-375.png, docs/pr-evidence/field/after-light-1440.png",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+              "kind": "diff",
+              "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+              "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+            }
+          ],
+          "updated": "2026-10-17T03:02:55Z"
+        },
+        {
+          "id": "api:packages-astro-field",
+          "parent": "apis",
+          "title": "Packages Astro Field",
+          "summary": "Changed in: add a labelled form control with an optional hint",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-field",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-field",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a labelled form control with an optional hint",
+          "how": "TypeScript. Changed: packages/astro-field/package.json, packages/astro-field/src/Field.astro, packages/astro-field/src/index.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+              "kind": "diff",
+              "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+              "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+            }
+          ],
+          "updated": "2026-10-17T03:02:55Z"
+        },
+        {
+          "id": "operations:packages-astro-meta",
+          "parent": "operations",
+          "title": "Packages Astro Meta",
+          "summary": "Changed in: add a labelled form control with an optional hint",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-field",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-field",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-field",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-react-field",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-react-field",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            }
+          ],
+          "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a labelled form control with an optional hint",
+          "how": "TypeScript. Changed: packages/astro-meta/__tests__/field.test.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+              "kind": "diff",
+              "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+              "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+            }
+          ],
+          "updated": "2026-10-17T03:02:55Z"
+        },
+        {
+          "id": "api:packages-astro-meta",
+          "parent": "apis",
+          "title": "Packages Astro Meta",
+          "summary": "Changed in: add a labelled form control with an optional hint",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-field",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-field",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a labelled form control with an optional hint",
+          "how": "TypeScript. Changed: packages/astro-meta/__tests__/fixtures.ts, packages/astro-meta/package.json, packages/astro-meta/src/index.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+              "kind": "diff",
+              "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+              "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+            }
+          ],
+          "updated": "2026-10-17T03:02:55Z"
+        },
+        {
+          "id": "operations:packages-field",
+          "parent": "operations",
+          "title": "Packages Field",
+          "summary": "Changed in: add a labelled form control with an optional hint",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-field",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-field",
+              "kind": "http"
+            },
+            {
+              "to": "operations:packages-react-field",
+              "kind": "calls"
+            },
+            {
+              "to": "api:packages-react-field",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            }
+          ],
+          "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a labelled form control with an optional hint",
+          "how": "TypeScript. Changed: packages/field/__tests__/field.test.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+              "kind": "diff",
+              "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+              "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+            }
+          ],
+          "updated": "2026-10-17T03:02:55Z"
+        },
+        {
+          "id": "api:packages-field",
+          "parent": "apis",
+          "title": "Packages Field",
+          "summary": "Changed in: add a labelled form control with an optional hint",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-react-field",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a labelled form control with an optional hint",
+          "how": "TypeScript. Changed: packages/field/package.json, packages/field/src/field.styles.ts, packages/field/src/field.ts, packages/field/src/index.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+              "kind": "diff",
+              "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+              "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+            }
+          ],
+          "updated": "2026-10-17T03:02:55Z"
+        },
+        {
+          "id": "operations:packages-react-field",
+          "parent": "operations",
+          "title": "Packages React Field",
+          "summary": "Changed in: add a labelled form control with an optional hint",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-field",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-field",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-field",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            }
+          ],
+          "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a labelled form control with an optional hint",
+          "how": "TypeScript. Changed: packages/react-field/__tests__/field.interaction.test.tsx, packages/react-field/__tests__/field.test.tsx",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+              "kind": "diff",
+              "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+              "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+            }
+          ],
+          "updated": "2026-10-17T03:02:55Z"
+        },
+        {
+          "id": "api:packages-react-field",
+          "parent": "apis",
+          "title": "Packages React Field",
+          "summary": "Changed in: add a labelled form control with an optional hint",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a labelled form control with an optional hint",
+          "how": "TypeScript. Changed: packages/react-field/package.json, packages/react-field/src/field.tsx, packages/react-field/src/index.ts, packages/react-field/tsconfig.json",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+              "kind": "diff",
+              "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+              "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+            }
+          ],
+          "updated": "2026-10-17T03:02:55Z"
+        },
+        {
+          "id": "api:packages-react-meta",
+          "parent": "apis",
+          "title": "Packages React Meta",
+          "summary": "Changed in: add a labelled form control with an optional hint",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a labelled form control with an optional hint",
+          "how": "TypeScript. Changed: packages/react-meta/package.json, packages/react-meta/src/index.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+              "kind": "diff",
+              "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+              "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+            }
+          ],
+          "updated": "2026-10-17T03:02:55Z"
+        },
+        {
+          "id": "operations:workspace-config",
+          "parent": "operations",
+          "title": "Workspace Config",
+          "summary": "Changed in: add a labelled form control with an optional hint",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-field",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-field",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-field",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "http"
+            }
+          ],
+          "why": "Field labels any control by id and describes it with an optional hint, without a form context: stacked and inline layouts, a regular or eyebrow label tone, grow for wrapping rows, and a render-function child for a control nested in a wrapper. Headless core, React and Astro adapters, docs page, story and changeset.",
+          "what": "add a labelled form control with an optional hint",
+          "how": "Changed: pnpm-lock.yaml",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:4ece54e1-e1e6-4587-be97-9947e279c137:v1",
+              "kind": "diff",
+              "commit": "509f1e95db4d285d99bd714af348dbe4a5095543",
+              "diffUuid": "4ece54e1-e1e6-4587-be97-9947e279c137"
+            }
+          ],
+          "updated": "2026-10-17T03:02:55Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "509f1e95db4d285d99bd714af348dbe4a5095543",
+        "label": "feat(field): add a labelled form control with an optional hint",
+        "date": "2026-10-17",
+        "kind": "feature",
+        "touches": [
+          "api:.changeset",
+          "api:docs-site",
+          "api:docs",
+          "api:packages-astro-field",
+          "operations:packages-astro-meta",
+          "api:packages-astro-meta",
+          "operations:packages-field",
+          "api:packages-field",
+          "operations:packages-react-field",
+          "api:packages-react-field",
+          "api:packages-react-meta",
+          "operations:workspace-config"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "37df807de044d6a4b6ea532b923b0126cdf7517649dfe4b9554473cb32b85fdb",
+    "nodeCount": 22,
+    "relationCount": 66,
+    "featureCount": 8,
+    "componentCount": 12,
+    "technicalsCount": 8
+  },
+  "graphAfter": {
+    "sha256": "ea611015ffdd4b5eb2c2c0106fea36db8aa216e531883e288e2eaa3fd1f7b18d",
+    "nodeCount": 28,
+    "relationCount": 79,
+    "featureCount": 9,
+    "componentCount": 12,
+    "technicalsCount": 9
+  }
+}

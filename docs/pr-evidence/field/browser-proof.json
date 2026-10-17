@@ -1,0 +1,102 @@
+[
+  {
+    "image": "before-light-1440.png",
+    "page": "/components/form/",
+    "width": 1440,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": []
+  },
+  {
+    "image": "before-dark-1440.png",
+    "page": "/components/form/",
+    "width": 1440,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "docs color-mode toggle hydration mismatch in dark mode (present on the base revision too)"
+    ]
+  },
+  {
+    "image": "before-light-375.png",
+    "page": "/components/form/",
+    "width": 375,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": []
+  },
+  {
+    "image": "before-dark-375.png",
+    "page": "/components/form/",
+    "width": 375,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "docs color-mode toggle hydration mismatch in dark mode (present on the base revision too)"
+    ]
+  },
+  {
+    "image": "after-light-1440.png",
+    "page": "/components/field/",
+    "width": 1440,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": [],
+    "fields": 7,
+    "labelsNamingAControl": 7,
+    "hints": 3,
+    "hintsDescribingAControl": 3,
+    "nestedLabelNamesTheInput": true,
+    "duplicateIds": 0,
+    "inlineLabelToggles": true
+  },
+  {
+    "image": "after-dark-1440.png",
+    "page": "/components/field/",
+    "width": 1440,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "docs color-mode toggle hydration mismatch in dark mode (present on the base revision too)"
+    ],
+    "fields": 7,
+    "labelsNamingAControl": 7,
+    "hints": 3,
+    "hintsDescribingAControl": 3,
+    "nestedLabelNamesTheInput": true,
+    "duplicateIds": 0,
+    "inlineLabelToggles": true
+  },
+  {
+    "image": "after-light-375.png",
+    "page": "/components/field/",
+    "width": 375,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": [],
+    "fields": 7,
+    "labelsNamingAControl": 7,
+    "hints": 3,
+    "hintsDescribingAControl": 3,
+    "nestedLabelNamesTheInput": true,
+    "duplicateIds": 0,
+    "inlineLabelToggles": true
+  },
+  {
+    "image": "after-dark-375.png",
+    "page": "/components/field/",
+    "width": 375,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "docs color-mode toggle hydration mismatch in dark mode (present on the base revision too)"
+    ],
+    "fields": 7,
+    "labelsNamingAControl": 7,
+    "hints": 3,
+    "hintsDescribingAControl": 3,
+    "nestedLabelNamesTheInput": true,
+    "duplicateIds": 0,
+    "inlineLabelToggles": true
+  }
+]

@@ -1,0 +1,49 @@
+---
+import {
+  createField,
+  fieldHintId,
+  type FieldLayout,
+  type FieldLabelTone,
+} from '@refraction-ui/field'
+import { cn } from '@refraction-ui/shared'
+
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** The visible label — also the control's accessible name. */
+  label: string
+  /**
+   * The id of the control in the default slot. Astro cannot add attributes
+   * to slotted markup, so the control carries this id itself and, when there
+   * is a hint, `aria-describedby="<htmlFor>-hint"`.
+   */
+  htmlFor: string
+  /** Helper copy under the control. Its id is `<htmlFor>-hint`. */
+  hint?: string
+  /** `stacked` (default) puts the label above; `inline` beside a checkbox or switch. */
+  layout?: FieldLayout
+  /** Grow to fill spare room in a wrapping row. */
+  grow?: boolean
+  /** Label typography: a regular form label, or a small uppercase eyebrow. */
+  labelTone?: FieldLabelTone
+}
+
+const {
+  label,
+  htmlFor,
+  hint,
+  layout = 'stacked',
+  grow = false,
+  labelTone = 'default',
+  class: className,
+  ...rest
+} = Astro.props
+
+const api = createField({ layout, grow, labelTone })
+const inline = layout === 'inline'
+---
+
+<div class={cn(api.rootClass, className)} {...api.dataAttributes} {...rest}>
+  {inline && <slot />}
+  <label data-slot="field-label" for={htmlFor} class={api.labelClass}>{label}</label>
+  {!inline && <slot />}
+  {hint && <p data-slot="field-hint" id={fieldHintId(htmlFor)} class={api.hintClass}>{hint}</p>}
+</div>

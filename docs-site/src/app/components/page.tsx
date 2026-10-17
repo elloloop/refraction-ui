@@ -64,6 +64,7 @@ const components = [
   { name: 'Combobox', href: '/components/combobox', description: 'Searchable select with text filtering and controlled/uncontrolled modes.', category: 'Forms' },
   { name: 'Command Input', href: '/components/command-input', description: 'Contenteditable input that detects trigger characters like @ and /.', category: 'Forms' },
   { name: 'Form', href: '/components/form', description: 'Accessible form primitives on react-hook-form wiring labels, errors, and ARIA ids.', category: 'Forms' },
+  { name: 'Field', href: '/components/field', description: 'Labelled form control with an optional hint, for any control and any form library.', category: 'Forms' },
   { name: 'Input Group', href: '/components/input-group', description: 'Flex container joining inputs with addons, icons, and buttons.', category: 'Forms' },
   { name: 'Location Selector', href: '/components/location-selector', description: 'Paired country and language selects with built-in option lists.', category: 'Forms' },
   { name: 'Payment', href: '/components/payment', description: 'Styled card surface for building checkout and payment forms.', category: 'Forms' },
