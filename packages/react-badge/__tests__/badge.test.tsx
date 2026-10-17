@@ -49,7 +49,7 @@ describe('Badge (React)', () => {
     const html = renderToString(
       React.createElement(Badge, { size: 'sm' }, 'Small'),
     )
-    expect(html).toContain('text-[10px]')
+    expect(html).toContain('text-[0.625rem]')
   })
 
   it('applies custom className', () => {
@@ -96,11 +96,11 @@ describe('Badge – each variant renders', () => {
 })
 
 describe('Badge – each size renders', () => {
-  it('sm size renders with text-[10px]', () => {
+  it('sm size renders with text-[0.625rem]', () => {
     const html = renderToString(
       React.createElement(Badge, { size: 'sm' }, 'Small'),
     )
-    expect(html).toContain('text-[10px]')
+    expect(html).toContain('text-[0.625rem]')
   })
 
   it('md size renders with text-xs', () => {

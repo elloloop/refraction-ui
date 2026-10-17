@@ -20,7 +20,7 @@ export const sectionHeadVariants = cva({
 
 /** Small-caps eyebrow label above the title. */
 export const sectionHeadKickerClass =
-  'text-[11px] uppercase tracking-widest text-primary font-semibold'
+  'text-[0.6875rem] uppercase tracking-widest text-primary font-semibold'
 
 /** Primary h2 heading. */
 export const sectionHeadTitleClass =
