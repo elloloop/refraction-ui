@@ -122,6 +122,7 @@ const componentGroups = [
       { name: 'Event Calendar', href: '/components/event-calendar' },
       { name: 'Incoming Call Card', href: '/components/incoming-call-card' },
       { name: 'Level Bars', href: '/components/level-bars' },
+      { name: 'Floating Panel', href: '/components/floating-panel' },
     ],
   },
   {

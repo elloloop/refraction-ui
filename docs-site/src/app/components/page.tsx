@@ -169,6 +169,7 @@ const components = [
   { name: 'Event Calendar', href: '/components/event-calendar', description: 'Day, week and month views on a pure lane-layout core.', category: 'Workplace' },
   { name: 'Incoming Call Card', href: '/components/incoming-call-card', description: 'A ringing call with accept and decline.', category: 'Workplace' },
   { name: 'Level Bars', href: '/components/level-bars', description: 'Audio level meters, static or live scrolling history.', category: 'Workplace' },
+  { name: 'Floating Panel', href: '/components/floating-panel', description: 'A draggable mini panel that snaps to a corner.', category: 'Workplace' },
   { name: 'Rating Scale', href: '/components/rating-scale', description: 'Visual rating input with customizable range.', category: 'Forms' },
   { name: 'Wizard', href: '/components/wizard', description: 'Multi-step form wizard with progress indicators.', category: 'Forms' },
   { name: 'Radial Gauge', href: '/components/radial-gauge', description: 'Circular dial gauge for displaying percentage values.', category: 'Data' },

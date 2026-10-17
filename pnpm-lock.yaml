@@ -296,6 +296,9 @@ importers:
       '@refraction-ui/react-file-upload':
         specifier: workspace:*
         version: link:../packages/react-file-upload
+      '@refraction-ui/react-floating-panel':
+        specifier: workspace:*
+        version: link:../packages/react-floating-panel
       '@refraction-ui/react-floating-reactions':
         specifier: workspace:*
         version: link:../packages/react-floating-reactions
@@ -3022,6 +3025,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/floating-panel:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/floating-reactions:
     dependencies:
       '@refraction-ui/shared':
@@ -4824,6 +4833,34 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-floating-panel:
+    dependencies:
+      '@refraction-ui/floating-panel':
+        specifier: workspace:*
+        version: link:../floating-panel
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-floating-reactions:
     dependencies:
       '@refraction-ui/floating-reactions':
@@ -5862,6 +5899,9 @@ importers:
       '@refraction-ui/react-file-upload':
         specifier: workspace:*
         version: link:../react-file-upload
+      '@refraction-ui/react-floating-panel':
+        specifier: workspace:*
+        version: link:../react-floating-panel
       '@refraction-ui/react-floating-reactions':
         specifier: workspace:*
         version: link:../react-floating-reactions

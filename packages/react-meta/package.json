@@ -101,6 +101,7 @@
     "@refraction-ui/react-feedback-dialog": "workspace:*",
     "@refraction-ui/react-file-tree": "workspace:*",
     "@refraction-ui/react-file-upload": "workspace:*",
+    "@refraction-ui/react-floating-panel": "workspace:*",
     "@refraction-ui/react-floating-reactions": "workspace:*",
     "@refraction-ui/react-flow-editor": "workspace:*",
     "@refraction-ui/react-footer": "workspace:*",
