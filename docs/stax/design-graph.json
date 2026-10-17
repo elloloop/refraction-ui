@@ -3,10 +3,10 @@
   "repo": "elloloop/refraction-ui",
   "defaultBranch": "main",
   "mainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
-  "lastUpdated": "2026-10-17T03:07:11Z",
+  "lastUpdated": "2026-10-17T03:33:47Z",
   "state": {
     "lastProcessedMainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
-    "lastProcessedSourceId": "diff:91e4722b-4dde-4289-847a-3ae3fc1d3fa6:v1"
+    "lastProcessedSourceId": "diff:ce79aa4b-68ad-4998-b218-4e036214ffe2:v1"
   },
   "nodes": [
     {
@@ -557,7 +557,7 @@
       "id": "api:packages-media-frame",
       "parent": "apis",
       "title": "Packages Media Frame",
-      "summary": "Changed in: add a fixed-aspect frame for rendered media",
+      "summary": "Changed in: fix(media-frame): parse ratio sides in linear time",
       "kicker": "Service",
       "diagram": {
         "tier": "api"
@@ -572,9 +572,9 @@
           "kind": "grpc"
         }
       ],
-      "why": "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
-      "what": "add a fixed-aspect frame for rendered media",
-      "how": "TypeScript. Changed: packages/media-frame/package.json, packages/media-frame/src/index.ts, packages/media-frame/src/media-frame.styles.ts, packages/media-frame/src/media-frame.ts",
+      "why": "CodeQL flagged the ratio-side pattern as polynomial on long digit runs. Validate each side with one pass over its characters instead, and test that a 100k-character malformed side is rejected quickly.",
+      "what": "fix(media-frame): parse ratio sides in linear time",
+      "how": "TypeScript. Changed: packages/media-frame/src/media-frame.ts",
       "meta": {
         "status": "live"
       },
@@ -587,9 +587,15 @@
           "kind": "diff",
           "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
           "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+        },
+        {
+          "id": "diff:ce79aa4b-68ad-4998-b218-4e036214ffe2:v1",
+          "kind": "diff",
+          "commit": "8b064b4fe45d6373225d7212602bbaa04f7b0c5c",
+          "diffUuid": "ce79aa4b-68ad-4998-b218-4e036214ffe2"
         }
       ],
-      "updated": "2026-10-17T03:07:10Z"
+      "updated": "2026-10-17T03:33:46Z"
     },
     {
       "id": "api:packages-react-dialog",
@@ -1071,7 +1077,7 @@
       "id": "operations:packages-media-frame",
       "parent": "operations",
       "title": "Packages Media Frame",
-      "summary": "Changed in: add a fixed-aspect frame for rendered media",
+      "summary": "Changed in: fix(media-frame): parse ratio sides in linear time",
       "kicker": "Operations",
       "diagram": {
         "tier": "operations"
@@ -1118,8 +1124,8 @@
           "kind": "calls"
         }
       ],
-      "why": "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
-      "what": "add a fixed-aspect frame for rendered media",
+      "why": "CodeQL flagged the ratio-side pattern as polynomial on long digit runs. Validate each side with one pass over its characters instead, and test that a 100k-character malformed side is rejected quickly.",
+      "what": "fix(media-frame): parse ratio sides in linear time",
       "how": "TypeScript. Changed: packages/media-frame/__tests__/media-frame.test.ts",
       "meta": {
         "status": "live"
@@ -1133,9 +1139,15 @@
           "kind": "diff",
           "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
           "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+        },
+        {
+          "id": "diff:ce79aa4b-68ad-4998-b218-4e036214ffe2:v1",
+          "kind": "diff",
+          "commit": "8b064b4fe45d6373225d7212602bbaa04f7b0c5c",
+          "diffUuid": "ce79aa4b-68ad-4998-b218-4e036214ffe2"
         }
       ],
-      "updated": "2026-10-17T03:07:10Z"
+      "updated": "2026-10-17T03:33:46Z"
     },
     {
       "id": "operations:packages-react-dialog",
@@ -1608,6 +1620,16 @@
         "api:packages-react-meta",
         "operations:workspace-config"
       ]
+    },
+    {
+      "sha": "8b064b4fe45d6373225d7212602bbaa04f7b0c5c",
+      "label": "feat(media-frame): fix(media-frame): parse ratio sides in linear time",
+      "date": "2026-10-17",
+      "kind": "feature",
+      "touches": [
+        "operations:packages-media-frame",
+        "api:packages-media-frame"
+      ]
     }
   ],
   "featureDocs": [
@@ -1785,7 +1807,7 @@
     {
       "id": "feature:media-frame",
       "name": "Media Frame",
-      "summary": "feat(media-frame): add a fixed-aspect frame for rendered media",
+      "summary": "feat(media-frame): fix(media-frame): parse ratio sides in linear time",
       "audience": [
         "end-user",
         "product-manager",
@@ -1793,10 +1815,13 @@
       ],
       "userDocs": [
         "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
-        "feat(media-frame): add a fixed-aspect frame for rendered media"
+        "feat(media-frame): add a fixed-aspect frame for rendered media",
+        "CodeQL flagged the ratio-side pattern as polynomial on long digit runs. Validate each side with one pass over its characters instead, and test that a 100k-character malformed side is rejected quickly.",
+        "feat(media-frame): fix(media-frame): parse ratio sides in linear time"
       ],
       "testerNotes": [
-        "Verify behavior touching .changeset/media-frame.md, docs-site/package.json, docs-site/src/app/components/media-frame/MediaFrame.stories.tsx, docs-site/src/app/components/media-frame/examples.tsx, docs-site/src/app/components/media-frame/page.tsx."
+        "Verify behavior touching .changeset/media-frame.md, docs-site/package.json, docs-site/src/app/components/media-frame/MediaFrame.stories.tsx, docs-site/src/app/components/media-frame/examples.tsx, docs-site/src/app/components/media-frame/page.tsx.",
+        "Verify behavior touching packages/media-frame/__tests__/media-frame.test.ts, packages/media-frame/src/media-frame.ts."
       ],
       "relatedTechnicalDetails": [
         "technical:media-frame"
@@ -1815,9 +1840,15 @@
           "kind": "diff",
           "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
           "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+        },
+        {
+          "id": "diff:ce79aa4b-68ad-4998-b218-4e036214ffe2:v1",
+          "kind": "diff",
+          "commit": "8b064b4fe45d6373225d7212602bbaa04f7b0c5c",
+          "diffUuid": "ce79aa4b-68ad-4998-b218-4e036214ffe2"
         }
       ],
-      "updated": "2026-10-17T03:07:10Z"
+      "updated": "2026-10-17T03:33:46Z"
     },
     {
       "id": "feature:release-packages",
@@ -2063,10 +2094,12 @@
     {
       "id": "technical:media-frame",
       "title": "Media Frame",
-      "summary": "feat(media-frame): add a fixed-aspect frame for rendered media",
+      "summary": "feat(media-frame): fix(media-frame): parse ratio sides in linear time",
       "designNotes": [
         "Changed files: .changeset/media-frame.md, docs-site/package.json, docs-site/src/app/components/media-frame/MediaFrame.stories.tsx, docs-site/src/app/components/media-frame/examples.tsx, docs-site/src/app/components/media-frame/page.tsx, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, docs/pr-evidence/media-frame/README.md",
-        "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset."
+        "MediaFrame holds an image, a video or a live preview at a fixed aspect ratio on a letterbox surface, with an optional corner caption. The ratio takes a number, w:h or w/h and falls back to a square with a development warning; data-orientation exposes the shape; caption corners are logical; tone switches between the neutral surface and the tertiary accent. Headless core, React and Astro adapters, docs page, story and changeset.",
+        "Changed files: packages/media-frame/__tests__/media-frame.test.ts, packages/media-frame/src/media-frame.ts",
+        "CodeQL flagged the ratio-side pattern as polynomial on long digit runs. Validate each side with one pass over its characters instead, and test that a 100k-character malformed side is rejected quickly."
       ],
       "relatedFeatures": [
         "feature:media-frame"
@@ -2085,9 +2118,15 @@
           "kind": "diff",
           "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
           "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+        },
+        {
+          "id": "diff:ce79aa4b-68ad-4998-b218-4e036214ffe2:v1",
+          "kind": "diff",
+          "commit": "8b064b4fe45d6373225d7212602bbaa04f7b0c5c",
+          "diffUuid": "ce79aa4b-68ad-4998-b218-4e036214ffe2"
         }
       ],
-      "updated": "2026-10-17T03:07:10Z"
+      "updated": "2026-10-17T03:33:46Z"
     },
     {
       "id": "technical:release-packages",
@@ -2636,9 +2675,15 @@
           "kind": "diff",
           "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
           "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+        },
+        {
+          "id": "diff:ce79aa4b-68ad-4998-b218-4e036214ffe2:v1",
+          "kind": "diff",
+          "commit": "8b064b4fe45d6373225d7212602bbaa04f7b0c5c",
+          "diffUuid": "ce79aa4b-68ad-4998-b218-4e036214ffe2"
         }
       ],
-      "updated": "2026-10-17T03:07:10Z"
+      "updated": "2026-10-17T03:33:46Z"
     },
     {
       "id": "component:pnpm-lockyaml",
@@ -3100,9 +3145,15 @@
           "kind": "diff",
           "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
           "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+        },
+        {
+          "id": "diff:ce79aa4b-68ad-4998-b218-4e036214ffe2:v1",
+          "kind": "diff",
+          "commit": "8b064b4fe45d6373225d7212602bbaa04f7b0c5c",
+          "diffUuid": "ce79aa4b-68ad-4998-b218-4e036214ffe2"
         }
       ],
-      "updated": "2026-10-17T03:07:10Z"
+      "updated": "2026-10-17T03:33:46Z"
     },
     {
       "from": "feature:media-frame",
@@ -3175,9 +3226,15 @@
           "kind": "diff",
           "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
           "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+        },
+        {
+          "id": "diff:ce79aa4b-68ad-4998-b218-4e036214ffe2:v1",
+          "kind": "diff",
+          "commit": "8b064b4fe45d6373225d7212602bbaa04f7b0c5c",
+          "diffUuid": "ce79aa4b-68ad-4998-b218-4e036214ffe2"
         }
       ],
-      "updated": "2026-10-17T03:07:10Z"
+      "updated": "2026-10-17T03:33:46Z"
     },
     {
       "from": "feature:media-frame",
@@ -3737,9 +3794,15 @@
           "kind": "diff",
           "commit": "adac4f2bd9f124a34823fe50db56eef9356e9c40",
           "diffUuid": "91e4722b-4dde-4289-847a-3ae3fc1d3fa6"
+        },
+        {
+          "id": "diff:ce79aa4b-68ad-4998-b218-4e036214ffe2:v1",
+          "kind": "diff",
+          "commit": "8b064b4fe45d6373225d7212602bbaa04f7b0c5c",
+          "diffUuid": "ce79aa4b-68ad-4998-b218-4e036214ffe2"
         }
       ],
-      "updated": "2026-10-17T03:07:10Z"
+      "updated": "2026-10-17T03:33:46Z"
     },
     {
       "from": "technical:media-frame",
@@ -4196,6 +4259,29 @@
       "diffHash": "4a6011570d8f38345d77a966befd271066cebceac09036d93ea35bff6f67db6e",
       "created": "2026-10-17T03:07:07Z",
       "processedAt": "2026-10-17T03:07:10Z"
+    },
+    {
+      "id": "diff:ce79aa4b-68ad-4998-b218-4e036214ffe2:v1",
+      "kind": "diff",
+      "feature": "media-frame",
+      "diffUuid": "ce79aa4b-68ad-4998-b218-4e036214ffe2",
+      "diffPosition": 2,
+      "version": 1,
+      "commit": "8b064b4fe45d6373225d7212602bbaa04f7b0c5c",
+      "parent": "afef86d3bdb32bacd93e001ae56cda8f68e105c3",
+      "title": "feat(media-frame): fix(media-frame): parse ratio sides in linear time",
+      "description": "CodeQL flagged the ratio-side pattern as polynomial on long digit runs. Validate each side with one pass over its characters instead, and test that a 100k-character malformed side is rejected quickly.",
+      "type": "feature",
+      "files": [
+        "packages/media-frame/__tests__/media-frame.test.ts",
+        "packages/media-frame/src/media-frame.ts"
+      ],
+      "additions": 22,
+      "deletions": 2,
+      "mainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
+      "diffHash": "c2d65fc0f7824dfccc88bda3005400199673eb6c3f3c933f350caf1a81a2818a",
+      "created": "2026-10-17T03:33:46Z",
+      "processedAt": "2026-10-17T03:33:46Z"
     }
   ]
 }

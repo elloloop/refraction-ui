@@ -15,6 +15,7 @@ describe('parseMediaRatio', () => {
     expect(parseMediaRatio('2.39:1')).toBeCloseTo(2.39)
     expect(parseMediaRatio('.5:1')).toBeCloseTo(0.5)
     expect(parseMediaRatio('3.:2')).toBeCloseTo(1.5)
+    expect(parseMediaRatio(' 4 : 3 ')).toBeCloseTo(4 / 3)
   })
 
   it('rejects unusable ratios', () => {
@@ -32,6 +33,14 @@ describe('parseMediaRatio', () => {
     expect(parseMediaRatio('16:9:1')).toBeNull()
     expect(parseMediaRatio('-4:3')).toBeNull()
     expect(parseMediaRatio('1e3:1')).toBeNull()
+  })
+
+  it('rejects a long malformed side quickly', () => {
+    const hostile = `${'0'.repeat(100_000)}x:1`
+    const started = performance.now()
+    expect(parseMediaRatio(hostile)).toBeNull()
+    // A backtracking pattern takes seconds on this input; a linear scan, about a millisecond.
+    expect(performance.now() - started).toBeLessThan(1_000)
   })
 })
 

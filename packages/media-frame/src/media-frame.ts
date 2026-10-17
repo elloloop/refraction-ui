@@ -40,10 +40,21 @@ export function parseMediaRatio(ratio: MediaFrameRatio | string): number | null 
   return width > 0 && height > 0 ? width / height : null
 }
 
-/** One side of a ratio: a plain non-negative decimal, surrounding spaces allowed. */
+/**
+ * One side of a ratio: a plain non-negative decimal, surrounding spaces allowed.
+ * Checked with a single pass over the characters rather than a regular
+ * expression, so a long hostile string costs linear time.
+ */
 function parseSide(raw: string): number | null {
   const text = raw.trim()
-  if (!/^(?:\d+\.?\d*|\.\d+)$/.test(text)) return null
+  let digits = 0
+  let dots = 0
+  for (const char of text) {
+    if (char >= '0' && char <= '9') digits += 1
+    else if (char === '.') dots += 1
+    else return null
+  }
+  if (digits === 0 || dots > 1) return null
   const value = Number(text)
   return Number.isFinite(value) ? value : null
 }
