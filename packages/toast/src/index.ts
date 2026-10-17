@@ -2,12 +2,30 @@ export {
   createToast,
   createToastManager,
   getToastIcon,
+  getToastPoliteness,
+  getToastAnnouncement,
+  DEFAULT_TOAST_DURATION,
+  DEFAULT_TOAST_DISMISS_LABEL,
+  DEFAULT_TOASTER_LABEL,
+  TOAST_ANNOUNCEMENT_LIFETIME_MS,
   type ToastVariant,
   type ToastProps,
   type ToastAPI,
   type ToastState,
   type ToastEntry,
   type ToastManagerAPI,
+  type ToastManagerConfig,
+  type ToastOptions,
+  type ToastAction,
+  type ToastPoliteness,
 } from './toast.js'
 
-export { toastVariants } from './toast.styles.js'
+export {
+  toastVariants,
+  toastTitleClass,
+  toastDescriptionClass,
+  toastActionClass,
+  toastCloseClass,
+  toastAnnouncerClass,
+  toasterClass,
+} from './toast.styles.js'
