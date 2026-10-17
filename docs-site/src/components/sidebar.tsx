@@ -123,6 +123,7 @@ const componentGroups = [
       { name: 'Incoming Call Card', href: '/components/incoming-call-card' },
       { name: 'Level Bars', href: '/components/level-bars' },
       { name: 'Floating Panel', href: '/components/floating-panel' },
+      { name: 'Voice Note', href: '/components/voice-note' },
     ],
   },
   {

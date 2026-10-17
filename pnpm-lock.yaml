@@ -599,6 +599,9 @@ importers:
       '@refraction-ui/react-virtual-list':
         specifier: workspace:*
         version: link:../packages/react-virtual-list
+      '@refraction-ui/react-voice-note':
+        specifier: workspace:*
+        version: link:../packages/react-voice-note
       '@refraction-ui/react-voice-pill':
         specifier: workspace:*
         version: link:../packages/react-voice-pill
@@ -6217,6 +6220,9 @@ importers:
       '@refraction-ui/react-virtual-list':
         specifier: workspace:*
         version: link:../react-virtual-list
+      '@refraction-ui/react-voice-note':
+        specifier: workspace:*
+        version: link:../react-voice-note
       '@refraction-ui/react-voice-pill':
         specifier: workspace:*
         version: link:../react-voice-pill
@@ -7863,6 +7869,40 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-voice-note:
+    dependencies:
+      '@refraction-ui/react-button':
+        specifier: workspace:*
+        version: link:../react-button
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
+      '@refraction-ui/react-waveform':
+        specifier: workspace:*
+        version: link:../react-waveform
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/voice-note':
+        specifier: workspace:*
+        version: link:../voice-note
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-voice-pill:
     dependencies:
       '@refraction-ui/shared':
@@ -8220,6 +8260,12 @@ importers:
         version: link:../shared
 
   packages/virtual-list:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/voice-note:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
