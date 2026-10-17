@@ -113,7 +113,7 @@ export default function RadioPage() {
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
-        <CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} />
+        <CodeBlock frameworks={{ react: usageCode, astro: '---\nimport { RadioGroup, RadioItem } from \'@refraction-ui/astro\'\n---\n<RadioGroup name="delivery" value="email" aria-label="Delivery method">\n  <RadioItem value="email" checked>Email</RadioItem>\n  <RadioItem value="sms">SMS</RadioItem>\n</RadioGroup>' }} />
       </section>
 
       <div className="h-px bg-border" />

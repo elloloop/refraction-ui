@@ -70,7 +70,7 @@ export default function CardPage() {
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
-        <CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} />
+        <CodeBlock frameworks={{ react: usageCode, astro: "---\nimport { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@refraction-ui/astro'\n---\n<Card>\n  <CardHeader>\n    <CardTitle>Review access</CardTitle>\n    <CardDescription>Choose the access you want to allow.</CardDescription>\n  </CardHeader>\n  <CardContent>Your content</CardContent>\n  <CardFooter>Confirm your choice</CardFooter>\n</Card>" }} />
       </section>
 
       <div className="h-px bg-border" />
