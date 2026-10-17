@@ -4,7 +4,9 @@ import {
   avatarGroupStyles,
   avatarVariants,
   avatarOverflowBadgeVariants,
+  avatarOverflowButtonStyles,
   avatarImageStyles,
+  avatarInitialsStyles,
   avatarPresenceDotVariants,
   type AvatarUser,
   type AvatarSize,
@@ -15,28 +17,57 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   users: AvatarUser[]
   max?: number
   size?: AvatarSize
+  /**
+   * Render the "+N" badge as a button (`data-rfr-avatar-group-overflow`) and
+   * handle its click yourself, e.g. to open a list of everyone. Default: a
+   * label, not a button.
+   */
+  overflowButton?: boolean
 }
 
-const { users, max, size = 'md', class: className, ...props } = Astro.props
-const api = createAvatarGroup({ users, max, size })
+const {
+  users,
+  max,
+  size = 'md',
+  overflowButton = false,
+  class: className,
+  ...props
+} = Astro.props
+const api = createAvatarGroup({ users, max, size, overflowInteractive: overflowButton })
+const badgeClass = cn(
+  avatarOverflowBadgeVariants({ size }),
+  overflowButton && avatarOverflowButtonStyles,
+)
 ---
 
 <div class={cn(avatarGroupStyles, className)} {...api.ariaProps} {...props}>
   {api.visibleUsers.map((user) => (
     <div class={avatarVariants({ size })} {...api.getAvatarAriaProps(user)}>
-      {user.src ? (
-        <img src={user.src} alt={user.name} class={avatarImageStyles} />
-      ) : (
-        <span>{api.getInitials(user.name)}</span>
+      <span class={avatarInitialsStyles} data-rfr-avatar-group-initials>
+        {api.getInitials(user.name)}
+      </span>
+      {user.src && (
+        <img src={user.src} alt="" class={avatarImageStyles} data-rfr-avatar-group-image />
       )}
       {user.status && (
         <span class={avatarPresenceDotVariants({ size, status: user.status })} />
       )}
     </div>
   ))}
-  {api.overflowCount > 0 && (
-    <div class={avatarOverflowBadgeVariants({ size })} {...api.overflowBadgeProps}>
+  {api.overflowCount > 0 && (overflowButton ? (
+    <button class={badgeClass} data-rfr-avatar-group-overflow {...api.overflowBadgeProps}>
+      +{api.overflowCount}
+    </button>
+  ) : (
+    <div class={badgeClass} {...api.overflowBadgeProps}>
       +{api.overflowCount}
     </div>
-  )}
+  ))}
 </div>
+
+<script>
+  import { initAvatarGroups } from './avatar-group-client.js'
+
+  initAvatarGroups(document)
+  document.addEventListener('astro:after-swap', () => initAvatarGroups(document))
+</script>

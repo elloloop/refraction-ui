@@ -22,6 +22,13 @@ export interface AvatarGroupProps {
   max?: number
   /** Avatar size */
   size?: AvatarSize
+  /**
+   * Whether the "+N" badge is a button. The adapter decides what pressing it
+   * does; a badge that does nothing is labelled as an image, never a button.
+   */
+  overflowInteractive?: boolean
+  /** Prefix for generated ids; an adapter passes a stable one for hydration. */
+  idPrefix?: string
 }
 
 export interface AvatarGroupAPI {
@@ -37,7 +44,10 @@ export interface AvatarGroupAPI {
   getAvatarAriaProps(user: AvatarUser): Record<string, unknown>
   /** Get initials from a user's name */
   getInitials(name: string): string
-  /** Get the overflow badge ARIA props */
+  /**
+   * Props for the "+N" badge: a button's `type` when `overflowInteractive`,
+   * otherwise `role="img"`; both carry the label ("2 more users").
+   */
   overflowBadgeProps: Record<string, unknown>
   /** Generated IDs */
   ids: {
@@ -61,15 +71,26 @@ export function getInitials(name: string): string {
   return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase()
 }
 
+/** How far an `<img>` has got. Read from the element, so it also holds for an
+ * image that settled before any script could listen for its events. */
+export type AvatarImageStatus = 'loading' | 'loaded' | 'failed'
+
+export function getAvatarImageStatus(
+  image: Pick<HTMLImageElement, 'complete' | 'naturalWidth'>,
+): AvatarImageStatus {
+  if (!image.complete) return 'loading'
+  return image.naturalWidth > 0 ? 'loaded' : 'failed'
+}
+
 export function createAvatarGroup(props: AvatarGroupProps): AvatarGroupAPI {
-  const { users, max, size = 'md' } = props
+  const { users, max, overflowInteractive = false, idPrefix } = props
 
   const visibleUsers = max && max > 0 ? users.slice(0, max) : users
   const overflowUsers = max && max > 0 ? users.slice(max) : []
   const overflowCount = overflowUsers.length
 
-  const groupId = generateId('rfr-avatar-group')
-  const labelId = generateId('rfr-avatar-group-label')
+  const groupId = idPrefix ?? generateId('rfr-avatar-group')
+  const labelId = `${groupId}-label`
 
   const ariaProps: Partial<AccessibilityProps> & Record<string, unknown> = {
     role: 'group',
@@ -85,10 +106,10 @@ export function createAvatarGroup(props: AvatarGroupProps): AvatarGroupAPI {
     }
   }
 
-  const overflowBadgeProps: Record<string, unknown> = {
-    role: 'button',
-    'aria-label': `${overflowCount} more users`,
-  }
+  const overflowLabel = `${overflowCount} more users`
+  const overflowBadgeProps: Record<string, unknown> = overflowInteractive
+    ? { type: 'button', 'aria-label': overflowLabel }
+    : { role: 'img', 'aria-label': overflowLabel }
 
   return {
     visibleUsers,
