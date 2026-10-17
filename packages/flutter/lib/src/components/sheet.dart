@@ -4,6 +4,10 @@ import '../theme/refraction_theme.dart';
 enum RefractionSheetSide { left, right, top, bottom }
 
 class RefractionSheet {
+  /// Opens an edge-aligned sheet. [fitContent] lets a top/bottom sheet shrink to
+  /// its content and scroll up to [maxHeight] or the keyboard-visible viewport.
+  /// Existing fixed sizing remains the default. Explicit [height] or vertical
+  /// sides cannot be combined with [fitContent].
   static Future<T?> show<T>({
     required BuildContext context,
     required Widget content,
@@ -15,7 +19,24 @@ class RefractionSheet {
     double? width,
     double? height,
     bool showDragHandle = false,
+    bool fitContent = false,
+    double? maxHeight,
   }) {
+    if (fitContent &&
+        (height != null ||
+            side == RefractionSheetSide.left ||
+            side == RefractionSheetSide.right)) {
+      throw ArgumentError(
+        'fitContent requires a top or bottom sheet without height',
+      );
+    }
+    if (maxHeight != null && (!maxHeight.isFinite || maxHeight <= 0)) {
+      throw ArgumentError.value(
+        maxHeight,
+        'maxHeight',
+        'must be finite and positive',
+      );
+    }
     final themeProvider = RefractionTheme.of(context);
     final theme = themeProvider.data;
     final colors = theme.colors;
@@ -61,6 +82,8 @@ class RefractionSheet {
           reverseCurve: Curves.easeInCubic,
         );
 
+        final media = MediaQuery.of(context);
+        final availableHeight = media.size.height - media.viewInsets.vertical;
         final sheet = Align(
           alignment: _getAlignment(side),
           child: RefractionTheme(
@@ -74,7 +97,14 @@ class RefractionSheet {
                 shape: _getShape(side, theme.borderRadius),
                 child: Container(
                   width: width ?? defaultWidth,
-                  height: height ?? defaultHeight,
+                  height: fitContent ? null : height ?? defaultHeight,
+                  constraints: fitContent
+                      ? BoxConstraints(
+                          maxHeight: maxHeight == null
+                              ? availableHeight
+                              : maxHeight.clamp(0, availableHeight),
+                        )
+                      : null,
                   decoration: BoxDecoration(
                     color: colors.background,
                     border: _getBorder(side, colors.border),
@@ -136,7 +166,8 @@ class RefractionSheet {
                               ],
                             ),
                           ),
-                        Expanded(
+                        Flexible(
+                          fit: fitContent ? FlexFit.loose : FlexFit.tight,
                           child: SingleChildScrollView(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 24.0,
@@ -180,7 +211,9 @@ class RefractionSheet {
             begin: begin,
             end: Offset.zero,
           ).animate(curve),
-          child: sheet,
+          child: fitContent
+              ? Padding(padding: media.viewInsets, child: sheet)
+              : sheet,
         );
       },
     );
