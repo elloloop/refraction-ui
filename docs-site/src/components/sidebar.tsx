@@ -101,6 +101,7 @@ const componentGroups = [
       { name: 'Icon Button', href: '/components/icon-button' },
       { name: 'Highlight Text', href: '/components/highlight-text' },
       { name: 'Markup Text', href: '/components/markup-text' },
+      { name: 'Virtual List', href: '/components/virtual-list' },
     ],
   },
   {

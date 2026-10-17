@@ -533,6 +533,9 @@ importers:
       '@refraction-ui/react-video-tile':
         specifier: workspace:*
         version: link:../packages/react-video-tile
+      '@refraction-ui/react-virtual-list':
+        specifier: workspace:*
+        version: link:../packages/react-virtual-list
       '@refraction-ui/react-voice-pill':
         specifier: workspace:*
         version: link:../packages/react-voice-pill
@@ -5709,6 +5712,9 @@ importers:
       '@refraction-ui/react-video-tile':
         specifier: workspace:*
         version: link:../react-video-tile
+      '@refraction-ui/react-virtual-list':
+        specifier: workspace:*
+        version: link:../react-virtual-list
       '@refraction-ui/react-voice-pill':
         specifier: workspace:*
         version: link:../react-voice-pill
@@ -7025,6 +7031,31 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-virtual-list:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/virtual-list':
+        specifier: workspace:*
+        version: link:../virtual-list
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-voice-pill:
     dependencies:
       '@refraction-ui/shared':
@@ -7325,6 +7356,12 @@ importers:
         version: link:../shared
 
   packages/video-tile:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/virtual-list:
     dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*

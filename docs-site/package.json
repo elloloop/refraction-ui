@@ -136,6 +136,7 @@
     "@refraction-ui/react-video-grid": "workspace:*",
     "@refraction-ui/react-video-player": "workspace:*",
     "@refraction-ui/react-video-tile": "workspace:*",
+    "@refraction-ui/react-virtual-list": "workspace:*",
     "@refraction-ui/react-voice-pill": "workspace:*",
     "@refraction-ui/react-waveform": "workspace:*",
     "@refraction-ui/react-wizard": "workspace:*",
