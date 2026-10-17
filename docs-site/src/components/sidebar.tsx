@@ -126,6 +126,7 @@ const componentGroups = [
       { name: 'Voice Note', href: '/components/voice-note' },
       { name: 'File Card', href: '/components/file-card' },
       { name: 'Jump To Latest', href: '/components/jump-to-latest' },
+      { name: 'Command Dialog', href: '/components/command-dialog' },
     ],
   },
   {
