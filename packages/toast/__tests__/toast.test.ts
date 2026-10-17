@@ -1,7 +1,20 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { resetIdCounter } from '@refraction-ui/shared'
-import { createToast, createToastManager } from '../src/toast.js'
-import { toastVariants } from '../src/toast.styles.js'
+import {
+  createToast,
+  createToastManager,
+  getToastAnnouncement,
+  getToastPoliteness,
+  DEFAULT_TOAST_DURATION,
+  type ToastVariant,
+} from '../src/toast.js'
+import {
+  toastVariants,
+  toastActionClass,
+  toastCloseClass,
+  toastTitleClass,
+  toastDescriptionClass,
+} from '../src/toast.styles.js'
 
 beforeEach(() => {
   resetIdCounter()
@@ -426,5 +439,208 @@ describe('determinism (injected now)', () => {
     manager.toast('two')
     expect(manager.toasts[0]!.createdAt).toBe(123_456)
     expect(manager.toasts[1]!.createdAt).toBe(789_012)
+  })
+})
+
+describe('toast options – title and action', () => {
+  it('toast(message) still works with no options (backward compatible)', () => {
+    const manager = createToastManager()
+    manager.toast('Saved')
+    const entry = manager.toasts[0]!
+    expect(entry.message).toBe('Saved')
+    expect(entry.variant).toBe('default')
+    expect(entry.duration).toBe(DEFAULT_TOAST_DURATION)
+    expect(entry).not.toHaveProperty('title')
+    expect(entry).not.toHaveProperty('action')
+  })
+
+  it('toast(message, { variant, duration }) still works (backward compatible)', () => {
+    const manager = createToastManager()
+    manager.toast('Failed', { variant: 'error', duration: 5000 })
+    expect(manager.toasts[0]).toMatchObject({ variant: 'error', duration: 5000 })
+  })
+
+  it('stores an optional title on the entry', () => {
+    const manager = createToastManager()
+    manager.toast('Your changes were saved', { title: 'Saved' })
+    expect(manager.toasts[0]!.title).toBe('Saved')
+  })
+
+  it('stores an optional action on the entry without calling it', () => {
+    const manager = createToastManager()
+    const onClick = vi.fn()
+    manager.toast('Message archived', { action: { label: 'Undo', onClick } })
+    expect(manager.toasts[0]!.action).toEqual({ label: 'Undo', onClick })
+    expect(onClick).not.toHaveBeenCalled()
+  })
+
+  it('defaults to DEFAULT_TOAST_DURATION, shared with createToast', () => {
+    const manager = createToastManager()
+    manager.toast('Hello')
+    vi.advanceTimersByTime(DEFAULT_TOAST_DURATION - 1)
+    expect(manager.toasts).toHaveLength(1)
+    vi.advanceTimersByTime(1)
+    expect(manager.toasts).toHaveLength(0)
+
+    const onOpenChange = vi.fn()
+    const api = createToast({ onOpenChange })
+    api.startTimer()
+    vi.advanceTimersByTime(DEFAULT_TOAST_DURATION)
+    expect(onOpenChange).toHaveBeenCalledWith(false)
+  })
+})
+
+describe('createToastManager – pause / resume', () => {
+  it('pause stops the countdown; resume finishes the time that was left', () => {
+    let tick = 0
+    const manager = createToastManager({ now: () => tick })
+    const id = manager.toast('Hello', { duration: 3000 })
+
+    tick += 1000
+    vi.advanceTimersByTime(1000)
+    manager.pause(id)
+
+    tick += 60_000
+    vi.advanceTimersByTime(60_000)
+    expect(manager.toasts).toHaveLength(1)
+
+    manager.resume(id)
+    vi.advanceTimersByTime(1999)
+    expect(manager.toasts).toHaveLength(1)
+    vi.advanceTimersByTime(1)
+    expect(manager.toasts).toHaveLength(0)
+  })
+
+  it('pause is idempotent: a second pause does not lose more time', () => {
+    let tick = 0
+    const manager = createToastManager({ now: () => tick })
+    const id = manager.toast('Hello', { duration: 3000 })
+    tick += 1000
+    manager.pause(id)
+    tick += 1000
+    manager.pause(id)
+    manager.resume(id)
+    vi.advanceTimersByTime(1999)
+    expect(manager.toasts).toHaveLength(1)
+    vi.advanceTimersByTime(1)
+    expect(manager.toasts).toHaveLength(0)
+  })
+
+  it('resume without a pause does not restart or extend the countdown', () => {
+    const manager = createToastManager()
+    const id = manager.toast('Hello', { duration: 3000 })
+    vi.advanceTimersByTime(2000)
+    manager.resume(id)
+    vi.advanceTimersByTime(1000)
+    expect(manager.toasts).toHaveLength(0)
+  })
+
+  it('resume dismisses a toast whose time ran out before it was paused', () => {
+    let tick = 0
+    const manager = createToastManager({ now: () => tick })
+    const id = manager.toast('Hello', { duration: 1000 })
+    tick += 1500 // the clock moved past the deadline before the timer fired
+    manager.pause(id)
+    expect(manager.toasts).toHaveLength(1)
+    manager.resume(id)
+    expect(manager.toasts).toHaveLength(0)
+  })
+
+  it('pause and resume are no-ops for persistent toasts and unknown ids', () => {
+    const manager = createToastManager()
+    const fn = vi.fn()
+    const id = manager.toast('Sticky', { duration: 0 })
+    manager.subscribe(fn)
+    manager.pause(id)
+    manager.resume(id)
+    manager.pause('nonexistent-id')
+    manager.resume('nonexistent-id')
+    vi.advanceTimersByTime(60_000)
+    expect(manager.toasts).toHaveLength(1)
+    expect(fn).not.toHaveBeenCalled()
+  })
+
+  it('dismissing a paused toast removes it and leaves no timer behind', () => {
+    const manager = createToastManager()
+    const id = manager.toast('Hello', { duration: 3000 })
+    manager.pause(id)
+    manager.dismiss(id)
+    expect(manager.toasts).toHaveLength(0)
+    manager.resume(id)
+    expect(vi.getTimerCount()).toBe(0)
+  })
+
+  it('pausing one toast leaves the others counting down', () => {
+    const manager = createToastManager()
+    const paused = manager.toast('Paused', { duration: 1000 })
+    manager.toast('Running', { duration: 1000 })
+    manager.pause(paused)
+    vi.advanceTimersByTime(1000)
+    expect(manager.toasts.map((t) => t.message)).toEqual(['Paused'])
+  })
+})
+
+describe('getToastPoliteness', () => {
+  it('announces errors assertively', () => {
+    expect(getToastPoliteness('error')).toBe('assertive')
+  })
+
+  it.each<ToastVariant>(['default', 'success', 'warning'])('announces %s politely', (variant) => {
+    expect(getToastPoliteness(variant)).toBe('polite')
+  })
+})
+
+describe('getToastAnnouncement', () => {
+  it('is the message alone when there is no title or action', () => {
+    expect(getToastAnnouncement({ message: 'Saved' })).toBe('Saved')
+  })
+
+  it('reads title, message and action label in order, closing each sentence', () => {
+    expect(
+      getToastAnnouncement({
+        title: 'Archived',
+        message: 'One conversation moved to the archive',
+        action: { label: 'Undo', onClick: () => {} },
+      }),
+    ).toBe('Archived. One conversation moved to the archive. Undo')
+  })
+
+  it('keeps punctuation the author already wrote', () => {
+    expect(
+      getToastAnnouncement({
+        title: 'Done!',
+        message: 'Really?',
+        action: { label: 'Undo', onClick: () => {} },
+      }),
+    ).toBe('Done! Really? Undo')
+    expect(getToastAnnouncement({ title: '保存しました。', message: '元に戻せます' })).toBe(
+      '保存しました。 元に戻せます',
+    )
+  })
+
+  it('skips empty and whitespace-only parts', () => {
+    expect(getToastAnnouncement({ title: '  ', message: ' Saved ' })).toBe('Saved')
+  })
+})
+
+describe('toast part styles', () => {
+  it('gives the action and dismiss buttons a keyboard-only focus ring', () => {
+    for (const cls of [toastActionClass, toastCloseClass]) {
+      expect(cls).toContain('focus-visible:ring-2')
+      expect(cls).toContain('focus-visible:ring-ring')
+      expect(cls).toContain('focus-visible:outline-none')
+      expect(cls).not.toMatch(/(^|\s)focus:ring/)
+    }
+  })
+
+  it('drops transitions for users who prefer reduced motion', () => {
+    expect(toastVariants()).toContain('motion-reduce:transition-none')
+    expect(toastActionClass).toContain('motion-reduce:transition-none')
+    expect(toastCloseClass).toContain('motion-reduce:transition-none')
+  })
+
+  it('styles the title and the message under it', () => {
+    expect(toastTitleClass).toContain('font-semibold')
+    expect(toastDescriptionClass).toContain('text-sm')
   })
 })

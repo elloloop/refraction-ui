@@ -508,3 +508,93 @@ describe('Toast – structure (SSR)', () => {
     expect(html).toContain('id="my-toast"')
   })
 })
+
+describe('Toaster – region and live regions (SSR)', () => {
+  function renderToasterHtml(props: React.ComponentProps<typeof Toaster> = {}): string {
+    return renderToString(
+      React.createElement(ToastProvider, null, React.createElement(Toaster, props)),
+    )
+  }
+
+  it('renders a labelled landmark region', () => {
+    const html = renderToasterHtml()
+    expect(html).toContain('role="region"')
+    expect(html).toContain('aria-label="Notifications"')
+  })
+
+  it('lets the region label be replaced', () => {
+    expect(renderToasterHtml({ 'aria-label': 'Avisos' })).toContain('aria-label="Avisos"')
+  })
+
+  it('renders a polite and an assertive live region, empty and visually hidden', () => {
+    const html = renderToasterHtml()
+    expect(html).toMatch(
+      /<div class="sr-only" aria-live="polite" aria-atomic="false" aria-relevant="additions" data-rfr-toast-announcer="polite"><\/div>/,
+    )
+    expect(html).toMatch(
+      /<div class="sr-only" aria-live="assertive" aria-atomic="false" aria-relevant="additions" data-rfr-toast-announcer="assertive"><\/div>/,
+    )
+  })
+})
+
+describe('Toast – title, action and controls (SSR)', () => {
+  const base = {
+    id: 'ssr-1',
+    message: 'One conversation moved to the archive',
+    variant: 'default' as const,
+    duration: 0,
+    createdAt: 0,
+  }
+
+  function renderToastHtml(
+    entry: React.ComponentProps<typeof Toast>['entry'],
+    props: Partial<React.ComponentProps<typeof Toast>> = {},
+  ): string {
+    return renderToString(React.createElement(Toast, { entry, ...props }))
+  }
+
+  it('marks the toast element for styling and selection', () => {
+    expect(renderToastHtml(base)).toContain('data-rfr-toast=""')
+  })
+
+  it('renders the title and the message under it', () => {
+    const html = renderToastHtml({ ...base, title: 'Archived' })
+    expect(html).toContain(
+      '<div class="flex-1"><div class="text-sm font-semibold">Archived</div><div class="text-sm opacity-90">One conversation moved to the archive</div></div>',
+    )
+  })
+
+  it('without a title, keeps the message markup unchanged', () => {
+    expect(renderToastHtml(base)).toContain(
+      '<div class="flex-1">One conversation moved to the archive</div>',
+    )
+  })
+
+  it('renders the action as a type="button" with its label and a focus-visible ring', () => {
+    const html = renderToastHtml({ ...base, action: { label: 'Undo', onClick: () => {} } })
+    expect(html).toMatch(/<button type="button" class="[^"]*focus-visible:ring-2[^"]*">Undo<\/button>/)
+  })
+
+  it('puts the action before the dismiss button', () => {
+    const html = renderToastHtml(
+      { ...base, action: { label: 'Undo', onClick: () => {} } },
+      { onDismiss: () => {} },
+    )
+    expect(html.indexOf('>Undo<')).toBeLessThan(html.indexOf('aria-label="Dismiss"'))
+  })
+
+  it('gives the dismiss button a focus-visible ring and hides its glyph from assistive technology', () => {
+    const html = renderToastHtml(base, { onDismiss: () => {} })
+    expect(html).toMatch(/<button type="button" class="[^"]*focus-visible:ring-2[^"]*" aria-label="Dismiss">/)
+    expect(html).toContain('<span aria-hidden="true">×</span>')
+  })
+
+  it('accepts a translated dismiss label', () => {
+    const html = renderToastHtml(base, { onDismiss: () => {}, dismissLabel: 'Fermer' })
+    expect(html).toContain('aria-label="Fermer"')
+  })
+
+  it('drops transitions for users who prefer reduced motion', () => {
+    expect(renderToastHtml(base)).toContain('motion-reduce:transition-none')
+  })
+})
