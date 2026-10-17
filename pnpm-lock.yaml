@@ -419,6 +419,9 @@ importers:
       '@refraction-ui/react-mastery-bar':
         specifier: workspace:*
         version: link:../packages/react-mastery-bar
+      '@refraction-ui/react-media-frame':
+        specifier: workspace:*
+        version: link:../packages/react-media-frame
       '@refraction-ui/react-message-row':
         specifier: workspace:*
         version: link:../packages/react-message-row
@@ -1665,6 +1668,18 @@ importers:
         specifier: 7.2.8
         version: 7.2.8(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.1.0)(jiti@2.7.0)(yaml@2.9.1)
 
+  packages/astro-media-frame:
+    dependencies:
+      '@refraction-ui/media-frame':
+        specifier: workspace:*
+        version: link:../media-frame
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      astro:
+        specifier: 7.2.8
+        version: 7.2.8(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.1.0)(jiti@2.7.0)(yaml@2.9.1)
+
   packages/astro-meta:
     dependencies:
       astro:
@@ -1893,6 +1908,9 @@ importers:
       '@refraction-ui/astro-mastery-bar':
         specifier: workspace:*
         version: link:../astro-mastery-bar
+      '@refraction-ui/astro-media-frame':
+        specifier: workspace:*
+        version: link:../astro-media-frame
       '@refraction-ui/astro-mini-map':
         specifier: workspace:*
         version: link:../astro-mini-map
@@ -3574,6 +3592,12 @@ importers:
       '@refraction-ui/logger':
         specifier: workspace:*
         version: link:../logger
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/media-frame:
+    dependencies:
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
@@ -6034,6 +6058,31 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-media-frame:
+    dependencies:
+      '@refraction-ui/media-frame':
+        specifier: workspace:*
+        version: link:../media-frame
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-message-row:
     dependencies:
       '@refraction-ui/message-row':
@@ -6362,6 +6411,9 @@ importers:
       '@refraction-ui/react-mastery-bar':
         specifier: workspace:*
         version: link:../react-mastery-bar
+      '@refraction-ui/react-media-frame':
+        specifier: workspace:*
+        version: link:../react-media-frame
       '@refraction-ui/react-message-row':
         specifier: workspace:*
         version: link:../react-message-row

@@ -1,0 +1,98 @@
+[
+  {
+    "image": "before-light-1440.png",
+    "page": "/components/device-frame/",
+    "width": 1440,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": []
+  },
+  {
+    "image": "before-dark-1440.png",
+    "page": "/components/device-frame/",
+    "width": 1440,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "docs color-mode toggle hydration mismatch in dark mode (present on the base revision too)"
+    ]
+  },
+  {
+    "image": "before-light-375.png",
+    "page": "/components/device-frame/",
+    "width": 375,
+    "colorScheme": "light",
+    "pageOverflow": true,
+    "browserErrors": []
+  },
+  {
+    "image": "before-dark-375.png",
+    "page": "/components/device-frame/",
+    "width": 375,
+    "colorScheme": "dark",
+    "pageOverflow": true,
+    "browserErrors": [
+      "docs color-mode toggle hydration mismatch in dark mode (present on the base revision too)"
+    ]
+  },
+  {
+    "image": "after-light-1440.png",
+    "page": "/components/media-frame/",
+    "width": 1440,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": [],
+    "frames": 11,
+    "renderedRatioMatchesAspectRatio": true,
+    "orientationMatchesShape": true,
+    "captionCornersLtr": true,
+    "captionCornersMirrorInRtl": true,
+    "captionsIgnorePointer": true
+  },
+  {
+    "image": "after-dark-1440.png",
+    "page": "/components/media-frame/",
+    "width": 1440,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "docs color-mode toggle hydration mismatch in dark mode (present on the base revision too)"
+    ],
+    "frames": 11,
+    "renderedRatioMatchesAspectRatio": true,
+    "orientationMatchesShape": true,
+    "captionCornersLtr": true,
+    "captionCornersMirrorInRtl": true,
+    "captionsIgnorePointer": true
+  },
+  {
+    "image": "after-light-375.png",
+    "page": "/components/media-frame/",
+    "width": 375,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": [],
+    "frames": 11,
+    "renderedRatioMatchesAspectRatio": true,
+    "orientationMatchesShape": true,
+    "captionCornersLtr": true,
+    "captionCornersMirrorInRtl": true,
+    "captionsIgnorePointer": true
+  },
+  {
+    "image": "after-dark-375.png",
+    "page": "/components/media-frame/",
+    "width": 375,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "docs color-mode toggle hydration mismatch in dark mode (present on the base revision too)"
+    ],
+    "frames": 11,
+    "renderedRatioMatchesAspectRatio": true,
+    "orientationMatchesShape": true,
+    "captionCornersLtr": true,
+    "captionCornersMirrorInRtl": true,
+    "captionsIgnorePointer": true
+  }
+]

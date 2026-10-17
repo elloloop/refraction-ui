@@ -75,6 +75,7 @@ const components = [
 
   // Media
   { name: 'Video Player', href: '/components/video-player', description: 'Video player with custom controls, progress, and fullscreen.', category: 'Media' },
+  { name: 'Media Frame', href: '/components/media-frame', description: 'Fixed-aspect box for images, video and previews, with a corner caption.', category: 'Media' },
   { name: 'Markdown Renderer', href: '/components/markdown-renderer', description: 'Renders markdown content as styled HTML with prose typography.', category: 'Media' },
   { name: 'Code Editor', href: '/components/code-editor', description: 'Code editor with syntax highlighting and editing support.', category: 'Media' },
   { name: 'Slide Viewer', href: '/components/slide-viewer', description: 'Slide presentation viewer with navigation and progress.', category: 'Media' },
