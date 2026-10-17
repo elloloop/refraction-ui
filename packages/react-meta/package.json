@@ -185,6 +185,7 @@
     "@refraction-ui/react-table": "workspace:*",
     "@refraction-ui/react-table-of-contents": "workspace:*",
     "@refraction-ui/react-tabs": "workspace:*",
+    "@refraction-ui/react-task-list": "workspace:*",
     "@refraction-ui/react-terminal": "workspace:*",
     "@refraction-ui/react-test-results": "workspace:*",
     "@refraction-ui/react-textarea": "workspace:*",

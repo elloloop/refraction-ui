@@ -533,6 +533,9 @@ importers:
       '@refraction-ui/react-tabs':
         specifier: workspace:*
         version: link:../packages/react-tabs
+      '@refraction-ui/react-task-list':
+        specifier: workspace:*
+        version: link:../packages/react-task-list
       '@refraction-ui/react-terminal':
         specifier: workspace:*
         version: link:../packages/react-terminal
@@ -5948,6 +5951,9 @@ importers:
       '@refraction-ui/react-tabs':
         specifier: workspace:*
         version: link:../react-tabs
+      '@refraction-ui/react-task-list':
+        specifier: workspace:*
+        version: link:../react-task-list
       '@refraction-ui/react-terminal':
         specifier: workspace:*
         version: link:../react-terminal
@@ -7214,6 +7220,37 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-task-list:
+    dependencies:
+      '@refraction-ui/react-checkbox':
+        specifier: workspace:*
+        version: link:../react-checkbox
+      '@refraction-ui/react-collapsible':
+        specifier: workspace:*
+        version: link:../react-collapsible
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/task-list':
+        specifier: workspace:*
+        version: link:../task-list
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-terminal:
     dependencies:
       '@refraction-ui/shared':
@@ -7809,6 +7846,12 @@ importers:
       tailwindcss:
         specifier: 4.3.3
         version: 4.3.3
+
+  packages/task-list:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
 
   packages/terminal:
     dependencies:

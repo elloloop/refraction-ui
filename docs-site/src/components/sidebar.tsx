@@ -115,6 +115,7 @@ const componentGroups = [
       { name: 'Reaction Tray', href: '/components/reaction-tray' },
       { name: 'Multi Combobox', href: '/components/multi-combobox' },
       { name: 'Emoji Glyph', href: '/components/emoji-glyph' },
+      { name: 'Task List', href: '/components/task-list' },
     ],
   },
   {
