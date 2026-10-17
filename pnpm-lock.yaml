@@ -335,6 +335,9 @@ importers:
       '@refraction-ui/react-keyboard-shortcut':
         specifier: workspace:*
         version: link:../packages/react-keyboard-shortcut
+      '@refraction-ui/react-keycap':
+        specifier: workspace:*
+        version: link:../packages/react-keycap
       '@refraction-ui/react-language-selector':
         specifier: workspace:*
         version: link:../packages/react-language-selector
@@ -3245,6 +3248,15 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/keycap:
+    dependencies:
+      '@refraction-ui/keyboard-shortcut':
+        specifier: workspace:*
+        version: link:../keyboard-shortcut
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/language-selector:
     dependencies:
       '@refraction-ui/shared':
@@ -4975,6 +4987,31 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-keycap:
+    dependencies:
+      '@refraction-ui/keycap':
+        specifier: workspace:*
+        version: link:../keycap
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-language-selector:
     dependencies:
       '@refraction-ui/language-selector':
@@ -5502,6 +5539,9 @@ importers:
       '@refraction-ui/react-keyboard-shortcut':
         specifier: workspace:*
         version: link:../react-keyboard-shortcut
+      '@refraction-ui/react-keycap':
+        specifier: workspace:*
+        version: link:../react-keycap
       '@refraction-ui/react-language-selector':
         specifier: workspace:*
         version: link:../react-language-selector

@@ -115,6 +115,7 @@
     "@refraction-ui/react-install-prompt": "workspace:*",
     "@refraction-ui/react-kanban-board": "workspace:*",
     "@refraction-ui/react-keyboard-shortcut": "workspace:*",
+    "@refraction-ui/react-keycap": "workspace:*",
     "@refraction-ui/react-language-selector": "workspace:*",
     "@refraction-ui/react-line-chart": "workspace:*",
     "@refraction-ui/react-link-card": "workspace:*",

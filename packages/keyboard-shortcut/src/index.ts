@@ -8,6 +8,9 @@ export {
   ShortcutRegistry,
   altHintState,
   AltHintState,
+  KEY_DISPLAY as SHORTCUT_KEY_DISPLAY,
+  MAC_KEY_DISPLAY as SHORTCUT_MAC_KEY_DISPLAY,
+  isMac as isMacPlatform,
 } from './keyboard-shortcut.js'
 
 export {

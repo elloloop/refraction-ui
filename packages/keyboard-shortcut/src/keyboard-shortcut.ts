@@ -26,7 +26,8 @@ export interface KeyboardShortcutAPI {
 
 const MODIFIER_KEYS = new Set(['Ctrl', 'Control', 'Alt', 'Shift', 'Meta', 'Cmd', 'Command'])
 
-const KEY_DISPLAY: Record<string, string> = {
+/** Non-Apple key legends (words such as `Ctrl`/`Alt`, a few glyphs). Exported for Keycap reuse. */
+export const KEY_DISPLAY: Readonly<Record<string, string>> = {
   'Ctrl': 'Ctrl',
   'Control': 'Ctrl',
   'Alt': 'Alt',
@@ -46,7 +47,8 @@ const KEY_DISPLAY: Record<string, string> = {
   ' ': 'Space',
 }
 
-const MAC_KEY_DISPLAY: Record<string, string> = {
+/** macOS key glyphs (⌘ ⌥ ⌃ ⇧ …). Exported for Keycap reuse. */
+export const MAC_KEY_DISPLAY: Readonly<Record<string, string>> = {
   'Ctrl': '\u2303',
   'Control': '\u2303',
   'Alt': '\u2325',
@@ -73,7 +75,8 @@ function normalizeKey(key: string): string {
   return key
 }
 
-function isMac(): boolean {
+/** Best-effort Apple-platform detection from `navigator`; `false` when there is no navigator (SSR). */
+export function isMac(): boolean {
   if (typeof navigator !== 'undefined') {
     return navigator.platform?.includes('Mac') || navigator.userAgent?.includes('Mac')
   }
