@@ -71,6 +71,7 @@
     "@refraction-ui/react-hierarchy-canvas": "workspace:*",
     "@refraction-ui/react-highlight-text": "workspace:*",
     "@refraction-ui/react-icon-button": "workspace:*",
+    "@refraction-ui/react-image-viewer": "workspace:*",
     "@refraction-ui/react-incoming-call-card": "workspace:*",
     "@refraction-ui/react-infinite-canvas": "workspace:*",
     "@refraction-ui/react-inline-editor": "workspace:*",

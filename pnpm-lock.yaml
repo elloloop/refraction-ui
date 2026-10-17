@@ -338,6 +338,9 @@ importers:
       '@refraction-ui/react-icon-button':
         specifier: workspace:*
         version: link:../packages/react-icon-button
+      '@refraction-ui/react-image-viewer':
+        specifier: workspace:*
+        version: link:../packages/react-image-viewer
       '@refraction-ui/react-incoming-call-card':
         specifier: workspace:*
         version: link:../packages/react-incoming-call-card
@@ -3345,6 +3348,12 @@ importers:
 
   packages/icon-system: {}
 
+  packages/image-viewer:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/incoming-call-card:
     dependencies:
       '@refraction-ui/shared':
@@ -5283,6 +5292,37 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-image-viewer:
+    dependencies:
+      '@refraction-ui/image-viewer':
+        specifier: workspace:*
+        version: link:../image-viewer
+      '@refraction-ui/react-dialog':
+        specifier: workspace:*
+        version: link:../react-dialog
+      '@refraction-ui/react-icon-button':
+        specifier: workspace:*
+        version: link:../react-icon-button
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-incoming-call-card:
     dependencies:
       '@refraction-ui/incoming-call-card':
@@ -6160,6 +6200,9 @@ importers:
       '@refraction-ui/react-icon-system':
         specifier: workspace:*
         version: link:../react-icon-system
+      '@refraction-ui/react-image-viewer':
+        specifier: workspace:*
+        version: link:../react-image-viewer
       '@refraction-ui/react-incoming-call-card':
         specifier: workspace:*
         version: link:../react-incoming-call-card
