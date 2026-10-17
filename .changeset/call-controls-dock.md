@@ -1,0 +1,5 @@
+---
+"@refraction-ui/react": minor
+---
+
+`CallControls` can now be a call dock. Pass the controls as props — `mic`, `camera`, `screenShare`, `hand`, `reactions`, `captions`, `pip`, `record`, `chat`, `people` and `onLeave` — and it draws them in named groups (audio and video, call actions, panels) with a leave button. Each control renders only when given, keeps one name and reports its state with `aria-pressed`; counts show as badges and are read with the name ("Chat (3)"); a pending control stays focusable with `aria-disabled`. The mic and camera take a `menu` slot joined to the toggle, for a device picker's trigger (style it with `callControlsMenuTriggerClass`). When the dock's own width is under 600 px, the call actions and panel toggles move into a "More controls" panel. Left/right arrows, Home and End now move between the toolbar's buttons in both the dock and the composable toolbar. Strings and icons can be replaced through `labels` and `icons`. The existing children API is unchanged, and the grouping and state rules are a headless core with their own tests.
