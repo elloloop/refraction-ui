@@ -146,6 +146,7 @@ const components = [
   { name: 'Mini Map', href: '/components/mini-map', description: 'Overview map overlay for infinite canvas navigation.', category: 'Workplace' },
   { name: 'Live Dot', href: '/components/live-dot', description: 'A status dot whose halo breathes while something is live.', category: 'Workplace' },
   { name: 'Icon Button', href: '/components/icon-button', description: 'Icon-only button with a required label, tooltip and a 44 px hit area.', category: 'Workplace' },
+  { name: 'Highlight Text', href: '/components/highlight-text', description: 'Marks the matched parts of a text with accessible highlights.', category: 'Workplace' },
   { name: 'Rating Scale', href: '/components/rating-scale', description: 'Visual rating input with customizable range.', category: 'Forms' },
   { name: 'Wizard', href: '/components/wizard', description: 'Multi-step form wizard with progress indicators.', category: 'Forms' },
   { name: 'Radial Gauge', href: '/components/radial-gauge', description: 'Circular dial gauge for displaying percentage values.', category: 'Data' },

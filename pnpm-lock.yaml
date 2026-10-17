@@ -308,6 +308,9 @@ importers:
       '@refraction-ui/react-hierarchy-canvas':
         specifier: workspace:*
         version: link:../packages/react-hierarchy-canvas
+      '@refraction-ui/react-highlight-text':
+        specifier: workspace:*
+        version: link:../packages/react-highlight-text
       '@refraction-ui/react-icon-button':
         specifier: workspace:*
         version: link:../packages/react-icon-button
@@ -3169,6 +3172,12 @@ importers:
 
   packages/hierarchy-canvas: {}
 
+  packages/highlight-text:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/http: {}
 
   packages/i18n:
@@ -4729,6 +4738,31 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-highlight-text:
+    dependencies:
+      '@refraction-ui/highlight-text':
+        specifier: workspace:*
+        version: link:../highlight-text
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-icon-button:
     dependencies:
       '@refraction-ui/icon-button':
@@ -5401,6 +5435,9 @@ importers:
       '@refraction-ui/react-hierarchy-canvas':
         specifier: workspace:*
         version: link:../react-hierarchy-canvas
+      '@refraction-ui/react-highlight-text':
+        specifier: workspace:*
+        version: link:../react-highlight-text
       '@refraction-ui/react-icon-button':
         specifier: workspace:*
         version: link:../react-icon-button
