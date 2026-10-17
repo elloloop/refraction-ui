@@ -1,5 +1,8 @@
 ## 0.51.0-dev.2
 
+- Reposition and constrain open DatePicker popovers when the viewport, keyboard, anchor or text scale changes; keep time inputs scrollable above the keyboard without scheduling idle frames.
+- Preserve successive calendar dates across daylight-saving transitions and measure time fields using the effective Material text style and outline insets.
+
 - Keep DatePicker date/time values readable at large text scales in narrow layouts. The trigger wraps without shrinking or truncating text, the popover stays within the viewport, calendar cells grow while preserving seven aligned columns with horizontal scrolling when needed, and time inputs retain both enlarged digits.
 
 ## 0.51.0-dev.1

@@ -158,8 +158,8 @@ void main() {
       // Picker should still be open (click was ignored)
       expect(find.byType(Wrap), findsOneWidget);
 
-      // Close the picker to clean up
-      await tester.tap(find.byType(RefractionDatePicker));
+      // Close through the outside barrier, not the covered trigger.
+      await tester.tapAt(const Offset(5, 5));
       await tester.pumpAndSettle();
     });
   });
