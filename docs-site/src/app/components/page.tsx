@@ -134,7 +134,7 @@ const components = [
   { name: 'Video Grid', href: '/components/video-grid', description: 'Grid container for multiple video tiles.', category: 'Media' },
   { name: 'Call Controls', href: '/components/call-controls', description: 'Actions bar for managing audio, video, and screenshare.', category: 'Media' },
   { name: 'Live Captions', href: '/components/live-captions', description: 'Real-time speech-to-text subtitle overlay.', category: 'Media' },
-  { name: 'Live Transcript', href: '/components/live-transcript', description: 'Full conversation transcription list with search.', category: 'Media' },
+  { name: 'Live Transcript', href: '/components/live-transcript', description: 'Speaker-attributed call transcript with interim lines and auto-follow.', category: 'Media' },
   { name: 'Audio Room', href: '/components/audio-room', description: 'Voice chat channel grid with speaker focus states.', category: 'Media' },
   { name: 'Floating Reactions', href: '/components/floating-reactions', description: 'Floating emoji reaction overlays.', category: 'Media' },
   { name: 'Pre Call Lobby', href: '/components/pre-call-lobby', description: 'Device setup and test screen before joining calls.', category: 'Media' },
