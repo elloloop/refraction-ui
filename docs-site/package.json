@@ -53,6 +53,7 @@
     "@refraction-ui/react-emoji-glyph": "workspace:*",
     "@refraction-ui/react-emoji-picker": "workspace:*",
     "@refraction-ui/react-empty-state": "workspace:*",
+    "@refraction-ui/react-event-calendar": "workspace:*",
     "@refraction-ui/react-feedback-dialog": "workspace:*",
     "@refraction-ui/react-file-tree": "workspace:*",
     "@refraction-ui/react-file-upload": "workspace:*",

@@ -119,6 +119,7 @@ const componentGroups = [
       { name: 'Sandbox Frame', href: '/components/sandbox-frame' },
       { name: 'GIF Picker', href: '/components/gif-picker' },
       { name: 'Time Picker', href: '/components/time-picker' },
+      { name: 'Event Calendar', href: '/components/event-calendar' },
     ],
   },
   {
