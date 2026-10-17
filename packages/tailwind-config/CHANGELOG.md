@@ -1,5 +1,11 @@
 # @refraction-ui/tailwind-config
 
+## 0.4.0
+
+### Minor Changes
+
+- 84a3384: Add `ColorChip` to `@refraction-ui/react`: a label with a categorical colour (`dot` on a `wash`) and an optional `hint`; with `onEdit` the whole chip is one button named by `editLabel` with an `editTooltip`. `colorFor(key)` picks a stable category for an id. `@refraction-ui/tailwind-config` gains an eight-entry categorical palette (`--category-N`, `-wash`, `-foreground`; Tailwind `category-N` colours), contrast-checked in light and dark for every theme. (#593)
+
 ## 0.3.0
 
 ### Minor Changes
