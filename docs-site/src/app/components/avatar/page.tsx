@@ -7,6 +7,8 @@ const avatarProps = [
   { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Size of the avatar.' },
   { name: 'shape', type: "'circle' | 'square'", default: "'circle'", description: 'Outline: circle, or square with rounded corners (teams, organisations).' },
   { name: 'aria-label', type: 'string', description: 'Names the avatar and gives it role="img". Without it the avatar has no role and the inner image alt / fallback text is what assistive tech reads.' },
+  { name: 'presence', type: "'online' | 'away' | 'busy' | 'dnd' | 'offline'", description: 'Shows a presence dot at the bottom end corner. With an aria-label the status joins the name ("Ada Lovelace (Away)") and the dot is hidden from assistive tech; without one the dot is named on its own.' },
+  { name: 'presenceLabel', type: 'string', description: 'The status as words, e.g. for another language. Defaults to the PresenceIndicator wording: Online, Away, Busy, Do Not Disturb, Offline.' },
   { name: 'className', type: 'string', description: 'Additional CSS classes.' },
   { name: 'children', type: 'ReactNode', description: 'AvatarImage and/or AvatarFallback.' },
 ]
@@ -15,12 +17,21 @@ const usageCode = `import { Avatar, AvatarImage, AvatarFallback } from '@refract
 
 export function MyComponent() {
   return (
-    <Avatar size="lg">
-      <AvatarImage src="/avatar.jpg" alt="User" />
+    <Avatar size="lg" aria-label="Jane Doe" presence="online">
+      <AvatarImage src="/avatar.jpg" alt="" />
       <AvatarFallback>JD</AvatarFallback>
     </Avatar>
   )
 }`
+
+const astroUsageCode = `---
+import { Avatar, AvatarImage, AvatarFallback } from '@refraction-ui/astro'
+---
+
+<Avatar size="lg" aria-label="Jane Doe" presence="online">
+  <AvatarImage src="/avatar.jpg" alt="" />
+  <AvatarFallback>JD</AvatarFallback>
+</Avatar>`
 
 export default function AvatarPage() {
   return (
@@ -46,6 +57,15 @@ export default function AvatarPage() {
         {/* Settled image loads/errors also select the correct fallback during hydration. */}
         <AvatarExamples section="fallback" />
       </section>
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Presence</h2>
+        <p className="text-sm text-muted-foreground">
+          A dot at the bottom end corner shows whether someone is around, in the PresenceIndicator colours.
+          A named avatar adds the status to its name, so assistive tech reads &ldquo;Ada Lovelace (Online)&rdquo;.
+          Colour alone does not tell the statuses apart, so show the status in words where it matters.
+        </p>
+        <AvatarExamples section="presence" />
+      </section>
       {/* Install */}
       <section className="space-y-3">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Installation</h2>
@@ -54,7 +74,7 @@ export default function AvatarPage() {
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Usage</h2>
-        <CodeBlock frameworks={{ react: usageCode, astro: '<!-- Astro implementation pending -->' }} />
+        <CodeBlock frameworks={{ react: usageCode, astro: astroUsageCode }} />
       </section>
 
       <div className="h-px bg-border" />

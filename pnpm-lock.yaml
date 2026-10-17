@@ -2763,6 +2763,9 @@ importers:
 
   packages/avatar:
     dependencies:
+      '@refraction-ui/presence-indicator':
+        specifier: workspace:*
+        version: link:../presence-indicator
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared

@@ -101,3 +101,25 @@ it('recovers after a cached failure and preserves later load/error callbacks and
   expect(ref.current).toBeNull()
   expect(container.querySelector('[data-testid="fallback"]')?.textContent).toBe('JD')
 })
+
+it('hydrates a presence avatar unchanged and keeps its dot when the image fails', async () => {
+  completed.set('/missing.png', 0)
+  const ui = <Avatar aria-label="Ada Lovelace" presence="online">
+    <AvatarImage src="/missing.png" alt="" />
+    <AvatarFallback data-testid="fallback">AL</AvatarFallback>
+  </Avatar>
+  await hydrate(ui)
+  const avatar = container.querySelector('[data-slot="avatar"]')!
+  expect(avatar.getAttribute('aria-label')).toBe('Ada Lovelace (Online)')
+  expect(container.querySelector('img')).toBeNull()
+  expect(container.querySelector('[data-testid="fallback"]')?.textContent).toBe('AL')
+  expect(avatar.lastElementChild?.getAttribute('data-slot')).toBe('avatar-presence')
+
+  await act(async () => root?.render(
+    <Avatar aria-label="Ada Lovelace" presence="dnd" presenceLabel="Focusing">
+      <AvatarFallback data-testid="fallback">AL</AvatarFallback>
+    </Avatar>,
+  ))
+  expect(avatar.getAttribute('aria-label')).toBe('Ada Lovelace (Focusing)')
+  expect(avatar.querySelector('[data-slot="avatar-presence"]')?.getAttribute('data-status')).toBe('dnd')
+})
