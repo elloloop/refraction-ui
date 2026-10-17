@@ -11,3 +11,12 @@ export const GroupedConsecutive = {
 export const Compact = {
   render: () => <LiveTranscriptExamples section="compact" />,
 }
+export const MeAndThem = {
+  render: () => <LiveTranscriptExamples section="sides" />,
+}
+export const InterimLines = {
+  render: () => <LiveTranscriptExamples section="interim" />,
+}
+export const AutoFollow = {
+  render: () => <LiveTranscriptExamples section="live" />,
+}

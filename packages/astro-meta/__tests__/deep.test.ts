@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest'
+import { readFileSync } from 'node:fs'
 import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 import TabsComposition from './compositions/tabs.astro'
 import SelectComposition from './compositions/select.astro'
@@ -398,5 +399,41 @@ describe('astro-composer action slots', () => {
     expect(html.indexOf('Please review')).toBeLessThan(html.indexOf('aria-label="Dictate"'))
     expect(html.indexOf('aria-label="Dictate"')).toBeLessThan(html.indexOf('Read-only preview'))
     expect(html).toMatch(/<button[^>]*aria-label="Send"[^>]*disabled/)
+  })
+})
+
+describe('astro-live-transcript', () => {
+  it('renders sides and an interim line kept out of announcements', async () => {
+    const { default: LiveTranscript } = await import(
+      '../dist/astro-live-transcript/LiveTranscript.astro'
+    )
+    const html = await render(LiveTranscript, {
+      props: {
+        entries: [
+          { id: '1', speaker: 'You', side: 'me', text: 'Can you hear me?' },
+          { id: '2', speaker: 'Priya', side: 'them', text: 'Loud and clear.' },
+          { id: '3', speaker: 'Priya', side: 'them', text: 'shall we', interim: true },
+        ],
+      },
+    })
+    expect(html).toContain('role="log"')
+    expect(html).toContain('tabindex="0"')
+    expect(html).toMatch(/<div[^>]*class="[^"]*self-end[^"]*"[^>]*data-side="me"/)
+    expect(html).toMatch(/<div[^>]*class="[^"]*self-start[^"]*"[^>]*data-side="them"/)
+    expect(count(html, '>Priya<')).toBe(1)
+    expect(count(html, 'data-interim="true"')).toBe(1)
+    expect(html).toMatch(/<p[^>]*decoration-dotted[^>]*data-interim="true"[^>]*aria-live="off"/)
+    expect(html).toMatch(/<span class="sr-only">\s*\(still listening\)<\/span>/)
+  })
+})
+
+describe('astro-live-transcript exports', () => {
+  it('exposes the component and the update helper from the meta entry', () => {
+    const dist = new URL('../dist/', import.meta.url)
+    const entry = readFileSync(new URL('astro-live-transcript/index.ts', dist), 'utf8')
+    const index = readFileSync(new URL('index.ts', dist), 'utf8')
+    expect(entry).toContain("export { default as LiveTranscript } from './LiveTranscript.astro'")
+    expect(entry).toMatch(/\bapplyTranscriptUpdate\b/)
+    expect(index).toContain("export * from './astro-live-transcript/index.ts'")
   })
 })
