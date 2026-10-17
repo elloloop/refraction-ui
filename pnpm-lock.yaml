@@ -275,6 +275,9 @@ importers:
       '@refraction-ui/react-editor-tabs':
         specifier: workspace:*
         version: link:../packages/react-editor-tabs
+      '@refraction-ui/react-emoji-glyph':
+        specifier: workspace:*
+        version: link:../packages/react-emoji-glyph
       '@refraction-ui/react-emoji-picker':
         specifier: workspace:*
         version: link:../packages/react-emoji-picker
@@ -2950,6 +2953,15 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/emoji-glyph:
+    dependencies:
+      '@refraction-ui/emoji-picker':
+        specifier: workspace:*
+        version: link:../emoji-picker
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/emoji-picker:
     dependencies:
       '@refraction-ui/shared':
@@ -4595,6 +4607,34 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-emoji-glyph:
+    dependencies:
+      '@refraction-ui/emoji-glyph':
+        specifier: workspace:*
+        version: link:../emoji-glyph
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      lottie-web:
+        specifier: 5.13.0
+        version: 5.13.0
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-emoji-picker:
     dependencies:
       '@refraction-ui/emoji-picker':
@@ -5635,6 +5675,9 @@ importers:
       '@refraction-ui/react-editor-tabs':
         specifier: workspace:*
         version: link:../react-editor-tabs
+      '@refraction-ui/react-emoji-glyph':
+        specifier: workspace:*
+        version: link:../react-emoji-glyph
       '@refraction-ui/react-emoji-picker':
         specifier: workspace:*
         version: link:../react-emoji-picker
@@ -11042,6 +11085,9 @@ packages:
     peerDependencies:
       playwright-core: '>=1.47.2'
 
+  lottie-web@5.13.0:
+    resolution: {integrity: sha512-+gfBXl6sxXMPe8tKQm7qzLnUy5DUPJPKIyRHwtpCpyUEYjHYRJC/5gjUvdkuO2c3JllrPtHXH5UJJK8LRYl5yQ==}
+
   loupe@3.2.0:
     resolution: {integrity: sha512-2NCfZcT5VGVNX9mSZIxLRkEAegDGBpuQZBy13desuHeVORmBDyAET4TkJr4SjqQy3A8JDofMN6LpkK8Xcm/dlw==}
 
@@ -15853,6 +15899,8 @@ snapshots:
       - debug
       - supports-color
       - typescript
+
+  lottie-web@5.13.0: {}
 
   loupe@3.2.0: {}
 

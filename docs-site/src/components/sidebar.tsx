@@ -114,6 +114,7 @@ const componentGroups = [
       { name: 'Thread Summary', href: '/components/thread-summary' },
       { name: 'Reaction Tray', href: '/components/reaction-tray' },
       { name: 'Multi Combobox', href: '/components/multi-combobox' },
+      { name: 'Emoji Glyph', href: '/components/emoji-glyph' },
     ],
   },
   {

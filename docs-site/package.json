@@ -50,6 +50,7 @@
     "@refraction-ui/react-dropdown-menu": "workspace:*",
     "@refraction-ui/react-editor-status-bar": "workspace:*",
     "@refraction-ui/react-editor-tabs": "workspace:*",
+    "@refraction-ui/react-emoji-glyph": "workspace:*",
     "@refraction-ui/react-emoji-picker": "workspace:*",
     "@refraction-ui/react-empty-state": "workspace:*",
     "@refraction-ui/react-feedback-dialog": "workspace:*",

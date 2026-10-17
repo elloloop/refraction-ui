@@ -161,6 +161,7 @@ const components = [
   { name: 'Thread Summary', href: '/components/thread-summary', description: 'The replies line under a message that opens its thread.', category: 'Workplace' },
   { name: 'Reaction Tray', href: '/components/reaction-tray', description: 'Quick reactions grid with more and fewer.', category: 'Workplace' },
   { name: 'Multi Combobox', href: '/components/multi-combobox', description: 'Multi-select combobox with removable chips and async options.', category: 'Workplace' },
+  { name: 'Emoji Glyph', href: '/components/emoji-glyph', description: 'An emoji drawn from bundled art, animated where art exists.', category: 'Workplace' },
   { name: 'Rating Scale', href: '/components/rating-scale', description: 'Visual rating input with customizable range.', category: 'Forms' },
   { name: 'Wizard', href: '/components/wizard', description: 'Multi-step form wizard with progress indicators.', category: 'Forms' },
   { name: 'Radial Gauge', href: '/components/radial-gauge', description: 'Circular dial gauge for displaying percentage values.', category: 'Data' },
