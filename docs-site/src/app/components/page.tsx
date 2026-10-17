@@ -158,6 +158,7 @@ const components = [
   { name: 'List Item', href: '/components/list-item', description: 'Selectable row with leading, meta, trailing and unread emphasis.', category: 'Workplace' },
   { name: 'Nav Item', href: '/components/nav-item', description: 'Sidebar and rail destination with a capped count badge.', category: 'Workplace' },
   { name: 'Pane Header', href: '/components/pane-header', description: 'The bar across the top of a pane: back, avatar, title and actions.', category: 'Workplace' },
+  { name: 'Thread Summary', href: '/components/thread-summary', description: 'The replies line under a message that opens its thread.', category: 'Workplace' },
   { name: 'Rating Scale', href: '/components/rating-scale', description: 'Visual rating input with customizable range.', category: 'Forms' },
   { name: 'Wizard', href: '/components/wizard', description: 'Multi-step form wizard with progress indicators.', category: 'Forms' },
   { name: 'Radial Gauge', href: '/components/radial-gauge', description: 'Circular dial gauge for displaying percentage values.', category: 'Data' },

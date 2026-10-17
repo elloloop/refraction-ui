@@ -111,6 +111,7 @@ const componentGroups = [
       { name: 'List Item', href: '/components/list-item' },
       { name: 'Nav Item', href: '/components/nav-item' },
       { name: 'Pane Header', href: '/components/pane-header' },
+      { name: 'Thread Summary', href: '/components/thread-summary' },
     ],
   },
   {

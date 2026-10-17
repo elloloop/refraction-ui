@@ -137,6 +137,7 @@
     "@refraction-ui/react-test-results": "workspace:*",
     "@refraction-ui/react-textarea": "workspace:*",
     "@refraction-ui/react-theme": "workspace:*",
+    "@refraction-ui/react-thread-summary": "workspace:*",
     "@refraction-ui/react-thread-view": "workspace:*",
     "@refraction-ui/react-timeline": "workspace:*",
     "@refraction-ui/react-toast": "workspace:*",
