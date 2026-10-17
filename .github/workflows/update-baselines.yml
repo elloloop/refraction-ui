@@ -64,10 +64,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- e2e/snapshots; then
+          # Stage first, then compare the index: a page with no baseline yet
+          # gets a brand-new, untracked PNG, which `git diff` never reports.
+          git add e2e/snapshots
+          if git diff --cached --quiet -- e2e/snapshots; then
             echo "No baseline changes — nothing to commit."
           else
-            git add e2e/snapshots
             # No [skip ci] here on purpose: a head-commit message containing
             # [skip ci] makes GitHub skip ALL workflows for the push — and if
             # a squash-merge body later quotes this message, it silently skips
