@@ -161,8 +161,13 @@ test('toast: visible after trigger', async ({ page }) => {
   // "Persistent" uses duration: 0, so the toast stays until dismissed —
   // no race between the screenshot and an auto-dismiss timer.
   const trigger = page.getByRole('button', { name: 'Persistent' })
-  // Next.js mounts its own role="alert" route announcer; filter to the toast.
-  const toast = page.getByRole('alert').filter({ hasText: 'stays until dismissed' })
+  // Inside a Toaster a toast carries no live role of its own (the Toaster
+  // announces it through its live regions), so find it in the Notifications
+  // landmark by its data hook.
+  const toast = page
+    .getByRole('region', { name: 'Notifications' })
+    .locator('[data-rfr-toast]')
+    .filter({ hasText: 'stays until dismissed' })
   await retryUntil(
     () => trigger.click(),
     () => expect(toast).toBeVisible({ timeout: 2_000 }),
