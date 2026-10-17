@@ -121,6 +121,7 @@ const componentGroups = [
       { name: 'Time Picker', href: '/components/time-picker' },
       { name: 'Event Calendar', href: '/components/event-calendar' },
       { name: 'Incoming Call Card', href: '/components/incoming-call-card' },
+      { name: 'Level Bars', href: '/components/level-bars' },
     ],
   },
   {

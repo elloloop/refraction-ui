@@ -356,6 +356,9 @@ importers:
       '@refraction-ui/react-language-selector':
         specifier: workspace:*
         version: link:../packages/react-language-selector
+      '@refraction-ui/react-level-bars':
+        specifier: workspace:*
+        version: link:../packages/react-level-bars
       '@refraction-ui/react-line-chart':
         specifier: workspace:*
         version: link:../packages/react-line-chart
@@ -3353,6 +3356,15 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/level-bars:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/waveform':
+        specifier: workspace:*
+        version: link:../waveform
+
   packages/line-chart:
     dependencies:
       '@refraction-ui/shared':
@@ -5309,6 +5321,31 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-level-bars:
+    dependencies:
+      '@refraction-ui/level-bars':
+        specifier: workspace:*
+        version: link:../level-bars
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-line-chart:
     dependencies:
       '@refraction-ui/line-chart':
@@ -5888,6 +5925,9 @@ importers:
       '@refraction-ui/react-language-selector':
         specifier: workspace:*
         version: link:../react-language-selector
+      '@refraction-ui/react-level-bars':
+        specifier: workspace:*
+        version: link:../react-level-bars
       '@refraction-ui/react-line-chart':
         specifier: workspace:*
         version: link:../react-line-chart

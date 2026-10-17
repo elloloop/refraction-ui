@@ -122,6 +122,7 @@
     "@refraction-ui/react-keyboard-shortcut": "workspace:*",
     "@refraction-ui/react-keycap": "workspace:*",
     "@refraction-ui/react-language-selector": "workspace:*",
+    "@refraction-ui/react-level-bars": "workspace:*",
     "@refraction-ui/react-line-chart": "workspace:*",
     "@refraction-ui/react-link-card": "workspace:*",
     "@refraction-ui/react-link-preview": "workspace:*",
