@@ -554,6 +554,9 @@ importers:
       '@refraction-ui/react-sortable-list':
         specifier: workspace:*
         version: link:../packages/react-sortable-list
+      '@refraction-ui/react-split-button':
+        specifier: workspace:*
+        version: link:../packages/react-split-button
       '@refraction-ui/react-stat-grid':
         specifier: workspace:*
         version: link:../packages/react-stat-grid
@@ -6633,6 +6636,9 @@ importers:
       '@refraction-ui/react-sortable-list':
         specifier: workspace:*
         version: link:../react-sortable-list
+      '@refraction-ui/react-split-button':
+        specifier: workspace:*
+        version: link:../react-split-button
       '@refraction-ui/react-stat-grid':
         specifier: workspace:*
         version: link:../react-stat-grid
@@ -7756,6 +7762,40 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
 
+  packages/react-split-button:
+    dependencies:
+      '@refraction-ui/button':
+        specifier: workspace:*
+        version: link:../button
+      '@refraction-ui/react-button':
+        specifier: workspace:*
+        version: link:../react-button
+      '@refraction-ui/react-dropdown-menu':
+        specifier: workspace:*
+        version: link:../react-dropdown-menu
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@refraction-ui/split-button':
+        specifier: workspace:*
+        version: link:../split-button
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+
   packages/react-stat-grid:
     dependencies:
       '@refraction-ui/shared':
@@ -8667,6 +8707,18 @@ importers:
 
   packages/sortable-list:
     dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
+  packages/split-button:
+    dependencies:
+      '@refraction-ui/button':
+        specifier: workspace:*
+        version: link:../button
+      '@refraction-ui/icon-button':
+        specifier: workspace:*
+        version: link:../icon-button
       '@refraction-ui/shared':
         specifier: workspace:*
         version: link:../shared
