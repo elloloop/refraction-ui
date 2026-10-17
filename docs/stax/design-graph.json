@@ -3,10 +3,10 @@
   "repo": "elloloop/refraction-ui",
   "defaultBranch": "main",
   "mainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
-  "lastUpdated": "2026-10-17T04:08:15Z",
+  "lastUpdated": "2026-10-17T04:20:00Z",
   "state": {
     "lastProcessedMainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
-    "lastProcessedSourceId": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1"
+    "lastProcessedSourceId": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1"
   },
   "nodes": [
     {
@@ -916,6 +916,34 @@
       "updated": "2026-10-17T04:08:15Z"
     },
     {
+      "id": "operations:packages-react-adaptive-tab-nav",
+      "parent": "operations",
+      "title": "Packages React Adaptive Tab Nav",
+      "summary": "Changed in: read rendered tab labels without stripping markup",
+      "kicker": "Operations",
+      "diagram": {
+        "tier": "operations"
+      },
+      "why": "The SSR test collected the visible text by deleting tags with a regex, which code scanning reports as incomplete sanitisation. It now reads the text between tags instead; the assertion is unchanged.",
+      "what": "read rendered tab labels without stripping markup",
+      "how": "TypeScript. Changed: packages/react-adaptive-tab-nav/__tests__/adaptive-tab-nav.test.tsx",
+      "meta": {
+        "status": "live"
+      },
+      "feature": {
+        "status": "shipping"
+      },
+      "sources": [
+        {
+          "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+          "kind": "diff",
+          "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+          "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
+        }
+      ],
+      "updated": "2026-10-17T04:20:00Z"
+    },
+    {
       "id": "operations:packages-react-dialog",
       "parent": "operations",
       "title": "Packages React Dialog",
@@ -1308,13 +1336,22 @@
         "api:packages-adaptive-tab-nav",
         "api:packages-react-adaptive-tab-nav"
       ]
+    },
+    {
+      "sha": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+      "label": "feat(adaptive-tab-nav): read rendered tab labels without stripping markup",
+      "date": "2026-10-17",
+      "kind": "feature",
+      "touches": [
+        "operations:packages-react-adaptive-tab-nav"
+      ]
     }
   ],
   "featureDocs": [
     {
       "id": "feature:adaptive-tab-nav",
       "name": "Adaptive Tab Nav",
-      "summary": "feat(adaptive-tab-nav): add a top-bar tab nav that docks to the bottom on narrow screens",
+      "summary": "feat(adaptive-tab-nav): read rendered tab labels without stripping markup",
       "audience": [
         "end-user",
         "product-manager",
@@ -1322,10 +1359,13 @@
       ],
       "userDocs": [
         "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
-        "feat(adaptive-tab-nav): add a top-bar tab nav that docks to the bottom on narrow screens"
+        "feat(adaptive-tab-nav): add a top-bar tab nav that docks to the bottom on narrow screens",
+        "The SSR test collected the visible text by deleting tags with a regex, which code scanning reports as incomplete sanitisation. It now reads the text between tags instead; the assertion is unchanged.",
+        "feat(adaptive-tab-nav): read rendered tab labels without stripping markup"
       ],
       "testerNotes": [
-        "Verify behavior touching docs-site/package.json, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, packages/react-meta/package.json, packages/react-meta/src/index.ts."
+        "Verify behavior touching docs-site/package.json, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, packages/react-meta/package.json, packages/react-meta/src/index.ts.",
+        "Verify behavior touching packages/react-adaptive-tab-nav/__tests__/adaptive-tab-nav.test.tsx."
       ],
       "relatedTechnicalDetails": [
         "technical:adaptive-tab-nav"
@@ -1345,9 +1385,15 @@
           "kind": "diff",
           "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
           "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        },
+        {
+          "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+          "kind": "diff",
+          "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+          "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
         }
       ],
-      "updated": "2026-10-17T04:08:15Z"
+      "updated": "2026-10-17T04:20:00Z"
     },
     {
       "id": "feature:auto-save-before-switching-context",
@@ -1631,10 +1677,12 @@
     {
       "id": "technical:adaptive-tab-nav",
       "title": "Adaptive Tab Nav",
-      "summary": "feat(adaptive-tab-nav): add a top-bar tab nav that docks to the bottom on narrow screens",
+      "summary": "feat(adaptive-tab-nav): read rendered tab labels without stripping markup",
       "designNotes": [
         "Changed files: docs-site/package.json, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, packages/react-meta/package.json, packages/react-meta/src/index.ts, pnpm-lock.yaml, .changeset/adaptive-tab-nav.md, docs-site/src/app/components/adaptive-tab-nav/",
-        "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures."
+        "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+        "Changed files: packages/react-adaptive-tab-nav/__tests__/adaptive-tab-nav.test.tsx",
+        "The SSR test collected the visible text by deleting tags with a regex, which code scanning reports as incomplete sanitisation. It now reads the text between tags instead; the assertion is unchanged."
       ],
       "relatedFeatures": [
         "feature:adaptive-tab-nav"
@@ -1654,9 +1702,15 @@
           "kind": "diff",
           "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
           "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        },
+        {
+          "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+          "kind": "diff",
+          "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+          "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
         }
       ],
-      "updated": "2026-10-17T04:08:15Z"
+      "updated": "2026-10-17T04:20:00Z"
     },
     {
       "id": "technical:auto-save-before-switching-context",
@@ -2248,7 +2302,8 @@
         "packages/astro-meta/package.json",
         "packages/react-meta/CHANGELOG.md",
         "packages/adaptive-tab-nav/",
-        "packages/react-adaptive-tab-nav/"
+        "packages/react-adaptive-tab-nav/",
+        "packages/react-adaptive-tab-nav/__tests__/adaptive-tab-nav.test.tsx"
       ],
       "summary": "Owns changes under packages.",
       "relatedFeatures": [
@@ -2316,9 +2371,15 @@
           "kind": "diff",
           "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
           "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        },
+        {
+          "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+          "kind": "diff",
+          "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+          "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
         }
       ],
-      "updated": "2026-10-17T04:08:15Z"
+      "updated": "2026-10-17T04:20:00Z"
     },
     {
       "id": "component:pnpm-lockyaml",
@@ -2414,9 +2475,15 @@
           "kind": "diff",
           "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
           "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        },
+        {
+          "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+          "kind": "diff",
+          "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+          "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
         }
       ],
-      "updated": "2026-10-17T04:08:15Z"
+      "updated": "2026-10-17T04:20:00Z"
     },
     {
       "from": "feature:adaptive-tab-nav",
@@ -2504,9 +2571,15 @@
           "kind": "diff",
           "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
           "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        },
+        {
+          "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+          "kind": "diff",
+          "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+          "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
         }
       ],
-      "updated": "2026-10-17T04:08:15Z"
+      "updated": "2026-10-17T04:20:00Z"
     },
     {
       "from": "feature:adaptive-tab-nav",
@@ -3154,9 +3227,15 @@
           "kind": "diff",
           "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
           "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+        },
+        {
+          "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+          "kind": "diff",
+          "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+          "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a"
         }
       ],
-      "updated": "2026-10-17T04:08:15Z"
+      "updated": "2026-10-17T04:20:00Z"
     },
     {
       "from": "technical:adaptive-tab-nav",
@@ -3875,6 +3954,28 @@
       "diffHash": "5b97d42c88fd2911da8a61a80385484a9476d1a08202323efc3881ad23d1c67b",
       "created": "2026-10-17T04:08:12Z",
       "processedAt": "2026-10-17T04:08:15Z"
+    },
+    {
+      "id": "diff:eca7bbda-10a0-4879-9a86-07a4c4e5ad4a:v1",
+      "kind": "diff",
+      "feature": "adaptive-tab-nav",
+      "diffUuid": "eca7bbda-10a0-4879-9a86-07a4c4e5ad4a",
+      "diffPosition": 2,
+      "version": 1,
+      "commit": "9dbeaf0ee40c7685addcabfa3b49e3bbf02a9cfc",
+      "parent": "36e7fb3e8f7d1a71b3df466191a44a9c73efa0ad",
+      "title": "feat(adaptive-tab-nav): read rendered tab labels without stripping markup",
+      "description": "The SSR test collected the visible text by deleting tags with a regex, which code scanning reports as incomplete sanitisation. It now reads the text between tags instead; the assertion is unchanged.",
+      "type": "feature",
+      "files": [
+        "packages/react-adaptive-tab-nav/__tests__/adaptive-tab-nav.test.tsx"
+      ],
+      "additions": 4,
+      "deletions": 1,
+      "mainCommit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
+      "diffHash": "b04899a3ae631ae78efe2adfe70de503f0ad3c22fca38185aff4432f749441f9",
+      "created": "2026-10-17T04:20:00Z",
+      "processedAt": "2026-10-17T04:20:00Z"
     }
   ]
 }

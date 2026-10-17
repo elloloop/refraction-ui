@@ -21,6 +21,9 @@ function render(active: Section | null, props: Partial<React.ComponentProps<type
 /** Opening tags of the tab buttons, in order. */
 const tabs = (html: string) => html.match(/<button\b[^>]*>/g) ?? []
 
+/** The text between tags, in order. */
+const text = (html: string) => [...html.matchAll(/>([^<]+)</g)].map((match) => match[1]).join('')
+
 afterEach(() => {
   vi.restoreAllMocks()
   resetDevFeedback()
@@ -42,7 +45,7 @@ describe('AdaptiveTabNav (SSR)', () => {
     expect(buttons).toHaveLength(3)
     for (const button of buttons) expect(button).toContain('type="button"')
     expect(buttons.map((b) => b.match(/data-tab="([^"]+)"/)![1])).toEqual(['home', 'inbox', 'settings'])
-    expect(render('home').replace(/<[^>]+>/g, '')).toBe('HomeInboxSettings')
+    expect(text(render('home'))).toBe('HomeInboxSettings')
   })
 
   it('marks only the section on screen as the current page, with the active pill', () => {
