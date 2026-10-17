@@ -1,17 +1,32 @@
 export {
   createVideoTile,
   getInitials,
+  getVideoTileEmphasis,
+  getVideoTileLabel,
+  videoTileDefaultLabels,
   type VideoTileMicState,
   type VideoTileData,
+  type VideoTileLabels,
+  type VideoTileEmphasis,
   type VideoTileHeadlessProps,
   type VideoTileAPI,
 } from './video-tile.js'
 
 export {
   videoTileVariants,
+  videoTileMediaVariants,
+  videoTileEdgeVariants,
   videoTileNameChipClass,
+  videoTileNameClass,
+  videoTileScreenShareLabelClass,
   videoTileMicIconClass,
+  videoTileSpeakingIconClass,
   videoTileAvatarFallbackClass,
   videoTileAvatarCircleClass,
+  videoTileInitialsClass,
+  videoTileInitialsSvg,
+  videoTileTopStartClass,
+  videoTileTopEndClass,
+  videoTileBadgeVariants,
   videoTileReactionBadgeClass,
 } from './video-tile.styles.js'

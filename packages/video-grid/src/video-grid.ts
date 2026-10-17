@@ -39,7 +39,7 @@ export interface VideoGridAPI {
 /**
  * Compute the number of CSS grid columns for N participants.
  *
- * The responsive rule mirrors easyloops meeting layouts:
+ * The responsive rule keeps tiles large for small calls and dense for big ones:
  *
  * | count | columns |
  * |-------|---------|

@@ -11,3 +11,15 @@ export const SpeakingAndMuted = {
 export const Pinned = {
   render: () => <VideoTileExamples section="pinned" />,
 }
+export const Media = { render: () => <VideoTileExamples section="media" /> }
+export const HandRaisedAndScreenShare = {
+  render: () => <VideoTileExamples section="hand-screen" />,
+}
+export const TileOptions = {
+  render: () => <VideoTileExamples section="tile-options" />,
+}
+// A real <video> playing a canvas-drawn MediaStream — the element a call app
+// attaches a participant track to. Storybook only: its pixels change per frame.
+export const LiveStream = {
+  render: () => <VideoTileExamples section="live-stream" />,
+}

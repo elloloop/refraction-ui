@@ -4,7 +4,9 @@ import { cva } from '@refraction-ui/shared'
  * Grid container variants.
  *
  * - `layout: 'grid'`    — uniform CSS grid; column count is set inline by the
- *   adapter using `computeGridColumns` (gridTemplateColumns).
+ *   adapter using `computeGridColumns` (gridTemplateColumns). Rows pack to the
+ *   top (`content-start`): stretched rows shorter than a 16:9 tile would make
+ *   the tiles of one row overlap the next.
  * - `layout: 'speaker'` — two-row layout: large spotlight on top, filmstrip row
  *   below. The adapter renders the spotlight as the first child and a horizontal
  *   overflow row for remaining tiles.
@@ -13,9 +15,9 @@ export const videoGridVariants = cva({
   base: 'w-full h-full gap-2',
   variants: {
     layout: {
-      grid: 'grid',
+      grid: 'grid content-start',
       speaker: 'flex flex-col',
-      auto: 'grid',
+      auto: 'grid content-start',
     },
   },
   defaultVariants: {
