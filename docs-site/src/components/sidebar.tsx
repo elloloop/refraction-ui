@@ -120,6 +120,7 @@ const componentGroups = [
       { name: 'GIF Picker', href: '/components/gif-picker' },
       { name: 'Time Picker', href: '/components/time-picker' },
       { name: 'Event Calendar', href: '/components/event-calendar' },
+      { name: 'Incoming Call Card', href: '/components/incoming-call-card' },
     ],
   },
   {
