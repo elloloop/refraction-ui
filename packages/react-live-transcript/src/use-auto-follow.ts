@@ -93,11 +93,11 @@ export function useAutoFollow(
     const element = containerRef.current
     if (!enabled || !element || typeof ResizeObserver !== 'function') return
     const observer = new ResizeObserver(() => {
-      if (followingRef.current) pin(element)
+      if (syncFromScroll(element)) pin(element)
     })
     observer.observe(element)
     return () => observer.disconnect()
-  }, [enabled, pin])
+  }, [enabled, pin, syncFromScroll])
 
   const onScroll = React.useCallback(() => {
     const element = containerRef.current

@@ -5,14 +5,6 @@ import { test, expect, type Locator, type Page } from '@playwright/test'
 
 const LIVE_EDGE_TOLERANCE_PX = 24
 
-async function open(page: Page): Promise<Locator> {
-  await page.goto('/components/live-transcript')
-  await page.waitForLoadState('networkidle')
-  const panel = page.getByTestId('live-transcript-demo')
-  await expect(panel).toBeVisible()
-  return panel
-}
-
 function distanceFromBottom(panel: Locator): Promise<number> {
   return panel.evaluate((el) => el.scrollHeight - el.scrollTop - el.clientHeight)
 }
@@ -21,6 +13,19 @@ async function expectAtLiveEdge(panel: Locator) {
   await expect
     .poll(() => distanceFromBottom(panel))
     .toBeLessThanOrEqual(LIVE_EDGE_TOLERANCE_PX)
+}
+
+async function open(page: Page): Promise<Locator> {
+  await page.goto('/components/live-transcript')
+  await page.waitForLoadState('networkidle')
+  const panel = page.getByTestId('live-transcript-demo')
+  await expect(panel).toBeVisible()
+  // The server-rendered panel opens at its oldest line and is not listening
+  // for scrolls yet. Only the hydrated component moves it to the live edge,
+  // so wait for that before the reader scrolls; a scroll made earlier is
+  // undone by the mount and never reported.
+  await expectAtLiveEdge(panel)
+  return panel
 }
 
 /** The reader scrolls back to the top of the panel. */

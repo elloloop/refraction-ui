@@ -20,9 +20,10 @@ const VIEW = 120
 const scrollTops = new WeakMap<HTMLElement, number>()
 let scrollToCalls: ScrollToOptions[]
 let reducedMotion: boolean
+let lineHeight: number
 
 function contentHeight(el: HTMLElement): number {
-  return el.querySelectorAll('p').length * LINE
+  return el.querySelectorAll('p').length * lineHeight
 }
 
 function maxScrollTop(el: HTMLElement): number {
@@ -75,6 +76,7 @@ beforeEach(() => {
   installLayout()
   scrollToCalls = []
   reducedMotion = false
+  lineHeight = LINE
   vi.stubGlobal('matchMedia', (query: string) => ({
     matches: query.includes('prefers-reduced-motion') && reducedMotion,
     media: query,
@@ -244,6 +246,47 @@ describe('LiveTranscript auto-follow', () => {
     scrollTo(LINE)
     expect(jumpControl()).toBeNull()
     expect(log().hasAttribute('data-following')).toBe(false)
+  })
+
+  describe('when the panel resizes', () => {
+    let notifyResize: () => void
+
+    beforeEach(() => {
+      const callbacks: Array<() => void> = []
+      notifyResize = () => {
+        act(() => {
+          for (const callback of callbacks) callback()
+        })
+      }
+      vi.stubGlobal(
+        'ResizeObserver',
+        class {
+          constructor(callback: () => void) {
+            callbacks.push(callback)
+          }
+          observe() {}
+          disconnect() {}
+        },
+      )
+    })
+
+    it('stays at the live edge when its lines re-wrap taller', () => {
+      render({ entries: lines(6), autoFollow: true })
+      lineHeight = LINE * 2
+      notifyResize()
+      expect(log().scrollTop).toBe(maxScrollTop(log()))
+      expect(log().dataset.following).toBe('true')
+    })
+
+    it('does not pull the reader back when it lands before their scroll is reported', () => {
+      render({ entries: lines(6), autoFollow: true })
+      act(() => {
+        log().scrollTop = 0
+      })
+      notifyResize()
+      expect(log().scrollTop).toBe(0)
+      expect(log().dataset.following).toBe('false')
+    })
   })
 
   it('forwards its ref to the scroll container', () => {
