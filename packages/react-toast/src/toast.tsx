@@ -3,6 +3,8 @@ import {
   createToast,
   createToastManager,
   toastVariants,
+  toasterClass,
+  toastContentClass,
   type ToastVariant,
   type ToastEntry,
   type ToastManagerAPI,
@@ -121,12 +123,13 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       {
         ref,
         className: cn(toastVariants({ variant: entry.variant }), className),
+        'data-rfr-toast': '',
         ...api.ariaProps,
         onMouseEnter: handleMouseEnter,
         onMouseLeave: handleMouseLeave,
         ...props,
       },
-      React.createElement('div', { className: 'flex-1' }, entry.message),
+      React.createElement('div', { className: toastContentClass }, entry.message),
       children,
       onDismiss &&
         React.createElement(
@@ -157,10 +160,8 @@ export const Toaster = React.forwardRef<HTMLDivElement, ToasterProps>(
       'div',
       {
         ref,
-        className: cn(
-          'fixed bottom-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none',
-          className,
-        ),
+        className: cn(toasterClass, className),
+        'data-rfr-toaster': '',
         ...props,
       },
       toasts.map((entry) =>

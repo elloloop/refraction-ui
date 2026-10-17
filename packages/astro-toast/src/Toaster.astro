@@ -1,4 +1,5 @@
 ---
+import { toasterClass } from '@refraction-ui/toast'
 import { cn } from '@refraction-ui/shared'
 
 interface Props extends astroHTML.JSX.HTMLAttributes {}
@@ -8,13 +9,20 @@ const { class: className, ...props } = Astro.props
 
 <div
   data-rfr-toaster
-  class={cn('fixed bottom-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none', className)}
+  class={cn(toasterClass, className)}
   {...props}
 >
   <slot />
 </div>
 
 <script>
+  import {
+    isToastVariant,
+    toastContentClass,
+    toastVariants,
+    type ToastVariant,
+  } from '@refraction-ui/toast'
+
   function initToaster() {
     // Initialize all individual toasts (auto-dismiss, pause on hover)
     document.querySelectorAll<HTMLElement>('[data-rfr-toast]').forEach((toast) => {
@@ -82,19 +90,14 @@ const { class: className, ...props } = Astro.props
   // Expose a global function to programmatically add toasts
   interface ToastOptions {
     message: string
-    variant?: 'default' | 'success' | 'error' | 'warning'
+    variant?: ToastVariant
     duration?: number
   }
 
-  const VARIANT_CLASSES: Record<string, string> = {
-    default: 'border bg-background text-foreground',
-    success: 'border-l-4 border-success/50 bg-success/10 text-success',
-    error: 'border-l-4 border-destructive/50 bg-destructive/10 text-destructive',
-    warning: 'border-l-4 border-warning/50 bg-warning/10 text-warning',
-  }
-
   function createToastElement(options: ToastOptions): HTMLElement {
-    const { message, variant = 'default', duration = 3000 } = options
+    const { message, duration = 3000 } = options
+    // A plain script can pass any string; an unknown one gets the default look.
+    const variant: ToastVariant = isToastVariant(options.variant) ? options.variant : 'default'
 
     const toast = document.createElement('div')
     toast.setAttribute('data-rfr-toast', '')
@@ -103,10 +106,10 @@ const { class: className, ...props } = Astro.props
     toast.setAttribute('role', 'alert')
     toast.setAttribute('aria-live', 'assertive')
     toast.setAttribute('aria-atomic', 'true')
-    toast.className = `pointer-events-auto relative flex w-full items-center justify-between gap-2 overflow-hidden rounded-lg border p-4 shadow-lg transition-all ${VARIANT_CLASSES[variant] || VARIANT_CLASSES.default}`
+    toast.className = toastVariants({ variant })
 
     const content = document.createElement('div')
-    content.className = 'flex-1'
+    content.className = toastContentClass
     content.textContent = message
 
     const dismissBtn = document.createElement('button')

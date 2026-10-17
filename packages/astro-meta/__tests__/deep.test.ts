@@ -184,6 +184,31 @@ describe('astro-toast (Toaster + Toast composed)', () => {
     expect(html).toContain('Saved successfully')
     expect(html).toMatch(/<button[^>]*aria-label="Dismiss"/)
   })
+
+  it('lays the toaster out with equal side gutters and a capped width', async () => {
+    const html = await render(ToasterComposition)
+    const toaster = html.match(/<div[^>]*data-rfr-toaster[^>]*>/)?.[0] ?? ''
+
+    expect(toaster).toMatch(/class="[^"]*\binset-x-4\b[^"]*"/)
+    expect(toaster).toMatch(/class="[^"]*\bml-auto\b[^"]*"/)
+    expect(toaster).toMatch(/class="[^"]*\bmax-w-sm\b[^"]*"/)
+    expect(toaster).not.toMatch(/\bw-full\b/)
+  })
+
+  it('renders a tinted toast on an opaque background', async () => {
+    const html = await render(ToasterComposition)
+    const toast = html.match(/<div[^>]*data-rfr-toast-variant="success"[^>]*>/)?.[0] ?? ''
+
+    expect(toast).toMatch(/\bbg-background\b/)
+    expect(toast).toMatch(/\bfrom-success\/10\b/)
+    expect(toast).not.toMatch(/\bbg-success\/10\b/)
+  })
+
+  it('wraps the message in a column that shrinks and breaks long words', async () => {
+    const html = await render(ToasterComposition)
+
+    expect(html).toMatch(/<div class="[^"]*\bmin-w-0\b[^"]*\bbreak-words\b[^"]*">\s*Saved successfully\s*<\/div>/)
+  })
 })
 
 describe('astro-switch', () => {

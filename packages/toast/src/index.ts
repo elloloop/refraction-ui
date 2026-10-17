@@ -2,6 +2,7 @@ export {
   createToast,
   createToastManager,
   getToastIcon,
+  isToastVariant,
   type ToastVariant,
   type ToastProps,
   type ToastAPI,
@@ -10,4 +11,4 @@ export {
   type ToastManagerAPI,
 } from './toast.js'
 
-export { toastVariants } from './toast.styles.js'
+export { toastVariants, toastContentClass, toasterClass } from './toast.styles.js'

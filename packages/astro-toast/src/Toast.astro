@@ -1,5 +1,5 @@
 ---
-import { toastVariants, type ToastVariant } from '@refraction-ui/toast'
+import { toastContentClass, toastVariants, type ToastVariant } from '@refraction-ui/toast'
 import { cn } from '@refraction-ui/shared'
 
 interface Props extends astroHTML.JSX.HTMLAttributes {
@@ -33,7 +33,7 @@ const {
   class={cn(toastVariants({ variant }), className)}
   {...props}
 >
-  <div class="flex-1">
+  <div class={toastContentClass}>
     {message ? message : <slot />}
   </div>
   {dismissible && (

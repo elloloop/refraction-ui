@@ -16,6 +16,15 @@ export function getToastIcon(variant: ToastVariant): string {
   return TOAST_ICONS[variant]
 }
 
+/**
+ * Whether a runtime value names a toast variant. Untyped callers, such as a
+ * script calling a global toast function, use it to fall back to `default`
+ * instead of rendering a toast without any variant styles.
+ */
+export function isToastVariant(value: unknown): value is ToastVariant {
+  return typeof value === 'string' && Object.prototype.hasOwnProperty.call(TOAST_ICONS, value)
+}
+
 export interface ToastProps {
   /** Visual variant */
   variant?: ToastVariant
