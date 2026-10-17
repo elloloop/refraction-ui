@@ -39,7 +39,7 @@ export interface CallControlsAPI {
 /**
  * Derive the visual tone for a control given its kind and current toggle state.
  *
- * Convention used by easyloops meeting toolbar:
+ * Convention for a meeting toolbar:
  * - `leave` / `end`  → always `'destructive'`
  * - any control that is `'off'` (muted/stopped) → `'destructive'` to signal
  *   the user that something is disabled (e.g. mic muted = red indicator).
