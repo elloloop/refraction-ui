@@ -1,142 +1,57 @@
 ---
+import {
+  toastAnnouncerClass,
+  toasterClass,
+  DEFAULT_TOAST_DISMISS_LABEL,
+  DEFAULT_TOASTER_LABEL,
+} from '@refraction-ui/toast'
 import { cn } from '@refraction-ui/shared'
 
-interface Props extends astroHTML.JSX.HTMLAttributes {}
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  /** Accessible name of the dismiss button on toasts shown with `window.__rfr_toast` (default: "Dismiss"). */
+  dismissLabel?: string
+}
 
-const { class: className, ...props } = Astro.props
+const {
+  class: className,
+  'aria-label': label = DEFAULT_TOASTER_LABEL,
+  dismissLabel = DEFAULT_TOAST_DISMISS_LABEL,
+  ...props
+} = Astro.props
+
+// A labelled landmark ("Notifications" unless aria-label says otherwise) with
+// a polite and an assertive live region that exist before any toast, which is
+// what makes screen readers announce reliably. Errors interrupt; everything
+// else waits its turn.
 ---
 
 <div
   data-rfr-toaster
-  class={cn('fixed bottom-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none', className)}
+  role="region"
+  aria-label={label}
+  data-rfr-toast-dismiss-label={dismissLabel}
+  class={cn(toasterClass, className)}
   {...props}
 >
+  <div
+    class={toastAnnouncerClass}
+    aria-live="polite"
+    aria-atomic="false"
+    aria-relevant="additions"
+    data-rfr-toast-announcer="polite"
+  ></div>
+  <div
+    class={toastAnnouncerClass}
+    aria-live="assertive"
+    aria-atomic="false"
+    aria-relevant="additions"
+    data-rfr-toast-announcer="assertive"
+  ></div>
   <slot />
 </div>
 
 <script>
-  function initToaster() {
-    // Initialize all individual toasts (auto-dismiss, pause on hover)
-    document.querySelectorAll<HTMLElement>('[data-rfr-toast]').forEach((toast) => {
-      if (toast.hasAttribute('data-rfr-toast-init')) return
-      toast.setAttribute('data-rfr-toast-init', '')
+  import { installToaster } from './toaster-client.js'
 
-      const duration = parseInt(toast.getAttribute('data-rfr-toast-duration') || '3000', 10)
-      let timerId: ReturnType<typeof setTimeout> | null = null
-      let remaining = duration
-      let startedAt = 0
-
-      function dismiss() {
-        clearTimer()
-        toast.style.transition = 'opacity 200ms, transform 200ms'
-        toast.style.opacity = '0'
-        toast.style.transform = 'translateX(100%)'
-        setTimeout(() => {
-          toast.remove()
-        }, 200)
-        toast.dispatchEvent(new CustomEvent('rfr-toast-dismiss', { bubbles: true }))
-      }
-
-      function clearTimer() {
-        if (timerId !== null) {
-          clearTimeout(timerId)
-          timerId = null
-        }
-      }
-
-      function startTimer() {
-        if (duration <= 0) return
-        clearTimer()
-        remaining = duration
-        startedAt = Date.now()
-        timerId = setTimeout(dismiss, remaining)
-      }
-
-      function pauseTimer() {
-        if (timerId === null) return
-        clearTimer()
-        remaining = remaining - (Date.now() - startedAt)
-        if (remaining < 0) remaining = 0
-      }
-
-      function resumeTimer() {
-        if (duration <= 0 || remaining <= 0) return
-        clearTimer()
-        startedAt = Date.now()
-        timerId = setTimeout(dismiss, remaining)
-      }
-
-      // Dismiss button
-      const dismissBtn = toast.querySelector<HTMLElement>('[data-rfr-toast-dismiss]')
-      dismissBtn?.addEventListener('click', dismiss)
-
-      // Pause on hover, resume on leave
-      toast.addEventListener('mouseenter', pauseTimer)
-      toast.addEventListener('mouseleave', resumeTimer)
-
-      // Start auto-dismiss
-      startTimer()
-    })
-  }
-
-  // Expose a global function to programmatically add toasts
-  interface ToastOptions {
-    message: string
-    variant?: 'default' | 'success' | 'error' | 'warning'
-    duration?: number
-  }
-
-  const VARIANT_CLASSES: Record<string, string> = {
-    default: 'border bg-background text-foreground',
-    success: 'border-l-4 border-success/50 bg-success/10 text-success',
-    error: 'border-l-4 border-destructive/50 bg-destructive/10 text-destructive',
-    warning: 'border-l-4 border-warning/50 bg-warning/10 text-warning',
-  }
-
-  function createToastElement(options: ToastOptions): HTMLElement {
-    const { message, variant = 'default', duration = 3000 } = options
-
-    const toast = document.createElement('div')
-    toast.setAttribute('data-rfr-toast', '')
-    toast.setAttribute('data-rfr-toast-variant', variant)
-    toast.setAttribute('data-rfr-toast-duration', String(duration))
-    toast.setAttribute('role', 'alert')
-    toast.setAttribute('aria-live', 'assertive')
-    toast.setAttribute('aria-atomic', 'true')
-    toast.className = `pointer-events-auto relative flex w-full items-center justify-between gap-2 overflow-hidden rounded-lg border p-4 shadow-lg transition-all ${VARIANT_CLASSES[variant] || VARIANT_CLASSES.default}`
-
-    const content = document.createElement('div')
-    content.className = 'flex-1'
-    content.textContent = message
-
-    const dismissBtn = document.createElement('button')
-    dismissBtn.type = 'button'
-    dismissBtn.setAttribute('data-rfr-toast-dismiss', '')
-    dismissBtn.className = 'shrink-0'
-    dismissBtn.setAttribute('aria-label', 'Dismiss')
-    dismissBtn.innerHTML = '&times;'
-
-    toast.appendChild(content)
-    toast.appendChild(dismissBtn)
-
-    return toast
-  }
-
-  ;(window as any).__rfr_toast = function(options: ToastOptions | string) {
-    const opts: ToastOptions = typeof options === 'string' ? { message: options } : options
-    const toaster = document.querySelector<HTMLElement>('[data-rfr-toaster]')
-    if (!toaster) {
-      console.warn('[refraction-ui] No <Toaster /> found in the document. Add a <Toaster /> component to use programmatic toasts.')
-      return
-    }
-
-    const toast = createToastElement(opts)
-    toaster.appendChild(toast)
-
-    // Re-init to attach event listeners to the new toast
-    initToaster()
-  }
-
-  initToaster()
-  document.addEventListener('astro:after-swap', initToaster)
+  installToaster()
 </script>

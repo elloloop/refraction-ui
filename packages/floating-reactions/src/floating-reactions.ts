@@ -23,10 +23,18 @@ export interface FloatingReaction {
 
 /**
  * How long (ms) a floating reaction should live before the adapter removes it.
- * Use this constant in adapters to drive setTimeout-based auto-expiry so the
- * value stays in sync with the CSS animation duration.
+ * Adapters drive their setTimeout-based auto-expiry with it, and the
+ * library's stylesheet (`floatingReactionsStyles`) takes its animation
+ * duration from it, so a reaction is removed as its animation ends.
  */
 export const REACTION_LIFETIME_MS = 3000
+
+/**
+ * Data attribute on each item of the overlay. The library's stylesheet
+ * animates exactly the elements that carry it; an item without it, such as a
+ * `ReactionBurst` preview, holds still.
+ */
+export const FLOATING_REACTION_ITEM_ATTRIBUTE = 'data-floating-reaction'
 
 /**
  * Compute the horizontal left-offset percentage for a given lane bucket.
@@ -61,6 +69,8 @@ export interface FloatingReactionsAPI {
   ariaProps: FloatingReactionsAriaProps
   /** Data attributes for styling hooks. */
   dataAttributes: Record<string, string>
+  /** Data attributes to spread on each reaction item, so it floats away. */
+  itemDataAttributes: Record<string, string>
 }
 
 /**
@@ -81,5 +91,9 @@ export function createFloatingReactions(): FloatingReactionsAPI {
     'data-component': 'floating-reactions',
   }
 
-  return { ariaProps, dataAttributes }
+  const itemDataAttributes: Record<string, string> = {
+    [FLOATING_REACTION_ITEM_ATTRIBUTE]: '',
+  }
+
+  return { ariaProps, dataAttributes, itemDataAttributes }
 }

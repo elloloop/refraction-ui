@@ -170,7 +170,8 @@ export * from '@refraction-ui/react-avatar'
 export {
   AvatarGroup,
   type AvatarGroupProps,
-    } from '@refraction-ui/react-avatar-group'
+  type AvatarUser,
+} from '@refraction-ui/react-avatar-group'
 
 export * from '@refraction-ui/react-card'
 export * from '@refraction-ui/react-checkbox'
@@ -179,6 +180,14 @@ export * from '@refraction-ui/react-checkbox'
 export {
   DatePicker,
   type DatePickerProps,
+  createDefaultDatePresets,
+  DEFAULT_DATE_PRESET_LABELS,
+  DEFAULT_DATE_PRESETS_LABEL,
+  DEFAULT_WEEK_STARTS_ON,
+  type DatePreset,
+  type DatePresetLabels,
+  type DatePickerWeekday,
+  type DefaultDatePresetOptions,
     } from '@refraction-ui/react-date-picker'
 
 
@@ -243,6 +252,7 @@ export * from '@refraction-ui/react-editor-status-bar'
 // easyloops design-parity wave 2 (Cluster A — video)
 export * from '@refraction-ui/react-video-tile'
 export * from '@refraction-ui/react-video-grid'
+export * from '@refraction-ui/react-video-stage'
 export * from '@refraction-ui/react-call-controls'
 export * from '@refraction-ui/react-live-captions'
 export * from '@refraction-ui/react-live-transcript'
@@ -317,3 +327,7 @@ export * from '@refraction-ui/react-shortcuts-dialog'
 export * from '@refraction-ui/react-color-chip'
 export * from '@refraction-ui/react-message-row'
 export * from '@refraction-ui/react-image-viewer'
+export * from '@refraction-ui/react-field'
+export * from '@refraction-ui/react-media-frame'
+export * from '@refraction-ui/react-collapsible-rail'
+export * from '@refraction-ui/react-adaptive-tab-nav'

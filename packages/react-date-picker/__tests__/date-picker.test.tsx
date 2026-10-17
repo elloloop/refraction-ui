@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import { DatePicker } from '../src/date-picker.js'
+import { createDefaultDatePresets } from '../src/index.js'
 
 // SSR suite — structure and attributes only. This adapter is a styled native
 // `<input type="date">`; `onChange` wiring is client interaction not covered
@@ -103,5 +104,96 @@ describe('DatePicker (React)', () => {
     expect(html).toContain('placeholder="Pick a date"')
     expect(html).toContain('aria-label="Start date"')
     expect(html).toContain('name="start"')
+  })
+
+  describe('presets', () => {
+    // Saturday 17 October 2026: Today is the 17th, Tomorrow the 18th, Next week Monday the 19th.
+    const today = new Date(2026, 9, 17, 15, 0)
+    const presets = createDefaultDatePresets()
+
+    function buttons(html: string): string[] {
+      return html.match(/<button[^>]*>[^<]*<\/button>/g) ?? []
+    }
+
+    it('renders nothing extra, and no id, without presets', () => {
+      for (const html of [
+        renderToString(React.createElement(DatePicker, null)),
+        renderToString(React.createElement(DatePicker, { presets: [] })),
+      ]) {
+        expect(html).not.toContain('role="group"')
+        expect(html).not.toContain('<button')
+        expect(html).not.toContain(' id=')
+      }
+    })
+
+    it('renders a labelled group of buttons, in order, that point at the input', () => {
+      const html = renderToString(React.createElement(DatePicker, { presets, today }))
+      const inputId = html.match(/<input[^>]* id="([^"]+)"/)?.[1]
+      expect(inputId).toBeTruthy()
+      expect(html).toMatch(/<div role="group" aria-label="Date shortcuts" class="[^"]*flex-wrap[^"]*" data-rfr-datepicker-presets="">/)
+      expect(html.indexOf('<input')).toBeLessThan(html.indexOf('role="group"'))
+      const rendered = buttons(html)
+      expect(rendered.map((button) => button.match(/>([^<]*)<\/button>$/)?.[1])).toEqual(['Today', 'Tomorrow', 'Next week'])
+      for (const [index, id] of ['today', 'tomorrow', 'next-week'].entries()) {
+        expect(rendered[index]).toContain('type="button"')
+        expect(rendered[index]).toContain(`data-rfr-datepicker-preset="${id}"`)
+        expect(rendered[index]).toContain(`aria-controls="${inputId}"`)
+        expect(rendered[index]).toContain('focus-visible:ring-2')
+        expect(rendered[index]).not.toContain('disabled=""')
+      }
+    })
+
+    it('shows translated labels and a translated group name as given', () => {
+      const html = renderToString(
+        React.createElement(DatePicker, {
+          presets: createDefaultDatePresets({ labels: { today: 'Hoy', tomorrow: 'Mañana', nextWeek: 'La semana que viene' } }),
+          presetsLabel: 'Atajos de fecha',
+          today,
+        }),
+      )
+      expect(html).toContain('aria-label="Atajos de fecha"')
+      expect(html).toContain('>Hoy</button>')
+      expect(html).toContain('>Mañana</button>')
+      expect(html).toContain('>La semana que viene</button>')
+    })
+
+    it('renders caller-defined presets after the defaults', () => {
+      const html = renderToString(
+        React.createElement(DatePicker, {
+          presets: [...presets, { id: 'in-two-weeks', label: 'In two weeks', days: 14 }],
+          today,
+        }),
+      )
+      expect(buttons(html).at(-1)).toContain('data-rfr-datepicker-preset="in-two-weeks"')
+      expect(buttons(html).at(-1)).toContain('>In two weeks</button>')
+    })
+
+    it('disables presets outside minDate and maxDate', () => {
+      const html = renderToString(
+        React.createElement(DatePicker, { presets, today, minDate: new Date(2026, 9, 18), maxDate: new Date(2026, 9, 18) }),
+      )
+      expect(buttons(html).map((button) => button.includes('disabled=""'))).toEqual([true, false, true])
+    })
+
+    it('disables every preset when the picker is disabled or read-only', () => {
+      for (const extra of [{ disabled: true }, { readOnly: true }]) {
+        const html = renderToString(React.createElement(DatePicker, { presets, today, ...extra }))
+        expect(buttons(html).every((button) => button.includes('disabled=""'))).toBe(true)
+      }
+    })
+
+    it('points the presets at a caller-supplied input id', () => {
+      const html = renderToString(React.createElement(DatePicker, { presets, today, id: 'due-date' }))
+      expect(html).toContain('<input id="due-date"')
+      expect(buttons(html).every((button) => button.includes('aria-controls="due-date"'))).toBe(true)
+    })
+
+    it('keeps the formatted date between the input and the presets', () => {
+      const html = renderToString(
+        React.createElement(DatePicker, { presets, today, value: new Date(2026, 9, 18), format: 'DD/MM/YYYY' }),
+      )
+      expect(html.indexOf('value="2026-10-18"')).toBeLessThan(html.indexOf('18/10/2026'))
+      expect(html.indexOf('18/10/2026')).toBeLessThan(html.indexOf('role="group"'))
+    })
   })
 })

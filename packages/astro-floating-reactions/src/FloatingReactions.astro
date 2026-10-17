@@ -5,14 +5,17 @@ import {
   floatingReactionsVariants,
   floatingReactionItemClass,
   floatingReactionLabelClass,
+  floatingReactionsStyles,
   type FloatingReaction,
 } from '@refraction-ui/floating-reactions'
 import { cn } from '@refraction-ui/shared'
 
 interface Props extends astroHTML.JSX.HTMLAttributes {
   /**
-   * Reactions to render at SSR time. For animated runtime usage, use the
-   * React adapter which manages auto-expiry via useFloatingReactions().
+   * Reactions to render at SSR time. Each one rises and fades once, as in
+   * the React adapter (in place under reduced motion); the component renders
+   * the keyframes itself. For reactions added at runtime with auto-expiry,
+   * use the React adapter's useFloatingReactions().
    */
   reactions?: FloatingReaction[]
   /**
@@ -29,7 +32,7 @@ const {
   ...rest
 } = Astro.props
 
-const { ariaProps, dataAttributes } = createFloatingReactions()
+const { ariaProps, dataAttributes, itemDataAttributes } = createFloatingReactions()
 ---
 
 <div
@@ -38,6 +41,7 @@ const { ariaProps, dataAttributes } = createFloatingReactions()
   {...dataAttributes}
   {...rest}
 >
+  <style is:inline set:html={floatingReactionsStyles} />
   {
     (reactions || []).map((reaction) => {
       const left = laneOffsetPercent(reaction.lane ?? 0, lanes)
@@ -46,6 +50,7 @@ const { ariaProps, dataAttributes } = createFloatingReactions()
           class={floatingReactionItemClass}
           style={`left:${left}%`}
           aria-hidden="true"
+          {...itemDataAttributes}
         >
           {reaction.emoji}
           <span class={floatingReactionLabelClass}>{reaction.emoji}</span>

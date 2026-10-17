@@ -1,0 +1,345 @@
+{
+  "timestamp": "2026-10-17T03:09:12Z",
+  "call": "heuristic",
+  "sourceId": "commit:29a1f0c4721a",
+  "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:skip-empty-canaries-and-report-publication-failures",
+          "name": "skip empty canaries and report publication failures",
+          "summary": "fix(release): skip empty canaries and report publication failures",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "fix(release): skip empty canaries and report publication failures"
+          ],
+          "testerNotes": [
+            "Verify behavior touching .github/workflows/release.yml, .github/workflows/test-matrix.yml, CLAUDE.md, scripts/canary-release.mjs, scripts/publish-oidc.mjs."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:skip-empty-canaries-and-report-publication-failures"
+          ],
+          "relatedComponents": [
+            "component:github",
+            "component:claudemd",
+            "component:scripts"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:skip-empty-canaries-and-report-publication-failures",
+          "title": "skip empty canaries and report publication failures",
+          "summary": "fix(release): skip empty canaries and report publication failures",
+          "designNotes": [
+            "Changed files: .github/workflows/release.yml, .github/workflows/test-matrix.yml, CLAUDE.md, scripts/canary-release.mjs, scripts/publish-oidc.mjs, scripts/release-helpers.test.mjs",
+            "fix(release): skip empty canaries and report publication failures"
+          ],
+          "relatedFeatures": [
+            "feature:skip-empty-canaries-and-report-publication-failures"
+          ],
+          "relatedComponents": [
+            "component:github",
+            "component:claudemd",
+            "component:scripts"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:github",
+          "name": "GitHub Workflows",
+          "kind": "config",
+          "paths": [
+            ".github/workflows/release.yml",
+            ".github/workflows/test-matrix.yml"
+          ],
+          "summary": "Owns changes under .github.",
+          "relatedFeatures": [
+            "feature:skip-empty-canaries-and-report-publication-failures"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:skip-empty-canaries-and-report-publication-failures"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:claudemd",
+          "name": "CLAUDE.Md",
+          "kind": "docs",
+          "paths": [
+            "CLAUDE.md"
+          ],
+          "summary": "Owns changes under CLAUDE.md.",
+          "relatedFeatures": [
+            "feature:skip-empty-canaries-and-report-publication-failures"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:skip-empty-canaries-and-report-publication-failures"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:scripts",
+          "name": "Scripts",
+          "kind": "unknown",
+          "paths": [
+            "scripts/canary-release.mjs",
+            "scripts/publish-oidc.mjs",
+            "scripts/release-helpers.test.mjs"
+          ],
+          "summary": "Owns changes under scripts.",
+          "relatedFeatures": [
+            "feature:skip-empty-canaries-and-report-publication-failures"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:skip-empty-canaries-and-report-publication-failures"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:skip-empty-canaries-and-report-publication-failures",
+          "to": "component:github",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:skip-empty-canaries-and-report-publication-failures",
+          "to": "component:github",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:skip-empty-canaries-and-report-publication-failures",
+          "to": "component:claudemd",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:skip-empty-canaries-and-report-publication-failures",
+          "to": "component:claudemd",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:skip-empty-canaries-and-report-publication-failures",
+          "to": "component:scripts",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:skip-empty-canaries-and-report-publication-failures",
+          "to": "component:scripts",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:skip-empty-canaries-and-report-publication-failures",
+          "to": "technical:skip-empty-canaries-and-report-publication-failures",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "operations:.github",
+          "parent": "operations",
+          "title": "GitHub Workflows",
+          "summary": "Changed in: skip empty canaries and report publication failures",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:claude.md",
+              "kind": "http"
+            },
+            {
+              "to": "api:scripts",
+              "kind": "http"
+            },
+            {
+              "to": "operations:scripts",
+              "kind": "calls"
+            }
+          ],
+          "why": "skip empty canaries and report publication failures",
+          "what": "skip empty canaries and report publication failures",
+          "how": "Changed: .github/workflows/release.yml, .github/workflows/test-matrix.yml",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "commit:29a1f0c4721a",
+              "kind": "commit",
+              "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "api:claude.md",
+          "parent": "apis",
+          "title": "Claude Md",
+          "summary": "Changed in: skip empty canaries and report publication failures",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:scripts",
+              "kind": "grpc"
+            }
+          ],
+          "why": "skip empty canaries and report publication failures",
+          "what": "skip empty canaries and report publication failures",
+          "how": "Changed: CLAUDE.md",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "commit:29a1f0c4721a",
+              "kind": "commit",
+              "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "api:scripts",
+          "parent": "apis",
+          "title": "Scripts",
+          "summary": "Changed in: skip empty canaries and report publication failures",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "why": "skip empty canaries and report publication failures",
+          "what": "skip empty canaries and report publication failures",
+          "how": "Changed: scripts/canary-release.mjs, scripts/publish-oidc.mjs",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "commit:29a1f0c4721a",
+              "kind": "commit",
+              "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "operations:scripts",
+          "parent": "operations",
+          "title": "Scripts",
+          "summary": "Changed in: skip empty canaries and report publication failures",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:claude.md",
+              "kind": "http"
+            },
+            {
+              "to": "api:scripts",
+              "kind": "http"
+            }
+          ],
+          "why": "skip empty canaries and report publication failures",
+          "what": "skip empty canaries and report publication failures",
+          "how": "Changed: scripts/release-helpers.test.mjs",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "commit:29a1f0c4721a",
+              "kind": "commit",
+              "commit": "29a1f0c4721ae9728c93677b220dfc156d67f18e"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "29a1f0c4721ae9728c93677b220dfc156d67f18e",
+        "label": "fix(release): skip empty canaries and report publication failures",
+        "date": "2026-10-17",
+        "kind": "fix",
+        "touches": [
+          "operations:.github",
+          "api:claude.md",
+          "api:scripts",
+          "operations:scripts"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "002fb6b45e7b8d47d42b3130b4e65b6b7c2d12e4ba9b4d3ab971c0798b6266f4",
+    "nodeCount": 18,
+    "relationCount": 54,
+    "featureCount": 6,
+    "componentCount": 10,
+    "technicalsCount": 6
+  },
+  "graphAfter": {
+    "sha256": "6c6911eabdae1118a3886cd795d04cb73c704986ee6cc2c9a633c3752829aa8a",
+    "nodeCount": 21,
+    "relationCount": 61,
+    "featureCount": 7,
+    "componentCount": 12,
+    "technicalsCount": 7
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // Astro compiles the components; tsc checks the client script and its
+    // unit and browser tests.
+    "noEmit": true,
+    "rootDir": "."
+  },
+  "include": ["src/**/*.ts", "__tests__", "browser_test"],
+  "exclude": ["src/**/*.stories.ts"]
+}

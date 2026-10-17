@@ -13,11 +13,17 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   size?: ButtonSize
   loading?: boolean
   disabled?: boolean
+  /**
+   * Extend the hit area to at least 44×44 CSS px without changing the
+   * button's visual size or layout — for icon buttons that must meet the
+   * WCAG 2.5.5 target size.
+   */
+  touchTarget?: boolean
 }
 
-const { variant, size, loading, disabled, class: className, ...props } = Astro.props
-const api = createButton({ variant, size, disabled, loading, type: props.type as string })
-const classes = cn(buttonVariants({ variant, size }), className)
+const { variant, size, loading, disabled, touchTarget = false, class: className, ...props } = Astro.props
+const api = createButton({ variant, size, disabled, loading, type: props.type as string, touchTarget })
+const classes = cn(buttonVariants({ variant, size, touchTarget: touchTarget ? 'true' : 'false' }), className)
 ---
 
 <button

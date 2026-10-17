@@ -3,6 +3,7 @@
  * AppShellHeader — header area within the AppShell.
  * On mobile, automatically renders a hamburger toggle button.
  */
+import { appShellSidebarToggleStyles } from '@refraction-ui/app-shell'
 import { cn } from '@refraction-ui/shared'
 
 interface Props extends astroHTML.JSX.HTMLAttributes {
@@ -29,7 +30,7 @@ const { hideToggle, class: className, ...props } = Astro.props
       type="button"
       aria-label="Toggle sidebar"
       aria-expanded="false"
-      class="inline-flex items-center justify-center p-2 mr-2 md:hidden"
+      class={cn(appShellSidebarToggleStyles, 'md:hidden')}
       data-rfr-shell-toggle
     >
       <svg

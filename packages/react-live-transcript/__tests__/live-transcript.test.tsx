@@ -77,3 +77,88 @@ describe('LiveTranscript (SSR)', () => {
     expect(html).toContain('my-custom')
   })
 })
+
+describe('LiveTranscript sides (SSR)', () => {
+  const twoSided: TranscriptEntry[] = [
+    { id: '1', speaker: 'You', side: 'me', text: 'Can you hear me?' },
+    { id: '2', speaker: 'Priya', side: 'them', text: 'Loud and clear.' },
+  ]
+
+  it('marks each block with its side', () => {
+    const html = render({ entries: twoSided })
+    expect(html).toContain('data-side="me"')
+    expect(html).toContain('data-side="them"')
+  })
+
+  it('places me at the end edge and them at the start edge', () => {
+    const html = render({ entries: twoSided })
+    expect(html).toMatch(/class="[^"]*self-end[^"]*" data-side="me"/)
+    expect(html).toMatch(/class="[^"]*self-start[^"]*" data-side="them"/)
+  })
+
+  it('leaves a single-sided transcript unmarked', () => {
+    const html = render({ entries: sampleEntries })
+    expect(html).not.toContain('data-side')
+    expect(html).not.toContain('self-end')
+  })
+})
+
+describe('LiveTranscript interim lines (SSR)', () => {
+  const withInterim: TranscriptEntry[] = [
+    { id: '1', speaker: 'Priya', text: 'Let us start.' },
+    { id: '2', speaker: 'Priya', text: 'with the roadm', interim: true },
+  ]
+
+  it('marks an interim line and styles it apart from finals', () => {
+    const html = render({ entries: withInterim })
+    expect(html).toMatch(/<p class="[^"]*decoration-dotted[^"]*" data-interim="true"/)
+    expect(html.match(/data-interim="true"/g) ?? []).toHaveLength(1)
+  })
+
+  it('keeps an interim line out of the log announcements', () => {
+    const html = render({ entries: withInterim })
+    expect(html).toMatch(/data-interim="true" aria-live="off"/)
+  })
+
+  it('tells screen readers the line is still being heard', () => {
+    const html = render({ entries: withInterim })
+    expect(html).toContain('<span class="sr-only"> (still listening)</span>')
+  })
+
+  it('accepts a localised interim label', () => {
+    const html = render({ entries: withInterim, interimLabel: 'en cours' })
+    expect(html).toContain(' (en cours)')
+  })
+
+  it('keeps the interim line in its speaker block', () => {
+    const html = render({ entries: withInterim })
+    expect(html.match(/>Priya</g) ?? []).toHaveLength(1)
+  })
+})
+
+describe('LiveTranscript autoFollow (SSR)', () => {
+  it('renders no follow state or jump control by default', () => {
+    const html = render({ entries: sampleEntries })
+    expect(html).not.toContain('data-following')
+    expect(html).not.toContain('Jump to live')
+  })
+
+  it('starts following, with no jump control', () => {
+    const html = render({ entries: sampleEntries, autoFollow: true })
+    expect(html).toContain('data-following="true"')
+    expect(html).not.toContain('Jump to live')
+  })
+})
+
+describe('LiveTranscript keyboard access (SSR)', () => {
+  it('can be focused, so the scrolling panel can be scrolled by keyboard', () => {
+    const html = render({ entries: sampleEntries })
+    expect(html).toMatch(/<div[^>]*role="log"[^>]*tabindex="0"|<div[^>]*tabindex="0"[^>]*role="log"/)
+  })
+
+  it('keeps a caller-supplied tabIndex', () => {
+    const html = render({ entries: sampleEntries, autoFollow: true, tabIndex: -1 })
+    expect(html).toContain('tabindex="-1"')
+    expect(html).not.toContain('tabindex="0"')
+  })
+})

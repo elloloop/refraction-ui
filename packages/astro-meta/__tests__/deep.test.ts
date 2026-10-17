@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest'
+import { readFileSync } from 'node:fs'
 import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 import TabsComposition from './compositions/tabs.astro'
 import SelectComposition from './compositions/select.astro'
@@ -7,12 +8,16 @@ import CommandComposition from './compositions/command.astro'
 import RadioComposition from './compositions/radio.astro'
 import DropdownMenuComposition from './compositions/dropdown-menu.astro'
 import ToasterComposition from './compositions/toaster.astro'
+import DatePicker from '../dist/astro-date-picker/DatePicker.astro'
 import Switch from '../dist/astro-switch/Switch.astro'
 import Pagination from '../dist/astro-pagination/Pagination.astro'
 import FileTree from '../dist/astro-file-tree/FileTree.astro'
 import Slider from '../dist/astro-slider/Slider.astro'
 import InteractiveComposer from '../dist/astro-composer/InteractiveComposer.astro'
 import SkipToContent from '../dist/astro-skip-to-content/SkipToContent.astro'
+import Toaster from '../dist/astro-toast/Toaster.astro'
+import Toast from '../dist/astro-toast/Toast.astro'
+import VideoTile from '../dist/astro-video-tile/VideoTile.astro'
 
 /**
  * Deep render tests for the stateful / ARIA-heavy adapters. Multi-part
@@ -183,6 +188,73 @@ describe('astro-toast (Toaster + Toast composed)', () => {
     expect(html).toContain('data-rfr-toast-duration="5000"')
     expect(html).toContain('Saved successfully')
     expect(html).toMatch(/<button[^>]*aria-label="Dismiss"/)
+  })
+
+  it('renders the toaster as a labelled region with a polite and an assertive live region', async () => {
+    const html = await render(ToasterComposition)
+
+    expect(html).toMatch(/<div[^>]*data-rfr-toaster[^>]*role="region"[^>]*aria-label="Notifications"/)
+    expect(html).toContain('data-rfr-toast-dismiss-label="Dismiss"')
+    for (const politeness of ['polite', 'assertive']) {
+      expect(html).toMatch(
+        new RegExp(
+          `<div[^>]*class="sr-only"[^>]*aria-live="${politeness}"[^>]*aria-atomic="false"[^>]*aria-relevant="additions"[^>]*data-rfr-toast-announcer="${politeness}"[^>]*>\\s*</div>`
+        )
+      )
+    }
+  })
+
+  it('renders a title above the message, an action button and a labelled dismiss button', async () => {
+    const html = await render(ToasterComposition)
+
+    expect(html).toMatch(/<div[^>]*class="text-sm font-semibold"[^>]*data-rfr-toast-title[^>]*>\s*Draft deleted\s*<\/div>/)
+    expect(html).toMatch(
+      /<div[^>]*class="text-sm opacity-90"[^>]*data-rfr-toast-message[^>]*>\s*It is no longer in your drafts.\s*<\/div>/
+    )
+    // A toast without a title keeps its message unstyled.
+    expect(html).toMatch(/<div[^>]*class="min-w-0 flex-1 break-words"[^>]*data-rfr-toast-message[^>]*>\s*Saved successfully\s*<\/div>/)
+    expect(html).toMatch(/<button[^>]*type="button"[^>]*class="[^"]*focus-visible:ring-2[^"]*"[^>]*data-rfr-toast-action[^>]*>\s*Undo\s*<\/button>/)
+    expect(count(html, 'data-rfr-toast-action')).toBe(1)
+    expect(html).toMatch(
+      /<button[^>]*data-rfr-toast-dismiss[^>]*class="[^"]*focus-visible:ring-2[^"]*"[^>]*aria-label="Dismiss"[^>]*>\s*<span aria-hidden="true">&times;<\/span>/
+    )
+  })
+
+  it('lets the toaster name and the dismiss label be translated', async () => {
+    const toaster = await render(Toaster, {
+      props: { 'aria-label': 'Benachrichtigungen', dismissLabel: 'Schließen' },
+    })
+    expect(toaster).toContain('aria-label="Benachrichtigungen"')
+    expect(count(toaster, 'aria-label=')).toBe(1)
+    expect(toaster).toContain('data-rfr-toast-dismiss-label="Schließen"')
+
+    const toast = await render(Toast, { props: { message: 'Gespeichert', dismissLabel: 'Schließen' } })
+    expect(toast).toMatch(/<button[^>]*data-rfr-toast-dismiss[^>]*aria-label="Schließen"/)
+  })
+
+  it('lays the toaster out with equal side gutters and a capped width', async () => {
+    const html = await render(ToasterComposition)
+    const toaster = html.match(/<div[^>]*data-rfr-toaster[^>]*>/)?.[0] ?? ''
+
+    expect(toaster).toMatch(/class="[^"]*\binset-x-4\b[^"]*"/)
+    expect(toaster).toMatch(/class="[^"]*\bml-auto\b[^"]*"/)
+    expect(toaster).toMatch(/class="[^"]*\bmax-w-sm\b[^"]*"/)
+    expect(toaster).not.toMatch(/\bw-full\b/)
+  })
+
+  it('renders a tinted toast on an opaque background', async () => {
+    const html = await render(ToasterComposition)
+    const toast = html.match(/<div[^>]*data-rfr-toast-variant="success"[^>]*>/)?.[0] ?? ''
+
+    expect(toast).toMatch(/\bbg-background\b/)
+    expect(toast).toMatch(/\bfrom-success\/10\b/)
+    expect(toast).not.toMatch(/\bbg-success\/10\b/)
+  })
+
+  it('wraps the message in a column that shrinks and breaks long words', async () => {
+    const html = await render(ToasterComposition)
+
+    expect(html).toMatch(/<div class="[^"]*\bmin-w-0\b[^"]*\bbreak-words\b[^"]*"[^>]*>\s*Saved successfully\s*<\/div>/)
   })
 })
 
@@ -355,6 +427,87 @@ describe('astro-skip-to-content', () => {
 })
 
 
+describe('astro-date-picker presets', () => {
+  // What createDefaultDatePresets() returns; spelled out because tsc does not
+  // follow imports into the copied sources in dist/.
+  const DEFAULTS = [
+    { id: 'today', label: 'Today', days: 0 },
+    { id: 'tomorrow', label: 'Tomorrow', days: 1 },
+    { id: 'next-week', label: 'Next week', weekday: 1 },
+  ]
+
+  /** A `disabled` attribute, not the `disabled:` variants in the class list. */
+  const DISABLED = /\sdisabled(?=[\s>=])/
+
+  /** Each preset button's opening tag and label, in order. */
+  function presetButtons(html: string): { tag: string; label: string }[] {
+    return [...html.matchAll(/(<button[^>]*data-rfr-datepicker-preset=[^>]*>)\s*([^<]*?)\s*<\/button>/g)].map(
+      ([, tag, label]) => ({ tag, label }),
+    )
+  }
+
+  it('renders no presets, and no id, without the prop', async () => {
+    const html = await render(DatePicker, { props: { value: '2026-06-15T00:00:00.000Z' } })
+    expect(html).not.toContain('data-rfr-datepicker-presets')
+    expect(html).not.toMatch(/<input[^>]* id=/)
+  })
+
+  it('renders a labelled group of buttons that the browser resolves from data attributes', async () => {
+    const html = await render(DatePicker, { props: { presets: DEFAULTS } })
+    const inputId = html.match(/<input[^>]* id="([^"]+)"/)?.[1]
+    expect(inputId).toBeTruthy()
+    expect(html).toMatch(/<div role="group" aria-label="Date shortcuts" class="[^"]*flex-wrap[^"]*" data-rfr-datepicker-presets/)
+    expect(html.indexOf('<input')).toBeLessThan(html.indexOf('role="group"'))
+
+    const buttons = presetButtons(html)
+    expect(buttons.map(({ label }) => label)).toEqual(['Today', 'Tomorrow', 'Next week'])
+    expect(buttons[0].tag).toContain('data-rfr-datepicker-preset-days="0"')
+    expect(buttons[1].tag).toContain('data-rfr-datepicker-preset-days="1"')
+    expect(buttons[2].tag).toContain('data-rfr-datepicker-preset-weekday="1"')
+    expect(buttons[2].tag).not.toContain('data-rfr-datepicker-preset-days')
+    for (const { tag } of buttons) {
+      expect(tag).toContain('type="button"')
+      expect(tag).toContain(`aria-controls="${inputId}"`)
+      expect(tag).toContain('focus-visible:ring-2')
+      expect(tag).not.toMatch(DISABLED)
+    }
+  })
+
+  it('shows translated labels, a translated group name and the caller id', async () => {
+    const html = await render(DatePicker, {
+      props: {
+        id: 'due-date',
+        presetsLabel: 'Atajos de fecha',
+        presets: [
+          { id: 'today', label: 'Hoy', days: 0 },
+          { id: 'tomorrow', label: 'Mañana', days: 1 },
+          { id: 'next-week', label: 'Next week', weekday: 0 },
+          { id: 'in-two-weeks', label: 'En dos semanas', days: 14 },
+        ],
+      },
+    })
+    expect(html).toContain('<input id="due-date"')
+    expect(html).toContain('aria-label="Atajos de fecha"')
+    const buttons = presetButtons(html)
+    expect(buttons.map(({ label }) => label)).toEqual(['Hoy', 'Mañana', 'Next week', 'En dos semanas'])
+    expect(buttons[2].tag).toContain('data-rfr-datepicker-preset-weekday="0"')
+    expect(buttons[3].tag).toContain('data-rfr-datepicker-preset-days="14"')
+    expect(buttons.every(({ tag }) => tag.includes('aria-controls="due-date"'))).toBe(true)
+  })
+
+  it('disables every preset when the picker is disabled', async () => {
+    const html = await render(DatePicker, { props: { disabled: true, presets: DEFAULTS } })
+    expect(presetButtons(html).every(({ tag }) => DISABLED.test(tag))).toBe(true)
+  })
+
+  it('refuses a preset list it could not resolve', async () => {
+    const presets = [...DEFAULTS, { id: 'today', label: 'Again' }]
+    await expect(render(DatePicker, { props: { presets } })).rejects.toThrow(
+      'Date preset ids must be unique; "today" appears more than once',
+    )
+  })
+})
+
 describe('astro interactive composer (meta dist)', () => {
   it('places host actions below the same editable field and before the send action', async () => {
     const html = await render(InteractiveComposer, {
@@ -398,5 +551,97 @@ describe('astro-composer action slots', () => {
     expect(html.indexOf('Please review')).toBeLessThan(html.indexOf('aria-label="Dictate"'))
     expect(html.indexOf('aria-label="Dictate"')).toBeLessThan(html.indexOf('Read-only preview'))
     expect(html).toMatch(/<button[^>]*aria-label="Send"[^>]*disabled/)
+  })
+})
+
+describe('astro-live-transcript', () => {
+  it('renders sides and an interim line kept out of announcements', async () => {
+    const { default: LiveTranscript } = await import(
+      '../dist/astro-live-transcript/LiveTranscript.astro'
+    )
+    const html = await render(LiveTranscript, {
+      props: {
+        entries: [
+          { id: '1', speaker: 'You', side: 'me', text: 'Can you hear me?' },
+          { id: '2', speaker: 'Priya', side: 'them', text: 'Loud and clear.' },
+          { id: '3', speaker: 'Priya', side: 'them', text: 'shall we', interim: true },
+        ],
+      },
+    })
+    expect(html).toContain('role="log"')
+    expect(html).toContain('tabindex="0"')
+    expect(html).toMatch(/<div[^>]*class="[^"]*self-end[^"]*"[^>]*data-side="me"/)
+    expect(html).toMatch(/<div[^>]*class="[^"]*self-start[^"]*"[^>]*data-side="them"/)
+    expect(count(html, '>Priya<')).toBe(1)
+    expect(count(html, 'data-interim="true"')).toBe(1)
+    expect(html).toMatch(/<p[^>]*decoration-dotted[^>]*data-interim="true"[^>]*aria-live="off"/)
+    expect(html).toMatch(/<span class="sr-only">\s*\(still listening\)<\/span>/)
+  })
+})
+
+describe('astro-live-transcript exports', () => {
+  it('exposes the component and the update helper from the meta entry', () => {
+    const dist = new URL('../dist/', import.meta.url)
+    const entry = readFileSync(new URL('astro-live-transcript/index.ts', dist), 'utf8')
+    const index = readFileSync(new URL('index.ts', dist), 'utf8')
+    expect(entry).toContain("export { default as LiveTranscript } from './LiveTranscript.astro'")
+    expect(entry).toMatch(/\bapplyTranscriptUpdate\b/)
+    expect(index).toContain("export * from './astro-live-transcript/index.ts'")
+  })
+})
+
+describe('astro-video-tile', () => {
+  it('renders the call states with accessible, non-colour-only cues', async () => {
+    const html = await render(VideoTile, {
+      props: { name: 'Ada Park', speaking: true, pinned: true, handRaised: true, micState: 'muted' },
+    })
+    expect(html).toContain('role="group"')
+    expect(html).toContain('aria-label="Ada Park"')
+    expect(html).toContain('data-hand-raised="true"')
+    expect(html).toContain('data-emphasis="speaking"')
+    expect(html).toContain('aria-label="Speaking"')
+    expect(html).toContain('aria-label="Hand raised"')
+    expect(html).toContain('aria-label="Pinned"')
+    expect(html).toContain('aria-label="Microphone muted"')
+  })
+
+  it('qualifies a shared screen and letterboxes its media slot', async () => {
+    const html = await render(VideoTile, {
+      props: { name: 'Ada Park', screenShare: true },
+      slots: { default: '<video data-media></video>' },
+    })
+    expect(html).toContain('aria-label="Ada Park (Presenting)"')
+    // One truncating string, so a narrow tile cuts the qualifier before the name.
+    expect(html).toMatch(/>\s*Ada Park \(Presenting\)\s*</)
+    expect(html).toContain('data-screen-share="true"')
+    expect(html).toMatch(/\[&(amp;)?(>|&gt;)video\]:object-contain/)
+    expect(html).toContain('data-media')
+    expect(html).not.toContain('>AP<')
+  })
+
+  it('renders the menu and reaction slots in the top-end cluster', async () => {
+    const html = await render(VideoTile, {
+      props: { name: 'Ada Park' },
+      slots: { menu: '<button aria-label="Options for Ada Park">...</button>', reaction: 'wave' },
+    })
+    expect(html).toContain('aria-label="Options for Ada Park"')
+    expect(html).toMatch(/aria-hidden="true">\s*wave\s*<\/div>/)
+  })
+
+  it('is exported by name from its adapter entry (re-exported by the meta)', async () => {
+    // The shipped entry is raw source whose relative imports end in `.ts`;
+    // a non-literal specifier keeps it out of this package's type-check.
+    const entryPath = '../dist/astro-video-tile/index.ts'
+    const entry = await import(/* @vite-ignore */ entryPath)
+    expect(entry.VideoTile).toBe(VideoTile)
+    expect(entry.videoTileDefaultLabels.screenShare).toBe('Presenting')
+  })
+
+  it('renders no badges or menu cluster for an idle tile', async () => {
+    const html = await render(VideoTile, { props: { name: 'Ada Park' } })
+    expect(html).toContain('data-emphasis="none"')
+    expect(html).not.toContain('Hand raised')
+    expect(html).not.toContain('aria-label="Pinned"')
+    expect(html).not.toContain('top-2 z-20')
   })
 })

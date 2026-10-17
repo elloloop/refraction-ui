@@ -1,6 +1,11 @@
 import { describe, it, expect } from 'vitest'
 import { createAvatar, getInitials } from '../src/avatar.js'
-import { avatarVariants, avatarImageVariants, avatarFallbackVariants } from '../src/avatar.styles.js'
+import {
+  avatarVariants,
+  avatarImageVariants,
+  avatarFallbackVariants,
+  avatarPresenceVariants,
+} from '../src/avatar.styles.js'
 
 describe('getInitials', () => {
   it('returns single initial for one-word name', () => {
@@ -105,11 +110,65 @@ describe('createAvatar', () => {
   })
 })
 
+describe('createAvatar presence', () => {
+  it('has no presence dot unless asked', () => {
+    const api = createAvatar({ alt: 'Ada Lovelace' })
+    expect(api.presence).toBeNull()
+    expect(api.dataAttributes['data-presence']).toBeUndefined()
+    expect(api.ariaProps['aria-label']).toBe('Ada Lovelace')
+  })
+
+  it('adds the status to a named avatar and hides the dot', () => {
+    const api = createAvatar({ alt: 'Ada Lovelace', presence: 'away' })
+    expect(api.ariaProps.role).toBe('img')
+    expect(api.ariaProps['aria-label']).toBe('Ada Lovelace (Away)')
+    expect(api.presence?.ariaProps).toEqual({ 'aria-hidden': 'true' })
+  })
+
+  it('names the dot itself when the avatar has no name', () => {
+    const api = createAvatar({ presence: 'online' })
+    expect(api.ariaProps.role).toBeUndefined()
+    expect(api.presence?.ariaProps).toEqual({ role: 'img', 'aria-label': 'Online' })
+  })
+
+  it('words every status the way the presence indicator does', () => {
+    const labels = (['online', 'offline', 'away', 'busy', 'dnd'] as const).map(
+      (presence) => createAvatar({ presence }).presence?.label,
+    )
+    expect(labels).toEqual(['Online', 'Offline', 'Away', 'Busy', 'Do Not Disturb'])
+  })
+
+  it('takes the status words from presenceLabel', () => {
+    const api = createAvatar({ alt: 'Ada', presence: 'away', presenceLabel: 'Absente' })
+    expect(api.ariaProps['aria-label']).toBe('Ada (Absente)')
+    expect(api.presence?.label).toBe('Absente')
+  })
+
+  it('falls back to the default words for an empty presenceLabel', () => {
+    const api = createAvatar({ presence: 'busy', presenceLabel: '' })
+    expect(api.presence?.ariaProps['aria-label']).toBe('Busy')
+  })
+
+  it('exposes the status as styling hooks on the root and the dot', () => {
+    const api = createAvatar({ presence: 'dnd' })
+    expect(api.dataAttributes['data-presence']).toBe('dnd')
+    expect(api.presence?.status).toBe('dnd')
+    expect(api.presence?.dataAttributes).toEqual({
+      'data-slot': 'avatar-presence',
+      'data-status': 'dnd',
+    })
+  })
+})
+
 describe('avatarVariants', () => {
   it('returns base classes', () => {
     const classes = avatarVariants()
+    expect(classes).toContain('relative')
     expect(classes).toContain('rounded-full')
-    expect(classes).toContain('overflow-hidden')
+  })
+
+  it('does not clip, so a presence dot can sit over the edge', () => {
+    expect(avatarVariants()).not.toContain('overflow-hidden')
   })
 
   it('xs size returns h-6 w-6', () => {
@@ -150,6 +209,13 @@ describe('avatarImageVariants', () => {
     expect(classes).toContain('object-cover')
     expect(classes).toContain('aspect-square')
   })
+
+  it('rounds itself and lies over the fallback, which shows while it loads', () => {
+    const classes = avatarImageVariants()
+    expect(classes).toContain('rounded-[inherit]')
+    expect(classes).toContain('absolute')
+    expect(classes).toContain('inset-0')
+  })
 })
 
 describe('avatarFallbackVariants', () => {
@@ -167,5 +233,43 @@ describe('avatarFallbackVariants', () => {
 
   it('xl size returns text-lg', () => {
     expect(avatarFallbackVariants({ size: 'xl' })).toContain('text-lg')
+  })
+
+  it('rounds and clips itself, as the root no longer does', () => {
+    const classes = avatarFallbackVariants()
+    expect(classes).toContain('rounded-[inherit]')
+    expect(classes).toContain('overflow-hidden')
+  })
+})
+
+describe('avatarPresenceVariants', () => {
+  it('pins the dot to the bottom end corner with a ring', () => {
+    const classes = avatarPresenceVariants()
+    expect(classes).toContain('absolute')
+    expect(classes).toContain('bottom-0')
+    expect(classes).toContain('end-0')
+    expect(classes).toContain('ring-2')
+    expect(classes).toContain('ring-background')
+  })
+
+  it('fills the dot with the presence colour for each status', () => {
+    expect(avatarPresenceVariants({ status: 'online' })).toContain('bg-success')
+    expect(avatarPresenceVariants({ status: 'away' })).toContain('bg-warning')
+    expect(avatarPresenceVariants({ status: 'busy' })).toContain('bg-destructive')
+    expect(avatarPresenceVariants({ status: 'dnd' })).toContain('bg-destructive')
+    expect(avatarPresenceVariants({ status: 'offline' })).toContain('bg-neutral')
+  })
+
+  it('grows with the avatar', () => {
+    expect(avatarPresenceVariants({ size: 'xs' })).toContain('h-2 w-2')
+    expect(avatarPresenceVariants({ size: 'md' })).toContain('h-3 w-3')
+    expect(avatarPresenceVariants({ size: 'xl' })).toContain('h-4 w-4')
+  })
+
+  it('sits just outside the corner of a square avatar', () => {
+    const classes = avatarPresenceVariants({ shape: 'square' })
+    expect(classes).toContain('-bottom-0.5')
+    expect(classes).toContain('-end-0.5')
+    expect(classes).not.toContain(' end-0')
   })
 })

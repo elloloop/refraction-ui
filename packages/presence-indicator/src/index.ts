@@ -8,6 +8,7 @@ export {
 } from './presence-indicator.js'
 
 export {
+  presenceDotColorClasses,
   presenceDotVariants,
   presenceContainerStyles,
   presenceLabelStyles,

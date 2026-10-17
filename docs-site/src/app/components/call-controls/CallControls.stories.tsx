@@ -11,3 +11,10 @@ export const Toggled = {
 export const WithLeaveButton = {
   render: () => <CallControlsExamples section="leave" />,
 }
+export const Dock = { render: () => <CallControlsExamples section="dock" /> }
+export const NarrowDock = {
+  render: () => <CallControlsExamples section="narrow" />,
+}
+export const DeviceMenus = {
+  render: () => <CallControlsExamples section="devices" />,
+}

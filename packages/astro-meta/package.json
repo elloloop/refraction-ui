@@ -67,6 +67,7 @@
     "@refraction-ui/astro-emoji-picker": "workspace:*",
     "@refraction-ui/astro-empty-state": "workspace:*",
     "@refraction-ui/astro-feedback-dialog": "workspace:*",
+    "@refraction-ui/astro-field": "workspace:*",
     "@refraction-ui/astro-file-tree": "workspace:*",
     "@refraction-ui/astro-file-upload": "workspace:*",
     "@refraction-ui/astro-floating-reactions": "workspace:*",
@@ -94,6 +95,7 @@
     "@refraction-ui/astro-marquee-strip": "workspace:*",
     "@refraction-ui/astro-mascot": "workspace:*",
     "@refraction-ui/astro-mastery-bar": "workspace:*",
+    "@refraction-ui/astro-media-frame": "workspace:*",
     "@refraction-ui/astro-mini-map": "workspace:*",
     "@refraction-ui/astro-mobile-nav": "workspace:*",
     "@refraction-ui/astro-native-select": "workspace:*",
@@ -152,7 +154,8 @@
     "@refraction-ui/astro-waveform": "workspace:*",
     "@refraction-ui/astro-wizard": "workspace:*",
     "@refraction-ui/shared": "workspace:*",
-    "@types/node": "22.0.0"
+    "@types/node": "22.0.0",
+    "jsdom": "29.0.2"
   },
   "publishConfig": {
     "access": "public"

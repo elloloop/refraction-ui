@@ -1,14 +1,42 @@
 ---
-import { createAvatar, avatarVariants, type AvatarSize, type AvatarShape } from '@refraction-ui/avatar'
+import {
+  createAvatar,
+  avatarVariants,
+  avatarPresenceVariants,
+  type AvatarSize,
+  type AvatarShape,
+  type PresenceStatus,
+} from '@refraction-ui/avatar'
 import { cn } from '@refraction-ui/shared'
 
 interface Props extends astroHTML.JSX.HTMLAttributes {
   size?: AvatarSize
   shape?: AvatarShape
+  /**
+   * Shows a presence dot at the bottom end corner. With an `aria-label` the
+   * status joins the avatar's name ("Ada Lovelace (Away)"); without one the
+   * dot is named on its own.
+   */
+  presence?: PresenceStatus
+  /** The status as words, e.g. for another language. Default: "Online", "Away", … */
+  presenceLabel?: string
 }
 
-const { size = 'md', shape = 'circle', class: className, ...props } = Astro.props
-const api = createAvatar({ size, alt: props['aria-label'] as string | undefined })
+const {
+  size = 'md',
+  shape = 'circle',
+  presence,
+  presenceLabel,
+  'aria-label': ariaLabel,
+  class: className,
+  ...props
+} = Astro.props
+const api = createAvatar({
+  size,
+  alt: ariaLabel as string | undefined,
+  presence,
+  presenceLabel,
+})
 ---
 
 <span
@@ -20,4 +48,11 @@ const api = createAvatar({ size, alt: props['aria-label'] as string | undefined 
   {...props}
 >
   <slot />
+  {api.presence && (
+    <span
+      class={avatarPresenceVariants({ status: api.presence.status, shape, size })}
+      {...api.presence.ariaProps}
+      {...api.presence.dataAttributes}
+    />
+  )}
 </span>

@@ -1,7 +1,9 @@
 export {
   createAvatarGroup,
   getInitials,
+  getAvatarImageStatus,
   AVATAR_SIZES,
+  type AvatarImageStatus,
   type AvatarGroupProps,
   type AvatarGroupAPI,
   type AvatarUser,
@@ -14,5 +16,7 @@ export {
   avatarVariants,
   avatarOverflowBadgeVariants,
   avatarImageStyles,
+  avatarInitialsStyles,
+  avatarOverflowButtonStyles,
   avatarPresenceDotVariants,
 } from './avatar-group.styles.js'

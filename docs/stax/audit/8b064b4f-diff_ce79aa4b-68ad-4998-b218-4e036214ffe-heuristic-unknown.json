@@ -1,0 +1,196 @@
+{
+  "timestamp": "2026-10-17T03:33:46Z",
+  "call": "heuristic",
+  "sourceId": "diff:ce79aa4b-68ad-4998-b218-4e036214ffe2:v1",
+  "commit": "8b064b4fe45d6373225d7212602bbaa04f7b0c5c",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:media-frame",
+          "name": "Media Frame",
+          "summary": "feat(media-frame): fix(media-frame): parse ratio sides in linear time",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "CodeQL flagged the ratio-side pattern as polynomial on long digit runs. Validate each side with one pass over its characters instead, and test that a 100k-character malformed side is rejected quickly.",
+            "feat(media-frame): fix(media-frame): parse ratio sides in linear time"
+          ],
+          "testerNotes": [
+            "Verify behavior touching packages/media-frame/__tests__/media-frame.test.ts, packages/media-frame/src/media-frame.ts."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:media-frame"
+          ],
+          "relatedComponents": [
+            "component:packages"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:media-frame",
+          "title": "Media Frame",
+          "summary": "feat(media-frame): fix(media-frame): parse ratio sides in linear time",
+          "designNotes": [
+            "Changed files: packages/media-frame/__tests__/media-frame.test.ts, packages/media-frame/src/media-frame.ts",
+            "CodeQL flagged the ratio-side pattern as polynomial on long digit runs. Validate each side with one pass over its characters instead, and test that a 100k-character malformed side is rejected quickly."
+          ],
+          "relatedFeatures": [
+            "feature:media-frame"
+          ],
+          "relatedComponents": [
+            "component:packages"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:packages",
+          "name": "Packages",
+          "kind": "unknown",
+          "paths": [
+            "packages/media-frame/__tests__/media-frame.test.ts",
+            "packages/media-frame/src/media-frame.ts"
+          ],
+          "summary": "Owns changes under packages.",
+          "relatedFeatures": [
+            "feature:media-frame"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:media-frame"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:media-frame",
+          "to": "component:packages",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:media-frame",
+          "to": "component:packages",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:media-frame",
+          "to": "technical:media-frame",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "operations:packages-media-frame",
+          "parent": "operations",
+          "title": "Packages Media Frame",
+          "summary": "Changed in: fix(media-frame): parse ratio sides in linear time",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:packages-media-frame",
+              "kind": "http"
+            }
+          ],
+          "why": "CodeQL flagged the ratio-side pattern as polynomial on long digit runs. Validate each side with one pass over its characters instead, and test that a 100k-character malformed side is rejected quickly.",
+          "what": "fix(media-frame): parse ratio sides in linear time",
+          "how": "TypeScript. Changed: packages/media-frame/__tests__/media-frame.test.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:ce79aa4b-68ad-4998-b218-4e036214ffe2:v1",
+              "kind": "diff",
+              "commit": "8b064b4fe45d6373225d7212602bbaa04f7b0c5c",
+              "diffUuid": "ce79aa4b-68ad-4998-b218-4e036214ffe2"
+            }
+          ],
+          "updated": "2026-10-17T03:33:46Z"
+        },
+        {
+          "id": "api:packages-media-frame",
+          "parent": "apis",
+          "title": "Packages Media Frame",
+          "summary": "Changed in: fix(media-frame): parse ratio sides in linear time",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "why": "CodeQL flagged the ratio-side pattern as polynomial on long digit runs. Validate each side with one pass over its characters instead, and test that a 100k-character malformed side is rejected quickly.",
+          "what": "fix(media-frame): parse ratio sides in linear time",
+          "how": "TypeScript. Changed: packages/media-frame/src/media-frame.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:ce79aa4b-68ad-4998-b218-4e036214ffe2:v1",
+              "kind": "diff",
+              "commit": "8b064b4fe45d6373225d7212602bbaa04f7b0c5c",
+              "diffUuid": "ce79aa4b-68ad-4998-b218-4e036214ffe2"
+            }
+          ],
+          "updated": "2026-10-17T03:33:46Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "8b064b4fe45d6373225d7212602bbaa04f7b0c5c",
+        "label": "feat(media-frame): fix(media-frame): parse ratio sides in linear time",
+        "date": "2026-10-17",
+        "kind": "feature",
+        "touches": [
+          "operations:packages-media-frame",
+          "api:packages-media-frame"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "4126ae1d973c5ae2fa5bd38b7753043d60ac569ec3d0ffac1489ba09a335bac6",
+    "nodeCount": 28,
+    "relationCount": 79,
+    "featureCount": 9,
+    "componentCount": 12,
+    "technicalsCount": 9
+  },
+  "graphAfter": {
+    "sha256": "eac89a0c58e04117eb16cbf37624413fad9df7662aba9a0d6dd4322a195f8646",
+    "nodeCount": 28,
+    "relationCount": 79,
+    "featureCount": 9,
+    "componentCount": 12,
+    "technicalsCount": 9
+  }
+}

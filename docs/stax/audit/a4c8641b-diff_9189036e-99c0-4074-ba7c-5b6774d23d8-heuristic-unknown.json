@@ -1,0 +1,704 @@
+{
+  "timestamp": "2026-10-17T04:08:15Z",
+  "call": "heuristic",
+  "sourceId": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+  "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:adaptive-tab-nav",
+          "name": "Adaptive Tab Nav",
+          "summary": "feat(adaptive-tab-nav): add a top-bar tab nav that docks to the bottom on narrow screens",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+            "feat(adaptive-tab-nav): add a top-bar tab nav that docks to the bottom on narrow screens"
+          ],
+          "testerNotes": [
+            "Verify behavior touching docs-site/package.json, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, packages/react-meta/package.json, packages/react-meta/src/index.ts."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:adaptive-tab-nav"
+          ],
+          "relatedComponents": [
+            "component:docs-site-packagejson",
+            "component:docs-site-src",
+            "component:packages",
+            "component:pnpm-lockyaml",
+            "component:changeset",
+            "component:docs",
+            "component:e2e"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:adaptive-tab-nav",
+          "title": "Adaptive Tab Nav",
+          "summary": "feat(adaptive-tab-nav): add a top-bar tab nav that docks to the bottom on narrow screens",
+          "designNotes": [
+            "Changed files: docs-site/package.json, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, packages/react-meta/package.json, packages/react-meta/src/index.ts, pnpm-lock.yaml, .changeset/adaptive-tab-nav.md, docs-site/src/app/components/adaptive-tab-nav/",
+            "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures."
+          ],
+          "relatedFeatures": [
+            "feature:adaptive-tab-nav"
+          ],
+          "relatedComponents": [
+            "component:docs-site-packagejson",
+            "component:docs-site-src",
+            "component:packages",
+            "component:pnpm-lockyaml",
+            "component:changeset",
+            "component:docs",
+            "component:e2e"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:docs-site-packagejson",
+          "name": "Docs Site/Package.Json",
+          "kind": "docs",
+          "paths": [
+            "docs-site/package.json"
+          ],
+          "summary": "Owns changes under docs-site/package.json.",
+          "relatedFeatures": [
+            "feature:adaptive-tab-nav"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:adaptive-tab-nav"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:docs-site-src",
+          "name": "Docs Site/Src",
+          "kind": "docs",
+          "paths": [
+            "docs-site/src/app/components/page.tsx",
+            "docs-site/src/components/sidebar.tsx",
+            "docs-site/src/app/components/adaptive-tab-nav/"
+          ],
+          "summary": "Owns changes under docs-site/src.",
+          "relatedFeatures": [
+            "feature:adaptive-tab-nav"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:adaptive-tab-nav"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:packages",
+          "name": "Packages",
+          "kind": "unknown",
+          "paths": [
+            "packages/react-meta/package.json",
+            "packages/react-meta/src/index.ts",
+            "packages/adaptive-tab-nav/",
+            "packages/react-adaptive-tab-nav/"
+          ],
+          "summary": "Owns changes under packages.",
+          "relatedFeatures": [
+            "feature:adaptive-tab-nav"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:adaptive-tab-nav"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:pnpm-lockyaml",
+          "name": "Pnpm Lock.Yaml",
+          "kind": "unknown",
+          "paths": [
+            "pnpm-lock.yaml"
+          ],
+          "summary": "Owns changes under pnpm-lock.yaml.",
+          "relatedFeatures": [
+            "feature:adaptive-tab-nav"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:adaptive-tab-nav"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:changeset",
+          "name": ".Changeset",
+          "kind": "unknown",
+          "paths": [
+            ".changeset/adaptive-tab-nav.md"
+          ],
+          "summary": "Owns changes under .changeset.",
+          "relatedFeatures": [
+            "feature:adaptive-tab-nav"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:adaptive-tab-nav"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:docs",
+          "name": "Documentation",
+          "kind": "docs",
+          "paths": [
+            "docs/pr-evidence/adaptive-tab-nav/"
+          ],
+          "summary": "Owns changes under docs.",
+          "relatedFeatures": [
+            "feature:adaptive-tab-nav"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:adaptive-tab-nav"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:e2e",
+          "name": "E2e",
+          "kind": "unknown",
+          "paths": [
+            "e2e/adaptive-tab-nav.spec.ts"
+          ],
+          "summary": "Owns changes under e2e.",
+          "relatedFeatures": [
+            "feature:adaptive-tab-nav"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:adaptive-tab-nav"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:adaptive-tab-nav",
+          "to": "component:docs-site-packagejson",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:adaptive-tab-nav",
+          "to": "component:docs-site-packagejson",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:adaptive-tab-nav",
+          "to": "component:docs-site-src",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:adaptive-tab-nav",
+          "to": "component:docs-site-src",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:adaptive-tab-nav",
+          "to": "component:packages",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:adaptive-tab-nav",
+          "to": "component:packages",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:adaptive-tab-nav",
+          "to": "component:pnpm-lockyaml",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:adaptive-tab-nav",
+          "to": "component:pnpm-lockyaml",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:adaptive-tab-nav",
+          "to": "component:changeset",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:adaptive-tab-nav",
+          "to": "component:changeset",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:adaptive-tab-nav",
+          "to": "component:docs",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:adaptive-tab-nav",
+          "to": "component:docs",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:adaptive-tab-nav",
+          "to": "component:e2e",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:adaptive-tab-nav",
+          "to": "component:e2e",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:adaptive-tab-nav",
+          "to": "technical:adaptive-tab-nav",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "api:docs-site",
+          "parent": "apis",
+          "title": "Docs Site",
+          "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-adaptive-tab-nav",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-adaptive-tab-nav",
+              "kind": "grpc"
+            }
+          ],
+          "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+          "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
+          "how": "TypeScript. Changed: docs-site/package.json, docs-site/src/app/components/page.tsx, docs-site/src/components/sidebar.tsx, docs-site/src/app/components/adaptive-tab-nav/",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+              "kind": "diff",
+              "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+              "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+            }
+          ],
+          "updated": "2026-10-17T04:08:15Z"
+        },
+        {
+          "id": "api:packages-react-meta",
+          "parent": "apis",
+          "title": "Packages React Meta",
+          "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:.changeset",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-adaptive-tab-nav",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-adaptive-tab-nav",
+              "kind": "grpc"
+            }
+          ],
+          "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+          "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
+          "how": "TypeScript. Changed: packages/react-meta/package.json, packages/react-meta/src/index.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+              "kind": "diff",
+              "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+              "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+            }
+          ],
+          "updated": "2026-10-17T04:08:15Z"
+        },
+        {
+          "id": "operations:workspace-config",
+          "parent": "operations",
+          "title": "Workspace Config",
+          "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "http"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-adaptive-tab-nav",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-adaptive-tab-nav",
+              "kind": "http"
+            }
+          ],
+          "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+          "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
+          "how": "Changed: pnpm-lock.yaml",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+              "kind": "diff",
+              "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+              "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+            }
+          ],
+          "updated": "2026-10-17T04:08:15Z"
+        },
+        {
+          "id": "api:.changeset",
+          "parent": "apis",
+          "title": "Changeset",
+          "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:docs",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-adaptive-tab-nav",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-adaptive-tab-nav",
+              "kind": "grpc"
+            }
+          ],
+          "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+          "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
+          "how": "Changed: .changeset/adaptive-tab-nav.md",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+              "kind": "diff",
+              "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+              "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+            }
+          ],
+          "updated": "2026-10-17T04:08:15Z"
+        },
+        {
+          "id": "api:docs",
+          "parent": "apis",
+          "title": "Docs",
+          "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-adaptive-tab-nav",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-adaptive-tab-nav",
+              "kind": "grpc"
+            }
+          ],
+          "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+          "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
+          "how": "Changed: docs/pr-evidence/adaptive-tab-nav/",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+              "kind": "diff",
+              "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+              "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+            }
+          ],
+          "updated": "2026-10-17T04:08:15Z"
+        },
+        {
+          "id": "operations:e2e",
+          "parent": "operations",
+          "title": "E2e",
+          "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
+          "kicker": "Operations",
+          "diagram": {
+            "tier": "operations"
+          },
+          "edges": [
+            {
+              "to": "api:docs-site",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "http"
+            },
+            {
+              "to": "operations:workspace-config",
+              "kind": "calls"
+            },
+            {
+              "to": "api:.changeset",
+              "kind": "http"
+            },
+            {
+              "to": "api:docs",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-adaptive-tab-nav",
+              "kind": "http"
+            },
+            {
+              "to": "api:packages-react-adaptive-tab-nav",
+              "kind": "http"
+            }
+          ],
+          "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+          "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
+          "how": "TypeScript. Changed: e2e/adaptive-tab-nav.spec.ts",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+              "kind": "diff",
+              "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+              "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+            }
+          ],
+          "updated": "2026-10-17T04:08:15Z"
+        },
+        {
+          "id": "api:packages-adaptive-tab-nav",
+          "parent": "apis",
+          "title": "Packages Adaptive Tab Nav",
+          "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-react-adaptive-tab-nav",
+              "kind": "grpc"
+            }
+          ],
+          "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+          "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
+          "how": "Changed: packages/adaptive-tab-nav/",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+              "kind": "diff",
+              "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+              "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+            }
+          ],
+          "updated": "2026-10-17T04:08:15Z"
+        },
+        {
+          "id": "api:packages-react-adaptive-tab-nav",
+          "parent": "apis",
+          "title": "Packages React Adaptive Tab Nav",
+          "summary": "Changed in: add a top-bar tab nav that docks to the bottom on narrow screens",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "why": "AdaptiveTabNav: one navigation for a few top-level sections, pill tabs in a top bar on a wide viewport and a tab bar docked to the bottom below 768px, from a single element. Headless core plus React adapter, docs page, story, changeset, unit, interaction and e2e tests, review captures.",
+          "what": "add a top-bar tab nav that docks to the bottom on narrow screens",
+          "how": "Changed: packages/react-adaptive-tab-nav/",
+          "meta": {
+            "status": "live"
+          },
+          "feature": {
+            "status": "shipping"
+          },
+          "sources": [
+            {
+              "id": "diff:9189036e-99c0-4074-ba7c-5b6774d23d88:v1",
+              "kind": "diff",
+              "commit": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+              "diffUuid": "9189036e-99c0-4074-ba7c-5b6774d23d88"
+            }
+          ],
+          "updated": "2026-10-17T04:08:15Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "a4c8641beed6eb7f66b3433ae1150405b94e8bc6",
+        "label": "feat(adaptive-tab-nav): add a top-bar tab nav that docks to the bottom on narrow screens",
+        "date": "2026-10-17",
+        "kind": "feature",
+        "touches": [
+          "api:docs-site",
+          "api:packages-react-meta",
+          "operations:workspace-config",
+          "api:.changeset",
+          "api:docs",
+          "operations:e2e",
+          "api:packages-adaptive-tab-nav",
+          "api:packages-react-adaptive-tab-nav"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "c3717f6b664b627e069a7401f2d2e5503ea868743242feb83eac8cd84b8b1d6d",
+    "nodeCount": 22,
+    "relationCount": 66,
+    "featureCount": 8,
+    "componentCount": 12,
+    "technicalsCount": 8
+  },
+  "graphAfter": {
+    "sha256": "a99bc32c095e364365eebe663ee1afd0604d9104f8b5c8f8bcad2cfe64e79afc",
+    "nodeCount": 24,
+    "relationCount": 81,
+    "featureCount": 9,
+    "componentCount": 12,
+    "technicalsCount": 9
+  }
+}

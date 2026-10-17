@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { AvatarGroup } from '@refraction-ui/react-avatar-group'
+import { AvatarGroupExamples } from './examples'
 
 const meta: Meta<typeof AvatarGroup> = {
   title: 'Data Display/AvatarGroup',
@@ -25,4 +26,12 @@ export const Default: Story = {
     ]
   },
   render: (args) => <AvatarGroup {...args} />
+}
+
+/**
+ * Presence dots over the edge, a photo that fails (its initials stay) and a
+ * "+N" button that opens a list of everyone.
+ */
+export const PresenceAndOverflow: Story = {
+  render: () => <AvatarGroupExamples section="presence" />,
 }

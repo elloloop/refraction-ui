@@ -1,0 +1,252 @@
+{
+  "timestamp": "2026-10-17T03:09:12Z",
+  "call": "heuristic",
+  "sourceId": "commit:5602fbb1eacb",
+  "commit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
+  "prompt": "",
+  "rawResponse": "",
+  "parsedPatch": {
+    "fallback": {
+      "featureDocs": [
+        {
+          "id": "feature:release-packages",
+          "name": "release packages",
+          "summary": "chore: release packages",
+          "audience": [
+            "end-user",
+            "product-manager",
+            "tester"
+          ],
+          "userDocs": [
+            "chore: release packages"
+          ],
+          "testerNotes": [
+            "Verify behavior touching .changeset/dialog-keyboard-focus.md, .changeset/hierarchy-canvas.md, .changeset/search-bar-cancel-unmounted-search.md, packages/astro-meta/CHANGELOG.md, packages/astro-meta/package.json."
+          ],
+          "relatedTechnicalDetails": [
+            "technical:release-packages"
+          ],
+          "relatedComponents": [
+            "component:changeset",
+            "component:packages"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "technicalDetails": [
+        {
+          "id": "technical:release-packages",
+          "title": "release packages",
+          "summary": "chore: release packages",
+          "designNotes": [
+            "Changed files: .changeset/dialog-keyboard-focus.md, .changeset/hierarchy-canvas.md, .changeset/search-bar-cancel-unmounted-search.md, packages/astro-meta/CHANGELOG.md, packages/astro-meta/package.json, packages/react-meta/CHANGELOG.md, packages/react-meta/package.json",
+            "chore: release packages"
+          ],
+          "relatedFeatures": [
+            "feature:release-packages"
+          ],
+          "relatedComponents": [
+            "component:changeset",
+            "component:packages"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "components": [
+        {
+          "id": "component:changeset",
+          "name": ".Changeset",
+          "kind": "unknown",
+          "paths": [
+            ".changeset/dialog-keyboard-focus.md",
+            ".changeset/hierarchy-canvas.md",
+            ".changeset/search-bar-cancel-unmounted-search.md"
+          ],
+          "summary": "Owns changes under .changeset.",
+          "relatedFeatures": [
+            "feature:release-packages"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:release-packages"
+          ],
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "id": "component:packages",
+          "name": "Packages",
+          "kind": "unknown",
+          "paths": [
+            "packages/astro-meta/CHANGELOG.md",
+            "packages/astro-meta/package.json",
+            "packages/react-meta/CHANGELOG.md",
+            "packages/react-meta/package.json"
+          ],
+          "summary": "Owns changes under packages.",
+          "relatedFeatures": [
+            "feature:release-packages"
+          ],
+          "relatedTechnicalDetails": [
+            "technical:release-packages"
+          ],
+          "sources": null,
+          "updated": ""
+        }
+      ],
+      "relations": [
+        {
+          "from": "feature:release-packages",
+          "to": "component:changeset",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:release-packages",
+          "to": "component:changeset",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:release-packages",
+          "to": "component:packages",
+          "type": "implemented_by",
+          "evidence": "Changed files map this user-facing work to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "technical:release-packages",
+          "to": "component:packages",
+          "type": "documents",
+          "evidence": "Changed files link this technical detail to the component.",
+          "sources": null,
+          "updated": ""
+        },
+        {
+          "from": "feature:release-packages",
+          "to": "technical:release-packages",
+          "type": "explained_by",
+          "evidence": "Product-facing documentation and developer-facing details came from the same change source.",
+          "sources": null,
+          "updated": ""
+        }
+      ]
+    },
+    "nodes": {
+      "nodes": [
+        {
+          "id": "api:.changeset",
+          "parent": "apis",
+          "title": "Changeset",
+          "summary": "Changed in: release packages",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-astro-meta",
+              "kind": "grpc"
+            },
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "release packages",
+          "what": "release packages",
+          "how": "Changed: .changeset/dialog-keyboard-focus.md, .changeset/hierarchy-canvas.md, .changeset/search-bar-cancel-unmounted-search.md",
+          "sources": [
+            {
+              "id": "commit:5602fbb1eacb",
+              "kind": "commit",
+              "commit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "api:packages-astro-meta",
+          "parent": "apis",
+          "title": "Packages Astro Meta",
+          "summary": "Changed in: release packages",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "edges": [
+            {
+              "to": "api:packages-react-meta",
+              "kind": "grpc"
+            }
+          ],
+          "why": "release packages",
+          "what": "release packages",
+          "how": "Changed: packages/astro-meta/CHANGELOG.md, packages/astro-meta/package.json",
+          "sources": [
+            {
+              "id": "commit:5602fbb1eacb",
+              "kind": "commit",
+              "commit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        },
+        {
+          "id": "api:packages-react-meta",
+          "parent": "apis",
+          "title": "Packages React Meta",
+          "summary": "Changed in: release packages",
+          "kicker": "Service",
+          "diagram": {
+            "tier": "api"
+          },
+          "why": "release packages",
+          "what": "release packages",
+          "how": "Changed: packages/react-meta/CHANGELOG.md, packages/react-meta/package.json",
+          "sources": [
+            {
+              "id": "commit:5602fbb1eacb",
+              "kind": "commit",
+              "commit": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0"
+            }
+          ],
+          "updated": "2026-10-17T03:09:12Z"
+        }
+      ],
+      "commitRef": {
+        "sha": "5602fbb1eacb21574e7493418a15acb4ea6e8ee0",
+        "label": "chore: release packages",
+        "date": "2026-10-17",
+        "kind": "chore",
+        "touches": [
+          "api:.changeset",
+          "api:packages-astro-meta",
+          "api:packages-react-meta"
+        ]
+      }
+    }
+  },
+  "graphBefore": {
+    "sha256": "8bfce261fa3d27894946d7b1967d4725d9ed0dd89ae5a7f0aa70067cf98c2810",
+    "nodeCount": 21,
+    "relationCount": 61,
+    "featureCount": 7,
+    "componentCount": 12,
+    "technicalsCount": 7
+  },
+  "graphAfter": {
+    "sha256": "3a030a10c43f9aea4ba83b02a7a408d80c8aae9fbdacdd7b3f1610306a968d25",
+    "nodeCount": 22,
+    "relationCount": 66,
+    "featureCount": 8,
+    "componentCount": 12,
+    "technicalsCount": 8
+  }
+}

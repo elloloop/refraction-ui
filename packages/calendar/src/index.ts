@@ -6,4 +6,4 @@ export {
   type CalendarAPI,
 } from './calendar.js'
 
-export { calendarVariants, dayVariants } from './calendar.styles.js'
+export { calendarVariants, dayVariants, calendarNavButtonStyles } from './calendar.styles.js'

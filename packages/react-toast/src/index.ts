@@ -14,5 +14,7 @@ export {
   type ToastVariant,
   type ToastEntry,
   type ToastManagerAPI,
+  type ToastOptions,
+  type ToastAction,
   toastVariants,
 } from '@refraction-ui/toast'

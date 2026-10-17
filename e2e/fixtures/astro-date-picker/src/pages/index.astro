@@ -1,0 +1,55 @@
+---
+import { DatePicker, createDefaultDatePresets } from '../../../../../packages/astro-meta/dist/astro-date-picker/index.ts'
+import '../../../../../.storybook/tokens.css'
+import '../../../../../.storybook/preview.css'
+
+const presets = createDefaultDatePresets()
+const spanish = createDefaultDatePresets({
+  labels: { today: 'Hoy', tomorrow: 'Mañana', nextWeek: 'La próxima semana' },
+})
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Astro date picker presets</title>
+  </head>
+  <body>
+    <main class="mx-auto max-w-2xl space-y-8 p-8">
+      <h1 class="text-2xl font-semibold">Astro date picker presets</h1>
+
+      <div class="space-y-2">
+        <label for="due" class="block text-sm font-medium">Due date</label>
+        <DatePicker id="due" name="due" presets={presets} />
+        <p>Last change: <output id="due-change"></output></p>
+      </div>
+
+      <div class="space-y-2">
+        <label for="window" class="block text-sm font-medium">Delivery window</label>
+        <!-- Local date-times without a zone, so the bounds are the same days wherever the server runs. -->
+        <DatePicker id="window" presets={presets} minDate="2026-10-18T12:00" maxDate="2026-10-31T12:00" />
+      </div>
+
+      <div class="space-y-2">
+        <label for="meeting" class="block text-sm font-medium">Meeting</label>
+        <DatePicker id="meeting" showTime value="2026-10-01T14:30" presets={presets} />
+      </div>
+
+      <div class="space-y-2" lang="es">
+        <label for="entrega" class="block text-sm font-medium">Fecha de entrega</label>
+        <DatePicker
+          id="entrega"
+          presets={[...spanish, { id: 'in-two-weeks', label: 'En dos semanas', days: 14 }]}
+          presetsLabel="Atajos de fecha"
+        />
+      </div>
+    </main>
+    <script>
+      const output = document.getElementById('due-change')!
+      document.getElementById('due')!.addEventListener('rfr-date-change', (event) => {
+        output.textContent = (event as CustomEvent<{ date: Date }>).detail.date.toISOString()
+      })
+    </script>
+  </body>
+</html>

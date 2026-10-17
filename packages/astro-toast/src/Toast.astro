@@ -1,5 +1,15 @@
 ---
-import { toastVariants, type ToastVariant } from '@refraction-ui/toast'
+import {
+  toastVariants,
+  toastContentClass,
+  toastTitleClass,
+  toastDescriptionClass,
+  toastActionClass,
+  toastCloseClass,
+  DEFAULT_TOAST_DURATION,
+  DEFAULT_TOAST_DISMISS_LABEL,
+  type ToastVariant,
+} from '@refraction-ui/toast'
 import { cn } from '@refraction-ui/shared'
 
 interface Props extends astroHTML.JSX.HTMLAttributes {
@@ -11,16 +21,32 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   dismissible?: boolean
   /** Toast message text (alternative to using the default slot) */
   message?: string
+  /** Short heading rendered above the message. */
+  title?: string
+  /**
+   * Label of an action button, such as "Undo". Choosing it closes the toast,
+   * then dispatches a bubbling `rfr-toast-action` event from the toast.
+   */
+  actionLabel?: string
+  /** Accessible name of the dismiss button (default: "Dismiss"). */
+  dismissLabel?: string
 }
 
 const {
   variant = 'default',
-  duration = 3000,
+  duration = DEFAULT_TOAST_DURATION,
   dismissible = true,
   message,
+  title,
+  actionLabel,
+  dismissLabel = DEFAULT_TOAST_DISMISS_LABEL,
   class: className,
   ...props
 } = Astro.props
+
+// On its own a toast is its own role="alert" live region. Inside a <Toaster>,
+// the toaster's script removes that role and announces the toast through the
+// toaster's live regions instead.
 ---
 
 <div
@@ -33,17 +59,34 @@ const {
   class={cn(toastVariants({ variant }), className)}
   {...props}
 >
-  <div class="flex-1">
-    {message ? message : <slot />}
-  </div>
-  {dismissible && (
-    <button
-      type="button"
-      data-rfr-toast-dismiss
-      class="shrink-0"
-      aria-label="Dismiss"
-    >
-      &times;
-    </button>
-  )}
+  {
+    title ? (
+      <div class={toastContentClass}>
+        <div class={toastTitleClass} data-rfr-toast-title>
+          {title}
+        </div>
+        <div class={toastDescriptionClass} data-rfr-toast-message>
+          {message ? message : <slot />}
+        </div>
+      </div>
+    ) : (
+      <div class={toastContentClass} data-rfr-toast-message>
+        {message ? message : <slot />}
+      </div>
+    )
+  }
+  {
+    actionLabel && (
+      <button type="button" class={toastActionClass} data-rfr-toast-action>
+        {actionLabel}
+      </button>
+    )
+  }
+  {
+    dismissible && (
+      <button type="button" data-rfr-toast-dismiss class={toastCloseClass} aria-label={dismissLabel}>
+        <span aria-hidden="true">&times;</span>
+      </button>
+    )
+  }
 </div>

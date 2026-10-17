@@ -4,10 +4,15 @@ import {
   callControlsVariants,
   callControlButtonVariants,
   callControlLabelClass,
+  callControlsDefaultLabels,
+  callControlsDockBarClass,
+  callControlsDockClass,
   type CallControlTone,
   type CallControlItem,
 } from '@refraction-ui/call-controls'
 import { cn } from '@refraction-ui/shared'
+import { CallControlsDockContent, DOCK_CONTROL_KEYS, type CallControlsDockProps } from './call-controls-dock.js'
+import { handleToolbarArrowKeys } from './toolbar-focus.js'
 
 export type { CallControlTone, CallControlItem }
 
@@ -73,13 +78,19 @@ export const CallControlButton = React.forwardRef<
 // ─── CallControls ─────────────────────────────────────────────────────────────
 
 export interface CallControlsProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'color' | 'content'> {
-  /** Visual size passed down to child buttons when using the composable API. */
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'color' | 'content'>,
+    CallControlsDockProps {
+  /** Visual size of the toolbar and its buttons. */
   size?: 'sm' | 'md'
 }
 
+function isDock(props: CallControlsDockProps): boolean {
+  return DOCK_CONTROL_KEYS.some((key) => props[key] !== undefined)
+}
+
 /**
- * Toolbar wrapper for a set of meeting-control buttons.
+ * Toolbar of meeting controls. Left and right arrows (and Home, End) move
+ * between its buttons; every button also keeps its own tab stop.
  *
  * Composable: render `<CallControlButton>` children directly.
  *
@@ -89,20 +100,87 @@ export interface CallControlsProps
  *   <CallControlButton label="Leave" tone="destructive" />
  * </CallControls>
  * ```
+ *
+ * Dock: pass the controls as props and the toolbar draws them — grouped,
+ * with pressed states, counts, a leave button, and a "More controls"
+ * disclosure that takes the actions and panel toggles when the dock is
+ * narrower than 600 px. `children` are added after the panel toggles.
+ *
+ * ```tsx
+ * <CallControls
+ *   mic={{ active: micOn, onToggle: toggleMic }}
+ *   camera={{ active: cameraOn, onToggle: toggleCamera }}
+ *   screenShare={{ active: sharing, onToggle: toggleShare }}
+ *   chat={{ active: chatOpen, onToggle: toggleChat, count: unread }}
+ *   onLeave={leave}
+ * />
+ * ```
  */
 export const CallControls = React.forwardRef<HTMLDivElement, CallControlsProps>(
-  function CallControls({ size = 'md', className, children, ...props }, ref) {
+  function CallControls(props, ref) {
+    const {
+      size = 'md',
+      className,
+      children,
+      onKeyDown,
+      mic,
+      camera,
+      screenShare,
+      hand,
+      reactions,
+      captions,
+      pip,
+      record,
+      chat,
+      people,
+      onLeave,
+      labels,
+      icons,
+      containerClassName,
+      ...rest
+    } = props
     const api = createCallControls()
+    const dock = isDock(props)
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+      onKeyDown?.(event)
+      handleToolbarArrowKeys(event)
+    }
+
+    if (!dock) {
+      return (
+        <div
+          ref={ref}
+          className={cn(callControlsVariants({ size }), className)}
+          {...api.ariaProps}
+          {...api.dataAttributes}
+          {...rest}
+          onKeyDown={handleKeyDown}
+        >
+          {children}
+        </div>
+      )
+    }
 
     return (
-      <div
-        ref={ref}
-        className={cn(callControlsVariants({ size }), className)}
-        {...api.ariaProps}
-        {...api.dataAttributes}
-        {...props}
-      >
-        {children}
+      <div className={cn(callControlsDockClass, containerClassName)} data-call-controls-dock="">
+        <div
+          ref={ref}
+          className={cn(callControlsVariants({ size }), callControlsDockBarClass, className)}
+          {...api.ariaProps}
+          aria-label={labels?.toolbar ?? callControlsDefaultLabels.toolbar}
+          {...api.dataAttributes}
+          data-variant="dock"
+          {...rest}
+          onKeyDown={handleKeyDown}
+        >
+          <CallControlsDockContent
+            size={size}
+            {...{ mic, camera, screenShare, hand, reactions, captions, pip, record, chat, people, onLeave, labels, icons }}
+          >
+            {children}
+          </CallControlsDockContent>
+        </div>
       </div>
     )
   },

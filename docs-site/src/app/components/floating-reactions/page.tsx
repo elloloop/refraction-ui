@@ -66,8 +66,11 @@ export default function FloatingReactionsPage() {
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Static burst</h2>
         <p className="text-sm text-muted-foreground">
-          A fixed set of reactions rendered at SSR time — useful for previews or
-          server-rendered snapshots of a burst moment.
+          <code className="text-xs bg-muted px-1 rounded">ReactionBurst</code> draws
+          a reaction in its lane and holds it still, for previews, stories and
+          server-rendered snapshots of a burst moment. Reactions in a{' '}
+          <code className="text-xs bg-muted px-1 rounded">FloatingReactions</code>{' '}
+          overlay always float away.
         </p>
         <FloatingReactionsExamples section="static" />
       </section>
@@ -89,6 +92,22 @@ export default function FloatingReactionsPage() {
           <code className="text-xs bg-muted px-1 rounded">REACTION_LIFETIME_MS</code> (3 s).
         </p>
         <FloatingReactionsExamples section="interactive" />
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Motion</h2>
+        <p className="text-sm text-muted-foreground">
+          Each reaction rises and fades over{' '}
+          <code className="text-xs bg-muted px-1 rounded">REACTION_LIFETIME_MS</code>, the
+          same time the hook removes it after. The overlay renders its own keyframes, so
+          no global CSS is needed.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          When the system asks for reduced motion (
+          <code className="text-xs bg-muted px-1 rounded">prefers-reduced-motion: reduce</code>
+          ), a reaction does not move: it stays where it appeared and fades out over the
+          same time.
+        </p>
       </section>
 
       <section className="space-y-3">

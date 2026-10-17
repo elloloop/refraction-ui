@@ -1,0 +1,169 @@
+[
+  {
+    "image": "before-light-1440.png",
+    "page": "/components/app-shell/",
+    "width": 1440,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": [
+      "App Shell sidebar id hydration mismatch (the parent revision's App Shell page, not this change)"
+    ]
+  },
+  {
+    "image": "before-dark-1440.png",
+    "page": "/components/app-shell/",
+    "width": 1440,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "App Shell sidebar id hydration mismatch (the parent revision's App Shell page, not this change)"
+    ]
+  },
+  {
+    "image": "before-light-375.png",
+    "page": "/components/app-shell/",
+    "width": 375,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": [
+      "App Shell sidebar id hydration mismatch (the parent revision's App Shell page, not this change)"
+    ]
+  },
+  {
+    "image": "before-dark-375.png",
+    "page": "/components/app-shell/",
+    "width": 375,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "App Shell sidebar id hydration mismatch (the parent revision's App Shell page, not this change)"
+    ]
+  },
+  {
+    "image": "after-light-1440.png",
+    "page": "/components/collapsible-rail/",
+    "width": 1440,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": [],
+    "expandedWidthPx": 208,
+    "collapsedWidthPx": 56,
+    "edgeReachedByTab": true,
+    "edgeFocusVisible": true,
+    "edgeFocusRingDrawn": true,
+    "edgeTargetPx": [
+      24,
+      24
+    ],
+    "enterCollapses": true,
+    "nameAfterCollapse": "Expand navigation",
+    "focusStaysOnEdgeControl": true,
+    "storedAfterCollapse": "true",
+    "collapsedAfterReload": true,
+    "spaceExpands": true
+  },
+  {
+    "image": "after-dark-1440.png",
+    "page": "/components/collapsible-rail/",
+    "width": 1440,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "docs color-mode toggle hydration mismatch in dark mode (present on the parent revision too)",
+      "docs color-mode toggle hydration mismatch in dark mode (present on the parent revision too)",
+      "docs color-mode toggle hydration mismatch in dark mode (present on the parent revision too)"
+    ],
+    "expandedWidthPx": 208,
+    "collapsedWidthPx": 56,
+    "edgeReachedByTab": true,
+    "edgeFocusVisible": true,
+    "edgeFocusRingDrawn": true,
+    "edgeTargetPx": [
+      24,
+      24
+    ],
+    "enterCollapses": true,
+    "nameAfterCollapse": "Expand navigation",
+    "focusStaysOnEdgeControl": true,
+    "storedAfterCollapse": "true",
+    "collapsedAfterReload": true,
+    "spaceExpands": true
+  },
+  {
+    "image": "after-light-375.png",
+    "page": "/components/collapsible-rail/",
+    "width": 375,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": [],
+    "closedIsInert": true,
+    "closedOffScreen": true,
+    "openNotInert": true,
+    "openAtStartEdge": true,
+    "openWidthPx": 56,
+    "focusMovesIntoRail": true,
+    "escapeCloses": true,
+    "focusReturnsToOpener": true,
+    "rtlClosedOffScreen": true,
+    "rtlOpenAtStartEdge": true,
+    "storedWidthUntouched": true
+  },
+  {
+    "image": "after-dark-375.png",
+    "page": "/components/collapsible-rail/",
+    "width": 375,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "docs color-mode toggle hydration mismatch in dark mode (present on the parent revision too)",
+      "docs color-mode toggle hydration mismatch in dark mode (present on the parent revision too)"
+    ],
+    "closedIsInert": true,
+    "closedOffScreen": true,
+    "openNotInert": true,
+    "openAtStartEdge": true,
+    "openWidthPx": 56,
+    "focusMovesIntoRail": true,
+    "escapeCloses": true,
+    "focusReturnsToOpener": true,
+    "rtlClosedOffScreen": true,
+    "rtlOpenAtStartEdge": true,
+    "storedWidthUntouched": true
+  },
+  {
+    "image": "after-collapsed-light-1440.png",
+    "page": "/components/collapsible-rail/",
+    "width": 1440,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": []
+  },
+  {
+    "image": "after-collapsed-dark-1440.png",
+    "page": "/components/collapsible-rail/",
+    "width": 1440,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "docs color-mode toggle hydration mismatch in dark mode (present on the parent revision too)"
+    ]
+  },
+  {
+    "image": "after-overlay-open-light-375.png",
+    "page": "/components/collapsible-rail/",
+    "width": 375,
+    "colorScheme": "light",
+    "pageOverflow": false,
+    "browserErrors": []
+  },
+  {
+    "image": "after-overlay-open-dark-375.png",
+    "page": "/components/collapsible-rail/",
+    "width": 375,
+    "colorScheme": "dark",
+    "pageOverflow": false,
+    "browserErrors": [
+      "docs color-mode toggle hydration mismatch in dark mode (present on the parent revision too)"
+    ]
+  }
+]

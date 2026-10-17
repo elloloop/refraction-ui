@@ -42,6 +42,7 @@ const componentGroups = [
       { name: 'Breadcrumbs', href: '/components/breadcrumbs' },
       { name: 'Footer', href: '/components/footer' },
       { name: 'Bottom Nav', href: '/components/bottom-nav' },
+      { name: 'Adaptive Tab Nav', href: '/components/adaptive-tab-nav' },
     ],
   },
   {
@@ -69,6 +70,7 @@ const componentGroups = [
     title: 'Media',
     items: [
       { name: 'Video Player', href: '/components/video-player' },
+      { name: 'Media Frame', href: '/components/media-frame' },
       { name: 'Markdown Renderer', href: '/components/markdown-renderer' },
       { name: 'Code Editor', href: '/components/code-editor' },
       { name: 'Slide Viewer', href: '/components/slide-viewer' },
@@ -162,6 +164,7 @@ const componentGroups = [
     title: 'Layout & Nav',
     items: [
       { name: 'App Shell', href: '/components/app-shell' },
+      { name: 'Collapsible Rail', href: '/components/collapsible-rail' },
       { name: 'Card Grid', href: '/components/card-grid' },
       { name: 'Resizable Layout', href: '/components/resizable-layout' },
       { name: 'Sheet', href: '/components/sheet' },
@@ -182,6 +185,7 @@ const componentGroups = [
       { name: 'Input Group', href: '/components/input-group' },
       { name: 'Location Selector', href: '/components/location-selector' },
       { name: 'Form', href: '/components/form' },
+      { name: 'Field', href: '/components/field' },
       { name: 'Charts', href: '/components/charts' },
       { name: 'Line Chart', href: '/components/line-chart' },
       { name: 'Funnel Chart', href: '/components/funnel-chart' },
@@ -206,6 +210,7 @@ const componentGroups = [
     items: [
       { name: 'Video Tile', href: '/components/video-tile' },
       { name: 'Video Grid', href: '/components/video-grid' },
+      { name: 'Video Stage', href: '/components/video-stage' },
       { name: 'Call Controls', href: '/components/call-controls' },
       { name: 'Live Captions', href: '/components/live-captions' },
       { name: 'Live Transcript', href: '/components/live-transcript' },

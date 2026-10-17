@@ -8,6 +8,8 @@ export {
   type AppShellAPI,
 } from './app-shell.js'
 
+export { appShellSidebarToggleStyles } from './app-shell.styles.js'
+
 export {
   createPageShell,
   type PageShellConfig,

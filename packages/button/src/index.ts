@@ -9,4 +9,4 @@ export {
   type ButtonSize,
 } from './button.js'
 
-export { buttonVariants, buttonTokens } from './button.styles.js'
+export { buttonVariants, buttonTokens, buttonTouchTargetStyles } from './button.styles.js'

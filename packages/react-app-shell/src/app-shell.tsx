@@ -2,6 +2,7 @@ import * as React from 'react'
 import {
   createAppShell,
   resolveBreakpoint,
+  appShellSidebarToggleStyles,
   type AppShellConfig,
   type AppShellState,
   type AppShellAPI,
@@ -210,7 +211,7 @@ const Header = React.forwardRef<HTMLElement, AppShellHeaderProps>(
           'aria-expanded': state.sidebarOpen,
           'aria-controls': api.sidebarAriaProps.id,
           onClick: () => api.toggleSidebar(),
-          className: 'inline-flex items-center justify-center p-2 mr-2',
+          className: appShellSidebarToggleStyles,
         },
         React.createElement(
           'svg',

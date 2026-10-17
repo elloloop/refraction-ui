@@ -6,11 +6,19 @@ import {
   floatingReactionsVariants,
   floatingReactionItemClass,
   floatingReactionLabelClass,
+  floatingReactionsStyles,
   type FloatingReaction,
 } from '@refraction-ui/floating-reactions'
 import { cn } from '@refraction-ui/shared'
 
 export type { FloatingReaction }
+
+/**
+ * Identity of the overlay's stylesheet. React 19 hoists a `<style>` with an
+ * `href` and a `precedence` into the document head once, however many
+ * overlays render; React 18 leaves it in place, which is harmless.
+ */
+const STYLE_HREF = 'refraction-ui/floating-reactions'
 
 export interface FloatingReactionsProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'color' | 'content'> {
@@ -32,9 +40,9 @@ export interface FloatingReactionsProps
  * reactions floating upward. Intended to be positioned absolutely over a
  * meeting/video surface.
  *
- * - Reactions animate upward and fade via `animate-[float-up_3s_ease-out_forwards]`.
- *   Consumers must supply the `@keyframes float-up` rule (see
- *   `floatingReactionItemClass` in the core styles for the recommended keyframe).
+ * - Each reaction rises and fades over `REACTION_LIFETIME_MS`. The overlay
+ *   renders the keyframes itself, so no global CSS is needed. Under
+ *   `prefers-reduced-motion: reduce` a reaction stays in place and fades.
  * - The overlay is `pointer-events-none` so it never blocks interaction.
  * - role="status" aria-live="polite" announces new reactions to screen readers.
  */
@@ -42,7 +50,7 @@ export const FloatingReactions = React.forwardRef<
   HTMLDivElement,
   FloatingReactionsProps
 >(function FloatingReactions({ reactions, lanes = 5, className, ...props }, ref) {
-  const { ariaProps, dataAttributes } = createFloatingReactions()
+  const { ariaProps, dataAttributes, itemDataAttributes } = createFloatingReactions()
 
   return (
     <div
@@ -52,6 +60,9 @@ export const FloatingReactions = React.forwardRef<
       {...dataAttributes}
       {...props}
     >
+      <style href={STYLE_HREF} precedence="refraction-ui">
+        {floatingReactionsStyles}
+      </style>
       {reactions.map((reaction) => {
         const left = laneOffsetPercent(reaction.lane ?? 0, lanes)
         return (
@@ -60,6 +71,7 @@ export const FloatingReactions = React.forwardRef<
             className={floatingReactionItemClass}
             style={{ left: `${left}%` }}
             aria-hidden="true"
+            {...itemDataAttributes}
           >
             {reaction.emoji}
             <span className={floatingReactionLabelClass}>{reaction.emoji}</span>
@@ -71,7 +83,7 @@ export const FloatingReactions = React.forwardRef<
 })
 
 // ---------------------------------------------------------------------------
-// ReactionBurst — convenience alias for a single burst item (for story use).
+// ReactionBurst — a single reaction held still (for previews and stories).
 // ---------------------------------------------------------------------------
 
 export interface ReactionBurstProps {
@@ -83,6 +95,8 @@ export interface ReactionBurstProps {
 /**
  * ReactionBurst renders a single emoji at the specified lane offset — useful
  * for static demos or Storybook stories showing a specific burst position.
+ * It holds still: only reactions inside a `FloatingReactions` overlay float
+ * away.
  */
 export function ReactionBurst({ emoji, lane = 0, lanes = 5 }: ReactionBurstProps) {
   const left = laneOffsetPercent(lane, lanes)

@@ -2,12 +2,14 @@
 import {
   createLiveTranscript,
   groupConsecutiveBySpeaker,
+  interimLineAriaProps,
   liveTranscriptVariants,
   transcriptBlockVariants,
   transcriptSpeakerRowClass,
   transcriptSpeakerNameClass,
   transcriptTimestampClass,
-  transcriptTextLineClass,
+  transcriptTextLineVariants,
+  DEFAULT_INTERIM_LABEL,
   type TranscriptEntry,
 } from '@refraction-ui/live-transcript'
 import { cn } from '@refraction-ui/shared'
@@ -17,9 +19,21 @@ interface Props extends astroHTML.JSX.HTMLAttributes {
   entries: TranscriptEntry[]
   /** Tightens spacing between speaker blocks. */
   compact?: boolean
+  /** Screen-reader suffix read after an interim line. */
+  interimLabel?: string
 }
 
-const { entries, compact = false, class: className, ...rest } = Astro.props
+// Server-rendered: sides and interim lines render as in the React adapter.
+// Auto-follow needs live updates, so it is React-only. The panel scrolls, so
+// it is focusable by default for keyboard scrolling.
+const {
+  entries,
+  compact = false,
+  interimLabel = DEFAULT_INTERIM_LABEL,
+  class: className,
+  tabindex = 0,
+  ...rest
+} = Astro.props
 
 const compactVariant = compact ? 'true' : 'false'
 const blocks = groupConsecutiveBySpeaker(entries)
@@ -30,11 +44,18 @@ const { ariaProps, dataAttributes } = createLiveTranscript()
   class={cn(liveTranscriptVariants({ compact: compactVariant }), className)}
   {...ariaProps}
   {...dataAttributes}
+  tabindex={tabindex}
   {...rest}
 >
   {
-    blocks.map((block, blockIndex) => (
-      <div class={transcriptBlockVariants({ compact: compactVariant })}>
+    blocks.map((block) => (
+      <div
+        class={transcriptBlockVariants({
+          compact: compactVariant,
+          side: block.side ?? 'none',
+        })}
+        data-side={block.side}
+      >
         <div class={transcriptSpeakerRowClass}>
           <span
             class={transcriptSpeakerNameClass}
@@ -46,9 +67,20 @@ const { ariaProps, dataAttributes } = createLiveTranscript()
             <span class={transcriptTimestampClass}>{block.timestamp}</span>
           )}
         </div>
-        {block.texts.map((text) => (
-          <p class={transcriptTextLineClass}>{text}</p>
-        ))}
+        {block.lines.map((line) =>
+          line.interim ? (
+            <p
+              class={transcriptTextLineVariants({ interim: 'true' })}
+              data-interim="true"
+              {...interimLineAriaProps}
+            >
+              {line.text}
+              <span class="sr-only">{` (${interimLabel})`}</span>
+            </p>
+          ) : (
+            <p class={transcriptTextLineVariants({ interim: 'false' })}>{line.text}</p>
+          ),
+        )}
       </div>
     ))
   }

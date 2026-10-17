@@ -342,7 +342,7 @@ export const Composer = React.forwardRef<HTMLDivElement, ComposerProps>(
         },
         h(
           'div',
-          { className: 'border-b border-border px-3 py-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground' },
+          { className: 'border-b border-border px-3 py-1.5 text-[0.625rem] font-medium uppercase tracking-wide text-muted-foreground' },
           trigger?.type === '/' ? 'Commands' : trigger?.type === '@' ? 'Mentions' : 'Emoji',
         ),
         ...items.map((it, i) =>
