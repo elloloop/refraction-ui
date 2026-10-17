@@ -102,6 +102,16 @@ const FOUR: Reaction[] = ['\u{1F44D}', '\u{1F389}', '\u{1F680}', '\u{1F440}'].ma
   userReacted: false,
 }))
 
+/** The meta's public entry, loaded by path for the same reason as the client. */
+const META_MODULE = '../dist/index.ts'
+
+describe('astro-reaction-bar (public meta)', () => {
+  it('is exported from @refraction-ui/astro', async () => {
+    const meta = (await import(/* @vite-ignore */ META_MODULE)) as Record<string, unknown>
+    expect(meta.ReactionBar).toBe(ReactionBar)
+  }, 60_000)
+})
+
 describe('astro-reaction-bar (SSR)', () => {
   it('renders a labelled group of toggle pills', async () => {
     const html = await render({ reactions: FOUR.slice(0, 2) })

@@ -9,7 +9,7 @@ ReactionBar: show who reacted, fold long bars behind "+N", and hand the add butt
 - `maxVisible` shows that many reactions and a "+N" button (`aria-expanded`, "Show N more reactions") that expands the bar in place and collapses it again.
 - `strings` overrides every user-facing string: the group label, the add label, the overflow text and labels, each pill's name and the who-reacted sentence.
 - Pills, the add button and the overflow button show a focus-visible ring, and drop their colour transition under reduced motion.
-- The Astro bar now toggles, expands and shows who reacted in the browser too, with every string resolved on the server.
+- The Astro bar now toggles, expands and shows who reacted in the browser too, with every string resolved on the server, and `@refraction-ui/astro` exports it: `import { ReactionBar } from '@refraction-ui/astro'` (before, the meta exported nothing for it).
 
 **Breaking change:** the add button no longer reports a hard-coded 👍. (This is technically a breaking change but is being shipped as a `minor` per `0.x` semver convention.)
 
