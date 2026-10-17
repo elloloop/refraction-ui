@@ -162,6 +162,7 @@ const componentGroups = [
     title: 'Layout & Nav',
     items: [
       { name: 'App Shell', href: '/components/app-shell' },
+      { name: 'Collapsible Rail', href: '/components/collapsible-rail' },
       { name: 'Card Grid', href: '/components/card-grid' },
       { name: 'Resizable Layout', href: '/components/resizable-layout' },
       { name: 'Sheet', href: '/components/sheet' },
