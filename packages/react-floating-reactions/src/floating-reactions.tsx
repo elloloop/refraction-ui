@@ -6,11 +6,25 @@ import {
   floatingReactionsVariants,
   floatingReactionItemClass,
   floatingReactionLabelClass,
+  floatingReactionKeyframes,
   type FloatingReaction,
 } from '@refraction-ui/floating-reactions'
 import { cn } from '@refraction-ui/shared'
 
 export type { FloatingReaction }
+
+/**
+ * The keyframes the reaction items animate with. React 19 hoists this into
+ * `<head>` and renders it once however many overlays and bursts are mounted
+ * (`href` is the dedupe key); React 18 renders it in place.
+ */
+function FloatingReactionStyles() {
+  return (
+    <style href="refraction-ui-floating-reactions" precedence="default">
+      {floatingReactionKeyframes}
+    </style>
+  )
+}
 
 export interface FloatingReactionsProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'color' | 'content'> {
@@ -32,9 +46,10 @@ export interface FloatingReactionsProps
  * reactions floating upward. Intended to be positioned absolutely over a
  * meeting/video surface.
  *
- * - Reactions animate upward and fade via `animate-[float-up_3s_ease-out_forwards]`.
- *   Consumers must supply the `@keyframes float-up` rule (see
- *   `floatingReactionItemClass` in the core styles for the recommended keyframe).
+ * - Reactions float upward and fade over REACTION_LIFETIME_MS. The component
+ *   ships its own keyframes; no global CSS is needed.
+ * - Under `prefers-reduced-motion: reduce`, reactions fade in place instead of
+ *   rising.
  * - The overlay is `pointer-events-none` so it never blocks interaction.
  * - role="status" aria-live="polite" announces new reactions to screen readers.
  */
@@ -52,6 +67,7 @@ export const FloatingReactions = React.forwardRef<
       {...dataAttributes}
       {...props}
     >
+      <FloatingReactionStyles />
       {reactions.map((reaction) => {
         const left = laneOffsetPercent(reaction.lane ?? 0, lanes)
         return (
@@ -87,14 +103,17 @@ export interface ReactionBurstProps {
 export function ReactionBurst({ emoji, lane = 0, lanes = 5 }: ReactionBurstProps) {
   const left = laneOffsetPercent(lane, lanes)
   return (
-    <span
-      className={floatingReactionItemClass}
-      style={{ left: `${left}%` }}
-      aria-hidden="true"
-    >
-      {emoji}
-      <span className={floatingReactionLabelClass}>{emoji}</span>
-    </span>
+    <>
+      <FloatingReactionStyles />
+      <span
+        className={floatingReactionItemClass}
+        style={{ left: `${left}%` }}
+        aria-hidden="true"
+      >
+        {emoji}
+        <span className={floatingReactionLabelClass}>{emoji}</span>
+      </span>
+    </>
   )
 }
 

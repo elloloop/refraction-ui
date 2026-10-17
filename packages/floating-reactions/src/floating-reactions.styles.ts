@@ -24,27 +24,49 @@ export const floatingReactionsVariants = cva({
 })
 
 /**
+ * Names of the keyframes behind the reaction animation. They carry the
+ * library prefix so they cannot collide with an app's own keyframes.
+ */
+export const floatingReactionRiseKeyframes = 'rfr-floating-reaction-rise'
+export const floatingReactionFadeKeyframes = 'rfr-floating-reaction-fade'
+
+/**
+ * The keyframes the item class animates with. The adapters render this once
+ * per page, so no global CSS or Tailwind config is needed.
+ *
+ * - Rise: the reaction floats up 80% of the overlay's height from where it
+ *   rests (`bottom-4`, 1rem), holding full opacity for 80% of its life, then
+ *   fades out. This is the same motion as the Flutter FloatingReactions.
+ *   `bottom` is animated because a percentage of it is measured against the
+ *   overlay, where a translate percentage is measured against the emoji.
+ * - Fade: the reduced-motion alternative. The reaction stays where it
+ *   appeared and fades out on the same schedule, so the cue that someone
+ *   reacted survives without the movement.
+ */
+export const floatingReactionKeyframes = [
+  `@keyframes ${floatingReactionRiseKeyframes} {`,
+  '  0% { bottom: 1rem; opacity: 1; }',
+  '  80% { opacity: 1; }',
+  '  100% { bottom: calc(80% + 1rem); opacity: 0; }',
+  '}',
+  `@keyframes ${floatingReactionFadeKeyframes} {`,
+  '  0%, 80% { opacity: 1; }',
+  '  100% { opacity: 0; }',
+  '}',
+].join('\n')
+
+/**
  * A single floating reaction item.
  *
- * The float-up animation is driven by the class
- * `animate-[float-up_3s_ease-out_forwards]`. Consumers must supply the
- * `@keyframes float-up` rule in their global CSS or Tailwind config:
- *
- * ```css
- * @keyframes float-up {
- *   0%   { transform: translateY(0);    opacity: 1; }
- *   80%  { opacity: 1; }
- *   100% { transform: translateY(-80%); opacity: 0; }
- * }
- * ```
- *
- * Without the keyframe the item will still render in place and fade on removal
- * (graceful degradation).
+ * It rises and fades over REACTION_LIFETIME_MS (3 s, the literal below; a test
+ * keeps the two in step). Under `prefers-reduced-motion: reduce` it fades in
+ * place instead. The keyframes are {@link floatingReactionKeyframes}.
  */
 export const floatingReactionItemClass = [
   'absolute bottom-4',
   'text-3xl leading-none select-none',
-  'animate-[float-up_3s_ease-out_forwards]',
+  'animate-[rfr-floating-reaction-rise_3s_ease-out_forwards]',
+  'motion-reduce:animate-[rfr-floating-reaction-fade_3s_ease-out_forwards]',
 ].join(' ')
 
 /**

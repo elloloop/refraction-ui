@@ -66,8 +66,8 @@ export default function FloatingReactionsPage() {
       <section className="space-y-4">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">Static burst</h2>
         <p className="text-sm text-muted-foreground">
-          A fixed set of reactions rendered at SSR time — useful for previews or
-          server-rendered snapshots of a burst moment.
+          A fixed set of reactions rendered at SSR time. Each one floats up and
+          fades once, then stays hidden; Replay runs the burst again.
         </p>
         <FloatingReactionsExamples section="static" />
       </section>
@@ -89,6 +89,19 @@ export default function FloatingReactionsPage() {
           <code className="text-xs bg-muted px-1 rounded">REACTION_LIFETIME_MS</code> (3 s).
         </p>
         <FloatingReactionsExamples section="interactive" />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground">Motion</h2>
+        <p className="text-sm text-muted-foreground">
+          The component ships its own keyframes, so it animates without any
+          global CSS: each reaction rises 80% of the overlay&apos;s height over 3 s,
+          fading out in the last fifth. When the reader asks for less motion
+          (<code className="text-xs bg-muted px-1 rounded">prefers-reduced-motion: reduce</code>),
+          reactions stay where they appear and fade out over the same 3 s
+          instead of rising, so the cue that someone reacted is kept without
+          the movement.
+        </p>
       </section>
 
       <section className="space-y-3">

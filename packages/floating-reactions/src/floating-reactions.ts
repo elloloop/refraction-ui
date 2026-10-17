@@ -23,8 +23,9 @@ export interface FloatingReaction {
 
 /**
  * How long (ms) a floating reaction should live before the adapter removes it.
- * Use this constant in adapters to drive setTimeout-based auto-expiry so the
- * value stays in sync with the CSS animation duration.
+ * Use this constant in adapters to drive setTimeout-based auto-expiry. It
+ * matches the duration in `floatingReactionItemClass`; a test keeps the two in
+ * step.
  */
 export const REACTION_LIFETIME_MS = 3000
 

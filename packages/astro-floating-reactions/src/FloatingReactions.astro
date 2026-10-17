@@ -5,6 +5,7 @@ import {
   floatingReactionsVariants,
   floatingReactionItemClass,
   floatingReactionLabelClass,
+  floatingReactionKeyframes,
   type FloatingReaction,
 } from '@refraction-ui/floating-reactions'
 import { cn } from '@refraction-ui/shared'
@@ -31,6 +32,9 @@ const {
 
 const { ariaProps, dataAttributes } = createFloatingReactions()
 ---
+
+{/* The keyframes the reactions animate with: rise, or fade in place under reduced motion. */}
+<style is:inline set:html={floatingReactionKeyframes}></style>
 
 <div
   class={cn(floatingReactionsVariants({ active: reactions.length > 0 ? 'true' : 'false' }), className)}

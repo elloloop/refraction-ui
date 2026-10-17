@@ -11,4 +11,7 @@ export {
   floatingReactionsVariants,
   floatingReactionItemClass,
   floatingReactionLabelClass,
+  floatingReactionKeyframes,
+  floatingReactionRiseKeyframes,
+  floatingReactionFadeKeyframes,
 } from './floating-reactions.styles.js'

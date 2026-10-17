@@ -6,6 +6,7 @@ import {
   ReactionBurst,
   useFloatingReactions,
 } from '@refraction-ui/react-floating-reactions'
+import { Button } from '@refraction-ui/react-button'
 
 interface FloatingReactionsExamplesProps {
   section: 'static' | 'lanes' | 'interactive'
@@ -27,21 +28,39 @@ export function FloatingReactionsExamples({ section }: FloatingReactionsExamples
   return null
 }
 
+/**
+ * Reactions play once, then are gone. Replay remounts the surface so the
+ * animation runs again.
+ */
+function Replayable({ label, children }: { label: string; children: React.ReactNode }) {
+  const [run, setRun] = React.useState(0)
+  return (
+    <div className="rounded-xl border border-border bg-card p-0 overflow-hidden">
+      <div key={run} className="relative w-full h-48 bg-muted flex items-center justify-center">
+        <span className="text-sm text-muted-foreground">{label}</span>
+        {children}
+      </div>
+      <div className="flex justify-end border-t border-border p-2">
+        <Button variant="outline" size="sm" onClick={() => setRun((n) => n + 1)}>
+          Replay
+        </Button>
+      </div>
+    </div>
+  )
+}
+
 /** Shows a fixed set of reactions positioned in the overlay (no auto-expiry). */
 function StaticExample() {
   return (
-    <div className="rounded-xl border border-border bg-card p-0 overflow-hidden">
-      <div className="relative w-full h-48 bg-muted flex items-center justify-center">
-        <span className="text-sm text-muted-foreground">Meeting surface</span>
-        <FloatingReactions
-          reactions={[
-            { id: '1', emoji: '👋', lane: 1 },
-            { id: '2', emoji: '❤️', lane: 3 },
-          ]}
-          lanes={5}
-        />
-      </div>
-    </div>
+    <Replayable label="Meeting surface">
+      <FloatingReactions
+        reactions={[
+          { id: '1', emoji: '👋', lane: 1 },
+          { id: '2', emoji: '❤️', lane: 3 },
+        ]}
+        lanes={5}
+      />
+    </Replayable>
   )
 }
 
@@ -49,14 +68,11 @@ function StaticExample() {
 function LanesExample() {
   const emojis = ['👋', '🎉', '❤️', '😂', '👏']
   return (
-    <div className="rounded-xl border border-border bg-card p-0 overflow-hidden">
-      <div className="relative w-full h-48 bg-muted flex items-center justify-center">
-        <span className="text-sm text-muted-foreground">5 lanes (0–4)</span>
-        {emojis.map((emoji, lane) => (
-          <ReactionBurst key={lane} emoji={emoji} lane={lane} lanes={5} />
-        ))}
-      </div>
-    </div>
+    <Replayable label="5 lanes (0–4)">
+      {emojis.map((emoji, lane) => (
+        <ReactionBurst key={lane} emoji={emoji} lane={lane} lanes={5} />
+      ))}
+    </Replayable>
   )
 }
 
