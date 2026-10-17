@@ -156,6 +156,7 @@ const components = [
   { name: 'Link Preview', href: '/components/link-preview', description: 'An unfurled link card under a message.', category: 'Workplace' },
   { name: 'Context Menu', href: '/components/context-menu', description: 'A menu opened at the pointer or focused element, with submenus.', category: 'Workplace' },
   { name: 'List Item', href: '/components/list-item', description: 'Selectable row with leading, meta, trailing and unread emphasis.', category: 'Workplace' },
+  { name: 'Nav Item', href: '/components/nav-item', description: 'Sidebar and rail destination with a capped count badge.', category: 'Workplace' },
   { name: 'Rating Scale', href: '/components/rating-scale', description: 'Visual rating input with customizable range.', category: 'Forms' },
   { name: 'Wizard', href: '/components/wizard', description: 'Multi-step form wizard with progress indicators.', category: 'Forms' },
   { name: 'Radial Gauge', href: '/components/radial-gauge', description: 'Circular dial gauge for displaying percentage values.', category: 'Data' },

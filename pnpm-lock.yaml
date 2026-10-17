@@ -392,6 +392,9 @@ importers:
       '@refraction-ui/react-native-select':
         specifier: workspace:*
         version: link:../packages/react-native-select
+      '@refraction-ui/react-nav-item':
+        specifier: workspace:*
+        version: link:../packages/react-nav-item
       '@refraction-ui/react-navbar':
         specifier: workspace:*
         version: link:../packages/react-navbar
@@ -3416,6 +3419,12 @@ importers:
         specifier: workspace:*
         version: link:../shared
 
+  packages/nav-item:
+    dependencies:
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/navbar:
     dependencies:
       '@refraction-ui/shared':
@@ -5728,6 +5737,9 @@ importers:
       '@refraction-ui/react-native-select':
         specifier: workspace:*
         version: link:../react-native-select
+      '@refraction-ui/react-nav-item':
+        specifier: workspace:*
+        version: link:../react-nav-item
       '@refraction-ui/react-navbar':
         specifier: workspace:*
         version: link:../react-navbar
@@ -5988,6 +6000,37 @@ importers:
         version: 19.0.0
       react-dom:
         specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+
+  packages/react-nav-item:
+    dependencies:
+      '@refraction-ui/nav-item':
+        specifier: workspace:*
+        version: link:../nav-item
+      '@refraction-ui/react-slot':
+        specifier: workspace:*
+        version: link:../react-slot
+      '@refraction-ui/react-tooltip':
+        specifier: workspace:*
+        version: link:../react-tooltip
+      '@refraction-ui/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/react':
+        specifier: 19.0.0
+        version: 19.0.0
+      '@types/react-dom':
+        specifier: 19.0.0
+        version: 19.0.0
+      jsdom:
+        specifier: 29.0.2
+        version: 29.0.2
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
 
   packages/react-navbar:

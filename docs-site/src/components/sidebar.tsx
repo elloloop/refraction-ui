@@ -109,6 +109,7 @@ const componentGroups = [
       { name: 'Link Preview', href: '/components/link-preview' },
       { name: 'Context Menu', href: '/components/context-menu' },
       { name: 'List Item', href: '/components/list-item' },
+      { name: 'Nav Item', href: '/components/nav-item' },
     ],
   },
   {
