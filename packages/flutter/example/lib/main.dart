@@ -542,6 +542,13 @@ class _AppShell extends ConsumerWidget {
               spacing: 16,
               runSpacing: 16,
               children: [
+                RefractionFocusRing(
+                  onActivate: () {},
+                  child: const Padding(
+                    padding: EdgeInsets.all(12),
+                    child: Text('Custom keyboard action'),
+                  ),
+                ),
                 RefractionButton(
                   onPressed: () {},
                   child: const Text("Primary"),

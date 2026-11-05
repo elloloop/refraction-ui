@@ -433,3 +433,31 @@ static and animated render paths. Hosts add their own packs via
 ## License
 
 MIT © [elloloop](https://github.com/elloloop). See [`LICENSE`](LICENSE).
+
+### Keyboard focus around custom content
+
+`RefractionFocusRing` gives a composed pressable a keyboard stop, Enter/Space
+activation and an appearance-aware outside outline. Set `onActivate` to null
+for inactive content. Standard Refraction buttons already own their keyboard
+behavior; this wrapper is for custom rows and compositions.
+
+```dart
+RefractionFocusRing(
+  onActivate: openMessageActions,
+  child: messageContent,
+)
+```
+
+The ring paints behind its child, preserving embedded native document input.
+On macOS, foreground Flutter paint regions exclude native platform-view hit
+testing, even when the only visible ink is a thin outside border. The component
+therefore does not offer a foreground-paint variant. The Buttons gallery and
+Widgetbook example use the public wrapper around a custom keyboard action.
+
+| Property | Default | Purpose |
+| --- | --- | --- |
+| `child` | required | Content inside the outside outline |
+| `onActivate` | null | Enter/Space action; null disables activation |
+| `radius` | theme radius | Content corner radius |
+| `focusNode` | internal | Optional owner-managed keyboard focus |
+| `autofocus` | false | Request initial keyboard focus |

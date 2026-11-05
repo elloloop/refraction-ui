@@ -1,3 +1,8 @@
+## Unreleased
+
+- Add RefractionFocusRing for composed keyboard actions. Its themed outside
+  outline paints behind native children, preserving macOS platform-view input.
+
 ## 0.51.0-dev.1
 
 - Allow compatible super_clipboard versions from 0.10.0-dev.2, as required by pub.dev library validation. Publish as a prerelease while the clipboard dependency is itself a prerelease. Consumers retain reproducible exact Refraction pins and lockfiles. Version 0.51.0 was not published because validation rejected its exact dependency range.
