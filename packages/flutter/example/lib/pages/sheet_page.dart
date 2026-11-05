@@ -58,6 +58,37 @@ class SheetPage extends StatelessWidget {
                     ),
                 ],
               ),
+              const SizedBox(height: 24),
+              RefractionButton(
+                onPressed: () => RefractionSheet.show(
+                  context: context,
+                  side: RefractionSheetSide.bottom,
+                  fitContent: true,
+                  showDragHandle: true,
+                  title: const Text('Message actions'),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      for (final action in [
+                        'Reply',
+                        'React',
+                        'Forward',
+                        'Copy',
+                        'Edit',
+                        'Delete',
+                        'More',
+                      ])
+                        RefractionButton(
+                          variant: RefractionButtonVariant.ghost,
+                          onPressed: () => Navigator.of(context).pop(action),
+                          child: Text(action),
+                        ),
+                    ],
+                  ),
+                ),
+                child: const Text('Content-sized menu'),
+              ),
             ],
           ),
         ),

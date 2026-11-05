@@ -433,3 +433,13 @@ static and animated render paths. Hosts add their own packs via
 ## License
 
 MIT © [elloloop](https://github.com/elloloop). See [`LICENSE`](LICENSE).
+
+### Content-sized horizontal sheets
+
+For short menus or forms, `RefractionSheet.show(side: RefractionSheetSide.bottom,
+fitContent: true, content: ...)` fits the content instead of reserving 40% of the
+viewport. A finite `maxHeight` optionally caps it further. Long content scrolls
+inside that bound while title and footer stay visible. Keyboard insets constrain
+and move this mode above the keyboard; safe areas remain included. Explicit
+`height` and vertical sides use the existing fixed sizing and cannot be combined
+with `fitContent`. The default is unchanged.
