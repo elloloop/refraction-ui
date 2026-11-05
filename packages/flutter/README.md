@@ -433,3 +433,61 @@ static and animated render paths. Hosts add their own packs via
 ## License
 
 MIT © [elloloop](https://github.com/elloloop). See [`LICENSE`](LICENSE).
+
+
+### Bounded profile photos
+
+Use `RefractionBoundedAvatar` in lists and compact conversation headers. It preserves
+`RefractionAvatar` shape, theme and initials while decoding a network or injected
+image only to its physical display size. Decodes are capped at 512 px per axis and
+small originals are never enlarged. A load failure retains the shared fallback.
+Use `fit: BoxFit.contain` for illustrations whose complete original must remain
+visible. Loaded transparent pixels show the theme background without placeholder
+initials underneath. The default `BoxFit.cover` retains profile-photo cropping.
+
+```dart
+RefractionBoundedAvatar(
+  imageUrl: profilePhotoUrl,
+  fallbackText: displayName,
+  size: 40,
+)
+```
+
+| Property | Default | Purpose |
+| --- | --- | --- |
+| `imageUrl` | null | Network photo; no photo shows initials |
+| `imageProvider` | null | Inject a provider instead of the network URL |
+| `fallbackText` | required | Same shared initials as `RefractionAvatar` |
+| `size` | 40 | Logical width and height; device scale sets decode extent |
+| `radius` | 999 | Shared avatar corner shape |
+| `fit` | `BoxFit.cover` | Photo crop, or `BoxFit.contain` to preserve the full original |
+| `onImageError` | null | One notification per provider after a failed image; never includes error/URL diagnostics |
+| `onImageProviderChanged` | null | Actual bounded provider; null retires its previous registration on replacement/disposal |
+
+The lifecycle callback lets a host track the exact decoded-image cache key. The
+host owns access checks, expiry, private URL retention and cache eviction; this
+visual component grants no access and does not persist credentials or URLs.
+
+### A single decorative emoji
+
+`RefractionEmojiGlyph` uses the package's bundled animated Noto art where available,
+then uniform Twemoji art, then a native glyph for a missing asset. The host's reduced
+motion setting stops animation at its opening pose, including when it changes while
+mounted. Hosts supply accessible meaning around this decorative glyph. A monochrome
+plus follows the foreground token so it stays readable in both themes.
+
+```dart
+Semantics(
+  label: 'Celebrate',
+  child: RefractionEmojiGlyph(emoji: '🎉', size: 32),
+)
+```
+
+| Property | Default | Purpose |
+| --- | --- | --- |
+| `emoji` | required | Unicode emoji including ZWJ or skin-tone sequences |
+| `size` | 24 | Square logical display bounds |
+| `animate` | true | Allow motion unless the system requests reduced motion |
+| `repeat` | true | Loop; false plays once and rests at the opening pose |
+
+The Avatar and Emoji Picker example pages demonstrate these actual public widgets.

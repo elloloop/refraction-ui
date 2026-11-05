@@ -27,6 +27,15 @@ class _EmojiPickerPageState extends State<EmojiPickerPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Wrap(
+              spacing: 16,
+              children: [
+                RefractionEmojiGlyph(emoji: '🎉', size: 32),
+                RefractionEmojiGlyph(emoji: '❤️', size: 32, repeat: false),
+                RefractionEmojiGlyph(emoji: '➕', size: 32, animate: false),
+              ],
+            ),
+            const SizedBox(height: 24),
             if (_selectedEmoji != null) ...[
               Text(
                 'Selected: $_selectedEmoji',

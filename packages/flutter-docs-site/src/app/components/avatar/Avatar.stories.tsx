@@ -1,8 +1,13 @@
-import { AvatarExamples } from './examples'
+import { ThemeProvider } from '@refraction-ui/react-theme'
+import { FlutterPreview } from '../../../components/flutter-preview'
 
-// Generated from the docs-site example (curated, real props/content).
-const meta = { title: 'Components/Avatar' }
+const meta = { title: 'Data Display/Flutter Avatar' }
 export default meta
 
-export const Sizes = { render: () => <AvatarExamples section="sizes" /> }
-export const Fallback = { render: () => <AvatarExamples section="fallback" /> }
+export const BoundedFlutter = {
+  render: () => (
+    <ThemeProvider defaultMode="system">
+      <FlutterPreview path="/docs/avatar" height={520} />
+    </ThemeProvider>
+  ),
+}
