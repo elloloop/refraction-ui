@@ -1,0 +1,14 @@
+---
+import {
+  Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter,
+  Input, RadioGroup, RadioItem,
+} from '../../dist/index.ts'
+---
+<Card>
+  <CardHeader><CardTitle>Review access</CardTitle><CardDescription>Choose an agent.</CardDescription></CardHeader>
+  <CardContent>
+    <label for="email">Email</label><Input id="email" type="email" required />
+    <RadioGroup name="agent"><RadioItem value="example-agent">Example agent</RadioItem></RadioGroup>
+  </CardContent>
+  <CardFooter>No access is granted automatically.</CardFooter>
+</Card>
