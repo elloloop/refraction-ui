@@ -1,3 +1,17 @@
+## Unreleased
+
+- `RefractionDatePicker` takes a typed entry: `entry: RefractionDateEntry.typed`
+  draws day, month and year as three digit-only segments, in the order
+  `fieldOrder` gives, for a date the person types, such as a date of birth. No
+  segment starts filled; focus moves on when a segment is full and back on
+  Backspace in an empty one; `onChanged` fires with a date-only value once the
+  segments make a real date inside `minDate`/`maxDate`; `onProblemChanged`
+  reports `incomplete`, `notReal`, `beforeMin` or `afterMax`; `errorText` shows a
+  message under them. Segment labels and the group's `semanticLabel` are props.
+  `refractionDateProblem` is the same check as a pure function. The calendar
+  entry is the default and is unchanged. (#662)
+- `RefractionDatePicker` takes `disabled`, which fades it and ignores input.
+
 ## 0.51.0-dev.1
 
 - Allow compatible super_clipboard versions from 0.10.0-dev.2, as required by pub.dev library validation. Publish as a prerelease while the clipboard dependency is itself a prerelease. Consumers retain reproducible exact Refraction pins and lockfiles. Version 0.51.0 was not published because validation rejected its exact dependency range.
