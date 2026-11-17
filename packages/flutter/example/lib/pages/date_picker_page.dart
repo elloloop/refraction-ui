@@ -12,6 +12,8 @@ class DatePickerPage extends StatefulWidget {
 class _DatePickerPageState extends State<DatePickerPage> {
   DateTime? _selectedDate;
   DateTime? _selectedDateTime;
+  DateTime? _birthDate;
+  RefractionDateProblem? _birthDateProblem;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +75,31 @@ class _DatePickerPageState extends State<DatePickerPage> {
                 minDate: DateTime.now().subtract(const Duration(days: 7)),
                 maxDate: DateTime.now().add(const Duration(days: 7)),
                 placeholder: "Next/prev 7 days only",
+              ),
+              const SizedBox(height: 48),
+              Text(
+                "Typed entry (date of birth)",
+                style: theme.data.textStyle.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              const SizedBox(height: 16),
+              RefractionDatePicker(
+                entry: RefractionDateEntry.typed,
+                fieldOrder: RefractionDateFieldOrder.dayMonthYear,
+                semanticLabel: "Date of birth",
+                value: _birthDate,
+                maxDate: DateTime.now(),
+                onChanged: (date) => setState(() => _birthDate = date),
+                onProblemChanged: (problem) =>
+                    setState(() => _birthDateProblem = problem),
+                errorText: switch (_birthDateProblem) {
+                  RefractionDateProblem.notReal => "That date does not exist.",
+                  RefractionDateProblem.afterMax =>
+                    "That date is in the future.",
+                  _ => null,
+                },
               ),
             ],
           ),

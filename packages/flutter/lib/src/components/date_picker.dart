@@ -2,12 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/refraction_colors.dart';
 import '../theme/refraction_theme.dart';
+import 'date_picker_typed.dart';
+
+export 'date_picker_typed.dart'
+    show
+        RefractionDateEntry,
+        RefractionDateFieldOrder,
+        RefractionDateProblem,
+        refractionDateProblem;
 
 /// A date picker component that matches the Refraction UI headless structure.
 ///
 /// Mirrors the React `DatePicker` component. Displays a trigger button that,
 /// when tapped, opens a popover containing a calendar grid. Optionally
 /// supports time selection.
+///
+/// With `entry: RefractionDateEntry.typed` it draws three numeric segments
+/// (day, month, year) instead, for a date the person types, such as a date of
+/// birth. No segment starts filled unless [value] is given; [onChanged] fires
+/// with a date-only value (local midnight) once the segments make a real date
+/// inside [minDate]..[maxDate]; [onProblemChanged] says why they do not.
+///
+/// ```dart
+/// RefractionDatePicker(
+///   entry: RefractionDateEntry.typed,
+///   fieldOrder: RefractionDateFieldOrder.dayMonthYear,
+///   semanticLabel: 'Date of birth',
+///   maxDate: today,
+///   onChanged: (date) => setState(() => birthDate = date),
+///   onProblemChanged: (problem) => setState(() => dateProblem = problem),
+///   errorText: dateProblem == RefractionDateProblem.notReal
+///       ? 'That date does not exist'
+///       : null,
+/// )
+/// ```
 class RefractionDatePicker extends StatefulWidget {
   /// The currently selected date.
   final DateTime? value;
@@ -31,6 +59,39 @@ class RefractionDatePicker extends StatefulWidget {
   /// The placeholder text when no date is selected.
   final String placeholder;
 
+  /// How the date is entered: a calendar popover (the default) or typed
+  /// segments. [showTime] is supported with the calendar only.
+  final RefractionDateEntry entry;
+
+  /// The order of the typed segments. Typed entry only.
+  final RefractionDateFieldOrder fieldOrder;
+
+  /// The label above the day segment. Typed entry only.
+  final String dayLabel;
+
+  /// The label above the month segment. Typed entry only.
+  final String monthLabel;
+
+  /// The label above the year segment. Typed entry only.
+  final String yearLabel;
+
+  /// What a screen reader calls the whole group of segments, such as
+  /// "Date of birth". Typed entry only.
+  final String? semanticLabel;
+
+  /// Called as the person types, whenever the reason the segments do not
+  /// make an allowed date changes; null once they do. Empty segments start
+  /// as [RefractionDateProblem.incomplete], which is not reported until the
+  /// reason changes. Typed entry only.
+  final ValueChanged<RefractionDateProblem?>? onProblemChanged;
+
+  /// A message shown under the segments in the destructive colour, which
+  /// also draws their borders in it. Typed entry only.
+  final String? errorText;
+
+  /// Whether the picker ignores input and draws itself faded.
+  final bool disabled;
+
   /// Creates a date picker.
   const RefractionDatePicker({
     super.key,
@@ -41,7 +102,19 @@ class RefractionDatePicker extends StatefulWidget {
     this.showTime = false,
     this.format = 'YYYY-MM-DD',
     this.placeholder = 'Select date...',
-  });
+    this.entry = RefractionDateEntry.calendar,
+    this.fieldOrder = RefractionDateFieldOrder.yearMonthDay,
+    this.dayLabel = 'Day',
+    this.monthLabel = 'Month',
+    this.yearLabel = 'Year',
+    this.semanticLabel,
+    this.onProblemChanged,
+    this.errorText,
+    this.disabled = false,
+  }) : assert(
+         !showTime || entry == RefractionDateEntry.calendar,
+         'showTime is supported with the calendar entry only',
+       );
 
   @override
   State<RefractionDatePicker> createState() => _RefractionDatePickerState();
@@ -182,13 +255,30 @@ class _RefractionDatePickerState extends State<RefractionDatePicker> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.entry == RefractionDateEntry.typed) {
+      return TypedDateSegments(
+        value: widget.value,
+        onChanged: widget.onChanged,
+        onProblemChanged: widget.onProblemChanged,
+        minDate: widget.minDate,
+        maxDate: widget.maxDate,
+        order: widget.fieldOrder,
+        dayLabel: widget.dayLabel,
+        monthLabel: widget.monthLabel,
+        yearLabel: widget.yearLabel,
+        semanticLabel: widget.semanticLabel,
+        errorText: widget.errorText,
+        disabled: widget.disabled,
+      );
+    }
+
     final theme = RefractionTheme.of(context);
     final colors = theme.colors;
 
-    return CompositedTransformTarget(
+    final trigger = CompositedTransformTarget(
       link: _layerLink,
       child: GestureDetector(
-        onTap: _togglePicker,
+        onTap: widget.disabled ? null : _togglePicker,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
@@ -219,6 +309,7 @@ class _RefractionDatePickerState extends State<RefractionDatePicker> {
         ),
       ),
     );
+    return widget.disabled ? Opacity(opacity: 0.5, child: trigger) : trigger;
   }
 }
 
